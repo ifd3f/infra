@@ -1,0 +1,40 @@
+[Added Associations]
+application/pdf=org.kde.okular.desktop;
+application/x-7z-compressed=file-roller-3.desktop;
+application/x-compressed-tar=file-roller-4.desktop;
+application/zip=file-roller-2.desktop;
+image/gif=org.kde.okular.desktop;
+image/jpeg=org.kde.okular.desktop;
+image/png=gpicview.desktop;
+image/x-xcf=glimpse-editor_glimpse-editor.desktop;
+inode/directory=exo-file-manager.desktop
+text/plain=sublime-text_subl.desktop;vim.desktop;sublime_text.desktop;
+x-scheme-handler/http=exo-web-browser.desktop
+x-scheme-handler/https=exo-web-browser.desktop
+x-scheme-handler/trash=exo-file-manager.desktop
+
+[Default Applications]
+application/pdf=org.kde.okular.desktop;
+application/x-7z-compressed=file-roller-3.desktop;
+application/x-compressed-tar=file-roller-4.desktop;
+application/zip=file-roller-2.desktop;
+image/gif=org.kde.okular.desktop
+image/jpeg=org.kde.okular.desktop
+image/png=gpicview.desktop
+image/x-xcf=glimpse-editor_glimpse-editor.desktop;
+inode/directory=org.kde.dolphin.desktop
+text/plain=vim.desktop
+x-scheme-handler/discord-424004941485572097=discord-424004941485572097.desktop
+x-scheme-handler/gitkraken=gitkraken-url-handler.desktop
+x-scheme-handler/http=firefox.desktop;
+x-scheme-handler/https=firefox.desktop;
+x-scheme-handler/magnet=deluge.desktop
+x-scheme-handler/sgnl=signal-desktop.desktop
+x-scheme-handler/slack=slack_slack.desktop
+x-scheme-handler/discord-482370205331226644=discord-482370205331226644.desktop
+x-scheme-handler/jetbrains=jetbrains-toolbox.desktop
+inode/directory/application/x-gnome-saved-search=/usr/share/applications/org.kde.dolphin.desktop
+application/x-gnome-saved-search=org.kde.dolphin.desktop
+x-scheme-handler/msteams=teams.desktop
+x-scheme-handler/eclipse+installer=_home_astrid_bin_eclipse-installer_.desktop
+x-scheme-handler/eclipse+command x-scheme-handler/eclipse+mpc=_home_astrid_eclipse_cpp-2020-09_eclipse_.desktop
