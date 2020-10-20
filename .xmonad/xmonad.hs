@@ -23,7 +23,9 @@ xdisplays = withDisplay $ io . getScreenInfo
 myStartupHook = do
     setWMName "L3GD"
     spawnOnce "discord"
+    spawnOnce "redshift-gtk"
     spawnOnce "flameshot"
+    spawnOnce "$HOME/.config/polybar/launch.sh"
     spawn "$HOME/.fehbg"
 
 myManageHook = manageDocks <+> composeAll
