@@ -95,7 +95,6 @@ load-nvmrc() {
 }
 add-zsh-hook chpwd load-nvmrc
 load-nvmrc
-[ -f "/home/astrid/.ghcup/env" ] && source "/home/astrid/.ghcup/env" # ghcup-env
 
 . ~/.aliases
 

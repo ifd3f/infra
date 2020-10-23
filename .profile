@@ -34,7 +34,7 @@ export PATH="$PATH:/home/astrid/Applications/bin"
 export PATH="$PATH:/home/linuxbrew/.linuxbrew/bin"
 
 # Nix
-# if [ -e /home/astrid/.nix-profile/etc/profile.d/nix.sh ]; then . /home/astrid/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+. /etc/profile.d/nix.sh
 
 # Cargo
 export PATH="$HOME/.cargo/bin:$PATH"
@@ -61,4 +61,5 @@ export GLFW_DIR="/home/astrid/opengl/glfw-3.3.2"
 export IDF_PATH="/home/astrid/.lib/esp-idf"
 export PATH="$PATH:/home/astrid/.espressif/tools/xtensa-esp32s2-elf/esp-2020r3-8.4.0/xtensa-esp32s2-elf/bin"
 
-export _JAVA_AWT_WM_NONREPARENTING=1
+# ghcup
+. /home/astrid/.ghcup/env
