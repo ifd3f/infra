@@ -63,3 +63,6 @@ export PATH="$PATH:/home/astrid/.espressif/tools/xtensa-esp32s2-elf/esp-2020r3-8
 
 # ghcup
 . /home/astrid/.ghcup/env
+
+# SteamVR
+export PATH="$PATH:/home/astrid/.local/share/Steam/steamapps/common/SteamVR/bin/linux64/"

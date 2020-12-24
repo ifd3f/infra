@@ -3,11 +3,10 @@ exec_always --no-startup-id $HOME/.fehbg
 exec_always --no-startup-id /bin/bash -c "pkill compton; compton -cb"
 exec --no-startup-id flameshot
 exec --no-startup-id numlockx on
+exec --no-startup-id redshift
 exec --no-startup-id /usr/lib/geoclue-2.0/demos/agent
 exec --no-startup-id ~/.config/i3/conf-monitors.sh
 exec --no-startup-id nm-applet
-exec --no-startup-id discord
-exec --no-startup-id slack
 #exec --no-startup-id compton
 
 set $mod Mod4

@@ -1,3 +1,5 @@
+PATH="/usr/local/bin:$(getconf PATH)"
+
 # Set up the prompt
 
 autoload -Uz promptinit

@@ -7,7 +7,6 @@ convert $PICTURE \
 	-sample 5% \
 	-noise 0.1 \
 	+noise Uniform \
-	-scale 1920x1080\! \
 	-level 0,150% \
 	$PICTURE
 

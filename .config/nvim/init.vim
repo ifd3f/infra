@@ -1,6 +1,7 @@
 call plug#begin('~/.config/nvim/plugged')
 Plug 'dkarter/bullets.vim'
 Plug 'preservim/nerdtree'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
 let g:bullets_enabled_file_types = [
