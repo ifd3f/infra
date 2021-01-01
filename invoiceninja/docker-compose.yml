@@ -1,0 +1,104 @@
+version: "3.7"
+
+services:
+  server:
+    image: caddy:alpine
+    restart: always
+    environment:
+      - APP_URL=https://localhost
+    volumes:
+      # Vhost configuration
+      - ./config/caddy/Caddyfile:/etc/caddy/Caddyfile
+
+      # Configure your mounted directories, make sure the folder 'public' and 'storage'
+      # exist, before mounting them
+      - public:/var/www/app/public
+      - storage:/var/www/app/storage
+      # you may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
+      # - ./docker/app/public:/var/www/app/public:rw,delegated
+      # - ./docker/app/storage:/var/www/app/storage:rw,delegated
+    depends_on:
+      - app
+    # Run webserver nginx on port 80
+    # Feel free to modify depending what port is already occupied
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - invoiceninja
+
+  app:
+    image: invoiceninja/invoiceninja:5
+    restart: always
+    cap_add:
+      - SYS_ADMIN
+    environment:
+      - APP_DEBUG=true
+      - APP_URL=https://localhost
+      - APP_KEY=base64:tfqRdMd0TLImGX020hev7xn2MKMaxlsSEDLLMywGBfM=
+      - APP_CIPHER='AES-256-CBC'
+      - MULTI_DB_ENABLED=false
+      - DB_HOST1=db
+      - DB_USERNAME1=ninja
+      - DB_PASSWORD1=ninja
+      - DB_DATABASE1=ninja
+      - PHANTOMJS_PDF_GENERATION=false
+      - SNAPPDF_EXECUTABLE_PATH="/usr/bin/chromium-browser"
+      - SNAPPDF_SKIP_DOWNLOAD=true
+    volumes:
+      # Configure your mounted directories, make sure the folder 'public' and 'storage'
+      # exist, before mounting them
+      - public:/var/www/app/public
+      - storage:/var/www/app/storage
+      # you may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
+      # - ./docker/app/public:/var/www/app/public:rw,delegated
+      # - ./docker/app/storage:/var/www/app/storage:rw,delegated
+    depends_on:
+      - db
+    networks:
+      - invoiceninja
+
+  db:
+    image: mysql:5
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=ninjaAdm1nPassword
+      - MYSQL_USER=ninja
+      - MYSQL_PASSWORD=ninja
+      - MYSQL_DATABASE=ninja
+    volumes:
+      - mysql-data:/var/lib/mysql:rw
+      # you may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
+      # - ./docker/mysql/data:/var/lib/mysql:rw,delegated
+    networks:
+      - invoiceninja
+
+  # THIS IS ONLY A VALID CONFIGURATION FOR IN 4. DO NOT USE FOR IN 5.
+  # cron:
+  #   image: invoiceninja/invoiceninja:alpine-4
+  #   volumes:
+  #     -  storage:/var/www/app/storage
+  #     -  logo:/var/www/app/public/logo
+  #     -  public:/var/www/app/public
+  #   entrypoint: |
+  #     /bin/sh -c 'sh -s <<EOF
+  #     trap "break;exit" SIGHUP SIGINT SIGTERM
+  #     sleep 300s
+  #     while /bin/true; do
+  #       ./artisan ninja:send-invoices
+  #       ./artisan ninja:send-reminders
+  #       sleep 1d
+  #     done
+  #     EOF'
+  #   networks:
+  #     - invoiceninja
+
+volumes:
+  mysql-data:
+  public:
+  storage:
+  # This is needed for letting th cron run correctly
+  # logo:
+
+networks:
+  invoiceninja:
