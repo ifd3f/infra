@@ -4,7 +4,7 @@ services:
   fireflyiii:
     image: jc5x/firefly-iii:latest
     volumes:
-      - firefly_iii_upload:/var/www/html/storage/upload
+      - ../../volumes/firefly/upload:/var/www/html/storage/upload
     env_file: ../../secrets/firefly/firefly.env
     ports:
       - 5000:8080
@@ -18,7 +18,7 @@ services:
       - MYSQL_USER=firefly
       - MYSQL_DATABASE=firefly
     volumes:
-      - firefly_iii_db:/var/lib/mysql
+      - - ../../volumes/firefly/db:/var/lib/mysql
   plaid_connector:
     image: registry.gitlab.com/georgehahn/firefly-plaid-connector:latest
     restart: unless-stopped
@@ -26,6 +26,3 @@ services:
       - fireflyiii
     volumes:
       - ../../secrets/firefly/plaid.toml:/config/config.toml
-volumes:
-  firefly_iii_upload:
-  firefly_iii_db:
