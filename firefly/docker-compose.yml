@@ -1,0 +1,31 @@
+version: "3.3"
+
+services:
+  fireflyiii:
+    image: jc5x/firefly-iii:latest
+    volumes:
+      - firefly_iii_upload:/var/www/html/storage/upload
+    env_file: ../../secrets/firefly/firefly.env
+    ports:
+      - 5000:8080
+    depends_on:
+      - fireflyiiidb
+  fireflyiiidb:
+    image: yobasystems/alpine-mariadb:latest
+    env_file: ../../secrets/firefly/fireflydb.env
+    environment:
+      - MYSQL_RANDOM_ROOT_PASSWORD=yes
+      - MYSQL_USER=firefly
+      - MYSQL_DATABASE=firefly
+    volumes:
+      - firefly_iii_db:/var/lib/mysql
+  plaid_connector:
+    image: registry.gitlab.com/georgehahn/firefly-plaid-connector:latest
+    restart: unless-stopped
+    depends_on:
+      - fireflyiii
+    volumes:
+      - ../../secrets/firefly/plaid.toml:/config/config.toml
+volumes:
+  firefly_iii_upload:
+  firefly_iii_db:
