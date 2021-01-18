@@ -1,0 +1,82 @@
+- name: Install container runtime
+  hosts: all
+  become: true
+  tasks:
+    - name: Install UFW
+      apt:
+        name: ufw
+        state: latest
+        update_cache: true
+
+    - name: Allow access to port 6443
+      community.general.ufw:
+        rule: allow
+        port: "6443"
+
+    - name: Copy containerd config
+      ansible.builtin.copy:
+        src: "./containerd/config.toml"
+        dest: "/etc/containerd/config.toml"
+
+    - name: Remove swapfile from /etc/fstab
+      mount:
+        name: "{{ item }}"
+        fstype: swap
+        state: absent
+      with_items:
+        - swap
+        - none
+
+    - name: Disable swap
+      command: swapoff -a
+      when: ansible_swaptotal_mb > 0
+
+    - name: Add an apt signing key for Kubernetes
+      apt_key:
+        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+        state: present
+
+    - name: Add apt repository for Kubernetes
+      apt_repository:
+        repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
+        state: present
+        filename: kubernetes.list
+
+    - name: Install Kubernetes binaries
+      apt:
+        name: "{{ packages }}"
+        state: present
+        update_cache: yes
+      vars:
+        packages:
+          - kubelet
+          - kubeadm
+          - kubectl
+
+    - name: Configure node ip
+      lineinfile:
+        path: /etc/default/kubelet
+        line: KUBELET_EXTRA_ARGS=--node-ip={{ node_ip }}
+        create: yes
+
+    - name: Restart kubelet
+      service:
+        name: kubelet
+        daemon_reload: yes
+        state: restarted
+
+    - name: Pull images
+      command: kubeadm config images pull
+
+    - name: Initialize the Kubernetes cluster using kubeadm
+      command: kubeadm init --apiserver-advertise-address="{{ node_ip }}" --apiserver-cert-extra-sans="{{ node_ip }}"  --node-name {{ node_name }} --pod-network-cidr={{ node_cidr }}
+      when: node_is_master
+
+    - name: Generate join command
+      command: kubeadm token create --print-join-command
+      register: join_command
+      when: node_is_master
+
+    - name: Join the node to cluster
+      command: "{{ join_command }}"
+      when: not node_is_master
