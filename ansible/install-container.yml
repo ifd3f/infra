@@ -1,0 +1,66 @@
+- name: Install container runtime
+  hosts: craptop
+  become: true
+  tasks:
+    - name: modprobe overlay
+      community.general.modprobe:
+        name: overlay
+        state: present
+
+    - name: modprobe br_netfilter
+      community.general.modprobe:
+        name: br_netfilter
+        state: present
+
+    - name: Persist modprobe changes
+      ansible.builtin.copy:
+        dest: "/etc/modules-load.d/containerd.conf"
+        content: |
+          overlay
+          br_netfilter
+
+    - name: Setup sysctl params
+      sysctl:
+        name: net.bridge.bridge-nf-call-iptables
+        value: 1
+
+    - name: Setup sysctl params
+      sysctl:
+        name: net.ipv4.ip_forward
+        value: 1
+
+    - name: Setup sysctl params
+      sysctl:
+        name: net.bridge.bridge-nf-call-ip6tables
+        value: 1
+
+    - name: Install apt HTTPS
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+        state: latest
+        update_cache: true
+
+    - name: Add Docker's GPG key
+      ansible.builtin.apt_key:
+        url: https://download.docker.com/linux/debian/gpg
+        keyring: /etc/apt/trusted.gpg.d/docker.gpg
+
+    - name: Add Docker's apt repo
+      ansible.builtin.apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/debian buster stable
+        state: present
+
+    - name: Install containerd
+      apt:
+        name: containerd.io
+        state: latest
+        update_cache: true
+
+    - name: Copy containerd config
+      ansible.builtin.copy:
+        src: "./containerd/config.toml"
+        dest: "/etc/containerd/config.toml"
