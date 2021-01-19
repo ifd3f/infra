@@ -1,0 +1,31 @@
+- name: Install basics
+  hosts: all
+  become: true
+  become_method: su
+  become_user: root
+  tasks:
+    - name: Install basic packages
+      apt:
+        name:
+          - sudo
+          - tmux
+          - git
+          - ufw
+          - wget
+          - curl
+        state: latest
+        update_cache: yes
+
+    - name: Add user to sudo group
+      user:
+        name: astrid
+        append: yes
+        groups:
+          - sudo
+
+    - name: Disable sudo password
+      lineinfile:
+        path: /etc/sudoers
+        state: present
+        regexp: '^%sudo\s'
+        line: "%sudo ALL=(ALL:ALL) NOPASSWD: ALL"

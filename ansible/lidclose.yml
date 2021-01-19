@@ -1,0 +1,19 @@
+- name: Prevent lid close on laptops
+  hosts: craptop
+  become: true
+  tasks:
+    - name: Prevent lid switch from suspending machine
+      ansible.builtin.lineinfile:
+        line: "{{ item }}"
+        state: present
+        path: /etc/systemd/logind.conf
+      with_items:
+        - HandleLidSwitch=ignore
+        - HandleLidSwitchExternalPower=ignore
+        - HandleLidSwitchDocked=ignore
+        - HandlePowerKey=poweroff
+
+    - name: Reload systemd-logind
+      systemd:
+        name: systemd-logind.service
+        state: restarted

@@ -58,7 +58,7 @@ metadata:
     addonmanager.kubernetes.io/mode: Reconcile
 spec:
   serviceName: elasticsearch-logging
-  replicas: 2
+  replicas: 3
   updateStrategy:
     type: RollingUpdate
   selector:

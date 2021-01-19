@@ -60,7 +60,7 @@
         state: present
         filename: kubernetes.list
 
-    - name: Install Kubernetes binaries, containerd, and UFW
+    - name: Install Kubernetes binaries and containerd
       apt:
         name:
           - kubelet
