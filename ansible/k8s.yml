@@ -10,9 +10,8 @@
 
     - name: Initialize the Kubernetes cluster using kubeadm
       when: node_is_master and not master_already_running.stat.exists
-      shell: kubeadm init --apiserver-advertise-address="{{ node_ip }}" --node-name {{ node_name }} --pod-network-cidr={{ node_cidr }}
+      shell: kubeadm init --apiserver-advertise-address="{{ node_ip }}" --node-name {{ node_name }} --pod-network-cidr=10.8.0.0/16
       register: master_init_result
-      until: master_init_result.stdout.find("Your Kubernetes master has initialized successfully!") != -1
 
     - name: Fetch kubernetes config
       when: node_is_master
@@ -21,6 +20,25 @@
         dest: ~/.kube/config
         flat: yes
         backup: yes
+
+    - name: Install Tigera Calico operator
+      when: node_is_master
+      command: kubectl apply -f https://docs.projectcalico.org/manifests/tigera-operator.yaml
+      environment:
+        KUBECONFIG: /etc/kubernetes/admin.conf
+
+    - name: Copy customized Calico resource file
+      when: node_is_master
+      copy:
+        src: ./calico/custom-resources.yaml
+        dest: /root/calico-custom-resources.yaml
+        force: yes
+
+    - name: Apply customized Calico resources
+      when: node_is_master
+      command: kubectl apply -f /root/calico-custom-resources.yaml
+      environment:
+        KUBECONFIG: /etc/kubernetes/admin.conf
 
     - name: Generate join command
       when: node_is_master
