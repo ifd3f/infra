@@ -1,0 +1,109 @@
+- name: Install container runtime, Kubernetes, and other important stuff
+  hosts: all
+  become: true
+  tasks:
+    - name: Setup modprobe
+      community.general.modprobe:
+        name: "{{ item }}"
+        state: present
+        with_items:
+          - overlay
+          - br_netfilter
+
+    - name: Persist modprobe changes
+      copy:
+        dest: "/etc/modules-load.d/containerd.conf"
+        content: |
+          overlay
+          br_netfilter
+
+    - name: Setup sysctl params
+      sysctl:
+        name: "{{ item }}"
+        value: "1"
+      with_items:
+        - net.bridge.bridge-nf-call-iptables
+        - net.ipv4.ip_forward
+        - net.bridge.bridge-nf-call-ip6tables
+
+    - name: Install HTTPS apt
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+        state: latest
+        update_cache: true
+
+    - name: Add Docker's GPG key
+      ansible.builtin.apt_key:
+        url: https://download.docker.com/linux/debian/gpg
+        state: present
+        keyring: /etc/apt/trusted.gpg.d/docker.gpg
+
+    - name: Add Kubernetes' GPG key
+      apt_key:
+        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+        keyring: /etc/apt/trusted.gpg.d/kubernetes.gpg
+        state: present
+
+    - name: Add Docker's apt repo
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/debian buster stable
+        state: present
+        filename: docker.list
+
+    - name: Add apt repository for Kubernetes
+      apt_repository:
+        repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
+        state: present
+        filename: kubernetes.list
+
+    - name: Install Kubernetes binaries, containerd, and UFW
+      apt:
+        name:
+          - kubelet
+          - kubeadm
+          - kubectl
+          - containerd.io
+        state: latest
+        update_cache: yes
+
+    - name: Copy containerd config
+      ansible.builtin.copy:
+        src: "./containerd/config.toml"
+        dest: "/etc/containerd/config.toml"
+
+    - name: Allow access to port 6443
+      community.general.ufw:
+        rule: allow
+        port: "6443"
+
+    - name: Remove swapfile from /etc/fstab
+      mount:
+        name: "{{ item }}"
+        fstype: swap
+        state: absent
+      with_items:
+        - swap
+        - none
+
+    - name: Disable swap
+      command: swapoff -a
+      when: ansible_swaptotal_mb > 0
+
+    - name: Configure node ip
+      lineinfile:
+        path: /etc/default/kubelet
+        line: KUBELET_EXTRA_ARGS=--node-ip={{ node_ip }}
+        create: yes
+
+    - name: Restart kubelet
+      service:
+        name: kubelet
+        daemon_reload: yes
+        state: restarted
+
+    - name: Pull Kubernetes admin images
+      command: kubeadm config images pull
