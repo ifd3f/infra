@@ -1,0 +1,10 @@
+repositories:
+  - name: dashboard
+    url: https://kubernetes.github.io/dashboard/
+  - name: bitnami
+    url: https://charts.bitnami.com/bitnami
+releases:
+  - name: kubernetes-dashboard
+    chart: kubernetes-dashboard/kubernetes-dashboard
+  - name: kube-state-metrics
+    chart: bitnami/kube-state-metrics
