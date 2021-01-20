@@ -49,6 +49,10 @@ rules:
       - nodes/stats
     verbs:
       - get
+  - nonResourceURLs:
+      - /metrics
+    verbs:
+      - get
 ---
 apiVersion: v1
 kind: ConfigMap

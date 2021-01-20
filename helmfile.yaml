@@ -3,8 +3,21 @@ repositories:
     url: https://kubernetes.github.io/dashboard/
   - name: bitnami
     url: https://charts.bitnami.com/bitnami
+  - name: k8s-at-home
+    url: https://k8s-at-home.com/charts/
 releases:
   - name: kubernetes-dashboard
+    namespace: kube-system
     chart: kubernetes-dashboard/kubernetes-dashboard
   - name: kube-state-metrics
+    namespace: kube-system
     chart: bitnami/kube-state-metrics
+  - name: qbittorrent
+    namespace: qbittorrent
+    chart: k8s-at-home/qbittorrent
+  - name: logstash
+    namespace: kube-logging
+    chart: bitnami/logstash
+  - name: openvpn
+    namespace: vpn
+    chart: stable/openvpn

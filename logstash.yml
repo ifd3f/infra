@@ -1,0 +1,3 @@
+extraEnvVars:
+  - name: ELASTICSEARCH_HOST
+    value: "x.y.z"

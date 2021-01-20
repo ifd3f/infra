@@ -12,6 +12,19 @@ spec:
   selector:
     app: kibana
 ---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: filebeat-config
+  namespace: kube-logging
+  labels:
+    k8s-app: filebeat
+data:
+  kibana.yml: |-
+    xpack.security.encryptionKey: "${ENCRYPTION_KEY}"
+    xpack.security.session.idleTimeout: "1h"
+    xpack.security.session.lifespan: "30d"
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -42,5 +55,8 @@ spec:
               value: http://elasticsearch:9200
             - name: ELASTICSEARCH_HOSTS
               value: http://elasticsearch:9200
+          envFrom:
+            - secretRef:
+                name: kube-logging-kibana-key
           ports:
             - containerPort: 5601
