@@ -1,0 +1,50 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: firefly-iii
+  namespace: firefly-iii
+  labels:
+    app: firefly-iii
+spec:
+  selector:
+    app: firefly-iii
+  clusterIP: None
+  ports:
+    - port: 8080
+      name: web
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: firefly
+  namespace: firefly-iii
+  labels:
+    app: firefly-iii
+spec:
+  selector:
+    matchLabels:
+      app: firefly-iii
+  template:
+    metadata:
+      labels:
+        app: firefly-iii
+    spec:
+      containers:
+        - name: app
+          image: registry.hub.docker.com/jc5x/firefly-iii:latest
+          env: []
+          volumeMounts:
+            - name: config
+              mountPath: /var/www/html/storage/upload
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: pv
+          configMap:
+            defaultMode: 0600
+            name: metricbeat-deployment-config
+        - name: modules
+          configMap:
+            defaultMode: 0600
+            name: metricbeat-deployment-modules

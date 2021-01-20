@@ -1,0 +1,58 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: db
+  namespace: firefly-iii
+  labels:
+    app: db
+spec:
+  selector:
+    app: db
+  clusterIP: None
+  ports:
+    - port: 8080
+      name: web
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: firefly-iii-pvc
+  namespace: firefly-iii
+spec:
+  storageClassName: manual
+  volumeName: firefly-iii-data
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db
+  namespace: firefly-iii
+  labels:
+    app: db
+spec:
+  selector:
+    matchLabels:
+      app: db
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      containers:
+        - name: app
+          image: yobasystems/alpine-mariadb:latest
+          env: []
+          volumeMounts:
+            - name: db-data
+              mountPath: /var/lib/mysql
+              subPath: db
+      volumes:
+        - name: db-data
+          persistentVolumeClaim:
+            claimName: firefly-iii-pvc

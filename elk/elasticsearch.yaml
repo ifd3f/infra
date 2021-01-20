@@ -89,7 +89,8 @@ spec:
         labels:
           app: elasticsearch
       spec:
-        accessModes: ["ReadWriteOnce"]
+        accessModes:
+          - ReadWriteOnce
         resources:
           requests:
             storage: 10Gi
