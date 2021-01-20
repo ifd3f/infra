@@ -2,17 +2,33 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: firefly-iii
+  name: firefly
   namespace: firefly-iii
   labels:
-    app: firefly-iii
+    app: firefly-app
 spec:
   selector:
-    app: firefly-iii
+    app: firefly-app
   clusterIP: None
   ports:
     - port: 8080
       name: web
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: firefly-upload-pvc
+  namespace: firefly-iii
+  labels:
+    app: firefly-app
+spec:
+  storageClassName: manual
+  volumeName: firefly-iii-upload
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -20,31 +36,33 @@ metadata:
   name: firefly
   namespace: firefly-iii
   labels:
-    app: firefly-iii
+    app: firefly-app
 spec:
   selector:
     matchLabels:
-      app: firefly-iii
+      app: firefly-app
   template:
     metadata:
       labels:
-        app: firefly-iii
+        app: firefly-app
     spec:
       containers:
         - name: app
           image: registry.hub.docker.com/jc5x/firefly-iii:latest
-          env: []
+          env:
+            - name: MYSQL_RANDOM_ROOT_PASSWORD
+              value: "yes"
+            - name: MYSQL_USER
+              value: firefly
+            - name: MYSQL_DATABASE
+              value: firefly
+          envFrom:
+            - secretRef:
+                name: firefly-app-secret
           volumeMounts:
-            - name: config
+            - name: upload
               mountPath: /var/www/html/storage/upload
       volumes:
-        - name: config
+        - name: upload
           persistentVolumeClaim:
-            claimName: pv
-          configMap:
-            defaultMode: 0600
-            name: metricbeat-deployment-config
-        - name: modules
-          configMap:
-            defaultMode: 0600
-            name: metricbeat-deployment-modules
+            claimName: firefly-upload-pvc

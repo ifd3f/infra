@@ -5,10 +5,10 @@ metadata:
   name: db
   namespace: firefly-iii
   labels:
-    app: db
+    app: firefly-db
 spec:
   selector:
-    app: db
+    app: firefly-db
   clusterIP: None
   ports:
     - port: 8080
@@ -17,8 +17,10 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: firefly-iii-pvc
+  name: firefly-db-pvc
   namespace: firefly-iii
+  labels:
+    app: firefly-db
 spec:
   storageClassName: manual
   volumeName: firefly-iii-data
@@ -34,7 +36,7 @@ metadata:
   name: db
   namespace: firefly-iii
   labels:
-    app: db
+    app: firefly-db
 spec:
   selector:
     matchLabels:
@@ -47,12 +49,20 @@ spec:
       containers:
         - name: app
           image: yobasystems/alpine-mariadb:latest
-          env: []
+          env:
+            - name: MYSQL_RANDOM_ROOT_PASSWORD
+              value: "yes"
+            - name: MYSQL_USER
+              value: firefly
+            - name: MYSQL_DATABASE
+              value: firefly
+          envFrom:
+            - secretRef:
+                name: firefly-db-secret
           volumeMounts:
             - name: db-data
               mountPath: /var/lib/mysql
-              subPath: db
       volumes:
         - name: db-data
           persistentVolumeClaim:
-            claimName: firefly-iii-pvc
+            claimName: firefly-db-pvc
