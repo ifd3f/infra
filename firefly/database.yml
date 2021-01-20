@@ -11,8 +11,8 @@ spec:
     app: firefly-db
   clusterIP: None
   ports:
-    - port: 8080
-      name: web
+    - port: 3306
+      name: mysql
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -40,11 +40,11 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: db
+      app: firefly-db
   template:
     metadata:
       labels:
-        app: db
+        app: firefly-db
     spec:
       containers:
         - name: app
@@ -62,6 +62,9 @@ spec:
           volumeMounts:
             - name: db-data
               mountPath: /var/lib/mysql
+          ports:
+            - containerPort: 3306
+              name: mysql
       volumes:
         - name: db-data
           persistentVolumeClaim:
