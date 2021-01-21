@@ -1,6 +1,5 @@
 - name: Prevent lid close on laptops
   hosts: laptops
-  become: true
   tasks:
     - name: Prevent lid switch from suspending machine
       ansible.builtin.lineinfile:

@@ -1,0 +1,21 @@
+- name: Set up wireguard
+  hosts: all
+  become: true
+  tasks:
+    - name: Enable bullseye-backports
+      apt_repository:
+        repo: deb http://deb.debian.org/debian bullseye-backports main contrib non-free
+        state: present
+
+    - name: Install Wireguard
+      apt:
+        name:
+          - wireguard
+        state: latest
+        update_cache: yes
+
+    - name: Open Wireguard port
+      ufw:
+        rule: allow
+        port: "51820"
+        proto: udp

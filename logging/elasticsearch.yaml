@@ -51,6 +51,8 @@ spec:
             - name: data
               mountPath: /usr/share/elasticsearch/data
           env:
+            - name: path.repo
+              value: /repo/
             - name: cluster.name
               value: k8s-logs
             - name: node.name
