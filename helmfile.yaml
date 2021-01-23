@@ -5,8 +5,6 @@ repositories:
     url: https://charts.bitnami.com/bitnami
   - name: k8s-at-home
     url: https://k8s-at-home.com/charts/
-  - name: stable
-    url: https://charts.helm.sh/stable
   - name: elastic
     url: https://helm.elastic.co/
 releases:
@@ -19,11 +17,3 @@ releases:
   - name: qbittorrent
     namespace: qbittorrent
     chart: k8s-at-home/qbittorrent
-  - name: etcd
-    namespace: compose
-    chart: stable/etcd-operator
-  - name: nfs-server-provisioner
-    namespace: kube-system
-    chart: stable/nfs-server-provisioner
-    values:
-      - ./nfs-provisioner-values.yaml

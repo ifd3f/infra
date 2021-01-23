@@ -6,19 +6,48 @@ spec:
   capacity:
     storage: 5Gi
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   nfs:
-    path: /tmp
-    server: 192.168.1.95
-  persistentVolumeReclaimPolicy: Retain
+    path: /nfsroot
+    server: "192.168.1.95"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: nfs-claim1
 spec:
+  storageClassName: ""
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.14.2
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - mountPath: /usr/share/nginx/html
+              name: pvcd
+      volumes:
+        - name: pvcd
+          persistentVolumeClaim:
+            claimName: nfs-claim1
