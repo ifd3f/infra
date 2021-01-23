@@ -19,12 +19,9 @@ releases:
   - name: qbittorrent
     namespace: qbittorrent
     chart: k8s-at-home/qbittorrent
-  - name: logstash
-    namespace: kube-logging
-    chart: bitnami/logstash
-  - name: openvpn
-    namespace: vpn
-    chart: stable/openvpn
+  - name: etcd
+    namespace: compose
+    chart: stable/etcd-operator
   - name: nfs-server-provisioner
     namespace: kube-system
     chart: stable/nfs-server-provisioner

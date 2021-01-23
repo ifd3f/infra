@@ -50,9 +50,11 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /usr/share/elasticsearch/data
+            - name: backup
+              mountPath: /usr/share/elasticsearch/backup
           env:
             - name: path.repo
-              value: /repo/
+              value: /usr/share/elasticsearch/backup
             - name: cluster.name
               value: k8s-logs
             - name: node.name
@@ -69,12 +71,16 @@ spec:
         - name: fix-permissions
           image: busybox
           command:
-            ["sh", "-c", "chown -R 1000:1000 /usr/share/elasticsearch/data"]
+            - "sh"
+            - "-c"
+            - "chown -R 1000:1000 /usr/share/elasticsearch/data /usr/share/elasticsearch/backup"
           securityContext:
             privileged: true
           volumeMounts:
             - name: data
               mountPath: /usr/share/elasticsearch/data
+            - name: backup
+              mountPath: /usr/share/elasticsearch/backup
         - name: increase-vm-max-map
           image: busybox
           command: ["sysctl", "-w", "vm.max_map_count=262144"]
@@ -88,6 +94,16 @@ spec:
   volumeClaimTemplates:
     - metadata:
         name: data
+        labels:
+          app: elasticsearch
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 10Gi
+    - metadata:
+        name: backup
         labels:
           app: elasticsearch
       spec:
