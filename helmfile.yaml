@@ -7,13 +7,19 @@ repositories:
     url: https://k8s-at-home.com/charts/
   - name: elastic
     url: https://helm.elastic.co/
+  - name: vmware-tanzu
+    url: https://vmware-tanzu.github.io/helm-charts
 releases:
   - name: kubernetes-dashboard
-    namespace: kube-system
+    namespace: kube-dashboard
     chart: kubernetes-dashboard/kubernetes-dashboard
   - name: kube-state-metrics
-    namespace: kube-system
+    namespace: kube-metrics
     chart: bitnami/kube-state-metrics
+  # - name: velero
+  #   namespace: backup
+  #   chart: vmware-tanzu/velero
+
   - name: qbittorrent
     namespace: qbittorrent
     chart: k8s-at-home/qbittorrent
