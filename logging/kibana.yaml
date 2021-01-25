@@ -3,7 +3,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: kibana
-  namespace: kube-logging
+  namespace: logging
   labels:
     app: kibana
 spec:
@@ -16,7 +16,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: filebeat-config
-  namespace: kube-logging
+  namespace: logging
   labels:
     k8s-app: filebeat
 data:
@@ -29,7 +29,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kibana
-  namespace: kube-logging
+  namespace: logging
   labels:
     app: kibana
 spec:
@@ -48,6 +48,7 @@ spec:
           resources:
             limits:
               cpu: 1000m
+              memory: 1400Mi
             requests:
               cpu: 100m
           env:

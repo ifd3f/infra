@@ -9,13 +9,18 @@ repositories:
     url: https://helm.elastic.co/
   - name: vmware-tanzu
     url: https://vmware-tanzu.github.io/helm-charts
+  - name: prometheus-community
+    url: https://prometheus-community.github.io/helm-charts
 releases:
   - name: kubernetes-dashboard
-    namespace: kube-dashboard
+    namespace: kubernetes-dashboard
     chart: kubernetes-dashboard/kubernetes-dashboard
   - name: kube-state-metrics
-    namespace: kube-metrics
+    namespace: kube-state-metrics
     chart: bitnami/kube-state-metrics
+  - name: kube-prometheus-stack
+    namespace: logging
+    chart: prometheus-community/kube-prometheus-stack
   # - name: velero
   #   namespace: backup
   #   chart: vmware-tanzu/velero
