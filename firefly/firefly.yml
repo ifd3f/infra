@@ -72,6 +72,10 @@ spec:
       containers:
         - name: app
           image: registry.hub.docker.com/jc5x/firefly-iii:latest
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 500Mi
           env:
             - name: DB_CONNECTION
               value: mysql

@@ -11,6 +11,8 @@ repositories:
     url: https://vmware-tanzu.github.io/helm-charts
   - name: prometheus-community
     url: https://prometheus-community.github.io/helm-charts
+  - name: ingress-nginx
+    url: https://kubernetes.github.io/ingress-nginx
 releases:
   - name: kubernetes-dashboard
     namespace: kubernetes-dashboard
@@ -21,6 +23,9 @@ releases:
   - name: kube-prometheus-stack
     namespace: logging
     chart: prometheus-community/kube-prometheus-stack
+  - name: ingress-nginx
+    namespace: ingress-nginx
+    chart: ingress-nginx/ingress-nginx
   # - name: velero
   #   namespace: backup
   #   chart: vmware-tanzu/velero

@@ -1,27 +1,4 @@
 ---
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: firefly-iii-data
-  labels:
-    app: firefly-db
-spec:
-  storageClassName: manual
-  capacity:
-    storage: 10Gi
-  accessModes:
-    - ReadWriteOnce
-  local:
-    path: /data/firefly/db
-  nodeAffinity:
-    required:
-      nodeSelectorTerms:
-        - matchExpressions:
-            - key: kubernetes.io/hostname
-              operator: In
-              values:
-                - crappertop
----
 kind: Service
 apiVersion: v1
 metadata:
@@ -72,6 +49,10 @@ spec:
       containers:
         - name: app
           image: yobasystems/alpine-mariadb:latest
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 500Mi
           env:
             - name: MYSQL_RANDOM_ROOT_PASSWORD
               value: "yes"
