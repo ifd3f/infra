@@ -32,6 +32,8 @@ spec:
       labels:
         app: elasticsearch
     spec:
+      nodeSelector:
+        beta.kubernetes.io/arch: amd64
       containers:
         - name: elasticsearch
           image: docker.elastic.co/elasticsearch/elasticsearch:7.10.2

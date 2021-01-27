@@ -5,62 +5,56 @@ metadata:
   name: firefly
   namespace: firefly-iii
   labels:
-    app: firefly-app
+    app: firefly
 spec:
-  selector:
-    app: firefly-app
-  clusterIP: None
   ports:
     - port: 8080
       name: web
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: firefly-iii-upload
-  labels:
+  selector:
     app: firefly-app
-spec:
-  storageClassName: manual
-  capacity:
-    storage: 10Gi
-  accessModes:
-    - ReadWriteOnce
-  local:
-    path: /data/firefly/upload
-  nodeAffinity:
-    required:
-      nodeSelectorTerms:
-        - matchExpressions:
-            - key: kubernetes.io/hostname
-              operator: In
-              values:
-                - crappertop
 ---
-apiVersion: v1
-kind: PersistentVolumeClaim
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
-  name: firefly-upload-pvc
+  name: firefly-ingress
   namespace: firefly-iii
-  labels:
-    app: firefly-app
 spec:
-  storageClassName: manual
-  volumeName: firefly-iii-upload
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 10Gi
+  rules:
+    - host: firefly.test.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: firefly
+                port:
+                  number: 8080
 ---
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: Service
 metadata:
   name: firefly
   namespace: firefly-iii
   labels:
     app: firefly-app
 spec:
+  selector:
+    app: firefly-app
+  ports:
+    - port: 8080
+      name: web
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: firefly
+  namespace: firefly-iii
+  labels:
+    app: firefly-app
+spec:
+  serviceName: firefly
+  replicas: 1
   selector:
     matchLabels:
       app: firefly-app
@@ -95,7 +89,14 @@ spec:
               mountPath: /var/www/html/storage/upload
           ports:
             - containerPort: 8080
-      volumes:
-        - name: upload
-          persistentVolumeClaim:
-            claimName: firefly-upload-pvc
+  volumeClaimTemplates:
+    - metadata:
+        name: upload
+        labels:
+          app: firefly-iii
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 10Gi

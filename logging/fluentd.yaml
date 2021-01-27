@@ -51,7 +51,7 @@ metadata:
 ---
 # from https://github.com/fluent/fluentd-kubernetes-daemonset
 apiVersion: apps/v1
-kind: Deployment
+kind: DaemonSet
 metadata:
   name: fluentd-amd64
   namespace: logging
