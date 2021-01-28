@@ -45,3 +45,8 @@ alias source-idf='. $HOME/.lib/esp-idf/export.sh'
 alias vii3='vim $HOME/.config/i3/config'
 alias vixmonad='vim $HOME/.xmonad/xmonad.hs'
 alias vixmobar='vim $HOME/.config/xmobar/xmobarrc'
+
+# Parent directory
+alias ..='cd ..'
+alias ...='cd ...'
+alias ....='cd ....'

@@ -1,0 +1,7 @@
+configuration {
+    modi: "window,drun,run,ssh";
+    lines: 15;
+    levenshtein-sort: true;
+    sidebar-mode: true;
+}
+

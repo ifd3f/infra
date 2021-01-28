@@ -57,12 +57,9 @@ bindsym Mod1+F4 kill
 bindsym $mod+w kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run
-#
-# There also is the (new) i3-dmenu-desktop which only displays applications
-# shipping a .desktop file. It is a wrapper around dmenu, so you need that
-# installed.
-bindsym $mod+Shift+d exec --no-startup-id i3-dmenu-desktop
+bindsym $mod+Shift+s exec --no-startup-id rofi -show ssh
+bindsym $mod+d exec --no-startup-id rofi -show run
+bindsym $mod+Tab exec --no-startup-id rofi -show window
 
 # change focus
 bindsym $mod+h focus left
@@ -196,7 +193,7 @@ bindsym $mod+Shift+r restart
 
 bar {
     position top
-    status_command i3blocks
+    status_command SCRIPT_DIR=~/.config/i3blocks/ i3blocks
 }
 
 # resize window (you can also use the mouse for that)
@@ -250,8 +247,6 @@ mode "$mode_util" {
 	bindsym Escape mode "default"
 }
 bindsym $mod+Shift+m mode "$mode_util"
-
-bindsym $mod+Shift+s exec --no-startup-id rofi -show ssh
 
 # Qalculate shortcut
 bindsym $mod+backslash exec qalculate.gtk

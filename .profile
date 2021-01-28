@@ -40,12 +40,13 @@ export PATH="$PATH:/home/linuxbrew/.linuxbrew/bin"
 export PATH="$HOME/.cargo/bin:$PATH"
 
 # Node Version Manager
+export PATH="$PATH:/home/astrid/.nvm/versions/node/v14.15.1/bin" # Fix VS Code not finding it
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Maybe Vivado will be happy with this
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/Xilinx/Vivado/2019.2/lib/lnx64.o/
+# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/Xilinx/Vivado/2019.2/lib/lnx64.o/
 
 # KiCad path for SKiDL
 export KICAD_SYMBOL_DIR=/usr/share/kicad/library/
@@ -66,3 +67,8 @@ export PATH="$PATH:/home/astrid/.espressif/tools/xtensa-esp32s2-elf/esp-2020r3-8
 
 # SteamVR
 export PATH="$PATH:/home/astrid/.local/share/Steam/steamapps/common/SteamVR/bin/linux64/"
+
+# RISC-V Toolchain
+export PATH="$PATH:/opt/riscv/bin/"
+
+[[ -s "/home/astrid/.gvm/scripts/gvm" ]] && source "/home/astrid/.gvm/scripts/gvm"

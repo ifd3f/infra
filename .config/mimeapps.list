@@ -1,4 +1,5 @@
 [Added Associations]
+application/json=sublime-text_subl.desktop;
 application/pdf=org.kde.okular.desktop;
 application/x-7z-compressed=file-roller-3.desktop;
 application/x-compressed-tar=file-roller-4.desktop;
@@ -16,6 +17,7 @@ x-scheme-handler/https=exo-web-browser.desktop
 x-scheme-handler/trash=exo-file-manager.desktop
 
 [Default Applications]
+application/json=sublime-text_subl.desktop;
 application/pdf=org.kde.okular.desktop;
 application/x-7z-compressed=file-roller-3.desktop;
 application/x-compressed-tar=file-roller-4.desktop;
@@ -50,3 +52,4 @@ x-scheme-handler/magnet=deluge.desktop
 x-scheme-handler/msteams=teams.desktop
 x-scheme-handler/sgnl=signal-desktop.desktop
 x-scheme-handler/slack=slack_slack.desktop
+x-scheme-handler/hyper=appimagekit-beaker-browser.desktop

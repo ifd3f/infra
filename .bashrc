@@ -97,3 +97,5 @@ source ~/.profile
 
 
 export QSYS_ROOTDIR="/home/astrid/intelFPGA_lite/20.1/quartus/sopc_builder/bin"
+source <(kubectl completion bash)
+

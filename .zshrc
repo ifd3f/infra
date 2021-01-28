@@ -101,3 +101,4 @@ load-nvmrc
 . ~/.aliases
 
 eval $(thefuck --alias)
+source <(kubectl completion zsh)
