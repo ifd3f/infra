@@ -1,0 +1,20 @@
+grafana:
+  ingress:
+    enabled: true
+    hosts:
+      - grafana.test.local
+    path: /
+
+  persistence:
+    type: pvc
+    enabled: true
+    storageClassName: manual
+    accessModes:
+      - ReadWriteOnce
+    size: 10Gi
+    finalizers:
+      - kubernetes.io/pvc-protection
+prometheus:
+  server:
+    persistentVolume:
+      enabled: true
