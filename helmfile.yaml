@@ -3,27 +3,48 @@ repositories:
     url: https://kubernetes.github.io/dashboard/
   - name: bitnami
     url: https://charts.bitnami.com/bitnami
+  - name: fluent
+    url: https://fluent.github.io/helm-charts
   - name: k8s-at-home
     url: https://k8s-at-home.com/charts/
-  #  - name: elastic
-  #    url: https://helm.elastic.co/
+  - name: elastic
+    url: https://helm.elastic.co/
   - name: prometheus-community
     url: https://prometheus-community.github.io/helm-charts
   - name: ingress-nginx
     url: https://kubernetes.github.io/ingress-nginx
 releases:
-  - name: kubernetes-dashboard
-    namespace: kubernetes-dashboard
-    chart: kubernetes-dashboard/kubernetes-dashboard
-  - name: kube-state-metrics
-    namespace: kube-state-metrics
-    chart: bitnami/kube-state-metrics
+  - name: kibana
+    namespace: logging
+    chart: elastic/kibana
+    values:
+      - ./charts/kibana.yaml
+  - name: elasticsearch
+    namespace: logging
+    chart: elastic/elasticsearch
+  # - name: fluent-bit
+  #   namespace: logging
+  #   chart: fluent/fluent-bit
+  - name: fluentd-amd64
+    namespace: logging
+    chart: fluent/fluentd
+    values:
+      - ./charts/fluentd-amd64.yaml
+      - ./charts/fluentd.yaml
   - name: kube-prometheus-stack
     namespace: logging
     chart: prometheus-community/kube-prometheus-stack
     installed: true
     values:
       - ./prometheus-stack-values.yaml
+
+  - name: kubernetes-dashboard
+    namespace: kubernetes-dashboard
+    chart: kubernetes-dashboard/kubernetes-dashboard
+  - name: kube-state-metrics
+    namespace: kube-state-metrics
+    chart: bitnami/kube-state-metrics
+
   - name: ingress-nginx
     namespace: ingress-nginx
     chart: ingress-nginx/ingress-nginx

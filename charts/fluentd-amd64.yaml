@@ -1,0 +1,6 @@
+image:
+  repository: "fluent/fluentd-kubernetes-daemonset"
+  pullPolicy: "IfNotPresent"
+  tag: "v1.12.0-debian-elasticsearch7-1.0"
+nodeSelector:
+  beta.kubernetes.io/arch: amd64
