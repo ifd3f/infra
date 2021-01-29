@@ -1,0 +1,7 @@
+- name: Set up wireguard
+  hosts: all
+  gather_facts: no
+  become: yes
+  tasks:
+    - name: Reboot
+      raw: reboot

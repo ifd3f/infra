@@ -23,12 +23,12 @@ releases:
   - name: kube-prometheus-stack
     namespace: logging
     chart: prometheus-community/kube-prometheus-stack
+    installed: true
+    values:
+      - ./prometheus-values.yaml
   - name: ingress-nginx
     namespace: ingress-nginx
     chart: ingress-nginx/ingress-nginx
-  # - name: velero
-  #   namespace: backup
-  #   chart: vmware-tanzu/velero
 
   - name: qbittorrent
     namespace: qbittorrent
