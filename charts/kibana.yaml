@@ -4,6 +4,6 @@ ingress:
     kubernetes.io/ingress.class: nginx
     kubernetes.io/tls-acme: "true"
   hosts:
-    - host: kibana.local
-      paths:
-        - path: /
+    - kibana.test.local
+  paths:
+    - /

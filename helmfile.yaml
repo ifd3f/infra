@@ -19,28 +19,36 @@ releases:
     chart: elastic/kibana
     values:
       - ./charts/kibana.yaml
+
   - name: elasticsearch
     namespace: logging
     chart: elastic/elasticsearch
-  # - name: fluent-bit
-  #   namespace: logging
-  #   chart: fluent/fluent-bit
+
+  - name: fluent-bit
+    namespace: logging
+    chart: fluent/fluent-bit
+    values:
+      - ./charts/fluent-bit.yaml
+
   - name: fluentd-amd64
     namespace: logging
-    chart: fluent/fluentd
+    chart: bitnami/fluentd
     values:
       - ./charts/fluentd-amd64.yaml
-      - ./charts/fluentd.yaml
+      - ./charts/fluentd-common.yaml
+
   - name: kube-prometheus-stack
     namespace: logging
     chart: prometheus-community/kube-prometheus-stack
-    installed: true
     values:
-      - ./prometheus-stack-values.yaml
+      - ./charts/prometheus-stack.yaml
 
   - name: kubernetes-dashboard
     namespace: kubernetes-dashboard
     chart: kubernetes-dashboard/kubernetes-dashboard
+    values:
+      - ./charts/kubernetes-dashboard.yaml
+
   - name: kube-state-metrics
     namespace: kube-state-metrics
     chart: bitnami/kube-state-metrics

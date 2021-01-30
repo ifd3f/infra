@@ -1,0 +1,6 @@
+ingress:
+  enabled: true
+  hosts:
+    - kube-dashboard.test.local
+  paths:
+    - /
