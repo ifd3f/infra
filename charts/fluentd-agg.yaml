@@ -1,0 +1,7 @@
+forwarder:
+  enabled: false
+aggregator:
+  enabled: true
+  replicaCount: 2
+  port: 24224
+  configMap: fluentd-conf

@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: fluentd-conf
-  namespace: logging
+  namespace: fluent
 data:
   fluentd.conf: |-
     # TCP input to receive logs from the forwarders
@@ -12,13 +12,8 @@ data:
       port 24224
     </source>
 
-    <match **>
-    @type stdout
-    </match>
-
-    # Ignore fluentd own events
-    <match fluent.**>
-      @type null
+    <match @FLUENT_LOG>
+      @type stdout
     </match>
 
     # HTTP input for the liveness and readiness probes
@@ -33,11 +28,11 @@ data:
       @type stdout
     </match>
 
-    # Send the logs to the standard output
+    # Send the logs to the elasticsearch
     <match **>
       @type elasticsearch
       include_tag_key true
-      host elasticsearch-master
+      host elasticsearch
       port 9200
       logstash_format true
 

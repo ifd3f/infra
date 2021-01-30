@@ -1,6 +1,0 @@
-kind: Deployment
-replicas: 2
-nodeSelector:
-  beta.kubernetes.io/arch: amd64
-aggregator:
-  configMap: fluentd-conf

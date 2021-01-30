@@ -14,8 +14,10 @@ config:
     [INPUT]
         Name tail
         Path /var/log/containers/*.log
+        Exclude_Path /var/log/containers/*_fluent_*.log
         Parser docker
-        Tag kube.*
+        Tag kube.infra.<namespace_name>.<pod_name>.<container_name>
+        Tag_Regex (?<pod_name>[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*)_(?<namespace_name>[^_]+)_(?<container_name>.+)-
         Mem_Buf_Limit 5MB
         Skip_Long_Lines On
     [INPUT]
@@ -31,13 +33,13 @@ config:
         Merge_Log On
         Keep_Log Off
         K8S-Logging.Parser On
-        K8S-Logging.Exclude On
+        K8S-Logging.Exclude Off
   ## https://docs.fluentbit.io/manual/pipeline/outputs
   outputs: |
     [OUTPUT]
         Name forward
         Match *
-        Host fluentd
+        Host fluentd-aggregator
         Port 24224
   ## https://docs.fluentbit.io/manual/pipeline/parsers
   customParsers: |

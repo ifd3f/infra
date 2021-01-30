@@ -25,17 +25,16 @@ releases:
     chart: elastic/elasticsearch
 
   - name: fluent-bit
-    namespace: logging
+    namespace: fluent
     chart: fluent/fluent-bit
     values:
       - ./charts/fluent-bit.yaml
 
-  - name: fluentd-amd64
-    namespace: logging
+  - name: fluentd
+    namespace: fluent
     chart: bitnami/fluentd
     values:
-      - ./charts/fluentd-amd64.yaml
-      - ./charts/fluentd-common.yaml
+      - ./charts/fluentd-agg.yaml
 
   - name: kube-prometheus-stack
     namespace: logging
