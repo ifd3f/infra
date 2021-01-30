@@ -12,9 +12,21 @@ data:
       port 24224
     </source>
 
-    <match @FLUENT_LOG>
-      @type stdout
-    </match>
+    <filter kube.infra.ingress-nginx.ingress-nginx-controller**>
+      @type parser
+      key_name message
+      <parse>
+        @type nginx
+      </parse>
+    </filter>
+
+    <filter kube.infra.logging.kibana-kibana-**>
+      @type parser
+      key_name message 
+      <parse>
+        @type json
+      </parse>
+    </filter>
 
     # HTTP input for the liveness and readiness probes
     <source>
@@ -35,6 +47,7 @@ data:
       host elasticsearch
       port 9200
       logstash_format true
+      suppress_type_name true
 
       <buffer>
         @type file
