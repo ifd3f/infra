@@ -1,6 +1,6 @@
 ingress:
   enabled: true
   hosts:
-    - kube-dashboard.test.local
+    - kube-dashboard.astrid.tech
   paths:
     - /

@@ -20,7 +20,7 @@ metadata:
   namespace: firefly-iii
 spec:
   rules:
-    - host: firefly.test.local
+    - host: firefly.astrid.tech
       http:
         paths:
           - path: /

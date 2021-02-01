@@ -5,3 +5,6 @@ aggregator:
   replicaCount: 2
   port: 24224
   configMap: fluentd-conf
+  ingress:
+    enabled: true
+    hostname: fluentd.astrid.tech

@@ -2,7 +2,7 @@ grafana:
   ingress:
     enabled: true
     hosts:
-      - grafana.test.local
+      - grafana.astrid.tech
     path: /
 
   persistence:
