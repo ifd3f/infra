@@ -13,6 +13,8 @@ repositories:
     url: https://prometheus-community.github.io/helm-charts
   - name: ingress-nginx
     url: https://kubernetes.github.io/ingress-nginx
+  - name: microsoft 
+    url: https://microsoft.github.io/charts/repo/
 releases:
   - name: kibana
     namespace: logging
@@ -23,6 +25,8 @@ releases:
   - name: elasticsearch
     namespace: logging
     chart: elastic/elasticsearch
+    values:
+      - ./charts/elasticsearch.yaml
 
   - name: fluent-bit
     namespace: fluent
@@ -59,3 +63,8 @@ releases:
   - name: qbittorrent
     namespace: qbittorrent
     chart: k8s-at-home/qbittorrent
+
+  - name: spark
+    namespace: spark
+    chart: microsoft/spark
+

@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: printer-image-snapper
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: printer-image-snapper
+  namespace: printer-image-snapper
+spec:
+  schedule: "*/10 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                  - matchExpressions:
+                      - key: kubernetes.io/arch
+                        operator: In
+                        values: [amd64]
+          containers:
+            - name: printer-image-snapper
+              image: astridyu/printer_image_snapper:latest
+              imagePullPolicy: Always
+              env:
+                - name: SNAPSHOT_URL
+                  value: http://192.168.1.73/webcam/?action=snapshot
+                - name: PRINTER_ENDPOINT
+                  value: https://api.astrid.tech/api/3dprinter/1/
+              envFrom:
+                - secretRef:
+                    name: printer-image-snapper
+          restartPolicy: OnFailure

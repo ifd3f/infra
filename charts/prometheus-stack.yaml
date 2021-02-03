@@ -18,3 +18,5 @@ prometheus:
   server:
     persistentVolume:
       enabled: true
+  prometheusSpec:
+    scrapeInterval: "10s"

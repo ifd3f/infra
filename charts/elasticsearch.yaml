@@ -1,0 +1,8 @@
+resources:
+  requests:
+    cpu: "1000m"
+    memory: "768Mi"
+  limits:
+    cpu: "1000m"
+    memory: "768Mi"
+esJavaOpts: "-Xmx512m -Xms512m"
