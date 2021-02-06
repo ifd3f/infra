@@ -1,8 +1,21 @@
+nodeAffinity:
+  requiredDuringSchedulingIgnoredDuringExecution:
+    nodeSelectorTerms:
+      - matchExpressions:
+          - key: kubernetes.io/arch
+            operator: In
+            values: [arm]
 resources:
   requests:
-    cpu: "1000m"
-    memory: "768Mi"
+    cpu: "500m"
+    memory: "600Mi"
   limits:
     cpu: "1000m"
     memory: "768Mi"
 esJavaOpts: "-Xmx512m -Xms512m"
+
+volumeClaimTemplate:
+  accessModes: ["ReadWriteOnce"]
+  resources:
+    requests:
+      storage: 8Gi

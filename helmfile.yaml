@@ -13,7 +13,7 @@ repositories:
     url: https://prometheus-community.github.io/helm-charts
   - name: ingress-nginx
     url: https://kubernetes.github.io/ingress-nginx
-  - name: microsoft 
+  - name: microsoft
     url: https://microsoft.github.io/charts/repo/
 releases:
   - name: kibana
@@ -67,4 +67,4 @@ releases:
   - name: spark
     namespace: spark
     chart: microsoft/spark
-
+    installed: false

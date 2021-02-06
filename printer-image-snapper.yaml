@@ -31,6 +31,8 @@ spec:
                   value: http://192.168.1.73/webcam/?action=snapshot
                 - name: PRINTER_ENDPOINT
                   value: https://api.astrid.tech/api/3dprinter/1/
+                - name: OCTOPRINT_ROOT
+                  value: http://192.168.1.73/
               envFrom:
                 - secretRef:
                     name: printer-image-snapper
