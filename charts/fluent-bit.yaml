@@ -34,6 +34,10 @@ config:
         Keep_Log Off
         K8S-Logging.Parser On
         K8S-Logging.Exclude Off
+    [FILTER]
+        Name record_modifier
+        Match *
+        Record logsource ${HOSTNAME}
   ## https://docs.fluentbit.io/manual/pipeline/outputs
   outputs: |
     [OUTPUT]
@@ -48,4 +52,4 @@ config:
         Format      regex
         Regex       ^(?<time>[^ ]+) (?<stream>stdout|stderr) (?<logtag>[^ ]*) (?<log>.*)$
         Time_Key    time
-        Time_Format %Y-%m-%dT%H:%M:%S.%9NZ
+        Time_Format %Y-%m-%dT%H:%M:%S.%6N

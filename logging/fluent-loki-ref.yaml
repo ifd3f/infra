@@ -1,0 +1,10 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: loki
+  namespace: fluent
+spec:
+  type: ExternalName
+  externalName: loki.logging.svc.cluster.local
+  ports:
+    - port: 3100
