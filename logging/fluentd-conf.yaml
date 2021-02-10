@@ -54,6 +54,10 @@ data:
       url http://loki:3100
       insecure_tls true
 
+      <label>
+        tag
+      </label>
+
       <buffer>
         @type file
         path /opt/bitnami/fluentd/logs/buffers/logs.buffer
