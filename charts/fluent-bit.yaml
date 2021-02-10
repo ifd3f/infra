@@ -9,12 +9,12 @@ config:
         HTTP_Server On
         HTTP_Listen 0.0.0.0
         HTTP_Port {{ .Values.service.port }}
-  ## https://docs.fluentbit.io/manual/pipeline/inputs
+  ## All docker containers, excluding those in the logging namespace
   inputs: |
     [INPUT]
         Name tail
         Path /var/log/containers/*.log
-        Exclude_Path /var/log/containers/*_fluent_*.log
+        Exclude_Path /var/log/containers/*_logging_*.log
         Parser cri
         Tag kube.infra.<namespace_name>.<pod_name>.<container_name>
         Tag_Regex (?<pod_name>[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*)_(?<namespace_name>[^_]+)_(?<container_name>.+)-
@@ -25,7 +25,6 @@ config:
         Tag host.*
         Systemd_Filter _SYSTEMD_UNIT=kubelet.service
         Read_From_Tail On
-  ## https://docs.fluentbit.io/manual/pipeline/filters
   filters: |
     [FILTER]
         Name kubernetes
@@ -38,14 +37,12 @@ config:
         Name record_modifier
         Match *
         Record logsource ${HOSTNAME}
-  ## https://docs.fluentbit.io/manual/pipeline/outputs
   outputs: |
     [OUTPUT]
         Name forward
         Match *
         Host fluentd-aggregator
         Port 24224
-  ## https://docs.fluentbit.io/manual/pipeline/parsers
   customParsers: |
     [PARSER]
         Name        cri

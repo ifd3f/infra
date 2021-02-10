@@ -18,20 +18,6 @@ repositories:
   - name: grafana
     url: https://grafana.github.io/helm-charts
 releases:
-  - name: kibana
-    namespace: logging
-    chart: elastic/kibana
-    installed: false
-    values:
-      - ./charts/kibana.yaml
-
-  - name: elasticsearch
-    namespace: logging
-    chart: elastic/elasticsearch
-    installed: false
-    values:
-      - ./charts/elasticsearch.yaml
-
   - name: loki
     namespace: logging
     chart: grafana/loki
@@ -39,20 +25,19 @@ releases:
       - ./charts/loki.yaml
 
   - name: fluent-bit
-    namespace: fluent
+    namespace: logging
     chart: fluent/fluent-bit
     values:
       - ./charts/fluent-bit.yaml
 
   - name: fluentd
-    namespace: fluent
+    namespace: logging
     chart: bitnami/fluentd
-    installed: true
     values:
       - ./charts/fluentd-agg.yaml
 
   - name: kube-prometheus-stack
-    namespace: logging
+    namespace: metrics
     chart: prometheus-community/kube-prometheus-stack
     values:
       - ./charts/prometheus-stack.yaml
