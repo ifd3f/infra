@@ -1,8 +1,12 @@
+image:
+  repository: astridyu/fluentd-custom
+  tag: latest
+
 forwarder:
   enabled: false
 aggregator:
   enabled: true
-  replicaCount: 2
+  replicaCount: 1
   port: 24224
   configMap: fluentd-conf
   ingress:

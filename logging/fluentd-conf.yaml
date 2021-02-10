@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: fluentd-conf
+  name: fluentd-config
   namespace: fluent
 data:
   fluentd.conf: |-

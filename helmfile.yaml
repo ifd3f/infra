@@ -15,18 +15,28 @@ repositories:
     url: https://kubernetes.github.io/ingress-nginx
   - name: microsoft
     url: https://microsoft.github.io/charts/repo/
+  - name: grafana
+    url: https://grafana.github.io/helm-charts
 releases:
   - name: kibana
     namespace: logging
     chart: elastic/kibana
+    installed: false
     values:
       - ./charts/kibana.yaml
 
   - name: elasticsearch
     namespace: logging
     chart: elastic/elasticsearch
+    installed: false
     values:
       - ./charts/elasticsearch.yaml
+
+  - name: loki
+    namespace: logging
+    chart: grafana/loki
+    values:
+      - ./charts/loki.yaml
 
   - name: fluent-bit
     namespace: fluent
@@ -37,6 +47,7 @@ releases:
   - name: fluentd
     namespace: fluent
     chart: bitnami/fluentd
+    installed: true
     values:
       - ./charts/fluentd-agg.yaml
 
@@ -67,4 +78,4 @@ releases:
   - name: spark
     namespace: spark
     chart: microsoft/spark
-    installed: false
+    installed: true
