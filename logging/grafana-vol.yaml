@@ -11,9 +11,6 @@ spec:
     storage: 10Gi
   accessModes:
     - ReadWriteOnce
-  mountOptions:
-    - nolock
-    - rw
   nfs:
-    path: /nfsroot/grafana
-    server: "192.168.1.95"
+    path: /srv/nfs4/grafana
+    server: "192.168.1.110"

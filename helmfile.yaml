@@ -55,6 +55,7 @@ releases:
   - name: ingress-nginx
     namespace: ingress-nginx
     chart: ingress-nginx/ingress-nginx
+    installed: false
 
   - name: qbittorrent
     namespace: qbittorrent
@@ -63,4 +64,4 @@ releases:
   - name: spark
     namespace: spark
     chart: microsoft/spark
-    installed: true
+    installed: false

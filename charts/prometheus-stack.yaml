@@ -14,9 +14,16 @@ grafana:
     size: 10Gi
     finalizers:
       - kubernetes.io/pvc-protection
+
 prometheus:
   server:
     persistentVolume:
       enabled: true
   prometheusSpec:
     scrapeInterval: "10s"
+
+nodeExporter:
+  extraArgs:
+    - --collector.diskstats.ignored-devices=^(ram|loop|fd|(h|s|v)d[a-z]|nvme\\d+n\\d+p)\\d+$
+    - --collector.thermal_zone
+    - --collector.rapl
