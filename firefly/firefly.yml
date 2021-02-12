@@ -1,5 +1,10 @@
 ---
 apiVersion: v1
+kind: Namespace
+metadata:
+  name: firefly-iii
+---
+apiVersion: v1
 kind: Service
 metadata:
   name: firefly
@@ -71,19 +76,11 @@ spec:
               cpu: 1000m
               memory: 500Mi
           env:
-            - name: DB_CONNECTION
-              value: mysql
-            - name: DB_HOST
-              value: db
-            - name: DB_PORT
-              value: "3306"
-            - name: DB_DATABASE
-              value: firefly
-            - name: DB_USERNAME
-              value: firefly
+            - name: TZ
+              value: America/Los_Angeles
           envFrom:
             - secretRef:
-                name: firefly-app-secret
+                name: firefly-db
           volumeMounts:
             - name: upload
               mountPath: /var/www/html/storage/upload
