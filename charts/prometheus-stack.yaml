@@ -22,18 +22,29 @@ prometheus:
   prometheusSpec:
     scrapeInterval: "10s"
 
-  extraScrapeConfigs:
-    - job_name: prometheus-minecraft-exporter
-      metrics_path: /prometheus/minecraft/metrics
-      basic_auth:
-        username: "prometheus"
-        password: "cfgqvzjbhnwcomplicatedpasswordwjnqmd"
-      static_configs:
-        - targets:
-            - https://external-auth-proxy
-      relabel_configs:
-        - source_labels: [__address__]
-          target_label: instance
+    secrets:
+      - prometheus-mc-basic-auth
+
+    additionalScrapeConfigs:
+      - job_name: prometheus-external-node-exporter
+        metrics_path: /prometheus/node/metrics
+        scheme: https
+        basic_auth:
+          username: prometheus
+          password_file: /etc/prometheus/secrets/prometheus-mc-basic-auth/password
+        static_configs:
+          - targets:
+              - mc.astrid.tech
+
+      - job_name: prometheus-external-minecraft-exporter
+        metrics_path: /prometheus/minecraft/metrics
+        scheme: https
+        basic_auth:
+          username: prometheus
+          password_file: /etc/prometheus/secrets/prometheus-mc-basic-auth/password
+        static_configs:
+          - targets:
+              - mc.astrid.tech
 
 nodeExporter:
   extraArgs:
