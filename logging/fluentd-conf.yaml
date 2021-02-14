@@ -12,19 +12,31 @@ data:
       port 24224
     </source>
 
-    <filter kube.infra.ingress-nginx.ingress-nginx-controller**>
+    # Append the tag as a field
+    <filter **>
+      @type record_transformer
+      <record>
+        tag ${tag}
+      </record>
+    </filter>
+
+    # JSON logs
+    <filter	k8s.printer-image-snapper.printer-image-snapper-*.printer-image-snapper k8s.infra.kube-system.traefik-*.traefik> 
       @type parser
       key_name message
       <parse>
-        @type nginx
+        @type json
       </parse>
     </filter>
 
-    <filter kube.infra.logging.kibana-kibana-**>
+    # LTSV logs
+    <filter k8s.metrics.kube-prometheus-stack-operator-*.kube-prometheus-stack k8s.infra.metrics.kube-prometheus-stack-grafana-*.grafana> 
       @type parser
-      key_name message 
+      key_name message
       <parse>
-        @type json
+        @type ltsv
+        label_delimiter "="
+        delimiter " "
       </parse>
     </filter>
 
@@ -39,14 +51,6 @@ data:
     <match fluentd.healthcheck>
       @type stdout
     </match>
-
-    # Append the tag as a field
-    <filter **>
-      @type record_transformer
-      <record>
-        tag ${tag}
-      </record>
-    </filter>
 
     # Send the logs to the elasticsearch
     <match **>
@@ -65,3 +69,9 @@ data:
         flush_interval 5s
       </buffer>
     </match>
+
+    <label @ERROR>
+      <match **>
+        @type stdout
+      </match>
+    </label>

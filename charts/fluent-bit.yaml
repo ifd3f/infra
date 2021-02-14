@@ -16,7 +16,7 @@ config:
         Path /var/log/containers/*.log
         Exclude_Path /var/log/containers/*_logging_*.log
         Parser cri
-        Tag kube.infra.<namespace_name>.<pod_name>.<container_name>
+        Tag k8s.<namespace_name>.<pod_name>.<container_name>
         Tag_Regex (?<pod_name>[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*)_(?<namespace_name>[^_]+)_(?<container_name>.+)-
         Mem_Buf_Limit 5MB
         Skip_Long_Lines On
@@ -28,7 +28,7 @@ config:
   filters: |
     [FILTER]
         Name kubernetes
-        Match kube.*
+        Match k8s.*
         Merge_Log On
         Keep_Log Off
         K8S-Logging.Parser On

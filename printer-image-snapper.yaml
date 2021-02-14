@@ -9,7 +9,7 @@ metadata:
   name: printer-image-snapper
   namespace: printer-image-snapper
 spec:
-  schedule: "*/10 * * * *"
+  schedule: "*/2 * * * *"
   jobTemplate:
     spec:
       template:
