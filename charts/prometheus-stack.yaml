@@ -22,6 +22,19 @@ prometheus:
   prometheusSpec:
     scrapeInterval: "10s"
 
+  extraScrapeConfigs:
+    - job_name: prometheus-minecraft-exporter
+      metrics_path: /prometheus/minecraft/metrics
+      basic_auth:
+        username: "prometheus"
+        password: "cfgqvzjbhnwcomplicatedpasswordwjnqmd"
+      static_configs:
+        - targets:
+            - https://external-auth-proxy
+      relabel_configs:
+        - source_labels: [__address__]
+          target_label: instance
+
 nodeExporter:
   extraArgs:
     - --collector.diskstats.ignored-devices=^(ram|loop|fd|(h|s|v)d[a-z]|nvme\\d+n\\d+p)\\d+$

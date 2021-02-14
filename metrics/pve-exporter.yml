@@ -4,8 +4,6 @@ kind: Deployment
 metadata:
   name: prometheus-node-exporter
   namespace: metrics
-  labels:
-    app: firefly
 spec:
   serviceName: firefly
   replicas: 1
