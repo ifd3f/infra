@@ -21,7 +21,7 @@ data:
     </filter>
 
     # JSON logs
-    <filter	k8s.printer-image-snapper.printer-image-snapper-*.printer-image-snapper k8s.infra.kube-system.traefik-*.traefik> 
+    <filter	k8s.printer-image-snapper.printer-image-snapper-*.printer-image-snapper k8s.kube-system.traefik-*.traefik> 
       @type parser
       key_name message
       <parse>
@@ -30,7 +30,7 @@ data:
     </filter>
 
     # LTSV logs
-    <filter k8s.metrics.kube-prometheus-stack-operator-*.kube-prometheus-stack k8s.infra.metrics.kube-prometheus-stack-grafana-*.grafana> 
+    <filter k8s.metrics.kube-prometheus-stack-operator-*.kube-prometheus-stack k8s.metrics.kube-prometheus-stack-grafana-*.grafana> 
       @type parser
       key_name message
       <parse>
