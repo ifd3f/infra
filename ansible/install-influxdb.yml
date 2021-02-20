@@ -1,0 +1,54 @@
+- name: Install InfluxDB
+  hosts: influxdb
+  tasks:
+    - name: Apt Upgrade
+      ansible.builtin.apt:
+        upgrade: "yes"
+        update_cache: yes
+
+    - name: Install GPG, UFW, apt-transport-https
+      ansible.builtin.apt:
+        name:
+          - gnupg
+          - apt-transport-https
+          - ufw
+        state: latest
+
+    - name: Enable UFW
+      community.general.ufw:
+        state: enabled
+
+    - name: Allow SSH
+      community.general.ufw:
+        port: 22
+        rule: allow
+        proto: tcp
+
+    - name: InfluxData GPG key
+      ansible.builtin.apt_key:
+        url: https://repos.influxdata.com/influxdb.key
+        state: present
+
+    - name: InfluxData Apt Repo
+      ansible.builtin.apt_repository:
+        repo: deb https://repos.influxdata.com/ubuntu focal stable
+        filename: influxdb
+        state: present
+
+    - name: Install InfluxDB
+      ansible.builtin.apt:
+        name:
+          - influxdb
+        state: latest
+
+    - name: Open Port
+      community.general.ufw:
+        port: 8086
+        rule: allow
+        proto: tcp
+
+    - name: Enable Service
+      ansible.builtin.systemd:
+        name: influxdb
+        enabled: true
+        state: started
