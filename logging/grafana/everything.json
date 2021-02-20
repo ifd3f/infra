@@ -485,7 +485,7 @@
       "fieldConfig": {
         "defaults": {
           "custom": {},
-          "unit": "Container"
+          "unit": "none"
         },
         "overrides": []
       },
@@ -552,7 +552,7 @@
       },
       "yaxes": [
         {
-          "format": "Container",
+          "format": "none",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -969,8 +969,8 @@
     "list": []
   },
   "time": {
-    "from": "2021-02-14T18:59:29.285Z",
-    "to": "2021-02-14T19:31:59.814Z"
+    "from": "now-30m",
+    "to": "now"
   },
   "timepicker": {
     "refresh_intervals": [
@@ -981,5 +981,5 @@
   "timezone": "",
   "title": "The Everything Panel",
   "uid": "Mn9RXOLMk",
-  "version": 5
+  "version": 6
 }
