@@ -17,6 +17,8 @@ repositories:
     url: https://microsoft.github.io/charts/repo/
   - name: grafana
     url: https://grafana.github.io/helm-charts
+  - name: nicholaswilde
+    url: https://nicholaswilde.github.io/helm-charts
 releases:
   - name: loki
     namespace: logging
@@ -60,6 +62,10 @@ releases:
   - name: qbittorrent
     namespace: qbittorrent
     chart: k8s-at-home/qbittorrent
+
+  - name: bookstack
+    namespace: bookstack
+    chart: nicholaswilde/bookstack
 
   - name: spark
     namespace: spark

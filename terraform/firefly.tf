@@ -40,7 +40,7 @@ resource "kubernetes_secret" "firefly" {
     "DB_USERNAME" = mysql_user.firefly.user
     "DB_PASSWORD" = random_password.firefly_password.result
     "DB_HOST" = var.mysql_host
-    "DB_PORT" = 3306
+    "DB_PORT" = var.mysql_port
     "DB_DATABASE" = mysql_database.firefly.name
     "DB_CONNECTION" = "mysql"
     "MYSQL_USE_SSL" = "true"

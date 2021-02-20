@@ -40,7 +40,7 @@ resource "kubernetes_secret" "elabftw-db" {
     "DB_USER" = mysql_user.elabftw.user
     "DB_PASSWORD" = random_password.elabftw_password.result
     "DB_HOST" = var.mysql_host
-    "DB_PORT" = 3306
+    "DB_PORT" = var.mysql_port
     "DB_DATABASE" = mysql_database.elabftw.name
     "DB_CONNECTION" = "mysql"
     "MYSQL_USE_SSL" = "true"
