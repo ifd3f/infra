@@ -4,11 +4,15 @@ terraform {
   required_providers {
     random = {
       source  = "hashicorp/random"
-      version = ">= 2.2.0"
+      version = ">= 3.0"
     }
     mysql = {
       source  = "terraform-providers/mysql"
       version = ">= 1.5"
+    }
+    proxmox = {
+      source = "Telmate/proxmox"
+      version = ">= 2.6"
     }
   }
 }
