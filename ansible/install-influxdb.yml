@@ -1,54 +1,103 @@
+# Borrowed from https://www.influxdata.com/blog/deploying-influxdb-with-ansible/
 - name: Install InfluxDB
   hosts: influxdb
   tasks:
-    - name: Apt Upgrade
-      ansible.builtin.apt:
-        upgrade: "yes"
-        update_cache: yes
+    - name: Install basic utilities
+      block:
+        - name: Apt Upgrade
+          ansible.builtin.apt:
+            upgrade: "yes"
+            update_cache: yes
 
-    - name: Install GPG, UFW, apt-transport-https
-      ansible.builtin.apt:
-        name:
-          - gnupg
-          - apt-transport-https
-          - ufw
-        state: latest
+        - name: Install GPG, UFW, apt-transport-https, python3-pip
+          ansible.builtin.apt:
+            name:
+              - gnupg
+              - apt-transport-https
+              - ufw
+              - python3-pip
+            state: latest
 
-    - name: Enable UFW
-      community.general.ufw:
-        state: enabled
+        - name: Enable UFW
+          community.general.ufw:
+            state: enabled
 
-    - name: Allow SSH
-      community.general.ufw:
-        port: 22
-        rule: allow
-        proto: tcp
-
-    - name: InfluxData GPG key
-      ansible.builtin.apt_key:
-        url: https://repos.influxdata.com/influxdb.key
-        state: present
-
-    - name: InfluxData Apt Repo
-      ansible.builtin.apt_repository:
-        repo: deb https://repos.influxdata.com/ubuntu focal stable
-        filename: influxdb
-        state: present
+        - name: Allow SSH
+          community.general.ufw:
+            port: "22"
+            rule: allow
+            proto: tcp
 
     - name: Install InfluxDB
-      ansible.builtin.apt:
-        name:
-          - influxdb
-        state: latest
+      block:
+        - name: InfluxData GPG key
+          ansible.builtin.apt_key:
+            url: https://repos.influxdata.com/influxdb.key
+            state: present
 
-    - name: Open Port
-      community.general.ufw:
-        port: 8086
-        rule: allow
-        proto: tcp
+        - name: InfluxData Apt Repo
+          ansible.builtin.apt_repository:
+            repo: deb https://repos.influxdata.com/ubuntu focal stable
+            filename: influxdb
+            state: present
 
-    - name: Enable Service
-      ansible.builtin.systemd:
-        name: influxdb
-        enabled: true
-        state: started
+        - name: Install InfluxDB
+          ansible.builtin.apt:
+            name:
+              - influxdb
+            state: latest
+
+    - name: Post-install tasks
+      block:
+        - name: Ensure pip requirements are installed
+          become: true
+          pip:
+            name:
+              - requests
+              - influxdb
+            state: present
+
+        - name: Start service to ensure default config
+          ansible.builtin.systemd:
+            name: influxdb
+            enabled: true
+            state: started
+
+        - name: Create admin user
+          command: >-
+            influx -execute "CREATE USER astrid
+            WITH PASSWORD '{{ lookup('password', 'credentials/influxdb/password.txt chars=ascii_letters,digits') }}'
+            WITH ALL PRIVILEGES"
+
+        # - name: Modify InfluxDB hostname
+        #   ansible.builtin.lineinfile:
+        #     path: /etc/influxdb/influxdb.conf
+        #     regexp: "^hostname = "
+        #     insertafter: "^  # hostname = "
+        #     line: hostname = "{{ ansible_hostname }}"
+
+        - name: Enable HTTP Auth
+          ansible.builtin.lineinfile:
+            path: /etc/influxdb/influxdb.conf
+            regexp: "^  auth-enabled ="
+            insertafter: "^  # auth-enabled = "
+            line: "  auth-enabled = true"
+
+        # - name: Enable HTTPS
+        #   ansible.builtin.lineinfile:
+        #     path: /etc/influxdb/influxdb.conf
+        #     regexp: "^https-enabled = "
+        #     insertafter: "^# https-enabled = "
+        #     line: https-enabled = true
+
+        - name: Restart service
+          ansible.builtin.systemd:
+            name: influxdb
+            enabled: true
+            state: restarted
+
+        - name: Open Port
+          community.general.ufw:
+            port: "8086"
+            rule: allow
+            proto: tcp
