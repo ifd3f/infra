@@ -1,0 +1,8 @@
+repositories:
+  - name: microsoft
+    url: https://microsoft.github.io/charts/repo/
+releases:
+  - name: spark
+    namespace: spark
+    chart: microsoft/spark
+    installed: false

@@ -5,69 +5,41 @@ repositories:
     url: https://charts.bitnami.com/bitnami
   - name: fluent
     url: https://fluent.github.io/helm-charts
-  - name: k8s-at-home
-    url: https://k8s-at-home.com/charts/
-  - name: elastic
-    url: https://helm.elastic.co/
   - name: prometheus-community
     url: https://prometheus-community.github.io/helm-charts
-  - name: ingress-nginx
-    url: https://kubernetes.github.io/ingress-nginx
-  - name: microsoft
-    url: https://microsoft.github.io/charts/repo/
   - name: grafana
     url: https://grafana.github.io/helm-charts
-  - name: nicholaswilde
-    url: https://nicholaswilde.github.io/helm-charts
 releases:
   - name: loki
     namespace: logging
     chart: grafana/loki
     values:
-      - ./charts/loki.yaml
+      - ./monitoring/loki.yaml
 
   - name: fluent-bit
     namespace: logging
     chart: fluent/fluent-bit
     values:
-      - ./charts/fluent-bit.yaml
+      - ./monitoring/fluent-bit.yaml
 
   - name: fluentd
     namespace: logging
     chart: bitnami/fluentd
     values:
-      - ./charts/fluentd-agg.yaml
+      - ./monitoring/fluentd-agg.yaml
 
   - name: kube-prometheus-stack
     namespace: metrics
     chart: prometheus-community/kube-prometheus-stack
     values:
-      - ./charts/prometheus-stack.yaml
+      - ./monitoring/prometheus-stack.yaml
 
   - name: kubernetes-dashboard
     namespace: kubernetes-dashboard
     chart: kubernetes-dashboard/kubernetes-dashboard
     values:
-      - ./charts/kubernetes-dashboard.yaml
+      - ./monitoring/kubernetes-dashboard.yaml
 
   - name: kube-state-metrics
     namespace: kube-state-metrics
     chart: bitnami/kube-state-metrics
-
-  - name: ingress-nginx
-    namespace: ingress-nginx
-    chart: ingress-nginx/ingress-nginx
-    installed: false
-
-  - name: qbittorrent
-    namespace: qbittorrent
-    chart: k8s-at-home/qbittorrent
-
-  - name: bookstack
-    namespace: bookstack
-    chart: nicholaswilde/bookstack
-
-  - name: spark
-    namespace: spark
-    chart: microsoft/spark
-    installed: false
