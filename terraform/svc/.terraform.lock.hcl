@@ -20,7 +20,7 @@ provider "registry.terraform.io/hashicorp/kubernetes" {
 
 provider "registry.terraform.io/hashicorp/random" {
   version     = "3.0.1"
-  constraints = ">= 2.2.0"
+  constraints = ">= 3.0.0"
   hashes = [
     "h1:SzM8nt2wzLMI28A3CWAtW25g3ZCm1O4xD0h3Ps/rU1U=",
     "zh:0d4f683868324af056a9eb2b06306feef7c202c88dbbe6a4ad7517146a22fb50",

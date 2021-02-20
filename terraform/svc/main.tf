@@ -10,9 +10,5 @@ terraform {
       source  = "terraform-providers/mysql"
       version = ">= 1.5"
     }
-    proxmox = {
-      source = "Telmate/proxmox"
-      version = ">= 2.6"
-    }
   }
 }
