@@ -2,14 +2,15 @@
 
 function print_help_msg {
     echo "Install Ubuntu and configure:"
-    echo "    $0 <xzipped ubuntu-preinstall ISO> <destination device>"
+    echo "    $0 <config folder> <xzipped ubuntu-preinstall ISO> <destination device>"
     echo "Only configure:"
-    echo "    $0 <destination device>"
+    echo "    $0 <config folder> <destination device>"
 }
 
 function write_iso {
     echo "Writing ISO to $DEVICE"
-    xzcat $ISO | dd bs=64M of=$DEVICE status=progress
+    xzcat $ISO | dd of=$DEVICE status=progress
+    sync
 }
 
 function copy_configs {
@@ -19,15 +20,17 @@ function copy_configs {
     mount "${DEVICE}1" $MNTDIR
 
     echo "Copying configs into boot partition"
-    cp ipa0-boot/* $MNTDIR -v
+    cp $CONFIG/* $MNTDIR -v
 
     echo "Unmounting boot partition"
     umount $MNTDIR
 }
 
-if [ $# -eq 1 ]; then 
-    export DEVICE=$1
-    echo "I will configure $DEVICE, which has Ubuntu ARM installed on it."
+if [ $# -eq 2 ]; then 
+    export CONFIG=$1
+    export DEVICE=$2
+    echo "Using device with installed Ubuntu: $DEVICE"
+    echo "Config folder: $CONFIG"
 
     read -p "Are you sure? " -n 1 -r
     echo
@@ -38,12 +41,14 @@ if [ $# -eq 1 ]; then
 
     copy_configs
     exit 0
-elif [ $# -eq 2 ]; then 
-    export ISO=$1
-    export DEVICE=$2
+elif [ $# -eq 3 ]; then 
+    export CONFIG=$1
+    export ISO=$2
+    export DEVICE=$3
 
-    echo "$DEVICE will be COMPLETELY OVERWRITTEN with Ubuntu ARM!"
-    echo "I will use the xzipped $ISO."
+    echo "OVERWRITING DEVICE: $DEVICE"
+    echo "Zipped ISO: $ISO"
+    echo "Config folder: $CONFIG"
     read -p "Are you sure? " -n 1 -r
     echo
     if ! [[ $REPLY =~ ^[Yy]$ ]]; then
