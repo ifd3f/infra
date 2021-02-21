@@ -3,13 +3,15 @@ resource "mysql_database" "firefly" {
 }
 
 resource "random_password" "firefly_password" {
-  length = 16
+  length = 32
   special = true
-  override_special = "_%@"
+  number = true
+  override_special = "~!@#$%^&*"
 }
 
 resource "random_password" "firefly_key" {
   length = 32
+  number = true
   special = true
   override_special = "_%@{}~`[]()"
 }
