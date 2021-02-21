@@ -1,0 +1,33 @@
+#cloud-config
+
+# This is the user-data configuration file for cloud-init. By default this sets
+# up an initial user called "ubuntu" with password "ubuntu", which must be
+# changed at first login. However, many additional actions can be initiated on
+# first boot from this file. The cloud-init documentation has more details:
+#
+# https://cloudinit.readthedocs.io/
+#
+# Some additional examples are provided in comments below the default
+# configuration.
+
+hostname: ipa0.cloud.astrid.tech
+
+# Disable password authentication with the SSH daemon
+ssh_pwauth: false
+
+# https://www.digitalocean.com/community/tutorials/how-to-use-cloud-config-for-your-initial-server-setup
+users:
+  ## Give Astrid passwordless sudo access, as well as SSH key only login
+  - name: astrid
+    ssh-authorized-keys:
+      - gh:plenglin
+    sudo: ["ALL=(ALL) NOPASSWD:ALL"]
+    groups: sudo
+
+## Update apt database and upgrade packages on first boot
+package_update: true
+package_upgrade: true
+
+## Install additional packages on first boot
+packages:
+  - freeipa-server

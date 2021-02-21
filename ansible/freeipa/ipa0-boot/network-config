@@ -1,0 +1,20 @@
+# This file contains a netplan-compatible configuration which cloud-init
+# will apply on first-boot. Please refer to the cloud-init documentation and
+# the netplan reference for full details:
+#
+# https://cloudinit.readthedocs.io/
+# https://netplan.io/reference
+
+version: 2
+ethernets:
+  eth0:
+    dhcp4: false
+    addresses:
+      - 192.168.1.192/24
+    gateway4: 192.168.1.254
+    nameservers:
+      search: []
+      addresses:
+        - 192.168.1.254
+        - 8.8.8.8
+        - 8.8.4.4
