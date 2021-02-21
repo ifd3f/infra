@@ -32,7 +32,7 @@ if [ $# -eq 2 ]; then
     echo "Using device with installed Ubuntu: $DEVICE"
     echo "Config folder: $CONFIG"
 
-    read -p "Are you sure? " -n 1 -r
+    read -p "Are you sure? (y/n)" -n 1 -r
     echo
     if ! [[ $REPLY =~ ^[Yy]$ ]]; then
         echo "Aborting."
@@ -40,16 +40,19 @@ if [ $# -eq 2 ]; then
     fi
 
     copy_configs
+    echo Done
     exit 0
 elif [ $# -eq 3 ]; then 
     export CONFIG=$1
     export ISO=$2
     export DEVICE=$3
 
-    echo "OVERWRITING DEVICE: $DEVICE"
+    export DEVICE_MIB=`echo \`sudo blockdev --getsize64 /dev/sdb\` / 1024 / 1024 | bc`
+
     echo "Zipped ISO: $ISO"
     echo "Config folder: $CONFIG"
-    read -p "Are you sure? " -n 1 -r
+    echo "OVERWRITING DEVICE: $DEVICE ($DEVICE_MIB MiB)"
+    read -p "Are you sure? (y/n)" -n 1 -r
     echo
     if ! [[ $REPLY =~ ^[Yy]$ ]]; then
         echo "Aborting."
