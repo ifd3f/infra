@@ -15,7 +15,7 @@ resource "proxmox_lxc" "srv_ipa1" {
   swap = 512
   cores = 2
 
-  ostemplate = "ProxmoxResources:vztmpl/ubuntu-20.04-standard_20.04-1_amd64.tar.gz"
+  ostemplate = "ProxmoxResources:vztmpl/fedora-33-default_20201115_amd64.tar.xz"
   password = random_password.ipa1_password.result
   unprivileged = true
   start = true

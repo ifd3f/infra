@@ -2,27 +2,15 @@
   become: true
   hosts: freeipa
   tasks:
-    - name: Install basic utilities
-      block:
-        - name: Install UFW, python3-pip
-          ansible.builtin.apt:
-            name:
-              - ufw
-            state: latest
-            update_cache: yes
-
-        - name: Enable UFW
-          community.general.ufw:
-            state: enabled
-
-        - name: Allow SSH on UFW
-          community.general.ufw:
-            port: "22"
-            rule: allow
-            proto: tcp
-
-    - name: Install FreeIPA
-      ansible.builtin.apt:
+    - name: Ensure FreeIPA Server is installed
+      ansible.builtin.dnf:
         name:
-          - freeipa
+          - freeipa-server
         state: latest
+        update_cache: yes
+
+    - name: Open required ports
+      ansible.posix.firewalld:
+        service: freeipa-ldaps
+        permanent: yes
+        immediate: yes

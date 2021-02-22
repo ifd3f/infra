@@ -14,7 +14,7 @@ function write_iso {
 }
 
 function copy_configs {
-    export MNTDIR=/tmp/astrid.tech/freeipa-iso
+    export MNTDIR=/tmp/cloud.astrid.tech/ubuntu-pi-iso-setup
     echo "Mounting the boot partition at $MNTDIR"
     mkdir -p $MNTDIR
     mount "${DEVICE}1" $MNTDIR
