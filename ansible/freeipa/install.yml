@@ -1,16 +1,23 @@
 - name: Install FreeIPA
   become: true
-  hosts: freeipa
+  hosts:
+    - ipaserver
+    - ipareplicas
   tasks:
     - name: Ensure FreeIPA Server is installed
       ansible.builtin.dnf:
-        name:
-          - freeipa-server
+        name: freeipa-server
         state: latest
         update_cache: yes
+
+    - name: Ensure FreeIPA Server DNS is installed
+      ansible.builtin.dnf:
+        name: freeipa-server-dns
+        state: latest
 
     - name: Open required ports
       ansible.posix.firewalld:
         service: freeipa-ldaps
         permanent: yes
         immediate: yes
+        state: enabled
