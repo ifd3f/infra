@@ -6,7 +6,6 @@ services:
     image: caddy:alpine
     container_name: caddy
     restart: always
-    command: caddy reverse-proxy --to pihole:80
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
     ports:
