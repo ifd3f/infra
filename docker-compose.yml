@@ -19,3 +19,17 @@ services:
     cap_add:
       - NET_ADMIN
     restart: unless-stopped
+
+  node-exporter:
+    image: prom/node-exporter:latest
+    hostname: node-exporter
+    container_name: node-exporter
+    volumes:
+      - /:/rootfs:ro,rslave
+    network_mode: host
+    pid: host
+    command:
+      - "--path.rootfs=/rootfs"
+    restart: unless-stopped
+    ports:
+      - 9100:9100
