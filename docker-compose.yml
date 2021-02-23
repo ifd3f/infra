@@ -21,7 +21,6 @@ services:
       - "53:53/tcp"
       - "53:53/udp"
       - "67:67/udp"
-      - "443:443/tcp"
     environment:
       TZ: "America/Los_Angeles"
     volumes:
