@@ -1,0 +1,68 @@
+- name: Install Pi-Hole
+  become: true
+  hosts:
+    - pi_hole
+  tasks:
+    - name: Ensure required utilities are installed
+      ansible.builtin.apt:
+        name:
+          - git
+          - docker.io
+          - docker-compose
+        update_cache: yes
+        cache_valid_time: 3600
+        state: latest
+
+    - name: Open Pi-Hole ports
+      ansible.builtin.iptables:
+        chain: INPUT
+        protocol: "{{item.protocol}}"
+        destination_port: "{{item.port}}"
+        ctstate: NEW
+        jump: ACCEPT
+        comment: "{{item.comment}}"
+      with_items:
+        - port: 53
+          protocol: tcp
+          comment: Pi-Hole
+        - port: 53
+          protocol: udp
+          comment: Pi-Hole
+        - port: 67
+          protocol: udp
+          comment: Pi-Hole
+        - port: 80
+          protocol: tcp
+          comment: Pi-Hole
+        - port: 443
+          protocol: tcp
+          comment: Pi-Hole
+        - port: 9100
+          protocol: tcp
+          comment: Node Exporter
+
+    - name: Ensure Docker is running
+      ansible.builtin.systemd:
+        state: started
+        name: docker
+        enabled: yes
+
+    - name: Download docker-compose config from GitHub
+      ansible.builtin.git:
+        repo: "https://github.com/cloud-astrid-tech/dns.git"
+        dest: /root/pi-hole
+        version: main
+
+    - name: Write secret environment variables
+      ansible.builtin.template:
+        src: ./.env.j2
+        dest: /root/pi-hole/.env
+        owner: root
+        mode: "0600"
+
+    - name: Create and start services
+      community.docker.docker_compose:
+        project_src: /root/pi-hole
+        pull: yes
+        state: present
+      register: output
