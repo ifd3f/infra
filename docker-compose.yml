@@ -2,14 +2,25 @@ version: "3"
 
 # More info at https://github.com/pi-hole/docker-pi-hole/ and https://docs.pi-hole.net/
 services:
+  caddy:
+    image: caddy:alpine
+    container_name: caddy
+    restart: always
+    command: caddy reverse-proxy --to pihole:80
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+    ports:
+      - "80:80/tcp"
+      - "443:443/tcp"
+
   pihole:
     container_name: pihole
+    hostname: pihole
     image: pihole/pihole:latest
     ports:
       - "53:53/tcp"
       - "53:53/udp"
       - "67:67/udp"
-      - "80:80/tcp"
       - "443:443/tcp"
     environment:
       TZ: "America/Los_Angeles"
