@@ -47,7 +47,7 @@ elif [ $# -eq 3 ]; then
     export ISO=$2
     export DEVICE=$3
 
-    export DEVICE_MIB=`echo \`sudo blockdev --getsize64 /dev/sdb\` / 1024 / 1024 | bc`
+    export DEVICE_MIB=`echo \`sudo blockdev --getsize64 $DEVICE\` / 1024 / 1024 | bc`
 
     echo "Zipped ISO: $ISO"
     echo "Config folder: $CONFIG"
