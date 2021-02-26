@@ -1,10 +1,13 @@
 version: "3"
 
 # More info at https://github.com/pi-hole/docker-pi-hole/ and https://docs.pi-hole.net/
+# Using https://github.com/chriscrowe/docker-pihole-unbound/blob/master/one-container/docker-compose.yaml
 services:
   pihole:
     container_name: pihole
-    image: pihole/pihole:latest
+    image: cbcrowe/pihole-unbound:latest
+    hostname: dns
+    domainname: dns.cloud.astrid.tech
     ports:
       - "53:53/tcp"
       - "53:53/udp"
@@ -13,6 +16,10 @@ services:
       - "443:443/tcp"
     environment:
       TZ: "America/Los_Angeles"
+      ServerIP: 192.168.8.8
+      DNS1: 127.0.0.1#5335 # Hardcoded to our Unbound server
+      DNS2: 127.0.0.1#5335 # Hardcoded to our Unbound server
+      DNSSEC: "true" # Enable DNSSEC
     env_file:
       - ./.env
     volumes:
