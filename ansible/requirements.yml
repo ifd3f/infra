@@ -2,3 +2,4 @@ collections:
   - name: ansible.posix
   - name: freeipa.ansible_freeipa
   - name: community.docker
+  - name: community.general

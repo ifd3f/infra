@@ -35,8 +35,8 @@ resource "proxmox_lxc" "srv_ipa0" {
   network {
     name = "eth0"
     bridge = "vmbr0"
-    ip = "192.168.1.190/24"
-    gw = "192.168.1.254"
+    ip = "192.168.1.32/24"
+    gw = "192.168.8.1"
   }
 }
 
@@ -68,7 +68,7 @@ resource "proxmox_lxc" "srv_ipa1" {
     name = "eth0"
     bridge = "vmbr0"
     ip = "192.168.1.193/24"
-    gw = "192.168.1.254"
+    gw = "192.168.8.1"
   }
 }
 

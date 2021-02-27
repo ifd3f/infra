@@ -7,15 +7,9 @@ chpasswd:
   expire: true
   list:
     - ubuntu:ubuntu
-ssh_pwauth: false
+ssh_pwauth: true
 ssh_import_id:
-  - gh:plenglin
-
-# Install the reason we're provisioning in the first place
-snap:
-  commands:
-    00: snap install maas
-    01: maas init rack
+  - gh:Plenglin
 
 # Update apt database and upgrade packages on first boot
 package_update: true
