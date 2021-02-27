@@ -4,7 +4,7 @@ resource "random_password" "leibniz_password" {
 }
 
 resource "proxmox_lxc" "srv_leibniz" {
-  target_node = "crappertop"
+  target_node = "badtop"
   hostname = "leibniz.cloud.astrid.tech"
   ostemplate = "ProxmoxResources:vztmpl/ubuntu-20.04-standard_20.04-1_amd64.tar.gz"
   password = random_password.leibniz_password.result
