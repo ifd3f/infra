@@ -8,7 +8,6 @@
         - name: Ensure required utilities are installed
           ansible.builtin.apt:
             name:
-              - git
               - docker.io
               - docker-compose
             update_cache: yes
@@ -35,10 +34,10 @@
               comment: Pi-Hole
             - port: 80
               protocol: tcp
-              comment: Caddy
+              comment: Pi-Hole
             - port: 443
               protocol: tcp
-              comment: Caddy
+              comment: Pi-Hole
             - port: 9100
               protocol: tcp
               comment: Node Exporter
@@ -57,11 +56,11 @@
 
     - name: Install
       block:
-        - name: Download docker-compose config from GitHub
-          ansible.builtin.git:
-            repo: "https://github.com/cloud-astrid-tech/dns.git"
-            dest: /srv/pi-hole
-            version: main
+        - name: Copy Pi Hole files
+          ansible.builtin.copy:
+            src: ./pi-hole
+            dest: /srv
+          delegate_to: "{{ inventory_hostname }}"
 
         - name: Write secret environment variables
           ansible.builtin.template:
