@@ -1,0 +1,21 @@
+- name: Turnkey Linux Firewall
+  hosts: turnkey
+  tasks:
+    - name: Open firewall ports
+      ansible.builtin.iptables:
+        chain: INPUT
+        protocol: "{{item.protocol}}"
+        destination_port: "{{item.port}}"
+        ctstate: NEW
+        jump: ACCEPT
+        comment: "{{item.comment}}"
+      with_items:
+        - port: 443
+          protocol: tcp
+          comment: Web
+        - port: 12320
+          protocol: tcp
+          comment: Admin panel
+        - port: 12321
+          protocol: tcp
+          comment: Admin panel 2
