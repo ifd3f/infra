@@ -19,10 +19,3 @@ variable "ssh_pubkey" {
   type = string
   sensitive = true
 }
-
-provider "proxmox" {
-  pm_api_url = var.pm_url_root
-  pm_user = var.pm_user
-  pm_password = var.pm_pass
-  pm_tls_insecure = true
-}
