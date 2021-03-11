@@ -23,23 +23,28 @@ provider "proxmox" {
 
 locals {
   targets = {
-    cracktop = 0
-    //thonkpad = 1
+    cracktop = {
+      index = 0
+      mem = 7168
+      swap = 4096
+      cores = 4
+      storage = "64G"
+    }
+    thonkpad = {
+      index = 1
+      mem = 7168
+      swap = 4096
+      cores = 4
+      storage = "64G"
+    }
+    badtop = {
+      index = 2
+      mem = 3072
+      swap = 4096
+      cores = 4
+      storage = "64G"
+    }
   }
-}
-
-resource "random_password" "ipa_password" {
-  for_each = local.targets
-
-  length = 24
-  special = false
-}
-
-resource "local_file" "ipa_password" {
-  for_each = local.targets
-
-  content = random_password.ipa_password[each.key].result
-  filename = "${path.module}/credentials/ipa_${each.key}.txt"
 }
 
 resource "random_password" "server_password" {
@@ -56,28 +61,34 @@ resource "local_file" "server_password" {
   filename = "${path.module}/credentials/server_${each.key}.txt"
 }
 
-resource "proxmox_lxc" "ipa" {
+resource "proxmox_vm_qemu" "kubernetes" {
   for_each = local.targets
 
+  name = "${each.key}-kube.lan"
   target_node = each.key
-  vmid = 500 + each.value
-  hostname = "ipa${each.value}.cloud.astrid.tech"
-  description = "FreeIPA server"
+  vmid = 200 + each.value.index
+  description = "K3S"
 
+  preprovision = true
+  os_type = "ubuntu"
+  ssh_forward_ip = "10.0.0.1"
   start = true
   onboot = true
 
-  pool = "ipa"
-  memory = 1024
-  swap = 256
-  cores = 2
+  pool = "kubernetes"
+  memory = each.value.mem
+  swap = each.value.swap
+  cores = each.value.cores
 
-  ostemplate = "sambruh:vztmpl/fedora-33-default_20201115_amd64.tar.xz"
+  ostemplate = "sambruh:vztmpl/ubuntu-20.04-standard_20.04-1_amd64.tar.gz"
   password = random_password.server_password[each.key].result
   ssh_public_keys = var.ssh_pubkey
 
+  unprivileged = false
   features {
     nesting = true
+    fuse = true
+    mount = "nfs;cifs"
   }
 
   rootfs {
@@ -88,7 +99,7 @@ resource "proxmox_lxc" "ipa" {
   network {
     name = "eth0"
     bridge = "vmbr0"
-    ip = "192.168.8.9/24"
+    ip = "192.168.8.${each.value.index + 40}/24"
     gw = "192.168.8.1"
   }
 }
