@@ -10,12 +10,15 @@
         jump: ACCEPT
         comment: "{{item.comment}}"
       with_items:
+        - port: 22
+          protocol: tcp
+          comment: SSH
         - port: 443
           protocol: tcp
           comment: Web
         - port: 12320
           protocol: tcp
-          comment: Admin panel
+          comment: Web shell
         - port: 12321
           protocol: tcp
-          comment: Admin panel 2
+          comment: Webmin

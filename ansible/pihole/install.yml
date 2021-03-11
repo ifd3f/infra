@@ -73,6 +73,7 @@
           community.docker.docker_compose:
             project_src: /srv/pi-hole
             pull: yes
+            restarted: yes
             state: present
           register: output
 
