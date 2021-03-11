@@ -8,12 +8,7 @@ services:
     image: cbcrowe/pihole-unbound:latest
     hostname: dns
     domainname: dns.cloud.astrid.tech
-    ports:
-      - "53:53/tcp"
-      - "53:53/udp"
-      - "67:67/udp"
-      - "80:80/tcp"
-      - "443:443/tcp"
+    network_mode: host
     environment:
       TZ: "America/Los_Angeles"
       ServerIP: 192.168.8.8
@@ -23,8 +18,8 @@ services:
     env_file:
       - ./.env
     volumes:
-      - "./etc-pihole/:/etc/pihole/"
-      - "./etc-dnsmasq.d/:/etc/dnsmasq.d/"
+      - "./whitelist.sh:/etc/cont-init.d/90-whitelist.sh"
+      - "./custom.list:/etc/pihole/custom.list"
     cap_add:
       - NET_ADMIN
     restart: unless-stopped
