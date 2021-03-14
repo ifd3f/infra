@@ -5,19 +5,18 @@
 
 ipa-server-install \
     --skip-mem-check \
-    --allow-zone-overlap \
-    --hostname=ipa0.cloud.astrid.tech \
-    --domain=cloud.astrid.tech \
-    --realm=CLOUD.ASTRID.TECH \
+    --hostname=ipa0.p.astrid.tech \
+    --domain=p.astrid.tech \
+    --realm=P.ASTRID.TECH \
     --mkhomedir \
-    --no-dnssec-validation \
-    --pki-config-override /root/pki-conf \
     --setup-kra \
     --setup-dns \
     --zonemgr=astrid@astrid.tech \
-    --forwarder=192.168.1.254 \
     --forwarder=8.8.8.8 \
     --forwarder=8.8.4.4 \
+    --ntp-server=0.pool.ntp.org \
+    --ntp-server=1.pool.ntp.org \
+    --ntp-server=2.pool.ntp.org \
+    --ntp-server=3.pool.ntp.org \
     --ds-password=$DS_PASSWORD \
-    --admin-password=$ADMIN_PASSWORD \
-    --unattended 
+    --admin-password=$ADMIN_PASSWORD 

@@ -1,4 +1,6 @@
 192.168.8.8 dns.lan
+192.168.8.9 ipa0.lan
+192.168.8.9 ipa0.p.astrid.tech
 192.168.8.32 sambruh.lan
 192.168.8.192 cracktop.lan
 192.168.8.193 thonkpad.lan

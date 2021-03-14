@@ -61,14 +61,14 @@ resource "proxmox_lxc" "ipa" {
 
   target_node = each.key
   vmid = 500 + each.value
-  hostname = "ipa${each.value}.cloud.astrid.tech"
+  hostname = "ipa${each.value}.p.astrid.tech"
   description = "FreeIPA server"
 
   start = true
   onboot = true
 
   pool = "ipa"
-  memory = 1024
+  memory = 1536
   swap = 256
   cores = 2
 
