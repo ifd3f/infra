@@ -19,4 +19,5 @@ ipa-server-install \
     --ntp-server=2.pool.ntp.org \
     --ntp-server=3.pool.ntp.org \
     --ds-password=$DS_PASSWORD \
-    --admin-password=$ADMIN_PASSWORD 
+    --admin-password=$ADMIN_PASSWORD \
+    --unattended

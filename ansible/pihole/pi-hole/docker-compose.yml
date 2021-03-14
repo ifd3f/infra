@@ -18,8 +18,9 @@ services:
     env_file:
       - ./.env
     volumes:
-      - "./whitelist.sh:/etc/cont-init.d/90-whitelist.sh"
-      - "./custom.list:/etc/pihole/custom.list"
+      - "./whitelist.sh:/etc/cont-init.d/90-whitelist.sh:ro"
+      - "./custom.list:/etc/pihole/custom.list:ro"
+      #- "./05-ttl.conf:/etc/dnsmasq.d/05-ttl.conf:ro"
     cap_add:
       - NET_ADMIN
     restart: unless-stopped

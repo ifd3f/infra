@@ -4,20 +4,29 @@
     - ipaserver
     - ipareplicas
   tasks:
-    - name: Ensure FreeIPA Server is installed
+    - name: Ensure packages are installed
       ansible.builtin.dnf:
-        name: freeipa-server
+        name: "{{item}}"
         state: latest
-        update_cache: yes
+      with_items:
+        - freeipa-server
+        - freeipa-server-dns
+        - firewalld
 
-    - name: Ensure FreeIPA Server DNS is installed
-      ansible.builtin.dnf:
-        name: freeipa-server-dns
-        state: latest
+    - name: Ensure firewalld is enabled
+      ansible.builtin.systemd:
+        state: started
+        name: firewalld
+        enabled: yes
 
     - name: Open required ports
       ansible.posix.firewalld:
-        service: freeipa-ldaps
+        service: "{{item}}"
         permanent: yes
         immediate: yes
         state: enabled
+      with_items:
+        - freeipa-ldaps
+        - http
+        - https
+        - dns

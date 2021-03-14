@@ -56,15 +56,15 @@ resource "local_file" "server_password" {
   filename = "${path.module}/credentials/server_${each.key}.txt"
 }
 
-resource "proxmox_lxc" "ipa" {
+resource "proxmox_vm_qemu" "ipa" {
   for_each = local.targets
 
   target_node = each.key
   vmid = 500 + each.value
   hostname = "ipa${each.value}.p.astrid.tech"
-  description = "FreeIPA server"
+  desc = "FreeIPA server"
 
-  start = true
+  start = false
   onboot = true
 
   pool = "ipa"
