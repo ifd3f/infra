@@ -3,7 +3,8 @@ local gears = require 'gears'
 local hotkeys_popup = require("awful.hotkeys_popup")
 require "awful.hotkeys_popup.keys"
 
-modkey = "Mod4"
+local modkey = "Mod4"
+local hyper = {"Mod1", "Mod4", "Control", "Shift"}
 
 local global = {}
 local client = {}
