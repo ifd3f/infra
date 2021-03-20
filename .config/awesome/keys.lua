@@ -1,16 +1,19 @@
 local awful = require 'awful'
 local gears = require 'gears'
+local tags = require 'tags'
+
 local hotkeys_popup = require("awful.hotkeys_popup")
 require "awful.hotkeys_popup.keys"
+system_menu = require 'system_menu'
 
+local sharedtags = require 'sharedtags'
 local modkey = "Mod4"
 local hyper = {"Mod1", "Mod4", "Control", "Shift"}
 
 local global = {}
-local client = {}
+local client_controls = {}
 
 global.buttons = gears.table.join(
-    awful.button({ }, 3, function () mymainmenu:toggle() end),
     awful.button({ }, 4, awful.tag.viewnext),
     awful.button({ }, 5, awful.tag.viewprev)
 )
@@ -65,6 +68,8 @@ global.keys = gears.table.join(
               {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey, "Shift" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
+    awful.key({ modkey, "Shift" }, "e", function () system_menu:toggle() end,
+              {description = "open system menu", group = "awesome"}),
 
     awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)          end,
               {description = "increase master width factor", group = "layout"}),
@@ -155,37 +160,33 @@ client.keys = gears.table.join(
         {description = "(un)maximize horizontally", group = "client"})
 )
 
--- Bind all key numbers to tags.
--- Be careful: we use keycodes to make it work on any keyboard layout.
--- This should map on the top row of your keyboard, usually 1 to 9.
-for i = 0, 9 do
-    local nkey = tostring(i)
+for i = 1, 9 do
     global.keys = gears.table.join(global.keys,
         -- View tag only.
-        awful.key({ modkey }, nkey,
+        awful.key({ modkey }, "#" .. i + 9,
                   function ()
                         local screen = awful.screen.focused()
-                        local tag = screen.tags[i]
+                        local tag = tags[i]
                         if tag then
-                           tag:view_only()
+                           sharedtags.viewonly(tag, screen)
                         end
                   end,
                   {description = "view tag #"..i, group = "tag"}),
         -- Toggle tag display.
-        awful.key({ modkey, "Control" }, nkey,
+        awful.key({ modkey, "Control" }, "#" .. i + 9,
                   function ()
                       local screen = awful.screen.focused()
-                      local tag = screen.tags[i]
+                      local tag = tags[i]
                       if tag then
-                         awful.tag.viewtoggle(tag)
+                         sharedtags.viewtoggle(tag, screen)
                       end
                   end,
                   {description = "toggle tag #" .. i, group = "tag"}),
         -- Move client to tag.
-        awful.key({ modkey, "Shift" }, nkey,
+        awful.key({ modkey, "Shift" }, "#" .. i + 9,
                   function ()
                       if client.focus then
-                          local tag = client.focus.screen.tags[i]
+                          local tag = tags[i]
                           if tag then
                               client.focus:move_to_tag(tag)
                           end
@@ -193,10 +194,10 @@ for i = 0, 9 do
                   end,
                   {description = "move focused client to tag #"..i, group = "tag"}),
         -- Toggle tag on focused client.
-        awful.key({ modkey, "Control", "Shift" }, nkey,
+        awful.key({ modkey, "Control", "Shift" }, "#" .. i + 9,
                   function ()
                       if client.focus then
-                          local tag = client.focus.screen.tags[i]
+                          local tag = tags[i]
                           if tag then
                               client.focus:toggle_tag(tag)
                           end
@@ -206,7 +207,7 @@ for i = 0, 9 do
     )
 end
 
-client.buttons = gears.table.join(
+client_controls.buttons = gears.table.join(
     awful.button({ }, 1, function (c)
         c:emit_signal("request::activate", "mouse_click", {raise = true})
     end),
@@ -222,6 +223,6 @@ client.buttons = gears.table.join(
 
 return {
     global = global,
-    client = client
+    client = client_controls
 }
 
