@@ -71,4 +71,6 @@ export PATH="$PATH:/home/astrid/.local/share/Steam/steamapps/common/SteamVR/bin/
 # RISC-V Toolchain
 export PATH="$PATH:/opt/riscv/bin/"
 
-[[ -s "/home/astrid/.gvm/scripts/gvm" ]] && source "/home/astrid/.gvm/scripts/gvm"
+export GOBIN=/home/linuxbrew/.linuxbrew/Cellar/go/1.15.7/bin
+export env=/home/linuxbrew/.linuxbrew/Cellar/go/1.15.7/libexec
+export GOROOT=/home/astrid/golang

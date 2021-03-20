@@ -1,21 +1,21 @@
-exec_always --no-startup-id $HOME/.screenlayout/triple-home.sh
+set $refresh_picom /bin/bash -c "pkill picom; picom"
+set $mod Mod4
+set $scmd Shift+Mod4
+set $hyper Ctrl+Shift+Mod1+Mod4
+set $meh Ctrl+Shift+Mod1 
+
 exec_always --no-startup-id $HOME/.fehbg
-exec_always --no-startup-id /bin/bash -c "pkill compton; compton -cb"
+exec_always --no-startup-id $refresh_picom
 exec --no-startup-id flameshot
 exec --no-startup-id numlockx on
 exec --no-startup-id redshift
 exec --no-startup-id /usr/lib/geoclue-2.0/demos/agent
 exec --no-startup-id ~/.config/i3/conf-monitors.sh
 exec --no-startup-id nm-applet
-#exec --no-startup-id compton
-
-set $mod Mod4
-set $scmd Shift+Mod4
-set $hyper Ctrl+Shift+Mod1+Mod4
-set $meh Ctrl+Shift+Mod1
 
 #all borders and use gaps
-for_window [class=".*"] border pixel 0
+
+for_window [class=".*"] border normal 
 gaps inner 16
 
 # Floating items
@@ -25,7 +25,7 @@ for_window [class="Qalculate"] floating enable
 for_window [class="zoom"] floating enable
 for_window [class="PCSX2"] floating enable
 
-# Plasma floats, should you choose to exercise this option
+# Plasma floats
 for_window [title="Desktop — Plasma"] kill; floating enable; border none
 for_window [class="plasmashell"] floating enable;
 for_window [class="Plasma"] floating enable; border none
@@ -59,6 +59,7 @@ bindsym $mod+w kill
 # start dmenu (a program launcher)
 bindsym $mod+Shift+s exec --no-startup-id rofi -show ssh
 bindsym $mod+d exec --no-startup-id rofi -show run
+bindsym $mod+Shift+d exec --no-startup-id rofi -show drun
 bindsym $mod+Tab exec --no-startup-id rofi -show window
 
 # change focus
@@ -224,15 +225,16 @@ bindsym $mod+r mode "resize"
 
 # Shutdown, etc. tools
 set $lock ~/.config/i3/lock.sh
-set $mode_system (System) [l] lock, [s] suspend, [tab] switch user | [Ctrl+d] logout, [Ctrl+z] hibernate, [Shift+r] reboot, [Mod+q] shutdown
+set $mode_system (System) [l] lock, [s] suspend, [m] monitor off, [tab] switch user | [Ctrl+d] logout, [Ctrl+z] hibernate, [Shift+r] reboot, [Ctrl+q] shutdown
 mode "$mode_system" {
 	bindsym l exec --no-startup-id $lock, mode "default"
+	bindsym m exec --no-startup-id $lock && xset dpms force off, mode "default"
 	bindsym s exec --no-startup-id $lock && systemctl suspend, mode "default"
 	bindsym tab exec --no-startup-id dm-tool switch-to-greeter, mode "default"
 	bindsym Ctrl+d exit
 	bindsym Ctrl+z exec --no-startup-id $lock && systemctl hibernate, mode "default"
 	bindsym Shift+r exec --no-startup-id systemctl reboot, mode "default"
-	bindsym Mod+q exec --no-startup-id systemctl poweroff, mode "default"
+	bindsym Ctrl+q exec --no-startup-id systemctl poweroff, mode "default"
 	
 	# back to normal: Enter or Escape
 	bindsym Return mode "default"

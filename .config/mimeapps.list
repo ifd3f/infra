@@ -15,6 +15,7 @@ text/x-log=sublime-text_subl.desktop;
 x-scheme-handler/http=exo-web-browser.desktop
 x-scheme-handler/https=exo-web-browser.desktop
 x-scheme-handler/trash=exo-file-manager.desktop
+text/x-chdr=sublime-text_subl.desktop;
 
 [Default Applications]
 application/json=sublime-text_subl.desktop;
