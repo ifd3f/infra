@@ -167,14 +167,14 @@ client_controls.keys = gears.table.join(
 )
 
 -- Tag management
-local function create_tag_keys(key, tagname, tag) 
-    global.keys = gears.table.join(
-        global.keys,
+local function create_tag_keys(globalkeys, key, tagname, tag) 
+    return gears.table.join(
+        globalkeys,
         awful.key({ modkey }, key,
                   function ()
-                        local tag = tags[i]
                         if tag then
                             tag:view_only()
+                            awful.screen.focus(tag.screen)
                         end
                   end,
                   {description = "show tag " .. tagname, group = "tag"}),
@@ -182,7 +182,6 @@ local function create_tag_keys(key, tagname, tag)
         awful.key({ modkey, "Shift" }, key,
                   function ()
                       if client.focus then
-                          local tag = tags[i]
                           if tag then
                               client.focus:move_to_tag(tag)
                           end
@@ -193,7 +192,6 @@ local function create_tag_keys(key, tagname, tag)
         awful.key({ modkey, "Control" }, key,
                   function ()
                         local screen = awful.screen.focused()
-                        local tag = tags[i]
                         if tag then
                            sharedtags.viewonly(tag, screen)
                         end
@@ -205,38 +203,7 @@ end
 for i = 1, 9 do
     local key = "#" .. i + 9
     local tag = "#" .. i
-    global.keys = gears.table.join(
-        global.keys,
-        awful.key({ modkey }, key,
-                  function ()
-                        local tag = tags[i]
-                        if tag then
-                            tag:view_only()
-                        end
-                  end,
-                  {description = "show tag " .. tag, group = "tag"}),
-
-        awful.key({ modkey, "Shift" }, key,
-                  function ()
-                      if client.focus then
-                          local tag = tags[i]
-                          if tag then
-                              client.focus:move_to_tag(tag)
-                          end
-                     end
-                  end,
-                  {description = "move focused client to tag " .. tag, group = "tag"}),
-
-        awful.key({ modkey, "Control" }, key,
-                  function ()
-                        local screen = awful.screen.focused()
-                        local tag = tags[i]
-                        if tag then
-                           sharedtags.viewonly(tag, screen)
-                        end
-                  end,
-                  {description = "move tag " .. tag .. " to current screen", group = "tag"})
-    )
+    global.keys = create_tag_keys(global.keys, key, tag, tags[i])
 end
 
 client_controls.buttons = gears.table.join(
