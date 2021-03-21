@@ -56,7 +56,7 @@ global.keys = gears.table.join(
     awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_bydirection("up") end,
               {description = "focus the screen above", group = "screen"}),
 
-    awful.key({ modkey,           }, "u", awful.client.urgent.jumpto,
+    awful.key({ modkey,           }, ";", awful.client.urgent.jumpto,
               {description = "jump to urgent client", group = "client"}),
     awful.key({ modkey,           }, "Tab",
         function ()
@@ -89,10 +89,10 @@ global.keys = gears.table.join(
               {description = "increase the number of columns", group = "layout"}),
     awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1, nil, true)    end,
               {description = "decrease the number of columns", group = "layout"}),
-    awful.key({ modkey,           }, "q", function () awful.layout.inc( 1)                end,
-              {description = "select next", group = "layout"}),
-    awful.key({ modkey, "Shift"   }, "a", function () awful.layout.inc(-1)                end,
-              {description = "select previous", group = "layout"}),
+    awful.key({ modkey,           }, "z", function () awful.layout.inc( 1)                end,
+              {description = "select next pattern", group = "layout"}),
+    awful.key({ modkey, "Shift"   }, "x", function () awful.layout.inc(-1)                end,
+              {description = "select previous pattern", group = "layout"}),
 
     awful.key({ modkey, "Control" }, "n",
               function ()
@@ -110,7 +110,7 @@ global.keys = gears.table.join(
     awful.key({ modkey },            "r",     function () awful.screen.focused().mypromptbox:run() end,
               {description = "run prompt", group = "launcher"}),
 
-    awful.key({ modkey }, "x",
+    awful.key({ modkey }, "`",
               function ()
                   awful.prompt.run {
                     prompt       = "Run Lua code: ",
@@ -129,7 +129,7 @@ client_controls.keys = gears.table.join(
             c:raise()
         end,
         {description = "toggle fullscreen", group = "client"}),
-    awful.key({ modkey            }, "w", function (c) c:kill() end,
+    awful.key({ modkey            }, "q", function (c) c:kill() end,
               {description = "close", group = "client"}),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
               {description = "toggle floating", group = "client"}),
