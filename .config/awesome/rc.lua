@@ -21,6 +21,14 @@ local debian = require("debian.menu")
 local has_fdo, freedesktop = pcall(require, "freedesktop")
 
 local controls = require 'keys'
+local tags = require 'tags'
+
+awesome.connect_signal(
+    'startup',
+    function(args)
+        tags.configure_monitors()
+    end
+) 
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to

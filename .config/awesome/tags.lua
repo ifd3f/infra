@@ -12,6 +12,10 @@ awful.layout.layouts = {
 }
 -- }}}
 
+local function configure_monitors()
+    awful.spawn("$HOME/bin/conf-monitors.sh")
+end
+
 local function get_tag_name_from_index(i)
     if i > 10 then 
         local top_row = {"y", "u", "i", "o", "p"}
@@ -41,5 +45,9 @@ local function get_tags()
     return arr
 end
 
-return { tags = sharedtags(get_tags()), get_tag_name_from_index = get_tag_name_from_index }
+return {
+    configure_monitors = configure_monitors,
+    tags = sharedtags(get_tags()), 
+    get_tag_name_from_index = get_tag_name_from_index 
+}
 
