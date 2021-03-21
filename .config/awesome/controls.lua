@@ -135,7 +135,7 @@ client_controls.keys = gears.table.join(
             c:raise()
         end ,
         {description = "(un)maximize horizontally", group = "client"}),
-    awful.key({ modkey }, "n",
+    awful.key({ modkey, "Shift" }, "n",
         function ()
             local tag = tags.next_empty_tag()
             if tag then 
@@ -143,7 +143,16 @@ client_controls.keys = gears.table.join(
                 awful.screen.focus(tag.screen)
             end 
         end,
-        {description = "open next empty tag", group = "tag"}) 
+        {description = "open first empty tag anywhere", group = "tag"}),
+    awful.key({ modkey }, "n",
+        function ()
+            local screen = awful.screen.focused()
+            local tag = tags.next_empty_tag(screen)
+            if tag then 
+                tag:view_only()
+            end 
+        end,
+        {description = "open next empty tag on this screen", group = "tag"}) 
 )
 
 -- Tag management
