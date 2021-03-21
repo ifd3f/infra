@@ -12,20 +12,28 @@ awful.layout.layouts = {
 }
 -- }}}
 
+local function get_tag_name_from_index(i)
+    if i > 10 then 
+        local top_row = {"q", "w", "e", "r", "t", "y", "u", "i", "o", "p"}
+        return top_row[i - 10]
+    end
+    if i == 10 then 
+        return "0"
+    end 
+    return tostring(i)
+end
+
+
 local function get_tags() 
     local arr = {}
 
-    for i = 1, 10 do
-        local name = tostring(i) 
-        if i == 10 then
-            name = "0"
-        end
+    for i = 1, 20 do
         table.insert(
             arr,
             { 
-                name = name, 
+                name = get_tag_name_from_index(i), 
                 layout = awful.layout.layouts[1],
-                screen = i % screen:count() + 1
+                screen = i % screen:count() + 1,
             }
         )
     end
@@ -33,4 +41,5 @@ local function get_tags()
     return arr
 end
 
-return sharedtags(get_tags())
+return { tags = sharedtags(get_tags()), get_tag_name_from_index = get_tag_name_from_index }
+

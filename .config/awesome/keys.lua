@@ -13,10 +13,7 @@ local hyper = {"Mod1", "Mod4", "Control", "Shift"}
 local global = {}
 local client_controls = {}
 
-global.buttons = gears.table.join(
-    awful.button({ }, 4, awful.tag.viewnext),
-    awful.button({ }, 5, awful.tag.viewprev)
-)
+global.buttons = {}
 
 global.keys = gears.table.join(
     awful.key({ modkey,           }, "/",      hotkeys_popup.show_help,
@@ -107,9 +104,6 @@ global.keys = gears.table.join(
               {description = "restore minimized", group = "client"}),
 
     -- Prompt
-    awful.key({ modkey },            "r",     function () awful.screen.focused().mypromptbox:run() end,
-              {description = "run prompt", group = "launcher"}),
-
     awful.key({ modkey }, "`",
               function ()
                   awful.prompt.run {
@@ -129,7 +123,7 @@ client_controls.keys = gears.table.join(
             c:raise()
         end,
         {description = "toggle fullscreen", group = "client"}),
-    awful.key({ modkey            }, "q", function (c) c:kill() end,
+    awful.key({ modkey            }, "c", function (c) c:kill() end,
               {description = "close", group = "client"}),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
               {description = "toggle floating", group = "client"}),
@@ -200,10 +194,9 @@ local function create_tag_keys(globalkeys, key, tagname, tag)
     )
 end
 
-for i = 1, 9 do
-    local key = "#" .. i + 9
-    local tag = "#" .. i
-    global.keys = create_tag_keys(global.keys, key, tag, tags[i])
+for i = 1, 20 do
+    local key = tags.get_tag_name_from_index(i)
+    global.keys = create_tag_keys(global.keys, key, key, tags.tags[i])
 end
 
 client_controls.buttons = gears.table.join(

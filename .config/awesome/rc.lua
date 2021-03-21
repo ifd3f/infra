@@ -20,7 +20,6 @@ local menubar = require("menubar")
 local debian = require("debian.menu")
 local has_fdo, freedesktop = pcall(require, "freedesktop")
 
-local tags = require 'tags'
 local controls = require 'keys'
 
 -- {{{ Error handling
