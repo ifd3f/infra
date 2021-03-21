@@ -46,10 +46,16 @@ global.keys = gears.table.join(
               {description = "swap with next client by index", group = "client"}),
     awful.key({ modkey, "Shift"   }, "k", function () awful.client.swap.byidx( -1)    end,
               {description = "swap with previous client by index", group = "client"}),
-    awful.key({ modkey, "Control" }, "j", function () awful.screen.focus_relative( 1) end,
-              {description = "focus the next screen", group = "screen"}),
-    awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end,
-              {description = "focus the previous screen", group = "screen"}),
+
+    awful.key({ modkey, "Control" }, "h", function () awful.screen.focus_bydirection("left") end,
+              {description = "focus the screen left", group = "screen"}),
+    awful.key({ modkey, "Control" }, "l", function () awful.screen.focus_bydirection("right") end,
+              {description = "focus the screen right", group = "screen"}),
+    awful.key({ modkey, "Control" }, "j", function () awful.screen.focus_bydirection("down") end,
+              {description = "focus the screen below", group = "screen"}),
+    awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_bydirection("up") end,
+              {description = "focus the screen above", group = "screen"}),
+
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto,
               {description = "jump to urgent client", group = "client"}),
     awful.key({ modkey,           }, "Tab",
@@ -116,14 +122,14 @@ global.keys = gears.table.join(
               {description = "lua execute prompt", group = "awesome"})
 )
 
-client.keys = gears.table.join(
+client_controls.keys = gears.table.join(
     awful.key({ modkey,           }, "f",
         function (c)
             c.fullscreen = not c.fullscreen
             c:raise()
         end,
         {description = "toggle fullscreen", group = "client"}),
-    awful.key({ modkey            }, "w",      function (c) c:kill()                         end,
+    awful.key({ modkey            }, "w", function (c) c:kill() end,
               {description = "close", group = "client"}),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
               {description = "toggle floating", group = "client"}),
@@ -160,30 +166,20 @@ client.keys = gears.table.join(
         {description = "(un)maximize horizontally", group = "client"})
 )
 
-for i = 1, 9 do
-    global.keys = gears.table.join(global.keys,
-        -- View tag only.
-        awful.key({ modkey }, "#" .. i + 9,
+-- Tag management
+local function create_tag_keys(key, tagname, tag) 
+    global.keys = gears.table.join(
+        global.keys,
+        awful.key({ modkey }, key,
                   function ()
-                        local screen = awful.screen.focused()
                         local tag = tags[i]
                         if tag then
-                           sharedtags.viewonly(tag, screen)
+                            tag:view_only()
                         end
                   end,
-                  {description = "view tag #"..i, group = "tag"}),
-        -- Toggle tag display.
-        awful.key({ modkey, "Control" }, "#" .. i + 9,
-                  function ()
-                      local screen = awful.screen.focused()
-                      local tag = tags[i]
-                      if tag then
-                         sharedtags.viewtoggle(tag, screen)
-                      end
-                  end,
-                  {description = "toggle tag #" .. i, group = "tag"}),
-        -- Move client to tag.
-        awful.key({ modkey, "Shift" }, "#" .. i + 9,
+                  {description = "show tag " .. tagname, group = "tag"}),
+
+        awful.key({ modkey, "Shift" }, key,
                   function ()
                       if client.focus then
                           local tag = tags[i]
@@ -192,18 +188,54 @@ for i = 1, 9 do
                           end
                      end
                   end,
-                  {description = "move focused client to tag #"..i, group = "tag"}),
-        -- Toggle tag on focused client.
-        awful.key({ modkey, "Control", "Shift" }, "#" .. i + 9,
+                  {description = "move focused client to tag " .. tagname, group = "tag"}),
+
+        awful.key({ modkey, "Control" }, key,
+                  function ()
+                        local screen = awful.screen.focused()
+                        local tag = tags[i]
+                        if tag then
+                           sharedtags.viewonly(tag, screen)
+                        end
+                  end,
+                  {description = "move tag " .. tagname .. " to current screen", group = "tag"})
+    )
+end
+
+for i = 1, 9 do
+    local key = "#" .. i + 9
+    local tag = "#" .. i
+    global.keys = gears.table.join(
+        global.keys,
+        awful.key({ modkey }, key,
+                  function ()
+                        local tag = tags[i]
+                        if tag then
+                            tag:view_only()
+                        end
+                  end,
+                  {description = "show tag " .. tag, group = "tag"}),
+
+        awful.key({ modkey, "Shift" }, key,
                   function ()
                       if client.focus then
                           local tag = tags[i]
                           if tag then
-                              client.focus:toggle_tag(tag)
+                              client.focus:move_to_tag(tag)
                           end
-                      end
+                     end
                   end,
-                  {description = "toggle focused client on tag #" .. i, group = "tag"})
+                  {description = "move focused client to tag " .. tag, group = "tag"}),
+
+        awful.key({ modkey, "Control" }, key,
+                  function ()
+                        local screen = awful.screen.focused()
+                        local tag = tags[i]
+                        if tag then
+                           sharedtags.viewonly(tag, screen)
+                        end
+                  end,
+                  {description = "move tag " .. tag .. " to current screen", group = "tag"})
     )
 end
 

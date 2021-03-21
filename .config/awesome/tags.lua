@@ -20,7 +20,14 @@ local function get_tags()
         if i == 10 then
             name = "0"
         end
-        table.insert(arr, { name = name, layout = awful.layout.layouts[1]})
+        table.insert(
+            arr,
+            { 
+                name = name, 
+                layout = awful.layout.layouts[1],
+                screen = i % screen:count() + 1
+            }
+        )
     end
 
     return arr
