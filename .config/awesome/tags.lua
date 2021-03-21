@@ -14,7 +14,7 @@ awful.layout.layouts = {
 
 local function get_tag_name_from_index(i)
     if i > 10 then 
-        local top_row = {"q", "w", "e", "r", "t", "y", "u", "i", "o", "p"}
+        local top_row = {"y", "u", "i", "o", "p"}
         return top_row[i - 10]
     end
     if i == 10 then 
@@ -27,7 +27,7 @@ end
 local function get_tags() 
     local arr = {}
 
-    for i = 1, 20 do
+    for i = 1, 15 do
         table.insert(
             arr,
             { 

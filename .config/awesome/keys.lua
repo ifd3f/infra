@@ -55,17 +55,13 @@ global.keys = gears.table.join(
 
     awful.key({ modkey,           }, ";", awful.client.urgent.jumpto,
               {description = "jump to urgent client", group = "client"}),
-    awful.key({ modkey,           }, "Tab",
-        function ()
-            awful.client.focus.history.previous()
-            if client.focus then
-                client.focus:raise()
-            end
-        end,
+    awful.key({ modkey,           }, "Tab", function () awful.spawn("rofi -show window") end,
         {description = "go back", group = "client"}),
 
     -- Standard program
-    awful.key({ modkey,           }, "d", function () awful.spawn("rofi -show run") end,
+    awful.key({ modkey, "Shift" }, "d", function () awful.spawn("rofi -show drun") end,
+              {description = "open Rofi", group = "launcher"}),
+    awful.key({ modkey }, "d", function () awful.spawn("rofi -show run") end,
               {description = "open Rofi", group = "launcher"}),
     awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
               {description = "open a terminal", group = "launcher"}),
@@ -123,7 +119,7 @@ client_controls.keys = gears.table.join(
             c:raise()
         end,
         {description = "toggle fullscreen", group = "client"}),
-    awful.key({ modkey            }, "c", function (c) c:kill() end,
+    awful.key({ modkey            }, "w", function (c) c:kill() end,
               {description = "close", group = "client"}),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
               {description = "toggle floating", group = "client"}),
@@ -194,7 +190,7 @@ local function create_tag_keys(globalkeys, key, tagname, tag)
     )
 end
 
-for i = 1, 20 do
+for i = 1, 15 do
     local key = tags.get_tag_name_from_index(i)
     global.keys = create_tag_keys(global.keys, key, key, tags.tags[i])
 end
