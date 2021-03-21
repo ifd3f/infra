@@ -27,8 +27,7 @@ local function get_tag_name_from_index(i)
     return tostring(i)
 end
 
-
-local function get_tags() 
+local tags = sharedtags((function() 
     local arr = {}
 
     for i = 1, 15 do
@@ -43,11 +42,30 @@ local function get_tags()
     end
 
     return arr
+end)())
+
+local function next_empty_tag(screen_index)
+    for _, tag in ipairs(tags) do 
+        if screen_index ~= nil and tag.screen ~= screen_index then 
+            goto continue
+        end
+
+        local clients = tag:clients()
+
+        if #clients == 0 then 
+            return tag 
+        end
+
+        ::continue::
+    end
+
+    return nil
 end
 
 return {
     configure_monitors = configure_monitors,
-    tags = sharedtags(get_tags()), 
-    get_tag_name_from_index = get_tag_name_from_index 
+    tags = tags,
+    get_tag_name_from_index = get_tag_name_from_index,
+    next_empty_tag = next_empty_tag
 }
 

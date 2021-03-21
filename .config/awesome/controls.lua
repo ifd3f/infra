@@ -65,7 +65,7 @@ global.keys = gears.table.join(
               {description = "open Rofi", group = "launcher"}),
     awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
               {description = "open a terminal", group = "launcher"}),
-    awful.key({ modkey, "Shift" }, "r", awesome.restart,
+    awful.key({ modkey, "Control" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
     awful.key({ modkey, "Shift" }, "e", function () system_menu:toggle() end,
               {description = "open system menu", group = "awesome"}),
@@ -86,18 +86,6 @@ global.keys = gears.table.join(
               {description = "select next pattern", group = "layout"}),
     awful.key({ modkey, "Shift"   }, "x", function () awful.layout.inc(-1)                end,
               {description = "select previous pattern", group = "layout"}),
-
-    awful.key({ modkey, "Control" }, "n",
-              function ()
-                  local c = awful.client.restore()
-                  -- Focus restored client
-                  if c then
-                    c:emit_signal(
-                        "request::activate", "key.unminimize", {raise = true}
-                    )
-                  end
-              end,
-              {description = "restore minimized", group = "client"}),
 
     -- Prompt
     awful.key({ modkey }, "`",
@@ -129,13 +117,6 @@ client_controls.keys = gears.table.join(
               {description = "move to screen", group = "client"}),
     awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end,
               {description = "toggle keep on top", group = "client"}),
-    awful.key({ modkey,           }, "n",
-        function (c)
-            -- The client currently has the input focus, so it cannot be
-            -- minimized, since minimized clients can't have the focus.
-            c.minimized = true
-        end ,
-        {description = "minimize", group = "client"}),
     awful.key({ modkey,           }, "m",
         function (c)
             c.maximized = not c.maximized
@@ -153,7 +134,16 @@ client_controls.keys = gears.table.join(
             c.maximized_horizontal = not c.maximized_horizontal
             c:raise()
         end ,
-        {description = "(un)maximize horizontally", group = "client"})
+        {description = "(un)maximize horizontally", group = "client"}),
+    awful.key({ modkey }, "n",
+        function ()
+            local tag = tags.next_empty_tag()
+            if tag then 
+                tag:view_only()
+                awful.screen.focus(tag.screen)
+            end 
+        end,
+        {description = "open next empty tag", group = "tag"}) 
 )
 
 -- Tag management
