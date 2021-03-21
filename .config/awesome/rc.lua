@@ -20,7 +20,7 @@ local menubar = require("menubar")
 local debian = require("debian.menu")
 local has_fdo, freedesktop = pcall(require, "freedesktop")
 
-local controls = require 'keys'
+local controls = require 'controls'
 local tags = require 'tags'
 
 awesome.connect_signal(
