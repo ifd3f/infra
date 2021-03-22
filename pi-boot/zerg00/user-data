@@ -1,6 +1,6 @@
 #cloud-config
 
-hostname: zerg00.cloud.astrid.tech
+hostname: zerg01.p.astrid.tech
 
 # SSH setup and user initialization
 chpasswd:
