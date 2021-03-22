@@ -99,7 +99,6 @@ resource "proxmox_vm_qemu" "kubernetes" {
   network {
     name = "eth0"
     bridge = "vmbr0"
-    ip = "192.168.8.${each.value.index + 40}/24"
     gw = "192.168.8.1"
   }
 }

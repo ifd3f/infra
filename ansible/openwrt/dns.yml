@@ -1,4 +1,4 @@
-- name: Turnkey Linux Firewall
+- name: OpenWRT
   hosts: turnkey
   tasks:
     - name: Open firewall ports
