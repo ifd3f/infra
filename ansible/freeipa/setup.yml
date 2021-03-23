@@ -27,6 +27,10 @@
         state: enabled
       with_items:
         - freeipa-ldaps
+        - ldap
+        - ldaps
+        - ntp
         - http
         - https
         - dns
+        - ssh

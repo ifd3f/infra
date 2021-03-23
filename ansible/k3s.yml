@@ -8,6 +8,6 @@
       command: k3sup install --sudo --ip 192.168.1.86 --user astrid
 
     - name: Install k3s agent on agents
-      command: 3sup join --sudo --ip 192.168.1.86 --user astrid --server-ip 192.168.1.89
+      command: k3sup join --sudo --ip 192.168.1.86 --user astrid --server-ip 192.168.1.89
       with_items:
         - "{{ groups.agents }}"
