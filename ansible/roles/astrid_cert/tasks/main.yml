@@ -1,0 +1,12 @@
+- name: Ensure local certs directory exists
+  file:
+    state: directory
+    path: /usr/local/share/ca-certificates
+
+- name: Copy SSL Certificate
+  ansible.builtin.copy:
+    src: ../Astrid_Tech_Internal.crt
+    dest: /usr/local/share/ca-certificates/Astrid_Tech_Internal.crt
+
+- name: Update cert index
+  shell: /usr/sbin/update-ca-certificates

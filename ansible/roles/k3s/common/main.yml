@@ -1,0 +1,15 @@
+- name: Ensure local certs directory exists
+  file: state=directory path=/usr/local/share/ca-certificates
+
+- name: Copy SSL Certificate
+  ansible.builtin.copy:
+    src: ../Astrid_Tech_Internal.crt
+    dest: /usr/share
+
+- name: Install iperf
+  ansible.builtin.apt:
+    name:
+      - iperf
+    update_cache: yes
+    cache_valid_time: 3600
+    state: latest
