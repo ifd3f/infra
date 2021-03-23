@@ -27,14 +27,7 @@ resource "random_password" "kube_password" {
   length = 32
   special = true
   number = true
-  override_special = "~!@#$%^&*"
-}
-
-resource "random_password" "kube_key" {
-  length = 32
-  number = true
-  special = true
-  override_special = "_%@{}~`[]()"
+  override_special = "~!#$%^&*"
 }
 
 resource "mysql_user" "kube" {

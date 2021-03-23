@@ -1,13 +1,13 @@
 - hosts: localhost
-  gather_facts: true
   connection: local
-  roles:
-    - role: vandot.k3sup.k3sup
   tasks:
-    - name: Install k3s server on server
-      command: k3sup install --sudo --ip 192.168.1.86 --user astrid
-
+    #- name: Install k3s server on server
+    #  command: k3sup install --sudo --ip {{groups.kubernetes_seed[0]}} --user astrid
+    # - name: Install k3s agent on agents
+    #   command: k3sup join --sudo --ip 192.168.1.86 --user astrid --server-ip 192.168.1.89
+    #   with_items:
+    #     - "{{ groups.agents }}"
     - name: Install k3s agent on agents
-      command: k3sup join --sudo --ip 192.168.1.86 --user astrid --server-ip 192.168.1.89
+      command: k3sup join --sudo --server-host kube-master.p.astrid.tech --server-user astrid --user {{hostvars[item].ansible_user}} --host {{item}}
       with_items:
-        - "{{ groups.agents }}"
+        - "{{ groups.kubernetes_agent }}"
