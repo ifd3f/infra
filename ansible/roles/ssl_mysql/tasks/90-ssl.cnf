@@ -1,0 +1,4 @@
+[client-mariadb]
+ssl_cert = /etc/mysql/ssl/mysql0.crt
+ssl_key = /etc/mysql/ssl/privkey.pem
+ssl_ca = /usr/local/share/ca-certificates/Astrid_Tech_Internal.crt

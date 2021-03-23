@@ -40,12 +40,17 @@ resource "random_password" "kube_key" {
 resource "mysql_user" "kube" {
   user = "kube"
   plaintext_password  = random_password.kube_password.result
-  host = "192.168.1.%"
+  host = "%"
+}
+
+resource "local_file" "kube_password" {
+  content = random_password.kube_password.result
+  filename = "${path.module}/credentials/mysql_${mysql_user.kube.user}.txt"
 }
 
 resource "mysql_grant" "kube" {
   user = mysql_user.kube.user
   host = mysql_user.kube.host
   database = mysql_database.kube.name
-  privileges = ["ALL PRIVILEGES"]
+  privileges = ["ALL"]
 }
