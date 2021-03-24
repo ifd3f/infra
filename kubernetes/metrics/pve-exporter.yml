@@ -5,15 +5,15 @@ metadata:
   name: prometheus-node-exporter
   namespace: metrics
 spec:
-  serviceName: firefly
+  serviceName: pve-exporter
   replicas: 1
   selector:
     matchLabels:
-      app: firefly-app
+      app: pve-exporter
   template:
     metadata:
       labels:
-        app: firefly-app
+        app: pve-exporter
     spec:
       containers:
         - name: app
@@ -22,33 +22,8 @@ spec:
             limits:
               cpu: 500m
               memory: 500Mi
-          env:
-            - name: DB_CONNECTION
-              value: mysql
-            - name: DB_HOST
-              value: db
-            - name: DB_PORT
-              value: "3306"
-            - name: DB_DATABASE
-              value: firefly
-            - name: DB_USERNAME
-              value: firefly
-          envFrom:
-            - secretRef:
-                name: firefly-app-secret
           volumeMounts:
             - name: upload
               mountPath: /var/www/html/storage/upload
           ports:
             - containerPort: 8080
-  volumeClaimTemplates:
-    - metadata:
-        name: upload
-        labels:
-          app: firefly-iii
-      spec:
-        accessModes:
-          - ReadWriteOnce
-        resources:
-          requests:
-            storage: 10Gi

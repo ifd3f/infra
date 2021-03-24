@@ -28,12 +28,13 @@ spec:
               imagePullPolicy: Always
               env:
                 - name: SNAPSHOT_URL
-                  value: http://192.168.1.73/webcam/?action=snapshot
+                  value: http://octopi.p.astrid.tech/webcam/?action=snapshot
                 - name: PRINTER_ENDPOINT
                   value: https://api.astrid.tech/api/3dprinter/1/
                 - name: OCTOPRINT_ROOT
-                  value: http://192.168.1.73/
+                  value: http://octopi.p.astrid.tech/
               envFrom:
                 - secretRef:
                     name: printer-image-snapper
-          restartPolicy: OnFailure
+          restartPolicy: Never
+          activeDeadlineSeconds: 60
