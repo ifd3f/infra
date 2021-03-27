@@ -1,0 +1,17 @@
+version: "3.7"
+services:
+  shortener:
+    image: astridyu/aay_tw_shortener:latest
+    hostname: aay_tw
+    depends_on:
+      - db
+    environment:
+      TARGET_URL: astrid.tech
+    restart: always
+    networks:
+      - proxied
+
+networks:
+  proxied:
+    external:
+      name: proxied

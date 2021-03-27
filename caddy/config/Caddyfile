@@ -25,6 +25,12 @@ api.astrid.tech {
     encode zstd gzip
 }
 
+# Shortener
+aay.tw {
+    reverse_proxy * http://aay_tw
+    encode zstd gzip
+}
+
 # Trilium
 notes.astrid.tech {
     reverse_proxy * http://trilium:8080
