@@ -3,10 +3,11 @@ services:
   shortener:
     image: astridyu/aay_tw_shortener:latest
     hostname: aay_tw
-    depends_on:
-      - db
+    command: "/usr/local/bin/aay-tw"
+    expose:
+      - 8000
     environment:
-      TARGET_URL: astrid.tech
+      TARGET_URL: https://astrid.tech
     restart: always
     networks:
       - proxied

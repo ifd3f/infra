@@ -27,7 +27,7 @@ api.astrid.tech {
 
 # Shortener
 aay.tw {
-    reverse_proxy * http://aay_tw
+    reverse_proxy * http://aay_tw_shortener_1:8000
     encode zstd gzip
 }
 
