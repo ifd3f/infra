@@ -23,6 +23,9 @@ local has_fdo, freedesktop = pcall(require, "freedesktop")
 local controls = require 'controls'
 local tags = require 'tags'
 local topbar = require 'topbar'
+local startup = require 'startup'
+
+startup.spawn_startup_programs()
 
 awesome.connect_signal(
     'startup',
@@ -221,3 +224,21 @@ end)
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
+
+client.connect_signal("property::position", function(c)
+     if c.class == 'Steam' and c.floating then
+         local g = c.screen.geometry
+         local s_right = g.x + g.width
+         local s_bottom = g.y + g.height
+         if c.y + c.height > s_bottom then
+             c.y = s_bottom - c.height
+             naughty.notify{
+                 text = "restricted window: " .. c.name .. " on screen " .. c.screen.index,
+             }
+         end
+         if c.x + c.width > s_right then
+             c.x = s_right - c.width
+         end
+     end
+ end)
+

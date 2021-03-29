@@ -4,6 +4,8 @@ Plug 'preservim/nerdtree'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
+" source $HOME/.config/nvim/config/cocbinds.vimrc
+
 let g:bullets_enabled_file_types = [
     \ 'markdown',
     \ 'text',

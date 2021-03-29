@@ -4,7 +4,8 @@ local tags = require 'tags'
 
 local hotkeys_popup = require("awful.hotkeys_popup")
 require "awful.hotkeys_popup.keys"
-system_menu = require 'system_menu'
+
+local system_menu = require 'system_menu' 
 
 local sharedtags = require 'sharedtags'
 local modkey = "Mod4"
@@ -109,7 +110,7 @@ client_controls.keys = gears.table.join(
         {description = "toggle fullscreen", group = "client"}),
     awful.key({ modkey            }, "w", function (c) c:kill() end,
               {description = "close", group = "client"}),
-    awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
+    awful.key({ modkey, "Shift" }, "space",  awful.client.floating.toggle                     ,
               {description = "toggle floating", group = "client"}),
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,
               {description = "move to master", group = "client"}),
