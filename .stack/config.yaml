@@ -11,7 +11,7 @@ templates:
     author-name: Astrid Yu
     author-email: astrid@astrid.tech
     copyright: Astrid Yu
-    github-username: Plenglin
+    github-username: astralbijection
 
 # The following parameter specifies stack's output styles; STYLES is a
 # colon-delimited sequence of key=value, where 'key' is a style name and
