@@ -16,8 +16,6 @@ local menubar = require("menubar")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 
--- Load Debian menu entries
-local debian = require("debian.menu")
 local has_fdo, freedesktop = pcall(require, "freedesktop")
 
 local controls = require 'controls'
@@ -65,7 +63,7 @@ beautiful.init("~/.config/awesome/theme.lua")
 beautiful.useless_gap = 10
 
 -- This is used later as the default terminal and editor to run.
-terminal = "x-terminal-emulator"
+terminal = "alacritty"
 editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -77,13 +75,15 @@ if has_fdo then
         after =  { menu_terminal }
     })
 else
-    mymainmenu = awful.menu({
-        items = {
-                  menu_awesome,
-                  { "Debian", debian.menu.Debian_menu.Debian },
-                  menu_terminal,
-                }
-    })
+    -- Load Debian menu entries
+    -- local debian = require("debian.menu")
+    -- mymainmenu = awful.menu({
+    --     items = {
+    --               menu_awesome,
+    --               { "Debian", debian.menu.Debian_menu.Debian },
+    --               menu_terminal,
+    --             }
+    -- })
 end
 
 -- Menubar configuration
