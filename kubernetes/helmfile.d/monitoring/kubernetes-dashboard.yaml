@@ -4,3 +4,7 @@ ingress:
     - kube-dashboard.astrid.tech
   paths:
     - /
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/frontend-entry-points: https # this is optional you can comment out
+

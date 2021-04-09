@@ -1,7 +1,5 @@
-- name: Set up wireguard
-  hosts: all
-  gather_facts: no
-  become: yes
+- hosts: kubernetes
+  become: true
   tasks:
     - name: Reboot
-      raw: reboot
+      reboot:

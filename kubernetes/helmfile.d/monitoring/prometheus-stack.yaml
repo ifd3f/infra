@@ -5,15 +5,15 @@ grafana:
       - grafana.astrid.tech
     path: /
 
-  persistence:
-    type: pvc
-    enabled: true
-    storageClassName: manual
-    accessModes:
-      - ReadWriteOnce
-    size: 10Gi
-    finalizers:
-      - kubernetes.io/pvc-protection
+  # persistence:
+  #   type: pvc
+  #   enabled: true
+  #   storageClassName: manual
+  #   accessModes:
+  #     - ReadWriteOnce
+  #   size: 10Gi
+  #   finalizers:
+  #     - kubernetes.io/pvc-protection
 
   plugins:
     - grafana-worldmap-panel

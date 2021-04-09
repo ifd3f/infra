@@ -1,0 +1,8 @@
+repositories:
+  - name: longhorn
+    url: https://charts.longhorn.io
+releases:
+  - name: longhorn
+    namespace: longhorn-system
+    chart: longhorn/longhorn
+    installed: true

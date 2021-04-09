@@ -1,13 +1,71 @@
-- hosts: localhost
+- name: Install k3s on the nodes
+  hosts: localhost
   connection: local
   tasks:
-    #- name: Install k3s server on server
-    #  command: k3sup install --sudo --ip {{groups.kubernetes_seed[0]}} --user astrid
-    # - name: Install k3s agent on agents
-    #   command: k3sup join --sudo --ip 192.168.1.86 --user astrid --server-ip 192.168.1.89
-    #   with_items:
-    #     - "{{ groups.agents }}"
-    - name: Install k3s agent on agents
-      command: k3sup join --sudo --server-host kube-master.p.astrid.tech --server-user astrid --user {{hostvars[item].ansible_user}} --host {{item}}
+    - name: Install k3s master
+      command: >
+        k3sup install 
+          --sudo 
+          --ip {{hostvars[groups.kubernetes_master[0]].ansible_host}} --user astrid
+          --local-path ~/.kube/config
+    - name: Install k3s agents
+      command: >
+        k3sup join 
+          --sudo 
+          --server-ip {{hostvars[groups.kubernetes_master[0]].ansible_host}} --server-user astrid 
+          --user {{hostvars[item].ansible_user}} --ip {{hostvars[groups.kubernetes_master[0]].ansible_host}}
       with_items:
+      K1071fed3280f62e207017ded789c15bc0937f76471927d911ca1cb61466b07f85f::server:73550cf32d1347bd43b899209d511286
+
         - "{{ groups.kubernetes_agent }}"
+#- hosts: kubernetes_master
+#  become: true
+#  tasks:
+#    - name: Open firewall ports
+#      ansible.builtin.iptables:
+#        chain: INPUT
+#        protocol: "{{item.protocol}}"
+#        destination_port: "{{item.port}}"
+#        ctstate: NEW
+#        jump: ACCEPT
+#        comment: "{{item.comment}}"
+#      with_items:
+#        - port: 80
+#          protocol: tcp
+#          comment: HTTP
+#        - port: 443
+#          protocol: tcp
+#          comment: HTTPS
+#        - port: 6443
+#          protocol: tcp
+#          comment: Kubernetes API
+#        - port: 10250
+#          protocol: tcp
+#          comment: Kubelet API
+#        - port: 10251
+#          protocol: tcp
+#          comment: Kube-scheduler
+#        - port: 10252
+#          protocol: tcp
+#          comment: Kube-controller-manager
+#        - port: 10255
+#          protocol: tcp
+#          comment: RO Kubelet API
+#- hosts: kubernetes_agent
+#  become: true
+#  tasks:
+#    - name: Open firewall ports
+#      ansible.builtin.iptables:
+#        chain: INPUT
+#        protocol: "{{item.protocol}}"
+#        destination_port: "{{item.port}}"
+#        ctstate: NEW
+#        jump: ACCEPT
+#        comment: "{{item.comment}}"
+#      with_items:
+#        - port: 10250
+#          protocol: tcp
+#          comment: Kubelet API
+#        - port: 10255
+#          protocol: tcp
+#          comment: RO Kubelet API
