@@ -62,15 +62,3 @@ export GLFW_DIR="/home/astrid/opengl/glfw-3.3.2"
 export IDF_PATH="/home/astrid/.lib/esp-idf"
 export PATH="$PATH:/home/astrid/.espressif/tools/xtensa-esp32s2-elf/esp-2020r3-8.4.0/xtensa-esp32s2-elf/bin"
 
-# ghcup
-. /home/astrid/.ghcup/env
-
-# SteamVR
-export PATH="$PATH:/home/astrid/.local/share/Steam/steamapps/common/SteamVR/bin/linux64/"
-
-# RISC-V Toolchain
-export PATH="$PATH:/opt/riscv/bin/"
-
-export GOBIN=/home/linuxbrew/.linuxbrew/Cellar/go/1.15.7/bin
-export env=/home/linuxbrew/.linuxbrew/Cellar/go/1.15.7/libexec
-export GOROOT=/home/astrid/golang

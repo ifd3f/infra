@@ -16,6 +16,11 @@ x-scheme-handler/http=exo-web-browser.desktop
 x-scheme-handler/https=exo-web-browser.desktop
 x-scheme-handler/trash=exo-file-manager.desktop
 text/x-chdr=sublime-text_subl.desktop;
+x-scheme-handler/rdp=org.remmina.Remmina.desktop;
+x-scheme-handler/spice=org.remmina.Remmina.desktop;
+x-scheme-handler/vnc=org.remmina.Remmina.desktop;
+x-scheme-handler/remmina=org.remmina.Remmina.desktop;
+application/x-remmina=org.remmina.Remmina.desktop;
 
 [Default Applications]
 application/json=sublime-text_subl.desktop;
@@ -54,3 +59,9 @@ x-scheme-handler/msteams=teams.desktop
 x-scheme-handler/sgnl=signal-desktop.desktop
 x-scheme-handler/slack=slack_slack.desktop
 x-scheme-handler/hyper=appimagekit-beaker-browser.desktop
+x-scheme-handler/rdp=org.remmina.Remmina.desktop
+x-scheme-handler/spice=org.remmina.Remmina.desktop
+x-scheme-handler/vnc=org.remmina.Remmina.desktop
+x-scheme-handler/remmina=org.remmina.Remmina.desktop
+application/x-remmina=org.remmina.Remmina.desktop
+x-scheme-handler/ftb=ftb-app.desktop

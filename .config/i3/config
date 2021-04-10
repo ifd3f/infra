@@ -35,7 +35,7 @@ for_window [class="krunner"] floating enable; border none
 for_window [class="Kmix"] floating enable; border none
 for_window [class="Klipper"] floating enable; border none
 for_window [class="Plasmoidviewer"] floating enable; border none
-for_window [class="(?i)*nextcloud*"] floating disable
+#for_window [class="(?i)*nextcloud*"] floating disable
 for_window [class="plasmashell" window_type="notification"] floating enable, border none, move right 700px, move down 450px, no_focus
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -141,19 +141,8 @@ bindsym $mod+F9 workspace F09
 bindsym $mod+F10 workspace F10
 bindsym $mod+F11 workspace F11
 bindsym $mod+F12 workspace F12
-bindsym $mod+Mod1+1 workspace a1
-bindsym $mod+Mod1+2 workspace a2
-bindsym $mod+Mod1+3 workspace a3
-bindsym $mod+Mod1+4 workspace a4
-bindsym $mod+Mod1+5 workspace a5
-bindsym $mod+Mod1+6 workspace a6
-bindsym $mod+Mod1+7 workspace a7
-bindsym $mod+Mod1+8 workspace a8
-bindsym $mod+Mod1+9 workspace a9
-bindsym $mod+Mod1+0 workspace a10
 
 # move focused container to workspace
-bindsym $mod+Shift+Tilde move container to workspace `
 bindsym $mod+Shift+1 move container to workspace 1
 bindsym $mod+Shift+2 move container to workspace 2
 bindsym $mod+Shift+3 move container to workspace 3
@@ -176,21 +165,11 @@ bindsym $mod+Shift+F9 move container to workspace F09
 bindsym $mod+Shift+F10 move container to workspace F10
 bindsym $mod+Shift+F11 move container to workspace F11
 bindsym $mod+Shift+F12 move container to workspace F12
-bindsym $mod+Mod1+Shift+1 move container to workspace a1
-bindsym $mod+Mod1+Shift+2 move container to workspace a2
-bindsym $mod+Mod1+Shift+3 move container to workspace a3
-bindsym $mod+Mod1+Shift+4 move container to workspace a4
-bindsym $mod+Mod1+Shift+5 move container to workspace a5
-bindsym $mod+Mod1+Shift+6 move container to workspace a6
-bindsym $mod+Mod1+Shift+7 move container to workspace a7
-bindsym $mod+Mod1+Shift+8 move container to workspace a8
-bindsym $mod+Mod1+Shift+9 move container to workspace a9
-bindsym $mod+Mod1+Shift+0 move container to workspace a10
 
 # reload the configuration file
-bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
+#bindsym $mod+Shift+r restart
 
 bar {
     position top

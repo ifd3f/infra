@@ -132,6 +132,7 @@ awful.rules.rules = {
           "pinentry",
         },
         class = {
+          "plasmashell",
           "Arandr",
           "Blueman-manager",
           "Gpick",
@@ -154,6 +155,12 @@ awful.rules.rules = {
           "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
         }
       }, properties = { floating = true }},
+    { 
+        rule_any = {
+            class = {"plasmashell"}
+        },
+        properties = { floating = true, titlebars_enabled = false }
+    },
 
     -- Add titlebars to normal clients and dialogs
     { rule_any = {type = { "normal", "dialog" }
@@ -181,6 +188,13 @@ client.connect_signal("manage", function (c)
     end
 end)
 
+-- client.connect_signal("manage", function (c)
+--     if c.title == "Desktop — Plasma" then 
+--         c:kill()
+--     elseif c.name and c.name:find("plasma") and c.type == "dock" then
+--         c:unmanage()
+--     end 
+-- end)
 -- Add a titlebar if titlebars_enabled is set to true in the rules.
 client.connect_signal("request::titlebars", function(c)
     -- buttons for the titlebar

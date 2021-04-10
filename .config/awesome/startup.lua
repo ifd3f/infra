@@ -6,7 +6,7 @@ local run_always = {
 
 local run_once = {
     "sh -c '(ps cax | grep redshift-gtk) || redshift-gtk'",
-    "flameshot",
+    "sh -c 'LC_ALL=C flameshot'",
     "nm-applet"
 }
 

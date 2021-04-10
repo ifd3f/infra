@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 PATH="/usr/local/bin:$(getconf PATH)"
 
 # Set up the prompt
@@ -47,31 +54,8 @@ autoload -Uz history-beginning-search-menu
 zle -N history-beginning-search-menu
 bindkey '^X^X' history-beginning-search-menu
 
-# Powerlevel9k
-source /usr/share/powerlevel9k/powerlevel9k.zsh-theme
-POWERLEVEL9K_CONTEXT_DEFAULT_BACKGROUND=039 
-POWERLEVEL9K_CONTEXT_DEFAULT_FOREGROUND='white'
-POWERLEVEL9K_DIR_DEFAULT_BACKGROUND=213
-POWERLEVEL9K_DIR_DEFAULT_FOREGROUND='white'
-POWERLEVEL9K_DIR_HOME_BACKGROUND=213
-POWERLEVEL9K_DIR_HOME_FOREGROUND='white'
-POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND=213
-POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND='white'
-
-POWERLEVEL9K_STATUS_OK_BACKGROUND='white'
-POWERLEVEL9K_STATUS_ERROR_BACKGROUND=165
-POWERLEVEL9K_HISTORY_BACKGROUND=213
-POWERLEVEL9K_HISTORY_FOREGROUND='white'
-POWERLEVEL9K_TIME_BACKGROUND=039
-POWERLEVEL9K_TIME_FOREGROUND='white'
-
-POWERLEVEL9K_VCS_CLEAN_BACKGROUND='white'
-POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND='white'
-POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='white'
-
-POWERLEVEL9K_DISABLE_PROMPT=true
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs vcs history time)
+# Powerlevel10k
+source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
 # LS_COLORS
 . ~/.local/share/lscolors.sh
@@ -102,3 +86,6 @@ load-nvmrc
 
 eval $(thefuck --alias)
 source <(kubectl completion zsh)
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

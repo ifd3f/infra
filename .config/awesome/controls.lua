@@ -98,7 +98,12 @@ global.keys = gears.table.join(
                     history_path = awful.util.get_cache_dir() .. "/history_eval"
                   }
               end,
-              {description = "lua execute prompt", group = "awesome"})
+              {description = "lua execute prompt", group = "awesome"}),
+
+    -- Useful stuff
+    awful.key({ "Control" }, "Print", function() awful.util.spawn("flameshot gui") end ,
+            {description = "clip screenshot", group = "screenshot"})
+        
 )
 
 client_controls.keys = gears.table.join(
