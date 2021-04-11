@@ -5,6 +5,7 @@ local run_always = {
 }
 
 local run_once = {
+    "/usr/lib/geoclue-2.0/demos/agent",
     "sh -c '(ps cax | grep redshift-gtk) || redshift-gtk'",
     "sh -c 'LC_ALL=C flameshot'",
     "nm-applet"
