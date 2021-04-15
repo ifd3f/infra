@@ -23,63 +23,70 @@ grafana:
     - grafana-worldmap-panel
 
 prometheus:
-  server:
-    persistentVolume:
-      enabled: true
   prometheusSpec:
     scrapeInterval: "10s"
 
-    secrets:
-      - prometheus-mc-basic-auth
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: longhorn
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 5Gi
 
-    additionalScrapeConfigs:
-      - job_name: external-node-exporter
-        metrics_path: /metrics/node
-        scheme: https
-        basic_auth:
-          username: prometheus
-          password_file: /etc/prometheus/secrets/prometheus-mc-basic-auth/password
-        static_configs:
-          - targets:
-              - mc.astrid.tech
-            labels:
-              nodetype: external
+#    secrets:
+#      - prometheus-mc-basic-auth
 
-      - job_name: external-minecraft-exporter
-        metrics_path: /metrics/minecraft
-        scheme: https
-        basic_auth:
-          username: prometheus
-          password_file: /etc/prometheus/secrets/prometheus-mc-basic-auth/password
-        static_configs:
-          - targets:
-              - mc.astrid.tech
-            labels:
-              app: minecraft
-
-      - job_name: external-caddy-exporter
-        metrics_path: /metrics/caddy
-        scheme: https
-        basic_auth:
-          username: prometheus
-          password_file: /etc/prometheus/secrets/prometheus-mc-basic-auth/password
-        static_configs:
-          - targets:
-              - mc.astrid.tech
-            labels:
-              app: caddy
-
-      - job_name: external-fluent-bit-exporter
-        metrics_path: /metrics/fluent-bit
-        scheme: https
-        basic_auth:
-          username: prometheus
-          password_file: /etc/prometheus/secrets/prometheus-mc-basic-auth/password
-        static_configs:
-          - targets:
-              - mc.astrid.tech
-            labels:
-              app: fluent-bit
+#    additionalScrapeConfigs:
+#      - job_name: external-node-exporter
+#        metrics_path: /metrics/node
+#        scheme: https
+#        basic_auth:
+#          username: prometheus
+#          password_file: /etc/prometheus/secrets/prometheus-mc-basic-auth/password
+#        static_configs:
+#          - targets:
+#              - mc.astrid.tech
+#            labels:
+#              nodetype: external
+#
+#      - job_name: external-minecraft-exporter
+#        metrics_path: /metrics/minecraft
+#        scheme: https
+#        basic_auth:
+#          username: prometheus
+#          password_file: /etc/prometheus/secrets/prometheus-mc-basic-auth/password
+#        static_configs:
+#          - targets:
+#              - mc.astrid.tech
+#            labels:
+#              app: minecraft
+#
+#      - job_name: external-caddy-exporter
+#        metrics_path: /metrics/caddy
+#        scheme: https
+#        basic_auth:
+#          username: prometheus
+#          password_file: /etc/prometheus/secrets/prometheus-mc-basic-auth/password
+#        static_configs:
+#          - targets:
+#              - mc.astrid.tech
+#            labels:
+#              app: caddy
+#
+#      - job_name: external-fluent-bit-exporter
+#        metrics_path: /metrics/fluent-bit
+#        scheme: https
+#        basic_auth:
+#          username: prometheus
+#          password_file: /etc/prometheus/secrets/prometheus-mc-basic-auth/password
+#        static_configs:
+#          - targets:
+#              - mc.astrid.tech
+#            labels:
+#              app: fluent-bit
 
 nodeExporter:
   extraArgs:

@@ -6,3 +6,7 @@ releases:
     namespace: longhorn-system
     chart: longhorn/longhorn
     installed: true
+    values:
+      - ingress:
+          enabled: true
+          host: longhorn.s.astrid.tech
