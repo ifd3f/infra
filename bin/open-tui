@@ -1,0 +1,11 @@
+#!/bin/bash
+tool=$1
+loc="$2"
+loc=${loc#"file://"}
+
+if [[ ! -e $loc ]]; then
+    loc=$(dirname "$loc")
+fi
+
+'alacritty -e '$tool' "'$loc'"' 
+
