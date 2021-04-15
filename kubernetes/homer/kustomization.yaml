@@ -7,5 +7,15 @@ configMapGenerator:
   - name: homer-assets
     files:
       - assets/config.yml
+      - assets/grafana.svg
+      - assets/freeipa.png
+      #- assets/proxmox.png
+      - assets/jupyter.png
+      - assets/utorrent.svg
+      - assets/kubernetes.png
+      - assets/firefly.png
+      - assets/elabftw.webp
+      - assets/spark.svg
+      - assets/longhorn.png
 resources:
   - homer.yaml

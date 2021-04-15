@@ -1,22 +1,124 @@
-title: "Astrid's Dashboard"
-subtitle: "Homer"
+title: "astrid.tech service superportal"
+subtitle: "Look at these apps, every time I look it makes me laugh"
+connectivityCheck: true
+
+stylesheet:
+  - "https://cdn.jsdelivr.net/npm/@mdi/font@5.9.55/css/materialdesignicons.min.css"
+
+links:
+  - name: "astrid.tech"
+    icon: "fas fa-house-user"
+    url: "https://astrid.etch"
+    target: "_blank"
+  - name: "GitHub"
+    icon: "fab fa-github"
+    url: "https://github.com/astralbijection"
+    target: "_blank"
 
 services:
   - name: Infrastructure
-    icon: fas fa-code-branch
+    icon: fas fa-cubes
     items:
       - name: FreeIPA
+        logo: "assets/freeipa.png"
         subtitle: Identity, Policy, Authentication
         tag: app
         url: https://ipa0.p.astrid.tech
         target: _blank
+      - name: Hypervisors
+        #logo: "assets/proxmox.png"
+        icon: fas fa-server
+        subtitle: Proxmox
+        tag: app
+        url: https://cracktop.p.astrid.tech
+        target: _blank
+      - name: Longhorn
+        logo: "assets/longhorn.png"
+        subtitle: Kubenrnetes Storage
+        tag: app
+        url: https://longhorn.s.astrid.tech
+        target: _blank
+      - name: Home Router
+        icon: fas fa-network-wired
+        subtitle: OpenWRT
+        tag: app
+        url: https://192.168.8.1
+        target: _blank
+      - name: Kubernetes Dashboard
+        logo: "assets/kubernetes.png"
+        tag: app
+        url: https://kube-dashboard.s.astrid.tech
+        target: _blank
+
   - name: Monitoring
     icon: fas fa-heartbeat
     items:
       - name: "Grafana"
-        logo: "assets/tools/sample.png"
+        logo: "assets/grafana.svg"
         subtitle: "haha graph go brrrr"
         tag: "other"
         url: "https://grafana.s.astrid.tech"
-        #type: "grafana" # optional, loads a specific component that provides extra features. MUST MATCH a file name (without file extension) available in `src/components/services`
-        target: "_blank" # optional html a tag target attribute
+        target: "_blank"
+
+  - name: Laboratory
+    icon: fas fa-table
+    items:
+      - name: OctoPrint
+        icon: fas fa-download
+        tag: "other"
+        url: "http://192.168.8.246"
+        target: "_blank"
+      - name: Jupyter Notebook
+        logo: assets/jupyter.png
+        tag: "other"
+        url: "https://jupyter.s.astrid.tech"
+        target: "_blank"
+      - name: Apache Spark
+        logo: assets/spark.svg
+        tag: "other"
+        url: "https://spark.s.astrid.tech"
+        target: "_blank"
+      - name: ELabFTW
+        logo: assets/elabftw.webp
+        tag: "other"
+        url: "https://elabftw.s.astrid.tech"
+        target: "_blank"
+
+  - name: Office
+    icon: fas fa-edit
+    items:
+      - name: Personal Notes
+        icon: fas fa-sticky-note
+        subtitle: Trilium
+        tag: "other"
+        url: "https://notes.astrid.tech"
+        target: "_blank"
+
+  - name: Finances
+    icon: fas fa-money-bill-wave
+    items:
+      - name: Firefly III
+        logo: assets/spark.svg
+        tag: "other"
+        url: "https://firefly.s.astrid.tech"
+        target: "_blank"
+      - name: Chase Bank
+        icon: fas fa-piggy-bank
+        tag: "external"
+        url: "https://chase.com"
+        target: "_blank"
+
+  - name: Games
+    icon: fas fa-dice
+    items:
+      - name: Minecraft Server Dynmap
+        icon: fas fa-cube
+        tag: "other"
+        url: "https://mc.astrid.tech"
+        target: "_blank"
+      - name: "Grand D&D Wiki"
+        icon: fas fa-dice-d20
+        subtitle: Worldbuilding Wiki
+        tag: "other"
+        url: "https://wiki.dnd.astrid.tech"
+        target: "_blank"

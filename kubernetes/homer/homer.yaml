@@ -38,6 +38,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: homer
+  annotations:
+    reloader.stakater.com/auto: "true"
 spec:
   selector:
     matchLabels:

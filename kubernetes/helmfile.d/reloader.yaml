@@ -1,0 +1,8 @@
+repositories:
+  - name: stakater
+    url: https://stakater.github.io/stakater-charts
+releases:
+  - name: reloader
+    namespace: operators
+    chart: stakater/reloader
+    installed: true
