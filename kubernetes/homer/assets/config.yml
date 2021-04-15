@@ -1,0 +1,22 @@
+title: "Astrid's Dashboard"
+subtitle: "Homer"
+
+services:
+  - name: Infrastructure
+    icon: fas fa-code-branch
+    items:
+      - name: FreeIPA
+        subtitle: Identity, Policy, Authentication
+        tag: app
+        url: https://ipa0.p.astrid.tech
+        target: _blank
+  - name: Monitoring
+    icon: fas fa-heartbeat
+    items:
+      - name: "Grafana"
+        logo: "assets/tools/sample.png"
+        subtitle: "haha graph go brrrr"
+        tag: "other"
+        url: "https://grafana.s.astrid.tech"
+        #type: "grafana" # optional, loads a specific component that provides extra features. MUST MATCH a file name (without file extension) available in `src/components/services`
+        target: "_blank" # optional html a tag target attribute

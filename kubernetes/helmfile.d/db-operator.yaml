@@ -1,0 +1,10 @@
+repositories:
+  - name: db-operator
+    url: https://kloeckner-i.github.io/db-operator/helm/
+releases:
+  - name: db-operator
+    namespace: operators
+    chart: db-operator/db-operator
+    installed: true
+    values:
+      -
