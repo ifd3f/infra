@@ -1,0 +1,15 @@
+repositories:
+  - name: aecharts
+    url: https://raw.githubusercontent.com/aescanero/helm-charts/master/
+  - name: bitnami
+    url: https://charts.bitnami.com/bitnami
+releases:
+  - name: external-dns
+    namespace: edns
+    chart: bitnami/external-dns
+    installed: true
+    values:
+      - provider: rfc2136
+        rfc2136:
+          host: ipa0.p.astrid.tech
+          zone: s.astrid.tech

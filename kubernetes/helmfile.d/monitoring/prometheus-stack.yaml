@@ -3,7 +3,12 @@ grafana:
     enabled: true
     hosts:
       - grafana.astrid.tech
+      - grafana.s.astrid.tech
     path: /
+
+  service:
+    annotations:
+      external-dns.alpha.kubernetes.io/hostname: grafana.s.astrid.tech
 
   # persistence:
   #   type: pvc
