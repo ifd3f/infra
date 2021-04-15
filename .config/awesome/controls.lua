@@ -100,10 +100,24 @@ global.keys = gears.table.join(
               end,
               {description = "lua execute prompt", group = "awesome"}),
 
-    -- Useful stuff
+    -- Screenshots
+    awful.key({ }, "Print", function() awful.util.spawn("flameshot gui") end ,
+            {description = "clip screenshot", group = "screenshot"}),
     awful.key({ "Control" }, "Print", function() awful.util.spawn("flameshot gui") end ,
-            {description = "clip screenshot", group = "screenshot"})
-        
+            {description = "clip screenshot", group = "screenshot"}),
+
+    -- Shortcuts
+    awful.key({ }, "XF86Calculator", function() awful.util.spawn("qalculate") end ,
+            {description = "Calculator", group = "shortcuts"}),
+    awful.key({ }, "XF86HomePage", function() awful.util.spawn("firefox") end ,
+            {description = "Internet Browser", group = "shortcuts"}),
+    awful.key({ }, "XF86Mail", function() awful.util.spawn("thunderbird") end ,
+            {description = "Mail", group = "shortcuts"}),
+    awful.key({ }, "XF86Explorer", function() awful.util.spawn("open-tui ranger") end ,
+            {description = "File Manager", group = "shortcuts"})
+    -- awful.key({ }, "XF86Mail", function() awful.util.spawn("thunderbird") end ,
+    --         {description = "Thunderbird", group = "shortcuts"}),
+
 )
 
 client_controls.keys = gears.table.join(

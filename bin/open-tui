@@ -7,5 +7,5 @@ if [[ ! -e $loc ]]; then
     loc=$(dirname "$loc")
 fi
 
-'alacritty -e '$tool' "'$loc'"' 
+alacritty -e $tool $loc
 
