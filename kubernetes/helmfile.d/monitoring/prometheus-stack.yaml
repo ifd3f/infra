@@ -2,7 +2,6 @@ grafana:
   ingress:
     enabled: true
     hosts:
-      - grafana.astrid.tech
       - grafana.s.astrid.tech
     path: /
 

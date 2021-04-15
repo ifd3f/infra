@@ -10,6 +10,13 @@ releases:
     installed: true
     values:
       - provider: rfc2136
+        logFormat: json
+
+        domainFilters:
+          - s.astrid.tech
         rfc2136:
           host: ipa0.p.astrid.tech
           zone: s.astrid.tech
+          tsigKeyname: k8s
+          tsigSecretAlg: hmac-sha512
+          secretName: freeipa-rfc2136

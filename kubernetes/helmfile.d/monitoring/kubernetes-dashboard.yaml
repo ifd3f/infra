@@ -1,7 +1,7 @@
 ingress:
   enabled: true
   hosts:
-    - kube-dashboard.astrid.tech
+    - kube-dashboard.s.astrid.tech
   paths:
     - /
   annotations:

@@ -11,4 +11,4 @@ aggregator:
   configMap: fluentd-conf
   ingress:
     enabled: true
-    hostname: fluentd.astrid.tech
+    hostname: fluentd.s.astrid.tech

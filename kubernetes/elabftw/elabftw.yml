@@ -21,7 +21,7 @@ metadata:
   namespace: elabftw
 spec:
   rules:
-    - host: elabftw.astrid.tech
+    - host: elabftw.s.astrid.tech
       http:
         paths:
           - path: /
