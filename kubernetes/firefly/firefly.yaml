@@ -1,10 +1,5 @@
 ---
 apiVersion: v1
-kind: Namespace
-metadata:
-  name: firefly-iii
----
-apiVersion: v1
 kind: Service
 metadata:
   name: firefly
@@ -12,8 +7,10 @@ spec:
   selector:
     app: firefly-app
   ports:
-    - port: 8080
-      name: web
+    - port: 80
+      targetPort: http
+      name: http
+      appProtocol: http
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -21,7 +18,7 @@ metadata:
   name: firefly-ingress
 spec:
   rules:
-    - host: firefly.astrid.tech
+    - host: firefly.s.astrid.tech
       http:
         paths:
           - path: /
@@ -30,7 +27,7 @@ spec:
               service:
                 name: firefly
                 port:
-                  number: 8080
+                  name: http
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -57,14 +54,38 @@ spec:
           env:
             - name: TZ
               value: America/Los_Angeles
-          envFrom:
-            - secretRef:
-                name: firefly-db
+
+              # Get database credentials and URL from KubeDB
+            - name: DB_HOST
+              value: firefly-db
+            - name: DB_PORT
+              value: "3306"
+            - name: DB_CONNECTION
+              value: "mysql"
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: firefly-db-auth
+                  key: username
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: firefly-db-auth
+                  key: password
+
+              # User-provided (or terraform-generated) app key
+            - name: APP_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: firefly-app-key
+                  key: APP_KEY
+
           volumeMounts:
             - name: upload
               mountPath: /var/www/html/storage/upload
           ports:
             - containerPort: 8080
+              name: http
   volumeClaimTemplates:
     - metadata:
         name: upload

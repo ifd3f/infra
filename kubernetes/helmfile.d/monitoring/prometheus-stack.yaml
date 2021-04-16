@@ -24,7 +24,7 @@ grafana:
 
 prometheus:
   prometheusSpec:
-    scrapeInterval: "5s"
+    scrapeInterval: "10s"
 
     storageSpec:
       volumeClaimTemplate:
@@ -34,7 +34,7 @@ prometheus:
             - ReadWriteOnce
           resources:
             requests:
-              storage: 5Gi
+              storage: 20Gi
 
     secrets:
       - prometheus-mc-basic-auth
