@@ -13,8 +13,8 @@ resource "kubernetes_secret" "firefly" {
   type = "Opaque"
 
   metadata {
-    name = "firefly-db"
-    namespace = "firefly"
+    name = "firefly-app-key"
+    namespace = "firefly-iii"
   }
 
   data = {

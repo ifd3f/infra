@@ -49,11 +49,13 @@ spec:
           image: registry.hub.docker.com/jc5x/firefly-iii:latest
           resources:
             limits:
-              cpu: 1000m
+              cpu: 300m
               memory: 500Mi
           env:
             - name: TZ
               value: America/Los_Angeles
+            - name: SITE_OWNER
+              value: astrid@astrid.tech
 
               # Get database credentials and URL from KubeDB
             - name: DB_HOST
@@ -86,10 +88,12 @@ spec:
           ports:
             - containerPort: 8080
               name: http
+
   volumeClaimTemplates:
     - metadata:
         name: upload
       spec:
+        storageClassName: longhorn
         accessModes:
           - ReadWriteOnce
         resources:

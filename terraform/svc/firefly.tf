@@ -29,6 +29,10 @@ resource "mysql_grant" "firefly" {
   privileges = ["ALL PRIVILEGES"]
 }
 
+resource "kubernetes_namespace" "firefly" {
+  
+}
+
 resource "kubernetes_secret" "firefly" {
   type = "Opaque"
 
