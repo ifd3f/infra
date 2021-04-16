@@ -1,0 +1,12 @@
+repositories:
+  - name: appscode
+    url: https://charts.appscode.com/stable/
+releases:
+  - name: kubedb
+    namespace: kube-system
+    chart: appscode/kubedb
+    installed: true
+    version: v2021.03.17
+    set:
+      - name: global.license
+        file: kubedb/license.txt

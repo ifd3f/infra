@@ -30,7 +30,7 @@ services:
         icon: fas fa-server
         subtitle: Proxmox
         tag: app
-        url: https://cracktop.p.astrid.tech
+        url: https://cracktop.p.astrid.tech:8006
         target: _blank
       - name: Longhorn
         logo: "assets/longhorn.png"
@@ -101,11 +101,6 @@ services:
         logo: assets/spark.svg
         tag: "other"
         url: "https://firefly.s.astrid.tech"
-        target: "_blank"
-      - name: Chase Bank
-        icon: fas fa-piggy-bank
-        tag: "external"
-        url: "https://chase.com"
         target: "_blank"
 
   - name: Games
