@@ -35,10 +35,11 @@ releases:
       - ./monitoring/prometheus-stack.yaml
 
   - name: kubernetes-dashboard
-    namespace: kubernetes-dashboard
+    namespace: monitoring
     chart: kubernetes-dashboard/kubernetes-dashboard
     values:
       - ./monitoring/kubernetes-dashboard.yaml
+    installed: true
 
   - name: kube-state-metrics
     namespace: kube-state-metrics
