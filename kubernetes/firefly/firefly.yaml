@@ -51,7 +51,7 @@ spec:
           resources:
             limits:
               cpu: 200m
-              memory: 2560Mi
+              memory: 256Mi
           env: # see https://github.com/firefly-iii/firefly-iii/blob/main/.env.example
             - name: TZ
               value: America/Los_Angeles

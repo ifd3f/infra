@@ -1,0 +1,55 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jellyfin
+spec:
+  selector:
+    matchLabels:
+      app: jellyfin
+  template:
+    metadata:
+      labels:
+        app: jellyfin
+    spec:
+      containers:
+        - env:
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: spec.nodeName
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.name
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.namespace
+          image: jellyfin/jellyfin
+          imagePullPolicy: IfNotPresent
+          name: jellyfin
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 1536Mi
+          ports:
+            - containerPort: 8096
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /data/media
+              name: media
+              readOnly: True
+            - mountPath: /config
+              name: jellyfin-config
+      restartPolicy: Always
+      volumes:
+        - name: media
+          persistentVolumeClaim:
+            claimName: media
+        - name: jellyfin-config
+          persistentVolumeClaim:
+            claimName: jellyfin-config
