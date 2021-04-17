@@ -19,7 +19,7 @@ metadata:
     name: synapse-ingress
 spec:
   rules:
-    - host: synapse.astrid.tech
+    - host: matrix.astrid.tech
       http:
         paths:
           - pathType: Prefix

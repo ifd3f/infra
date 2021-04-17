@@ -1,11 +1,9 @@
 repositories:
-  - name: aecharts
-    url: https://raw.githubusercontent.com/aescanero/helm-charts/master/
   - name: bitnami
     url: https://charts.bitnami.com/bitnami
 releases:
-  - name: external-dns
-    namespace: edns
+  - name: freeipa-dns-sync
+    namespace: external-dns
     chart: bitnami/external-dns
     installed: true
     values:
@@ -19,3 +17,16 @@ releases:
           tsigKeyname: k8s
           tsigSecretAlg: hmac-sha512
           secretName: freeipa-rfc2136
+
+  - name: cloudflare-dns-proxied
+    namespace: external-dns
+    chart: bitnami/external-dns
+    installed: true
+    values:
+      - provider: cloudflare
+        logFormat: json
+        domainFilters:
+          - astrid.tech
+        extraArgs:
+          exclude-domains: s.astrid.tech
+      - dns/cloudflare.secret.yaml
