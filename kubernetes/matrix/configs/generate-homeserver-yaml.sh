@@ -1,6 +1,13 @@
 #!/bin/sh
 
-cat <<-EOF
+inputs=$1
+outfile=$2
+
+# Write in regular input files
+cat $inputs/* > $outfile
+
+# Add in the database secrets
+cat >> $outfile <<-EOF
 database:
   name: psycopg2
   args:

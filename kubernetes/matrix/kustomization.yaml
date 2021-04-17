@@ -8,9 +8,9 @@ configMapGenerator:
       - configs/log.config
 
     # Needed because database can only be configured via special YAML.
-  - name: synapse-db-yaml-generator
+  - name: homeserver-yaml-generator
     files:
-      - configs/make-db-config.sh
+      - configs/generate-homeserver-yaml.sh
 
 secretGenerator:
   - name: synapse-secrets

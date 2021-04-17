@@ -7,7 +7,7 @@ spec:
     app: synapse-app
   ports:
     - port: 80
-      targetPort: 8443
+      targetPort: 8448
       appProtocol: http
       name: http
 ---
@@ -68,44 +68,47 @@ spec:
             - mountPath: /data/media_store
               name: media
 
-            # Primary config
+            # homeserver.yaml that we generated
             - mountPath: /data/homeserver.yaml
-              name: configs
+              name: homeserver-yaml
               subPath: homeserver.yaml
             # Logging configuration
             - mountPath: /data/log.config
               name: configs
-              subPath: secrets.yaml
+              subPath: log.config
 
-            # Database secrets
-            - mountPath: /etc/matrix-synapse/conf.d/db.yaml
-              name: db-yaml
-              subPath: db.yaml
             # Signing key
             - mountPath: /data/signing.key
               name: secrets
               subPath: signing.key
-            # Other secrets
-            - mountPath: /etc/matrix-synapse/conf.d/secrets.yaml
-              name: secrets
-              subPath: secrets.yaml
 
       initContainers:
-        # An EXTREMELY janky way of injecting database credentials.
+        # An EXTREMELY janky way of injecting database credentials and other secrets.
         - name: generate-db-yaml
           image: busybox
           command:
-            - sh
-            - -c
-            - make-db-config.sh > /mnt/db.yaml
+            - generate-homeserver-yaml.sh
+            - /inputs
+            - /mnt/homeserver.yaml
           envFrom:
+            # Database secrets as environment vars
             - secretRef:
                 name: synapse-db-auth
           volumeMounts:
-            - mountPath: /mnt
-              name: db-yaml
+            # Config generator script
             - mountPath: /usr/local/bin
-              name: db-config-gen
+              name: config-gen
+            # Config inputs
+            - mountPath: /inputs/base.yaml
+              name: configs
+              subPath: homeserver.yaml
+            # Secret inputs
+            - mountPath: /inputs/secrets.yaml
+              name: secrets
+              subPath: secrets.yaml
+            # Output for the homeserver.yaml
+            - mountPath: /mnt
+              name: homeserver-yaml
 
       volumes:
         - name: media
@@ -115,21 +118,19 @@ spec:
           persistentVolumeClaim:
             claimName: synapse-upload
 
-        # Various configs
+        # db.yaml generator script
+        - name: config-gen
+          configMap:
+            name: homeserver-yaml-generator
+            defaultMode: 0755
+        # homeserver.yaml configs
         - name: configs
           configMap:
             name: synapse-configs
-
-        # Various secrets
+        # homeserver.yaml secrets
         - name: secrets
           secret:
             secretName: synapse-secrets
-
-        # db.yaml generator script
-        - name: db-config-gen
-          configMap:
-            name: synapse-db-yaml-generator
-            defaultMode: 0755
-        # Intermediate db.yaml holder
-        - name: db-yaml
+        # Generated homeserver.yaml holder
+        - name: homeserver-yaml
           emptyDir: {}
