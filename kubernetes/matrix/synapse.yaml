@@ -9,7 +9,7 @@ spec:
     - port: 80
       targetPort: 8448
       appProtocol: http
-      name: http
+      name: web
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -19,7 +19,7 @@ metadata:
     name: synapse-ingress
 spec:
   rules:
-    - host: matrix.astrid.tech
+    - host: synapse.astrid.tech
       http:
         paths:
           - pathType: Prefix
