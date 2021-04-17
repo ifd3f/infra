@@ -53,20 +53,10 @@ spec:
           ports:
             - containerPort: 8448
               name: http
-          env:
-            - name: SERVER_NAME
-              value: matrix.astrid.tech
-            - name: DATABASE
-              value: postgresql
-            - name: RIOT_BASE_URL
-              value: https://element.astrid.tech
           volumeMounts:
-            # Upload media
-            - mountPath: /data/uploads
-              name: uploads
-            # Download media
-            - mountPath: /data/media_store
-              name: media
+            # Data
+            - mountPath: /data
+              name: data
 
             # homeserver.yaml that we generated
             - mountPath: /data/homeserver.yaml
@@ -83,6 +73,17 @@ spec:
               subPath: signing.key
 
       initContainers:
+        # Workaround
+        - name: fix-data-permissions
+          image: busybox
+          command:
+            - sh
+            - -c
+            - mkdir -p /mnt/media_store; chown -R 777 /mnt
+          volumeMounts:
+            - mountPath: /mnt
+              name: data
+
         # An EXTREMELY janky way of injecting database credentials and other secrets.
         - name: generate-db-yaml
           image: busybox
@@ -90,10 +91,10 @@ spec:
             - generate-homeserver-yaml.sh
             - /inputs
             - /mnt/homeserver.yaml
-          envFrom:
-            # Database secrets as environment vars
-            - secretRef:
-                name: synapse-db-auth
+          # envFrom:
+          #   # Database secrets as environment vars
+          #   - secretRef:
+          #       name: synapse-db-auth
           volumeMounts:
             # Config generator script
             - mountPath: /usr/local/bin
@@ -111,14 +112,11 @@ spec:
               name: homeserver-yaml
 
       volumes:
-        - name: media
+        - name: data
           persistentVolumeClaim:
-            claimName: synapse-media
-        - name: uploads
-          persistentVolumeClaim:
-            claimName: synapse-upload
+            claimName: synapse-data
 
-        # db.yaml generator script
+        # homeserver.yaml generator script
         - name: config-gen
           configMap:
             name: homeserver-yaml-generator

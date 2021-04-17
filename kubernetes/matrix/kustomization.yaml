@@ -7,10 +7,6 @@ configMapGenerator:
       - configs/homeserver.yaml
       - configs/log.config
 
-  - name: synapse-db-init
-    files:
-      - db/init.sql
-
     # Needed because database can only be configured via special YAML.
   - name: homeserver-yaml-generator
     files:
@@ -26,7 +22,6 @@ secretGenerator:
       - configs/signing.key
 
 resources:
-  - database.yaml
   - pvc.yaml
   - synapse.yaml
   - element.yaml
