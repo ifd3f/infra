@@ -1,9 +1,15 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: elabftw
+configMapGenerator:
+  - name: install-db-script
+    files:
+      - 99-install-db
 commonLabels:
   app: elabftw-app
 resources:
   - namespace.yaml
   - database.yaml
+  - service.yaml
   - elabftw.yaml
+  - ingress.yaml
