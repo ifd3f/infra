@@ -68,16 +68,16 @@ services:
         tag: "other"
         url: "http://192.168.8.246"
         target: "_blank"
-      - name: Jupyter Notebook
-        logo: assets/jupyter.png
-        tag: "other"
-        url: "https://jupyter.s.astrid.tech"
-        target: "_blank"
-      - name: Apache Spark
-        logo: assets/spark.svg
-        tag: "other"
-        url: "https://spark.s.astrid.tech"
-        target: "_blank"
+      #- name: Jupyter Notebook
+      #  logo: assets/jupyter.png
+      #  tag: "other"
+      #  url: "https://jupyter.s.astrid.tech"
+      #  target: "_blank"
+      #- name: Apache Spark
+      #  logo: assets/spark.svg
+      #  tag: "other"
+      #  url: "https://spark.s.astrid.tech"
+      #  target: "_blank"
       - name: ELabFTW
         logo: assets/elabftw.webp
         tag: "other"
@@ -92,6 +92,16 @@ services:
         subtitle: Trilium
         tag: "other"
         url: "https://notes.astrid.tech"
+        target: "_blank"
+
+  - name: Media
+    icon: fas fa-film
+    items:
+      - name: Jellyfin
+        icon: fas fa-film
+        subtitle: Media Player
+        tag: "other"
+        url: "https://jellyfin.s.astrid.tech"
         target: "_blank"
 
   - name: Finances
