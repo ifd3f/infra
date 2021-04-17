@@ -1,0 +1,17 @@
+apiVersion: kubedb.com/v1alpha2
+kind: Postgres
+metadata:
+  name: synapse-db
+spec:
+  version: "13.2"
+  storage:
+    storageClassName: longhorn
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: 40Gi
+  init:
+    script:
+      configMap:
+        name: synapse-db-init
