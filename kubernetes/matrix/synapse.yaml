@@ -65,7 +65,7 @@ spec:
             - mountPath: /data/uploads
               name: uploads
             # Download media
-            - mountPath: /data/media
+            - mountPath: /data/media_store
               name: media
 
             # Primary config
