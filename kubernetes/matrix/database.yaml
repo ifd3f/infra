@@ -1,7 +1,7 @@
 apiVersion: kubedb.com/v1alpha2
-kind: PostgreSQL
+kind: Postgres
 metadata:
-  name: matrix-db
+  name: synapse-db
 spec:
   version: "13.2"
   storage:

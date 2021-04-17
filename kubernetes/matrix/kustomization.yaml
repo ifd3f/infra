@@ -2,11 +2,24 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: matrix
 configMapGenerator:
-  - name: homeserver-config
+  - name: synapse-configs
     files:
       - configs/homeserver.yaml
-      - configs/matrix.astrid.tech.log.config
+      - configs/log.config
+
+    # Needed because database can only be configured via special YAML.
+  - name: synapse-db-yaml-generator
+    files:
+      - configs/make-db-config.sh
+
+secretGenerator:
+  - name: synapse-secrets
+    files:
+      - configs/secrets.yaml
+      - configs/signing.key
+
 resources:
   - database.yaml
-  - synapse.yaml
   - pvc.yaml
+  - synapse.yaml
+  - element.yaml

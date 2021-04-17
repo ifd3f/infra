@@ -14,9 +14,9 @@ limit_remote_rooms: null
 retention: null
 caches:
   per_cache_factors: null
-log_config: /data/matrix.astrid.tech.log.config
+log_config: /data/log.config
 media_store_path: /data/media_store
-signing_key_path: /data/matrix.astrid.tech.signing.key
+signing_key_path: /data/signing.key
 url_preview_accept_language: null
 account_validity: null
 account_threepid_delegates: null
