@@ -7,7 +7,7 @@ spec:
     app: synapse-app
   ports:
     - port: 80
-      targetPort: 8448
+      targetPort: 8008
       appProtocol: http
       name: web
 ---
@@ -51,22 +51,17 @@ spec:
               memory: "128Mi"
               cpu: "500m"
           ports:
-            - containerPort: 8448
-              name: http
-          env:
-            - name: SERVER_NAME
-              value: matrix.astrid.tech
-            - name: DATABASE
-              value: postgresql
-            - name: RIOT_BASE_URL
-              value: https://element.astrid.tech
+            - containerPort: 8008
+              name: federation
           volumeMounts:
-            # Upload media
+            # Upload folder
             - mountPath: /data/uploads
-              name: uploads
-            # Download media
+              name: data
+              subPath: uploads
+            # Media folder
             - mountPath: /data/media_store
-              name: media
+              name: data
+              subPath: media_store
 
             # homeserver.yaml that we generated
             - mountPath: /data/homeserver.yaml
@@ -76,7 +71,6 @@ spec:
             - mountPath: /data/log.config
               name: configs
               subPath: log.config
-
             # Signing key
             - mountPath: /data/signing.key
               name: secrets
@@ -90,10 +84,21 @@ spec:
             - generate-homeserver-yaml.sh
             - /inputs
             - /mnt/homeserver.yaml
-          envFrom:
-            # Database secrets as environment vars
-            - secretRef:
-                name: synapse-db-auth
+          env:
+            - name: username
+              valueFrom:
+                secretKeyRef:
+                  name: synapse-db-creds
+                  key: POSTGRES_USER
+            - name: password
+              valueFrom:
+                secretKeyRef:
+                  name: synapse-db-creds
+                  key: POSTGRES_PASSWORD
+            - name: db_name
+              value: synapse
+            - name: db_host
+              value: synapse-db
           volumeMounts:
             # Config generator script
             - mountPath: /usr/local/bin
@@ -111,12 +116,9 @@ spec:
               name: homeserver-yaml
 
       volumes:
-        - name: media
+        - name: data
           persistentVolumeClaim:
-            claimName: synapse-media
-        - name: uploads
-          persistentVolumeClaim:
-            claimName: synapse-upload
+            claimName: synapse-data
 
         # db.yaml generator script
         - name: config-gen

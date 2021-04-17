@@ -13,8 +13,8 @@ database:
   args:
     user: $username
     password: $password
-    database: postgresql
-    host: synapse-db
+    database: $db_name
+    host: $db_host
     cp_min: 5
     cp_max: 10
 EOF

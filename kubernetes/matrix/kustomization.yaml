@@ -7,7 +7,7 @@ configMapGenerator:
       - configs/homeserver.yaml
       - configs/log.config
 
-  - name: synapse-db-init
+  - name: db-init
     files:
       - db/init.sql
 

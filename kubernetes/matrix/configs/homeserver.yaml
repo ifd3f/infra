@@ -1,7 +1,7 @@
 server_name: matrix.astrid.tech
 pid_file: /data/homeserver.pid
 listeners:
-  - port: 80
+  - port: 8008
     tls: false
     type: http
     x_forwarded: true

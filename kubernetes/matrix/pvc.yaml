@@ -1,20 +1,7 @@
----
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: synapse-upload
-spec:
-  accessModes:
-    - ReadWriteOnce
-  storageClassName: longhorn
-  resources:
-    requests:
-      storage: 3Gi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: synapse-media
+  name: synapse-data
 spec:
   accessModes:
     - ReadWriteOnce
