@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: synapse
+spec:
+  selector:
+    matchLabels:
+      app: synapse
+  template:
+    metadata:
+      labels:
+        app: synapse
+    spec:
+      containers:
+        - name: synapse
+          image: matrixdotorg/synapse
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 8448
+            - containerPort: 8248
+            - containerPort: 3578
+          env:
+            - name: SERVER_NAME
+              value: matrix.astrid.tech
+            - name: DATABASE
+              value: postgresql
+            - name: RIOT_BASE_URL
+              value: https://element.astrid.tech
+
+              # Database configs
+            - name: DB_NAME
+              value: postgresql
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: synapse-db-auth
+                  key: username
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: synapse-db-auth
+                  key: password

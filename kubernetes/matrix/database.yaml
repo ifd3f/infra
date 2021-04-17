@@ -1,0 +1,13 @@
+apiVersion: kubedb.com/v1alpha2
+kind: PostgreSQL
+metadata:
+  name: matrix-db
+spec:
+  version: "13.2"
+  storage:
+    storageClassName: longhorn
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: 40Gi
