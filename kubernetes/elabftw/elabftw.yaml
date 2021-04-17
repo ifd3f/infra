@@ -1,0 +1,119 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: elabftw-app
+  labels:
+    app: elabftw-app
+spec:
+  ports:
+    - port: 80
+      targetPort: 443
+      appProtocol: http
+  selector:
+    app: elabftw-app
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: elabftw-ingress
+spec:
+  rules:
+    - host: elabftw.s.astrid.tech
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: elabftw
+                port:
+                  number: 80
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: elabftw-app
+  labels:
+    app: elabftw-app
+spec:
+  serviceName: elabftw
+  replicas: 1
+  selector:
+    matchLabels:
+      app: elabftw-app
+  template:
+    metadata:
+      labels:
+        app: elabftw-app
+    spec:
+      containers:
+        - name: app
+          image: elabftw/elabimg:3.6.4
+          resources:
+            limits:
+              cpu: 200m
+              memory: 256Mi
+          env:
+            &elabftwEnv # see https://github.com/elabftw/elabimg/blob/master/src/docker-compose.yml-EXAMPLE
+            - name: APP_ENV
+              value: production
+            - name: TZ
+              value: America/Los_Angeles
+            - name: DISABLE_HTTPS
+              value: "true"
+            - name: SERVER_NAME
+              value: elabftw.s.astrid.tech
+
+              # Get database credentials and URL from KubeDB
+            - name: DB_HOST
+              value: elabftw-db
+            - name: DB_PORT
+              value: "3306"
+            - name: DB_NAME
+              value: mysql
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: elabftw-db-auth
+                  key: username
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: elabftw-db-auth
+                  key: password
+
+              # User-provided (or terraform-generated) app key
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: elabftw-secret-key
+                  key: SECRET_KEY
+          volumeMounts:
+            - name: upload
+              mountPath: /elabftw/uploads
+          ports:
+            - containerPort: 443
+
+      initContainers:
+        - name: install
+          image: elabftw/elabimg:3.6.4
+          resources:
+            limits:
+              cpu: 500m
+              memory: 256Mi
+          command: [bin/install, start]
+          env: *elabftwEnv
+
+  volumeClaimTemplates:
+    - metadata:
+        name: upload
+        labels:
+          app: elabftw-app
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 10Gi
+        storageClassName: longhorn

@@ -13,7 +13,7 @@ resource "kubernetes_secret" "elabftw" {
   type = "Opaque"
 
   metadata {
-    name = "elabftw-db"
+    name = "elabftw-secret-key"
     namespace = "elabftw"
   }
 

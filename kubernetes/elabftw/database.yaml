@@ -1,0 +1,13 @@
+apiVersion: kubedb.com/v1alpha2
+kind: MariaDB
+metadata:
+  name: elabftw-db
+spec:
+  version: "10.5.8"
+  storage:
+    storageClassName: longhorn
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: 5Gi
