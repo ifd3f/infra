@@ -14,12 +14,15 @@ The following items are deployed with Kustomization:
 
 The following items are deployed using Helm Charts using a modular Helmfile structure (see `helmfile.d/`):
 
+- KubeDB
+- Rancher Longhorn
+- External DNS
 - Monitoring stack
   - Grafana
   - Prometheus
-  - Prometheus Exporters
   - Loki
   - Fluentd
   - Fluent-Bit
+  - Kubernetes Dashboard
 - Apache Spark
 - QBitTorrent
