@@ -45,24 +45,15 @@ global.keys = gears.table.join(
     awful.key({ modkey, "Shift"   }, "k", function () awful.client.swap.byidx( -1)    end,
               {description = "swap with previous client by index", group = "client"}),
 
-    awful.key({ modkey, "Control" }, "h", function () awful.screen.focus_bydirection("left") end,
-              {description = "focus the screen left", group = "screen"}),
-    awful.key({ modkey, "Control" }, "l", function () awful.screen.focus_bydirection("right") end,
-              {description = "focus the screen right", group = "screen"}),
-    awful.key({ modkey, "Control" }, "j", function () awful.screen.focus_bydirection("down") end,
-              {description = "focus the screen below", group = "screen"}),
-    awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_bydirection("up") end,
-              {description = "focus the screen above", group = "screen"}),
-
     awful.key({ modkey,           }, ";", awful.client.urgent.jumpto,
               {description = "jump to urgent client", group = "client"}),
     awful.key({ modkey,           }, "Tab", function () awful.spawn("rofi -show window") end,
         {description = "go back", group = "client"}),
 
     -- Standard program
-    awful.key({ modkey, "Shift" }, "d", function () awful.spawn("rofi -show drun") end,
+    awful.key({ modkey }, "d", function () awful.spawn("rofi -show drun") end,
               {description = "open Rofi", group = "launcher"}),
-    awful.key({ modkey }, "d", function () awful.spawn("rofi -show run") end,
+    awful.key({ modkey }, "r", function () awful.spawn("rofi -show run") end,
               {description = "open Rofi", group = "launcher"}),
     awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
               {description = "open a terminal", group = "launcher"}),
@@ -105,6 +96,16 @@ global.keys = gears.table.join(
             {description = "clip screenshot", group = "screenshot"}),
     awful.key({ "Control" }, "Print", function() awful.util.spawn("flameshot gui") end ,
             {description = "clip screenshot", group = "screenshot"}),
+    
+    -- Systems
+    awful.key({ }, "XF86AudioLowerVolume", function() awful.util.spawn("pactl -- set-sink-volume 0 -2%") end,
+        {description = "Lower volume", group = "system"}),
+    awful.key({ }, "XF86AudioRaiseVolume", function() awful.util.spawn("pactl -- set-sink-volume 0 +2%") end,
+        {description = "Raise Volume", group = "system"}),
+    awful.key({ }, "XF86MonBrightnessUp", function() awful.util.spawn("pactl -- set-sink-volume 0 +2%") end,
+        {description = "Raise brightness", group = "system"}),
+    awful.key({ }, "XF86MonBrightnessDown", function() awful.util.spawn("pactl -- set-sink-mute 0 toggle") end,
+        {description = "Lower brightness", group = "system"}),
 
     -- Shortcuts
     awful.key({ }, "XF86Calculator", function() awful.util.spawn("qalculate") end ,

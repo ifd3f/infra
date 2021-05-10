@@ -1,11 +1,11 @@
 [Desktop Entry]
 Version=1.0
-Name=xranger
+Name=Ranger
 GenericName=File Manager
 Comment=Launches the ranger file manager
-Exec=/home/astrid/bin/open-tui ranger %F
+Exec=ranger %F
 Icon=utilities-terminal
-Terminal=false
+Terminal=true
 X-MultipleArgs=false
 Type=Application
 MimeType=inode/directory;

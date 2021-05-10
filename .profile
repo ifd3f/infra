@@ -65,3 +65,5 @@ export GLFW_DIR="/home/astrid/opengl/glfw-3.3.2"
 export IDF_PATH="/home/astrid/.lib/esp-idf"
 export PATH="$PATH:/home/astrid/.espressif/tools/xtensa-esp32s2-elf/esp-2020r3-8.4.0/xtensa-esp32s2-elf/bin"
 
+# /home installed node packages
+export PATH="$PATH:/home/astrid/.npm-packages/bin"
