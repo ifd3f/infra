@@ -102,9 +102,9 @@ global.keys = gears.table.join(
         {description = "Lower volume", group = "system"}),
     awful.key({ }, "XF86AudioRaiseVolume", function() awful.util.spawn("pactl -- set-sink-volume 0 +2%") end,
         {description = "Raise Volume", group = "system"}),
-    awful.key({ }, "XF86MonBrightnessUp", function() awful.util.spawn("pactl -- set-sink-volume 0 +2%") end,
+    awful.key({ }, "XF86MonBrightnessUp", function() awful.util.spawn("screen-brightness.sh + 5") end,
         {description = "Raise brightness", group = "system"}),
-    awful.key({ }, "XF86MonBrightnessDown", function() awful.util.spawn("pactl -- set-sink-mute 0 toggle") end,
+    awful.key({ }, "XF86MonBrightnessDown", function() awful.util.spawn("screen-brightness.sh - 5") end,
         {description = "Lower brightness", group = "system"}),
 
     -- Shortcuts
