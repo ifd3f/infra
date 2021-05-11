@@ -52,6 +52,8 @@ local tasklist_buttons = gears.table.join(
 local systray = wibox.widget.systray()
 
 local function make_topbar(screen)
+    local separator = wibox.widget.textbox(' | ')
+
     local which_monitor = wibox.widget {
         markup = "<b>Monitor " .. screen.index .. "</b>> ",
         widget = wibox.widget.textbox
@@ -86,6 +88,11 @@ local function make_topbar(screen)
         buttons = tasklist_buttons
     }
 
+    -- Current volume widget
+    local volume = awful.widget.watch('pamixer --get-mute --get-volume', 5)
+
+    local power = awful.widget.watch("bash -c \"acpi -b | sed 's/Battery [0-9]: [A-Za-z]\\+, //'\"", 60)
+
     -- Create the wibox
     local bar = awful.wibar { position = "top", screen = screen }
 
@@ -103,7 +110,13 @@ local function make_topbar(screen)
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             keyboard_layout,
+            separator,
             systray,
+            separator,
+            volume,
+            separator,
+            power,
+            separator,
             clock,
             layoutbox,
         },
