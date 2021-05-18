@@ -101,7 +101,8 @@ awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
     set_wallpaper(s)
 
-    topbar.make_topbar(s)
+    local topbar_widgets = topbar.make_topbar(s)
+    s.mypromptbox = topbar_widgets.promptbox
 end)
 -- }}}
 

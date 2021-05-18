@@ -88,6 +88,8 @@ local function make_topbar(screen)
         buttons = tasklist_buttons
     }
 
+    local promptbox = awful.widget.prompt()
+
     -- Current volume widget
     local volume = awful.widget.watch('pamixer --get-mute --get-volume', 5)
 
@@ -104,6 +106,7 @@ local function make_topbar(screen)
             which_monitor,
             launcher,
             taglist,
+            separator,
             promptbox,
         },
         tasklist, -- Middle widget
@@ -120,6 +123,10 @@ local function make_topbar(screen)
             clock,
             layoutbox,
         },
+    }
+
+    return {
+        promptbox = promptbox,
     }
 end
 
