@@ -23,14 +23,18 @@
 
     // Add the IDs of extensions you want installed when the container is created.
     "extensions": [
-        "ms-azuretools.vscode-docker",
-        "ms-kubernetes-tools.vscode-kubernetes-tools",
-        "redhat.vscode-yaml",
-        "4ops.terraform",
-        "ms-toolsai.jupyter",
-        "ms-python.python",
-        "zbr.vscode-ansible"
-    ],
+		"ms-azuretools.vscode-docker",
+		"ms-kubernetes-tools.vscode-kubernetes-tools",
+		"redhat.vscode-yaml",
+		"4ops.terraform",
+		"ms-toolsai.jupyter",
+		"ms-python.python",
+		"zbr.vscode-ansible",
+		"tim-koehler.helm-intellisense",
+		"mindaro.mindaro",
+		"gruntfuggly.todo-tree",
+		"yzhang.markdown-all-in-one"
+	],
 
     "runArgs": [ "--network", "minikube" ],
 
