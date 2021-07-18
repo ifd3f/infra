@@ -29,9 +29,11 @@ RUN curl -s https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-
 
 # Script copies localhost's ~/.kube/config file into the container and swaps out 
 # localhost for host.docker.internal on bash/zsh start to keep them in sync.
-COPY copy-kube-config.sh /usr/local/share/
+COPY copy-kube-config.sh shell-customization.zsh /usr/local/share/
 RUN chown ${USERNAME}:root /usr/local/share/copy-kube-config.sh \
     && echo "source /usr/local/share/copy-kube-config.sh" | tee -a /root/.bashrc /root/.zshrc /home/${USERNAME}/.bashrc >> /home/${USERNAME}/.zshrc
+RUN chown ${USERNAME}:root /usr/local/share/shell-customization.zsh \
+    && echo "source /usr/local/share/shell-customization.zsh" | tee -a /root/.zshrc >> /home/${USERNAME}/.zshrc
 
 # Add hashicorp repo (https://learn.hashicorp.com/tutorials/terraform/install-cli)
 RUN echo "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/hashicorp.list \
