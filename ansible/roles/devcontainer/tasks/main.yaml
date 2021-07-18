@@ -1,11 +1,11 @@
 - name: Ensure service hostnames point to minikube
   block:
     - name: Get minikube's IP
-      ansible.builtin.command: dig minikube +short
+      shell: minikube ip || dig minikube +short 
       register: minikube_ip
 
     - name: Get ingress hosts
-      ansible.builtin.shell: >
+      shell: >
         kubectl get ingress -A -o json | jq '.items[].spec.rules[].host' -r 
       register: ingress_hosts
 
