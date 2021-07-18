@@ -33,6 +33,43 @@ COPY copy-kube-config.sh /usr/local/share/
 RUN chown ${USERNAME}:root /usr/local/share/copy-kube-config.sh \
     && echo "source /usr/local/share/copy-kube-config.sh" | tee -a /root/.bashrc /root/.zshrc /home/${USERNAME}/.bashrc >> /home/${USERNAME}/.zshrc
 
-# [Optional] Uncomment this section to install additional OS packages.
-# RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-#     && apt-get -y install --no-install-recommends <your-package-list-here>
+# Add hashicorp repo (https://learn.hashicorp.com/tutorials/terraform/install-cli)
+RUN echo "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/hashicorp.list \
+    && (curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add -) 
+
+# Add ansible repo (https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-ansible-on-debian)
+RUN (echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main" | tee /etc/apt/sources.list.d/ansible.list) \
+    && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
+
+# Add GitHub repo 
+RUN (curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo gpg --dearmor -o /usr/share/keyrings/githubcli-archive-keyring.gpg) \
+    && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+
+# Install additional packages.
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+    && apt-get -y install --no-install-recommends \
+        neovim \
+        gh \
+        terraform \
+        ansible \
+        default-mysql-client \
+        postgresql-client \
+        influxdb-client \
+        tcpdump \
+        host \
+        wget \
+        netcat \
+        whois \
+        dnsutils \
+        iputils-arping \
+        iputils-tracepath \ 
+        iputils-clockdiff 
+        
+# Install helm-diff for helmfile apply
+RUN helm plugin install https://github.com/databus23/helm-diff
+
+# Install helmfile
+RUN curl https://github.com/roboll/helmfile/releases/download/v0.139.9/helmfile_linux_amd64 -o /usr/local/bin/helmfile
+
+# Install k3sup
+RUN curl -sLS https://get.k3sup.dev | sh 

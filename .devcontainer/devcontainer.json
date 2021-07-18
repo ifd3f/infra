@@ -1,7 +1,7 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.163.1/containers/kubernetes-helm
 {
-	"name": "Kubernetes & Helm",
+	"name": "Cloud Administration Container",
 	"dockerFile": "Dockerfile",
 
 	"remoteEnv": {
@@ -23,7 +23,12 @@
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
 		"ms-azuretools.vscode-docker",
-		"ms-kubernetes-tools.vscode-kubernetes-tools"
+		"ms-kubernetes-tools.vscode-kubernetes-tools",
+		"redhat.vscode-yaml",
+		"4ops.terraform",
+		"ms-toolsai.jupyter",
+		"ms-python.python",
+		"zbr.vscode-ansible"
 	]
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
