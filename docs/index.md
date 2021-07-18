@@ -4,10 +4,10 @@ A simple wiki documenting my "cloud." If I ever bang my head on a steel bar and 
 
 ## Development Environment
 
-- [Set up the dev environment](./dev-setup.md)
-    - [List of included utilities](./included-utils.md)
+- [Set up the dev environment](./dev-setup)
+    - [List of included utilities](./included-utils)
 
 ## Deployment
 
 - [Catalog of planned and deployed services](./services)
-- [DNS Zones](./dns.md)
+- [Network zones and allocations](./network)
