@@ -1,0 +1,20 @@
+- name: Ensure service hostnames point to minikube
+  block:
+    - name: Get minikube's IP
+      ansible.builtin.command: dig minikube +short
+      register: minikube_ip
+
+    - ansible.builtin.debug: 
+        msg: Minikube is on {{ minikube_ip.stdout }}
+
+    - name: Ensure /etc/hosts points our service hostnames to minikube
+      ansible.builtin.lineinfile:
+        path: /etc/hosts
+        regex: "{{ item | regex_replace('\\.', '\\\\.') }}"
+        line: "{{ minikube_ip.stdout }}\t{{ item }}"
+        create: yes
+        unsafe_writes: yes # or else Docker gets angery
+      with_items:
+        - firefly.s.astrid.tech
+        - elabftw.s.astrid.tech
+        - longhorn.s.astrid.tech

@@ -4,8 +4,29 @@
 
 We test our Kubernetes deployments using Minikube.
 
-1. Start up Minikube with `minikube start`
-2. Open this VS Code workspace in a dev container, and it will have a lot of useful tools
+First, set up Minikube on your machine (not a container) with 
+
+```sh
+minikube start 
+minikube addons enable ingress
+minikube ssh "sudo apt-get update && sudo apt-get install -y open-iscsi"  # for Longhorn
+```
+
+Now, you can open this VS Code workspace in a dev container.
+
+### Post-docker startup configurations
+
+In the devcontainer, run:
+
+```sh
+ansible-playbook ansible/setup_devcontainer.yaml
+```
+
+### Setting up Longhorn
+
+```sh
+helmfile -f kubernetes/helmfile.d/00-longhorn.yaml
+```
 
 ### Setting up KubeDB
 
