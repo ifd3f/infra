@@ -69,7 +69,12 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 RUN helm plugin install https://github.com/databus23/helm-diff
 
 # Install helmfile
-RUN curl https://github.com/roboll/helmfile/releases/download/v0.139.9/helmfile_linux_amd64 -o /usr/local/bin/helmfile
+RUN curl -sSL -o /usr/local/bin/helmfile https://github.com/roboll/helmfile/releases/download/v0.139.9/helmfile_linux_amd64 \
+    && chmod +x /usr/local/bin/helmfile
+
+# Install KubeDB CLI
+RUN curl -sSL -o /usr/local/bin/kubedb https://github.com/kubedb/cli/releases/download/0.8.0/kubedb-linux-amd64 \
+    && chmod +x /usr/local/bin/kubedb 
 
 # Install k3sup
 RUN curl -sLS https://get.k3sup.dev | sh 
