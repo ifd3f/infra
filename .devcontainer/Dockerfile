@@ -78,3 +78,10 @@ RUN curl -sSL -o /usr/local/bin/kubedb https://github.com/kubedb/cli/releases/do
 
 # Install k3sup
 RUN curl -sLS https://get.k3sup.dev | sh 
+
+# Install kgctl
+RUN curl -sSL -o /usr/local/bin/kgctl https://github.com/squat/kilo/releases/download/0.3.0/kgctl-linux-amd64 \
+    && chmod +x /usr/local/bin/kgctl 
+
+# Add in some useful scripts for debugging
+COPY bin/* /usr/local/bin/
