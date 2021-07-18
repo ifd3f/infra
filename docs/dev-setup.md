@@ -22,6 +22,8 @@ In the devcontainer, run:
 ansible-playbook ansible/setup_devcontainer.yaml
 ```
 
+Rerun this whenever you update any ingresses.
+
 ### Setting up Longhorn
 
 ```sh
