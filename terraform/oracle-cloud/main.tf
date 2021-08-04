@@ -41,7 +41,7 @@ resource "oci_core_instance" "micro_instance" {
 
   create_vnic_details {
     subnet_id        = oci_core_subnet.main.id
-    assign_public_ip = false
+    assign_public_ip = true
   }
 
   source_details {
@@ -51,12 +51,35 @@ resource "oci_core_instance" "micro_instance" {
   }
 }
 
-module "micro_instance_ips" {
+/*
+TODO create when these instances are available again
+
+resource "oci_core_instance" "ampere_instance" {
   count = local.free_micro_instances
+
+  display_name        = "oci-ampere-${count.index}.h.astrid.tech"
+  availability_domain = local.ad
+  compartment_id      = local.compartment_id
+  shape               = "VM.Standard.A1.Flex"
+
+  create_vnic_details {
+    subnet_id        = oci_core_subnet.main.id
+    assign_public_ip = true
+  }
+
+  source_details {
+    source_id               = local.ubuntu_ocid
+    source_type             = "image"
+    boot_volume_size_in_gbs = 50
+  }
+}
+
+module "static_ip" {
   source = "./reserved_ip_assignment"
 
   ad = local.ad
   compartment_id = local.compartment_id
-  display_name = "micro-${count.index}"
-  instance_id = oci_core_instance.micro_instance[count.index].id
+  display_name = "static"
+  instance_id = oci_core_instance.micro_instance[0].id
 }
+*/
