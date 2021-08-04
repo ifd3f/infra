@@ -2,6 +2,8 @@
 
 ## DNS
 
+See the [Cloudflare Terraform configs](https://github.com/astralbijection/infrastructure/tree/main/terraform/cloudflare) for a complete list of public DNS entries.
+
 | Zone            | Purpose                                                                    |
 | --------------- | -------------------------------------------------------------------------- |
 | `s.astrid.tech` | Private services (the s stands for service)                                |

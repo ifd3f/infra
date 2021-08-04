@@ -1,3 +1,7 @@
+// Email configuration info. 
+// For more information, see:
+// - https://www.namecheap.com/support/knowledgebase/article.aspx/1340/2176/namecheap-private-email-records-for-domains-with-thirdparty-dns/
+// - https://www.namecheap.com/support/knowledgebase/article.aspx/9967/31/how-to-set-up-dns-records-for-namecheap-email-service-with-cloudflare-cpanel-and-private-email/#pe
 
 resource "cloudflare_record" "email_autoconfig" {
   name    = "autoconfig"
@@ -24,10 +28,12 @@ resource "cloudflare_record" "email_mail" {
 }
 
 resource "cloudflare_record" "mx_records" {
-  for_each = toset(["mx1.privateemail.com", "mx2.privateemail.com"])
+  for_each = {
+    "mx1.privateemail.com" = 10
+    "mx2.privateemail.com" = 20
+  }
   name     = "astrid.tech"
-  priority = 10
-  proxied  = false
+  priority = each.value
   type     = "MX"
   value    = each.key
   zone_id  = cloudflare_zone.primary.id
@@ -44,14 +50,12 @@ resource "cloudflare_record" "email_srv" {
     weight   = 0
   }
   name    = "_autodiscover._tcp"
-  proxied = false
   type    = "SRV"
   zone_id = cloudflare_zone.primary.id
 }
 
 resource "cloudflare_record" "email_txt" {
   name    = "astrid.tech"
-  proxied = false
   type    = "TXT"
   value   = "v=spf1 include:spf.privateemail.com ~all"
   zone_id = cloudflare_zone.primary.id

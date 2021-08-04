@@ -19,6 +19,14 @@ resource "cloudflare_record" "dnd_wiki" {
   zone_id = cloudflare_zone.primary.id
 }
 
+resource "cloudflare_record" "cloud_wiki" {
+  name    = "cloud"
+  proxied = false
+  type    = "CNAME"
+  value   = "astralbijection.github.io"
+  zone_id = cloudflare_zone.primary.id
+}
+
 resource "cloudflare_record" "primary_google_site_verification" {
   name    = "astrid.tech"
   proxied = false
