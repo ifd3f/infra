@@ -13,7 +13,10 @@
         "source=${env:HOME}${env:USERPROFILE}/.kube,target=/usr/local/share/kube-localhost,type=bind",
 
         // Sync certs in .minikube folder
-        "source=${env:HOME}${env:USERPROFILE}/.minikube,target=/usr/local/share/minikube-localhost,type=bind"
+        "source=${env:HOME}${env:USERPROFILE}/.minikube,target=/usr/local/share/minikube-localhost,type=bind",
+
+        // OCI login
+        "source=${env:HOME}/.oci,target=/root/.oci,type=bind"
     ],
 
     // Set *default* container specific settings.json values on container create.
@@ -33,7 +36,8 @@
 		"tim-koehler.helm-intellisense",
 		"mindaro.mindaro",
 		"gruntfuggly.todo-tree",
-		"yzhang.markdown-all-in-one"
+		"yzhang.markdown-all-in-one",
+		"hashicorp.terraform"
 	],
 
     "runArgs": [ "--network", "minikube" ],

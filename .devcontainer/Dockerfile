@@ -79,11 +79,15 @@ RUN curl -sSL -o /usr/local/bin/kubedb https://github.com/kubedb/cli/releases/do
     && chmod +x /usr/local/bin/kubedb 
 
 # Install k3sup
-RUN curl -sLS https://get.k3sup.dev | sh 
+RUN curl -sSL https://get.k3sup.dev | sh 
 
 # Install kgctl
 RUN curl -sSL -o /usr/local/bin/kgctl https://github.com/squat/kilo/releases/download/0.3.0/kgctl-linux-amd64 \
     && chmod +x /usr/local/bin/kgctl 
+
+# Install Oracle Cloud CLI
+RUN curl -sSL https://raw.githubusercontent.com/oracle/oci-cli/master/scripts/install/install.sh \
+    | bash -s -- --exec-dir /usr/local/bin --script-dir /usr/local/bin --accept-all-defaults
 
 # Add in some useful scripts for debugging
 COPY bin/* /usr/local/bin/
