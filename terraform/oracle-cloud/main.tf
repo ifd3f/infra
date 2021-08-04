@@ -5,14 +5,15 @@ provider "oci" {
 }
 
 resource "oci_identity_compartment" "main" {
-  name        = "Cloud"
-  description = "Cloud"
+  name        = "terraformed"
+  description = "Terraform-created resources for the public cloud"
 }
 
 locals {
   free_micro_instances = 2
-  ubuntu_ocid    = "ocid1.image.oc1.us-sanjose-1.aaaaaaaa2jqekrtzkdvdksptigewqirjmdtfbpuqcoifn5smxsswrotvpufq"
-  compartment_id = oci_identity_compartment.main.compartment_id
+  ad                   = "JlTe:US-SANJOSE-1-AD-1"
+  ubuntu_ocid          = "ocid1.image.oc1.us-sanjose-1.aaaaaaaa2jqekrtzkdvdksptigewqirjmdtfbpuqcoifn5smxsswrotvpufq"
+  compartment_id       = oci_identity_compartment.main.compartment_id
 }
 
 resource "oci_core_vcn" "main" {
@@ -28,20 +29,19 @@ resource "oci_core_subnet" "main" {
   cidr_block     = "10.1.0.0/24"
   compartment_id = local.compartment_id
   vcn_id         = oci_core_vcn.main.id
-
 }
 
-// Our always-free micro instances
-resource "oci_core_instance" "micro_instances" {
+resource "oci_core_instance" "micro_instance" {
   count = local.free_micro_instances
 
-  display_name        = "oci${count.index}.h.astrid.tech"
-  availability_domain = "JlTe:US-SANJOSE-1-AD-1"
+  display_name        = "oci-micro-${count.index}.h.astrid.tech"
+  availability_domain = local.ad
   compartment_id      = local.compartment_id
   shape               = "VM.Standard.E2.1.Micro"
 
   create_vnic_details {
-    subnet_id      = oci_core_subnet.main.id
+    subnet_id        = oci_core_subnet.main.id
+    assign_public_ip = false
   }
 
   source_details {
@@ -49,4 +49,14 @@ resource "oci_core_instance" "micro_instances" {
     source_type             = "image"
     boot_volume_size_in_gbs = 50
   }
+}
+
+module "micro_instance_ips" {
+  count = local.free_micro_instances
+  source = "./reserved_ip_assignment"
+
+  ad = local.ad
+  compartment_id = local.compartment_id
+  display_name = "micro-${count.index}"
+  instance_id = oci_core_instance.micro_instance[count.index].id
 }
