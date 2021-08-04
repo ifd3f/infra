@@ -1,4 +1,4 @@
-resource "cloudflare_page_rule" "terraform_managed_resource_51a59d93271dd1863959f9ce14fa1c95" {
+resource "cloudflare_page_rule" "short_always_http" {
   priority = 1
   status = "disabled"
   target = "*aay.tw/*"
@@ -11,16 +11,7 @@ resource "cloudflare_page_rule" "terraform_managed_resource_51a59d93271dd1863959
   }
 }
 
-resource "cloudflare_page_rule" "terraform_managed_resource_8f613c716963e01273dffa4b5b5e2b37" {
-  priority = 1
-  status = "active"
-  target = "*astrid.tech/*"
-  zone_id = "a1c94811845ac7ece3a51cffa2908aac"
-  actions {
-  }
-}
-
-resource "cloudflare_page_rule" "terraform_managed_resource_0578dd3509a6fe1e51e549be687dd286" {
+resource "cloudflare_page_rule" "name_always_http" {
   priority = 1
   status = "active"
   target = "*astridyu.com/*"
