@@ -1,12 +1,19 @@
-resource "cloudflare_record" "primary_ns" {
-  for_each = {
-    "s"  = "ipa0.id.astrid.tech" # Internal services
-    "id" = "ipa0.id.astrid.tech" # Identity zone
-  }
+resource "cloudflare_record" "internal_services" {
+  count = 1
+  
+  zone_id = cloudflare_zone.primary.id
+  name    = "s"
+  value   = "ipa${count.index}.id.astrid.tech"
+  type    = "NS"
+  proxied = false
+}
+
+resource "cloudflare_record" "identity_zone" {
+  count = 1
 
   zone_id = cloudflare_zone.primary.id
-  name    = each.key
-  value   = each.value
+  name    = "id"
+  value   = "ipa${count.index}.id.astrid.tech"
   type    = "NS"
   proxied = false
 }
