@@ -45,15 +45,19 @@ RUN (echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main" | te
 
 # Add GitHub repo 
 RUN (curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo gpg --dearmor -o /usr/share/keyrings/githubcli-archive-keyring.gpg) \
-    && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+    && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" > /etc/apt/sources.list.d/github-cli.list 
+
+# Add Google Cloud repo (https://cloud.google.com/sdk/docs/install#deb)
+RUN (echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" > /etc/apt/sources.list.d/google-cloud-sdk.list) \
+    && (curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -)
 
 # Install additional packages.
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends \
         neovim \
         gh \
-        terraform \
         ansible \
+        google-cloud-sdk \
         default-mysql-client \
         postgresql-client \
         influxdb-client \
@@ -88,6 +92,26 @@ RUN curl -sSL -o /usr/local/bin/kgctl https://github.com/squat/kilo/releases/dow
 # Install Oracle Cloud CLI
 RUN curl -sSL https://raw.githubusercontent.com/oracle/oci-cli/master/scripts/install/install.sh \
     | bash -s -- --exec-dir /usr/local/bin --script-dir /usr/local/bin --accept-all-defaults
+
+# Install Terraform
+RUN curl -sSL -o /tmp/terraform.zip "https://releases.hashicorp.com/terraform/1.0.3/terraform_1.0.3_linux_amd64.zip" \
+    && unzip -p /tmp/terraform.zip terraform > /usr/local/bin/terraform \
+    && chmod +x /usr/local/bin/terraform 
+
+# Install Bitwarden CLI
+RUN curl -sSL -o /tmp/bw.zip "https://vault.bitwarden.com/download/?app=cli&platform=linux" \
+    && unzip -p /tmp/bw.zip bw > /usr/local/bin/bw \
+    && chmod +x /usr/local/bin/bw 
+
+# Install AWS CLI (https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-linux.html#cliv2-linux-install)
+RUN curl -sSL -o /tmp/aws.zip "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" \
+    && unzip -d /tmp/aws /tmp/aws.zip \
+    && /tmp/aws/aws/install
+
+# Install cf-terraforming
+RUN (curl -sSL "https://github.com/cloudflare/cf-terraforming/releases/download/v0.3.0/cf-terraforming_0.3.0_linux_amd64.tar.gz" \
+    | tar -zx cf-terraforming > /usr/local/bin/cf-terraforming) \
+    && chmod +x /usr/local/bin/cf-terraforming 
 
 # Add in some useful scripts for debugging
 COPY bin/* /usr/local/bin/

@@ -1,11 +1,11 @@
 # Utilities included in the Dev Container
 
-## Configuration Management
+## Configuration and Provisioning
 
 - Ansible
 - Terraform
 
-## Kubernetes
+### Kubernetes
 
 - kubectl (with tab-completion)
 - kgctl (Kilo)
@@ -14,6 +14,11 @@
 - helmfile
 - k3sup
 - kubedb CLI
+
+## Service CLIs
+
+- Oracle Cloud CLI
+- Google Cloud
 
 ## Network tools
 
@@ -33,6 +38,7 @@
 
 ## Other
 
+- Bitwarden
 - Neovim
 - graphviz-online.sh, a simple script I wrote:
 

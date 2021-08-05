@@ -15,8 +15,11 @@
         // Sync certs in .minikube folder
         "source=${env:HOME}${env:USERPROFILE}/.minikube,target=/usr/local/share/minikube-localhost,type=bind",
 
-        // OCI login
-        "source=${env:HOME}/.oci,target=/root/.oci,type=bind"
+        // OCI authentication data
+        "source=${env:HOME}/.oci,target=/root/.oci,type=bind",
+
+        // Terraform login data
+        "source=${env:HOME}/.terraform.d,target=/root/.terraform.d,type=bind"
     ],
 
     // Set *default* container specific settings.json values on container create.
