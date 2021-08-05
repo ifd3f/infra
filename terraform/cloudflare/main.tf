@@ -1,4 +1,12 @@
 terraform {
+  backend "remote" {
+    organization = "astralbijection"
+
+    workspaces {
+      name = "cloudflare"
+    }
+  }
+
   required_providers {
     cloudflare = {
       source  = "cloudflare/cloudflare"
