@@ -1,3 +1,4 @@
+// TODO: store in remote state
 
 provider "oci" {
   auth                = "SecurityToken"

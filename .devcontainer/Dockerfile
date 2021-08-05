@@ -93,11 +93,6 @@ RUN curl -sSL -o /usr/local/bin/kgctl https://github.com/squat/kilo/releases/dow
 RUN curl -sSL https://raw.githubusercontent.com/oracle/oci-cli/master/scripts/install/install.sh \
     | bash -s -- --exec-dir /usr/local/bin --script-dir /usr/local/bin --accept-all-defaults
 
-# Install Terraform
-RUN curl -sSL -o /tmp/terraform.zip "https://releases.hashicorp.com/terraform/1.0.3/terraform_1.0.3_linux_amd64.zip" \
-    && unzip -p /tmp/terraform.zip terraform > /usr/local/bin/terraform \
-    && chmod +x /usr/local/bin/terraform 
-
 # Install Bitwarden CLI
 RUN curl -sSL -o /tmp/bw.zip "https://vault.bitwarden.com/download/?app=cli&platform=linux" \
     && unzip -p /tmp/bw.zip bw > /usr/local/bin/bw \
@@ -112,6 +107,15 @@ RUN curl -sSL -o /tmp/aws.zip "https://awscli.amazonaws.com/awscli-exe-linux-x86
 RUN (curl -sSL "https://github.com/cloudflare/cf-terraforming/releases/download/v0.3.0/cf-terraforming_0.3.0_linux_amd64.tar.gz" \
     | tar -zx cf-terraforming > /usr/local/bin/cf-terraforming) \
     && chmod +x /usr/local/bin/cf-terraforming 
+
+# Install Terragrunt
+RUN curl -sSL -o /usr/local/bin/terragrunt "https://github.com/gruntwork-io/terragrunt/releases/download/v0.31.3/terragrunt_linux_amd64" \
+    && chmod +x /usr/local/bin/terragrunt
+
+# Install Terraform
+RUN curl -sSL -o /tmp/terraform.zip "https://releases.hashicorp.com/terraform/1.0.4/terraform_1.0.4_linux_amd64.zip" \
+    && unzip -p /tmp/terraform.zip terraform > /usr/local/bin/terraform \
+    && chmod +x /usr/local/bin/terraform 
 
 # Add in some useful scripts for debugging
 COPY bin/* /usr/local/bin/
