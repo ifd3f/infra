@@ -117,5 +117,10 @@ RUN curl -sSL -o /tmp/terraform.zip "https://releases.hashicorp.com/terraform/1.
     && unzip -p /tmp/terraform.zip terraform > /usr/local/bin/terraform \
     && chmod +x /usr/local/bin/terraform 
 
+# Install Packer
+RUN curl -sSL -o /tmp/packer.zip "https://releases.hashicorp.com/packer/1.7.4/packer_1.7.4_linux_amd64.zip" \
+    && unzip -p /tmp/packer.zip packer > /usr/local/bin/packer \
+    && chmod +x /usr/local/bin/packer 
+
 # Add in some useful scripts for debugging
 COPY bin/* /usr/local/bin/
