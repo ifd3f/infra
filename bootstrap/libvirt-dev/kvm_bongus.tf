@@ -1,8 +1,3 @@
-# Bongus installer
-resource "libvirt_volume" "bongus_install" {
-  name   = "bootstrap-dev-bongus-install.iso"
-  source = "images/debian.iso"
-}
 
 # Bongus boot disk
 resource "libvirt_volume" "bongus_boot" {
@@ -35,7 +30,7 @@ resource "libvirt_domain" "bongus" {
   }
 
   disk {
-    volume_id = libvirt_volume.bongus_install.id
+    volume_id = libvirt_volume.debian.id
   }
 
   disk {
@@ -46,5 +41,9 @@ resource "libvirt_domain" "bongus" {
     type        = "spice"
     listen_type = "address"
     autoport    = true
+  }
+
+  xml {
+    xslt = file("boot_order.xslt")
   }
 }

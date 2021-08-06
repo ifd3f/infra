@@ -23,7 +23,7 @@ resource "libvirt_domain" "cracktop" {
   }
 
   disk {
-    volume_id = libvirt_volume.cracktop_install.id
+    volume_id = libvirt_volume.debian.id
   }
 
   disk {
@@ -34,5 +34,9 @@ resource "libvirt_domain" "cracktop" {
     type        = "spice"
     listen_type = "address"
     autoport    = true
+  }
+
+  xml {
+    xslt = file("boot_order.xslt")
   }
 }

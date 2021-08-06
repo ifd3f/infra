@@ -46,7 +46,8 @@
 		"mindaro.mindaro",
 		"gruntfuggly.todo-tree",
 		"yzhang.markdown-all-in-one",
-		"hashicorp.terraform"
+		"hashicorp.terraform",
+		"4ops.packer"
 	],
 
     "runArgs": [ "--network", "minikube" ],

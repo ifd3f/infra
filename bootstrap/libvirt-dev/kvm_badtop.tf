@@ -1,9 +1,3 @@
-# ipa0 installer
-resource "libvirt_volume" "badtop_install" {
-  name   = "bootstrap-dev-badtop-install.iso"
-  source = "images/fedora.iso"
-}
-
 # ipa0 boot disk
 resource "libvirt_volume" "ipa0_boot" {
   name = "bootstrap-dev-ipa0-boot.qcow2"
@@ -23,7 +17,7 @@ resource "libvirt_domain" "badtop" {
   }
 
   disk {
-    volume_id = libvirt_volume.badtop_install.id
+    volume_id = libvirt_volume.fedora.id
   }
 
   disk {
@@ -34,5 +28,9 @@ resource "libvirt_domain" "badtop" {
     type        = "spice"
     listen_type = "address"
     autoport    = true
+  }
+
+  xml {
+    xslt = file("boot_order.xslt")
   }
 }
