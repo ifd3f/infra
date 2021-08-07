@@ -29,14 +29,15 @@ build {
 
   provisioner "shell" {
     inline = [
-      "dnf install -y openssh-server",
-      "systemctl start sshd",
+      "dnf install -y ansible"
+      #"systemctl start sshd",
     ]
   }
 
-  provisioner "ansible" {
+  provisioner "ansible-local" {
     playbook_file = "./setup_ops_local.yaml"
     galaxy_file = "./requirements.yml"
-    extra_arguments = ["-vv"]
+    role_paths = ["./roles/ops_server"]
+    inventory_file = "./inventory.cfg"
   }
 }
