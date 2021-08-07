@@ -1,12 +1,12 @@
 # cracktop installer
 resource "libvirt_volume" "cracktop_boot" {
-  name = "bootstrap-dev-cracktop.qcow2"
+  name   = "bootstrap-dev-cracktop.qcow2"
   source = local.proxmox_seed_image
 }
 
 # Cracktop, as a secondary Proxmox node
 resource "libvirt_domain" "cracktop" {
-  name        = "bootstrap-dev-cracktop"
+  name        = "cracktop.hv.astrid.tech"
   description = "Cracktop analogue"
   memory      = 4000
   vcpu        = 2

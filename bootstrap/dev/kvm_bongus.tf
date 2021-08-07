@@ -7,7 +7,7 @@ resource "libvirt_volume" "bongus_boot" {
 
 # Bongus, our big cool server machine
 resource "libvirt_domain" "bongus" {
-  name        = "bootstrap-dev-bongus"
+  name        = "bongus.hv.astrid.tech"
   description = "Bongus analogue"
   memory      = 6000
   vcpu        = 4

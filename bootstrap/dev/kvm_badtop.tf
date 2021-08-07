@@ -6,7 +6,7 @@ resource "libvirt_volume" "ipa0_boot" {
 
 # Badtop, which will be our domain controller
 resource "libvirt_domain" "badtop" {
-  name        = "bootstrap-dev-badtop"
+  name        = "ipa0.id.astrid.tech"
   description = "Badtop/ipa0 analogue"
   memory      = 4000
   vcpu        = 2
