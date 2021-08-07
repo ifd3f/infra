@@ -10,34 +10,14 @@ source "lxd" "ops" {
 build {
   sources = ["source.lxd.ops"]
 
-  # because ansible provisioner didn't want to work with me T_T
-  #  provisioner "shell" {
-  #    inline = [
-  #      "dnf install -y dnf-plugins-core",
-  #      "dnf config-manager --add-repo https://rpm.releases.hashicorp.com/fedora/hashicorp.repo",
-  #      "echo '${file("kubernetes.repo")}' > /etc/yum.repos.d/kubernetes.repo",
-  #
-  #      "dnf install -y git gettext terraform ansible kubectl",
-  #      "useradd -m -c Operator operator",
-  #      "mkdir /infra",
-  #      "chmod 644 /infra",
-  #      "chown operator:operator /infra",
-  #      "su operator",
-  #      "git clone https://github.com/astralbijection/infrastructure.git /infra",
-  #    ]
-  #  }
+  provisioner "file" {
+    source = "./provision.sh"
+    destination = "/tmp/provision.sh"
+  }
 
   provisioner "shell" {
     inline = [
-      "dnf install -y ansible"
-      #"systemctl start sshd",
+      "bash /tmp/provision.sh"
     ]
-  }
-
-  provisioner "ansible-local" {
-    playbook_file = "./setup_ops_local.yaml"
-    galaxy_file = "./requirements.yml"
-    role_paths = ["./roles/ops_server"]
-    inventory_file = "./inventory.cfg"
   }
 }
