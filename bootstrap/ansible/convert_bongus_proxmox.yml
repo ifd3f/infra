@@ -1,0 +1,5 @@
+- name: Set Bongus
+  become: true
+  hosts: bongus
+  roles:
+    - name: converted_proxmox

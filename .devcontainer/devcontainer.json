@@ -21,9 +21,6 @@
         // Terraform login data
         "source=${env:HOME}/.terraform.d,target=/root/.terraform.d,type=bind",
 
-        // SSH stuff
-        "source=${env:HOME}/.ssh,target=/root/.ssh,type=bind",
-
         // Bitwarden
         "source=${env:HOME}/.config/Bitwarden CLI,target=/root/.config/Bitwarden CLI,type=bind",
     ],

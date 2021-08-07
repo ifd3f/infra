@@ -13,15 +13,22 @@ provider "libvirt" {
 # Outer network that everyone else will use
 resource "libvirt_network" "outer" {
   name      = "bootstrap-dev-outer"
-  domain    = "tf.local"
   mode      = "nat"
-  addresses = ["10.0.1.0/24"]
+  bridge    = "virbr-outer"
+  addresses = ["192.168.5.0/24"]
+
+  dns {
+    enabled = true
+    forwarders { 
+      address = "8.8.8.8" 
+    }
+  }
 }
 
 # Inner network for me and my machines only
 resource "libvirt_network" "inner" {
   name      = "bootstrap-dev-inner"
-  domain    = "tf.local"
   mode      = "none"
+  bridge    = "virbr-inner"
   addresses = []
 }

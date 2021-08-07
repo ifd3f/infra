@@ -1,0 +1,13 @@
+- name: Add static IP definition
+  ansible.builtin.template:
+    src: primary.interface.j2
+    dest: /etc/network/interfaces.d/primary.interface
+    mode: "666"
+
+- name: Overwrite default interface definition
+  ansible.builtin.copy:
+    src: interfaces
+    dest: /etc/network/interfaces
+
+- name: Reboot
+  ansible.builtin.reboot:

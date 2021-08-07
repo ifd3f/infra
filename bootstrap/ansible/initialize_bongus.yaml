@@ -1,10 +1,11 @@
 - name: Set Bongus
   become: true
-  hosts: all
+  hosts: bongus_fresh
   roles:
     - name: fresh_init
       vars: 
         fqdn: bongus.hv.astrid.tech
         short: bongus
-        ip: 192.168.1.2
-        gw: 192.168.1.1
+        interface: ens3
+        ip: 192.168.5.2
+        gateway: 192.168.5.1
