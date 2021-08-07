@@ -5,7 +5,7 @@
     - name: fresh_init
       vars: 
         fqdn: bongus.hv.astrid.tech
-        short: bongus
+        short_hostname: bongus
         interface: ens3
         ip: 192.168.5.2
         gateway: 192.168.5.1

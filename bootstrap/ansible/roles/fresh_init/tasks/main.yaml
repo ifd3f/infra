@@ -1,13 +1,23 @@
+- name: Change hostname
+  ansible.builtin.hostname:
+    name: "{{short_hostname}}"
+
 - name: Add static IP definition
   ansible.builtin.template:
     src: primary.interface.j2
     dest: /etc/network/interfaces.d/primary.interface
-    mode: "666"
+    mode: "644"
 
 - name: Overwrite default interface definition
   ansible.builtin.copy:
     src: interfaces
     dest: /etc/network/interfaces
+
+- name: Alter /etc/hosts with new hostname
+  ansible.builtin.template:
+    src: hosts.j2
+    dest: /etc/hosts
+    mode: "644"
 
 - name: Reboot
   ansible.builtin.reboot:
