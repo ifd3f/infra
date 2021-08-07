@@ -20,4 +20,6 @@
     mode: "644"
 
 - name: Reboot
-  ansible.builtin.reboot:
+  shell: "reboot"
+  async: 1
+  poll: 0

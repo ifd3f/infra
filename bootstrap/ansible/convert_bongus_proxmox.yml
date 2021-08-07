@@ -1,5 +1,20 @@
-- name: Set Bongus
+- name: Generate a root password
   become: true
-  hosts: bongus
+  hosts: bongus.hv.astrid.tech
+  tasks:
+    - ansible.builtin.user:
+        name: root
+        # TODO proper storage
+        password: "{{ lookup('password', './password.txt chars=ascii_letters') }}"
+
+- name: Convert Bongus into a Proxmox server
+  become: true
+  hosts: bongus.hv.astrid.tech
   roles:
     - name: converted_proxmox
+    
+- name: Reboot
+  become: true
+  hosts: bongus.hv.astrid.tech
+  tasks:
+    - ansible.builtin.reboot:

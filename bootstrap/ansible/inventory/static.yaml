@@ -1,6 +1,6 @@
 all:
   hosts:
-    bongus:
+    bongus.hv.astrid.tech:
       ansible_host: 192.168.5.2
       ansible_user: debian
       ansible_ssh_pass: devpassword
