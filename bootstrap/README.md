@@ -1,2 +1,2 @@
-# Clustter Bootstrapping Routine
+# Cluster Bootstrapping Routine
 
