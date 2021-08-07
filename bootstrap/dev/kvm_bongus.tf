@@ -1,8 +1,8 @@
 
 # Bongus boot disk
 resource "libvirt_volume" "bongus_boot" {
-  name = "bootstrap-dev-bongus-boot.qcow2"
-  size = 32000
+  name = "bootstrap-dev-bongus.qcow2"
+  source = local.proxmox_seed_image
 }
 
 # Bongus, our big cool server machine
@@ -30,10 +30,6 @@ resource "libvirt_domain" "bongus" {
   }
 
   disk {
-    volume_id = libvirt_volume.debian.id
-  }
-
-  disk {
     volume_id = libvirt_volume.bongus_boot.id
   }
 
@@ -41,9 +37,5 @@ resource "libvirt_domain" "bongus" {
     type        = "spice"
     listen_type = "address"
     autoport    = true
-  }
-
-  xml {
-    xslt = file("boot_order.xslt")
   }
 }

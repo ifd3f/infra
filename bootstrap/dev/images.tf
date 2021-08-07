@@ -1,11 +1,4 @@
-# Fedora
-resource "libvirt_volume" "fedora" {
-  name   = "fedora-server.iso"
-  source = "images/fedora.iso"
-}
-
-# Debian
-resource "libvirt_volume" "debian" {
-  name   = "debian.iso"
-  source = "images/debian.iso"
+locals {
+  freeipa_seed_image = "images/freeipa_server.qcow2"
+  proxmox_seed_image = "images/proxmox_seed.qcow2"
 }

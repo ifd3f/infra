@@ -1,13 +1,7 @@
 # cracktop installer
-resource "libvirt_volume" "cracktop_install" {
-  name   = "bootstrap-dev-cracktop-install.iso"
-  source = "images/debian.iso"
-}
-
-# cracktop boot disk
 resource "libvirt_volume" "cracktop_boot" {
-  name = "bootstrap-dev-cracktop-boot.qcow2"
-  size = 6000
+  name = "bootstrap-dev-cracktop.qcow2"
+  source = local.proxmox_seed_image
 }
 
 # Cracktop, as a secondary Proxmox node
@@ -23,10 +17,6 @@ resource "libvirt_domain" "cracktop" {
   }
 
   disk {
-    volume_id = libvirt_volume.debian.id
-  }
-
-  disk {
     volume_id = libvirt_volume.cracktop_boot.id
   }
 
@@ -34,9 +24,5 @@ resource "libvirt_domain" "cracktop" {
     type        = "spice"
     listen_type = "address"
     autoport    = true
-  }
-
-  xml {
-    xslt = file("boot_order.xslt")
   }
 }
