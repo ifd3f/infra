@@ -1,0 +1,5 @@
+- name: Provision ops server image
+  connection: local
+  hosts: all
+  roles:
+    - ops_server
