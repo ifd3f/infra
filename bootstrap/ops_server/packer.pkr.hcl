@@ -11,7 +11,7 @@ build {
   sources = ["source.lxd.ops"]
 
   provisioner "file" {
-    source = "./provision.sh"
+    source = "${path.root}/provision.sh"
     destination = "/tmp/provision.sh"
   }
 
