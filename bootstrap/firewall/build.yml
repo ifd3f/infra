@@ -1,0 +1,9 @@
+version: "3.9"  # optional since v1.27.0
+services:
+  builder:
+    image: vyos/vyos-build:current
+    command: run-build.sh
+    privileged: true
+    volumes: 
+      - ./vyos-output:/vyos
+      - ./run-build.sh:/usr/local/bin/run-build.sh
