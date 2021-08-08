@@ -33,18 +33,10 @@ resource "libvirt_network" "inner" {
   addresses = []
 }
 
-resource "libvirt_cloudinit_disk" "fw_init" {
-  name      = "fw_init.iso"
-  user_data = data.template_file.user_data.rendered
-}
-
-data "template_file" "user_data" {
-  template = file("${path.module}/cloud-config.yaml")
-}
-
 resource "libvirt_volume" "boot" {
   name   = "vyos-1.3.qcow2"
-  source = "vyos-1.3.qcow2"
+  #source = "vyos-1.3.qcow2"
+  source = "images/vyos.qcow2"
 }
 
 resource "libvirt_domain" "edgefw" {
@@ -53,7 +45,6 @@ resource "libvirt_domain" "edgefw" {
   memory      = 2000
   vcpu        = 2
   autostart   = false
-  cloudinit   = libvirt_cloudinit_disk.fw_init.id
 
   network_interface {
     network_name = libvirt_network.outer.name

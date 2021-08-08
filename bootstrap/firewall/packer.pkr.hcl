@@ -24,8 +24,6 @@ source "qemu" "vyos" {
 
     "configure<enter>",
     "set interface ethernet eth0 address dhcp<enter>",
-    "set system name-server 8.8.8.8<enter>",
-    "set system name-server 8.8.4.4<enter>",
     "set service ssh<enter>",
     "commit<enter>",
     "save<enter>",
@@ -36,9 +34,14 @@ source "qemu" "vyos" {
 build {
   sources = ["source.qemu.vyos"]
 
+  provisioner "file" {
+    source = "${path.root}/config.sh"
+    destination = "/tmp/config.sh"
+  }
+
   provisioner "shell" {
     inline = [
-      "echo testing"
+      "bash /tmp/config.sh"
     ]
   }
 }

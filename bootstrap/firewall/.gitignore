@@ -1,4 +1,5 @@
 vyos-output/
+images/
 *.qcow2
 *.raw
 *.iso
