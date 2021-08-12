@@ -1,3 +1,3 @@
-~/.screenlayout/triple-home.sh
+~/.screenlayout/triple-apt.sh
 
 xrandr --dpi 144
