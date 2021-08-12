@@ -11,4 +11,5 @@ ephemeral:
       ansible_user: fedora
       ansible_ssh_pass: devpassword
       ansible_become_pass: devpassword
+      ansible_python_interpreter: /usr/bin/python3
 EOF

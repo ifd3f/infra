@@ -17,21 +17,25 @@
     create_home: yes
     groups: wheel
 
-- name: Set authorized key for Ansible
+- name: Add authorized key for Ansible
   ansible.posix.authorized_key:
     user: ansible
     state: present
     key: "{{ssh_public_key}}"
 
-- name: Set static IP
-  community.general.nmcli:
-    conn_name: "{{ interface }}"
-    type: ethernet
-    ifname: "{{ interface }}"
-    method4: manual
-    ip4: "{{ ip }}/{{ cidr }}"
-    gw4: "{{ gateway }}"
-    dns4:
-      - 8.8.8.8
-      - 8.8.4.4
-    state: present
+- name: Allow ansible user to use sudo without a password
+  ansible.builtin.copy:
+    src: ansible-sudo
+    dest: /etc/sudoers.d/ansible
+    mode: "600"
+
+- name: Create new connection definition
+  ansible.builtin.template:
+    src: static.nmconnection.j2
+    dest: /etc/NetworkManager/system-connections/{{ interface }}.nmconnection
+    mode: "600"
+
+- name: Reboot without status check
+  shell: reboot
+  async: 1
+  poll: 0

@@ -2,8 +2,5 @@ all:
   hosts:
     bongus.hv.astrid.tech:
       ansible_host: 192.168.5.2
-      ansible_user: debian
-      ansible_ssh_pass: devpassword
-      ansible_become_pass: devpassword
-    
-
+      ansible_user: ansible
+      ansible_python_interpreter: /usr/bin/python3

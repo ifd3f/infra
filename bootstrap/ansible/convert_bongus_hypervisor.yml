@@ -1,12 +1,3 @@
-- name: Generate a root password
-  become: true
-  hosts: bongus.hv.astrid.tech
-  tasks:
-    - ansible.builtin.user:
-        name: root
-        # TODO proper storage
-        password: "{{ lookup('password', './password.txt chars=ascii_letters') }}"
-
 - name: Convert bongus into a hypervisor
   become: true
   hosts: bongus.hv.astrid.tech
