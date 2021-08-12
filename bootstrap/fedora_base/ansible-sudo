@@ -1,0 +1,2 @@
+# Ansible user does not need sudo
+ansible ALL=(ALL) NOPASSWD: ALL

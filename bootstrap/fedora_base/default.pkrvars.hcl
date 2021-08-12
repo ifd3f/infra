@@ -1,0 +1,1 @@
+ansible_ssh_key_path = "/root/.ssh/id_rsa.pub"
