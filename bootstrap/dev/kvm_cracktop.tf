@@ -1,7 +1,7 @@
 # cracktop installer
 resource "libvirt_volume" "cracktop_boot" {
   name   = "bootstrap-dev-cracktop.qcow2"
-  source = local.proxmox_seed_image
+  source = local.fedora_seed_image
 }
 
 # Cracktop, as a secondary Proxmox node

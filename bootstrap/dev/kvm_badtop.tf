@@ -1,7 +1,7 @@
 # ipa0 boot disk
 resource "libvirt_volume" "ipa0_boot" {
   name = "bootstrap-dev-ipa0.qcow2"
-  source = local.freeipa_seed_image
+  source = local.fedora_seed_image
 }
 
 # Badtop, which will be our domain controller

@@ -1,4 +1,3 @@
 locals {
-  freeipa_seed_image = "images/freeipa_server.qcow2"
-  proxmox_seed_image = "images/freeipa_server.qcow2"
+  fedora_seed_image = "images/fedora_server.qcow2"
 }

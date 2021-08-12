@@ -2,7 +2,7 @@
 # Bongus boot disk
 resource "libvirt_volume" "bongus_boot" {
   name = "bootstrap-dev-bongus.qcow2"
-  source = local.proxmox_seed_image
+  source = local.fedora_seed_image
 }
 
 # Bongus, our big cool server machine
