@@ -20,6 +20,11 @@ build {
   }
 
   provisioner "file" {
+    source = "${path.root}/sshd_config"
+    destination = "/tmp/sshd_config"
+  }
+
+  provisioner "file" {
     source = "${path.root}/provision.sh"
     destination = "/tmp/provision.sh"
   }
@@ -30,14 +35,12 @@ build {
   }
 
   provisioner "shell" {
-    inline = [
-      "bash /tmp/provision.sh"
-    ]
+    inline = ["bash /tmp/provision.sh"]
   }
 
-  provisioner "ansible" {
-    playbook_file = "${path.root}/test_playbook.yml"
-    user = "ansible"
-    use_proxy = false
-  }
+  // provisioner "ansible" {
+  //   playbook_file = "${path.root}/test_playbook.yml"
+  //   user = "ansible"
+  //   use_proxy = false
+  // }
 }
