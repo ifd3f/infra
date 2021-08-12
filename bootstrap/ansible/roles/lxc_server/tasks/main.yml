@@ -1,0 +1,24 @@
+- name: Install dnf packages
+  ansible.builtin.dnf:
+    name:
+      - snapd # install lxd
+    state: present
+
+- name: Start snapd 
+  ansible.builtin.systemd:
+    name: snapd 
+    state: started
+    enabled: yes
+
+- name: Install Snap packages
+  community.general.snap:
+    name: lxd
+    state: present
+
+- name: Create LXD preseed
+  ansible.builtin.template:
+    src: ../lxd_preseed.yaml
+    dest: /tmp/lxd_preseed.yaml
+
+- name: Initialize LXD
+  shell: cat /tmp/lxd_preseed.yaml | lxd init --preseed

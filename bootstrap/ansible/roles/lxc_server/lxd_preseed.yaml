@@ -1,0 +1,36 @@
+config: {}
+networks:
+  - config:
+      ipv4.address: "{{ machbr_address }}"
+      ipv4.nat: "true"
+    description: Primary Network
+    name: machbr
+    type: bridge
+    project: default
+storage_pools:
+  - config:
+      size: "{{ storage_pool_size }}"
+    description: Primary Storage Pool
+    name: default
+    driver: btrfs
+profiles:
+  - config: {}
+    description: Default LXD profile
+    devices:
+      eth0:
+        name: eth0
+        network: machbr
+        type: nic
+      root:
+        path: /
+        pool: default
+        type: disk
+    name: default
+projects:
+  - config:
+      features.images: "true"
+      features.networks: "true"
+      features.profiles: "true"
+      features.storage.volumes: "true"
+    description: Default LXD project
+    name: default

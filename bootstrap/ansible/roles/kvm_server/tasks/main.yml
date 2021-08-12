@@ -1,0 +1,17 @@
+- name: Install dnf packages
+  ansible.builtin.dnf:
+    name:
+      - libvirt 
+      - netcat # for libvirt SSH transport
+    state: present
+
+- name: Load libvirtd configs
+  ansible.builtin.copy:
+    src: ../libvirtd.conf
+    dest: /etc/libvirt/libvirtd.conf
+
+- name: Restart libvirtd
+  ansible.builtin.systemd:
+    name: libvirtd 
+    state: restarted
+    enabled: yes

@@ -2,10 +2,9 @@
   become: true
   hosts: bongus.hv.astrid.tech
   roles:
-    - name: hv_server
-    
-- name: Reboot
-  become: true
-  hosts: bongus.hv.astrid.tech
-  tasks:
-    - ansible.builtin.reboot:
+    - name: lxc_server
+      vars: 
+        machbr_address: 10.1.2.1/24
+        storage_pool_size: 4GB
+    - name: kvm_server
+  
