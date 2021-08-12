@@ -1,0 +1,14 @@
+[Unit]
+Description=HashiCorp Vault
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=root
+ExecStart=/usr/bin/vault server -config=/vault/config.hcl
+
+[Install]
+WantedBy=multi-user.target
