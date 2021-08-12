@@ -36,7 +36,7 @@ resource "libvirt_network" "inner" {
 resource "libvirt_volume" "boot" {
   name   = "vyos-1.3.qcow2"
   #source = "vyos-1.3.qcow2"
-  source = "images/vyos.qcow2"
+  source = "images/edgefw.qcow2"
 }
 
 resource "libvirt_domain" "edgefw" {
@@ -48,10 +48,12 @@ resource "libvirt_domain" "edgefw" {
 
   network_interface {
     network_name = libvirt_network.outer.name
+    mac = "52:54:00:12:08:00"
   }
 
   network_interface {
     network_name = libvirt_network.inner.name
+    mac = "52:54:00:12:08:01"
   }
 
   disk {

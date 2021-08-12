@@ -44,7 +44,8 @@
 		"gruntfuggly.todo-tree",
 		"yzhang.markdown-all-in-one",
 		"hashicorp.terraform",
-		"4ops.packer"
+		"4ops.packer",
+		"eamodio.gitlens"
 	],
 
     "runArgs": [ "--network", "minikube" ],
