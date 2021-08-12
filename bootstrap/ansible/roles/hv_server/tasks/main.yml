@@ -17,16 +17,16 @@
     name: lxd
     state: present
 
+- name: Load libvirtd configs
+  ansible.builtin.copy:
+    src: ../libvirtd.conf
+    dest: /etc/libvirt/libvirtd.conf
+
 - name: Start LXD 
   ansible.builtin.systemd:
     name: lxd 
     state: started
     enabled: yes
-
-- name: Load libvirtd configs
-  ansible.builtin.copy:
-    src: ../libvirtd.conf
-    dest: /etc/libvirt/libvirtd.conf
 
 - name: Restart libvirtd
   ansible.builtin.systemd:

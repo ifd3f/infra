@@ -1,0 +1,22 @@
+[connection]
+id=Primary Connection
+uuid={{ 9999999999999999999999 | random | to_uuid }}
+type=ethernet
+interface-name=ens3
+permissions=
+
+[ethernet]
+mac-address-blacklist=
+
+[ipv4]
+address1={{ ip }}/{{ cidr }},{{ gateway }}
+dns=8.8.8.8;8.8.4.4;
+dns-search=
+method=manual
+
+[ipv6]
+addr-gen-mode=stable-privacy
+dns-search=
+method=auto
+
+[proxy]

@@ -2,13 +2,6 @@
   ansible.builtin.hostname:
     name: "{{short_hostname}}"
 
-- name: Set static IP
-  community.general.nmcli:
-    conn_name: "{{ interface }}"
-    ip4: "{{ ip }}"
-    gw4: "{{ gateway }}"
-    state: present
-
 - name: Alter /etc/hosts with new hostname
   ansible.builtin.template:
     src: hosts.j2
@@ -30,7 +23,15 @@
     state: present
     key: "{{ssh_public_key}}"
 
-- name: Reboot without confirming successful reboot
-  shell: "reboot"
-  async: 1
-  poll: 0
+- name: Set static IP
+  community.general.nmcli:
+    conn_name: "{{ interface }}"
+    type: ethernet
+    ifname: "{{ interface }}"
+    method4: manual
+    ip4: "{{ ip }}/{{ cidr }}"
+    gw4: "{{ gateway }}"
+    dns4:
+      - 8.8.8.8
+      - 8.8.4.4
+    state: present
