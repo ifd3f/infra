@@ -2,6 +2,7 @@
   become: true
   hosts: bongus_fresh
   roles:
+    - has_ansible_operator
     - name: fresh_init
       vars: 
         fqdn: bongus.hv.astrid.tech

@@ -1,0 +1,5 @@
+- name: Add an Ansible operator user
+  become: true
+  hosts: all
+  roles:
+    - has_ansible_operator
