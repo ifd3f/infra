@@ -2,16 +2,12 @@
   ansible.builtin.hostname:
     name: "{{short_hostname}}"
 
-- name: Add static IP definition
-  ansible.builtin.template:
-    src: primary.interface.j2
-    dest: /etc/network/interfaces.d/primary.interface
-    mode: "644"
-
-- name: Overwrite default interface definition
-  ansible.builtin.copy:
-    src: interfaces
-    dest: /etc/network/interfaces
+- name: Set static IP
+  community.general.nmcli:
+    conn_name: "{{ interface }}"
+    ip4: "{{ ip }}"
+    gw4: "{{ gateway }}"
+    state: present
 
 - name: Alter /etc/hosts with new hostname
   ansible.builtin.template:
@@ -19,7 +15,22 @@
     dest: /etc/hosts
     mode: "644"
 
-- name: Reboot
+- name: Create Ansible user
+  ansible.builtin.user:
+    name: ansible
+    comment: Ansible
+    state: present
+    append: yes
+    create_home: yes
+    groups: wheel
+
+- name: Set authorized key for Ansible
+  ansible.posix.authorized_key:
+    user: ansible
+    state: present
+    key: "{{ssh_public_key}}"
+
+- name: Reboot without confirming successful reboot
   shell: "reboot"
   async: 1
   poll: 0

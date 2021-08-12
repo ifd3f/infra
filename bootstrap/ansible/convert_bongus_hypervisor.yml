@@ -7,11 +7,11 @@
         # TODO proper storage
         password: "{{ lookup('password', './password.txt chars=ascii_letters') }}"
 
-- name: Convert Bongus into a Proxmox server
+- name: Convert bongus into a hypervisor
   become: true
   hosts: bongus.hv.astrid.tech
   roles:
-    - name: converted_proxmox
+    - name: hv_server
     
 - name: Reboot
   become: true

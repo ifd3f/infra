@@ -8,7 +8,7 @@ ephemeral:
     bongus_fresh:
       # Change as necessary
       ansible_host: $bongus_ip
-      ansible_user: debian
+      ansible_user: fedora
       ansible_ssh_pass: devpassword
       ansible_become_pass: devpassword
 EOF

@@ -1,4 +1,4 @@
-- name: Set Bongus
+- name: Freshly initialize Bongus
   become: true
   hosts: bongus_fresh
   roles:
@@ -9,3 +9,4 @@
         interface: ens3
         ip: 192.168.5.2
         gateway: 192.168.5.1
+        ssh_public_key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"

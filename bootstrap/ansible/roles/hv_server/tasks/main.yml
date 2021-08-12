@@ -1,0 +1,35 @@
+- name: Install dnf packages
+  ansible.builtin.dnf:
+    name:
+      - libvirt # virtualization
+      - netcat # libvirt SSH transport
+      - snapd # install lxd
+    state: present
+
+- name: Start snapd 
+  ansible.builtin.systemd:
+    name: snapd 
+    state: started
+    enabled: yes
+
+- name: Install Snap packages
+  community.general.snap:
+    name: lxd
+    state: present
+
+- name: Start LXD 
+  ansible.builtin.systemd:
+    name: lxd 
+    state: started
+    enabled: yes
+
+- name: Load libvirtd configs
+  ansible.builtin.copy:
+    src: ../libvirtd.conf
+    dest: /etc/libvirt/libvirtd.conf
+
+- name: Restart libvirtd
+  ansible.builtin.systemd:
+    name: libvirtd 
+    state: restarted
+    enabled: yes
