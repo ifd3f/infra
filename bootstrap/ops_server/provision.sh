@@ -3,7 +3,6 @@
 set -o xtrace  # logging commands as they are run
 
 echo "Loading yum repositories"
-dnf install -y dnf-plugins-core
 dnf config-manager --add-repo https://rpm.releases.hashicorp.com/fedora/hashicorp.repo
 cat << EOF > /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
@@ -21,13 +20,7 @@ dnf install -y \
     gettext \
     terraform \
     ansible \
-    kubectl \
-    cloud-init \
-    openssh-server
-
-echo "Enabling SSH"
-systemctl enable sshd
-systemctl start sshd
+    kubectl 
 
 echo "Cloning the git repo"
 mkdir /infra

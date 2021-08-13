@@ -1,5 +1,5 @@
 source "lxd" "ops" {
-  image = "images:fedora/34/amd64"
+  image = "local:fedora_base"
   output_image = "ops_server"
   
   publish_properties = {
