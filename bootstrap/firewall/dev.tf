@@ -12,9 +12,9 @@ provider "libvirt" {
 
 # Outer network that everyone else will use
 resource "libvirt_network" "outer" {
-  name      = "bootstrap-dev-outer"
+  name      = "edgefw-dev-outer"
   mode      = "nat"
-  bridge    = "virbr-outer"
+  bridge    = "fwbr-outer"
   addresses = ["192.168.5.0/24"]
 
   dns {
@@ -27,9 +27,9 @@ resource "libvirt_network" "outer" {
 
 # Inner network for me and my machines only
 resource "libvirt_network" "inner" {
-  name      = "bootstrap-dev-inner"
+  name      = "edgefw-dev-inner"
   mode      = "none"
-  bridge    = "virbr-inner"
+  bridge    = "fwbr-inner"
   addresses = []
 }
 
@@ -48,12 +48,10 @@ resource "libvirt_domain" "edgefw" {
 
   network_interface {
     network_name = libvirt_network.outer.name
-    mac = "52:54:00:12:08:00"
   }
 
   network_interface {
     network_name = libvirt_network.inner.name
-    mac = "52:54:00:12:08:01"
   }
 
   disk {
