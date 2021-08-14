@@ -1,0 +1,16 @@
+version: "3.9" # optional since v1.27.0
+services:
+  openwrt:
+    image: openwrtorg/rootfs
+    networks:
+      - lan
+      - wan
+    expose:
+      - "22"
+      - "80"
+      - "443"
+networks:
+  lan:
+    driver: bridge
+  wan:
+    driver: bridge
