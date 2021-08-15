@@ -2,13 +2,11 @@ name: Build and publish custom Fluentd Docker image
 
 on:
   schedule:
-    - cron: '35 6 * * 6'
+    - cron: '0 6 * * 6'
   push:
     branches: [ main ]
-    # Publish semver tags as releases.
-    tags: [ 'v*.*.*' ]
     paths:
-      - docker/fluentd/*
+      - images/central-fluentd/*
       - .github/workflows/publish-custom-fluentd.yml
   pull_request:
     branches: [ main ]
@@ -52,7 +50,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
-          context: docker/fluentd
+          context: images/central-fluentd
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
