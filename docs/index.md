@@ -9,5 +9,6 @@ A simple wiki documenting my "cloud." If I ever bang my head on a steel bar and 
 
 ## Deployment
 
+- [Bootstrapping (WIP)](./bootstrapping.md)
 - [Catalog of planned and deployed services](./services)
 - [Network zones and allocations](./network)
