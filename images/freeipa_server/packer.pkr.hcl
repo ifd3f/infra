@@ -5,7 +5,7 @@ variable "base_image_name" {
 
 source "lxd" "ops" {
   image = var.base_image_name
-  output_image = "hashicorp_vault"
+  output_image = "freeipa_server"
   
   publish_properties = {
     description = "FreeIPA Server"
