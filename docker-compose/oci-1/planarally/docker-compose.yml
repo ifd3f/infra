@@ -1,0 +1,18 @@
+version: "3.7"
+services:
+  planarally:
+    image: kruptein/planarally:latest
+    hostname: planarally
+    restart: unless-stopped
+    expose:
+      - "8000"
+    networks:
+      - proxied
+    volumes:
+      - ./data/data:/planarally/data/
+      - ./data/assets:/planarally/static/assets/
+
+networks:
+  proxied:
+    external:
+      name: proxied

@@ -1,0 +1,18 @@
+version: "3.7"
+services:
+  shortener:
+    image: astridyu/aay_tw_shortener:latest
+    hostname: aay_tw
+    command: "/usr/local/bin/aay-tw"
+    expose:
+      - 8000
+    environment:
+      TARGET_URL: https://astrid.tech
+    restart: always
+    networks:
+      - proxied
+
+networks:
+  proxied:
+    external:
+      name: proxied
