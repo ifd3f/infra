@@ -1,4 +1,3 @@
-
 # Created by https://www.toptal.com/developers/gitignore/api/ansible
 # Edit at https://www.toptal.com/developers/gitignore?templates=ansible
 
@@ -9,3 +8,5 @@
 
 credentials/
 group_vars/
+inventory/*.gen.yaml
+password.txt
