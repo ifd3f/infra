@@ -19,9 +19,9 @@ services:
       - db
     command: >
       bash -c "
-        python3 manage.py collectstatic --noinput &&
-        python3 manage.py migrate --database default &&
-        gunicorn astrid_tech.wsgi:application --bind 0.0.0.0:8001
+        pipenv run python3 manage.py collectstatic --noinput &&
+        pipenv run python3 manage.py migrate --database default &&
+        pipenv run gunicorn astrid_tech.wsgi:application --bind 0.0.0.0:8001
       "
     env_file:
       - ../../secrets/astrid_tech/.env.prod
