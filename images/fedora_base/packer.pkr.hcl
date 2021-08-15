@@ -1,13 +1,19 @@
 variable "ansible_ssh_key_path" {
   type = string 
+  default = "/root/.ssh/id_rsa.pub"
+}
+
+variable "output_image_name" {
+  type = string 
+  default = "fedora_base"
 }
 
 source "lxd" "fedorabase" {
   image = "images:fedora/34/amd64"
-  output_image = "fedora_base"
+  output_image = var.output_image_name
   
   publish_properties = {
-    description = "Preconfigured Ansible-ready Fedora base image"
+    description = "Fedora LXC base image for cool pet services"
   }
 }
 
@@ -25,22 +31,11 @@ build {
   }
 
   provisioner "file" {
-    source = "${path.root}/provision.sh"
-    destination = "/tmp/provision.sh"
-  }
-
-  provisioner "file" {
     source = var.ansible_ssh_key_path
     destination = "/tmp/ansible_ssh.pub"
   }
 
   provisioner "shell" {
-    inline = ["bash /tmp/provision.sh"]
+    script = "${path.root}/provision.sh"
   }
-
-  // provisioner "ansible" {
-  //   playbook_file = "${path.root}/test_playbook.yml"
-  //   user = "ansible"
-  //   use_proxy = false
-  // }
 }

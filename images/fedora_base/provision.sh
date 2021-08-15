@@ -7,7 +7,8 @@ dnf install -y \
     cloud-init \
     dnf-plugins-core \
     ansible \
-    openssh-server
+    openssh-server \
+    freeipa-client
 
 echo "Configuring sshd"
 cp /tmp/sshd_config /etc/ssh/sshd_config

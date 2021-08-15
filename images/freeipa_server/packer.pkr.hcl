@@ -1,5 +1,10 @@
+variable "base_image_name" {
+  type = string 
+  default = "local:fedora_base"
+}
+
 source "lxd" "ops" {
-  image = "local:fedora_base"
+  image = var.base_image_name
   output_image = "hashicorp_vault"
   
   publish_properties = {
