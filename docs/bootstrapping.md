@@ -1,26 +1,51 @@
-# Bootstrapping
+# Cluster Bootstrapping Routine
 
-In the event that everything is lost, this guide should describe how the cluster is to be bootstrapped from zero.
+Inspired by the 1998 [_Bootstrapping an Infrastructure_](http://www.infrastructures.org/papers/bootstrap/bootstrap.html) paper, with a modern twist.
 
-## Setting up the Machines and VMs
+I could just manually set up my servers like I did before, but that's really boring. This folder contains scripts for (eventually) fully-automated setup!
 
-On all nodes with at least 8GB of RAM, install [Proxmox](https://proxmox.com/en/).
+## Manual Physical Infrastructure Setup
 
-On all other nodes, install bare-metal [Ubuntu Server](https://ubuntu.com/download/server).
+This unfortunately has not yet been automated; doing so is likely to be difficult and require some PXE fuckery. After this step, though, the bootstrap sequence is fully automatic.
 
-## FreeIPA
+### Wire the network
 
-On one Proxmox node, create a [Fedora Server](https://getfedora.org/en/server/download/) VM. This will be for FreeIPA. It should have at least 2GB of RAM.
+### Install operating systems 
 
-```s
-# TODO FreeIPA installation
-```
+- Bongus, a HP DL380P Gen8 server, gets Debian.
+- One machine gets Fedora, and it will be the FreeIPA controller.
+- The rest get Debian.
 
-## Kubernetes Cluster
+## Automated Critical Infrastructure Setup
 
-Using the rest of the resources on the Proxmox servers, create Ubuntu Server VMs.
+### Set up Bongus as a hypervisor
 
-Using `k3sup`, install a Kubernetes cluster.
+### Create an in-firewall ops server
 
+This operations server will continue the rest of the bootstrapping process. It needs access to the internal network, which is why it's on Bongus. Once this step is completed, the boostrapping machine is free to step away.
 
+### Create a HashiCorp Vault server
 
+### Create a firewall/routing server 
+
+This step is critical for making sure that all the machines behind Bongus can actually get internet. This server will either run on PFSense, or as a BSD node with nftables.
+
+### Set up the Domain Controller master
+
+### Configure Proxmox to authenticate with LDAP
+
+## Automated Secondary Infrastructure Setup
+
+Once all those previous steps have been cleared, the rest of the steps are fairly easy to do.
+
+### Set up a Domain Controller replica
+
+### Set up storage and fileshares
+
+### Cluster Bongus with the other designated hypervisors
+
+### Set up databases
+
+### Set up a Kubernetes cluster
+
+Once Kubernetes is deployed, the other things are pretty easy.
