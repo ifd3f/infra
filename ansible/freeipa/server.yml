@@ -1,8 +1,0 @@
----
-- name: Playbook to configure IPA server
-  hosts: ipaserver
-  become: true
-
-  roles:
-    - role: ipaserver
-      state: present
