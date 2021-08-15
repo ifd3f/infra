@@ -1,0 +1,48 @@
+name: Build LXC images
+
+on:
+  schedule:
+    - cron: '0 6 * * 6'
+  push:
+    branches: [ main ]
+    paths:
+      - .github/workflows/build-lxc-images.yml
+      - images/fedora_base/*
+      - images/freeipa_server/*
+      - images/vault_server/*
+      - images/ops_server/*
+  pull_request:
+    branches: [ main ]
+
+env:
+  base_image: fedora_base
+
+jobs:
+  build_fedora_base:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      
+        # TODO do this step better
+      - name: Store RSA key to a file
+        run: echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDc79RQW1memuqUUT7vYBKHBZ+h+BcjgCu0vvwgLLBwwJ3yBgU7wFx0EUkmfsg3icXhfiH61Bt7J4/eOm/sAE39oAcEZkv6xXgzwhMnWBWjAFcM5Ai3yvQJKxHVTkRXwyajf14HCQ594o0uLz0SGmoMvVkgBetdugRkvaYULdwgrqPt0302pEw1cKfUifeRqFnGVLcllXJV1iWqvuODfJTUO4tTlEIRSLcojaEfDVHM+9/Xx6tqFNeDxrRWd4VIf0vLbirCF8AzqzkYGjV9CL0Ao1l6serdLGZDtkpdd8gK5QQ1PNBqQPvMo+1p3Wq76Jy6dSax08GTdnG6/REUsWo3 astrid@BANANA" > id_rsa.pub
+      
+      - name: Initialize LXD
+        run: sudo lxd init --auto
+
+      - name: Build image
+        run: >
+            sudo packer build 
+            -var "ansible_ssh_key_path=./id_rsa.pub" 
+            -var "output_image_name=${{ env.base_image }}" 
+            images/fedora_base
+      
+      - name: Export image
+        run: sudo lxc image export local:${{ env.base_image }} ${{ env.base_image }}
+
+      - name: Upload image tarball
+        uses: actions/upload-artifact@v2.2.4
+        with:
+          name: "${{ env.base_image }}"
+          path: "${{ env.base_image }}.tar.gz"
