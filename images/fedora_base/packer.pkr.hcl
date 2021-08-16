@@ -1,8 +1,3 @@
-variable "ansible_ssh_key_path" {
-  type = string 
-  default = "/root/.ssh/id_rsa.pub"
-}
-
 variable "output_image_name" {
   type = string 
   default = "fedora_base"
@@ -21,18 +16,13 @@ build {
   sources = ["source.lxd.fedorabase"]
 
   provisioner "file" {
-    source = "${path.root}/ansible-sudo"
-    destination = "/tmp/ansible-sudo"
+    source = "${path.root}/passwordless-sudo"
+    destination = "/tmp/passwordless-sudo"
   }
 
   provisioner "file" {
     source = "${path.root}/sshd_config"
     destination = "/tmp/sshd_config"
-  }
-
-  provisioner "file" {
-    source = var.ansible_ssh_key_path
-    destination = "/tmp/ansible_ssh.pub"
   }
 
   provisioner "shell" {

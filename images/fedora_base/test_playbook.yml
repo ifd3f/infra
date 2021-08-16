@@ -1,3 +1,0 @@
-- hosts: all
-  tasks:
-    - shell: echo "If this runs, then the ansible user was configured correctly"

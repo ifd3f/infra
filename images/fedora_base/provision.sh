@@ -8,25 +8,23 @@ dnf install -y \
     dnf-plugins-core \
     ansible \
     openssh-server \
-    freeipa-client
+    freeipa-client \
+    firewalld \
+    nftables
 
 echo "Configuring sshd"
-cp /tmp/sshd_config /etc/ssh/sshd_config
+cat /tmp/sshd_config > /etc/ssh/sshd_config
 
-echo "Creating ansible operator user"
-useradd -m -c "Ansible Operator" -G wheel ansible
+echo "Enabling passwordless sudo"
+cat /tmp/passwordless-sudo > /etc/sudoers.d/passwordless
 
-echo "Giving ansible user passwordless sudo"
-cp /tmp/ansible-sudo /etc/sudoers.d/ansible
+echo "Enabling SSH, firewalld"
+systemctl enable sshd.service
+systemctl enable firewalld.service
 
-echo "Adding ansible user's public key"
-mkdir -p /home/ansible/.ssh
-cat /tmp/ansible_ssh.pub >> /home/ansible/.ssh/authorized_keys
+echo "Disabling chronyd"
+systemctl disable chronyd.service 
 
-chmod 700 /home/ansible/.ssh
-chmod 644 /home/ansible/.ssh/authorized_keys
-chown -R ansible /home/ansible/.ssh
-
-echo "Enabling SSH"
-systemctl enable sshd
-systemctl restart sshd
+echo "Allowing SSH traffic"
+systemctl start firewalld.service
+firewall-cmd --add-service=ssh --permanent
