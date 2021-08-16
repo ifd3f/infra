@@ -4,11 +4,5 @@
   roles:
     - has_ansible_operator
     - name: fresh_init
-      vars: 
-        fqdn: bongus.hv.astrid.tech
-        short_hostname: bongus
-        interface: ens3
-        ip: 192.168.5.2
-        cidr: 24
-        gateway: 192.168.5.1
+      vars:
         ssh_public_key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
