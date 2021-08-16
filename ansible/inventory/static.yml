@@ -8,3 +8,13 @@ all:
 bootstrapper_host:
   hosts:
     bongus.hv.astrid.tech:
+
+lxc_host:
+  hosts:
+    bongus.hv.astrid.tech:
+podman_host:
+  hosts:
+    bongus.hv.astrid.tech:
+kvm_host:
+  hosts:
+    bongus.hv.astrid.tech:
