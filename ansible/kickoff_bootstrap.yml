@@ -1,0 +1,12 @@
+- name: Install Podman on the podman kickoff host
+  become: true
+  hosts: bootstrapper_host
+  roles:
+    - podman_server
+  tasks:
+    - name: Start the infra-bootstrapper
+      containers.podman.podman_container:
+        name: bootstrapper
+        image: ghcr.io/astralbijection/infra-bootstrapper:main
+        state: started
+        recreate: yes

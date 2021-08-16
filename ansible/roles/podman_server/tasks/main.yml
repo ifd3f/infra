@@ -1,0 +1,11 @@
+- name: Install dnf packages
+  ansible.builtin.dnf:
+    name:
+      - podman
+    state: present
+
+- name: Start podman service
+  ansible.builtin.systemd:
+    name: podman 
+    state: started
+    enabled: yes

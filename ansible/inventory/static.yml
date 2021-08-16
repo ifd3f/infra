@@ -4,3 +4,7 @@ all:
       ansible_host: 192.168.5.2
       ansible_user: ansible
       ansible_python_interpreter: /usr/bin/python3
+
+bootstrapper_host:
+  hosts:
+    bongus.hv.astrid.tech:
