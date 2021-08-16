@@ -10,6 +10,7 @@ on:
       - .github/workflows/publish-custom-fluentd.yml
   pull_request:
     branches: [ main ]
+  workflow_dispatch:
 
 env:
   REGISTRY: ghcr.io
