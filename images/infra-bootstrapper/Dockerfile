@@ -26,4 +26,6 @@ RUN git sparse-checkout init --cone \
     && git sparse-checkout set ansible terraform kubernetes \
     && git checkout
 
-CMD ansible-playbook ansible/full_bootstrap.yml
+COPY ./start.sh /usr/local/bin/start.sh
+WORKDIR /infra/ansible
+CMD start.sh
