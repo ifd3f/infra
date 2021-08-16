@@ -1,2 +1,8 @@
-# - name: Wait for FreeIPA server to start
-#   wait_for_connection:
+- name: Import FreeIPA LXC image
+  hosts: freeipa_initial_master_host
+  roles:
+    - name: import_lxc_from_artifact
+      vars:
+        lxc_name: freeipa_server
+        lxc_zip_url: https://nightly.link/astralbijection/infrastructure/workflows/build-lxc-images/main/freeipa_server.zip
+

@@ -18,3 +18,7 @@ podman_host:
 kvm_host:
   hosts:
     bongus.hv.astrid.tech:
+
+freeipa_initial_master_host:
+  hosts:
+    bongus.hv.astrid.tech:
