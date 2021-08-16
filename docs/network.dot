@@ -1,0 +1,17 @@
+graph G {
+    node [shape=box3d]
+    
+    modem [shape=egg]
+    outer_router [shape=egg]
+    outer_machine 
+    inner_router [shape=egg]
+    inner_switch [shape=oval]
+    
+    bongus
+    badtop
+    cracktop
+    thonkpad
+    
+    modem -- outer_router -- inner_router -- inner_switch -- {bongus, badtop, cracktop, thonkpad}
+    outer_router -- outer_machine
+}

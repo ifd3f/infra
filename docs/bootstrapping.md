@@ -1,51 +1,111 @@
-# Cluster Bootstrapping Routine
+# Homelab Bootstrapping Sequence (WIP)
 
-Inspired by the 1998 [_Bootstrapping an Infrastructure_](http://www.infrastructures.org/papers/bootstrap/bootstrap.html) paper, with a modern twist.
+I could just manually set up my servers like I did before, but that's really boring. What's less boring is a fully-automated setup script!
 
-I could just manually set up my servers like I did before, but that's really boring. This folder contains scripts for (eventually) fully-automated setup!
+## Inspiration
+
+The setup order is inspired by the 1998 [_Bootstrapping an Infrastructure_](http://www.infrastructures.org/papers/bootstrap/bootstrap.html) paper by Traugott and Huddleston. Of course, this paper is literally older than I am, so I have given it a modern twist.
+
+Traugott and Huddleston identify the bootstrap sequence as having the following steps, in approximately this order:
+
+1. **Version Control -- CVS, track who made changes, backout.** We'll just let [Github](https://github.com/astralbijection/infrastructure) handle this step for us.
+1. **Gold Server -- only require changes in one place.** This role is occupied by 2 machines. The first is the one-off Infra-Bootstrapper docker container, and the second is the more long-lasting Ansible Semaphore server.
+1. **Host Install Tools -- install hosts without human intervention.** The Infra-Bootstrapper occupies this role.
+1. **Ad Hoc Change Tools -- 'expect', to recover from early or big problems.** No need.
+1. **Directory Servers -- DNS, NIS, LDAP.** Handled by FreeIPA.
+1. **Authentication Servers -- NIS, Kerberos.** Handled by FreeIPA.
+1. **Time Synchronization -- NTP.** I'll use an Ansible playbook to add NTP synchronization to an external pool.
+1. **Network File Servers -- NFS, AFS, SMB.** TODO
+1. **File Replication Servers -- SUP.** TODO
+1. **Client File Access -- automount, AMD, autolink.** TODO
+1. **Client OS Update -- rc.config, configure, make, cfengine.** This will be done by a periodic Ansible script.
+1. **Client Configuration Management -- cfengine, SUP, CVSup.** Also done by a periodic Ansible script.
+1. **Client Application Management -- autosup, autolink.** Most of our services will run in Kubernetes.
+1. **Mail -- SMTP.** Lol no we aren't hosting mail
+1. **Printing -- Linux/SMB to serve both NT and UNIX.** Printers? What's a printer?
+1. **Monitoring -- syslogd, paging.** Configured by Ansible, pushed by Fluent bit, aggregated by Fluentd, Prometheus and Loki, and presented by Grafana.
 
 ## Manual Physical Infrastructure Setup
 
-This unfortunately has not yet been automated; doing so is likely to be difficult and require some PXE fuckery. After this step, though, the bootstrap sequence is fully automatic.
+**Who does this?** A human.
+
+Yeah, yeah, I promised it would be fully automated, but there are some limits to my power.
+
+Automating the OS installs will likely require a medium amount of PXE fuckery. Automating the network wiring will be worse, because it will require an extremely large amount of robotics fuckery. So unfortunately, I will leave that to a future me.
 
 ### Wire the network
 
-### Install operating systems 
+Following [this graph](./network.dot). (TODO include this as an image)
 
-- Bongus, a HP DL380P Gen8 server, gets Debian.
-- One machine gets Fedora, and it will be the FreeIPA controller.
-- The rest get Debian.
+### Install operating systems
 
-## Automated Critical Infrastructure Setup
+All bare-metal machines are to be installed with [Fedora Server 34](https://getfedora.org/en/server/download/).
 
-### Set up Bongus as a hypervisor
+## Kick-off the Process from a PC
 
-### Create an in-firewall ops server
+**Who does this?** Your PC.
 
-This operations server will continue the rest of the bootstrapping process. It needs access to the internal network, which is why it's on Bongus. Once this step is completed, the boostrapping machine is free to step away.
+### Secret generation
 
-### Create a HashiCorp Vault server
+TODO
 
-### Create a firewall/routing server 
+### Infra-Bootstrapper 
 
-This step is critical for making sure that all the machines behind Bongus can actually get internet. This server will either run on PFSense, or as a BSD node with nftables.
+In this step, we run an Ansible playbook to install Podman on a machine, then start a Infra-Bootstrapper (IBSR) container on it.
 
-### Set up the Domain Controller master
+Simply execute:
 
-### Configure Proxmox to authenticate with LDAP
+```
+ansible-playbook ansible/kickoff_bootstrap.yml
+```
 
-## Automated Secondary Infrastructure Setup
+The rest of the process is fully automated from the Bootstrapper container using Ansible.
+## Automated Base Infrastructure Setup
 
-Once all those previous steps have been cleared, the rest of the steps are fairly easy to do.
+**Who does this?** The Infra-Bootstrapper.
 
-### Set up a Domain Controller replica
+TODO
+
+### Set up LXD, Libvirt, and Podman on the bare metal machines
+TODO
+
+### Configure router/firewall
+
+TODO
+
+### Create the initial FreeIPA master server
+TODO
+
+### Create the initial HashiCorp Vault server
+TODO
+
+### Create the internal Continuous Deployment (CD) server
+
+We will either use Jenkins or GitLab deployed in a LXC container. I don't know which one yet.
+
+In theory, once this step works properly, all I have to do is `git push` to main and I can redeploy my entire stack!
+
+## Continuous Infrastructure Deployment
+
+**Who does this?** The CD server.
+
+TODO
+
+### Create a FreeIPA replica
+TODO
+
+### Create HashiCorp Vault replicas
+TODO
 
 ### Set up storage and fileshares
-
-### Cluster Bongus with the other designated hypervisors
+TODO
 
 ### Set up databases
+TODO
 
-### Set up a Kubernetes cluster
+### Create Kubernetes cluster
+TODO
 
-Once Kubernetes is deployed, the other things are pretty easy.
+### Continuous Kubernetes Deployment
+
+TODO
