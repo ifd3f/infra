@@ -17,8 +17,8 @@
 
 - name: Create LXD preseed
   ansible.builtin.template:
-    src: ../lxd_preseed.yaml
-    dest: /tmp/lxd_preseed.yaml
+    src: "{{ role_path }}/lxd_preseed.yml"
+    dest: /tmp/lxd_preseed.yml
 
 - name: Initialize LXD
-  shell: cat /tmp/lxd_preseed.yaml | lxd init --preseed
+  shell: cat /tmp/lxd_preseed.yml | lxd init --preseed

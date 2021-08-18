@@ -1,0 +1,37 @@
+config: {}
+networks: []
+storage_pools: []
+profiles: []
+projects: []
+cluster:
+  server_name: bongus
+  enabled: true
+  member_config:
+    - entity: storage-pool
+      name: local
+      key: size
+      value: 5GB
+      description: '"size" property for storage pool "local"'
+    - entity: storage-pool
+      name: local
+      key: source
+      value: test
+      description: '"source" property for storage pool "local"'
+  cluster_address: 192.168.5.2:8443
+  cluster_certificate: |
+    -----BEGIN CERTIFICATE-----
+    MIICAzCCAYqgAwIBAgIRAKfVcPMJNz+X/BIU23OANjYwCgYIKoZIzj0EAwMwNDEc
+    MBoGA1UEChMTbGludXhjb250YWluZXJzLm9yZzEUMBIGA1UEAwwLcm9vdEBib25n
+    dXMwHhcNMjEwODE2MDc0ODQ3WhcNMzEwODE0MDc0ODQ3WjA0MRwwGgYDVQQKExNs
+    aW51eGNvbnRhaW5lcnMub3JnMRQwEgYDVQQDDAtyb290QGJvbmd1czB2MBAGByqG
+    SM49AgEGBSuBBAAiA2IABO03ckP7DLdFTlQVKZdc7GwxBGiyPh8zV37BPnqQGAMZ
+    8sgQgKQN8NwXNCMoEkvr6hVmsybvYl+R3unEyQtT4M44MT/wcdH4spSlWdKoG/9g
+    p2GmgZdpIeQdF3VazCuQHqNgMF4wDgYDVR0PAQH/BAQDAgWgMBMGA1UdJQQMMAoG
+    CCsGAQUFBwMBMAwGA1UdEwEB/wQCMAAwKQYDVR0RBCIwIIIGYm9uZ3VzhwR/AAAB
+    hxAAAAAAAAAAAAAAAAAAAAABMAoGCCqGSM49BAMDA2cAMGQCMA1X+3bhjkIHyCK6
+    2srEGVJ6HdHl3nMIFrTReSbQHKRS7CZ9wZur64ByH9E53pk8YgIwV8oA3i+wCfmT
+    192LqjsZnUBEbdD/4ZUx8+TSii27TrJkLXscFs4ZU+FUMWfc0uaI
+    -----END CERTIFICATE-----
+  server_address: 192.168.5.2:8443
+  cluster_password: ""
+  cluster_certificate_path: ""

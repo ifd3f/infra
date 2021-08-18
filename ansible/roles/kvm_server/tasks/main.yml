@@ -7,7 +7,7 @@
 
 - name: Load libvirtd configs
   ansible.builtin.copy:
-    src: ../libvirtd.conf
+    src: "{{ role_path }}/libvirtd.conf"
     dest: /etc/libvirt/libvirtd.conf
 
 - name: Restart libvirtd
