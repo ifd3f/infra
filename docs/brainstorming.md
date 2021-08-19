@@ -1,3 +1,8 @@
+# Big Brainstorm Document
+
+## Before 2021-08-07
+
+```
 - main wifi router
 - server (bongus) cascaded behind it
 - bootstrapping process:
@@ -58,3 +63,4 @@ A: Configure it
 
 - Set up Proxmox ldap
 A: a lotta configs, also add ipa1
+```
