@@ -4,10 +4,30 @@ Because bootstrapping the cluster is a very complex ordeal, a local, virtualized
 
 Depending you how your computer is set up, Packer and Terraform may need to be run as root.
 
-## Packer
+## 1. Use Packer to build images
 
 The images created by packer should emulate what's on my servers, as closely as possible. They are initialized using preseed files.
 
-## Terraform
+To build development images, run
+```
+packer build .
+```
 
-The terraform script provisions and starts up all 3 servers in libvirt.
+## 2. Use Terraform to deploy VMs
+
+The terraform script provisions and starts up all 3 server analogues in Libvirt. To create it, run
+
+```
+terraform apply
+```
+
+and to destroy it, run
+
+```
+terraform destroy
+```
+
+To nuke your environment and start from scratch, run
+```
+terraform destroy -auto-approve && terraform apply -auto-approve
+```
