@@ -6,25 +6,28 @@ parted -s $disk mktable gpt
 parted -s -a optimal $disk mkpart boot 0% 400MiB  # /boot
 parted -s -a optimal $disk mkpart root-zfs-part 400MiB 100%  # zfs
 
+sleep 2  # wait for /dev/disk/by-partlabel to update
+
 export root=$(readlink -f /dev/disk/by-partlabel/root-zfs-part)
 export boot=$(readlink -f /dev/disk/by-partlabel/boot)
 
-zpool create rootpool $root
-
-zfs create -p -o mountpoint=legacy rootpool/local/root
-zfs snapshot rootpool/local/root@blank
-mount -t zfs rootpool/local/root /mnt
-
-zfs create -p -o mountpoint=legacy rootpool/local/nix
-mkdir /mnt/nix
-mount -t zfs rootpool/local/nix /mnt/nix
-
-zfs create -p -o mountpoint=legacy rootpool/safe/persist
-mkdir /mnt/persist
-mount -t zfs rootpool/safe/persist /mnt/persist
-
+zpool create rpool $root
 mkfs.vfat $boot
-mkdir /mnt/boot
-mount -t vfat $boot /mnt/boot
+
+zfs create -p -o mountpoint=legacy rpool/local/root
+zfs snapshot rpool/local/root@blank
+mount -t zfs rpool/local/root /mnt
+
+mkdir -p /mnt/nix /mnt/boot/efi /mnt/persist
+
+zfs create -p -o mountpoint=legacy rpool/local/nix
+mount -t zfs rpool/local/nix /mnt/nix
+
+zfs create -p -o mountpoint=legacy rpool/safe/persist
+mount -t zfs rpool/safe/persist /mnt/persist
+
+mount -t vfat $boot /mnt/boot/efi
 
 nixos-generate-config --root /mnt
+
+head -c 8 /etc/machine-id
