@@ -1,5 +1,7 @@
 # Homelab Bootstrapping Sequence (WIP)
 
+**DISCLAIMER:** This is a very vague general plan for bootstrapping. Everything is subject to change, and none of this has been proven to work in a real environment yet.
+
 I could just manually set up my servers like I did before, but that's really boring. What's less boring is a fully-automated setup script!
 
 ## Inspiration
