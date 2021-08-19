@@ -1,19 +1,21 @@
 #!/bin/bash
-# "Borrowed" from https://grahamc.com/blog/erase-your-darlings
-export disk=/dev/vda
+# Drive partitioning 
+# https://nixos.wiki/wiki/NixOS_on_ZFS#How_to_install_NixOS_on_a_ZFS_root_filesystem
+export disk=/dev/disk/by-id/ata-QEMU_HARDDISK_QM00003
 
-parted -s $disk mktable gpt
-parted -s -a optimal $disk mkpart boot 0% 400MiB  # /boot
-parted -s -a optimal $disk mkpart root-zfs-part 400MiB 100%  # zfs
+sgdisk --zap-all $disk
+sgdisk -n1:0:+550M -t1:ef00 $disk
+sgdisk -n2:0:0 -t2:bf00 $disk
 
 sleep 2  # wait for /dev/disk/by-partlabel to update
 
-export root=$(readlink -f /dev/disk/by-partlabel/root-zfs-part)
-export boot=$(readlink -f /dev/disk/by-partlabel/boot)
+export boot=$disk-part1
+export pool=$disk-part2
 
-zpool create rpool $root
+zpool create rpool $pool
 mkfs.vfat $boot
 
+# "Borrowed" from https://grahamc.com/blog/erase-your-darlings
 zfs create -p -o mountpoint=legacy rpool/local/root
 zfs snapshot rpool/local/root@blank
 mount -t zfs rpool/local/root /mnt

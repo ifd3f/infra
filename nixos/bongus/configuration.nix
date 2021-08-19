@@ -19,6 +19,7 @@
   # Define on which hard drive you want to install Grub.
   boot.loader.grub.copyKernels = true;
   boot.loader.grub.device = "nodev"; # or "nodev" for efi only
+  boot.initrd.supportedFilesystems = ["zfs"]; # boot from zfs
   boot.supportedFilesystems = [ "zfs" ];
   boot.zfs.requestEncryptionCredentials = true;
 
@@ -31,7 +32,7 @@
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
-  networking.hostId = "7d45f681";  # Required for ZFS
+  networking.hostId = "6d1020a1";  # Required for ZFS
   networking.useDHCP = false;
   networking.interfaces.enp1s0.useDHCP = true;
 
