@@ -1,5 +1,23 @@
 # Big Brainstorm Document
 
+## 2021-08-19 Fully declarative setup 
+
+Bare metal redeployment sucks! NixOS as a Hypervisor?
+
+1. Deploy NixOS on bare metal machines with Libvirt/KVM/LXD/Podman. All packages and non-VM configs managed by Nix and NixOps.
+2. Set up router/firewall
+3. Spawn Kubernetes and other things with Terraform.
+
+3 Kubernetes clusters?
+
+1. "System" cluster. The idea is ripped off of how RancherOS has a System Docker and a regular Docker. 
+    - Simple authentication, no LDAP or fancy shit
+    - FreeIPA
+    - HashiCorp Vault
+    - Possibly CD server?
+2. "Internal" cluster. For internal services that aren't mission-critical. LDAP auth.
+3. "Public" cluster. For public services that would be exposed outside of the firewall. LDAP auth.
+
 ## Before 2021-08-07
 
 ```
