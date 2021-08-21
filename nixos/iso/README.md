@@ -12,7 +12,12 @@ To spawn a testing environment for the ISO using Libvirt and Terraform, run
 make test
 ````
 
-To clean, run
+To destroy just your testing environment and nothing else, run
+```
+make clean-test
+```
+
+To clean everything up, run
 ```
 make clean
 ```
