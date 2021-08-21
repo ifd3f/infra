@@ -68,7 +68,7 @@ All bare-metal machines are to be installed with a customized [NixOS 21.05 ISO](
 
 TODO
 
-### Infra-Bootstrapper
+### Infra-Bootstrapper (???)
 
 In this step, we run an Ansible playbook to install Podman on a machine, then start a Infra-Bootstrapper (IBSR) container on it.
 
@@ -86,41 +86,25 @@ The rest of the process is fully automated from the Bootstrapper container using
 
 TODO
 
-### Set up LXD, Libvirt, and Podman on the bare metal machines
+### Spawn system-k8s cluster
 
-TODO
+This is done by calling Terraform. Once it's created, we deploy our system-k8s configs to it.
+
+This will create several very important services:
+
+- FreeIPA
+- Ansible Vault
+- CD server. TODO: Will I use Jenkins? CDS?
 
 ### Configure router/firewall
 
-TODO
-
-### Create the initial FreeIPA master server
-
-TODO
-
-### Create the initial HashiCorp Vault server
-
-TODO
-
-### Create the internal Continuous Deployment (CD) server
-
-We will either use Jenkins or GitLab deployed in a LXC container. I don't know which one yet.
-
-In theory, once this step works properly, all I have to do is `git push` to main and I can redeploy my entire stack!
+We will need to update the router's DNS forwarding to point to our new FreeIPA nodes' IP.
 
 ## Continuous Infrastructure Deployment
 
 **Who does this?** The CD server.
 
-TODO
-
-### Create a FreeIPA replica
-
-TODO
-
-### Create HashiCorp Vault replicas
-
-TODO
+This is done continuously, on a regular basis or on git pushes.
 
 ### Set up storage and fileshares
 
@@ -130,10 +114,6 @@ TODO
 
 TODO
 
-### Create Kubernetes cluster
-
-TODO
-
-### Continuous Kubernetes Deployment
+### Create user-k8s and external-k8s clusters
 
 TODO
