@@ -5,7 +5,7 @@ resource "libvirt_volume" "installer" {
 
 resource "libvirt_volume" "root_disk" {
   name = "nixos_test_root.qcow2"
-  source = var.nixos_iso
+  size = 20 * 1024 * 1024 * 1024  # 20GiB
 }
 
 resource "libvirt_domain" "nixos_test" {
@@ -31,5 +31,9 @@ resource "libvirt_domain" "nixos_test" {
     type        = "spice"
     listen_type = "address"
     autoport    = true
+  }
+
+  xml {
+    xslt = file("modify.xslt")
   }
 }

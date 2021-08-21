@@ -1,7 +1,7 @@
 #!/bin/bash
 # Drive partitioning 
 # https://nixos.wiki/wiki/NixOS_on_ZFS#How_to_install_NixOS_on_a_ZFS_root_filesystem
-export disk=/dev/disk/by-id/ata-QEMU_HARDDISK_QM00003
+export disk=/dev/disk/by-id/ata-QEMU_HARDDISK_QM00007
 
 sgdisk --zap-all $disk
 sgdisk -n1:0:+550M -t1:ef00 $disk
