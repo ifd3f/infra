@@ -2,7 +2,7 @@
 
 rm -rf ./result
 ./mkiso.sh
-iso_path=$(ls ./result/iso/*.iso)
+iso_path=$(readlink -f result/iso/*.iso)
 
 cd test
 export TF_VAR_nixos_iso=$iso_path
