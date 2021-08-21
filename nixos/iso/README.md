@@ -1,13 +1,13 @@
 # NixOS ISO builder
 
-Automatically makes a NixOS ISO with useful stuff for easy remote/automated install.
+Automatically makes a NixOS ISO with useful stuff for easy remote/automated install. This uses Makefile because why not.
 
 To create the ISO, run
 ```
-make iso
+make 
 ```
 
-To spawn a testing environment for the ISO, run
+To spawn a testing environment for the ISO using Libvirt and Terraform, run
 ```
 make test
 ````
