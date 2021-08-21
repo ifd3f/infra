@@ -6,26 +6,43 @@ I could just manually set up my servers like I did before, but that's really bor
 
 ## Inspiration
 
+### Setup Order
+
 The setup order is inspired by the 1998 [_Bootstrapping an Infrastructure_](http://www.infrastructures.org/papers/bootstrap/bootstrap.html) paper by Traugott and Huddleston. Of course, this paper is literally older than I am, so I have given it a modern twist.
 
-Traugott and Huddleston identify the bootstrap sequence as having the following steps, in approximately this order:
+Here is how some of the major components that Traugott and Huddleston identify map onto my setup:
 
-1. **Version Control -- CVS, track who made changes, backout.** We'll just let [Github](https://github.com/astralbijection/infrastructure) handle this step for us.
-1. **Gold Server -- only require changes in one place.** This role is occupied by 2 machines. The first is the one-off Infra-Bootstrapper docker container, and the second is the more long-lasting Ansible Semaphore server.
-1. **Host Install Tools -- install hosts without human intervention.** The Infra-Bootstrapper occupies this role.
-1. **Ad Hoc Change Tools -- 'expect', to recover from early or big problems.** No need.
-1. **Directory Servers -- DNS, NIS, LDAP.** Handled by FreeIPA.
-1. **Authentication Servers -- NIS, Kerberos.** Handled by FreeIPA.
-1. **Time Synchronization -- NTP.** I'll use an Ansible playbook to add NTP synchronization to an external pool.
-1. **Network File Servers -- NFS, AFS, SMB.** TODO
-1. **File Replication Servers -- SUP.** TODO
-1. **Client File Access -- automount, AMD, autolink.** TODO
-1. **Client OS Update -- rc.config, configure, make, cfengine.** This will be done by a periodic Ansible script.
-1. **Client Configuration Management -- cfengine, SUP, CVSup.** Also done by a periodic Ansible script.
-1. **Client Application Management -- autosup, autolink.** Most of our services will run in Kubernetes.
-1. **Mail -- SMTP.** Lol no we aren't hosting mail
-1. **Printing -- Linux/SMB to serve both NT and UNIX.** Printers? What's a printer?
-1. **Monitoring -- syslogd, paging.** Configured by Ansible, pushed by Fluent bit, aggregated by Fluentd, Prometheus and Loki, and presented by Grafana.
+- **Version Control.** We'll just let [Github](https://github.com/astralbijection/infrastructure) handle this step for us.
+- **Gold Server, Host Install Tools** This role is occupied by 2 machines. The first is the one-off Infra-Bootstrapper docker container, and the second is the more long-lasting Continuous Deployment (CD) server.
+- **Directory Servers, Authentication Servers.** Handled by FreeIPA.
+- **Time Synchronization.** I will use Ansible, pre-configuration in Packer images, and NixOS for this step.
+- **Network File Servers, File Replication Servers.** TODO
+- **Client OS Update, Client Configuration Management** This will be activated by the CD server, and performed by periodic Ansible scripts, maybe something in Kubernetes.
+- **Monitoring** Configured by Ansible, pushed by Fluent bit, aggregated by Fluentd, Prometheus and Loki, and presented by Grafana.
+
+### Separation of System and User Runtimes
+
+RancherOS separates its Docker environments into [System Docker and a User Docker](https://rancher.com/docs/os/v1.x/en/#how-rancheros-works). I can do something similar, where I have a system-k8s cluster running critical stuff like FreeIPA and HashiCorp Vault, and a user-k8s cluster for running everything else.
+
+In addition to those, I can also create a special, extra-hardened external-k8s cluster for public-facing apps that don't need a VPN to be accessed. This reduces my blast radius in case that gets hacked.
+
+### Pets, Cattle, and Disposability
+
+I want to try to have [cattle, not pets](https://devops.stackexchange.com/questions/653/what-is-the-definition-of-cattle-not-pets), because cattle are easier to configure and much more reliable. Unfortunately, I am nowhere near the scale where everything can be treated as cattle. For example, if I lose a physical machine, it would be catastrophic because I'm too poor to afford another one.
+
+However, I can still try to push the cattle/pet boundary as far below the stack as possible by using as much declarative configuration management as possible:
+
+|              Layer | "Cattleness" | Reason                                                               |
+| -----------------: | ------------ | -------------------------------------------------------------------- |
+|     App deployment | ⭐⭐⭐⭐⭐   | It's containerized, uses user-k8s                                    |
+|     User-k8s Nodes | ⭐⭐⭐⭐⭐   | Can redeploy easily from CD                                          |
+|    User-k8s Master | ⭐⭐⭐       | Won't be using HA, but can use NixOS to reproducibly configure.      |
+|               LDAP | ⭐⭐⭐⭐     | LDAP is on FreeIPA, which is on system-k8s.                          |
+|                DNS | ⭐⭐⭐⭐     | DNS is on FreeIPA, which is on system-k8s.                           |
+| System-k8s Cluster | ⭐           | If it goes down, everything above it goes down.                      |
+|                VMs | ⭐⭐⭐⭐     | Can be deployed and destroyed using Terraform, but there aren't many |
+|      Bare-Metal OS | ⭐⭐⭐⭐     | Root wiped on every boot, but PXE still not set up                   |
+|  Physical Machines | ⭐           | I'm poor                                                             |
 
 ## Manual Physical Infrastructure Setup
 
@@ -41,7 +58,7 @@ Following [this graph](./network.dot). (TODO include this as an image)
 
 ### Install operating systems
 
-All bare-metal machines are to be installed with [Fedora Server 34](https://getfedora.org/en/server/download/).
+All bare-metal machines are to be installed with a customized [NixOS 21.05 ISO](https://github.com/astralbijection/infrastructure/tree/main/nixos/iso).
 
 ## Kick-off the Process from a PC
 
@@ -51,7 +68,7 @@ All bare-metal machines are to be installed with [Fedora Server 34](https://getf
 
 TODO
 
-### Infra-Bootstrapper 
+### Infra-Bootstrapper
 
 In this step, we run an Ansible playbook to install Podman on a machine, then start a Infra-Bootstrapper (IBSR) container on it.
 
@@ -62,6 +79,7 @@ ansible-playbook ansible/kickoff_bootstrap.yml
 ```
 
 The rest of the process is fully automated from the Bootstrapper container using Ansible.
+
 ## Automated Base Infrastructure Setup
 
 **Who does this?** The Infra-Bootstrapper.
@@ -69,6 +87,7 @@ The rest of the process is fully automated from the Bootstrapper container using
 TODO
 
 ### Set up LXD, Libvirt, and Podman on the bare metal machines
+
 TODO
 
 ### Configure router/firewall
@@ -76,9 +95,11 @@ TODO
 TODO
 
 ### Create the initial FreeIPA master server
+
 TODO
 
 ### Create the initial HashiCorp Vault server
+
 TODO
 
 ### Create the internal Continuous Deployment (CD) server
@@ -94,18 +115,23 @@ In theory, once this step works properly, all I have to do is `git push` to main
 TODO
 
 ### Create a FreeIPA replica
+
 TODO
 
 ### Create HashiCorp Vault replicas
+
 TODO
 
 ### Set up storage and fileshares
+
 TODO
 
 ### Set up databases
+
 TODO
 
 ### Create Kubernetes cluster
+
 TODO
 
 ### Continuous Kubernetes Deployment
