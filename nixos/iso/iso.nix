@@ -1,5 +1,6 @@
-{ config, pkgs, system ? builtins.currentSystem, ... }:
+# Stolen from https://github.com/wagdav/homelab/blob/master/installer/iso.nix
 
+{ config, pkgs, system ? builtins.currentSystem, ... }:
 {
   imports = [
     # https://nixos.wiki/wiki/Creating_a_NixOS_live_CD
@@ -10,9 +11,9 @@
   systemd.services.sshd.wantedBy = pkgs.lib.mkForce [ "multi-user.target" ];
   users = {
     mutableUsers = false;
-    users.root = {
-      openssh.authorizedKeys.keys = [ (import ../keys.nix).astrid ]
-    }
+    users.nixos = {
+      openssh.authorizedKeys.keys = [ (import ../keys.nix).astrid ];
+    };
   };
 
   environment.etc = {
@@ -24,6 +25,14 @@
     "configuration.nix" = {
       source = ./configuration.nix;
       mode = "0600";
+    };
+  };
+
+  services = {
+    openssh = {
+      enable = true;
+      passwordAuthentication = false;
+      permitRootLogin = "yes";
     };
   };
 }
