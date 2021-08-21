@@ -1,13 +1,11 @@
-# ipa0 boot disk
-resource "libvirt_volume" "ipa0_boot" {
-  name = "bootstrap-dev-ipa0.qcow2"
-  source = local.fedora_seed_image
+resource "libvirt_volume" "badtop_boot" {
+  name   = "bootstrap-dev-badtop.qcow2"
+  source = var.installer_path
 }
 
-# Badtop, which will be our domain controller
 resource "libvirt_domain" "badtop" {
-  name        = "ipa0.id.astrid.tech"
-  description = "Badtop/ipa0 analogue"
+  name        = "badtop.hv.astrid.tech"
+  description = "Badtop analogue"
   memory      = 4000
   vcpu        = 2
   autostart   = false
@@ -17,7 +15,12 @@ resource "libvirt_domain" "badtop" {
   }
 
   disk {
-    volume_id = libvirt_volume.ipa0_boot.id
+    volume_id = libvirt_volume.nixos_installer[0].id
+  }
+
+  disk {
+    volume_id = libvirt_volume.badtop_boot.id
+    scsi = true
   }
 
   graphics {

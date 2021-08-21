@@ -32,3 +32,9 @@ resource "libvirt_network" "inner" {
   bridge    = "virbr-inner"
   addresses = []
 }
+
+resource "libvirt_volume" "nixos_installer" {
+  count = 4
+  name = "customized-nixos-${count.index}.iso"
+  source = var.installer_path
+}

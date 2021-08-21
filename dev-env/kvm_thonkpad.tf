@@ -1,12 +1,12 @@
 # Boot disk
-resource "libvirt_volume" "cracktop_boot" {
-  name = "bootstrap-dev-cracktop-boot.qcow2"
+resource "libvirt_volume" "thonkpad_boot" {
+  name = "bootstrap-dev-thonkpad-boot.qcow2"
   size = 30 * 1024 * 1024 * 1024
 }
 
-resource "libvirt_domain" "cracktop" {
-  name        = "cracktop.hv.astrid.tech"
-  description = "Cracktop analogue"
+resource "libvirt_domain" "thonkpad" {
+  name        = "thonkpad.hv.astrid.tech"
+  description = "Thonkpad analogue"
   memory      = 2000
   vcpu        = 2
   autostart   = false
@@ -16,11 +16,11 @@ resource "libvirt_domain" "cracktop" {
   }
 
   disk {
-    volume_id = libvirt_volume.nixos_installer[2].id
+    volume_id = libvirt_volume.nixos_installer[3].id
   }
 
   disk {
-    volume_id = libvirt_volume.cracktop_boot.id
+    volume_id = libvirt_volume.thonkpad_boot.id
     scsi = true
   }
 
