@@ -32,4 +32,11 @@
       permitRootLogin = "yes";
     };
   };
+
+  environment.systemPackages = with pkgs; [
+    neovim
+    curl
+    jq
+    yq
+  ];
 }
