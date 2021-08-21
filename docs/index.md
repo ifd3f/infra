@@ -8,6 +8,8 @@ A simple wiki documenting my "cloud." If I ever bang my head on a steel bar and 
 
 [Bootstrapping (WIP)](./bootstrapping.md)
 
+[Machines (WIP)](./machines.md)
+
 [Catalog of planned and deployed services](./services)
 
 [Network zones and allocations](./network)
