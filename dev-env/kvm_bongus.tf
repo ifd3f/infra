@@ -22,6 +22,7 @@ resource "libvirt_domain" "bongus" {
   memory      = 6000
   vcpu        = 4
   autostart   = false
+  firmware    = local.uefi_firmware
 
   network_interface {
     network_name = libvirt_network.outer.name

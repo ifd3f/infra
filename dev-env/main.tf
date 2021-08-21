@@ -38,3 +38,7 @@ resource "libvirt_volume" "nixos_installer" {
   name = "customized-nixos-${count.index}.iso"
   source = var.installer_path
 }
+
+locals {
+  uefi_firmware = "/usr/share/edk2-ovmf/x64/OVMF_CODE.fd"
+}

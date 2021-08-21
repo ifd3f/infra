@@ -9,6 +9,7 @@ resource "libvirt_domain" "badtop" {
   memory      = 4000
   vcpu        = 2
   autostart   = false
+  firmware    = local.uefi_firmware
 
   network_interface {
     network_name = libvirt_network.inner.name

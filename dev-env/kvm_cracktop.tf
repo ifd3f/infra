@@ -10,6 +10,7 @@ resource "libvirt_domain" "cracktop" {
   memory      = 2000
   vcpu        = 2
   autostart   = false
+  firmware    = local.uefi_firmware
 
   network_interface {
     network_name = libvirt_network.inner.name
