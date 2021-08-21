@@ -14,6 +14,7 @@ resource "libvirt_domain" "nixos_test" {
   memory      = 4000
   vcpu        = 2
   autostart   = false
+  firmware    = "/usr/share/edk2-ovmf/x64/OVMF_CODE.fd"
 
   network_interface {
     network_name = libvirt_network.net.name
