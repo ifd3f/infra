@@ -26,11 +26,12 @@ resource "libvirt_network" "outer" {
 }
 
 # Inner network for me and my machines only
+# TODO set up our router VM
 resource "libvirt_network" "inner" {
   name      = "bootstrap-dev-inner"
-  mode      = "none"
+  mode      = "nat"
   bridge    = "virbr-inner"
-  addresses = []
+  addresses = ["10.1.2.0/24"]
 }
 
 resource "libvirt_volume" "nixos_installer" {
