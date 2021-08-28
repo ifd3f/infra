@@ -1,4 +1,4 @@
-# A Shoddy Excuse for a Cloud
+# Infrastructure
 
 This repo holds scripts and configurations that I use to set up my homelab.
 
