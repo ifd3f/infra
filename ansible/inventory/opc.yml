@@ -1,0 +1,5 @@
+all:
+  hosts:
+    oci.h.astrid.tech:
+      ansible_user: ubuntu
+      ansible_python_interpreter: /usr/bin/python3

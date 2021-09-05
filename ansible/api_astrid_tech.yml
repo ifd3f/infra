@@ -1,0 +1,5 @@
+- name: Install backend
+  hosts: oci.h.astrid.tech
+  become: yes
+  roles:
+    - role: astrid_tech_backend

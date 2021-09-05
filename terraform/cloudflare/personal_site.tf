@@ -25,10 +25,11 @@ resource "cloudflare_record" "personal_site_apex" {
   proxied = false
 }
 
+// API points to Oracle Cloud
 resource "cloudflare_record" "personal_site_api" {
   name    = "api"
   proxied = false
-  type    = "A"
-  value   = "152.70.120.172"
+  type    = "CNAME"
+  value   = "oci.h.astrid.tech"
   zone_id = cloudflare_zone.primary.id
 }

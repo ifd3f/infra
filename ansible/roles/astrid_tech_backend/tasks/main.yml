@@ -1,0 +1,92 @@
+- name: Calculate file paths
+  ansible.builtin.set_fact:
+    run_user: root
+    repo_base: /srv/infra
+    project_base: /srv/services
+
+- name: Verify provided vars
+  ansible.builtin.validate_argument_spec:
+    argument_spec: '{{ required_data }}'
+  vars:
+    required_data:
+      env_astrid_tech_secret:
+        type: "str"
+        required: true
+        description: "The api.astrid.tech secret key"
+
+      env_astrid_tech_pgpass:
+        type: "str"
+        required: true
+        description: "The Postgres user's password"
+
+- name: Install apt dependencies
+  ansible.builtin.apt:
+    name: 
+      - docker
+      - docker-compose
+      - git
+      - python3-pip
+      - python3
+    cache_valid_time: 3600
+    state: present
+
+- name: Install pip dependencies
+  ansible.builtin.pip:
+    name: 
+      - docker
+      - docker-compose
+
+- name: Ensure docker is running
+  systemd:
+    name: docker.service
+    enabled: yes
+    state: started
+
+- name: Give user docker group perm
+  ansible.builtin.user:
+    name: "{{ run_user }}"
+    groups: docker
+    append: yes
+
+- name: Ensure infra directory exists with permissions
+  ansible.builtin.file:
+    state: directory
+    path: "{{ repo_base }}"
+    owner: "{{ run_user }}"
+    mode: "0775"
+
+- name: Update infra repo
+  ansible.builtin.git:
+    repo: https://github.com/astralbijection/infrastructure.git
+    dest: "{{ repo_base }}"
+    update: yes
+    clone: yes
+    version: main
+
+- name: Create symlink for our specific folder
+  ansible.builtin.file:
+    src: "{{ repo_base }}/docker-compose/oci-1"
+    dest: "{{ project_base }}"
+    owner: "{{ run_user }}"
+    state: link
+
+- name: Create proxied network
+  community.docker.docker_network:
+    name: proxied
+
+- name: Generate .env file
+  ansible.builtin.template:
+    src: ../astrid.tech.env.j2
+    dest: "{{ project_base }}/astrid_tech/.env.prod"
+    owner: "{{ run_user }}"
+    mode: "0700"
+  
+- name: Restart services
+  community.docker.docker_compose:
+    project_src: "{{ project_base }}/{{ item.dir }}"
+    pull: yes
+    restarted: yes
+    state: present
+  with_items:
+    - dir: caddy
+    - dir: astrid_tech
