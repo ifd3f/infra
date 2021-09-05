@@ -3,7 +3,7 @@ services:
   db:
     image: postgres:13.1
     env_file:
-      - ../../secrets/astrid_tech/.env.prod
+      - .env.prod
     volumes:
       - ./data:/var/lib/postgresql/data
     restart: always
@@ -24,7 +24,7 @@ services:
         pipenv run gunicorn astrid_tech.wsgi:application --bind 0.0.0.0:8001
       "
     env_file:
-      - ../../secrets/astrid_tech/.env.prod
+      - .env.prod
     environment:
       ASTRID_TECH_API_HOST: api.astrid.tech
       POSTGRES_HOST: db
