@@ -16,6 +16,7 @@ resource "cloudflare_record" "personal_site_www" {
   zone_id = cloudflare_zone.primary.id
 }
 
+// Apex points to Vercel: https://vercel.com/docs/custom-domains#apex-domains
 resource "cloudflare_record" "personal_site_apex" {
   zone_id = cloudflare_zone.primary.id
   name    = "@"
@@ -28,6 +29,6 @@ resource "cloudflare_record" "personal_site_api" {
   name    = "api"
   proxied = false
   type    = "A"
-  value   = "152.67.235.7"
+  value   = "152.70.120.172"
   zone_id = cloudflare_zone.primary.id
 }
