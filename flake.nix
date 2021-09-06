@@ -3,17 +3,15 @@
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.05";
 
-  outputs = { self, nixpkgs }: {
+  outputs = { self, nixpkgs }:
+    let
+      moduleArgs = { self = self; nixpkgs = nixpkgs; };
+    in
+    {
 
-    nixosConfigurations = {
-      bongus = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules =
-          [ (import ./nixos/hardware-configuration/bongus.nix)
-            (import ./nixos/systems/bongus.nix)
-          ];
+      nixosConfigurations = {
+        bongus = (import ./nixos/systems/bongus.nix) moduleArgs;
       };
-    };
 
-  };
+    };
 }

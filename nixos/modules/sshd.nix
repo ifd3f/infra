@@ -10,13 +10,6 @@
     };
   };
 
-  # TODO don't log in as root when NixOps 2.0 releases
-  users = {
-    users.root = {
-      openssh.authorizedKeys.keys = [ (import ../keys.nix).astrid ];
-    };
-  };
-
   # Passwordless sudo
   security.sudo.wheelNeedsPassword = false;
 
