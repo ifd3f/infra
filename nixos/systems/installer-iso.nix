@@ -36,5 +36,6 @@ nixpkgs.lib.nixosSystem {
   modules = with self.nixosModules; [
     specialized
     debuggable
+    stable-flake
   ];
 }
