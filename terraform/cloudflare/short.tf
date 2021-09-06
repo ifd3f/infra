@@ -1,4 +1,3 @@
-
 resource "cloudflare_record" "short_qr" {
   zone_id = cloudflare_zone.short.id
   name    = "q"

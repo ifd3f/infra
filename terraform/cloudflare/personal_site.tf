@@ -25,11 +25,20 @@ resource "cloudflare_record" "personal_site_apex" {
   proxied = false
 }
 
-// API points to Oracle Cloud
+// API points to Oracle Cloud, which hosts the backend
 resource "cloudflare_record" "personal_site_api" {
   name    = "api"
   proxied = false
   type    = "CNAME"
   value   = "oci.h.astrid.tech"
   zone_id = cloudflare_zone.primary.id
+}
+
+// Short apex points to Oracle Cloud, which hosts the backend
+resource "cloudflare_record" "personal_site_shortener" {
+  zone_id = cloudflare_zone.short.id
+  name    = "@"
+  value   = cloudflare_record.oci_public_ip.value
+  type    = "A"
+  proxied = true
 }
