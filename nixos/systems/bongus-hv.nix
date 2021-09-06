@@ -7,6 +7,7 @@ let
   bootDisk = "/dev/disk/by-id/scsi-3600508b1001c5e757c79ba52c727a91f";
   bootPart = "/dev/disk/by-id/scsi-3600508b1001c5e757c79ba52c727a91f-part1";
   rootPart = "/dev/disk/by-id/scsi-3600508b1001c5e757c79ba52c727a91f-part2";
+  vmsPart = "/dev/disk/by-id/scsi-3600508b1001c5e757c79ba52c727a91f-part3";
 
   specialized = { config, lib, pkgs, ... }: {
     time.timeZone = "US/Pacific";
@@ -42,7 +43,6 @@ let
         kernelModules = [ ];
       };
 
-      kernelModules = [ "kvm-intel" ];
       extraModulePackages = [ ];
     };
 
@@ -60,6 +60,11 @@ let
       "/persist" = {
         device = "dpool/safe/persist";
         fsType = "zfs";
+      };
+
+      "/srv/guests" = {
+        device = vmsPart;
+        fsType = "xfs";
       };
 
       "/boot" = {
