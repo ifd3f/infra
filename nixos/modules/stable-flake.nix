@@ -1,4 +1,5 @@
-{ config, pkgs, ... }:
+# Enables Nix Flakes on stable systems.
+{ pkgs, ... }:
 {
   nix = {
     package = pkgs.nixUnstable;

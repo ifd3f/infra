@@ -8,9 +8,10 @@ let
   bootPart = "/dev/disk/by-id/scsi-3600508b1001c5e757c79ba52c727a91f-part1";
   rootPart = "/dev/disk/by-id/scsi-3600508b1001c5e757c79ba52c727a91f-part2";
 
-  networking = { config, lib, ... }: {
+  specialized = { config, lib, pkgs, ... }: {
     time.timeZone = "US/Pacific";
 
+    ext4-ephroot.partition = rootPart;
     networking = {
       hostName = "bongus";
       domain = "hv.astrid.tech";
@@ -25,9 +26,6 @@ let
         eno4.useDHCP = true;
       };
     };
-  };
-
-  boot = { config, lib, ... }: {
     # Use the GRUB 2 boot loader.
     boot = {
       loader.grub = {
@@ -47,9 +45,6 @@ let
       extraModulePackages = [ ];
       supportedFilesystems = [ "zfs" ];
     };
-  };
-
-  filesystems = { config, lib, ... }: {
     fileSystems = {
       "/" = {
         device = rootPart;
@@ -79,14 +74,13 @@ in
 nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
 
-  modules = [
-    boot
-    filesystems
-    (import ../modules/ext4-ephroot.nix { partition = rootPart; })
-    networking
-    (import ../modules/sshd.nix)
-    (import ../modules/bm-server.nix)
-    (import ../modules/flake.nix)
+  modules = with self.nixosModules; [
+    specialized
+    ext4-ephroot
+    libvirt
+    sshd
+    bm-server
+    stable-flake
   ];
 }
  

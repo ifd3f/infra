@@ -13,9 +13,15 @@
     {
       nixosConfigurations = {
         bongusHV = (import ./nixos/systems/bongusHV.nix) inputs;
-        cracktopHV = (import ./nixos/systems/cracktopHV.nix) inputs;
-        bananaPC = (import ./nixos/systems/bananaPC.nix) inputs;
         installerISO = installerResult;
+      };
+
+      nixosModules = {
+        bm-server = (import ./nixos/modules/bm-server.nix);
+        ext4-ephroot = (import ./nixos/modules/ext4-ephroot.nix);
+        stable-flake = (import ./nixos/modules/stable-flake.nix);
+        libvirt = (import ./nixos/modules/libvirt.nix);
+        sshd = (import ./nixos/modules/sshd.nix);
       };
 
       packages = {
