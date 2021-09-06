@@ -6,6 +6,7 @@ This repo holds scripts and configurations that I use to set up my homelab.
 
 Much of this code is experimental and not used in production yet. However, there are some things that *are* being used to great effect:
 
+- The Nix flake is being used to deploy my homelab servers
 - Docker Compose, for setting up api.astrid.tech and aay.tw
 - An automated Ansible system for redeploying said Docker services in Oracle Cloud
 - My Cloudflare DNS setup is configured using Terraform so that I can have an auditable and manageable trail of changes
