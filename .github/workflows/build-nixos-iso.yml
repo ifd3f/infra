@@ -1,4 +1,4 @@
-# You can get the nightly results of these builds at 
+# You can get the nightly results of these builds at
 # https://nightly.link/astralbijection/infrastructure/workflows/build-lxc-images/main
 
 name: Build Customized NixOS ISO
@@ -8,7 +8,8 @@ on:
     branches: [main]
     paths:
       - .github/workflows/build-nixos-iso.yml
-      - nixos/iso/*
+      - nixos/*
+      - flake.nix
   pull_request:
     branches: [main]
   workflow_dispatch:
@@ -22,14 +23,19 @@ jobs:
 
       - uses: cachix/install-nix-action@v13
         with:
-          nix_path: nixpkgs=channel:nixos-unstable
+          install_url: https://nixos-nix-install-tests.cachix.org/serve/i6laym9jw3wg9mw6ncyrk6gjx4l34vvx/install
+          install_options: "--tarball-url-prefix https://nixos-nix-install-tests.cachix.org/serve"
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
       - name: Build image
-        run: make
-        working-directory: nixos/iso
-      
-      - name: Upload image 
+        run: |
+          GC_DONT_GC=1 nix build --experimental-features "nix-command flakes" .#installer-iso 
+          ln -s result/iso/*.iso nixos.iso
+
+      - name: Upload image
         uses: actions/upload-artifact@v2.2.4
         with:
           name: nixos-installer
-          path: nixos/iso/nixos.iso
+          path: nixos.iso
