@@ -81,8 +81,31 @@
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
 
+  users = {
+    mutableUsers = false;
+    users.nixos = {
+      openssh.authorizedKeys.keys = [
+        (import ./keys.nix).astrid
+      ];
+      extraGroups = [ "wheel" ];
+    };
+  };
 
+  security.sudo.wheelNeedsPassword = false;
 
+  time.timeZone = "US/Pacific";
+
+  services = {
+    openssh = {
+      enable = true;
+      passwordAuthentication = false;
+      permitRootLogin = "yes";
+    };
+  };
+
+  # Open ports in the firewall.
+  networking.firewall.allowedTCPPorts = [ 22 ];
+  networking.firewall.enable = true;
 
   # Configure keymap in X11
   # services.xserver.layout = "us";
