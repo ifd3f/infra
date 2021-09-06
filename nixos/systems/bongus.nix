@@ -1,9 +1,11 @@
 { self, nixpkgs, ... }:
 let
-  rootPart = "/dev/disk/by-uuid/c37da71a-ee60-4c7d-8845-01f9f2af4756-part2";
+  bootDisk = "/dev/disk/by-id/scsi-3600508b1001c5e757c79ba52c727a91f";
+  bootPart = "/dev/disk/by-id/scsi-3600508b1001c5e757c79ba52c727a91f-part1";
+  rootPart = "/dev/disk/by-id/scsi-3600508b1001c5e757c79ba52c727a91f-part2";
 
   networking =
-    { config, lib, pkgs, modulesPath, ... }:
+    { config, lib, ... }:
     {
       time.timeZone = "US/Pacific";
 
@@ -34,14 +36,14 @@ let
       }
     );
 
-  boot = { config, lib, pkgs, modulesPath, ... }: {
+  boot = { config, lib, ... }: {
     # Use the GRUB 2 boot loader.
     boot = {
       loader.grub = {
         enable = true;
         version = 2;
         copyKernels = true;
-        device = "/dev/sda"; # HP G8 only supports BIOS, not UEFI
+        device = bootDisk; # HP G8 only supports BIOS, not UEFI
       };
 
       initrd = {
@@ -58,7 +60,7 @@ let
 
 
   filesystems =
-    { config, lib, pkgs, modulesPath, ... }:
+    { config, lib, ... }:
 
     {
       fileSystems = {
@@ -82,7 +84,7 @@ let
 
         "/boot" =
           {
-            device = "/dev/disk/by-id/scsi-3600508b1001c5e757c79ba52c727a91f-part1";
+            device = bootPart;
             fsType = "vfat";
           };
       };
