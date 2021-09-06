@@ -1,7 +1,9 @@
 # Stolen from https://github.com/wagdav/homelab/blob/master/installer/iso.nix
 # Also from https://hoverbear.org/blog/nix-flake-live-media/
 
-{ self, nixpkgs }: nixpkgs.lib.nixosSystem {
+{ self, nixpkgs-unstable, ... }:
+let nixpkgs = nixpkgs-unstable; in
+nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
 
   modules = [

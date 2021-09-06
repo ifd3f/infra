@@ -1,7 +1,9 @@
 # My personal laptop, a Lenovo Legion Y530.
 
-{ self, nixpkgs, ... }:
+{ self, nixpkgs-stable, ... }:
 let
+  nixpkgs = nixpkgs-stable;
+
   # TODO set up this
   bootDisk = "/dev/disk/by-id/scsi-3600508b1001c5e757c79ba52c727a91f";
   bootPart = "/dev/disk/by-id/scsi-3600508b1001c5e757c79ba52c727a91f-part1";

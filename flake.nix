@@ -2,12 +2,12 @@
   description = "astralbijection's infrastructure flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.05";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-21.05";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
 
-  outputs = { self, nixpkgs }:
+  outputs = { self, ... }@inputs:
     let
-      inputs = { self = self; nixpkgs = nixpkgs; };
       installerResult = (import ./nixos/systems/installer.nix) inputs;
     in
     {
@@ -17,8 +17,12 @@
         bananaPC = (import ./nixos/systems/banana.nix) inputs;
         installerISO = installerResult;
       };
-      
-      # unstable needs GC_DONT_GC=1 (https://github.com/NixOS/nix/issues/4246)
-      installerISO = installerResult.config.system.build.isoImage;  
+
+      packages = {
+        "x86_64-linux" = {
+          # note: unstable needs GC_DONT_GC=1 (https://github.com/NixOS/nix/issues/4246)
+          installerISO = installerResult.config.system.build.isoImage;
+        };
+      };
     };
 }
