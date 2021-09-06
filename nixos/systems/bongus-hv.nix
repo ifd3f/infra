@@ -14,7 +14,7 @@ let
     ext4-ephroot.partition = rootPart;
 
     networking = {
-      hostName = "bongus";
+      hostName = "bongus-hv";
       domain = "id.astrid.tech";
 
       hostId = "6d1020a1"; # Required for ZFS

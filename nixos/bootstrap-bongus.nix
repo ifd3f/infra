@@ -63,7 +63,7 @@
   boot.supportedFilesystems = [ "zfs" ];
   boot.zfs.requestEncryptionCredentials = true;
 
-  networking.hostName = "bongus"; # Define your hostname.
+  networking.hostName = "bongus-hv"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Set your time zone.
