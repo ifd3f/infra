@@ -1,5 +1,19 @@
-# Nix expects a flake.nix in the root directory, but I want to put 
-# all my nix configs in a subdirectory. Thus, this file simply imports
-# my subdirectory's flake.nix.
+{
+  description = "astralbijection's infrastructure flake";
 
-import ./nixos/flake.nix
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.05";
+
+  outputs = { self, nixpkgs }: {
+
+    nixosConfigurations = {
+      bongus = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules =
+          [ (import ./nixos/hardware-configuration/bongus.nix)
+            (import ./nixos/systems/bongus.nix)
+          ];
+      };
+    };
+
+  };
+}
