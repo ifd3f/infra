@@ -67,6 +67,6 @@ tree --device /mnt
 log_info "Populating NixOS configs..."
 mkdir -p /mnt/etc/nixos 
 cd /mnt/etc/nixos 
-git clone https://github.com/astralbijection/infrastructure.git infra
+GIT_LFS_SKIP_SMUDGE=1 git clone https://github.com/astralbijection/infrastructure.git infra
 echo "import ./infra/nixos/bootstrap-bongus.nix" > configuration.nix
 nixos-install -j 32 --no-root-passwd
