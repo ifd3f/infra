@@ -11,10 +11,12 @@ in
   };
 
   config = {
-    boot.initrd.kernelModules = [ "ext4" ];
+    environment.systemPackages = with pkgs; [
+      e2fsprogs
+    ];
 
     boot.initrd.postDeviceCommands = lib.mkAfter ''
-      mkfs.ext4 -F ${cfg.partition}
+      ${pkgs.e2fsprogs}/sbin/mkfs.ext4 -F ${cfg.partition}
     '';
   };
 }
