@@ -11,6 +11,7 @@
     ];
 
   boot.initrd.availableKernelModules = [ "ehci_pci" "ata_piix" "uhci_hcd" "hpsa" "usb_storage" "sd_mod" ];
+  boot.initrd.supportedFilesystems = ["zfs"]; # boot from zfs
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
@@ -18,7 +19,7 @@
 
   fileSystems."/" =
     {
-      device = "/dev/disk/by-uuid/c37da71a-ee60-4c7d-8845-01f9f2af4756";
+      device = "/dev/disk/by-id/wwn-0x600508b1001c5e757c79ba52c727a91f";
       fsType = "ext4";
     };
 
@@ -36,7 +37,7 @@
 
   fileSystems."/boot" =
     {
-      device = "/dev/disk/by-uuid/594C-280C";
+      device = "/dev/disk/by-id/wwn-0x600508b1001c5e757c79ba52c727a91f";
       fsType = "vfat";
     };
 
