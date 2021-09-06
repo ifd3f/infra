@@ -1,7 +1,5 @@
 { config, pkgs, ... }:
 {
-  time.timeZone = "US/Pacific";
-
   services = {
     openssh = {
       enable = true;
