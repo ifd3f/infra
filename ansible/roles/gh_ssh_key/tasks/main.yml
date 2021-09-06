@@ -1,0 +1,5 @@
+- name: Add authorized key from URL
+  ansible.builtin.authorized_key:
+    user: "{{ ssh_user }}"
+    state: present
+    key: https://raw.githubusercontent.com/astralbijection/infrastructure/main/gh_rsa.pub

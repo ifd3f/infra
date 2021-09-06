@@ -2,4 +2,7 @@
   hosts: oci.h.astrid.tech
   become: yes
   roles:
+    - role: gh_ssh_key
+      vars:
+        ssh_user: ubuntu
     - role: astrid_tech_backend
