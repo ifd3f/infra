@@ -43,6 +43,7 @@ let
     [
       (import ../hardware-configuration/bongus.nix)
       (import ../modules/sshd.nix)
+      (import ../modules/server.nix)
       hostUsers
       customizations
     ];

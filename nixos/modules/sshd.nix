@@ -10,9 +10,6 @@
     };
   };
 
-  # Passwordless sudo
-  security.sudo.wheelNeedsPassword = false;
-
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [ 22 ];
   networking.firewall.enable = true;
