@@ -18,6 +18,7 @@
 
       nixosModules = {
         bm-server = (import ./nixos/modules/bm-server.nix);
+        debuggable = (import ./nixos/modules/debuggable.nix);
         ext4-ephroot = (import ./nixos/modules/ext4-ephroot.nix);
         stable-flake = (import ./nixos/modules/stable-flake.nix);
         libvirt = (import ./nixos/modules/libvirt.nix);

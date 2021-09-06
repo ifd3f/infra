@@ -15,7 +15,7 @@ let
 
     networking = {
       hostName = "bongus";
-      domain = "hv.astrid.tech";
+      domain = "id.astrid.tech";
 
       hostId = "6d1020a1"; # Required for ZFS
       useDHCP = false;
