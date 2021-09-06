@@ -26,7 +26,7 @@ let
       };
     };
 
-  hostUsers = ({ config, lib, pkgs, modulesPath, ... }:
+  hostUsers = ({ config, lib, ... }:
     {
       users = {
         users = {
@@ -34,6 +34,50 @@ let
         };
       };
     }
+  )
+
+  filesystems = (
+{ config, lib, pkgs, modulesPath, ... }:
+
+{
+  imports =
+    [
+      (modulesPath + "/installer/scan/not-detected.nix")
+    ];
+
+  boot.initrd.availableKernelModules = [ "ehci_pci" "ata_piix" "uhci_hcd" "hpsa" "usb_storage" "sd_mod" ];
+  boot.initrd.kernelModules = [ ];
+  boot.kernelModules = [ "kvm-intel" ];
+  boot.extraModulePackages = [ ];
+  boot.supportedFilesystems = [ "zfs" ]
+
+  fileSystems."/" =
+    {
+      device = "/dev/disk/by-uuid/c37da71a-ee60-4c7d-8845-01f9f2af4756";
+      fsType = "ext4";
+    };
+
+  fileSystems."/nix" =
+    {
+      device = "dpool/local/nix";
+      fsType = "zfs";
+    };
+
+  fileSystems."/persist" =
+    {
+      device = "dpool/safe/persist";
+      fsType = "zfs";
+    };
+
+  fileSystems."/boot" =
+    {
+      device = "/dev/disk/by-id/scsi-3600508b1001c5e757c79ba52c727a91f-part1";
+      fsType = "vfat";
+    };
+
+  swapDevices = [ ];
+
+}
   )
     in
     nixpkgs.lib.nixosSystem {
