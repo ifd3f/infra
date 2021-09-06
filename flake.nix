@@ -8,13 +8,13 @@
 
   outputs = { self, ... }@inputs:
     let
-      installerResult = (import ./nixos/systems/installer.nix) inputs;
+      installerResult = (import ./nixos/systems/installerISO.nix) inputs;
     in
     {
       nixosConfigurations = {
-        bongusHV = (import ./nixos/systems/bongus.nix) inputs;
-        cracktopHV = (import ./nixos/systems/cracktop.nix) inputs;
-        bananaPC = (import ./nixos/systems/banana.nix) inputs;
+        bongusHV = (import ./nixos/systems/bongusHV.nix) inputs;
+        cracktopHV = (import ./nixos/systems/cracktopHV.nix) inputs;
+        bananaPC = (import ./nixos/systems/bananaPC.nix) inputs;
         installerISO = installerResult;
       };
 
