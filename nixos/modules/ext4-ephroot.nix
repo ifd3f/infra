@@ -11,6 +11,8 @@ in
   };
 
   config = {
+    boot.initrd.kernelModules = [ "ext4" ];
+
     boot.initrd.postDeviceCommands = lib.mkAfter ''
       mkfs.ext4 -F ${cfg.partition}
     '';
