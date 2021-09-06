@@ -18,6 +18,14 @@
     };
   };
 
+  # Enable flakes
+  nix = {
+    package = pkgs.nixUnstable;
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+  };
+
   environment.etc = {
     "configuration.nix" = {
       source = ./configuration.nix;
@@ -33,9 +41,23 @@
     };
   };
 
+  # In terms of packages, the installer should be lightweight but still have enough
+  # tools so that debugging things is comfortable.
   environment.systemPackages = with pkgs; [
-    neovim
+    # Editors are always helpful
+    neovim  
+
+    # Download stuff from the internet
+    git
     curl
+    wget
+
+    # Just in case the SSH connection is lost and I'm running something long
+    tmux
+
+    # Useful scripting utilities
+    envsubst
+    tree
     jq
     yq
   ];
