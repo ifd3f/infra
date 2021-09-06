@@ -8,7 +8,7 @@
       "type": "shell",
       "command": "nix flake check",
       "problemMatcher": []
-    }
+    },
     {
       "label": "Format Nix",
       "type": "shell",
