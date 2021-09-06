@@ -22,6 +22,7 @@
         stable-flake = (import ./nixos/modules/stable-flake.nix);
         libvirt = (import ./nixos/modules/libvirt.nix);
         sshd = (import ./nixos/modules/sshd.nix);
+        zfs-boot = (import ./nixos/modules/zfs-boot.nix);
       };
 
       packages = {

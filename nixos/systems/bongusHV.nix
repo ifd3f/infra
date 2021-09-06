@@ -12,6 +12,7 @@ let
     time.timeZone = "US/Pacific";
 
     ext4-ephroot.partition = rootPart;
+
     networking = {
       hostName = "bongus";
       domain = "hv.astrid.tech";
@@ -26,6 +27,7 @@ let
         eno4.useDHCP = true;
       };
     };
+
     # Use the GRUB 2 boot loader.
     boot = {
       loader.grub = {
@@ -40,11 +42,10 @@ let
         kernelModules = [ ];
       };
 
-      zfs.requestEncryptionCredentials = true;
       kernelModules = [ "kvm-intel" ];
       extraModulePackages = [ ];
-      supportedFilesystems = [ "zfs" ];
     };
+
     fileSystems = {
       "/" = {
         device = rootPart;
@@ -81,6 +82,7 @@ nixpkgs.lib.nixosSystem {
     sshd
     bm-server
     stable-flake
+    zfs-boot
   ];
 }
  
