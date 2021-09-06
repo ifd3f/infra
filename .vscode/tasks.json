@@ -9,5 +9,11 @@
       "command": "nix flake check",
       "problemMatcher": []
     }
-  ]
+    {
+      "label": "Format Nix",
+      "type": "shell",
+      "command": "scripts/fmt-nix.sh",
+      "problemMatcher": []
+    }
+  ],
 }

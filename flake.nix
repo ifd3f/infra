@@ -10,7 +10,7 @@
     {
 
       nixosConfigurations = {
-        bongus = (import ./nixos/systems/bongus.nix) moduleArgs;
+        "bongus.hv.astrid.tech" = (import ./nixos/systems/bongus.nix) moduleArgs;
       };
 
     };
