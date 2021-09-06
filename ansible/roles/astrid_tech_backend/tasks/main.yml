@@ -90,3 +90,4 @@
   with_items:
     - dir: caddy
     - dir: astrid_tech
+    - dir: aay_tw
