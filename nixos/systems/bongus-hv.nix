@@ -1,8 +1,8 @@
 # A chonky HP DL380P Gen8 rack server.
 
-{ self, nixpkgs-stable, ... }:
+{ self, nixpkgs-unstable, ... }:
 let
-  nixpkgs = nixpkgs-stable;
+  nixpkgs = nixpkgs-unstable;
 
   bootDisk = "/dev/disk/by-id/scsi-3600508b1001c5e757c79ba52c727a91f";
   bootPart = "/dev/disk/by-id/scsi-3600508b1001c5e757c79ba52c727a91f-part1";
@@ -89,6 +89,7 @@ nixpkgs.lib.nixosSystem {
     bm-server
     stable-flake
     zfs-boot
+    flake-update
   ];
 }
  
