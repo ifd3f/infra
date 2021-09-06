@@ -1,5 +1,7 @@
 { self, nixpkgs, ... }:
 let
+  rootPart = "/dev/disk/by-uuid/c37da71a-ee60-4c7d-8845-01f9f2af4756-part2";
+
   networking =
     { config, lib, pkgs, modulesPath, ... }:
     {
@@ -62,7 +64,7 @@ let
       fileSystems = {
         "/" =
           {
-            device = "/dev/disk/by-uuid/c37da71a-ee60-4c7d-8845-01f9f2af4756";
+            device = rootPart;
             fsType = "ext4";
           };
 
@@ -96,6 +98,7 @@ nixpkgs.lib.nixosSystem {
     [
       boot
       filesystems
+      ((import ../modules/ext4-ephroot.nix) { partition = rootPart; })
       networking
       hostUsers
       (import ../modules/sshd.nix)
