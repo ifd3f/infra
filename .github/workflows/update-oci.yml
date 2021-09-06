@@ -1,0 +1,42 @@
+name: Update OCI
+
+on:
+  schedule:
+    - cron: "0 10 * * *" # Every day, 3 AM PST
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/update-oci.yml
+      - ansible/setup_oci.yml
+      - ansible/roles/astrid_tech_backend/*
+      - ansible/roles/gh_ssh_key/*
+      - docker-compose/oci-1/*
+      - gh_rsa.pub
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  run_playbook:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Write variables
+        run: |
+          echo "$ANSIBLE_SECRET_VARS" > ./ansible/prod.env.vars.yml
+        shell: bash
+        env:
+          ANSIBLE_SECRET_VARS: ${{ secrets.ANSIBLE_SECRET_VARS }} # A YAML file
+
+      - name: Run playbook
+        uses: dawidd6/action-ansible-playbook@v2
+        with:
+          playbook: setup_oci.yml
+          directory: ./ansible
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          requirements: requirements.yml
+          options: |
+            --extra-vars @prod.env.vars.yml
+            --verbose
