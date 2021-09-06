@@ -61,8 +61,5 @@ mount -t zfs dpool/local/nix /mnt/nix
 mount -t zfs dpool/safe/persist /mnt/persist
 mount -t vfat $boot /mnt/boot
 
-# Generate our config
-nixos-generate-config --root /mnt
-
-log_info "Generated NixOS skeleton!"
+log_info "Generated skeleton!"
 tree --device /mnt

@@ -2,13 +2,45 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, modulesPath, ... }:
 
 {
   imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+    [
+      (modulesPath + "/installer/scan/not-detected.nix")
     ];
+
+  boot.initrd.availableKernelModules = [ "ehci_pci" "ata_piix" "uhci_hcd" "hpsa" "usb_storage" "sd_mod" ];
+  boot.initrd.kernelModules = [ ];
+  boot.kernelModules = [ "kvm-intel" ];
+  boot.extraModulePackages = [ ];
+  boot.supportedFilesystems = [ "zfs" ];
+
+  fileSystems."/" =
+    {
+      device = "/dev/disk/by-uuid/c37da71a-ee60-4c7d-8845-01f9f2af4756";
+      fsType = "ext4";
+    };
+
+  fileSystems."/nix" =
+    {
+      device = "dpool/local/nix";
+      fsType = "zfs";
+    };
+
+  fileSystems."/persist" =
+    {
+      device = "dpool/safe/persist";
+      fsType = "zfs";
+    };
+
+  fileSystems."/boot" =
+    {
+      device = "/dev/disk/by-uuid/594C-280C";
+      fsType = "vfat";
+    };
+
+  swapDevices = [ ];
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
@@ -17,7 +49,7 @@
   # boot.loader.grub.efiInstallAsRemovable = true;
   # boot.loader.efi.efiSysMountPoint = "/boot/efi";
   # Define on which hard drive you want to install Grub.
-  boot.loader.grub.device = "/dev/disk/by-id/wwn-0x600508b1001c5e757c79ba52c727a91f"; # or "nodev" for efi only
+  boot.loader.grub.device = "/dev/sdb";
 
   # networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -72,12 +104,23 @@
   #   extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
   # };
 
+  # Enable flakes
+  nix = {
+    package = pkgs.nixUnstable;
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+  };
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  # environment.systemPackages = with pkgs; [
-  #   wget vim
-  #   firefox
-  # ];
+  environment.systemPackages = with pkgs; [
+    wget 
+    curl
+    git
+    neovim
+    bash
+  ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
