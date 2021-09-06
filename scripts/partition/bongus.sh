@@ -3,26 +3,33 @@
 # https://nixos.wiki/wiki/NixOS_on_ZFS#How_to_install_NixOS_on_a_ZFS_root_filesystem
 # Ephemeral root idea "borrowed" from https://grahamc.com/blog/erase-your-darlings
 
+function log_info {
+    echo "==== $1 ===="
+}
+
 if [ -z $root_disk ]; then
-    echo "Please specify a root_disk env var"
+    log_info "Please specify a root_disk env var"
     exit 1
 fi
 
 if [ -z $zfs_disk ]; then
-    echo "Please specify a zfs_disk env var"
+    log_info "Please specify a zfs_disk env var"
     exit 1
 fi
 
 # Make partition table and partitions
-echo "Rewriting partition table"
-sgdisk --zap-all $root_disk  # Clear root disk
-sgdisk -n1:0:+550M -t1:ef00 $root_disk  # Boot
-sgdisk -n2:0:+10G -t2:bf00 $root_disk  # (ephemeral) Root
-sgdisk -n3:0:0 -t2:bf00 $root_disk  # VM boot drive space
+log_info "Rewriting partition tables"
 
+# The root disk must be MBR so that we can boot off of it
+parted -s $root_disk -- mklabel msdos # Clear table
+parted -s $root_disk -- mkpart primary fat32 1MiB 550MiB  # Boot
+parted -s $root_disk -- mkpart primary ext4 550MiB 10GiB  # (ephemeral) Root
+parted -s $root_disk -- mkpart primary xfs 10GiB 100%  # VM disks
+
+# The ZFS disk(s) are GPT cuz it's better and we *don't* boot off of it
 sgdisk --zap-all $zfs_disk
 
-echo "Done. Waiting for /dev/disk/by-id to update..."
+log_info "Done. Waiting for /dev/disk/by-id to update..."
 sleep 3 
 
 # Format partitions
@@ -30,22 +37,22 @@ export boot=$root_disk-part1
 export root=$root_disk-part2
 export vmdisk=$root_disk-part3
 
-echo "Formatting $boot as FAT"
+log_info "Formatting $boot as FAT"
 mkfs.vfat $boot
 
-echo "Formatting $root as ext4"
+log_info "Formatting $root as ext4"
 mkfs.ext4 -F $root
 
-echo "Formatting $vmdisk as XFS"
+log_info "Formatting $vmdisk as XFS"
 mkfs.xfs -f $vmdisk
 
-echo "Creating ZFS pool dpool on $zfs_disk"
+log_info "Creating ZFS pool dpool on $zfs_disk"
 zpool create dpool $zfs_disk
 zfs create -p -o mountpoint=legacy dpool/local/nix
 zfs create -p -o mountpoint=legacy dpool/safe/persist
 
 # Create mountpoints and mount
-echo "Mounting..."
+log_info "Mounting..."
 mkdir -p /mnt 
 mount -t ext4 $root /mnt
 
@@ -57,5 +64,5 @@ mount -t vfat $boot /mnt/boot
 # Generate our config
 nixos-generate-config --root /mnt
 
-echo "Generated NixOS skeleton!"
-tree /mnt
+log_info "Generated NixOS skeleton!"
+tree --device /mnt
