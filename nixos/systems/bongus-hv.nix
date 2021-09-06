@@ -83,6 +83,7 @@ nixpkgs.lib.nixosSystem {
   modules = with self.nixosModules; [
     specialized
     ext4-ephroot
+    debuggable
     libvirt
     sshd
     bm-server
