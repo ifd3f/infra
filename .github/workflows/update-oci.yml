@@ -8,13 +8,17 @@ on:
     paths:
       - .github/workflows/update-oci.yml
       - ansible/setup_oci.yml
-      - ansible/roles/astrid_tech_backend/*
-      - ansible/roles/gh_ssh_key/*
-      - docker-compose/oci-1/*
+      - ansible/roles/astrid_tech_backend/**/*
+      - ansible/roles/gh_ssh_key/**/*
+      - docker-compose/oci-1/**/*
       - gh_rsa.pub
   pull_request:
     branches: [main]
   workflow_dispatch:
+
+concurrency: 
+  group: oci-prod
+  cancel-in-progress: true
 
 jobs:
   run_playbook:
