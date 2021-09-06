@@ -2,7 +2,7 @@ local sharedtags = require("sharedtags")
 local awful = require("awful")
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
-awful.layout.layouts = {
+local horizontal_layouts = {
     awful.layout.suit.tile,
     awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
@@ -10,7 +10,12 @@ awful.layout.layouts = {
     awful.layout.suit.fair,
     awful.layout.suit.floating,
 }
--- }}}
+local vertical_layouts = {
+    awful.layout.suit.tile.bottom,
+    awful.layout.suit.tile.top,
+    awful.layout.suit.fair,
+    awful.layout.suit.floating,
+}
 
 local function configure_monitors()
     awful.spawn("$HOME/bin/conf-monitors.sh")
@@ -35,7 +40,7 @@ local tags = sharedtags((function()
             arr,
             { 
                 name = get_tag_name_from_index(i), 
-                layout = awful.layout.layouts[1],
+                layout = horizontal_layouts[1],
                 screen = i % screen:count() + 1,
             }
         )
