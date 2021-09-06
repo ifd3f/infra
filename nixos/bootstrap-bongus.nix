@@ -39,6 +39,13 @@
       fsType = "vfat";
     };
 
+  nix = {
+    package = pkgs.nixUnstable;
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+  };
+
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
@@ -88,6 +95,7 @@
   environment.systemPackages = with pkgs; [
     neovim
     curl
+    git
   ];
 
   # Enable the OpenSSH daemon.

@@ -100,6 +100,7 @@ nixpkgs.lib.nixosSystem {
       hostUsers
       (import ../modules/sshd.nix)
       (import ../modules/server.nix)
+      (import ../modules/flake.nix)
     ];
 }
   
