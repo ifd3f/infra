@@ -8,12 +8,12 @@
 
   outputs = { self, ... }@inputs:
     let
-      installerResult = (import ./nixos/systems/installerISO.nix) inputs;
+      installerResult = (import ./nixos/systems/installer-iso.nix) inputs;
     in
     {
       nixosConfigurations = {
-        bongusHV = (import ./nixos/systems/bongusHV.nix) inputs;
-        installerISO = installerResult;
+        bongus-hv = (import ./nixos/systems/bongus-hv.nix) inputs;
+        installer-iso = installerResult;
       };
 
       nixosModules = {
@@ -28,7 +28,7 @@
       packages = {
         "x86_64-linux" = {
           # note: unstable needs GC_DONT_GC=1 (https://github.com/NixOS/nix/issues/4246)
-          installerISO = installerResult.config.system.build.isoImage;
+          installer-iso = installerResult.config.system.build.isoImage;
         };
       };
     };
