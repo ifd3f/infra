@@ -11,15 +11,13 @@
     ];
 
   boot.initrd.availableKernelModules = [ "ehci_pci" "ata_piix" "uhci_hcd" "hpsa" "usb_storage" "sd_mod" ];
-  boot.initrd.supportedFilesystems = ["zfs"]; # boot from zfs
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
-  boot.supportedFilesystems = [ "zfs" ];
 
   fileSystems."/" =
     {
-      device = "/dev/disk/by-id/wwn-0x600508b1001c5e757c79ba52c727a91f";
+      device = "/dev/disk/by-id/scsi-3600508b1001c5e757c79ba52c727a91f-part2";
       fsType = "ext4";
     };
 
@@ -37,113 +35,60 @@
 
   fileSystems."/boot" =
     {
-      device = "/dev/disk/by-id/wwn-0x600508b1001c5e757c79ba52c727a91f";
+      device = "/dev/disk/by-id/scsi-3600508b1001c5e757c79ba52c727a91f-part1";
       fsType = "vfat";
     };
-
-  swapDevices = [ ];
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
-  # boot.loader.grub.efiSupport = true;
-  # boot.loader.grub.efiInstallAsRemovable = true;
-  # boot.loader.efi.efiSysMountPoint = "/boot/efi";
+  boot.loader.grub.efiSupport = true;
+  boot.loader.grub.efiInstallAsRemovable = true;
+  boot.loader.efi.efiSysMountPoint = "/boot/efi";
   # Define on which hard drive you want to install Grub.
-  boot.loader.grub.device = "/dev/sdb";
+  boot.loader.grub.copyKernels = true;
+  boot.loader.grub.device = "nodev"; # or "nodev" for efi only
+  boot.initrd.supportedFilesystems = ["zfs"]; # boot from zfs
+  boot.supportedFilesystems = [ "zfs" ];
+  boot.zfs.requestEncryptionCredentials = true;
 
-  # networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "bongus"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Set your time zone.
-  # time.timeZone = "Europe/Amsterdam";
+  time.timeZone = "US/Pacific";
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
-  networking.hostId = "12345678";
+  networking.hostId = "6d1020a1";  # Required for ZFS
   networking.useDHCP = false;
-  networking.interfaces.eno1.useDHCP = true;
-  networking.interfaces.eno2.useDHCP = true;
-  networking.interfaces.eno3.useDHCP = true;
-  networking.interfaces.eno4.useDHCP = true;
+  networking.interfaces.enp1s0.useDHCP = true;
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Select internationalisation properties.
-  # i18n.defaultLocale = "en_US.UTF-8";
-  # console = {
-  #   font = "Lat2-Terminus16";
-  #   keyMap = "us";
-  # };
-
-  # Enable the X11 windowing system.
-  # services.xserver.enable = true;
-
-  users = {
-    mutableUsers = false;
-    users.nixos = {
-      openssh.authorizedKeys.keys = [
-        (import ./keys.nix).astrid
-      ];
-      extraGroups = [ "wheel" ];
-    };
+  i18n.defaultLocale = "en_US.UTF-8";
+  console = {
+    font = "Lat2-Terminus16";
+    keyMap = "us";
   };
-
-  security.sudo.wheelNeedsPassword = false;
-
-  time.timeZone = "US/Pacific";
-
-  services = {
-    openssh = {
-      enable = true;
-      passwordAuthentication = false;
-      permitRootLogin = "yes";
-    };
-  };
-
-  # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 22 ];
-  networking.firewall.enable = true;
-
-  # Configure keymap in X11
-  # services.xserver.layout = "us";
-  # services.xserver.xkbOptions = "eurosign:e";
-
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
-  # Enable sound.
-  # sound.enable = true;
-  # hardware.pulseaudio.enable = true;
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  # users.users.jane = {
-  #   isNormalUser = true;
-  #   extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-  # };
-
-  # Enable flakes
-  nix = {
-    package = pkgs.nixUnstable;
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
+  users.users.astrid = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    openssh.authorizedKeys.keys = [ (import ./keys.nix).astrid ];
   };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    wget 
-    curl
-    git
     neovim
-    bash
+    curl
+    #libvirt
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -157,13 +102,12 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh.enable = true;
 
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
+  networking.firewall.allowedTCPPorts = [ 22 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  networking.firewall.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

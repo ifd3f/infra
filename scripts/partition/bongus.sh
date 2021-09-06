@@ -69,4 +69,4 @@ mkdir -p /mnt/etc/nixos
 cd /mnt/etc/nixos 
 git clone https://github.com/astralbijection/infrastructure.git infra
 echo "import ./infra/nixos/bootstrap-bongus.nix" > configuration.nix
-nixos-install
+nixos-install -j 32 --no-root-passwd
