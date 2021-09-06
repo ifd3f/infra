@@ -1,24 +1,21 @@
 resource "cloudflare_page_rule" "short_always_http" {
   priority = 1
-  status = "disabled"
-  target = "*aay.tw/*"
-  zone_id = "bd88692b8c1560d17ffed76e32270762"
+  status = "active"
+  target = "http://*aay.tw/*"
+  zone_id = cloudflare_zone.short.id
   actions {
-    forwarding_url {
-      status_code = 302
-      url = "https://astrid.tech/$2"
-    }
+    always_use_https = true
   }
 }
 
-resource "cloudflare_page_rule" "name_always_http" {
+resource "cloudflare_page_rule" "name_redirects_to_primary" {
   priority = 1
   status = "active"
   target = "*astridyu.com/*"
-  zone_id = "e3c1d610b58b03504d7325839426de09"
+  zone_id = cloudflare_zone.name.id
   actions {
     forwarding_url {
-      status_code = 301
+      status_code = 302  # Non-permanent, as I may want to change it at some point
       url = "https://astrid.tech/$2"
     }
   }
