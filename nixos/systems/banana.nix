@@ -1,7 +1,8 @@
-# A chonky HP DL380P Gen8 rack server.
+# My personal laptop, a Lenovo Legion Y530.
 
 { self, nixpkgs, ... }:
 let
+  # TODO set up this
   bootDisk = "/dev/disk/by-id/scsi-3600508b1001c5e757c79ba52c727a91f";
   bootPart = "/dev/disk/by-id/scsi-3600508b1001c5e757c79ba52c727a91f-part1";
   rootPart = "/dev/disk/by-id/scsi-3600508b1001c5e757c79ba52c727a91f-part2";
@@ -10,23 +11,21 @@ let
     time.timeZone = "US/Pacific";
 
     networking = {
-      hostName = "bongus";
-      domain = "hv.astrid.tech";
+      hostName = "banana";
+      domain = "id.astrid.tech";
 
-      hostId = "6d1020a1"; # Required for ZFS
+      hostId = "7e1020a1"; # Required for ZFS
       useDHCP = false;
 
       interfaces = {
         eno1.useDHCP = true;
-        eno2.useDHCP = true;
-        eno3.useDHCP = true;
-        eno4.useDHCP = true;
       };
     };
   };
 
   boot = { config, lib, ... }: {
-    # Use the GRUB 2 boot loader.
+    # TODO figure out boot setup
+    # Use the GRUB 2 boot loader...?
     boot = {
       loader.grub = {
         enable = true;
@@ -54,13 +53,18 @@ let
         fsType = "ext4";
       };
 
+      "/home" = {
+        device = rootPart; # TODO
+        fsType = "ext4";
+      };
+
       "/nix" = {
-        device = "dpool/local/nix";
+        device = "dpool/local/nix"; # TODO
         fsType = "zfs";
       };
 
       "/persist" = {
-        device = "dpool/safe/persist";
+        device = "dpool/safe/persist"; # TODO
         fsType = "zfs";
       };
 
@@ -68,6 +72,18 @@ let
         device = bootPart;
         fsType = "vfat";
       };
+
+      "/dos/c" = {
+        device = bootPart; # TODO
+        fsType = "ntfs";
+      };
+
+      "/dos/d" = {
+        device = bootPart; # TODO
+        fsType = "ntfs";
+      };
+
+      # TODO: NFS?
     };
 
     swapDevices = [ ];
@@ -83,7 +99,6 @@ nixpkgs.lib.nixosSystem {
     (import ../modules/ext4-ephroot.nix { partition = rootPart; })
     networking
     (import ../modules/sshd.nix)
-    (import ../modules/bm-server.nix)
     (import ../modules/flake.nix)
   ];
 }
