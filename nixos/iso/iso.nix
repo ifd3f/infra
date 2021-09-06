@@ -12,8 +12,8 @@
   users = {
     mutableUsers = false;
     users.nixos = {
-      openssh.authorizedKeys.keys = [ 
-        (import ../keys.nix).astrid 
+      openssh.authorizedKeys.keys = [
+        (import ../keys.nix).astrid
       ];
     };
   };
@@ -45,7 +45,7 @@
   # tools so that debugging things is comfortable.
   environment.systemPackages = with pkgs; [
     # Editors are always helpful
-    neovim  
+    neovim
 
     # Download stuff from the internet
     git
