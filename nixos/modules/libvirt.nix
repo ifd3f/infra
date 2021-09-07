@@ -22,6 +22,7 @@
 
   virtualisation.libvirtd = {
     enable = true;
+    qemuOvmf = true;
   };
 
   # For qemu+ssh:// connections
