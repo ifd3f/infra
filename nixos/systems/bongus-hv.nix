@@ -14,6 +14,10 @@ let
 
     ext4-ephroot.partition = rootPart;
 
+    # Explicitly don't reboot on kernel upgrade. This server takes forever to reboot, plus 
+    # it's a jet engine when it boots and it will probably wake me up at 4:00 AM
+    system.autoUpgrade.allowReboot = false; 
+
     networking = {
       hostName = "bongus-hv";
       domain = "id.astrid.tech";
@@ -81,7 +85,6 @@ nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
 
   modules = with self.nixosModules; [
-    specialized
     ext4-ephroot
     debuggable
     libvirt
@@ -90,6 +93,7 @@ nixpkgs.lib.nixosSystem {
     stable-flake
     zfs-boot
     flake-update
+    specialized
   ];
 }
  
