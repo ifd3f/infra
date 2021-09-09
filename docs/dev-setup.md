@@ -4,7 +4,7 @@ I have multiple types of development environments for different types of develop
 
 ## Full Deployment Development
 
-To test the full deployment of my homelab, I use Libvirt VMs provisioned by Terraform, with images built by Packer. Please see [dev-env/README.md](https://github.com/astralbijection/infrastructure/blob/main/dev-env/README.md) for more information on how to set that up.
+To test the full deployment of my homelab, I use Libvirt VMs provisioned by Terraform, with images built by Packer. Please see [dev-env/README.md](https://github.com/astralbijection/infra/blob/main/dev-env/README.md) for more information on how to set that up.
 
 ## Kubernetes Development
 

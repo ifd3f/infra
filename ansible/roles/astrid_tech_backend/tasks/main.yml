@@ -57,7 +57,7 @@
 
 - name: Update infra repo
   ansible.builtin.git:
-    repo: https://github.com/astralbijection/infrastructure.git
+    repo: https://github.com/astralbijection/infra.git
     dest: "{{ repo_base }}"
     update: yes
     clone: yes

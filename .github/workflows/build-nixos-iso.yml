@@ -1,5 +1,5 @@
 # You can get the nightly results of these builds at
-# https://nightly.link/astralbijection/infrastructure/workflows/build-lxc-images/main
+# https://nightly.link/astralbijection/infra/workflows/build-lxc-images/main
 
 name: Build Customized NixOS ISO
 

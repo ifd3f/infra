@@ -46,7 +46,7 @@
 
   systemd.services."install-flake" = {
     script = ''
-      nixos-rebuild switch --flake github:astralbijection/infrastructure#bongusHV && reboot
+      nixos-rebuild switch --flake github:astralbijection/infra#bongus-hv && reboot
     '';
     wantedBy = [ "multi-user.target" ];
   };

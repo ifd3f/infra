@@ -21,7 +21,7 @@ RUN apt-get update && apt-get install -y \
 # Clone the git repo
 WORKDIR /infra
 RUN apt-get install -y git
-RUN git clone https://github.com/astralbijection/infrastructure.git --no-checkout .
+RUN git clone https://github.com/astralbijection/infra.git --no-checkout .
 RUN git sparse-checkout init --cone \
     && git sparse-checkout set ansible terraform kubernetes \
     && git checkout

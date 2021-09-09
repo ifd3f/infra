@@ -4,5 +4,5 @@
     - name: import_lxc_from_artifact
       vars:
         lxc_name: freeipa_server
-        lxc_zip_url: https://nightly.link/astralbijection/infrastructure/workflows/build-lxc-images/main/freeipa_server.zip
+        lxc_zip_url: https://nightly.link/astralbijection/infra/workflows/build-lxc-images/main/freeipa_server.zip
 

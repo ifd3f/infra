@@ -4,7 +4,7 @@
 {
   system.autoUpgrade = {
     enable = true;
-    flake = "github:astralbijection/infrastructure/main";
+    flake = "github:astralbijection/infra/main";
     dates = "*-*-* 4:00:00";
     randomizedDelaySec = "30min";
   };
