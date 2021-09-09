@@ -1,19 +1,19 @@
-variable "output_image_name" {
+variable output_image_name {
   type = string 
-  default = "fedora_base"
+  default = "lab_maas"
 }
 
-source "lxd" "fedorabase" {
-  image = "images:fedora/34/amd64"
+source lxd labmaas {
+  image = "images:ubuntu/hirsute/amd64"
   output_image = var.output_image_name
   
   publish_properties = {
-    description = "Fedora LXC base image for cool pet services"
+    description = "MaaS server"
   }
 }
 
 build {
-  sources = ["source.lxd.fedorabase"]
+  sources = ["source.lxd.labmaas"]
 
   provisioner "file" {
     source = "${path.root}/passwordless-sudo"

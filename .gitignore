@@ -1,3 +1,6 @@
 gh_rsa
 result
 *.iso
+*.tar 
+*.tar.gz
+*.tar.bz2

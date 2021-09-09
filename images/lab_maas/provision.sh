@@ -2,15 +2,20 @@
 
 set -o xtrace  # logging commands as they are run
 
-echo "Installing packages"
-dnf install -y \
+echo "Installing Apt packages"
+apt-get update && apt-get install -y \
+    snapd \
     cloud-init \
-    dnf-plugins-core \
     ansible \
     openssh-server \
-    freeipa-client \
     firewalld \
     nftables
+
+echo "Installing Snap packages"
+snap install maas maas-test-db
+
+maas init region+rack --database-uri maas-test-db:///
+maas createadmin
 
 echo "Configuring sshd"
 cat /tmp/sshd_config > /etc/ssh/sshd_config
@@ -22,9 +27,9 @@ echo "Enabling SSH, firewalld"
 systemctl enable sshd.service
 systemctl enable firewalld.service
 
-echo "Disabling chronyd"
-systemctl disable chronyd.service 
-
 echo "Allowing SSH traffic"
 systemctl start firewalld.service
 firewall-cmd --add-service=ssh --permanent
+
+echo "Deleting SSH host keys"
+rm /etc/ssh/ssh_host_*_key 
