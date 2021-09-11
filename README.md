@@ -26,6 +26,6 @@ Much of this code is experimental and not used in production yet. However, there
 ## Useful Links
 
 - [cloud.astrid.tech](https://cloud.astrid.tech/), a Github Pages site acting as a wiki documenting this project. Also located in the [docs/](./docs) folder.
-- [An article on by website](https://astrid.tech/projects/plebscale/) about this project
+- [An article on my website](https://astrid.tech/projects/plebscale/) about this project
 
 
