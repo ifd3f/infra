@@ -12,7 +12,7 @@
     in
     {
       nixosConfigurations = {
-        bongus-hv = (import ./nixos/systems/bongus-hv.nix) inputs;
+        bongus-hv = (import ./nixos/systems/bongus-hv/main.nix) inputs;
         installer-iso = installerResult;
       };
 
