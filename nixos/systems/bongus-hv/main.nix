@@ -2,8 +2,10 @@
 
 { self, nixpkgs-unstable, ... }:
 let
-  fs = import ./fs.nix;
   nixpkgs = nixpkgs-unstable;
+
+  fs = import ./fs.nix;
+  netModule = import ./net.nix;
 
   specialized = { config, lib, pkgs, ... }: {
     time.timeZone = "US/Pacific";
@@ -13,21 +15,6 @@ let
     # Explicitly don't reboot on kernel upgrade. This server takes forever to reboot, plus 
     # it's a jet engine when it boots and it will probably wake me up at 4:00 AM
     system.autoUpgrade.allowReboot = false; 
-
-    networking = {
-      hostName = "bongus-hv";
-      domain = "id.astrid.tech";
-
-      hostId = "6d1020a1"; # Required for ZFS
-      useDHCP = false;
-
-      interfaces = {
-        eno1.useDHCP = true;
-        eno2.useDHCP = true;
-        eno3.useDHCP = true;
-        eno4.useDHCP = true;
-      };
-    };
 
     # Use the GRUB 2 boot loader.
     boot = {
@@ -53,7 +40,6 @@ nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
 
   modules = with self.nixosModules; [
-    fs.module
     ext4-ephroot
     debuggable
     libvirt
@@ -62,6 +48,9 @@ nixpkgs.lib.nixosSystem {
     stable-flake
     zfs-boot
     flake-update
+
+    fs.module
+    netModule
     specialized
   ];
 }
