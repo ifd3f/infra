@@ -2,17 +2,13 @@
 
 { self, nixpkgs-unstable, ... }:
 let
+  fs = import ./fs.nix;
   nixpkgs = nixpkgs-unstable;
-
-  bootDisk = "/dev/disk/by-id/scsi-3600508b1001c5e757c79ba52c727a91f";
-  bootPart = "/dev/disk/by-id/scsi-3600508b1001c5e757c79ba52c727a91f-part1";
-  rootPart = "/dev/disk/by-id/scsi-3600508b1001c5e757c79ba52c727a91f-part2";
-  vmsPart = "/dev/disk/by-id/scsi-3600508b1001c5e757c79ba52c727a91f-part3";
 
   specialized = { config, lib, pkgs, ... }: {
     time.timeZone = "US/Pacific";
 
-    ext4-ephroot.partition = rootPart;
+    ext4-ephroot.partition = fs.devices.rootPart;
 
     # Explicitly don't reboot on kernel upgrade. This server takes forever to reboot, plus 
     # it's a jet engine when it boots and it will probably wake me up at 4:00 AM
@@ -39,7 +35,7 @@ let
         enable = true;
         version = 2;
         copyKernels = true;
-        device = bootDisk; # HP G8 only supports BIOS, not UEFI
+        device = fs.devices.bootDisk; # HP G8 only supports BIOS, not UEFI
       };
 
       initrd = {
@@ -52,7 +48,7 @@ let
 
     fileSystems = {
       "/" = {
-        device = rootPart;
+        device = fs.devices.rootPart;
         fsType = "ext4";
       };
 
@@ -67,12 +63,12 @@ let
       };
 
       "/srv/guests" = {
-        device = vmsPart;
+        device = fs.devices.vmsPart;
         fsType = "xfs";
       };
 
       "/boot" = {
-        device = bootPart;
+        device = fs.devices.bootPart;
         fsType = "vfat";
       };
     };
