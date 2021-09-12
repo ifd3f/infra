@@ -2,4 +2,4 @@
   ansible.builtin.authorized_key:
     user: "{{ ssh_user }}"
     state: present
-    key: https://raw.githubusercontent.com/astralbijection/infra/main/gh_rsa.pub
+    key: https://raw.githubusercontent.com/astralbijection/infra/main/ssh_keys/gh_rsa.pub

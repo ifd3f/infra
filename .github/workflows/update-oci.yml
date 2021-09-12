@@ -11,7 +11,7 @@ on:
       - ansible/roles/astrid_tech_backend/**/*
       - ansible/roles/gh_ssh_key/**/*
       - docker-compose/oci-1/**/*
-      - gh_rsa.pub
+      - ssh_keys/*
   pull_request:
     branches: [main]
   workflow_dispatch:
