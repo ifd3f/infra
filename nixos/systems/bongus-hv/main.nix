@@ -46,34 +46,6 @@ let
       extraModulePackages = [ ];
     };
 
-    fileSystems = {
-      "/" = {
-        device = fs.devices.rootPart;
-        fsType = "ext4";
-      };
-
-      "/nix" = {
-        device = "dpool/local/nix";
-        fsType = "zfs";
-      };
-
-      "/persist" = {
-        device = "dpool/safe/persist";
-        fsType = "zfs";
-      };
-
-      "/srv/guests" = {
-        device = fs.devices.vmsPart;
-        fsType = "xfs";
-      };
-
-      "/boot" = {
-        device = fs.devices.bootPart;
-        fsType = "vfat";
-      };
-    };
-
-    swapDevices = [ ];
   };
 
 in
@@ -81,6 +53,7 @@ nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
 
   modules = with self.nixosModules; [
+    fs.module
     ext4-ephroot
     debuggable
     libvirt
