@@ -25,9 +25,8 @@
       enable = true;
       qemuOvmf = true;
     };
-    podman = {
+    docker = {
       enable = true;
-      dockerCompat = true;
     };
   };
 
