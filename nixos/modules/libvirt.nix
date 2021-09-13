@@ -20,9 +20,15 @@
 
   boot.kernelModules = [ "kvm-intel" ];
 
-  virtualisation.libvirtd = {
-    enable = true;
-    qemuOvmf = true;
+  virtualisation = {
+    libvirtd = {
+      enable = true;
+      qemuOvmf = true;
+    };
+    podman = {
+      enable = true;
+      dockerCompat = true;
+    };
   };
 
   # For qemu+ssh:// connections
