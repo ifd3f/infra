@@ -1,11 +1,22 @@
 { pkgs, ... }:
 {
   systemd.services."ensure-libvirt-state" = {
-    description = "Ensure directory for libvirt state exists";
+    description = "Ensure directory for Libvirt state exists";
     script = ''
       mkdir -p /persist/var/lib/libvirt
     '';
     wantedBy = [ "var-lib-libvirt.mount" ];
+    serviceConfig = {
+      Type = "oneshot";
+    };
+  };
+
+  systemd.services."ensure-docker-state" = {
+    description = "Ensure directory for Docker state exists";
+    script = ''
+      mkdir -p /persist/var/lib/docker
+    '';
+    wantedBy = [ "var-lib-docker.mount" ];
     serviceConfig = {
       Type = "oneshot";
     };
@@ -18,6 +29,10 @@
     options = [ "bind" ];
   };
 
+  fileSystems."/var/lib/docker" = {
+    device = "/persist/var/lib/docker";
+    options = [ "bind" ];
+  };
   boot.kernelModules = [ "kvm-intel" ];
 
   virtualisation = {
