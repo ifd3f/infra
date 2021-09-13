@@ -15,7 +15,7 @@ RUN mv /out/forge-1.12.2-14.23.5.2854.jar /out/forge.jar
 FROM debian:stretch-slim AS runner
 RUN apt-get update && apt-get install -y openjdk-8-jre 
 
-WORKDIR /srv/mc
+WORKDIR /srv
 COPY --from=builder /out/ ./
 RUN echo eula=true > eula.txt
 

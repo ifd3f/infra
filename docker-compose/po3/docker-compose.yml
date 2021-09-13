@@ -6,13 +6,13 @@ services:
     container_name: ozone3
     tty: true
     volumes:
-      - "/persist/mc/world:/srv/mc/world"
-      - "/persist/mc/backups:/srv/mc/backups"
-      - "./ops.json:/srv/mc/ops.json"
-      - "./whitelist.json:/srv/mc/whitelist.json"
-      - "./banned-ips.json:/srv/mc/banned-ips.json"
-      - "./banned-players.json:/srv/mc/banned-players.json"
-      - "./server.properties:/srv/mc/server.properties"
+      - "/persist/mc/world:/srv/world"
+      - "/persist/mc/backups:/srv/backups"
+      - "./ops.json:/srv/ops.json"
+      - "./whitelist.json:/srv/whitelist.json"
+      - "./banned-ips.json:/srv/banned-ips.json"
+      - "./banned-players.json:/srv/banned-players.json"
+      - "./server.properties:/srv/server.properties"
     ports:
       - 25565:25565
     restart: unless-stopped
