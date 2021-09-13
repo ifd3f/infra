@@ -16,6 +16,9 @@ let
     # Explicitly don't reboot on kernel upgrade. This server takes forever to reboot, plus 
     # it's a jet engine when it boots and it will probably wake me up at 4:00 AM
     system.autoUpgrade.allowReboot = false;
+
+    # The Minecraft server port
+    networking.firewall.allowedTCPPorts = [ 25565 ];
   };
 
 in

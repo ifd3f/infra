@@ -5,4 +5,6 @@ services:
     image: ghcr.io/astralbijection/mc-ozone3:main
     volumes:
       - "./world:/persist/mc/world"
+    ports:
+      - 25565:25565
     restart: unless-stopped
