@@ -7,6 +7,9 @@ services:
     tty: true
     volumes:
       - "/persist/mc/world:/srv/mc/world"
+      - "./ops.json:/srv/mc/ops.json"
+      - "./whitelist.json:/srv/mc/whitelist.json"
+      - "./server.properties:/srv/mc/server.properties"
     ports:
       - 25565:25565
     restart: unless-stopped
