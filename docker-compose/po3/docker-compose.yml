@@ -7,8 +7,11 @@ services:
     tty: true
     volumes:
       - "/persist/mc/world:/srv/mc/world"
+      - "/persist/mc/backups:/srv/mc/backups"
       - "./ops.json:/srv/mc/ops.json"
       - "./whitelist.json:/srv/mc/whitelist.json"
+      - "./banned-ips.json:/srv/mc/banned-ips.json"
+      - "./banned-players.json:/srv/mc/banned-players.json"
       - "./server.properties:/srv/mc/server.properties"
     ports:
       - 25565:25565
