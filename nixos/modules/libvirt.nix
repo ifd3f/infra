@@ -31,9 +31,9 @@
     };
   };
 
-  # For qemu+ssh:// connections
   environment.systemPackages = with pkgs; [
-    netcat
+    netcat # For qemu+ssh:// connections
+    docker-compose # For raw, non-k8s docker
   ];
 
   networking.interfaces."br0".useDHCP = true;
