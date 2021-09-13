@@ -6,7 +6,7 @@ services:
     container_name: ozone3
     tty: true
     volumes:
-      - "./world:/persist/mc/world"
+      - "/persist/mc/world:/srv/mc/world"
     ports:
       - 25565:25565
     restart: unless-stopped
