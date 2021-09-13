@@ -3,6 +3,8 @@ version: "3"
 services:
   mc:
     image: ghcr.io/astralbijection/mc-ozone3:main
+    container_name: ozone3
+    tty: true
     volumes:
       - "./world:/persist/mc/world"
     ports:
