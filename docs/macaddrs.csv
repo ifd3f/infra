@@ -1,0 +1,10 @@
+Device,Interface,Note,MAC/BSSID
+bongus,eno1,rightmost,d8:9d:67:26:46:3c
+bongus,eno2,,d8:9d:67:26:46:3d
+bongus,eno3,,d8:9d:67:26:46:3e
+bongus,eno4,leftmost,d8:9d:67:26:46:3f
+banana,enp8s0,,e8:6a:64:99:5d:46
+inner,eth0,wan,18:A6:F7:31:B4:49
+inner,eth1,lan,18:A6:F7:31:B4:48
+inner,radio0,5ghz,18:A6:F7:31:B4:46
+inner,radio1,2.4ghz,18:A6:F7:31:B4:47

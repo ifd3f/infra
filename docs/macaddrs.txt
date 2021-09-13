@@ -1,5 +1,0 @@
-bongus  eno1    d8:9d:67:26:46:3c
-        eno2    d8:9d:67:26:46:3d
-        eno3    d8:9d:67:26:46:3e
-        eno4    d8:9d:67:26:46:3f
-banana  enp8s0  e8:6a:64:99:5d:46
