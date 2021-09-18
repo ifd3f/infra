@@ -1,0 +1,30 @@
+version: "3.7"
+services:
+  webmentions:
+    image: ghcr.io/astralbijection/wm-receiver:main
+    hostname: wm_receiver
+    command: 
+      sh -c 'git config --global init.defaultBranch main && git config --global user.email "editor@astrid.tech" && git config --global user.name "Webmention Bot" && cp /id_rsa ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa && wm-receiver'
+    expose:
+      - 8000
+    environment:
+      DATABASE_URL: mentions.sqlite3
+      ALLOWED_TARGET_HOSTS: astrid.tech,aay.tw
+      WEBMENTION_SUBDIR: content/webmentions
+      REPO_DIR: ./repo
+      REMOTE_URL: "git@github.com:astralbijection/astrid.tech.git"
+      BRANCH_NAME: auto/webmention
+      BASE_BRANCH: main
+      ROCKET_ADDRESS: "0.0.0.0"
+      SSH_PRIVATE_KEY: /id_rsa
+    volumes:
+      - ./known_hosts:/root/.ssh/known_hosts
+      - ./id_rsa:/id_rsa
+    restart: always
+    networks:
+      - proxied
+
+networks:
+  proxied:
+    external:
+      name: proxied
