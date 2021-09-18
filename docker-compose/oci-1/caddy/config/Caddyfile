@@ -1,5 +1,5 @@
 # api.astrid.tech API gateway
-http://api.astrid.tech {
+api.astrid.tech {
     @django {
         path /static/* /media/*
     }
