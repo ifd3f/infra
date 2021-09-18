@@ -8,4 +8,8 @@
   home.packages = [
     pkgs.htop
   ];
+
+  home.sessionVariables = {
+    EDITOR = "vi";
+  };
 }
