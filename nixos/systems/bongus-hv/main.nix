@@ -1,6 +1,6 @@
 # A chonky HP DL380P Gen8 rack server.
 
-{ self, nixpkgs-unstable, ... }:
+{ self, nixpkgs-unstable, home-manager,... }:
 let
   nixpkgs = nixpkgs-unstable;
 
@@ -19,6 +19,12 @@ let
 
     # The Minecraft server port
     networking.firewall.allowedTCPPorts = [ 25565 ];
+
+    home-manager = {
+      useGlobalPkgs = true;
+      useUserPackages = true;
+      users.astrid = import ../../home-manager/astrid.nix;
+    };
   };
 
 in
@@ -34,6 +40,7 @@ nixpkgs.lib.nixosSystem {
     stable-flake
     zfs-boot
     flake-update
+    home-manager.nixosModules.home-manager
 
     bootModule
     fs.module
