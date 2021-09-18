@@ -1,17 +1,5 @@
-# DND Dokuwiki
-wiki.dnd.astrid.tech {
-    reverse_proxy * dnd_dokuwiki_dokuwiki_1
-    encode zstd gzip
-}
-
-# # PlanarAlly
-# dnd.astrid.tech {
-#     reverse_proxy * http://planarally:8000
-#     encode zstd gzip
-# }
-
-# astrid.tech backend
-api.astrid.tech {
+# api.astrid.tech API gateway
+http://api.astrid.tech {
     @django {
         path /static/* /media/*
     }
@@ -21,7 +9,21 @@ api.astrid.tech {
             root /var/www/astrid_tech/
         }
     }
-    reverse_proxy * http://astrid_tech_api_1:8001
+
+    route /api/webmention {
+        reverse_proxy http://wm_receiver:8000
+    }
+
+    route /api/rpc/processWebmentions {
+        basicauth {
+            rpcuser {$RPC_HASHED_PASSWORD}
+        }
+        reverse_proxy http://wm_receiver:8000
+    }
+
+    route * {
+        reverse_proxy * http://astrid_tech_api_1:8001
+    }
     encode zstd gzip
 }
 
@@ -36,17 +38,3 @@ notes.astrid.tech {
     reverse_proxy * http://trilium:8080
     encode zstd gzip
 }
-
-# # Keycloak
-# iam.astrid.tech {
-#     reverse_proxy * http://keycloak:8080
-#     encode zstd gzip
-# }
-
-# Invoiceninja
-#https://localhost:4002 {
-#    root * /var/www/invoiceninja/public
-#    php_fastcgi invoiceninja:9000
-#    encode zstd gzip
-#    file_server
-#}
