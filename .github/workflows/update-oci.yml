@@ -12,8 +12,6 @@ on:
       - ansible/roles/gh_ssh_key/**/*
       - docker-compose/oci-1/**/*
       - ssh_keys/*
-  pull_request:
-    branches: [main]
   workflow_dispatch:
 
 concurrency: 
