@@ -3,8 +3,6 @@ services:
   webmentions:
     image: ghcr.io/astralbijection/wm-receiver:main
     hostname: wm_receiver
-    command: 
-      sh -c 'git config --global init.defaultBranch main && git config --global user.email "editor@astrid.tech" && git config --global user.name "Webmention Bot" && cp /id_rsa ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa && wm-receiver'
     expose:
       - 8000
     environment:
@@ -16,10 +14,12 @@ services:
       BRANCH_NAME: auto/webmention
       BASE_BRANCH: main
       ROCKET_ADDRESS: "0.0.0.0"
-      SSH_PRIVATE_KEY: /id_rsa
+      SSH_PRIVATE_KEY_FILE: /app/id_rsa
+      GIT_NAME: Webmention Receiver
+      GIT_EMAIL: editor@astrid.tech
     volumes:
       - ./known_hosts:/root/.ssh/known_hosts
-      - ./id_rsa:/id_rsa
+      - ./id_rsa:/app/id_rsa
     restart: always
     networks:
       - proxied
