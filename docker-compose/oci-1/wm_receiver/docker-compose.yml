@@ -6,7 +6,7 @@ services:
     expose:
       - 8000
     environment:
-      DATABASE_URL: mentions.sqlite3
+      DATABASE_URL: /app/data/data.db
       ALLOWED_TARGET_HOSTS: astrid.tech,aay.tw
       WEBMENTION_SUBDIR: content/webmentions
       REPO_DIR: ./repo
@@ -18,6 +18,8 @@ services:
       GIT_NAME: Webmention Receiver
       GIT_EMAIL: editor@astrid.tech
     volumes:
+      # folder mount, containing DB, that the app can auto-create
+      - ./data:/app/data
       - ./known_hosts:/root/.ssh/known_hosts
       - ./id_rsa:/app/id_rsa
     restart: always
