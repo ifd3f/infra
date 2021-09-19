@@ -61,6 +61,7 @@
     dest: "{{ repo_base }}"
     update: yes
     clone: yes
+    force: yes
     version: main
 
 - name: Create symlink for our specific folder
