@@ -21,13 +21,21 @@ provider "cloudflare" {
 }
 
 resource "cloudflare_zone" "primary" {
+  // Registrar: https://namecheap.com
   zone = "astrid.tech"
 }
 
 resource "cloudflare_zone" "name" {
+  // Registrar: https://namecheap.com
   zone = "astridyu.com"
 }
 
 resource "cloudflare_zone" "short" {
+  // Registrar: https://gandi.net
   zone = "aay.tw"
+}
+
+resource "cloudflare_zone" "s3e" {
+  // Registrar: https://porkbun.com
+  zone = "s3e.top"
 }
