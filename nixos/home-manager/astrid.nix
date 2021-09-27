@@ -1,3 +1,4 @@
+# CLI-only home manager settings
 { pkgs, ... }:
 let vscodeTarball = fetchTarball {
   url = "https://github.com/msteen/nixos-vscode-server/tarball/master";

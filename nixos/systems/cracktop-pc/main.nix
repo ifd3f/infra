@@ -16,7 +16,7 @@ let
     home-manager = {
       useGlobalPkgs = true;
       useUserPackages = true;
-      users.astrid = import ../../home-manager/astrid.nix;
+      users.astrid = import ../../home-manager/astrid_x11.nix;
     };
 
     users = {
@@ -31,12 +31,13 @@ nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
 
   modules = with self.nixosModules; [
-    ext4-ephroot
     debuggable
+    ext4-ephroot
+    home-manager.nixosModules.home-manager
+    i3-xfce
     libvirt
     stable-flake
     zfs-boot
-    home-manager.nixosModules.home-manager
 
     bootModule
     fs.module
