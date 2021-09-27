@@ -26,6 +26,7 @@
         i3-xfce = (import ./nixos/modules/i3-xfce.nix);
         libvirt = (import ./nixos/modules/libvirt.nix);
         pc-home = (import ./nixos/modules/pc-home.nix);
+        pipewire = (import ./nixos/modules/pipewire.nix);
         sshd = (import ./nixos/modules/sshd.nix);
         stable-flake = (import ./nixos/modules/stable-flake.nix);
         zfs-boot = (import ./nixos/modules/zfs-boot.nix);

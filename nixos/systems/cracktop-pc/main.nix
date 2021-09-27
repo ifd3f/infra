@@ -36,6 +36,8 @@ nixpkgs.lib.nixosSystem {
     home-manager.nixosModules.home-manager
     i3-xfce
     libvirt
+    pc-home
+    pipewire
     stable-flake
     zfs-boot
 
