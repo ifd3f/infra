@@ -18,4 +18,19 @@ in
     device = "/persist/home";
     options = [ "bind" ];
   };
+
+  systemd.services."ensure-shadow" = {
+    description = "Ensure shadow file exists";
+    script = ''
+      touch /persist/etc/shadow
+    '';
+    wantedBy = [ "etc-shadow.mount" ];
+    serviceConfig = {
+      Type = "oneshot";
+    };
+  };
+  fileSystems."/etc/shadow" = {
+    device = "/persist/etc/shadow";
+    options = [ "bind" ];
+  };
 }
