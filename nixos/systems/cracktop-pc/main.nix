@@ -1,6 +1,6 @@
 # My old HP x360 Pavilion. It's lighter than BANANA, so I plan on bringing it to class.
 
-{ self, nixpkgs-unstable, home-manager,... }:
+{ self, nixpkgs-unstable, home-manager, ... }:
 let
   nixpkgs = nixpkgs-unstable;
 
@@ -23,7 +23,10 @@ let
       mutableUsers = true;
 
       users = {
-        astrid = import ../../users/astrid.nix;
+        root.passwordFile = "/persist/passwords/root";
+        astrid = import ../../users/astrid.nix // {
+          passwordFile = "/persist/passwords/astrid";
+        };
       };
     };
   };
