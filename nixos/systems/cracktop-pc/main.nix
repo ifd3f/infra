@@ -20,6 +20,8 @@ let
     };
 
     users = {
+      mutableUsers = true;
+
       users = {
         astrid = import ../../users/astrid.nix;
       };

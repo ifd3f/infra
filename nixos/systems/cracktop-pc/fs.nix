@@ -1,6 +1,7 @@
 let devices = {
-  bootPart = "/dev/disk/by-uuid/13B8-1D70";
-  rootPart = "/dev/disk/by-uuid/ec63ba76-98e8-4617-b962-cce291223c58";
+  rootDisk = "/dev/disk/by-id/ata-SAMSUNG_MZNLF128HCHP-000H1_S2HUNXBG806927";
+  bootPart = "${devices.rootDisk}-part1";
+  rootPart = "${devices.rootDisk}-part2";
 }; in
 {
   inherit devices;
