@@ -1,38 +1,5 @@
 { pkgs, ... }:
 {
-  systemd.services."ensure-libvirt-state" = {
-    description = "Ensure directory for Libvirt state exists";
-    script = ''
-      mkdir -p /persist/var/lib/libvirt
-    '';
-    wantedBy = [ "var-lib-libvirt.mount" ];
-    serviceConfig = {
-      Type = "oneshot";
-    };
-  };
-
-  systemd.services."ensure-docker-state" = {
-    description = "Ensure directory for Docker state exists";
-    script = ''
-      mkdir -p /persist/var/lib/docker
-    '';
-    wantedBy = [ "var-lib-docker.mount" ];
-    serviceConfig = {
-      Type = "oneshot";
-    };
-  };
-
-  # Unfortunately, libvirt doesn't like symlinks to /var/lib/libvirt, but it's
-  # okay with bind mounts.
-  fileSystems."/var/lib/libvirt" = {
-    device = "/persist/var/lib/libvirt";
-    options = [ "bind" ];
-  };
-
-  fileSystems."/var/lib/docker" = {
-    device = "/persist/var/lib/docker";
-    options = [ "bind" ];
-  };
   boot.kernelModules = [ "kvm-intel" ];
 
   virtualisation = {

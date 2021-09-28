@@ -23,10 +23,7 @@ let
       mutableUsers = true;
 
       users = {
-        root.passwordFile = "/persist/passwords/root";
-        astrid = import ../../users/astrid.nix // {
-          passwordFile = "/persist/passwords/astrid";
-        };
+        astrid = import ../../users/astrid.nix;
       };
     };
   };
@@ -41,7 +38,6 @@ nixpkgs.lib.nixosSystem {
     home-manager.nixosModules.home-manager
     i3-xfce
     libvirt
-    pc-home
     pipewire
     stable-flake
     zfs-boot

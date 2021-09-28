@@ -41,6 +41,7 @@ nixpkgs.lib.nixosSystem {
     zfs-boot
     flake-update
     home-manager.nixosModules.home-manager
+    persistence
 
     bootModule
     fs.module
