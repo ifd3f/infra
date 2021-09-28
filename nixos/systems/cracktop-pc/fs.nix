@@ -18,8 +18,8 @@ let devices = {
         fsType = "zfs";
       };
 
-      "/persist" = {
-        device = "rpool/safe/persist";
+      "/home" = {
+        device = "rpool/local/home";
         fsType = "zfs";
       };
 

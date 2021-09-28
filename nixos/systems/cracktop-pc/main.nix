@@ -11,8 +11,6 @@ let
   specialized = { config, lib, pkgs, ... }: {
     time.timeZone = "US/Pacific";
 
-    ext4-ephroot.partition = fs.devices.rootPart;
-
     home-manager = {
       useGlobalPkgs = true;
       useUserPackages = true;
@@ -34,7 +32,6 @@ nixpkgs.lib.nixosSystem {
 
   modules = with self.nixosModules; [
     debuggable
-    ext4-ephroot
     home-manager.nixosModules.home-manager
     i3-xfce
     libvirt
