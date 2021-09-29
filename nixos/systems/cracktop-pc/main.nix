@@ -1,8 +1,8 @@
 # My old HP x360 Pavilion. It's lighter than BANANA, so I plan on bringing it to class.
 
-{ self, nixpkgs-unstable, home-manager, ... }:
+{ self, nixpkgs-stable, home-manager, ... }:
 let
-  nixpkgs = nixpkgs-unstable;
+  nixpkgs = nixpkgs-stable;
 
   netModule = import ./net.nix;
   bootModule = import ./boot.nix;
