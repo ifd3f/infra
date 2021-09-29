@@ -11,6 +11,12 @@ let
   specialized = { config, lib, pkgs, ... }: {
     time.timeZone = "US/Pacific";
 
+    environment.systemPackages = with pkgs; [
+      xorg.xorgserver
+      xorg.xf86videointel
+      xorg.xf86inputsynaptics
+    ];
+
     home-manager = {
       useGlobalPkgs = true;
       useUserPackages = true;

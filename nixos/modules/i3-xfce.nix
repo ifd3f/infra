@@ -5,7 +5,7 @@
     enable = true;
 
     displayManager = {
-      startx.enable = true;
+      lightdm.enable = true;
       defaultSession = "xfce+i3";
     };
 
