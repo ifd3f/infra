@@ -24,6 +24,8 @@ let
         astrid = import ../../users/astrid.nix;
       };
     };
+
+    powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   };
 
 in
