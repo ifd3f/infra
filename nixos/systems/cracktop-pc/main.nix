@@ -11,6 +11,8 @@ let
   specialized = { config, lib, pkgs, ... }: {
     time.timeZone = "US/Pacific";
 
+    nixpkgs.config.allowUnfree = true;
+
     environment.systemPackages = with pkgs; [
       xorg.xorgserver
       xorg.xf86videointel

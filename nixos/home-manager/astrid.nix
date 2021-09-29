@@ -10,16 +10,33 @@ in
     "${vscodeTarball}/modules/vscode-server/home.nix"
   ];
 
-  services.vscode-server.enable = true;
-
-  programs.git = {
-    enable = true;
-    userName = "Astrid Yu";
-    userEmail = "astrid@astrid.tech";
+  services = {
+    vscode-server.enable = true;
   };
 
-  home.packages = [
-    pkgs.htop
+  programs = {
+    git = {
+      enable = true;
+      userName = "Astrid Yu";
+      userEmail = "astrid@astrid.tech";
+    };
+
+    keychain = {
+      enable = true;
+      enableBashIntegration = true;
+      enableZshIntegration = true;
+      enableXsessionIntegration = true;
+    };
+
+    zsh = {
+      enable = true;
+    };
+  };
+
+  home.packages = with pkgs; [
+    htop
+    bitwarden-cli
+    ranger
   ];
 
   home.sessionVariables = {

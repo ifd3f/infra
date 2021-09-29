@@ -25,5 +25,11 @@
     tree
     jq
     yq
+
+    # Password manager
+    bitwarden-cli
+
+    # Internet browser
+    elinks
   ];
 }
