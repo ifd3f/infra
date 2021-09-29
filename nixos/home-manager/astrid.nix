@@ -31,6 +31,8 @@ in
     zsh = {
       enable = true;
     };
+
+    home-manager.enable = true;
   };
 
   home.packages = with pkgs; [

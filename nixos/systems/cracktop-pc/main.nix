@@ -19,6 +19,11 @@ let
       xorg.xf86inputsynaptics
     ];
 
+    services.geoclue2 = {
+      enable = true;
+      enableWifi = true;
+    };
+
     home-manager = {
       useGlobalPkgs = true;
       useUserPackages = true;
