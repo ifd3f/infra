@@ -1,5 +1,14 @@
-- name: Add authorized key from URL
+- name: Add SSH keys
   ansible.builtin.authorized_key:
     user: "{{ ssh_user }}"
     state: present
-    key: https://raw.githubusercontent.com/astralbijection/infra/main/ssh_keys/gh_rsa.pub
+    key: "{{ item.key }}"
+  with_items:
+    - key: https://raw.githubusercontent.com/astralbijection/infra/main/ssh_keys/astrid_banana_id_ed25519.pub
+    - key: https://raw.githubusercontent.com/astralbijection/infra/main/ssh_keys/gh_rsa.pub
+
+- name: Remove deprecated keys
+  ansible.builtin.authorized_key:
+    user: "{{ ssh_user }}"
+    state: absent
+    key: https://raw.githubusercontent.com/astralbijection/infra/main/ssh_keys/deprecated/astrid.pub
