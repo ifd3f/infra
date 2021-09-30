@@ -30,8 +30,8 @@
       };
 
       homeModules = {
-        astrid = (import ./nixos/home-manager/astrid.nix);
-        astrid_x11 = (import ./nixos/home-manager/astrid_x11.nix);
+        astrid = (import ./home-manager/astrid.nix);
+        astrid_x11 = (import ./home-manager/astrid_x11.nix);
       };
       
       nixosConfigurations = {
