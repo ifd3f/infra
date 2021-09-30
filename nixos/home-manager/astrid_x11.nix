@@ -5,6 +5,7 @@
     ./astrid.nix
   ];
 
+  nixpkgs.config.allowUnfree = true;
   fonts.fontconfig.enable = true;
 
   services = {
