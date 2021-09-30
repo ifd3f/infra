@@ -67,3 +67,4 @@ export PATH="$PATH:/home/astrid/.espressif/tools/xtensa-esp32s2-elf/esp-2020r3-8
 
 # /home installed node packages
 export PATH="$PATH:/home/astrid/.npm-packages/bin"
+if [ -e /home/astrid/.nix-profile/etc/profile.d/nix.sh ]; then . /home/astrid/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
