@@ -52,6 +52,10 @@
         sshd = (import ./nixos/modules/sshd.nix);
         stable-flake = (import ./nixos/modules/stable-flake.nix);
         zfs-boot = (import ./nixos/modules/zfs-boot.nix);
+
+        astridHMHack = (import ./nixos/modules/cachix-workaround.nix) { 
+          homeConfig = self.homeModules.astrid;
+        };
       };
 
       packages = {

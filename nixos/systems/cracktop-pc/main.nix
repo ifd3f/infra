@@ -48,6 +48,7 @@ nixpkgs.lib.nixosSystem {
     pipewire
     stable-flake
     zfs-boot
+    astridHMHack
 
     bootModule
     fs.module
