@@ -13,7 +13,7 @@
       xterm.enable = false;
       xfce = {
         enable = true;
-        noDesktop = false;
+        noDesktop = true;
         enableXfwm = false;
       };
     };
