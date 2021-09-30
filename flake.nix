@@ -13,6 +13,27 @@
       installerResult = (import ./nixos/systems/installer-iso.nix) inputs;
     in
     {
+      homeConfigurations = {
+        "astrid@cracktop-pc" = inputs.home-manager-unstable.lib.homeManagerConfiguration {
+          system = "x86_64-linux";
+          homeDirectory = "/home/astrid";
+          username = "astrid";
+          configuration = self.homeModules.astrid_x11;
+        };
+
+        "astrid@bongus-hv" = inputs.home-manager-unstable.lib.homeManagerConfiguration {
+          system = "x86_64-linux";
+          homeDirectory = "/home/astrid";
+          username = "astrid";
+          configuration = self.homeModules.astrid;
+        };
+      };
+
+      homeModules = {
+        astrid = (import ./nixos/home-manager/astrid.nix);
+        astrid_x11 = (import ./nixos/home-manager/astrid_x11.nix);
+      };
+      
       nixosConfigurations = {
         bongus-hv = (import ./nixos/systems/bongus-hv/main.nix) inputs;
         cracktop-pc = (import ./nixos/systems/cracktop-pc/main.nix) inputs;

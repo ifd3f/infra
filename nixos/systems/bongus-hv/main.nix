@@ -24,7 +24,8 @@ let
     home-manager = {
       useGlobalPkgs = true;
       useUserPackages = true;
-      users.astrid = import ../../home-manager/astrid.nix;
+      # TODO refer to self.homeConfigurations."astrid@bongus-hv" instead
+      users.astrid = self.homeModules.astrid;
     };
   };
 
