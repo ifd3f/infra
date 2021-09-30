@@ -1,11 +1,1 @@
-# Dotfiles!
-
-## Dotfiles!
-
-### Dotfiles!
-
-#### Dotfiles!
-
-##### Dotfiles!
-
-###### Dotfiles!
+Dotfiles from my Arch machine. Will eventually be incorporated into home-manager.
