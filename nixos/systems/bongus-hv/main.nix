@@ -1,8 +1,9 @@
 # A chonky HP DL380P Gen8 rack server.
 
-{ self, nixpkgs-unstable, home-manager,... }:
+{ self, nixpkgs-unstable, home-manager-unstable,... }:
 let
   nixpkgs = nixpkgs-unstable;
+  home-manager = home-manager-unstable;
 
   fs = import ./fs.nix;
   netModule = import ./net.nix;

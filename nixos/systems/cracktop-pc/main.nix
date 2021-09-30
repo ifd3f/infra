@@ -1,8 +1,9 @@
 # My old HP x360 Pavilion. It's lighter than BANANA, so I plan on bringing it to class.
 
-{ self, nixpkgs-stable, home-manager, ... }:
+{ self, nixpkgs-unstable, home-manager-stable, ... }:
 let
-  nixpkgs = nixpkgs-stable;
+  nixpkgs = nixpkgs-unstable;
+  home-manager = home-manager-stable;
 
   netModule = import ./net.nix;
   bootModule = import ./boot.nix;
@@ -13,21 +14,16 @@ let
 
     nixpkgs.config.allowUnfree = true;
 
-    environment.systemPackages = with pkgs; [
-      xorg.xorgserver
-      xorg.xf86videointel
-      xorg.xf86inputsynaptics
+    environment.systemPackages = [
+      pkgs.xorg.xorgserver
+      pkgs.xorg.xf86videointel
+      pkgs.xorg.xf86inputsynaptics
+      home-manager.defaultPackage."x86_64-linux"
     ];
 
     services.geoclue2 = {
       enable = true;
       enableWifi = true;
-    };
-
-    home-manager = {
-      useGlobalPkgs = true;
-      useUserPackages = true;
-      users.astrid = import ../../home-manager/astrid_x11.nix;
     };
 
     users = {
@@ -47,7 +43,6 @@ nixpkgs.lib.nixosSystem {
 
   modules = with self.nixosModules; [
     debuggable
-    home-manager.nixosModules.home-manager
     i3-xfce
     libvirt
     pipewire
