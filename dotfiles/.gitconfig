@@ -1,0 +1,15 @@
+[user]
+	email = astrid@astrid.tech
+	name = Astrid Yu
+[core]
+	editor = vim
+	autocrlf = input
+[credential]
+	helper = store
+[init]
+	defaultBranch = main
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

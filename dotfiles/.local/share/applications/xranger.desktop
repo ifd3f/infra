@@ -1,0 +1,14 @@
+[Desktop Entry]
+Version=1.0
+Name=Ranger
+GenericName=File Manager
+Comment=Launches the ranger file manager
+Exec=ranger %F
+Icon=utilities-terminal
+Terminal=true
+X-MultipleArgs=false
+Type=Application
+MimeType=inode/directory;
+StartupNotify=true
+Categories=System;FileTools;FileManager
+
