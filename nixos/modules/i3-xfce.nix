@@ -18,6 +18,6 @@
       };
     };
 
-    windowManager.i3.enable = false;
+    windowManager.i3.enable = true;
   };
 }
