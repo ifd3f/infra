@@ -11,4 +11,4 @@
   ansible.builtin.authorized_key:
     user: "{{ ssh_user }}"
     state: absent
-    key: https://raw.githubusercontent.com/astralbijection/infra/main/ssh_keys/deprecated/astrid.pub
+    key: https://raw.githubusercontent.com/astralbijection/infra/main/ssh_keys/deprecated/astrid_id_rsa.pub
