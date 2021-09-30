@@ -6,18 +6,18 @@
 
     displayManager = {
       lightdm.enable = true;
-      defaultSession = "xfce+i3";
+      defaultSession = "xfce";
     };
 
     desktopManager = {
       xterm.enable = false;
       xfce = {
         enable = true;
-        noDesktop = true;
+        noDesktop = false;
         enableXfwm = false;
       };
     };
 
-    windowManager.i3.enable = true;
+    windowManager.i3.enable = false;
   };
 }
