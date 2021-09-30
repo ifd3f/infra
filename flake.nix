@@ -18,7 +18,12 @@
           system = "x86_64-linux";
           homeDirectory = "/home/astrid";
           username = "astrid";
-          configuration = self.homeModules.astrid_x11;
+          configuration = {
+            imports = [
+              self.homeModules.astrid_x11
+              self.homeModules.i3-xfce
+            ];
+          };
         };
 
         "astrid@bongus-hv" = inputs.home-manager-unstable.lib.homeManagerConfiguration {
@@ -32,6 +37,7 @@
       homeModules = {
         astrid = (import ./home-manager/astrid.nix);
         astrid_x11 = (import ./home-manager/astrid_x11.nix);
+        i3-xfce = (import ./home-manager/i3-xfce);
       };
       
       nixosConfigurations = {

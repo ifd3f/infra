@@ -21,11 +21,6 @@
     chromium.enable = true;
   };
 
-  # Set up a XFCE/i3 thing
-  # xsession = {
-  #   windowManager.i3.enable = true;
-  # };
-
   home.packages = with pkgs; [
     # Chat apps
     slack
