@@ -6,7 +6,7 @@
 
     displayManager = {
       lightdm.enable = true;
-      defaultSession = "xfce";
+      defaultSession = "xfce+i3";
     };
 
     desktopManager = {
