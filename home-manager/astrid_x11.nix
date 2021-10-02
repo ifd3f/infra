@@ -21,6 +21,10 @@
     chromium.enable = true;
   };
 
+  # home.file.".face" = {
+  #   source = ./astrid.png;
+  # };
+
   home.packages = with pkgs; [
     # Chat apps
     slack
