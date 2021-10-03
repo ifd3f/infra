@@ -20,4 +20,8 @@
 
     windowManager.i3.enable = true;
   };
+
+  environment.systemPackages = with pkgs; [
+    xclip
+  ];
 }
