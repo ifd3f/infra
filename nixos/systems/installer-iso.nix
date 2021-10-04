@@ -15,9 +15,7 @@ let
     users = {
       mutableUsers = false;
       users.nixos = {
-        openssh.authorizedKeys.keys = [
-          (import ../keys.nix).astrid
-        ];
+        openssh.authorizedKeys.keys = (import ../keys.nix).astrid;
       };
     };
 
