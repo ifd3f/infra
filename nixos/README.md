@@ -1,6 +1,6 @@
 # NixOS stuff
 
-I have no idea what I'm doing halp
+I have some idea what I'm doing now
 
 ## Sources of inspiration
 
