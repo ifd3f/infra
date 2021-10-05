@@ -98,9 +98,14 @@ in
   ];
 
   home.file = {
+    ".config/ranger/rc.conf" = {
+      source = ./ranger.conf;
+    };
+
     ".stack/config.yaml" = {
       source = ./stack-config.yaml;
     };
+
     "email" = {
       source = ./email;
     };
