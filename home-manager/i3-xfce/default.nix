@@ -3,7 +3,7 @@
 let
   mod = "Mod4";
 
-  terminal = "xterm";
+  terminal = "alacritty";
   workspaces = ["1" "2" "3" "4" "5" "6" "7" "8" "9" "0" "y" "u" "i" "o" "p"];
 
   forEachL = lib.forEach ["h" "Left"];
@@ -83,6 +83,15 @@ in
       modi = "window,drun,run,ssh";
       levenshtein-sort = true;
       sidebar-mode = true;
+    };
+  };
+
+  programs.alacritty = {
+    enable = true;
+    settings = {
+      font = {
+        size = 9;
+      };
     };
   };
 }
