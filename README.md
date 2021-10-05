@@ -1,6 +1,13 @@
 # Infrastructure
 
-This repo holds scripts and configurations that I use to set up my homelab.
+This repo holds everything needed to set up my all my infrastructure, including personal computers and homelab servers. This includes things like:
+
+- Scripts
+- Kubernetes manifests
+- Ansible playbooks
+- Terraform modules
+- Dotfiles
+- NixOS
 
 ## Current Features
 
@@ -17,9 +24,10 @@ Much of this code is experimental and not used in production yet. However, there
 - `dev-env/` - Terraform and Packer scripts for setting up a local replica of my homelab for development
 - `docker-compose/` - Old docker-compose projects
 - `docs/` - Wiki (see it rendered at [cloud.astrid.tech](https://cloud.astrid.tech/))
+- `home-manager/` - Home-manager configs, and dotfiles
 - `images/` - Docker and Packer builders for containers, LXCs, and VMs
 - `kubernetes/` - Kubernetes deployment configs
-- `nixos/` - NixOS and NixOps project, under research
+- `nixos/` - NixOS modules and systems
 - `openwrt/` - OpenWRT configuration and scripts
 - `terraform/` - Terraform projects
 
