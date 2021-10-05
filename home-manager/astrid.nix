@@ -35,6 +35,11 @@ in
       enable = true;
       userName = "Astrid Yu";
       userEmail = "astrid@astrid.tech";
+      extraConfig = {
+        init = {
+          defaultBranch = "main";
+        };
+      };
     };
 
     keychain = {
@@ -75,6 +80,12 @@ in
     bitwarden-cli
     ranger
   ];
+
+  home.file = {
+    ".stack/config.yaml" = {
+      source = ./stack-config.yaml;
+    };
+  };
 
   home.sessionVariables = {
     EDITOR = "vi";
