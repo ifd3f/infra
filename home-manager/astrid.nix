@@ -53,6 +53,7 @@ in
       enable = true;
       shellAliases = commonAliases;
     };
+
     bash = {
       enable = true;
       shellAliases = commonAliases;
@@ -84,6 +85,9 @@ in
   home.file = {
     ".stack/config.yaml" = {
       source = ./stack-config.yaml;
+    };
+    "email" = {
+      source = ./email;
     };
   };
 
