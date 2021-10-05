@@ -39,6 +39,10 @@ in
     "${vscodeTarball}/modules/vscode-server/home.nix"
   ];
 
+  nixpkgs.config = {
+    experimental-features = "nix-command flakes";
+  };
+
   services = {
     vscode-server.enable = true;
   };
