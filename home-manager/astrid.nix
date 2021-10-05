@@ -1,10 +1,14 @@
 # CLI-only home manager settings
 { pkgs, ... }:
 let
+  calPolyUsername = "myu27";
+
   vscodeTarball = fetchTarball {
     url = "https://github.com/msteen/nixos-vscode-server/tarball/master";
     sha256 = "sha256:14zqbjsm675ahhkdmpncsypxiyhc4c9kyhabpwf37q6qg73h8xz5";
   };
+
+  commonProfile = builtins.readFile ./.profile;
 
   commonAliases = {
     # Pipe to/from clipboard
@@ -19,6 +23,15 @@ let
     # ls aliases
     "la" = "ls -A";
     "l" = "ls -CF";
+
+    "cal-poly-vpn" = "openconnect --protocol=gp cpvpn.calpoly.edu --user=myu27";
+
+    "ls" = "ls --color=auto";
+    "dir" = "dir --color=auto";
+    "vdir" = "vdir --color=auto";
+    "grep" = "grep --color=auto";
+    "fgrep" = "fgrep --color=auto";
+    "egrep" = "egrep --color=auto";
   };
 in
 {
@@ -52,11 +65,13 @@ in
     zsh = {
       enable = true;
       shellAliases = commonAliases;
+      initExtra = commonProfile;
     };
 
     bash = {
       enable = true;
       shellAliases = commonAliases;
+      initExtra = commonProfile;
     };
 
     neovim = {
