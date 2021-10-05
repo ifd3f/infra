@@ -1,1 +1,0 @@
-Dotfiles from my Arch machine. Will eventually be incorporated into home-manager.
