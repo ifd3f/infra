@@ -53,6 +53,20 @@ in
       shellAliases = commonAliases;
     };
 
+    neovim = {
+      enable = true;
+      coc.enable = true;
+
+      viAlias = true;
+      vimAlias = true;
+      vimdiffAlias = true;
+
+      extraConfig = builtins.readFile ./init.vim;
+      plugins = with pkgs.vimPlugins; [
+        nerdtree
+      ];
+    };
+
     home-manager.enable = true;
   };
 
