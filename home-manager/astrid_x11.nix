@@ -43,7 +43,6 @@
 
     # Development tools
     vscode-fhs
-    texstudio
     gitkraken
     jetbrains.idea-ultimate
 
