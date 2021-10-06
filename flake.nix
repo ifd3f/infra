@@ -41,8 +41,8 @@
       };
       
       nixosConfigurations = {
-        bongus-hv = (import ./nixos/systems/bongus-hv/main.nix) inputs;
-        cracktop-pc = (import ./nixos/systems/cracktop-pc/main.nix) inputs;
+        bongus-hv = (import ./nixos/systems/bongus-hv) inputs;
+        cracktop-pc = (import ./nixos/systems/cracktop-pc) inputs;
         installer-iso = installerResult;
       };
 
