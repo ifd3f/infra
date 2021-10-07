@@ -60,6 +60,11 @@ in
             "${mod}+minus" = "scratchpad show";
 
             "${mod}+r" = "mode resize";
+
+            "${mod}+Shift+r" = "restart";
+            "${mod}+Shift+e" = ''
+              exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+            '';
           }];
         in workspaceBinds ++ focusDirBinds ++ moveDirBinds ++ miscBinds));
 
@@ -69,7 +74,12 @@ in
           (forEachD (k: { "${k}" = "resize grow height 10 px or 10 ppt";} )) ++
           (forEachU (k: { "${k}" = "resize shrink height 10 px or 10 ppt"; })) ++
           (forEachR (k: { "${k}" = "resize grow width 10 px or 10 ppt"; }));
-        in (lib.mkMerge resizeBinds);
+        in (lib.mkMerge (
+          resizeBinds ++ [{
+            "Return" = "mode default";
+            "Escape" = "mode default";
+          }]
+        ));
       };
     #extraConfig = builtins.readFile ./i3.conf;
   };
