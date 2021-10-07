@@ -1,19 +1,17 @@
 # A very simple module that installs from the flake on boot.
 # This is used because nixos-install --flake is broken.
-{ config, pkgs, modulesPath, ... }:
-{
-  imports =
-    [
-      (modulesPath + "/installer/scan/not-detected.nix")
-      ./modules/bm-server.nix
-      ./modules/debuggable.nix
-      ./modules/sshd.nix
-      ./modules/stable-flake.nix
-      ./modules/zfs-boot.nix
-      ./systems/bongus-hv/boot.nix
-      ./systems/bongus-hv/net.nix
-      (import ./systems/bongus-hv/fs.nix).module
-    ];
+{ config, pkgs, modulesPath, ... }: {
+  imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
+    ./modules/bm-server.nix
+    ./modules/debuggable.nix
+    ./modules/sshd.nix
+    ./modules/stable-flake.nix
+    ./modules/zfs-boot.nix
+    ./systems/bongus-hv/boot.nix
+    ./systems/bongus-hv/net.nix
+    (import ./systems/bongus-hv/fs.nix).module
+  ];
 
   systemd.services."install-from-flake" = {
     script = ''

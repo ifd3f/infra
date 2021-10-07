@@ -30,7 +30,8 @@ let
       };
 
       initrd = {
-        availableKernelModules = [ "ehci_pci" "ata_piix" "uhci_hcd" "hpsa" "usb_storage" "sd_mod" ];
+        availableKernelModules =
+          [ "ehci_pci" "ata_piix" "uhci_hcd" "hpsa" "usb_storage" "sd_mod" ];
         kernelModules = [ ];
       };
 
@@ -42,8 +43,7 @@ let
     system.autoUpgrade.allowReboot = false;
   };
 
-in
-nixpkgs.lib.nixosSystem {
+in nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
 
   modules = with self.nixosModules; [
@@ -57,4 +57,3 @@ nixpkgs.lib.nixosSystem {
     specialized
   ];
 }
- 

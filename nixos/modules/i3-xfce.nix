@@ -1,6 +1,5 @@
 # Set up a XFCE/i3 thing
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   services.xserver = {
     enable = true;
 
@@ -21,8 +20,5 @@
     windowManager.i3.enable = true;
   };
 
-  environment.systemPackages = with pkgs; [
-    alacritty
-    xclip
-  ];
+  environment.systemPackages = with pkgs; [ alacritty xclip ];
 }

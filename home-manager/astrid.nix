@@ -33,30 +33,19 @@ let
     "fgrep" = "fgrep --color=auto";
     "egrep" = "egrep --color=auto";
   };
-in
-{
-  imports = [
-    "${vscodeTarball}/modules/vscode-server/home.nix"
-  ];
+in {
+  imports = [ "${vscodeTarball}/modules/vscode-server/home.nix" ];
 
-  nixpkgs.config = {
-    experimental-features = "nix-command flakes";
-  };
+  nixpkgs.config = { experimental-features = "nix-command flakes"; };
 
-  services = {
-    vscode-server.enable = true;
-  };
+  services = { vscode-server.enable = true; };
 
   programs = {
     git = {
       enable = true;
       userName = "Astrid Yu";
       userEmail = "astrid@astrid.tech";
-      extraConfig = {
-        init = {
-          defaultBranch = "main";
-        };
-      };
+      extraConfig = { init = { defaultBranch = "main"; }; };
     };
 
     keychain = {
@@ -87,35 +76,21 @@ in
       vimdiffAlias = true;
 
       extraConfig = builtins.readFile ./init.vim;
-      plugins = with pkgs.vimPlugins; [
-        nerdtree
-      ];
+      plugins = with pkgs.vimPlugins; [ nerdtree ];
     };
 
     home-manager.enable = true;
   };
 
-  home.packages = with pkgs; [
-    htop
-    bitwarden-cli
-    ranger
-  ];
+  home.packages = with pkgs; [ htop bitwarden-cli ranger ];
 
   home.file = {
-    ".config/ranger/rc.conf" = {
-      source = ./ranger.conf;
-    };
+    ".config/ranger/rc.conf" = { source = ./ranger.conf; };
 
-    ".stack/config.yaml" = {
-      source = ./stack-config.yaml;
-    };
+    ".stack/config.yaml" = { source = ./stack-config.yaml; };
 
-    "email" = {
-      source = ./email;
-    };
+    "email" = { source = ./email; };
   };
 
-  home.sessionVariables = {
-    EDITOR = "vi";
-  };
+  home.sessionVariables = { EDITOR = "vi"; };
 }

@@ -1,9 +1,6 @@
 # X11-enabled home manager settings
-{ pkgs, ... }:
-{
-  imports = [
-    ./astrid.nix
-  ];
+{ pkgs, ... }: {
+  imports = [ ./astrid.nix ];
 
   nixpkgs.config.allowUnfree = true;
   fonts.fontconfig.enable = true;

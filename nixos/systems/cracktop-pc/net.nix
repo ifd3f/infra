@@ -7,9 +7,7 @@
     networkmanager.enable = true;
     useDHCP = false;
 
-    bridges."br0".interfaces = [
-      "enp3s0"
-    ];
+    bridges."br0".interfaces = [ "enp3s0" ];
 
     interfaces = {
       enp3s0.useDHCP = true;

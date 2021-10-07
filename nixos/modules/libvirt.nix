@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   boot.kernelModules = [ "kvm-intel" ];
 
   virtualisation = {
@@ -7,9 +6,7 @@
       enable = true;
       qemuOvmf = true;
     };
-    docker = {
-      enable = true;
-    };
+    docker = { enable = true; };
   };
 
   environment.systemPackages = with pkgs; [

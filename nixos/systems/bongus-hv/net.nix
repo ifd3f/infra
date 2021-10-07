@@ -1,4 +1,4 @@
-{...}:{
+{ ... }: {
   networking = {
     hostName = "bongus-hv";
     domain = "id.astrid.tech";
@@ -6,9 +6,7 @@
     hostId = "6d1020a1"; # Required for ZFS
     useDHCP = false;
 
-    bridges."br0".interfaces = [
-      "eno1"
-    ];
+    bridges."br0".interfaces = [ "eno1" ];
 
     interfaces = {
       eno1.useDHCP = true;

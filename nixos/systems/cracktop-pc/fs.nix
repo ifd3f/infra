@@ -1,9 +1,10 @@
-let devices = {
-  rootDisk = "/dev/disk/by-id/ata-SAMSUNG_MZNLF128HCHP-000H1_S2HUNXBG806927";
-  bootPart = "${devices.rootDisk}-part1";
-  rootPart = "${devices.rootDisk}-part2";
-}; in
-{
+let
+  devices = {
+    rootDisk = "/dev/disk/by-id/ata-SAMSUNG_MZNLF128HCHP-000H1_S2HUNXBG806927";
+    bootPart = "${devices.rootDisk}-part1";
+    rootPart = "${devices.rootDisk}-part2";
+  };
+in {
   inherit devices;
 
   module = {

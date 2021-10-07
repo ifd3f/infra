@@ -30,16 +30,13 @@ let
     users = {
       mutableUsers = true;
 
-      users = {
-        astrid = import ../../users/astrid.nix;
-      };
+      users = { astrid = import ../../users/astrid.nix; };
     };
 
     powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   };
 
-in
-nixpkgs.lib.nixosSystem {
+in nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
 
   modules = with self.nixosModules; [
@@ -56,4 +53,4 @@ nixpkgs.lib.nixosSystem {
     specialized
   ];
 }
- 
+

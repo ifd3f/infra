@@ -5,9 +5,7 @@
       mkdir -p /persist/var/lib/libvirt
     '';
     wantedBy = [ "var-lib-libvirt.mount" ];
-    serviceConfig = {
-      Type = "oneshot";
-    };
+    serviceConfig = { Type = "oneshot"; };
   };
 
   systemd.services."ensure-docker-state" = {
@@ -16,9 +14,7 @@
       mkdir -p /persist/var/lib/docker
     '';
     wantedBy = [ "var-lib-docker.mount" ];
-    serviceConfig = {
-      Type = "oneshot";
-    };
+    serviceConfig = { Type = "oneshot"; };
   };
 
   # Unfortunately, libvirt doesn't like symlinks to /var/lib/libvirt, but it's
@@ -39,9 +35,7 @@
       mkdir -p /persist/etc/NetworkManager
     '';
     wantedBy = [ "etc-networkmanager.mount" ];
-    serviceConfig = {
-      Type = "oneshot";
-    };
+    serviceConfig = { Type = "oneshot"; };
   };
   fileSystems."/etc/NetworkManager" = {
     device = "/persist/etc/NetworkManager";
@@ -53,9 +47,7 @@
       mkdir -p /persist/etc/ssh/
     '';
     wantedBy = [ "sshd.service" ];
-    serviceConfig = {
-      Type = "oneshot";
-    };
+    serviceConfig = { Type = "oneshot"; };
   };
 
   services.openssh = {
@@ -71,6 +63,5 @@
       }
     ];
   };
-
 
 }

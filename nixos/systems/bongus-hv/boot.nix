@@ -1,5 +1,5 @@
-let fs = import ./fs.nix; in
-{
+let fs = import ./fs.nix;
+in {
   # Use the GRUB 2 boot loader.
   boot = {
     loader.grub = {
@@ -10,7 +10,8 @@ let fs = import ./fs.nix; in
     };
 
     initrd = {
-      availableKernelModules = [ "ehci_pci" "ata_piix" "uhci_hcd" "hpsa" "usb_storage" "sd_mod" ];
+      availableKernelModules =
+        [ "ehci_pci" "ata_piix" "uhci_hcd" "hpsa" "usb_storage" "sd_mod" ];
       kernelModules = [ ];
     };
 

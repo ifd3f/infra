@@ -9,29 +9,27 @@
   };
 
   outputs = { self, ... }@inputs:
-    let
-      installerResult = (import ./nixos/systems/installer-iso.nix) inputs;
-    in
-    {
+    let installerResult = (import ./nixos/systems/installer-iso.nix) inputs;
+    in {
       homeConfigurations = {
-        "astrid@cracktop-pc" = inputs.home-manager-unstable.lib.homeManagerConfiguration {
-          system = "x86_64-linux";
-          homeDirectory = "/home/astrid";
-          username = "astrid";
-          configuration = {
-            imports = [
-              self.homeModules.astrid_x11
-              self.homeModules.i3-xfce
-            ];
+        "astrid@cracktop-pc" =
+          inputs.home-manager-unstable.lib.homeManagerConfiguration {
+            system = "x86_64-linux";
+            homeDirectory = "/home/astrid";
+            username = "astrid";
+            configuration = {
+              imports =
+                [ self.homeModules.astrid_x11 self.homeModules.i3-xfce ];
+            };
           };
-        };
 
-        "astrid@bongus-hv" = inputs.home-manager-unstable.lib.homeManagerConfiguration {
-          system = "x86_64-linux";
-          homeDirectory = "/home/astrid";
-          username = "astrid";
-          configuration = self.homeModules.astrid;
-        };
+        "astrid@bongus-hv" =
+          inputs.home-manager-unstable.lib.homeManagerConfiguration {
+            system = "x86_64-linux";
+            homeDirectory = "/home/astrid";
+            username = "astrid";
+            configuration = self.homeModules.astrid;
+          };
       };
 
       homeModules = {
@@ -39,7 +37,7 @@
         astrid_x11 = (import ./home-manager/astrid_x11.nix);
         i3-xfce = (import ./home-manager/i3-xfce);
       };
-      
+
       nixosConfigurations = {
         bongus-hv = (import ./nixos/systems/bongus-hv) inputs;
         cracktop-pc = (import ./nixos/systems/cracktop-pc) inputs;

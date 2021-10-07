@@ -1,6 +1,6 @@
 # A chonky HP DL380P Gen8 rack server.
 
-{ self, nixpkgs-unstable, home-manager-unstable,... }:
+{ self, nixpkgs-unstable, home-manager-unstable, ... }:
 let
   nixpkgs = nixpkgs-unstable;
   home-manager = home-manager-unstable;
@@ -29,8 +29,7 @@ let
     };
   };
 
-in
-nixpkgs.lib.nixosSystem {
+in nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
 
   modules = with self.nixosModules; [
@@ -51,4 +50,3 @@ nixpkgs.lib.nixosSystem {
     specialized
   ];
 }
- 

@@ -1,6 +1,5 @@
 # A minimal environment, but it is still somewhat comfortable to debug.
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   programs = {
     # Neovim is cool and good
     neovim = {
@@ -9,9 +8,7 @@
     };
 
     # Just in case the SSH connection is lost and I'm running something long
-    tmux = {
-      enable = true;
-    };
+    tmux = { enable = true; };
   };
 
   environment.systemPackages = with pkgs; [

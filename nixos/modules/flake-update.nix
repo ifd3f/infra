@@ -1,7 +1,6 @@
 # Updates the system from this flake every day.
 
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   system.autoUpgrade = {
     enable = true;
     flake = "github:astralbijection/infra/main";

@@ -27,13 +27,8 @@ let
       };
     };
   };
-in
-nixpkgs.lib.nixosSystem {
+in nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
 
-  modules = with self.nixosModules; [
-    specialized
-    debuggable
-    stable-flake
-  ];
+  modules = with self.nixosModules; [ specialized debuggable stable-flake ];
 }

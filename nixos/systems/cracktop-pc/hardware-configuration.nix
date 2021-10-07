@@ -4,49 +4,48 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
-    ];
+  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "sd_mod" "rtsx_pci_sdmmc" ];
+  boot.initrd.availableKernelModules =
+    [ "xhci_pci" "ahci" "sd_mod" "rtsx_pci_sdmmc" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/39368361-01e8-4601-a616-4b87654a3fbc";
-      fsType = "ext4";
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/39368361-01e8-4601-a616-4b87654a3fbc";
+    fsType = "ext4";
+  };
 
-  fileSystems."/nix" =
-    { device = "rpool/local/nix";
-      fsType = "zfs";
-    };
+  fileSystems."/nix" = {
+    device = "rpool/local/nix";
+    fsType = "zfs";
+  };
 
-  fileSystems."/home" =
-    { device = "rpool/local/home";
-      fsType = "zfs";
-    };
+  fileSystems."/home" = {
+    device = "rpool/local/home";
+    fsType = "zfs";
+  };
 
-  fileSystems."/rpool" =
-    { device = "rpool";
-      fsType = "zfs";
-    };
+  fileSystems."/rpool" = {
+    device = "rpool";
+    fsType = "zfs";
+  };
 
-  fileSystems."/rpool/safe" =
-    { device = "rpool/safe";
-      fsType = "zfs";
-    };
+  fileSystems."/rpool/safe" = {
+    device = "rpool/safe";
+    fsType = "zfs";
+  };
 
-  fileSystems."/rpool/local" =
-    { device = "rpool/local";
-      fsType = "zfs";
-    };
+  fileSystems."/rpool/local" = {
+    device = "rpool/local";
+    fsType = "zfs";
+  };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/13B8-1D70";
-      fsType = "vfat";
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/13B8-1D70";
+    fsType = "vfat";
+  };
 
   swapDevices = [ ];
 
