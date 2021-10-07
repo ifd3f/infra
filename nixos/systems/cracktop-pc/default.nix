@@ -19,6 +19,7 @@ let
       pkgs.xorg.xf86videointel
       pkgs.xorg.xf86inputsynaptics
       home-manager.defaultPackage."x86_64-linux"
+      pkgs.thunderbird
     ];
 
     services.geoclue2 = {
@@ -48,7 +49,6 @@ nixpkgs.lib.nixosSystem {
     pipewire
     stable-flake
     zfs-boot
-    astridHMHack
 
     bootModule
     fs.module
