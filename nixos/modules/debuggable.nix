@@ -14,6 +14,7 @@
   environment.systemPackages = with pkgs; [
     # Download stuff from the internet
     git
+    git-lfs
     curl
     wget
 
