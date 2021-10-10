@@ -9,7 +9,9 @@
   };
 
   outputs = { self, ... }@inputs:
-    let installerResult = (import ./nixos/systems/installer-iso.nix) inputs;
+    let 
+      installerResult = (import ./nixos/systems/installer-iso.nix) inputs;
+      rpiBootstrapSDResult = (import ./nixos/systems/rpi-bootstrap-sd.nix) inputs;
     in {
       homeConfigurations = {
         "astrid@cracktop-pc" =
@@ -58,11 +60,9 @@
         zfs-boot = (import ./nixos/modules/zfs-boot.nix);
       };
 
-      packages = {
-        "x86_64-linux" = {
-          # note: unstable needs GC_DONT_GC=1 (https://github.com/NixOS/nix/issues/4246)
-          installer-iso = installerResult.config.system.build.isoImage;
-        };
+      diskImages = {
+        installer-iso = installerResult.config.system.build.isoImage;
+        rpi-bootstrap-sd = rpiBootstrapSDResult.config.system.build.sdImage;
       };
     };
 }
