@@ -8,7 +8,7 @@ let
     sha256 = "sha256:14zqbjsm675ahhkdmpncsypxiyhc4c9kyhabpwf37q6qg73h8xz5";
   };
 
-  commonProfile = builtins.readFile ./.profile;
+  commonProfile = builtins.readFile ./dotfiles/.profile;
 
   commonAliases = {
     # Pipe to/from clipboard
@@ -34,7 +34,9 @@ let
     "egrep" = "egrep --color=auto";
   };
 in {
-  imports = [ "${vscodeTarball}/modules/vscode-server/home.nix" ];
+  imports = [ 
+    "${vscodeTarball}/modules/vscode-server/home.nix"
+  ];
 
   services = { vscode-server.enable = true; };
 
@@ -73,7 +75,7 @@ in {
       vimAlias = true;
       vimdiffAlias = true;
 
-      extraConfig = builtins.readFile ./init.vim;
+      extraConfig = builtins.readFile ./dotfiles/init.vim;
       plugins = with pkgs.vimPlugins; [ nerdtree ];
     };
 
@@ -83,9 +85,9 @@ in {
   home.packages = with pkgs; [ htop bitwarden-cli ranger ];
 
   home.file = {
-    ".config/ranger/rc.conf" = { source = ./ranger.conf; };
+    ".config/ranger/rc.conf" = { source = ./dotfiles/ranger.conf; };
 
-    ".stack/config.yaml" = { source = ./stack-config.yaml; };
+    ".stack/config.yaml" = { source = ./dotfiles/stack-config.yaml; };
 
     "email" = { source = ./email; };
   };

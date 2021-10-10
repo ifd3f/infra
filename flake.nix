@@ -38,8 +38,8 @@
       };
 
       homeModules = {
-        astrid = (import ./home-manager/astrid.nix);
-        astrid_x11 = (import ./home-manager/astrid_x11.nix);
+        astrid = (import ./home-manager/astrid/cli_full.nix);
+        astrid_x11 = (import ./home-manager/astrid/x11.nix);
         i3-xfce = (import ./home-manager/i3-xfce);
       };
 
