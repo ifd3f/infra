@@ -6,6 +6,7 @@
     bm-server
     sshd
     debuggable
+    stable-flake
   ];
 
   users.users.astrid = import ../users/astrid.nix;
