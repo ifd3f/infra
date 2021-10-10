@@ -1,0 +1,1 @@
+This folder contains SSH public keys. See [default.nix](./default.nix) for how they are used in NixOS.

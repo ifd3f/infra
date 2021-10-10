@@ -4,7 +4,7 @@
   # Enable SSH in initrd for debugging
   boot.initrd.network.ssh = {
     enable = true;
-    authorizedKeys = [ (import ../keys.nix).astrid ];
+    authorizedKeys = [ (import ../../ssh_keys).astrid ];
   };
 
   # Passwordless sudo
