@@ -9,7 +9,9 @@
   };
 
   outputs = { self, ... }@inputs:
-    let installerResult = (import ./nixos/systems/installer-iso.nix) inputs;
+    let 
+      installerResult = (import ./nixos/systems/installer-iso.nix) inputs;
+      rpiBootstrapSDResult = (import ./nixos/systems/rpi-bootstrap-sd.nix) inputs;
     in {
       homeConfigurations = {
         "astrid@cracktop-pc" =
@@ -18,8 +20,11 @@
             homeDirectory = "/home/astrid";
             username = "astrid";
             configuration = {
-              imports =
-                [ self.homeModules.astrid_x11 self.homeModules.i3-xfce ];
+              imports = [ 
+                { nixpkgs.config = { experimental-features = "nix-command flakes"; }; }
+                self.homeModules.astrid_x11
+                self.homeModules.i3-xfce
+              ];
             };
           };
 
@@ -33,15 +38,26 @@
       };
 
       homeModules = {
-        astrid = (import ./home-manager/astrid.nix);
-        astrid_x11 = (import ./home-manager/astrid_x11.nix);
+        astrid_cli = (import ./home-manager/astrid/cli.nix);
+        astrid_cli_full = (import ./home-manager/astrid/cli_full.nix);
+        astrid_x11 = (import ./home-manager/astrid/x11.nix);
         i3-xfce = (import ./home-manager/i3-xfce);
       };
 
       nixosConfigurations = {
-        bongus-hv = (import ./nixos/systems/bongus-hv) inputs;
-        cracktop-pc = (import ./nixos/systems/cracktop-pc) inputs;
-        installer-iso = installerResult;
+        "bongus-hv" = (import ./nixos/systems/bongus-hv) inputs;
+        "cracktop-pc" = (import ./nixos/systems/cracktop-pc) inputs;
+        "jonathan-js" = inputs.nixpkgs-unstable.lib.nixosSystem {
+          system = "aarch64-linux";
+
+          modules = with self.nixosModules; [
+            { 
+              networking.hostName = "jonathan-js";
+              time.timeZone = "US/Pacific";
+            }
+            pi-jump
+          ];
+        };
       };
 
       nixosModules = {
@@ -53,16 +69,15 @@
         libvirt = (import ./nixos/modules/libvirt.nix);
         persistence = (import ./nixos/modules/persistence.nix);
         pipewire = (import ./nixos/modules/pipewire.nix);
+        pi-jump = (import ./nixos/modules/pi-jump.nix) inputs;
         sshd = (import ./nixos/modules/sshd.nix);
         stable-flake = (import ./nixos/modules/stable-flake.nix);
         zfs-boot = (import ./nixos/modules/zfs-boot.nix);
       };
 
-      packages = {
-        "x86_64-linux" = {
-          # note: unstable needs GC_DONT_GC=1 (https://github.com/NixOS/nix/issues/4246)
-          installer-iso = installerResult.config.system.build.isoImage;
-        };
+      diskImages = {
+        installer-iso = installerResult.config.system.build.isoImage;
+        rpi-bootstrap-sd = rpiBootstrapSDResult.config.system.build.sdImage;
       };
     };
 }

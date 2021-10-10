@@ -1,5 +1,11 @@
 # X11-enabled home manager settings
-{ pkgs, ... }: {
+{ pkgs, ... }: let
+  commonAliases = {
+    # Pipe to/from clipboard
+    "c" = "xclip -selection clipboard";
+    "v" = "xclip -o -selection clipboard";
+  };
+in {
   imports = [ ./astrid.nix ];
 
   nixpkgs.config.allowUnfree = true;
@@ -58,6 +64,9 @@
     # Security
     bitwarden
     veracrypt
+
+    # GUI to CLI adapter
+    xclip
   ];
 
   xdg.mimeApps = {
