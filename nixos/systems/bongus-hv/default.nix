@@ -12,6 +12,9 @@ let
   specialized = { config, lib, pkgs, ... }: {
     time.timeZone = "US/Pacific";
 
+    # Allow aarch64 emulation (for building https://nixos.wiki/wiki/NixOS_on_ARM)
+    boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
     ext4-ephroot.partition = fs.devices.rootPart;
 
     # Explicitly don't reboot on kernel upgrade. This server takes forever to reboot, plus 
