@@ -11,5 +11,5 @@
   security.sudo.wheelNeedsPassword = false;
 
   # Operator users
-  users = { users = { astrid = import ../users/astrid.nix; }; };
+  users.users.astrid = import ../users/astrid.nix;
 }

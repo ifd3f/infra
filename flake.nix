@@ -45,9 +45,19 @@
       };
 
       nixosConfigurations = {
-        bongus-hv = (import ./nixos/systems/bongus-hv) inputs;
-        cracktop-pc = (import ./nixos/systems/cracktop-pc) inputs;
-        installer-iso = installerResult;
+        "bongus-hv" = (import ./nixos/systems/bongus-hv) inputs;
+        "cracktop-pc" = (import ./nixos/systems/cracktop-pc) inputs;
+        "jonathan-js" = inputs.nixpkgs-unstable.lib.nixosSystem {
+          system = "aarch64-linux";
+
+          modules = with self.nixosModules; [
+            { 
+              networking.hostName = "jonathan-js";
+              time.timeZone = "US/Pacific";
+            }
+            pi-jump
+          ];
+        };
       };
 
       nixosModules = {
@@ -59,6 +69,7 @@
         libvirt = (import ./nixos/modules/libvirt.nix);
         persistence = (import ./nixos/modules/persistence.nix);
         pipewire = (import ./nixos/modules/pipewire.nix);
+        pi-jump = (import ./nixos/modules/pi-jump.nix) inputs;
         sshd = (import ./nixos/modules/sshd.nix);
         stable-flake = (import ./nixos/modules/stable-flake.nix);
         zfs-boot = (import ./nixos/modules/zfs-boot.nix);
