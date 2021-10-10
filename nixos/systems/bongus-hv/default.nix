@@ -28,7 +28,7 @@ let
       useGlobalPkgs = true;
       useUserPackages = true;
       # TODO refer to self.homeConfigurations."astrid@bongus-hv" instead
-      users.astrid = self.homeModules.astrid;
+      users.astrid = self.homeModules.astrid_cli_full;
     };
   };
 
