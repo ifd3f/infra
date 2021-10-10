@@ -1,4 +1,5 @@
 # X11-enabled home manager settings
+{ self, ... }:
 { pkgs, ... }: let
   commonAliases = {
     # Pipe to/from clipboard
@@ -6,8 +7,6 @@
     "v" = "xclip -o -selection clipboard";
   };
 in {
-  imports = [ ./astrid.nix ];
-
   nixpkgs.config.allowUnfree = true;
   fonts.fontconfig.enable = true;
 

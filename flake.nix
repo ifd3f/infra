@@ -22,6 +22,7 @@
             configuration = {
               imports = [ 
                 { nixpkgs.config = { experimental-features = "nix-command flakes"; }; }
+                self.homeModules.astrid_cli_full
                 self.homeModules.astrid_x11
                 self.homeModules.i3-xfce
               ];
@@ -33,14 +34,14 @@
             system = "x86_64-linux";
             homeDirectory = "/home/astrid";
             username = "astrid";
-            configuration = self.homeModules.astrid;
+            configuration = self.homeModules.astrid_cli;
           };
       };
 
       homeModules = {
         astrid_cli = (import ./home-manager/astrid/cli.nix);
         astrid_cli_full = (import ./home-manager/astrid/cli_full.nix);
-        astrid_x11 = (import ./home-manager/astrid/x11.nix);
+        astrid_x11 = (import ./home-manager/astrid/x11.nix) inputs;
         i3-xfce = (import ./home-manager/i3-xfce);
       };
 
