@@ -20,8 +20,11 @@
             homeDirectory = "/home/astrid";
             username = "astrid";
             configuration = {
-              imports =
-                [ self.homeModules.astrid_x11 self.homeModules.i3-xfce ];
+              imports = [ 
+                { nixpkgs.config = { experimental-features = "nix-command flakes"; }; }
+                self.homeModules.astrid_x11
+                self.homeModules.i3-xfce
+              ];
             };
           };
 
