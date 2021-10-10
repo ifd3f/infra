@@ -76,7 +76,9 @@ in {
       vimdiffAlias = true;
 
       extraConfig = builtins.readFile ./init.vim;
-      plugins = with pkgs.vimPlugins; [ nerdtree ];
+      plugins = with pkgs.vimPlugins; [
+        nerdtree
+      ];
     };
 
     home-manager.enable = true;

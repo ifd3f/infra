@@ -7,3 +7,4 @@ syntax on
 
 map <C-n> :NERDTreeToggle<CR>
 
+let g:livepreview_previewer = 'evince'

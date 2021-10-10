@@ -16,6 +16,12 @@
   programs = {
     firefox.enable = true;
     chromium.enable = true;
+
+    neovim = {
+      plugins = with pkgs.vimPlugins; [
+        vimtex
+      ];
+    };
   };
 
   # home.file.".face" = {
@@ -35,7 +41,7 @@
     libreoffice-fresh
     thunderbird
     zoom-us
-    evince
+    okular
     nomacs
 
     # Development tools
@@ -53,4 +59,11 @@
     bitwarden
     veracrypt
   ];
+
+  xdg.mimeApps = {
+    enable = true;
+    associations.added = {
+      "application/pdf" = [ "org.kde.okular.desktop" ];
+    };
+  };
 }
