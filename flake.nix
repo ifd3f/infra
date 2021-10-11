@@ -73,6 +73,7 @@
         pi-jump = (import ./nixos/modules/pi-jump.nix) inputs;
         sshd = (import ./nixos/modules/sshd.nix);
         stable-flake = (import ./nixos/modules/stable-flake.nix);
+        wireguard-client = (import ./nixos/modules/wireguard-client.nix);
         zfs-boot = (import ./nixos/modules/zfs-boot.nix);
       };
 

@@ -51,6 +51,7 @@ in nixpkgs.lib.nixosSystem {
     fs.module
     netModule
     specialized
+    wireguard-client
   ];
 }
 
