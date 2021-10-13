@@ -1,3 +1,14 @@
+call plug#begin('~/.config/nvim/plugged')
+Plug 'dkarter/bullets.vim'
+call plug#end()
+
+let g:bullets_enabled_file_types = [
+    \ 'markdown',
+    \ 'text',
+    \ 'gitcommit',
+    \ 'scratch'
+    \]
+
 set autoindent smartindent
 
 set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab

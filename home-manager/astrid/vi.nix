@@ -11,6 +11,7 @@
     extraConfig = builtins.readFile ./dotfiles/init.vim;
     plugins = with pkgs.vimPlugins; [
       nerdtree
+      vim-plug
       vimtex
     ];
   };

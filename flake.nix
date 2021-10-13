@@ -34,6 +34,7 @@
             homeDirectory = "/home/astrid";
             username = "astrid";
             configuration.imports = [
+              { programs.home-manager.enable = true; }
               self.homeModules.astrid_vi
             ];
           };
