@@ -1,0 +1,13 @@
+
+call plug#begin('~/.config/nvim/plugged')
+
+" programs.neovim.coc.enable doesn't work
+Plug 'neoclide/coc.nvim', {'branch': 'release'} 
+
+call plug#end()
+
+" Refresh coc faster
+set updatetime=300
+
+" Force refresh with c-space
+inoremap <silent><expr> <c-space> coc#refresh()

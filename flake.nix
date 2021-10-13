@@ -22,7 +22,7 @@
             configuration.imports = [ 
               { nixpkgs.config = { experimental-features = "nix-command flakes"; }; }
               self.homeModules.astrid_cli_full
-              self.homeModules.astrid_vi
+              self.homeModules.astrid_vi_full
               self.homeModules.astrid_x11
               self.homeModules.i3-xfce
             ];
@@ -35,7 +35,7 @@
             username = "astrid";
             configuration.imports = [
               { programs.home-manager.enable = true; }
-              self.homeModules.astrid_vi
+              self.homeModules.astrid_vi_full
             ];
           };
 
@@ -55,6 +55,7 @@
         astrid_cli = (import ./home-manager/astrid/cli.nix);
         astrid_cli_full = (import ./home-manager/astrid/cli_full.nix);
         astrid_vi = (import ./home-manager/astrid/vi.nix);
+        astrid_vi_full = (import ./home-manager/astrid/vi_full.nix) inputs;
         astrid_x11 = (import ./home-manager/astrid/x11.nix) inputs;
         i3-xfce = (import ./home-manager/i3-xfce);
         xclip = (import ./home-manager/xclip.nix);

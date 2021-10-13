@@ -1,5 +1,8 @@
 call plug#begin('~/.config/nvim/plugged')
-Plug 'dkarter/bullets.vim'
+
+" Not in pkgs.vimPlugins
+Plug 'dkarter/bullets.vim' 
+
 call plug#end()
 
 let g:bullets_enabled_file_types = [
@@ -17,5 +20,3 @@ set ignorecase smartcase
 syntax on
 
 map <C-n> :NERDTreeToggle<CR>
-
-let g:livepreview_previewer = 'evince'

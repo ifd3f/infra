@@ -1,18 +1,16 @@
-# My personal Vim configs
+# My personal Vim configs, but a relatively minimal set of them.
 { pkgs, ... }: {
   programs.neovim = {
     enable = true;
-    coc.enable = true;
 
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
 
-    extraConfig = builtins.readFile ./dotfiles/init.vim;
+    extraConfig = builtins.readFile ./dotfiles/init.nvim;
     plugins = with pkgs.vimPlugins; [
       nerdtree
       vim-plug
-      vimtex
     ];
   };
 }
