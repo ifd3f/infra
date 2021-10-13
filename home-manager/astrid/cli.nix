@@ -51,7 +51,11 @@ in {
     home-manager.enable = true;
   };
 
-  home.packages = with pkgs; [ htop bitwarden-cli ranger ];
+  home.packages = with pkgs; [
+    htop
+    bitwarden-cli
+    ranger
+  ];
 
   home.file = {
     ".config/ranger/rc.conf" = { source = ./dotfiles/ranger.conf; };

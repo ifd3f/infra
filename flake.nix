@@ -25,6 +25,7 @@
             system = "x86_64-linux";
             homeDirectory = "/home/astrid";
             username = "astrid";
+
             configuration.imports = [ 
               { nixpkgs.config = { experimental-features = "nix-command flakes"; }; }
               self.homeModules.astrid_cli_full
@@ -40,7 +41,12 @@
             homeDirectory = "/home/astrid";
             username = "astrid";
             configuration.imports = [
-              { programs.home-manager.enable = true; }
+              ({ pkgs, ... }: { 
+                programs.home-manager.enable = true;
+                home.packages = with pkgs; [
+                  nixfmt
+                ];
+              })
               self.homeModules.astrid_vi_full
             ];
           };

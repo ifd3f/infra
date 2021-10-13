@@ -10,10 +10,13 @@ let
 in {
   imports = [ 
     self.homeModules.nixos-vscode-server
-    ./cli.nix
+    self.homeModules.astrid_cli
   ];
 
   services = { vscode-server.enable = true; };
 
   home.file."email" = { source = ./email; };
+  home.packages = with pkgs; [ 
+    nixfmt
+  ];
 }
