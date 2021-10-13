@@ -4,11 +4,17 @@
   inputs = {
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-21.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+
     home-manager-stable.url = "github:nix-community/home-manager/release-21.05";
     home-manager-unstable.url = "github:nix-community/home-manager/master";
+
+    nixos-vscode-server = {
+      url = "github:msteen/nixos-vscode-server/master";
+      flake = false;
+    };
   };
 
-  outputs = { self, ... }@inputs:
+  outputs = { self, nixos-vscode-server, ... }@inputs:
     let 
       installerResult = (import ./nixos/systems/installer-iso.nix) inputs;
       rpiBootstrapSDResult = (import ./nixos/systems/rpi-bootstrap-sd.nix) inputs;
@@ -52,11 +58,14 @@
       };
 
       homeModules = {
+        nixos-vscode-server = "${nixos-vscode-server}/modules/vscode-server/home.nix";
+
         astrid_cli = (import ./home-manager/astrid/cli.nix);
-        astrid_cli_full = (import ./home-manager/astrid/cli_full.nix);
+        astrid_cli_full = (import ./home-manager/astrid/cli_full.nix) inputs;
         astrid_vi = (import ./home-manager/astrid/vi.nix);
         astrid_vi_full = (import ./home-manager/astrid/vi_full.nix) inputs;
         astrid_x11 = (import ./home-manager/astrid/x11.nix) inputs;
+
         i3-xfce = (import ./home-manager/i3-xfce);
         xclip = (import ./home-manager/xclip.nix);
       };
