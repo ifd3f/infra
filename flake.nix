@@ -19,14 +19,23 @@
             system = "x86_64-linux";
             homeDirectory = "/home/astrid";
             username = "astrid";
-            configuration = {
-              imports = [ 
-                { nixpkgs.config = { experimental-features = "nix-command flakes"; }; }
-                self.homeModules.astrid_cli_full
-                self.homeModules.astrid_x11
-                self.homeModules.i3-xfce
-              ];
-            };
+            configuration.imports = [ 
+              { nixpkgs.config = { experimental-features = "nix-command flakes"; }; }
+              self.homeModules.astrid_cli_full
+              self.homeModules.astrid_vi
+              self.homeModules.astrid_x11
+              self.homeModules.i3-xfce
+            ];
+          };
+
+        "astrid@banana" =
+          inputs.home-manager-unstable.lib.homeManagerConfiguration {
+            system = "x86_64-linux";
+            homeDirectory = "/home/astrid";
+            username = "astrid";
+            configuration.imports = [
+              self.homeModules.astrid_vi
+            ];
           };
 
         "astrid@bongus-hv" =
@@ -34,15 +43,20 @@
             system = "x86_64-linux";
             homeDirectory = "/home/astrid";
             username = "astrid";
-            configuration = self.homeModules.astrid_cli;
+            configuration.imports = [
+              self.homeModules.astrid_cli
+              self.homeModules.astrid_vi
+            ];
           };
       };
 
       homeModules = {
         astrid_cli = (import ./home-manager/astrid/cli.nix);
         astrid_cli_full = (import ./home-manager/astrid/cli_full.nix);
+        astrid_vi = (import ./home-manager/astrid/vi.nix);
         astrid_x11 = (import ./home-manager/astrid/x11.nix) inputs;
         i3-xfce = (import ./home-manager/i3-xfce);
+        xclip = (import ./home-manager/xclip.nix);
       };
 
       nixosConfigurations = {

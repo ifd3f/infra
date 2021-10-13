@@ -21,12 +21,6 @@ in {
   programs = {
     firefox.enable = true;
     chromium.enable = true;
-
-    neovim = {
-      plugins = with pkgs.vimPlugins; [
-        vimtex
-      ];
-    };
   };
 
   # home.file.".face" = {

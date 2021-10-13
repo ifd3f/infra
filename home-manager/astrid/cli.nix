@@ -26,7 +26,7 @@ in {
       enable = true;
       userName = "Astrid Yu";
       userEmail = "astrid@astrid.tech";
-      extraConfig = { init = { defaultBranch = "main"; }; };
+      extraConfig.init.defaultBranch = "main";
     };
 
     keychain = {
@@ -48,18 +48,6 @@ in {
       initExtra = commonProfile;
     };
 
-    neovim = {
-      enable = true;
-      coc.enable = true;
-
-      viAlias = true;
-      vimAlias = true;
-      vimdiffAlias = true;
-
-      extraConfig = builtins.readFile ./dotfiles/init.vim;
-      plugins = with pkgs.vimPlugins; [ nerdtree ];
-    };
-
     home-manager.enable = true;
   };
 
@@ -70,5 +58,5 @@ in {
     ".stack/config.yaml" = { source = ./dotfiles/stack-config.yaml; };
   };
 
-  home.sessionVariables = { EDITOR = "vi"; };
+  home.sessionVariables = { EDITOR = "nvim"; };
 }
