@@ -12,3 +12,6 @@ inner,eth1,lan,18:A6:F7:31:B4:48
 inner,radio0,5ghz,18:A6:F7:31:B4:46
 inner,radio1,2.4ghz,18:A6:F7:31:B4:47
 jonathan-js,eth0,,b8:27:eb:c5:9a:8b
+thonkpad,enp0s25,ethernet,00:21:cc:be:1a:21
+thonkpad,wwp0s28u1u4,3G?,5e:22:ab:c9:9b:f4
+thonkpad,wlp3s0,wifi,8c:70:5a:19:57:08
