@@ -10,13 +10,13 @@ resource "cloudflare_record" "qr_tattoo_controller" {
 
 resource "cloudflare_page_rule" "qr_redirects_to_main" {
   priority = 1
-  status = "active"
-  target = "*armqr.astrid.tech/*"
-  zone_id = cloudflare_zone.primary.id
+  status   = "active"
+  target   = "*armqr.astrid.tech/*"
+  zone_id  = cloudflare_zone.primary.id
   actions {
     forwarding_url {
-      status_code = 302  # Non-permanent, as I may want to change it at some point
-      url = "https://astrid.tech/$2"
+      status_code = 302 # Non-permanent, as I may want to change it at some point
+      url         = "https://astrid.tech/$2"
     }
   }
 }
@@ -33,13 +33,13 @@ resource "cloudflare_record" "qr_tattoo" {
 // Redirect s3e.top to QR code controller.
 resource "cloudflare_page_rule" "temp_tattoo_redirects_to_qr" {
   priority = 1
-  status = "active"
-  target = "*s3e.top/*"
-  zone_id = cloudflare_zone.s3e.id
+  status   = "active"
+  target   = "*s3e.top/*"
+  zone_id  = cloudflare_zone.s3e.id
   actions {
     forwarding_url {
-      status_code = 301  # Permanent, as this is the domain's sole purpose.
-      url = "https://qr.astrid.tech/$2"
+      status_code = 301 # Permanent, as this is the domain's sole purpose.
+      url         = "https://qr.astrid.tech/$2"
     }
   }
 }
@@ -56,13 +56,13 @@ resource "cloudflare_record" "qr_temporary" {
 // Redirect q.aay.tw to QR code controller.
 resource "cloudflare_page_rule" "perm_tattoo_redirects_to_qr" {
   priority = 1
-  status = "active"
-  target = "*q.aay.tw/*"
-  zone_id = cloudflare_zone.short.id
+  status   = "active"
+  target   = "*q.aay.tw/*"
+  zone_id  = cloudflare_zone.short.id
   actions {
     forwarding_url {
-      status_code = 302  # Non-permanent, as q.aay.tw will be deallocated soon
-      url = "https://armqr.astrid.tech/$2"
+      status_code = 302 # Non-permanent, as q.aay.tw will be deallocated soon
+      url         = "https://armqr.astrid.tech/$2"
     }
   }
 }

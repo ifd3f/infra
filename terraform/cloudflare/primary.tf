@@ -1,6 +1,6 @@
 resource "cloudflare_record" "internal_services" {
   count = 1
-  
+
   zone_id = cloudflare_zone.primary.id
   name    = "s"
   value   = "ipa${count.index}.id.astrid.tech"

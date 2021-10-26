@@ -31,7 +31,7 @@ resource "cloudflare_record" "personal_site_api" {
   type    = "CNAME"
   name    = "api"
   value   = "oci.h.astrid.tech"
-  proxied = false  // Do not proxy, or else ACME won't work
+  proxied = false // Do not proxy, or else ACME won't work
 }
 
 // Short apex points to Oracle Cloud, which hosts the backend
@@ -40,5 +40,5 @@ resource "cloudflare_record" "personal_site_shortener" {
   type    = "A"
   name    = "@"
   value   = cloudflare_record.oci_public_ip.value
-  proxied = false  // Do not proxy, or else ACME won't work
+  proxied = false // Do not proxy, or else ACME won't work
 }
