@@ -39,7 +39,7 @@ resource "cloudflare_page_rule" "temp_tattoo_redirects_to_qr" {
   actions {
     forwarding_url {
       status_code = 301 # Permanent, as this is the domain's sole purpose.
-      url         = "https://qr.astrid.tech/$2"
+      url         = "https://armqr.astrid.tech/$2"
     }
   }
 }
