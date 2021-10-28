@@ -19,7 +19,7 @@
         required: true
         description: "The Postgres user's password"
 
-      env_armqr_password:
+      env_armqr_admin_password:
         type: "str"
         required: true
         description: "The Arm QR server's admin panel password"
