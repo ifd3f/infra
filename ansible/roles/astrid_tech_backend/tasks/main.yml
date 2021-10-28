@@ -19,6 +19,11 @@
         required: true
         description: "The Postgres user's password"
 
+      env_armqr_password:
+        type: "str"
+        required: true
+        description: "The Arm QR server's admin panel password"
+
 - name: Install apt dependencies
   ansible.builtin.apt:
     name: 
@@ -75,10 +80,17 @@
   community.docker.docker_network:
     name: proxied
 
-- name: Generate .env file
+- name: Generate astrid.tech .env file
   ansible.builtin.template:
     src: ../astrid.tech.env.j2
     dest: "{{ project_base }}/astrid_tech/.env.prod"
+    owner: "{{ run_user }}"
+    mode: "0700"
+
+- name: Generate armqr .env file
+  ansible.builtin.template:
+    src: ../armqr.env.j2
+    dest: "{{ project_base }}/armqr/.env"
     owner: "{{ run_user }}"
     mode: "0700"
   
@@ -90,6 +102,7 @@
     state: present
   with_items:
     - dir: caddy
+    - dir: armqr
     - dir: astrid_tech
     - dir: aay_tw
     - dir: wm_receiver

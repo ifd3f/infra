@@ -38,3 +38,9 @@ notes.astrid.tech {
     reverse_proxy * http://trilium:8080
     encode zstd gzip
 }
+
+# Arm QR controller
+armqr.astrid.tech {
+    reverse_proxy * http://armqr:8000
+    encode zstd gzip
+}

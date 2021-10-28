@@ -1,0 +1,20 @@
+version: "3.7"
+services:
+  shortener:
+    image: ghcr.io/astralbijection/armqr
+    hostname: armqr
+    expose:
+      - 8000
+    environment:
+      ROCKET_ADDRESS: 0.0.0.0
+      ADMIN_USER: astrid
+    env_file:
+      - .env
+    restart: always
+    networks:
+      - proxied
+
+networks:
+  proxied:
+    external:
+      name: proxied
