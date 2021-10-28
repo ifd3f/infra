@@ -40,7 +40,7 @@ notes.astrid.tech {
 }
 
 # Arm QR controller
-armqr.astrid.tech {
+qr.arm.astridyu.com {
     reverse_proxy * http://armqr:8000
     encode zstd gzip
 }

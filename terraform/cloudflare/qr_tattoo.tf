@@ -1,10 +1,10 @@
-// QR code controller domain, at armqr.astrid.tech.
+// QR code controller domain, at qr.arm.astridyu.com.
 resource "cloudflare_record" "qr_tattoo_controller" {
-  zone_id = cloudflare_zone.primary.id
-  name    = "armqr"
+  zone_id = cloudflare_zone.name.id
+  name    = "qr.arm"
   value   = "oci.h.astrid.tech"
   type    = "CNAME"
-  proxied = true
+  proxied = false
 }
 
 // s3e.top is the QR code that will be tattooed on my arm.
@@ -25,7 +25,7 @@ resource "cloudflare_page_rule" "temp_tattoo_redirects_to_qr" {
   actions {
     forwarding_url {
       status_code = 301 # Permanent, as this is the domain's sole purpose.
-      url         = "https://armqr.astrid.tech/$2"
+      url         = "https://qr.arm.astridyu.com/$2"
     }
   }
 }
@@ -48,7 +48,7 @@ resource "cloudflare_page_rule" "perm_tattoo_redirects_to_qr" {
   actions {
     forwarding_url {
       status_code = 302 # Non-permanent, as q.aay.tw will be deallocated soon
-      url         = "https://armqr.astrid.tech/$2"
+      url         = "https://qr.arm.astridyu.com/$2"
     }
   }
 }

@@ -11,7 +11,7 @@ resource "cloudflare_record" "name_site_redirect" {
 resource "cloudflare_page_rule" "name_redirects_to_primary" {
   priority = 1
   status   = "active"
-  target   = "*astridyu.com/*"
+  target   = "astridyu.com/*"
   zone_id  = cloudflare_zone.name.id
   actions {
     forwarding_url {
