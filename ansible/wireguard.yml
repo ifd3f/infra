@@ -1,7 +1,0 @@
-- name: Set up wireguard
-  hosts: all
-  gather_facts: no
-  become: true
-  tasks:
-    - name: Enable wireguard
-      raw: modprobe wireguard

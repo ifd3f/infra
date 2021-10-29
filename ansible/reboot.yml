@@ -1,5 +1,0 @@
-- hosts: kubernetes
-  become: true
-  tasks:
-    - name: Reboot
-      reboot:
