@@ -20,6 +20,7 @@ let
       pkgs.xorg.xf86inputsynaptics
       home-manager.defaultPackage."x86_64-linux"
       pkgs.thunderbird
+      pkgs.wally-cli
     ];
 
     services.geoclue2 = {
@@ -34,6 +35,8 @@ let
     };
 
     powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+
+    hardware.keyboard.zsa.enable = true;
   };
 
 in nixpkgs.lib.nixosSystem {
