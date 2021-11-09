@@ -1,8 +1,0 @@
-- name: Freshly initialize Bongus
-  become: true
-  hosts: bongus_fresh
-  roles:
-    - has_ansible_operator
-    - name: fresh_init
-      vars:
-        ssh_public_key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"

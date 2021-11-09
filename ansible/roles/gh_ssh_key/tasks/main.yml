@@ -5,6 +5,7 @@
     key: "{{ item.key }}"
   with_items:
     - key: https://raw.githubusercontent.com/astralbijection/infra/main/ssh_keys/astrid_banana_id_ed25519.pub
+    - key: https://raw.githubusercontent.com/astralbijection/infra/main/ssh_keys/astrid_cracktop-pc_id_ed25519.pub
     - key: https://raw.githubusercontent.com/astralbijection/infra/main/ssh_keys/gh_rsa.pub
 
 - name: Remove deprecated keys

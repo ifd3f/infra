@@ -1,5 +1,0 @@
-- name: Uninstall k3s on the nodes
-  hosts: kubernetes
-  tasks:
-    - name: Uninstall k3s
-      command: k3s-agent-uninstall.sh

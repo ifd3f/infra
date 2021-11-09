@@ -2,7 +2,7 @@ name: Update OCI
 
 on:
   schedule:
-    - cron: "0 10 * * *" # Every day, 3 AM PST
+    - cron: "0 * * * *" # Every hour
   push:
     branches: [main]
     paths:

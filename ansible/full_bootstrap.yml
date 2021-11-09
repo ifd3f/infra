@@ -1,5 +1,0 @@
-- name: Create bare metal hosts
-  import_playbook: create_bare_metal_hosts.yml
-
-- name: Launch FreeIPA server
-  import_playbook: launch_initial_freeipa.yml
