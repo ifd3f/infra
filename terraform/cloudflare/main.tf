@@ -39,3 +39,8 @@ resource "cloudflare_zone" "s3e" {
   // Registrar: https://porkbun.com
   zone = "s3e.top"
 }
+
+resource "cloudflare_zone" "tattoo" {
+  // Registrar: https://www.cosmotown.com/
+  zone = "0q4.org"
+}

@@ -7,21 +7,21 @@ resource "cloudflare_record" "qr_tattoo_controller" {
   proxied = false
 }
 
-// s3e.top is the QR code that will be tattooed on my arm.
+// The tattoo domain is the QR code that will be tattooed on my arm.
 resource "cloudflare_record" "qr_tattoo" {
-  zone_id = cloudflare_zone.s3e.id
+  zone_id = cloudflare_zone.tattoo.id
   name    = "@"
   value   = "69.69.69.69"
   type    = "A"
   proxied = true
 }
 
-// Redirect s3e.top to QR code controller.
+// Redirect to QR code controller.
 resource "cloudflare_page_rule" "temp_tattoo_redirects_to_qr" {
   priority = 1
   status   = "active"
-  target   = "*s3e.top/*"
-  zone_id  = cloudflare_zone.s3e.id
+  target   = "*${cloudflare_zone.tattoo.zone}/*"
+  zone_id  = cloudflare_zone.tattoo.id
   actions {
     forwarding_url {
       status_code = 301 # Permanent, as this is the domain's sole purpose.
