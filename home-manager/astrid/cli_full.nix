@@ -8,9 +8,10 @@ let
     "cal-poly-vpn" = "openconnect --protocol=gp cpvpn.calpoly.edu --user=${calPolyUsername}";
   };
 in {
-  imports = [ 
-    self.homeModules.nixos-vscode-server
-    self.homeModules.astrid_cli
+  imports = with self.homeModules; [
+    nixos-vscode-server
+    astrid_cli
+    astrid_zsh;
   ];
 
   services = { vscode-server.enable = true; };

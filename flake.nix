@@ -12,6 +12,11 @@
       url = "github:msteen/nixos-vscode-server/master";
       flake = false;
     };
+
+    powerlevel10k = {
+      url = "github:romkatv/powerlevel10k/master";
+      flake = false;
+    };
   };
 
   outputs = { self, nixos-vscode-server, ... }@inputs:
@@ -48,6 +53,7 @@
                 ];
               })
               self.homeModules.astrid_vi_full
+              self.homeModules.astrid_zsh
             ];
           };
 
@@ -71,6 +77,7 @@
         astrid_vi = (import ./home-manager/astrid/vi.nix);
         astrid_vi_full = (import ./home-manager/astrid/vi_full.nix) inputs;
         astrid_x11 = (import ./home-manager/astrid/x11.nix) inputs;
+        astrid_zsh = (import ./home-manager/astrid/zsh.nix) inputs;
 
         i3-xfce = (import ./home-manager/i3-xfce);
         xclip = (import ./home-manager/xclip.nix);
