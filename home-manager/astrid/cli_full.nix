@@ -11,7 +11,7 @@ in {
   imports = with self.homeModules; [
     nixos-vscode-server
     astrid_cli
-    astrid_zsh;
+    astrid_zsh
   ];
 
   services = { vscode-server.enable = true; };

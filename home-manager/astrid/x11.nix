@@ -7,7 +7,7 @@
     "v" = "xclip -o -selection clipboard";
   };
 in {
-  imports = with homeModules; [
+  imports = with self.homeModules; [
     astrid_alacritty
   ];
 

@@ -5,7 +5,7 @@
   ];
 
   programs.alacritty = {
-    enable = false;
+    enable = true;
     settings = { 
       font = {
         size = 9;

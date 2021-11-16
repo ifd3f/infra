@@ -81,7 +81,6 @@ in {
   programs.rofi = {
     enable = true;
     theme = "glue-pro-blue";
-    lines = 30;
 
     extraConfig = {
       modi = "window,drun,run,ssh";

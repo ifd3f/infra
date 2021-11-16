@@ -52,7 +52,6 @@
                   nixfmt
                 ];
               })
-              self.homeModules.astrid_alacritty
               self.homeModules.astrid_vi_full
               self.homeModules.astrid_zsh
             ];
