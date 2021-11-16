@@ -26,7 +26,11 @@ in {
       enable = true;
       userName = "Astrid Yu";
       userEmail = "astrid@astrid.tech";
-      extraConfig.init.defaultBranch = "main";
+      extraConfig = {
+        init.defaultBranch = "main";
+        credential.helper = "store";
+        core.autocrlf = "input";
+      };
     };
 
     zsh = {
