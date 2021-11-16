@@ -7,6 +7,10 @@
     "v" = "xclip -o -selection clipboard";
   };
 in {
+  imports = with homeModules; [
+    astrid_alacritty
+  ];
+
   nixpkgs.config.allowUnfree = true;
   fonts.fontconfig.enable = true;
 

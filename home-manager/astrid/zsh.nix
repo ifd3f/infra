@@ -19,6 +19,11 @@
       plugins = [ "git" ];
     };
 
+    initExtra = ''
+      # Powerlevel10k sourcing
+      source ${./dotfiles/.p10k.zsh}
+    '';
+
     plugins = [{
       name = "powerlevel10k";
       file = "powerlevel10k.zsh-theme";

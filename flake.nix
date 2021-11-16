@@ -52,6 +52,7 @@
                   nixfmt
                 ];
               })
+              self.homeModules.astrid_alacritty
               self.homeModules.astrid_vi_full
               self.homeModules.astrid_zsh
             ];
@@ -72,6 +73,7 @@
       homeModules = {
         nixos-vscode-server = "${nixos-vscode-server}/modules/vscode-server/home.nix";
 
+        astrid_alacritty = (import ./home-manager/astrid/alacritty.nix);
         astrid_cli = (import ./home-manager/astrid/cli.nix);
         astrid_cli_full = (import ./home-manager/astrid/cli_full.nix) inputs;
         astrid_vi = (import ./home-manager/astrid/vi.nix);
