@@ -121,5 +121,9 @@
         installer-iso = installerResult.config.system.build.isoImage;
         rpi-bootstrap-sd = rpiBootstrapSDResult.config.system.build.sdImage;
       };
+
+      wallpapers = import ./home-manager/wallpapers;
+
+      sshKeys = import ./ssh_keys;
     };
 }
