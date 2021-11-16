@@ -29,13 +29,6 @@ in {
       extraConfig.init.defaultBranch = "main";
     };
 
-    keychain = {
-      enable = true;
-      enableBashIntegration = true;
-      enableZshIntegration = true;
-      enableXsessionIntegration = true;
-    };
-
     zsh = {
       enable = true;
       shellAliases = commonAliases;

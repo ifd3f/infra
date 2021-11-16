@@ -31,8 +31,10 @@ let
     users = {
       mutableUsers = true;
 
-      users = { astrid = import ../../users/astrid.nix; };
+      users.astrid = import ../../users/astrid.nix;
     };
+
+    programs.zsh.enable = true;
 
     powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 
