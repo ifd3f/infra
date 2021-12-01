@@ -7,10 +7,12 @@
     vimAlias = true;
     vimdiffAlias = true;
 
-    extraConfig = builtins.readFile ./dotfiles/init.nvim;
     plugins = with pkgs.vimPlugins; [
-      nerdtree
       vim-plug
     ];
+    extraConfig = 
+      "source ${pkgs.vimPlugins.vim-plug}/plug.vim\n" + 
+      builtins.readFile ./dotfiles/init.nvim
+    ;
   };
 }
