@@ -9,36 +9,8 @@ let
   bootModule = import ./boot.nix;
   fs = import ./fs.nix;
 
-  specialized = { config, lib, pkgs, ... }: {
+  specialized = { 
     time.timeZone = "US/Pacific";
-
-    nixpkgs.config.allowUnfree = true;
-
-    environment.systemPackages = [
-      pkgs.xorg.xorgserver
-      pkgs.xorg.xf86videointel
-      pkgs.xorg.xf86inputsynaptics
-      home-manager.defaultPackage."x86_64-linux"
-      pkgs.thunderbird
-      pkgs.wally-cli
-    ];
-
-    services.geoclue2 = {
-      enable = true;
-      enableWifi = true;
-    };
-
-    users = {
-      mutableUsers = true;
-
-      users.astrid = import ../../users/astrid.nix;
-    };
-
-    programs.zsh.enable = true;
-
-    powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
-
-    hardware.keyboard.zsa.enable = true;
   };
 
 in nixpkgs.lib.nixosSystem {
@@ -47,7 +19,10 @@ in nixpkgs.lib.nixosSystem {
   modules = with self.nixosModules; [
     debuggable
     i3-xfce
+    laptop
     libvirt
+    office
+    pc
     pipewire
     stable-flake
     zfs-boot

@@ -106,9 +106,12 @@
         ext4-ephroot = (import ./nixos/modules/ext4-ephroot.nix);
         flake-update = (import ./nixos/modules/flake-update.nix);
         i3-xfce = (import ./nixos/modules/i3-xfce.nix);
+        laptop = (import ./nixos/modules/laptop.nix) inputs;
         libvirt = (import ./nixos/modules/libvirt.nix);
+        office = (import ./nixos/modules/office.nix) inputs;
         persistence = (import ./nixos/modules/persistence.nix);
         pipewire = (import ./nixos/modules/pipewire.nix);
+        pc = (import ./nixos/modules/pc.nix) inputs;
         pi-jump = (import ./nixos/modules/pi-jump.nix) inputs;
         sshd = (import ./nixos/modules/sshd.nix);
         stable-flake = (import ./nixos/modules/stable-flake.nix);

@@ -12,7 +12,6 @@ in {
   ];
 
   nixpkgs.config.allowUnfree = true;
-  fonts.fontconfig.enable = true;
 
   services = {
     gammastep = {
@@ -32,36 +31,6 @@ in {
   # };
 
   home.packages = with pkgs; [
-    # Chat apps
-    slack
-    slack-term
-    discord
-    discord-canary
-    signal-desktop
-    element-desktop
-
-    # Office tools
-    libreoffice-fresh
-    thunderbird
-    zoom-us
-    okular
-    nomacs
-
-    # Development tools
-    vscode-fhs
-    gitkraken
-    jetbrains.idea-ultimate
-
-    # Media editing tools
-    xournalpp
-    inkscape
-    gimp
-    krita
-
-    # Security
-    bitwarden
-    veracrypt
-
     # GUI to CLI adapter
     xclip
   ];
