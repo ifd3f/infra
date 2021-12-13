@@ -1,11 +1,15 @@
 { self, nixpkgs-unstable, ... }:
 { pkgs, ... }:
 {
+  environment.systemPackages = with pkgs; [
+    wakelan # wake me up inside
+  ];
+
   imports = with self.nixosModules; [
     "${nixpkgs-unstable}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
     bm-server
-    sshd
     debuggable
+    sshd
     stable-flake
   ];
 
