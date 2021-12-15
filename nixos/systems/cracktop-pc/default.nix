@@ -10,28 +10,29 @@ let
   fs = import ./fs.nix;
 
   specialized = { 
+    imports = with self.nixosModules; [
+      debuggable
+      i3-xfce
+      laptop
+      libvirt
+      office
+      pc
+      pipewire
+      stable-flake
+      wireguard-client
+      zfs-boot
+    ];
     time.timeZone = "US/Pacific";
   };
 
 in nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
 
-  modules = with self.nixosModules; [
-    debuggable
-    i3-xfce
-    laptop
-    libvirt
-    office
-    pc
-    pipewire
-    stable-flake
-    zfs-boot
-
+  modules = [
     bootModule
     fs.module
     netModule
     specialized
-    wireguard-client
   ];
 }
 
