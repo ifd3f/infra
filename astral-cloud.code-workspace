@@ -6,5 +6,10 @@
 	],
 	"settings": {
 		"editor.tabSize": 2
+	},
+	"extensions": {
+		"recommendations": [
+			"bbenoist.nix"
+		]
 	}
 }

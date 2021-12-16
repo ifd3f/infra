@@ -46,6 +46,7 @@ in nixpkgs.lib.nixosSystem {
     flake-update
     home-manager.nixosModules.home-manager
     persistence
+    zsh
 
     bootModule
     fs.module

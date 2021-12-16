@@ -4,6 +4,10 @@ let
   home-manager = home-manager-stable;
 in
 { lib, pkgs, ... }: {
+  imports = with self.nixosModules; [
+    zsh
+  ];
+
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = [
