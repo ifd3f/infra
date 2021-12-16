@@ -13,12 +13,16 @@ let
     "la" = "ls -A";
     "l" = "ls -CF";
 
+    # Automatically use colors
     "ls" = "ls --color=auto";
     "dir" = "dir --color=auto";
     "vdir" = "vdir --color=auto";
     "grep" = "grep --color=auto";
     "fgrep" = "fgrep --color=auto";
     "egrep" = "egrep --color=auto";
+
+    # Automatically set BW_SESSION
+    "bwlogin" = "export BW_SESSION=$(bw unlock --raw)";
   };
 in {
   programs = {

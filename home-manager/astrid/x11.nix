@@ -34,11 +34,4 @@ in {
     # GUI to CLI adapter
     xclip
   ];
-
-  xdg.mimeApps = {
-    enable = true;
-    associations.added = {
-      "application/pdf" = [ "org.kde.okular.desktop" ];
-    };
-  };
 }
