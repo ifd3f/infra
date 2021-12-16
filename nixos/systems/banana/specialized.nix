@@ -1,6 +1,8 @@
 { self, ... }:
-{ 
+{
   imports = with self.nixosModules; [
+    ./hardware-configuration.nix
+
     debuggable
     i3-xfce
     laptop
@@ -32,9 +34,8 @@
   };
 
   boot = {
-    efi = {
+    loader.efi = {
       canTouchEfiVariables = true;
-      efiSysMountPoint = "/boot";
     };
     loader.grub = {
       devices = [ "nodev" ];
@@ -44,5 +45,5 @@
       useOSProber = true;
     };
   };
-};
+}
 

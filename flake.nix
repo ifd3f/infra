@@ -81,7 +81,7 @@
       };
 
       nixosConfigurations = {
-        "banana" = (import ./nixos/systems/cracktop-pc) inputs;
+        "banana" = (import ./nixos/systems/banana) inputs;
         "bongus-hv" = (import ./nixos/systems/bongus-hv) inputs;
         "cracktop-pc" = (import ./nixos/systems/cracktop-pc) inputs;
         "jonathan-js" = inputs.nixpkgs-unstable.lib.nixosSystem {
