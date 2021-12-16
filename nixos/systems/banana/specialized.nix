@@ -4,6 +4,7 @@
     ./hardware-configuration.nix
 
     debuggable
+    i3-kde
     i3-xfce
     laptop
     libvirt

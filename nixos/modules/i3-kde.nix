@@ -9,10 +9,9 @@
 
     desktopManager = {
       xterm.enable = false;
-      xfce = {
+      plasma5 = {
         enable = true;
-        noDesktop = true;
-        enableXfwm = false;
+        useQtScaling = true;
       };
     };
 

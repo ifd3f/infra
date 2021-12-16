@@ -102,6 +102,7 @@
         debuggable = (import ./nixos/modules/debuggable.nix);
         ext4-ephroot = (import ./nixos/modules/ext4-ephroot.nix);
         flake-update = (import ./nixos/modules/flake-update.nix);
+        i3-kde = (import ./nixos/modules/i3-kde.nix);
         i3-xfce = (import ./nixos/modules/i3-xfce.nix);
         laptop = (import ./nixos/modules/laptop.nix) inputs;
         libvirt = (import ./nixos/modules/libvirt.nix);

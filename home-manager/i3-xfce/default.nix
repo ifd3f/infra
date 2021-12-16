@@ -75,7 +75,7 @@ in {
         "Escape" = "mode default";
       }]));
     };
-    #extraConfig = builtins.readFile ./i3.conf;
+    extraConfig = builtins.readFile ./kde-include.conf;
   };
 
   programs.rofi = {
