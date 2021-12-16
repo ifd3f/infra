@@ -46,14 +46,10 @@
             homeDirectory = "/home/astrid";
             username = "astrid";
             configuration.imports = [
-              ({ pkgs, ... }: { 
-                programs.home-manager.enable = true;
-                home.packages = with pkgs; [
-                  nixfmt
-                ];
-              })
+              self.homeModules.astrid_cli_full
               self.homeModules.astrid_vi_full
-              self.homeModules.astrid_zsh
+              self.homeModules.astrid_x11
+              self.homeModules.i3-xfce
             ];
           };
 
