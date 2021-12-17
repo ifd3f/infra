@@ -1,5 +1,6 @@
 {
     "recommendations": [
-        "4ops.packer"
+        "4ops.packer",
+        "brettm12345.nixfmt-vscode"
     ]
 }
