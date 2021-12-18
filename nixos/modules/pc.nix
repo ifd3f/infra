@@ -5,6 +5,7 @@ let
 in
 { lib, pkgs, ... }: {
   imports = with self.nixosModules; [
+    cachix
     zsh
   ];
 

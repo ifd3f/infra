@@ -98,7 +98,8 @@
       };
 
       nixosModules = {
-        bm-server = (import ./nixos/modules/bm-server.nix);
+        bm-server = (import ./nixos/modules/bm-server.nix) inputs;
+        cachix = (import ./nixos/modules/cachix.nix);
         debuggable = (import ./nixos/modules/debuggable.nix);
         ext4-ephroot = (import ./nixos/modules/ext4-ephroot.nix);
         flake-update = (import ./nixos/modules/flake-update.nix);
