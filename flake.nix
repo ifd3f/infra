@@ -20,9 +20,7 @@
   };
 
   outputs = { self, nixos-vscode-server, ... }@inputs:
-    let 
-      installerResult = (import ./nixos/systems/installer-iso.nix) inputs;
-      rpiBootstrapSDResult = (import ./nixos/systems/rpi-bootstrap-sd.nix) inputs;
+    let mkPiJumpserver = (import ./nixos/systems/mkPiJumpserver.nix) inputs;
     in {
       homeConfigurations = {
         "astrid@cracktop-pc" =
@@ -31,8 +29,12 @@
             homeDirectory = "/home/astrid";
             username = "astrid";
 
-            configuration.imports = [ 
-              { nixpkgs.config = { experimental-features = "nix-command flakes"; }; }
+            configuration.imports = [
+              {
+                nixpkgs.config = {
+                  experimental-features = "nix-command flakes";
+                };
+              }
               self.homeModules.astrid_cli_full
               self.homeModules.astrid_vi_full
               self.homeModules.astrid_x11
@@ -58,15 +60,14 @@
             system = "x86_64-linux";
             homeDirectory = "/home/astrid";
             username = "astrid";
-            configuration.imports = [
-              self.homeModules.astrid_cli
-              self.homeModules.astrid_vi
-            ];
+            configuration.imports =
+              [ self.homeModules.astrid_cli self.homeModules.astrid_vi ];
           };
       };
 
       homeModules = {
-        nixos-vscode-server = "${nixos-vscode-server}/modules/vscode-server/home.nix";
+        nixos-vscode-server =
+          "${nixos-vscode-server}/modules/vscode-server/home.nix";
 
         astrid_alacritty = (import ./home-manager/astrid/alacritty.nix);
         astrid_cli = (import ./home-manager/astrid/cli.nix);
@@ -84,18 +85,8 @@
         "banana" = (import ./nixos/systems/banana) inputs;
         "bongus-hv" = (import ./nixos/systems/bongus-hv) inputs;
         "cracktop-pc" = (import ./nixos/systems/cracktop-pc) inputs;
-        "jonathan-js" = inputs.nixpkgs-unstable.lib.nixosSystem {
-          system = "aarch64-linux";
-
-          modules = with self.nixosModules; [
-            { 
-              networking.hostName = "jonathan-js";
-              time.timeZone = "US/Pacific";
-            }
-            pi-jump
-          ];
-        };
-      };
+      } // (mkPiJumpserver { hostname = "jonathan-js"; })
+        // (mkPiJumpserver { hostname = "joseph-js"; });
 
       nixosModules = {
         bm-server = (import ./nixos/modules/bm-server.nix) inputs;
@@ -119,7 +110,11 @@
         zsh = (import ./nixos/modules/zsh.nix);
       };
 
-      diskImages = {
+      diskImages = let
+        installerResult = (import ./nixos/systems/installer-iso.nix) inputs;
+        rpiBootstrapSDResult =
+          (import ./nixos/systems/rpi-bootstrap-sd.nix) inputs;
+      in {
         installer-iso = installerResult.config.system.build.isoImage;
         rpi-bootstrap-sd = rpiBootstrapSDResult.config.system.build.sdImage;
       };
