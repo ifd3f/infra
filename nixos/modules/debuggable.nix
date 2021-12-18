@@ -31,6 +31,5 @@
     iotop
     elinks
     nmap
-    xxd-vim
   ];
 }
