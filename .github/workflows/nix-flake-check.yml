@@ -35,6 +35,7 @@ jobs:
       - flake-check
     
     strategy:
+      fail-fast: false
       matrix:
         target:
           - bongus-hv
@@ -62,3 +63,43 @@ jobs:
 
       - name: Build nixos expression
         run: GC_DONT_GC=1 nixos-rebuild build --flake ".#${{ matrix.target }}"
+
+  disk-images-build:
+    name: Build disk images
+    runs-on: ubuntu-latest
+
+    needs:
+      - flake-check
+    
+    strategy:
+      fail-fast: false
+      matrix:
+        target:
+          - installer-iso
+          - rpi-bootstrap-sd
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: cachix/install-nix-action@v13
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+      - uses: cachix/cachix-action@v10
+        with:
+          name: astralbijection
+          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+  
+      - name: Build image
+        run: |
+          GC_DONT_GC=1 nix build --experimental-features "nix-command flakes" ".#diskImages.${{ matrix.target }}"
+          ln -s result/iso/*.iso "${{ matrix.target }}.iso"
+
+      - name: Upload image
+        uses: actions/upload-artifact@v2.2.4
+        with:
+          name: ${{ matrix.target }}.iso
+          path: ${{ matrix.target }}.iso
