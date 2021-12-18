@@ -11,10 +11,15 @@ in
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = [
-    pkgs.xorg.xorgserver
     home-manager.defaultPackage."x86_64-linux"
+
+    pkgs.ntfs3g
+    pkgs.pciutils
+    pkgs.redshift
     pkgs.thunderbird
+    pkgs.usbutils
     pkgs.wally-cli
+    pkgs.xorg.xorgserver
   ];
 
   services.geoclue2 = {

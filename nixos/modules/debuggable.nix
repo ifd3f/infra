@@ -27,7 +27,10 @@
     # Password manager
     bitwarden-cli
 
-    # Internet browser
+    # Other utilities
+    iotop
     elinks
+    nmap
+    xxd-vim
   ];
 }
