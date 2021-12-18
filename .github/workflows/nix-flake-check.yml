@@ -1,5 +1,7 @@
 name: Validate and Build Nix Flake
 
+# TODO: figure out aarch64 builds
+
 on:
   - push
   - pull_request
@@ -41,7 +43,7 @@ jobs:
           - bongus-hv
           - cracktop-pc
           - banana
-          - jonathan-js
+          # TODO: - jonathan-js
         
     steps:
       - uses: actions/checkout@v2
@@ -76,7 +78,7 @@ jobs:
       matrix:
         target:
           - installer-iso
-          - rpi-bootstrap-sd
+          # TODO: - rpi-bootstrap-sd
 
     steps:
       - uses: actions/checkout@v2
