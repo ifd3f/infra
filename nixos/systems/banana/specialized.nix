@@ -33,6 +33,9 @@
     };
   };
 
+  # rtw_8822be issue? https://bbs.archlinux.org/viewtopic.php?id=260589
+  boot.kernelParams = [ "pcie_aspm.policy=powersave" ];
+
   boot.loader = {
     efi.canTouchEfiVariables = true;
 
