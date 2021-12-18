@@ -45,14 +45,9 @@
     };
   };
 
+  # Windows drive
   fileSystems."/dos/c" = {
-    device = "/dev/disk/by-uuid/E070A4EE70A4CC9A";
-    fsType = "ntfs";
-    options = [ "rw" ];
-  };
-
-  fileSystems."/dos/d" = {
-    device = "/dev/disk/by-uuid/7056CF4B56CF10B0";
+    device = "/dev/disk/by-uuid/908CEA3C8CEA1D0A";
     fsType = "ntfs";
     options = [ "rw" ];
   };
