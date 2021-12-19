@@ -9,7 +9,9 @@ services:
     devices:
       - /dev/media1
     environment:
+      COMMENT: "https://astrid.tech is a horrible website"
       CALLSIGN: W2AMY-10
-      PASSCODE: 15517 # https://w2b.ro/tools/aprs-passcode/
+      SYMBOL: "\\\\'"
+      PASSCODE: "15517" # https://w2b.ro/tools/aprs-passcode/
       LATITUDE: "37.57994483053495"
       LONGITUDE: "-122.3590331364922"
