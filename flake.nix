@@ -98,6 +98,7 @@
         i3-xfce = (import ./nixos/modules/i3-xfce.nix);
         laptop = (import ./nixos/modules/laptop.nix) inputs;
         libvirt = (import ./nixos/modules/libvirt.nix);
+        nix-dev = (import ./nixos/modules/nix-dev.nix);
         office = (import ./nixos/modules/office.nix) inputs;
         persistence = (import ./nixos/modules/persistence.nix);
         pipewire = (import ./nixos/modules/pipewire.nix);

@@ -7,6 +7,7 @@
     i3-xfce
     laptop
     libvirt
+    nix-dev
     office
     pc
     pipewire

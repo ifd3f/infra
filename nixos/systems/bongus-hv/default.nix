@@ -12,9 +12,6 @@ let
   specialized = { config, lib, pkgs, ... }: {
     time.timeZone = "US/Pacific";
 
-    # Allow aarch64 emulation (for building https://nixos.wiki/wiki/NixOS_on_ARM)
-    boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
-
     ext4-ephroot.partition = fs.devices.rootPart;
 
     # Explicitly don't reboot on kernel upgrade. This server takes forever to reboot, plus 
@@ -36,16 +33,17 @@ in nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
 
   modules = with self.nixosModules; [
-    ext4-ephroot
-    debuggable
-    libvirt
-    sshd
     bm-server
-    stable-flake
-    zfs-boot
+    debuggable
+    ext4-ephroot
     flake-update
     home-manager.nixosModules.home-manager
+    libvirt
+    nix-dev
     persistence
+    sshd
+    stable-flake
+    zfs-boot
     zsh
 
     bootModule
