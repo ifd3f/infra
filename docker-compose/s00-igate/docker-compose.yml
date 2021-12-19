@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  direwolf:
+    image: w2bro/direwolf
+    tty: true
+    restart: unless-stopped
+    privileged: true
+    devices:
+      - /dev/media1
+    environment:
+      CALLSIGN: W2AMY-10
+      PASSCODE: 15517 # https://w2b.ro/tools/aprs-passcode/
+      LATITUDE: "37.57994483053495"
+      LONGITUDE: "-122.3590331364922"
