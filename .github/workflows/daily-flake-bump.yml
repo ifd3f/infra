@@ -1,8 +1,8 @@
-name: Daily version bump
+name: Flake version bump
 
 on:
   schedule:
-    - cron: "30 3 * * *" # Every day at 3:30am
+    - cron: "30 3 * * 2" # Every Tuesday at 3:30am - patch Tuesday :D
   workflow_dispatch:
 
 jobs:
@@ -30,5 +30,8 @@ jobs:
 
       - uses: EndBug/add-and-commit@v7
         with:
-          message: "nix: Bump flake versions (#${{ github.run_number }})"
+          message: |
+            nix: Bump flake versions (run ${{ github.run_number }})
+            
+            See https://github.com/astralbijection/infra/actions/workflows/daily-flake-bump.yml for more details.
           default_author: github_actions
