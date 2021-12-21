@@ -85,6 +85,7 @@
         "banana" = (import ./nixos/systems/banana) inputs;
         "bongus-hv" = (import ./nixos/systems/bongus-hv) inputs;
         "cracktop-pc" = (import ./nixos/systems/cracktop-pc) inputs;
+        "donkey" = (import ./nixos/systems/donkey) inputs;
       } // (mkPiJumpserver { hostname = "jonathan-js"; })
         // (mkPiJumpserver { hostname = "joseph-js"; });
 

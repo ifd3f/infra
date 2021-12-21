@@ -41,8 +41,9 @@ jobs:
       matrix:
         target:
           - bongus-hv
-          - cracktop-pc
           - banana
+          - cracktop-pc
+          - donkey
           # TODO: - jonathan-js
         
     steps:
