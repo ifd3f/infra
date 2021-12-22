@@ -2,10 +2,10 @@
   description = "astralbijection's infrastructure flake";
 
   inputs = {
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-21.05";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-21.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    home-manager-stable.url = "github:nix-community/home-manager/release-21.05";
+    home-manager-stable.url = "github:nix-community/home-manager/release-21.11";
     home-manager-unstable.url = "github:nix-community/home-manager/master";
 
     nixos-vscode-server = {
@@ -85,6 +85,7 @@
         "banana" = (import ./nixos/systems/banana) inputs;
         "bongus-hv" = (import ./nixos/systems/bongus-hv) inputs;
         "cracktop-pc" = (import ./nixos/systems/cracktop-pc) inputs;
+        "cuttlefish" = (import ./nixos/systems/cuttlefish) inputs;
         "donkey" = (import ./nixos/systems/donkey) inputs;
       } // (mkPiJumpserver { hostname = "jonathan-js"; })
         // (mkPiJumpserver { hostname = "joseph-js"; });
@@ -94,6 +95,7 @@
         cachix = (import ./nixos/modules/cachix.nix);
         debuggable = (import ./nixos/modules/debuggable.nix);
         ext4-ephroot = (import ./nixos/modules/ext4-ephroot.nix);
+        octoprint-full = (import ./nixos/modules/octoprint-full.nix) inputs;
         flake-update = (import ./nixos/modules/flake-update.nix);
         i3-kde = (import ./nixos/modules/i3-kde.nix);
         i3-xfce = (import ./nixos/modules/i3-xfce.nix);
@@ -118,6 +120,7 @@
           (import ./nixos/systems/rpi-bootstrap-sd.nix) inputs;
       in {
         installer-iso = installerResult.config.system.build.isoImage;
+        cuttlefish-sd = self.nixosConfigurations.cuttlefish.config.system.build.sdImage;
         rpi-bootstrap-sd = rpiBootstrapSDResult.config.system.build.sdImage;
       };
 
