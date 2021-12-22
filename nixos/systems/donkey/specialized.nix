@@ -2,7 +2,9 @@
   imports = with self.nixosModules; [
     ./hardware-configuration.nix
 
+    bm-server
     debuggable
+    flake-update
     stable-flake
     wireguard-client
     zfs-boot
