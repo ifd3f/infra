@@ -1,3 +1,4 @@
-# Astrid's Big IaC Repo
+# oci-1 deployment
 
-This repo holds everything that runs in my homelab. See [this link](https://astrid.tech/projects/plebscale/) for more information.
+This folder contains configs for the Always Free VPS from Oracle Cloud Infrastructure that runs my entire website's backend.
+

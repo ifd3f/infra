@@ -1,5 +1,7 @@
 # Kubernetes
 
+**Note that currently, the Kubernetes cluster is down and none of these configs are in use.**
+
 This folder contains manifests and charts used for different apps that I deploy.
 
 ## Kustomization
