@@ -1,15 +1,27 @@
-- name: Add SSH keys
+- name: Calculate SSH keys path
+  ansible.builtin.set_fact:
+    ssh_keys_path: "{{ role_path }}/../../../ssh_keys"
+
+- name: Find public keys to authorize
+  connection: local
+  shell: ls {{ ssh_keys_path }}/astrid_*.pub {{ ssh_keys_path }}/gh_rsa.pub  
+  register: to_authorize
+
+- name: Find public keys to revoke
+  connection: local
+  shell: ls {{ ssh_keys_path }}/deprecated/*.pub
+  register: to_revoke
+
+- name: Authorize active keys
   ansible.builtin.authorized_key:
     user: "{{ ssh_user }}"
     state: present
-    key: "{{ item.key }}"
-  with_items:
-    - key: https://raw.githubusercontent.com/astralbijection/infra/main/ssh_keys/astrid_banana_id_ed25519.pub
-    - key: https://raw.githubusercontent.com/astralbijection/infra/main/ssh_keys/astrid_cracktop-pc_id_ed25519.pub
-    - key: https://raw.githubusercontent.com/astralbijection/infra/main/ssh_keys/gh_rsa.pub
+    key: "{{ lookup('file', item) }}"
+  with_items: "{{ to_authorize.stdout_lines }}"
 
-- name: Remove deprecated keys
+- name: Revoke deprecated keys
   ansible.builtin.authorized_key:
     user: "{{ ssh_user }}"
     state: absent
-    key: https://raw.githubusercontent.com/astralbijection/infra/main/ssh_keys/deprecated/astrid_id_rsa.pub
+    key: "{{ lookup('file', item) }}"
+  with_items: "{{ to_revoke.stdout_lines }}"
