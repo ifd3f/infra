@@ -21,6 +21,7 @@ in
     pkgs.usbutils
     pkgs.wally-cli
     pkgs.xorg.xorgserver
+    pkgs.pinentry
   ];
 
   services.geoclue2 = {
@@ -34,7 +35,14 @@ in
     users.astrid = import ../users/astrid.nix;
   };
 
-  programs.zsh.enable = true;
+  programs = {
+    zsh.enable = true;
+    gnupg.agent = {
+      enable = true;
+      enableSSHSupport = true;
+      pinentryFlavor = "curses";
+    };
+  };
 
   # For flashing Ergodoxes
   hardware.keyboard.zsa.enable = true;
