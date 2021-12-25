@@ -14,7 +14,12 @@ in {
     astrid_zsh
   ];
 
-  services = { vscode-server.enable = true; };
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
+
+  services.vscode-server.enable = true;
 
   home.file."email" = { source = ./email; };
   home.packages = with pkgs; [ 

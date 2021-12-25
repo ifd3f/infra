@@ -1,4 +1,5 @@
 result
+.direnv
 *.iso
 *.tar 
 *.tar.gz
