@@ -6,7 +6,6 @@
 
     bm-server
     debuggable
-    flake-update
     sshd
     stable-flake
   ];
@@ -23,5 +22,5 @@
     users.astrid = self.homeModules.astrid_cli_full;
   };
 
-  users.users.astrid = import ../users/astrid.nix;
+  users.users.astrid = import ../users/astrid.nix // { shell = pkgs.zsh; };
 }
