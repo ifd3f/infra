@@ -2,6 +2,8 @@
   description = "astralbijection's infrastructure flake";
 
   inputs = {
+    flake-utils.url = "github:numtide/flake-utils";
+
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-21.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
@@ -19,13 +21,13 @@
     };
   };
 
-  outputs = { self, nixpkgs-unstable, nixos-vscode-server, ... }@inputs:
-    let mkPiJumpserver = (import ./nixos/systems/mkPiJumpserver.nix) inputs;
-    in {
-      devShell.x86_64-linux = import ./shell.nix {
-        pkgs = nixpkgs-unstable.legacyPackages.x86_64-linux;
+  outputs =
+    { self, nixpkgs-unstable, nixos-vscode-server, flake-utils, ... }@inputs:
+    flake-utils.lib.eachDefaultSystem (system: {
+      devShell = import ./shell.nix {
+        pkgs = nixpkgs-unstable.legacyPackages.${system};
       };
-
+    }) // {
       homeConfigurations = {
         "astrid@cracktop-pc" =
           inputs.home-manager-unstable.lib.homeManagerConfiguration {
@@ -64,55 +66,57 @@
         nixos-vscode-server =
           "${nixos-vscode-server}/modules/vscode-server/home.nix";
 
-        astrid_alacritty = (import ./home-manager/astrid/alacritty.nix);
-        astrid_cli = (import ./home-manager/astrid/cli.nix);
-        astrid_cli_full = (import ./home-manager/astrid/cli_full.nix) inputs;
-        astrid_vi = (import ./home-manager/astrid/vi.nix);
-        astrid_vi_full = (import ./home-manager/astrid/vi_full.nix) inputs;
-        astrid_x11 = (import ./home-manager/astrid/x11.nix) inputs;
-        astrid_zsh = (import ./home-manager/astrid/zsh.nix) inputs;
+        astrid_alacritty = import ./home-manager/astrid/alacritty.nix;
+        astrid_cli = import ./home-manager/astrid/cli.nix;
+        astrid_cli_full = import ./home-manager/astrid/cli_full.nix inputs;
+        astrid_vi = import ./home-manager/astrid/vi.nix;
+        astrid_vi_full = import ./home-manager/astrid/vi_full.nix inputs;
+        astrid_x11 = import ./home-manager/astrid/x11.nix inputs;
+        astrid_zsh = import ./home-manager/astrid/zsh.nix inputs;
 
-        i3-xfce = (import ./home-manager/i3-xfce);
-        xclip = (import ./home-manager/xclip.nix);
+        i3-xfce = import ./home-manager/i3-xfce;
+        xclip = import ./home-manager/xclip.nix;
       };
 
       nixosConfigurations = {
-        "banana" = (import ./nixos/systems/banana) inputs;
-        "bongus-hv" = (import ./nixos/systems/bongus-hv) inputs;
-        "cracktop-pc" = (import ./nixos/systems/cracktop-pc) inputs;
-        "cuttlefish" = (import ./nixos/systems/cuttlefish) inputs;
-        "donkey" = (import ./nixos/systems/donkey) inputs;
-      } // (mkPiJumpserver { hostname = "jonathan-js"; })
-        // (mkPiJumpserver { hostname = "joseph-js"; });
+        "banana" = import ./nixos/systems/banana inputs;
+        "bongus-hv" = import ./nixos/systems/bongus-hv inputs;
+        "cracktop-pc" = import ./nixos/systems/cracktop-pc inputs;
+        "cuttlefish" = import ./nixos/systems/cuttlefish inputs;
+        "donkey" = import ./nixos/systems/donkey inputs;
+      } // (let
+        mkPiJumpserver = import ./nixos/systems/mkPiJumpserver.nix inputs;
+      in mkPiJumpserver { hostname = "jonathan-js"; }
+      // mkPiJumpserver { hostname = "joseph-js"; });
 
       nixosModules = {
-        bm-server = (import ./nixos/modules/bm-server.nix) inputs;
-        cachix = (import ./nixos/modules/cachix.nix);
-        debuggable = (import ./nixos/modules/debuggable.nix);
-        ext4-ephroot = (import ./nixos/modules/ext4-ephroot.nix);
-        octoprint-full = (import ./nixos/modules/octoprint-full.nix) inputs;
-        flake-update = (import ./nixos/modules/flake-update.nix);
-        i3-kde = (import ./nixos/modules/i3-kde.nix);
-        i3-xfce = (import ./nixos/modules/i3-xfce.nix);
-        laptop = (import ./nixos/modules/laptop.nix) inputs;
-        libvirt = (import ./nixos/modules/libvirt.nix);
-        nix-dev = (import ./nixos/modules/nix-dev.nix);
-        office = (import ./nixos/modules/office.nix) inputs;
-        persistence = (import ./nixos/modules/persistence.nix);
-        pipewire = (import ./nixos/modules/pipewire.nix);
-        pc = (import ./nixos/modules/pc.nix) inputs;
-        pi-jump = (import ./nixos/modules/pi-jump.nix) inputs;
-        sshd = (import ./nixos/modules/sshd.nix);
-        stable-flake = (import ./nixos/modules/stable-flake.nix);
-        wireguard-client = (import ./nixos/modules/wireguard-client.nix);
-        zfs-boot = (import ./nixos/modules/zfs-boot.nix);
-        zsh = (import ./nixos/modules/zsh.nix);
+        bm-server = import ./nixos/modules/bm-server.nix inputs;
+        cachix = import ./nixos/modules/cachix.nix;
+        debuggable = import ./nixos/modules/debuggable.nix;
+        ext4-ephroot = import ./nixos/modules/ext4-ephroot.nix;
+        octoprint-full = import ./nixos/modules/octoprint-full.nix inputs;
+        flake-update = import ./nixos/modules/flake-update.nix;
+        i3-kde = import ./nixos/modules/i3-kde.nix;
+        i3-xfce = import ./nixos/modules/i3-xfce.nix;
+        laptop = import ./nixos/modules/laptop.nix inputs;
+        libvirt = import ./nixos/modules/libvirt.nix;
+        nix-dev = import ./nixos/modules/nix-dev.nix;
+        office = import ./nixos/modules/office.nix inputs;
+        persistence = import ./nixos/modules/persistence.nix;
+        pipewire = import ./nixos/modules/pipewire.nix;
+        pc = import ./nixos/modules/pc.nix inputs;
+        pi-jump = import ./nixos/modules/pi-jump.nix inputs;
+        sshd = import ./nixos/modules/sshd.nix;
+        stable-flake = import ./nixos/modules/stable-flake.nix;
+        wireguard-client = import ./nixos/modules/wireguard-client.nix;
+        zfs-boot = import ./nixos/modules/zfs-boot.nix;
+        zsh = import ./nixos/modules/zsh.nix;
       };
 
       diskImages = let
-        installerResult = (import ./nixos/systems/installer-iso.nix) inputs;
+        installerResult = import ./nixos/systems/installer-iso.nix inputs;
         rpiBootstrapSDResult =
-          (import ./nixos/systems/rpi-bootstrap-sd.nix) inputs;
+          import ./nixos/systems/rpi-bootstrap-sd.nix inputs;
       in {
         installer-iso = installerResult.config.system.build.isoImage;
         cuttlefish-sd =
