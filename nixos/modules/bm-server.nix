@@ -5,6 +5,8 @@
     self.nixosModules.cachix
   ];
 
+  nix.autoOptimiseStore = true;
+
   # Enable SSH in initrd for debugging
   boot.initrd.network.ssh = {
     enable = true;

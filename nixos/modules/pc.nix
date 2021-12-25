@@ -10,6 +10,7 @@ in
   ];
 
   nixpkgs.config.allowUnfree = true;
+  nix.autoOptimiseStore = true;
 
   environment.systemPackages = [
     home-manager.defaultPackage."x86_64-linux"
