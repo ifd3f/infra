@@ -58,15 +58,6 @@
               self.homeModules.i3-xfce
             ];
           };
-
-        "astrid@bongus-hv" =
-          inputs.home-manager-unstable.lib.homeManagerConfiguration {
-            system = "x86_64-linux";
-            homeDirectory = "/home/astrid";
-            username = "astrid";
-            configuration.imports =
-              [ self.homeModules.astrid_cli self.homeModules.astrid_vi ];
-          };
       };
 
       homeModules = {
