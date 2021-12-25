@@ -23,7 +23,7 @@
 
   outputs =
     { self, nixpkgs-unstable, nixos-vscode-server, flake-utils, ... }@inputs:
-    flake-utils.lib.eachDefaultSystem (system: {
+    flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" ] (system: {
       devShell = import ./shell.nix {
         pkgs = nixpkgs-unstable.legacyPackages.${system};
       };

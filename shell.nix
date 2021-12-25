@@ -5,17 +5,15 @@ pkgs.mkShell {
     backblaze-b2
     bitwarden-cli
     curl
-    curl
     dnsutils
     docker
     docker-compose
     gh
     git
     google-cloud-sdk
-    helm
     helmfile
-    iputils
     jq
+    iputils
     kubectl
     kubernetes-helm
     minikube
