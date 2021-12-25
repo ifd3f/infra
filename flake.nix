@@ -19,9 +19,13 @@
     };
   };
 
-  outputs = { self, nixos-vscode-server, ... }@inputs:
+  outputs = { self, nixpkgs-unstable, nixos-vscode-server, ... }@inputs:
     let mkPiJumpserver = (import ./nixos/systems/mkPiJumpserver.nix) inputs;
     in {
+      devShell.x86_64-linux = import ./shell.nix {
+        pkgs = nixpkgs-unstable.legacyPackages.x86_64-linux;
+      };
+
       homeConfigurations = {
         "astrid@cracktop-pc" =
           inputs.home-manager-unstable.lib.homeManagerConfiguration {
@@ -120,7 +124,8 @@
           (import ./nixos/systems/rpi-bootstrap-sd.nix) inputs;
       in {
         installer-iso = installerResult.config.system.build.isoImage;
-        cuttlefish-sd = self.nixosConfigurations.cuttlefish.config.system.build.sdImage;
+        cuttlefish-sd =
+          self.nixosConfigurations.cuttlefish.config.system.build.sdImage;
         rpi-bootstrap-sd = rpiBootstrapSDResult.config.system.build.sdImage;
       };
 
