@@ -14,16 +14,23 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/36839960-8ec5-4b3e-8ad3-dc918cf76904";
+    { device = "/dev/disk/by-uuid/d86abb19-e812-4b2b-86b6-f7c4061e3b5d";
       fsType = "ext4";
     };
 
-  fileSystems."/nix" =
-    { device = "bigdisk/nix";
+  fileSystems."/home" =
+    { device = "bigdisk/safe/home";
       fsType = "zfs";
     };
 
-  swapDevices = [ ];
+  fileSystems."/nix" =
+    { device = "bigdisk/local/nix";
+      fsType = "zfs";
+    };
+
+  swapDevices =
+    [ { device = "/dev/disk/by-uuid/342314a2-5347-4850-a605-d75512c60f20"; }
+    ];
 
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

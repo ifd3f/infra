@@ -5,6 +5,7 @@
     bm-server
     debuggable
     flake-update
+    sshd
     stable-flake
     wireguard-client
     zfs-boot
@@ -23,10 +24,8 @@
   };
 
   boot.loader.grub = {
-    devices = [
-      # The big disk
-      "/dev/disk/by-id/ata-WDC_WD10EZEX-00WN4A0_WD-WMC6Y0K8MU3V"
-    ];
+    # The big disk that has root
+    device = "/dev/disk/by-id/ata-WDC_WD10EZEX-00WN4A0_WD-WMC6Y0K8MU3V";
     efiSupport = false;
     enable = true;
     version = 2;
