@@ -1,6 +1,7 @@
-name: Validate and Build Nix Flake
-
+# This is basically just a discount Hydra.
 # TODO: figure out aarch64 builds
+
+name: Validate flake and build targets
 
 on:
   - push
@@ -64,7 +65,7 @@ jobs:
       - name: Install nixos-rebuild
         run: GC_DONT_GC=1 nix-env -i nixos-rebuild -f '<nixpkgs>'
 
-      - name: Build nixos expression
+      - name: Build NixOS expression
         run: GC_DONT_GC=1 nixos-rebuild build --flake ".#${{ matrix.target }}"
 
   disk-images-build:
@@ -106,3 +107,49 @@ jobs:
         with:
           name: ${{ matrix.target }}.iso
           path: ${{ matrix.target }}.iso
+
+  home-manager-build:
+    # See https://nix-community.github.io/home-manager/index.html#sec-install-standalone
+    name: Build Home Manager configurations
+    runs-on: ubuntu-latest
+    
+    needs:
+      - flake-check
+    
+    strategy:
+      fail-fast: false
+      matrix:
+        target:
+          - astrid@banana
+          - astrid@cracktop-pc
+          # TODO: - jonathan-js
+        
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: cachix/install-nix-action@v13
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+      - uses: cachix/cachix-action@v10
+        with:
+          name: astralbijection
+          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+
+      - name: Install Home Manager
+        run: |
+          export GC_DONT_GC=1
+          export NIX_PATH=$HOME/.nix-defexpr/channels${NIX_PATH:+:}$NIX_PATH
+          nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
+          nix-channel --update
+          nix-shell '<home-manager>' -A install
+
+      - name: Build Home Manager expression
+        run: |
+          export GC_DONT_GC=1
+          export NIX_PATH=$HOME/.nix-defexpr/channels${NIX_PATH:+:}$NIX_PATH
+          home-manager build --flake '.#${{ matrix.target }}'
+          
