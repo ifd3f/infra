@@ -4,8 +4,8 @@
 name: Validate flake and build targets
 
 on:
-  - push
-  - pull_request
+  push: {}
+  pull_request: {}
 
 jobs:
   flake-check:
