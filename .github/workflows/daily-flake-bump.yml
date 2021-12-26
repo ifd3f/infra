@@ -20,18 +20,13 @@ jobs:
             experimental-features = nix-command flakes
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
-      - uses: cachix/cachix-action@v10
-        with:
-          name: astralbijection
-          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-
       - name: Bump flake versions
         run: GC_DONT_GC=1 nix flake update
 
       - name: Create pull request
         uses: peter-evans/create-pull-request@v3
         with:
-          title: Regular flake bump ${{ github.run_number }}
+          title: Periodic flake bump ${{ github.run_number }}
           branch: flake-bump-${{ github.run_number }}
           commit-message: |
             nix: Bump flake versions (run ${{ github.run_number }})
