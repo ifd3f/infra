@@ -31,7 +31,7 @@ jobs:
       - name: Create pull request
         uses: peter-evans/create-pull-request@v3
         with:
-          title: Flake Bump for Run ${{ github.run_number }}
+          title: Regular flake bump ${{ github.run_number }}
           branch: flake-bump-${{ github.run_number }}
           commit-message: |
             nix: Bump flake versions (run ${{ github.run_number }})
@@ -42,6 +42,6 @@ jobs:
       - name: Auto-merge pull request
         uses: reitermarkus/automerge@v1.5.2
         with:
-          token: ${{ secrets.MY_GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           merge-method: rebase
           pull-request: ${{ steps.cpr.outputs.pull-request-number }}
