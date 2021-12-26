@@ -19,6 +19,11 @@ in {
     nix-direnv.enable = true;
   };
 
+  programs.gpg = {
+    enable = true;
+    mutableKeys = true;
+  };
+
   services.vscode-server.enable = true;
 
   home.file."email" = { source = ./email; };

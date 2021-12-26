@@ -7,8 +7,14 @@
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-21.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    home-manager-stable.url = "github:nix-community/home-manager/release-21.11";
-    home-manager-unstable.url = "github:nix-community/home-manager/master";
+    home-manager-stable = {
+      url = "github:nix-community/home-manager/release-21.11";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
+    home-manager-unstable = {
+      url = "github:nix-community/home-manager/master";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
 
     nixos-vscode-server = {
       url = "github:msteen/nixos-vscode-server/master";
@@ -96,6 +102,7 @@
         ext4-ephroot = import ./nixos/modules/ext4-ephroot.nix;
         octoprint-full = import ./nixos/modules/octoprint-full.nix inputs;
         flake-update = import ./nixos/modules/flake-update.nix;
+        gnupg = import ./nixos/modules/gnupg.nix;
         i3-kde = import ./nixos/modules/i3-kde.nix;
         i3-xfce = import ./nixos/modules/i3-xfce.nix;
         laptop = import ./nixos/modules/laptop.nix inputs;

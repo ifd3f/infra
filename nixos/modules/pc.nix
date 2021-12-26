@@ -1,13 +1,8 @@
 # A role representing a PC that I would directly use.
 { self, home-manager-stable, ... }:
-let 
-  home-manager = home-manager-stable;
-in
-{ lib, pkgs, ... }: {
-  imports = with self.nixosModules; [
-    cachix
-    zsh
-  ];
+let home-manager = home-manager-stable;
+in { lib, pkgs, ... }: {
+  imports = with self.nixosModules; [ cachix gnupg zsh ];
 
   nixpkgs.config.allowUnfree = true;
   nix.autoOptimiseStore = true;
@@ -36,14 +31,7 @@ in
     users.astrid = import ../users/astrid.nix;
   };
 
-  programs = {
-    zsh.enable = true;
-    gnupg.agent = {
-      enable = true;
-      enableSSHSupport = true;
-      pinentryFlavor = "curses";
-    };
-  };
+  programs.zsh.enable = true;
 
   # For flashing Ergodoxes
   hardware.keyboard.zsa.enable = true;
