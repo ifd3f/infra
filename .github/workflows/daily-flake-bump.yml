@@ -20,18 +20,23 @@ jobs:
             experimental-features = nix-command flakes
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
-      - uses: cachix/cachix-action@v10
-        with:
-          name: astralbijection
-          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-
-      - name: Bump Nix Flake
+      - name: Bump flake versions
         run: GC_DONT_GC=1 nix flake update
 
-      - uses: EndBug/add-and-commit@v7
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v3
         with:
-          message: |
+          title: Periodic flake bump ${{ github.run_number }}
+          branch: flake-bump-${{ github.run_number }}
+          commit-message: |
             nix: Bump flake versions (run ${{ github.run_number }})
             
             See https://github.com/astralbijection/infra/actions/workflows/daily-flake-bump.yml for more details.
-          default_author: github_actions
+          delete-branch: true
+
+      - name: Auto-merge pull request
+        uses: reitermarkus/automerge@v1.5.2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          merge-method: rebase
+          pull-request: ${{ steps.cpr.outputs.pull-request-number }}
