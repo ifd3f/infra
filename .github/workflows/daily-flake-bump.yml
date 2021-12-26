@@ -25,10 +25,10 @@ jobs:
           name: astralbijection
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
-      - name: Bump Nix Flake
+      - name: Bump flake versions
         run: GC_DONT_GC=1 nix flake update
 
-      - name: Create Pull Request
+      - name: Create pull request
         uses: peter-evans/create-pull-request@v3
         with:
           title: Flake Bump for Run ${{ github.run_number }}
@@ -39,7 +39,8 @@ jobs:
             See https://github.com/astralbijection/infra/actions/workflows/daily-flake-bump.yml for more details.
           delete-branch: true
 
-      - uses: reitermarkus/automerge@v2
+      - name: Auto-merge pull request
+        uses: reitermarkus/automerge@v1.5.2
         with:
           token: ${{ secrets.MY_GITHUB_TOKEN }}
           merge-method: rebase
