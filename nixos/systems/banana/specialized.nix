@@ -11,11 +11,15 @@
     office
     pc
     pipewire
+    sshd
     stable-flake
     wireguard-client
     zfs-boot
   ];
   time.timeZone = "US/Pacific";
+
+  # so i can be a *gamer*
+  programs.steam.enable = true;
 
   networking = {
     hostName = "banana";
