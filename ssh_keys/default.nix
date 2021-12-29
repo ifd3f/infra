@@ -1,5 +1,5 @@
 {
-  alia = [ builtins.readFile ./alia_id_rsa.pub ];
+  alia = [ (builtins.readFile ./alia_id_rsa.pub) ];
 
   astrid = [
     (builtins.readFile ./astrid_banana_id_ed25519.pub)

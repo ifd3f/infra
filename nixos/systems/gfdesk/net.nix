@@ -1,6 +1,6 @@
 { ... }: {
   networking = {
-    hostName = "bongus-hv";
+    hostName = "gfdesk";
     domain = "id.astrid.tech";
 
     hostId = "6d1020a1"; # Required for ZFS

@@ -11,5 +11,5 @@ wpa_supplicant -B -i interface -c <(wpa_passphrase 'SSID' 'key')
 ## Testing a configuration to make sure it's valid
 
 ```
-nix build .#nixosConfigurations.bongus-hv.config.system.build.toplevel
+nix build .#nixosConfigurations.gfdesk.config.system.build.toplevel
 ```

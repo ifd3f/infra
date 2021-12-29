@@ -86,10 +86,10 @@
 
       nixosConfigurations = {
         "banana" = import ./nixos/systems/banana inputs;
-        "bongus-hv" = import ./nixos/systems/bongus-hv inputs;
         "cracktop-pc" = import ./nixos/systems/cracktop-pc inputs;
         "cuttlefish" = import ./nixos/systems/cuttlefish inputs;
         "donkey" = import ./nixos/systems/donkey inputs;
+        "gfdesk" = import ./nixos/systems/gfdesk inputs;
       } // (let
         mkPiJumpserver = import ./nixos/systems/mkPiJumpserver.nix inputs;
       in mkPiJumpserver { hostname = "jonathan-js"; }

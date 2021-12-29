@@ -42,7 +42,7 @@ jobs:
       fail-fast: false
       matrix:
         target:
-          - bongus-hv
+          - gfdesk
           - banana
           - cracktop-pc
           - donkey

@@ -21,12 +21,12 @@ let
     # The Minecraft server port
     networking.firewall.allowedTCPPorts = [ 25565 ];
 
-    users.users.alia = import ../users/alia.nix;
+    users.users.alia = import ../../users/alia.nix;
 
     home-manager = {
       useGlobalPkgs = true;
       useUserPackages = true;
-      # TODO refer to self.homeConfigurations."astrid@bongus-hv" instead
+      # TODO refer to self.homeConfigurations."astrid@gfdesk" instead
       users.astrid = self.homeModules.astrid_cli_full;
     };
   };
