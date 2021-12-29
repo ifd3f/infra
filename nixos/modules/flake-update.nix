@@ -5,6 +5,5 @@
     enable = true;
     flake = "github:astralbijection/infra/main";
     dates = "*-*-* *:00:00";
-    randomizedDelaySec = "10min";
   };
 }
