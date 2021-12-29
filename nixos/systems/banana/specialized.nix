@@ -32,9 +32,9 @@
     bridges."br0".interfaces = [ "enp8s0" ];
 
     interfaces = {
-      enp8s0.useDHCP = true;
-      wlp7s0.useDHCP = true;
-      br0.useDHCP = true;
+      #enp8s0.useDHCP = true;
+      #wlp7s0.useDHCP = true;
+      #br0.useDHCP = true;
     };
   };
 
