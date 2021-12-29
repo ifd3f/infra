@@ -21,6 +21,8 @@ let
     # The Minecraft server port
     networking.firewall.allowedTCPPorts = [ 25565 ];
 
+    users.users.alia = import ../users/alia.nix;
+
     home-manager = {
       useGlobalPkgs = true;
       useUserPackages = true;
