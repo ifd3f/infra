@@ -54,9 +54,56 @@ resource "cloudflare_record" "email_srv" {
   zone_id = cloudflare_zone.primary.id
 }
 
-resource "cloudflare_record" "email_txt" {
-  name    = "astrid.tech"
+resource "cloudflare_record" "primary_spf" {
+  name    = "@"
   type    = "TXT"
   value   = "v=spf1 include:spf.privateemail.com ~all"
   zone_id = cloudflare_zone.primary.id
+}
+
+resource "cloudflare_record" "primary_dmarc" {
+  name    = "_dmarc"
+  type    = "TXT"
+  value   = "v=DMARC1; p=none; rua=mailto:astrid@astrid.tech; ruf=mailto:astrid@astrid.tech; sp=reject; ri=86400"
+  zone_id = cloudflare_zone.primary.id
+}
+
+locals {
+  // Domains that do not have email.
+  no_email = toset([
+    cloudflare_zone.name.id,
+    cloudflare_zone.short.id,
+    cloudflare_zone.s3e.id,
+    cloudflare_zone.tattoo.id,
+  ])
+}
+
+resource "cloudflare_record" "drop_spoofed_records_spf" {
+  for_each = local.no_email
+
+  zone_id = each.key
+  type    = "TXT"
+  name    = "@"
+  value   = "v=spf1 -all"
+  proxied = false
+}
+
+resource "cloudflare_record" "drop_spoofed_records_dkim" {
+  for_each = local.no_email
+
+  zone_id = each.key
+  type    = "TXT"
+  name    = "*._domainkey"
+  value   = "v=DKIM1; p="
+  proxied = false
+}
+
+resource "cloudflare_record" "drop_spoofed_records_dmarc" {
+  for_each = local.no_email
+
+  zone_id = each.key
+  type    = "TXT"
+  name    = "_dmarc"
+  value   = "v=DMARC1; p=reject; sp=reject; adkim=s; aspf=s; rua=mailto:astrid@astrid.tech"
+  proxied = false
 }
