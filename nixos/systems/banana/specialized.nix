@@ -1,4 +1,5 @@
-{ self, ... }: {
+{ self, ... }:
+{ pkgs, lib, ... }: {
   imports = with self.nixosModules; [
     ./hardware-configuration.nix
 
@@ -24,6 +25,10 @@
   # Nvidia configs, following this page https://nixos.wiki/wiki/Nvidia
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia.prime = {
+    # Offload mode for lower power usage https://nixos.wiki/wiki/Nvidia#offload_mode
+    offload.enable = true;
+    sync.enable = false;
+
     # Bus ID of the NVIDIA GPU. You can find it using lspci, either under 3D or VGA
     nvidiaBusId = "PCI:1:0:0";
 
@@ -32,14 +37,15 @@
   };
 
   specialisation = {
-    docked.configuration = {
-      # Sync mode for multi-monitor support https://nixos.wiki/wiki/Nvidia#sync_mode
-      hardware.nvidia.prime.sync.enable = true;
+    # Sync mode for multi-monitor support https://nixos.wiki/wiki/Nvidia#sync_mode
+    docked.configuration.hardware.nvidia.prime = {
+      offload.enable = lib.mkForce false;
+      sync.enable = lib.mkForce true;
     };
 
-    portable.configuration = {
-      # Offload mode for lower power usage https://nixos.wiki/wiki/Nvidia#offload_mode
-      hardware.nvidia.prime.offload.enable = true;
+    no-internal-display.configuration.hardware.nvidia.prime = {
+      offload.enable = lib.mkForce false;
+      sync.enable = lib.mkForce false;
     };
   };
 
@@ -59,6 +65,8 @@
 
   # rtw_8822be issue? https://bbs.archlinux.org/viewtopic.php?id=260589
   boot.kernelParams = [ "pcie_aspm.policy=powersave" ];
+
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   boot.loader = {
     efi.canTouchEfiVariables = true;
