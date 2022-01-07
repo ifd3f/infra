@@ -9,6 +9,7 @@
 
     plugins = with pkgs.vimPlugins; [
       vim-plug
+      vim-sleuth
     ];
     extraConfig = 
       "source ${pkgs.vimPlugins.vim-plug}/plug.vim\n" + 

@@ -11,3 +11,5 @@ set updatetime=300
 
 " Force refresh with c-space
 inoremap <silent><expr> <c-space> coc#refresh()
+
+let g:coc_global_extensions = ['coc-tsserver']
