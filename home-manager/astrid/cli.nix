@@ -2,12 +2,12 @@
 { pkgs, ... }:
 let
   commonProfile = builtins.readFile ./dotfiles/.profile;
-
-  commonAliases = {
+in {
+  home.shellAliases = {
     # Parent dirs
-    ".." = "cd ..";
-    "..." = "cd ../..";
-    "...." = "cd ../../..";
+    ".." = "..";
+    "..." = "../..";
+    "...." = "../../..";
 
     # ls aliases
     "la" = "ls -A";
@@ -24,7 +24,7 @@ let
     # Automatically set BW_SESSION
     "bwlogin" = "export BW_SESSION=$(bw unlock --raw)";
   };
-in {
+
   programs = {
     git = {
       enable = true;
@@ -39,13 +39,11 @@ in {
 
     zsh = {
       enable = true;
-      shellAliases = commonAliases;
       initExtra = commonProfile;
     };
 
     bash = {
       enable = true;
-      shellAliases = commonAliases;
       initExtra = commonProfile;
     };
 
