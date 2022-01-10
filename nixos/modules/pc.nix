@@ -11,13 +11,14 @@ in { lib, pkgs, ... }: {
     home-manager.defaultPackage."x86_64-linux"
 
     pkgs.ntfs3g
+    pkgs.openconnect
     pkgs.pciutils
+    pkgs.pinentry
     pkgs.redshift
     pkgs.thunderbird
     pkgs.usbutils
     pkgs.wally-cli
     pkgs.xorg.xorgserver
-    pkgs.pinentry
   ];
 
   services.geoclue2 = {
