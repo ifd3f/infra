@@ -8,14 +8,14 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "ehci_pci" "ata_piix" "firewire_ohci" "usb_storage" "sd_mod" "sdhci_pci" ];
+  boot.initrd.availableKernelModules = [ "ehci_pci" "ahci" "firewire_ohci" "usb_storage" "sd_mod" "sdhci_pci" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "rpool/safe/root";
-      fsType = "zfs";
+    { device = "/dev/disk/by-uuid/094e6eaa-9c71-4987-a0da-dfd74c53fb12";
+      fsType = "ext4";
     };
 
   fileSystems."/home" =
@@ -23,14 +23,15 @@
       fsType = "zfs";
     };
 
-  fileSystems."/boot" =
-    { device = "/dev/sda1";
-      fsType = "vfat";
+  fileSystems."/nix" =
+    { device = "rpool/local/nix";
+      fsType = "zfs";
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/fdf0af00-21c9-4fa5-b250-64507ff1e864"; }
+    [ { device = "/dev/disk/by-uuid/f3f895ce-97ca-45a0-8942-2ae9efb8f4fc"; }
     ];
 
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
+
