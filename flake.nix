@@ -90,6 +90,7 @@
         "cuttlefish" = import ./nixos/systems/cuttlefish inputs;
         "donkey" = import ./nixos/systems/donkey inputs;
         "gfdesk" = import ./nixos/systems/gfdesk inputs;
+        "thonkpad" = import ./nixos/systems/thonkpad inputs;
       } // (let
         mkPiJumpserver = import ./nixos/systems/mkPiJumpserver.nix inputs;
       in mkPiJumpserver { hostname = "jonathan-js"; }

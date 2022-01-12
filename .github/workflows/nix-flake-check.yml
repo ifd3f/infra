@@ -46,6 +46,7 @@ jobs:
           - banana
           - cracktop-pc
           - donkey
+          - thonkpad
           # TODO: - jonathan-js
         
     steps:
