@@ -10,4 +10,3 @@ in nixpkgs.lib.nixosSystem {
     (import ./specialized.nix inputs)
   ];
 }
-

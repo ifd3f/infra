@@ -20,15 +20,16 @@
   boot.loader.grub = {
     enable = true;
     version = 2;
-    device = "nodev";
     copyKernels = true;
+    device = "/dev/disk/by-id/ata-ST1000LM049-2GH172_WGS3DNXS";
+    splashImage = ./thonk.png;
   };
 
   networking = {
     hostName = "thonkpad";
     domain = "id.astrid.tech";
     hostId = "49e32584";
-    
+
     useDHCP = false;
     interfaces.enp0s25.useDHCP = true;
   };
