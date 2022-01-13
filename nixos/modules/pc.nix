@@ -5,6 +5,8 @@ in { lib, pkgs, ... }: {
   imports = with self.nixosModules; [ cachix gnupg zsh ];
 
   nixpkgs.config.allowUnfree = true;
+  # Trusted users for remote config builds and uploads
+  nix.trustedUsers = [ "root" "@wheel" ];
   nix.autoOptimiseStore = true;
 
   environment.systemPackages = [

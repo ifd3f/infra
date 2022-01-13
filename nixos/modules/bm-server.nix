@@ -5,6 +5,8 @@
     self.nixosModules.cachix
   ];
 
+  # Trusted users for remote config builds and uploads
+  nix.trustedUsers = [ "root" "@wheel" ];
   nix.autoOptimiseStore = true;
 
   # Enable SSH in initrd for debugging
