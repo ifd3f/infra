@@ -7,6 +7,7 @@
     (builtins.readFile ./astrid_cracktop-pc_id_ed25519.pub)
     (builtins.readFile ./astrid_jonathan-js_id_rsa.pub)
     (builtins.readFile ./astrid_joseph-js_id_rsa.pub)
+    (builtins.readFile ./astrid_tablet-termux_id_ed25519.pub)
   ];
 
   infra-repo = [ builtins.readFile ./gh_rsa.pub ];
