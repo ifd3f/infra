@@ -56,11 +56,6 @@
     hostId = "76d4a2bc";
     networkmanager.enable = true;
     useDHCP = false;
-
-    interfaces = {
-      enp8s0.useDHCP = true;
-      wlp7s0.useDHCP = true;
-    };
   };
 
   # rtw_8822be issue? https://bbs.archlinux.org/viewtopic.php?id=260589
