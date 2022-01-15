@@ -37,6 +37,12 @@ in {
       };
     };
 
+    tmux = {
+      enable = true;
+      clock24 = true;
+      keyMode = "vi";
+    };
+
     zsh = {
       enable = true;
       initExtra = commonProfile;
