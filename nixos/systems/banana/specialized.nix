@@ -58,21 +58,22 @@
     useDHCP = false;
   };
 
-  # rtw_8822be issue? https://bbs.archlinux.org/viewtopic.php?id=260589
-  boot.kernelParams = [ "pcie_aspm.policy=powersave" ];
+  boot = {
+    # rtw_8822be issue? https://bbs.archlinux.org/viewtopic.php?id=260589
+    kernelParams = [ "pcie_aspm.policy=powersave" ];
+    kernelPackages = pkgs.linuxPackages;
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+    loader = {
+      efi.canTouchEfiVariables = true;
 
-  boot.loader = {
-    efi.canTouchEfiVariables = true;
-
-    grub = {
-      devices = [ "nodev" ];
-      efiSupport = true;
-      enable = true;
-      version = 2;
-      useOSProber = true;
-      splashImage = ./banana-grub-bg-dark.jpg;
+      grub = {
+        devices = [ "nodev" ];
+        efiSupport = true;
+        enable = true;
+        version = 2;
+        useOSProber = true;
+        splashImage = ./banana-grub-bg-dark.jpg;
+      };
     };
   };
 
