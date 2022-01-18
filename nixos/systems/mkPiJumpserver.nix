@@ -1,5 +1,5 @@
 { self, nixpkgs-unstable, ... }:
-{ hostname, timeZone ? "US/Pacific" }: {
+{ hostname, timeZone ? "US/Pacific", extraZerotierNetworks ? [] }: {
   "${hostname}" = nixpkgs-unstable.lib.nixosSystem {
     system = "aarch64-linux";
 
@@ -10,6 +10,8 @@
 
         # Don't compress the image.
         sdImage.compressImage = false;
+
+        services.zerotierone.joinNetworks = extraZerotierNetworks;
       }
       pi-jump
       zerotier
