@@ -8,6 +8,7 @@
     sshd
     stable-flake
     wireguard-client
+    zerotier
     zfs-boot
   ];
   time.timeZone = "US/Pacific";

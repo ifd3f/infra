@@ -9,6 +9,7 @@
     nix-dev
     sshd
     stable-flake
+    zerotier
     zfs-boot
     zsh
   ];

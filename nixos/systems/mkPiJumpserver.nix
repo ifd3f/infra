@@ -12,6 +12,7 @@
         sdImage.compressImage = false;
       }
       pi-jump
+      zerotier
     ];
   };
 }

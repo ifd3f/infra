@@ -117,6 +117,7 @@
         sshd = import ./nixos/modules/sshd.nix;
         stable-flake = import ./nixos/modules/stable-flake.nix;
         wireguard-client = import ./nixos/modules/wireguard-client.nix;
+        zerotier = import ./nixos/modules/zerotier.nix;
         zfs-boot = import ./nixos/modules/zfs-boot.nix;
         zsh = import ./nixos/modules/zsh.nix;
       };
