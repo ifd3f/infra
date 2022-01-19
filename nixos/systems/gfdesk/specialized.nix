@@ -49,6 +49,12 @@
     };
   };
 
+  virtualisation = {
+    lxd.enable = true;
+    lxc.enable = true;
+  };
+
+  # astrid.tech public zerotier network
   services.zerotierone.joinNetworks = [ "e5cd7a9e1c618388" ];
 
   # Use the GRUB 2 boot loader.
