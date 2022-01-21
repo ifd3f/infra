@@ -40,7 +40,6 @@
             system = "x86_64-linux";
             homeDirectory = "/home/astrid";
             username = "astrid";
-
             configuration.imports = [
               {
                 nixpkgs.config = {
