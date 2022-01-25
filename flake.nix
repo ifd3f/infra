@@ -43,6 +43,7 @@
             configuration.imports = [
               self.homeModules.astrid_cli_full
               self.homeModules.astrid_vi_full
+              self.homeModules.conda-hooks
             ];
           };
 
@@ -90,6 +91,7 @@
         astrid_x11 = import ./home-manager/astrid/x11.nix inputs;
         astrid_zsh = import ./home-manager/astrid/zsh.nix inputs;
 
+        conda-hooks = import ./home-manager/conda-hooks.nix;
         i3-xfce = import ./home-manager/i3-xfce;
         xclip = import ./home-manager/xclip.nix;
       };
