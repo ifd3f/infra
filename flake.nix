@@ -35,6 +35,17 @@
       };
     }) // {
       homeConfigurations = {
+        "astrid@aliaconda" =
+          inputs.home-manager-unstable.lib.homeManagerConfiguration {
+            system = "x86_64-linux";
+            homeDirectory = "/home/astrid";
+            username = "astrid";
+            configuration.imports = [
+              self.homeModules.astrid_cli_full
+              self.homeModules.astrid_vi_full
+            ];
+          };
+
         "astrid@cracktop-pc" =
           inputs.home-manager-unstable.lib.homeManagerConfiguration {
             system = "x86_64-linux";
