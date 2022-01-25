@@ -49,6 +49,7 @@
     extraOptionOverrides = {
       AddKeysToAgent = "yes";
     };
+    includes = [ "config.d/*" ];
   };
 
   programs.fzf = {
