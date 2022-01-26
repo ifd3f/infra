@@ -41,6 +41,9 @@ in {
       enable = true;
       clock24 = true;
       keyMode = "vi";
+      terminal = "screen-256color";
+      historyLimit = 10000;
+      newSession = true;
     };
 
     zsh = {
