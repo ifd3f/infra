@@ -30,10 +30,12 @@
   };
 
   hardware = {
+    opengl.enable = true;
+
     nvidia.prime = {
-      # Offload mode for lower power usage https://nixos.wiki/wiki/Nvidia#offload_mode
-      offload.enable = true;
-      sync.enable = false;
+      # Sync mode for multi-monitor support https://nixos.wiki/wiki/Nvidia#sync_mode
+      offload.enable = false;
+      sync.enable = true;
 
       # Bus ID of the NVIDIA GPU. You can find it using lspci, either under 3D or VGA
       nvidiaBusId = "PCI:1:0:0";
@@ -46,14 +48,14 @@
   };
 
   specialisation = {
-    # Sync mode for multi-monitor support https://nixos.wiki/wiki/Nvidia#sync_mode
-    docked.configuration.hardware.nvidia.prime = {
-      offload.enable = lib.mkForce false;
-      sync.enable = lib.mkForce true;
-    };
-
     no-internal-display.configuration.hardware.nvidia.prime = {
       offload.enable = lib.mkForce false;
+      sync.enable = lib.mkForce false;
+    };
+
+    # Offload mode for lower power usage https://nixos.wiki/wiki/Nvidia#offload_mode
+    offload-mode.configuration.hardware.nvidia.prime = {
+      offload.enable = lib.mkForce true;
       sync.enable = lib.mkForce false;
     };
   };
