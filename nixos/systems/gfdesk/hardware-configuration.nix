@@ -18,8 +18,13 @@
       fsType = "ext4";
     };
 
+  fileSystems."/nix" =
+    { device = "rpool/local/nix";
+      fsType = "zfs";
+    };
+
   fileSystems."/home" =
-    { device = "rpool/safe/home";
+    { device = "dpool/safe/home";
       fsType = "zfs";
     };
 
@@ -28,7 +33,13 @@
       fsType = "zfs";
     };
 
+  fileSystems."/var/lib/libvirt" =
+    { device = "dpool/safe/libvirt";
+      fsType = "zfs";
+    };
+
   swapDevices = [ ];
 
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
+
