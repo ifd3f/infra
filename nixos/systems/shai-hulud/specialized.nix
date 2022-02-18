@@ -4,7 +4,7 @@
     ./hardware-configuration.nix
 
     debuggable
-    i3-xfce
+    i3-kde
     laptop
     libvirt
     nix-dev
@@ -13,6 +13,7 @@
     pipewire
     stable-flake
     wireguard-client
+    zerotier
     zfs-boot
   ];
   time.timeZone = "US/Pacific";

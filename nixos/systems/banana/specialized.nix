@@ -5,7 +5,6 @@
 
     debuggable
     i3-kde
-    i3-xfce
     laptop
     libvirt
     nix-dev
