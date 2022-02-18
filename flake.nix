@@ -102,6 +102,7 @@
         "cuttlefish" = import ./nixos/systems/cuttlefish inputs;
         "donkey" = import ./nixos/systems/donkey inputs;
         "gfdesk" = import ./nixos/systems/gfdesk inputs;
+        "shai-hulud" = import ./nixos/systems/shai-hulud inputs;
         "thonkpad" = import ./nixos/systems/thonkpad inputs;
       } // (let
         mkPiJumpserver = import ./nixos/systems/mkPiJumpserver.nix inputs;
