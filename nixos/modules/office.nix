@@ -15,7 +15,7 @@
     # CAD
     kicad-small
     openscad
-    freecad
+    # freecad # broken for now
 
     # Communication apps
     slack
