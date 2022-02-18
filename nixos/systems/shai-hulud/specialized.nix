@@ -1,8 +1,9 @@
-{ self, ... }:
+{ self, nixos-hardware, ... }:
 { pkgs, lib, ... }: {
-  imports = with self.nixosModules; [
+  imports = (with self.nixosModules; [
     ./hardware-configuration.nix
 
+    #surface-pro6
     debuggable
     i3-kde
     laptop
@@ -15,8 +16,15 @@
     wireguard-client
     zerotier
     zfs-boot
-  ];
+  ]) ++ (with nixos-hardware.nixosModules; [
+    common-cpu-intel
+    common-pc-ssd
+    microsoft-surface
+  ]);
   time.timeZone = "US/Pacific";
+
+  # see surface-pro6.nix
+  #ptw.hardware.surface.enable = true;
 
   # so i can be a *gamer*
   programs.steam.enable = true;

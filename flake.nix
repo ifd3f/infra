@@ -21,6 +21,8 @@
       flake = false;
     };
 
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master"; 
+
     powerlevel10k = {
       url = "github:romkatv/powerlevel10k/master";
       flake = false;
@@ -129,6 +131,7 @@
         pi-jump = import ./nixos/modules/pi-jump.nix inputs;
         sshd = import ./nixos/modules/sshd.nix;
         stable-flake = import ./nixos/modules/stable-flake.nix;
+        #surface-pro6 = import ./nixos/modules/surface-pro6.nix;
         wireguard-client = import ./nixos/modules/wireguard-client.nix;
         zerotier = import ./nixos/modules/zerotier.nix;
         zfs-boot = import ./nixos/modules/zfs-boot.nix;
