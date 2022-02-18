@@ -42,10 +42,11 @@ jobs:
       fail-fast: false
       matrix:
         target:
-          - gfdesk
           - banana
           - cracktop-pc
           - donkey
+          - gfdesk
+          - shai-hulud
           - thonkpad
           # TODO: - jonathan-js
         
@@ -125,6 +126,7 @@ jobs:
           - astrid@aliaconda
           - astrid@banana
           - astrid@cracktop-pc
+          - astrid@shai-hulud
           # TODO: - jonathan-js
         
     steps:

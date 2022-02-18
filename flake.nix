@@ -34,49 +34,49 @@
         pkgs = nixpkgs-unstable.legacyPackages.${system};
       };
     }) // {
-      homeConfigurations = {
-        "astrid@aliaconda" =
+      homeConfigurations = let
+        mkAstridConfig = { imports }:
           inputs.home-manager-unstable.lib.homeManagerConfiguration {
             system = "x86_64-linux";
             homeDirectory = "/home/astrid";
             username = "astrid";
-            configuration.imports = [
-              self.homeModules.astrid_cli_full
-              self.homeModules.astrid_vi_full
-              self.homeModules.conda-hooks
-            ];
+            configuration.imports = imports;
           };
+      in {
+        "astrid@aliaconda" = mkAstridConfig {
+          imports = [
+            self.homeModules.astrid_cli_full
+            self.homeModules.astrid_vi_full
+            self.homeModules.conda-hooks
+          ];
+        };
 
-        "astrid@cracktop-pc" =
-          inputs.home-manager-unstable.lib.homeManagerConfiguration {
-            system = "x86_64-linux";
-            homeDirectory = "/home/astrid";
-            username = "astrid";
-            configuration.imports = [
-              {
-                nixpkgs.config = {
-                  experimental-features = "nix-command flakes";
-                };
-              }
-              self.homeModules.astrid_cli_full
-              self.homeModules.astrid_vi_full
-              self.homeModules.astrid_x11
-              self.homeModules.i3-xfce
-            ];
-          };
+        "astrid@banana" = mkAstridConfig {
+          imports = [
+            self.homeModules.astrid_cli_full
+            self.homeModules.astrid_vi_full
+            self.homeModules.astrid_x11
+            self.homeModules.i3-xfce
+          ];
+        };
 
-        "astrid@banana" =
-          inputs.home-manager-unstable.lib.homeManagerConfiguration {
-            system = "x86_64-linux";
-            homeDirectory = "/home/astrid";
-            username = "astrid";
-            configuration.imports = [
-              self.homeModules.astrid_cli_full
-              self.homeModules.astrid_vi_full
-              self.homeModules.astrid_x11
-              self.homeModules.i3-xfce
-            ];
-          };
+        "astrid@cracktop-pc" = mkAstridConfig {
+          imports = [
+            self.homeModules.astrid_cli_full
+            self.homeModules.astrid_vi_full
+            self.homeModules.astrid_x11
+            self.homeModules.i3-xfce
+          ];
+        };
+
+        "astrid@shai-hulud" = mkAstridConfig {
+          imports = [
+            self.homeModules.astrid_cli_full
+            self.homeModules.astrid_vi_full
+            self.homeModules.astrid_x11
+            self.homeModules.i3-xfce
+          ];
+        };
       };
 
       homeModules = {
