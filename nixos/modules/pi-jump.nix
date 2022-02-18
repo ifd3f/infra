@@ -10,7 +10,7 @@
     stable-flake
   ];
 
-  nix.settings.auto-optimise-store = true;
+  nix.autoOptimiseStore = true;
 
   environment.systemPackages = [
     pkgs.wakelan # wake me up inside

@@ -1,9 +1,9 @@
 {
   nix = {
-    settings.substituters = [
+    binaryCaches = [
       "https://astralbijection.cachix.org"
     ];
-    settings.trusted-public-keys = [
+    binaryCachePublicKeys = [
       "astralbijection.cachix.org-1:Vt/mfnVfzonOeQEN6MzRQs2qlHuzFYkNg6EqxdUhjrs="
     ];
   };

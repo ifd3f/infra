@@ -6,8 +6,8 @@
   ];
 
   # Trusted users for remote config builds and uploads
-  nix.settings.trusted-users = [ "root" "@wheel" ];
-  nix.settings.auto-optimise-store = true;
+  nix.trustedUsers = [ "root" "@wheel" ];
+  nix.autoOptimiseStore = true;
 
   # Enable SSH in initrd for debugging
   boot.initrd.network.ssh = {
