@@ -53,7 +53,7 @@
         enable = true;
         version = 2;
         useOSProber = true;
-        splashImage = ./shai-hulud.jpg;
+        splashImage = ./shai-hulud-dark.jpg;
       };
     };
   };

@@ -22,7 +22,7 @@ pkgs.mkShell {
     netcat
     nixfmt
     nodePackages.prettier
-    oci-cli
+    # oci-cli
     packer
     postgresql
     python3
