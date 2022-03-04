@@ -11,6 +11,7 @@
     office
     pc
     pipewire
+    qmk-udev
     sshd
     stable-flake
     wireguard-client

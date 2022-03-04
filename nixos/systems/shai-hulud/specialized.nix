@@ -12,7 +12,9 @@
     office
     pc
     pipewire
+    qmk-udev
     stable-flake
+    sshd
     wireguard-client
     zerotier
     zfs-boot

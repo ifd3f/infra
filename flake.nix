@@ -21,10 +21,17 @@
       flake = false;
     };
 
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master"; 
+    # pin to older revision, master seems to fail the surface pro
+    nixos-hardware.url = "github:NixOS/nixos-hardware/1ccfe243aa6e94bf80f2a66f6be41d086d37fc87";
 
     powerlevel10k = {
       url = "github:romkatv/powerlevel10k/master";
+      flake = false;
+    };
+    
+    # For auto-updating udev rules
+    qmk_firmware = {
+      url = "github:astralbijection/qmk_firmware/master";
       flake = false;
     };
   };
@@ -129,6 +136,7 @@
         pipewire = import ./nixos/modules/pipewire.nix;
         pc = import ./nixos/modules/pc.nix inputs;
         pi-jump = import ./nixos/modules/pi-jump.nix inputs;
+        qmk-udev = import ./nixos/modules/qmk-udev.nix;
         sshd = import ./nixos/modules/sshd.nix;
         stable-flake = import ./nixos/modules/stable-flake.nix;
         #surface-pro6 = import ./nixos/modules/surface-pro6.nix;
