@@ -1,5 +1,5 @@
 { self, nixos-hardware, ... }:
-{ pkgs, lib, ... }: {
+{ config, pkgs, lib, ... }: {
   imports = (with self.nixosModules; [
     ./hardware-configuration.nix
 

@@ -13,7 +13,7 @@
     firefox-devedition-bin
 
     # CAD
-    kicad-small
+    # kicad-small # broken for now
     openscad
     # freecad # broken for now
 
