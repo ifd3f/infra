@@ -136,7 +136,7 @@
         pipewire = import ./nixos/modules/pipewire.nix;
         pc = import ./nixos/modules/pc.nix inputs;
         pi-jump = import ./nixos/modules/pi-jump.nix inputs;
-        qmk-udev = import ./nixos/modules/qmk-udev.nix;
+        qmk-udev = import ./nixos/modules/qmk-udev.nix inputs;
         sshd = import ./nixos/modules/sshd.nix;
         stable-flake = import ./nixos/modules/stable-flake.nix;
         #surface-pro6 = import ./nixos/modules/surface-pro6.nix;
