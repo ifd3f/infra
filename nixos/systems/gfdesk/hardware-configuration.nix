@@ -33,6 +33,11 @@
       fsType = "zfs";
     };
 
+  fileSystems."/tmp" =
+    { device = "rpool/local/tmp";
+      fsType = "zfs";
+    };
+
   fileSystems."/var/lib/libvirt" =
     { device = "dpool/safe/libvirt";
       fsType = "zfs";
