@@ -1,6 +1,6 @@
-# Updates the system from this flake repo every hour.
-# Wraps around infra-update, but provides additional 
-# helper options.
+# Regularly updates the system from this flake repo.
+# Wraps around system.autoUpdate and customized for
+# my stuff, but provides additional helper options.
 
 { config, pkgs, ... }: {
   options.astral.infra-update = with pkgs.lib; {
@@ -12,7 +12,7 @@
 
     dates = mkOption {
       description = "SystemD date spec. By default, on the hour.";
-      default = "*-*-* *:00:00"; 
+      default = "*-*-* *:00:00";
       type = types.str;
     };
 
@@ -23,20 +23,23 @@
     };
 
     build-host = mkOption {
-      description = "The remote host to compile the config on. If null, builds it on itself.";
+      description =
+        "The remote host to compile the config on. If null, builds it on itself.";
       default = null;
       type = types.nullOr types.string;
     };
   };
-  
-  config.system.autoUpgrade = let cfg = config.astral.infra-update; in {
+
+  config.system.autoUpgrade = let cfg = config.astral.infra-update;
+  in {
     enable = cfg.enable;
     flake = "github:astralbijection/infra/${cfg.branch}";
     dates = "*-*-* *:00:00";
-    flags = (
-      if cfg.build-host == null
-        then []
-        else ["--build-host" cfg.build-host]
-    );
+    flags = (if cfg.build-host == null then
+      [ ]
+    else [
+      "--build-host"
+      cfg.build-host
+    ]);
   };
 }

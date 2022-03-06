@@ -24,7 +24,8 @@
     nixos-hardware = {
       # Pin to 5.13 kernel, since ZFS does not seem to support 5.16 yet.
       # 5.16 update: https://github.com/NixOS/nixos-hardware/commit/3e4d52da0a4734225d292667a735dcc67dcef551
-      url = "github:NixOS/nixos-hardware/c3c66f6db4ac74a59eb83d83e40c10046ebc0b8c";
+      url =
+        "github:NixOS/nixos-hardware/c3c66f6db4ac74a59eb83d83e40c10046ebc0b8c";
       # url = "github:NixOS/nixos-hardware/master";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
@@ -33,7 +34,7 @@
       url = "github:romkatv/powerlevel10k/master";
       flake = false;
     };
-    
+
     # For auto-updating udev rules
     qmk_firmware = {
       url = "github:astralbijection/qmk_firmware/master";
@@ -42,8 +43,15 @@
   };
 
   outputs =
-    { self, nixpkgs-unstable, nixos-vscode-server, flake-utils, ... }@inputs:
-    flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" ] (system: {
+    { self, nixpkgs-unstable, nixos-vscode-server, flake-utils, home-manager-unstable, ... }@inputs:
+    let
+      astralModule = import ./nixos/modules;
+      mkSystem = import ./lib/mkSystem.nix {
+        nixpgs = nixpkgs-unstable;
+        inherit astralModule;
+        home-manager = home-manager-unstable;
+      };
+    in flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" ] (system: {
       devShell = import ./shell.nix {
         pkgs = nixpkgs-unstable.legacyPackages.${system};
       };
@@ -123,7 +131,10 @@
       in mkPiJumpserver { hostname = "jonathan-js"; }
       // mkPiJumpserver { hostname = "joseph-js"; });
 
+      nixosModule = astralModule;
+
       nixosModules = {
+        astral = astralModule;
         bm-server = import ./nixos/modules/bm-server.nix inputs;
         cachix = import ./nixos/modules/cachix.nix;
         debuggable = import ./nixos/modules/debuggable.nix;
@@ -143,7 +154,7 @@
         pi-jump = import ./nixos/modules/pi-jump.nix inputs;
         qmk-udev = import ./nixos/modules/qmk-udev.nix inputs;
         sshd = import ./nixos/modules/sshd.nix;
-        stable-flake = import ./nixos/modules/stable-flake.nix;
+        infra-update = import ./nixos/modules/infra-update.nix;
         #surface-pro6 = import ./nixos/modules/surface-pro6.nix;
         wireguard-client = import ./nixos/modules/wireguard-client.nix;
         zerotier = import ./nixos/modules/zerotier.nix;
