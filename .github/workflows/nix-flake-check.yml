@@ -43,10 +43,9 @@ jobs:
       matrix:
         target:
           - banana
-          # - cracktop-pc
           - donkey
           - gfdesk
-          - shai-hulud
+          # TODO: - shai-hulud
           - thonkpad
           # TODO: - jonathan-js
         
