@@ -1,1 +1,1 @@
-{ inputs }: { imports = [ ./infra-update.nix ]; }
+inputs: { ... }: { imports = [ ./infra-update.nix ]; }

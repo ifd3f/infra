@@ -42,16 +42,17 @@
     };
   };
 
-  outputs =
-    { self, nixpkgs-unstable, nixos-vscode-server, flake-utils, home-manager-unstable, ... }@inputs:
+  outputs = { self, nixpkgs-unstable, nixos-vscode-server, flake-utils
+    , home-manager-unstable, ... }@inputs:
     let
-      astralModule = import ./nixos/modules;
-      mkSystem = import ./lib/mkSystem.nix {
-        nixpgs = nixpkgs-unstable;
+      astralModule = import ./nixos/modules inputs;
+      alib = import ./nixos/lib {
+        nixpkgs = nixpkgs-unstable;
         inherit astralModule;
         home-manager = home-manager-unstable;
+        nixosModules = self.nixosModules;
       };
-    in flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" ] (system: {
+    in (flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" ] (system: {
       devShell = import ./shell.nix {
         pkgs = nixpkgs-unstable.legacyPackages.${system};
       };
@@ -118,18 +119,16 @@
         xclip = import ./home-manager/xclip.nix;
       };
 
-      nixosConfigurations = {
+      nixosConfigurations = (alib.mkSystemEntries {
         "banana" = import ./nixos/systems/banana inputs;
-        "cracktop-pc" = import ./nixos/systems/cracktop-pc inputs;
-        "cuttlefish" = import ./nixos/systems/cuttlefish inputs;
         "donkey" = import ./nixos/systems/donkey inputs;
         "gfdesk" = import ./nixos/systems/gfdesk inputs;
         "shai-hulud" = import ./nixos/systems/shai-hulud inputs;
         "thonkpad" = import ./nixos/systems/thonkpad inputs;
-      } // (let
-        mkPiJumpserver = import ./nixos/systems/mkPiJumpserver.nix inputs;
-      in mkPiJumpserver { hostname = "jonathan-js"; }
-      // mkPiJumpserver { hostname = "joseph-js"; });
+      }) // (alib.mkPiJumpserverEntries {
+        jonathan-js = { };
+        joseph-js = { };
+      });
 
       nixosModule = astralModule;
 
@@ -140,7 +139,6 @@
         debuggable = import ./nixos/modules/debuggable.nix;
         ext4-ephroot = import ./nixos/modules/ext4-ephroot.nix;
         octoprint-full = import ./nixos/modules/octoprint-full.nix inputs;
-        flake-update = import ./nixos/modules/flake-update.nix;
         gnupg = import ./nixos/modules/gnupg.nix;
         i3-kde = import ./nixos/modules/i3-kde.nix;
         i3-xfce = import ./nixos/modules/i3-xfce.nix;
@@ -176,5 +174,5 @@
       wallpapers = import ./home-manager/wallpapers;
 
       sshKeys = import ./ssh_keys;
-    };
+    });
 }
