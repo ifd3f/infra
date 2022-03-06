@@ -24,7 +24,8 @@
     nixos-hardware = {
       # Pin to 5.13 kernel, since ZFS does not seem to support 5.16 yet.
       # 5.16 update: https://github.com/NixOS/nixos-hardware/commit/3e4d52da0a4734225d292667a735dcc67dcef551
-      url = "github:NixOS/nixos-hardware/c3c66f6db4ac74a59eb83d83e40c10046ebc0b8c";
+      url =
+        "github:NixOS/nixos-hardware/c3c66f6db4ac74a59eb83d83e40c10046ebc0b8c";
       # url = "github:NixOS/nixos-hardware/master";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
@@ -33,7 +34,7 @@
       url = "github:romkatv/powerlevel10k/master";
       flake = false;
     };
-    
+
     # For auto-updating udev rules
     qmk_firmware = {
       url = "github:astralbijection/qmk_firmware/master";
@@ -41,9 +42,17 @@
     };
   };
 
-  outputs =
-    { self, nixpkgs-unstable, nixos-vscode-server, flake-utils, ... }@inputs:
-    flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" ] (system: {
+  outputs = { self, nixpkgs-unstable, nixos-vscode-server, flake-utils
+    , home-manager-unstable, ... }@inputs:
+    let
+      astralModule = import ./nixos/modules inputs;
+      alib = import ./nixos/lib {
+        nixpkgs = nixpkgs-unstable;
+        inherit astralModule;
+        home-manager = home-manager-unstable;
+        nixosModules = self.nixosModules;
+      };
+    in (flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" ] (system: {
       devShell = import ./shell.nix {
         pkgs = nixpkgs-unstable.legacyPackages.${system};
       };
@@ -110,26 +119,26 @@
         xclip = import ./home-manager/xclip.nix;
       };
 
-      nixosConfigurations = {
+      nixosConfigurations = (alib.mkSystemEntries {
         "banana" = import ./nixos/systems/banana inputs;
-        "cracktop-pc" = import ./nixos/systems/cracktop-pc inputs;
-        "cuttlefish" = import ./nixos/systems/cuttlefish inputs;
         "donkey" = import ./nixos/systems/donkey inputs;
         "gfdesk" = import ./nixos/systems/gfdesk inputs;
         "shai-hulud" = import ./nixos/systems/shai-hulud inputs;
         "thonkpad" = import ./nixos/systems/thonkpad inputs;
-      } // (let
-        mkPiJumpserver = import ./nixos/systems/mkPiJumpserver.nix inputs;
-      in mkPiJumpserver { hostname = "jonathan-js"; }
-      // mkPiJumpserver { hostname = "joseph-js"; });
+      }) // (alib.mkPiJumpserverEntries {
+        jonathan-js = { };
+        joseph-js = { };
+      });
+
+      nixosModule = astralModule;
 
       nixosModules = {
+        astral = astralModule;
         bm-server = import ./nixos/modules/bm-server.nix inputs;
         cachix = import ./nixos/modules/cachix.nix;
         debuggable = import ./nixos/modules/debuggable.nix;
         ext4-ephroot = import ./nixos/modules/ext4-ephroot.nix;
         octoprint-full = import ./nixos/modules/octoprint-full.nix inputs;
-        flake-update = import ./nixos/modules/flake-update.nix;
         gnupg = import ./nixos/modules/gnupg.nix;
         i3-kde = import ./nixos/modules/i3-kde.nix;
         i3-xfce = import ./nixos/modules/i3-xfce.nix;
@@ -143,7 +152,7 @@
         pi-jump = import ./nixos/modules/pi-jump.nix inputs;
         qmk-udev = import ./nixos/modules/qmk-udev.nix inputs;
         sshd = import ./nixos/modules/sshd.nix;
-        stable-flake = import ./nixos/modules/stable-flake.nix;
+        infra-update = import ./nixos/modules/infra-update.nix;
         #surface-pro6 = import ./nixos/modules/surface-pro6.nix;
         wireguard-client = import ./nixos/modules/wireguard-client.nix;
         zerotier = import ./nixos/modules/zerotier.nix;
@@ -152,18 +161,17 @@
       };
 
       diskImages = let
-        installerResult = import ./nixos/systems/installer-iso.nix inputs;
-        rpiBootstrapSDResult =
-          import ./nixos/systems/rpi-bootstrap-sd.nix inputs;
+        installerResult = import ./nixos/systems/installer-iso.nix {
+          nixosModules = self.nixosModules;
+          mkSystem = alib.mkSystem;
+          nixpkgs = nixpkgs-unstable;
+        };
       in {
         installer-iso = installerResult.config.system.build.isoImage;
-        cuttlefish-sd =
-          self.nixosConfigurations.cuttlefish.config.system.build.sdImage;
-        rpi-bootstrap-sd = rpiBootstrapSDResult.config.system.build.sdImage;
       };
 
       wallpapers = import ./home-manager/wallpapers;
 
       sshKeys = import ./ssh_keys;
-    };
+    });
 }

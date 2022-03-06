@@ -43,7 +43,7 @@ jobs:
       matrix:
         target:
           - banana
-          - cracktop-pc
+          # - cracktop-pc
           - donkey
           - gfdesk
           - shai-hulud
@@ -125,7 +125,7 @@ jobs:
         target:
           - astrid@aliaconda
           - astrid@banana
-          - astrid@cracktop-pc
+          # - astrid@cracktop-pc
           - astrid@shai-hulud
           # TODO: - jonathan-js
         
