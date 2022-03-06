@@ -1,4 +1,5 @@
-{ config, lib, pkgs, ... }: {
+{ config, lib, pkgs, ... }:
+with lib; {
   options.astral.roles.pc.enable = mkOption {
     description = "A graphics-enabled PC I would directly use";
     default = false;
@@ -6,14 +7,31 @@
   };
 
   config = mkIf config.astral.roles.pc.enable {
-    environment.systemPackages = with pkgs;
-      [ home-manager.defaultPackage."x86_64-linux" ];
+    environment.systemPackages = with pkgs; [
+      home-manager
+      openconnect
+    ];
 
     users.mutableUsers = true;
 
-    astral.program-sets.pc = true;
+    services.geoclue2 = {
+      enable = true;
+      enableWifi = true;
+    };
+
+    astral = {
+      program-sets = {
+        browsers = true;
+        cad = true;
+        dev = true;
+        office = true;
+        security = true;
+      };
+      hw.kb-flashing.enable = true;
+    };
 
     security.rtkit.enable = true;
+
     services.pipewire = {
       enable = true;
       alsa = {

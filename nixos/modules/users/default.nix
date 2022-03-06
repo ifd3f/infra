@@ -1,12 +1,15 @@
 # Normal user declarations.
-{ config, ... }: {
+{
   imports = let
     ssh_keys = (import ../../../ssh_keys);
 
     # Helper to create a user with the given name.
-    mkUser = name:
-      { enableByDefault ? false, description, sshKeys, defaultGroups }: {
-        options.astral.users."${name}" = with lib; {
+    mkUserModule = name:
+      { description, sshKeys ? [ ], enableByDefault ? false, defaultGroups ? [ ]
+      }:
+      { lib, config, ... }:
+      with lib; {
+        options.astral.users."${name}" = {
           enable = mkOption {
             description = "Enable normal user ${user}";
             default = enableByDefault;
@@ -20,22 +23,22 @@
           };
         };
 
-        config.users.users."${name}" =
-          lib.mkIf config.astral.users."${name}".enable {
-            inherit description;
+        config.users.users."${name}" = let cfg = config.astral.users."${name}";
+        in mkIf cfg.enable {
+          inherit description;
 
-            openssh.authorizedKeys.keys = sshKeys;
-            isNormalUser = true;
-            extraGroups = defaultGroups ++ extraGroups;
-          };
+          openssh.authorizedKeys.keys = sshKeys;
+          isNormalUser = true;
+          extraGroups = defaultGroups ++ cfg.extraGroups;
+        };
       };
   in [
-    (mkUser "astrid" {
+    (mkUserModule "astrid" {
       description =
         "Astrid Yu,astrid.tech/about,(805) 270-5368,nah,astrid@astrid.tech";
       enableByDefault = true;
       sshKeys = ssh_keys.astrid;
-      extraGroups = [
+      defaultGroups = [
         "dialout"
         "docker"
         "libvirtd"
@@ -45,10 +48,9 @@
         "wheel"
       ];
     })
-    (mkUser "alia" {
+    (mkUserModule "alia" {
       description = "Alia Lescoulie";
-      openssh.authorizedKeys.keys = ssh_keys.alia;
-      extraGroups = [ ];
+      sshKeys = ssh_keys.alia;
     })
   ];
 }

@@ -1,14 +1,13 @@
-{ config, lib, ... }: {
-  options.astral.net.sshd = with pkgs.lib; {
-    enable = mkOption {
-      description = "Enable to use customized sshd configs.";
-      default = true;
-      type = types.bool;
-    };
+{ config, lib, pkgs, ... }:
+with lib; {
+  options.astral.net.sshd.enable = mkOption {
+    description = "Enable to use customized sshd configs.";
+    default = true;
+    type = types.bool;
   };
 
   config = let cfg = config.astral.net.sshd;
-  in lib.mkIf cfg.enable {
+  in mkIf cfg.enable {
     services.openssh = {
       enable = true;
       passwordAuthentication = false;

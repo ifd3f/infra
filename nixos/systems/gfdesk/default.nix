@@ -1,5 +1,5 @@
 # The desk that is used by Good Friends.
-{ self, home-manager-unstable, ... }:
+{ self, ... }:
 { config, lib, pkgs, ... }: {
   imports = with self.nixosModules; [
     ./hardware-configuration.nix

@@ -1,10 +1,11 @@
 # An old Thinkpad T420 to be used as a server.
+{ ... }:
 { config, lib, pkgs, ... }: {
   imports = [
     ./hardware-configuration.nix
   ];
 
-  astral.infra-update.enable = true;
+  astral.roles.server.enable = true;
 
   time.timeZone = "US/Pacific";
 
@@ -29,15 +30,10 @@
     useUserPackages = true;
 
     # TODO refer to self.homeConfigurations."astrid@gfdesk" instead
-    users.astrid = self.homeModules.astrid_cli_full;
+    # users.astrid = self.homeModules.astrid_cli_full;
   };
 
   nixpkgs.config.allowUnfree = true;
-
-  users = {
-    mutableUsers = true;
-    users.astrid = import ../../users/astrid.nix;
-  };
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 }

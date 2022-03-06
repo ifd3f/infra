@@ -1,7 +1,7 @@
 # My Surface Pro.
-{ nixos-hardware }:
+{ nixos-hardware, ... }:
 { config, pkgs, lib, ... }: {
-  imports = (with self.nixosModules; [ ./hardware-configuration.nix ])
+  imports = [ ./hardware-configuration.nix ]
     ++ (with nixos-hardware.nixosModules; [
       common-cpu-intel
       common-pc-ssd
@@ -21,7 +21,6 @@
 
   networking = {
     domain = "id.astrid.tech";
-    wireless.enable = true;
 
     hostId = "49e32584";
     networkmanager.enable = true;

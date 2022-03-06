@@ -1,18 +1,17 @@
-{ nixpkgs, baseModule }: rec {
+{ nixpkgs, baseModules }: rec {
   # Make a system customized with my stuff.
   mkSystem = { hostName, module ? { }, modules ? [ ], system ? "x86_64-linux"
     , domain ? "id.astrid.tech" }:
     nixpkgs.lib.nixosSystem {
       inherit system;
 
-      modules = [
+      modules = baseModules ++ [
         {
           networking = {
             inherit hostName;
             inherit domain;
           };
         }
-        baseModule
         module
       ] ++ modules;
     };
@@ -29,12 +28,16 @@
       modules = [
         ({ pkgs, ... }: {
           imports =
-            [ "${pkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix" ];
+            [ "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix" ];
 
           time.timeZone = "US/Pacific";
-          astral.roles = {
-            jump.enable = true;
-            server.enable = true;
+
+          astral = {
+            roles = {
+              jump.enable = true;
+              server.enable = true;
+            };
+            zfs-utils.enable = false;
           };
 
           # Don't compress the image.

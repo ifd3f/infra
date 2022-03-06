@@ -1,7 +1,7 @@
 # Standard program sets to enable or disable per-computer.
 { config, ... }: {
   imports = let
-    mkProgset =
+    mkProgsetModule =
       # Helper to create a progset module with the given name.
       name:
       { description, enableByDefault ? false }:
@@ -17,20 +17,17 @@
           (import (./. + "/${name}.nix") inputs);
       };
   in [
-    (mkProgset "basics" {
+    (mkProgsetModule "basics" {
       description = "Useful utilities for terminal environments";
       enableByDefault = true;
     })
-    (mkProgset "x11" { description = "Utilities for working in X11"; })
+    (mkProgsetModule "x11" { description = "Utilities for working in X11"; })
 
-    (mkProgset "browsers" { description = "Internet browsers"; })
-    (mkProgset "cad" { description = "Computer-aided design software"; })
-    (mkProgset "chat" { description = "Chat tools"; })
-    (mkProgset "development" { description = "Development tools"; })
-    (mkProgset "kbflash" { description = "Programs for flashing keyboards"; })
-    (mkProgset "office" { description = "Office tools"; })
-    (mkProgset "security" { description = "Security tools"; })
-
-    (mkProgset "pc" { description = "Program pack for personal computers"; })
+    (mkProgsetModule "browsers" { description = "Internet browsers"; })
+    (mkProgsetModule "cad" { description = "Computer-aided design software"; })
+    (mkProgsetModule "chat" { description = "Chat tools"; })
+    (mkProgsetModule "dev" { description = "Development tools"; })
+    (mkProgsetModule "office" { description = "Office tools"; })
+    (mkProgsetModule "security" { description = "Security tools"; })
   ];
 }

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }: {
+{ config, lib, pkgs, ... }: with lib; {
   options.astral.roles.jump.enable = mkOption {
     description = "A standard jump server role";
     default = false;
@@ -13,7 +13,7 @@
     home-manager = {
       useGlobalPkgs = true;
       useUserPackages = true;
-      users.astrid = self.homeModules.astrid_cli_full;
+      # users.astrid = self.homeModules.astrid_cli_full;
     };
   };
 }

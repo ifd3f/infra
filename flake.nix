@@ -4,13 +4,7 @@
   inputs = {
     flake-utils.url = "github:numtide/flake-utils";
 
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-21.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-
-    home-manager-stable = {
-      url = "github:nix-community/home-manager/release-21.11";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-    };
     home-manager-unstable = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -43,23 +37,27 @@
   };
 
   outputs = { self, nixpkgs-unstable, nixos-vscode-server, flake-utils
-    , home-manager-unstable, ... }@inputs:
+    , home-manager-unstable, qmk_firmware, nixos-hardware, ... }@inputs:
     let
-      astralModule = import ./nixos/modules inputs;
+      astralModule =
+        import ./nixos/modules { inherit nixos-hardware qmk_firmware; };
+
+      nixpkgs = nixpkgs-unstable;
+
+      home-manager = home-manager-unstable;
+
       alib = import ./nixos/lib {
-        nixpkgs = nixpkgs-unstable;
-        inherit astralModule;
-        home-manager = home-manager-unstable;
-        nixosModules = self.nixosModules;
+        inherit nixpkgs;
+        baseModules = [ astralModule home-manager.nixosModule ];
       };
+
     in (flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" ] (system: {
-      devShell = import ./shell.nix {
-        pkgs = nixpkgs-unstable.legacyPackages.${system};
-      };
+      devShell =
+        import ./shell.nix { pkgs = nixpkgs.legacyPackages.${system}; };
     }) // {
       homeConfigurations = let
         mkAstridConfig = { imports }:
-          inputs.home-manager-unstable.lib.homeManagerConfiguration {
+          home-manager.lib.homeManagerConfiguration {
             system = "x86_64-linux";
             homeDirectory = "/home/astrid";
             username = "astrid";
@@ -120,30 +118,25 @@
       };
 
       nixosConfigurations = (alib.mkSystemEntries {
-        "banana" = import ./nixos/systems/banana inputs;
-        "donkey" = import ./nixos/systems/donkey inputs;
-        "gfdesk" = import ./nixos/systems/gfdesk inputs;
-        "shai-hulud" = import ./nixos/systems/shai-hulud inputs;
-        "thonkpad" = import ./nixos/systems/thonkpad inputs;
+        banana = import ./nixos/systems/banana inputs;
+        donkey = import ./nixos/systems/donkey inputs;
+        gfdesk = import ./nixos/systems/gfdesk inputs;
+        shai-hulud = import ./nixos/systems/shai-hulud inputs;
+        thonkpad = import ./nixos/systems/thonkpad inputs;
       }) // (alib.mkPiJumpserverEntries {
         jonathan-js = { };
         joseph-js = { };
       });
 
       nixosModule = astralModule;
-      nixosModules = {
-        astral = astralModule;
-      };
+      nixosModules = { astral = astralModule; };
 
       diskImages = let
-        installerResult = import ./nixos/systems/installer-iso.nix {
-          nixosModules = self.nixosModules;
-          mkSystem = alib.mkSystem;
-          nixpkgs = nixpkgs-unstable;
+        installerSystem = alib.mkSystem {
+          hostName = "astral-installer";
+          module = import ./nixos/systems/installer-iso.nix;
         };
-      in {
-        installer-iso = installerResult.config.system.build.isoImage;
-      };
+      in { installer-iso = installerSystem.config.system.build.isoImage; };
 
       wallpapers = import ./home-manager/wallpapers;
 

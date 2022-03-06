@@ -23,7 +23,7 @@
     mktemp
     python3
     tree
-    xxd-vim
+    unixtools.xxd
     yq
 
     # Password manager
@@ -35,7 +35,7 @@
     elinks
     iftop
     iotop
-    killall-psmisc
+    psmisc
     neofetch
     nmap
     pciutils

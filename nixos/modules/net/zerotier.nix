@@ -1,5 +1,6 @@
-{ config, lib, ... }: {
-  options.astral.net.zerotier = with pkgs.lib; {
+{ config, lib, ... }:
+with lib; {
+  options.astral.net.zerotier = {
     enable = mkOption {
       description = "Whether to enable zerotier support on this device or not.";
       default = true;
@@ -20,7 +21,7 @@
   };
 
   config = let cfg = config.astral.net.zerotier;
-  in lib.mkIf cfg.enable {
+  in mkIf cfg.enable {
     nixpkgs.config.allowUnfree = true;
 
     services.zerotierone = {
