@@ -3,6 +3,8 @@
     browsers = true;
   };
 
+  nixpkgs.config.allowUnfree = true;
+
   environment.systemPackages = with pkgs; [
     cachix
     firefox-devedition-bin
