@@ -35,7 +35,15 @@
         "Astrid Yu,astrid.tech/about,(805) 270-5368,nah,astrid@astrid.tech";
       enableByDefault = true;
       sshKeys = ssh_keys.astrid;
-      extraGroups = [ "dialout" "docker" "libvirtd" "lxd" "netdev" "wheel" ];
+      extraGroups = [
+        "dialout"
+        "docker"
+        "libvirtd"
+        "lxd"
+        "netdev"
+        "networkmanager"
+        "wheel"
+      ];
     })
     (mkUser "alia" {
       description = "Alia Lescoulie";

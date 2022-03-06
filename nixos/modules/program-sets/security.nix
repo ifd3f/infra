@@ -5,8 +5,6 @@
   };
 
   environment.systemPackages = [
-    bitwarden
     pinentry
-    veracrypt
   ];
 }

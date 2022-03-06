@@ -14,5 +14,7 @@ inputs:
     ./net/sshd.nix
     ./net/zerotier.nix
     ./users
+
+    ./roles
   ];
 }
