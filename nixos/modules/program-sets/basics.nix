@@ -19,8 +19,11 @@
 
     # Useful scripting utilities
     envsubst
-    tree
     jq
+    mktemp
+    python3
+    tree
+    xxd-vim
     yq
 
     # Password manager
@@ -33,7 +36,10 @@
     elinks
     iftop
     iotop
+    killall-psmisc
+    neofetch
     nmap
+    pciutils
     unzip
     usbutils
     uwufetch
