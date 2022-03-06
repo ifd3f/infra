@@ -9,6 +9,7 @@
     })
 
     ./zfs-utils.nix
+    ./virt
     ./program-sets
     ./nix-utils.nix
 

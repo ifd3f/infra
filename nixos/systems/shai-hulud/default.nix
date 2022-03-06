@@ -7,12 +7,21 @@
       common-pc-ssd
       microsoft-surface
     ]);
+
   time.timeZone = "US/Pacific";
 
   # so i can be a *gamer*
   programs.steam.enable = true;
 
-  astral.roles.pc.enable = true;
+  astral = {
+    roles.pc.enable = true;
+    hw.surface.enable = true;
+    virt = {
+      docker.enable = true;
+      libvirt.enable = true;
+      lxc.enable = true;
+    };
+  };
 
   hardware = {
     opengl.enable = true;

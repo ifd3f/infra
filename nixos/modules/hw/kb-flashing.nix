@@ -1,6 +1,6 @@
 { qmk_firmware }:
 let qmk-rules = "${qmk_firmware}/util/udev/50-qmk.rules";
-in { config, lib, ... }:
+in { config, lib, pkgs, ... }:
 with lib; {
   options.astral.hw.kb-flashing.enable = mkOption {
     description = ''
@@ -13,7 +13,7 @@ with lib; {
   };
 
   config = mkIf config.astral.hw.kb-flashing.enable {
-    environment.systemPackages = [ usbutils wally-cli ];
+    environment.systemPackages = with pkgs; [ usbutils wally-cli ];
 
     # QMK rules
     services.udev.extraRules = builtins.readFile qmk-rules;
