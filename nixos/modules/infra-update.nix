@@ -1,11 +1,11 @@
-# Regularly updates the system from this flake repo.
-# Wraps around system.autoUpdate and customized for
-# my stuff, but provides additional helper options.
-
-{ config, pkgs, ... }: {
+/* Regularly updates the system from this flake repo.
+   Wraps around system.autoUpdate and customized for
+   my stuff, but provides additional helper options.
+*/
+{ lib, config, pkgs, ... }: {
   options.astral.infra-update = with pkgs.lib; {
     enable = mkOption {
-      description = "Enable to update from the infra repo on the hour.";
+      description = "Enable to update from the infra repo.";
       default = false;
       type = types.bool;
     };
@@ -31,7 +31,7 @@
   };
 
   config.system.autoUpgrade = let cfg = config.astral.infra-update;
-  in {
+  in lib.mkIf cfg.enable {
     enable = cfg.enable;
     flake = "github:astralbijection/infra/${cfg.branch}";
     dates = "*-*-* *:00:00";

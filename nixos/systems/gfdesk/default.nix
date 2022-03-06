@@ -15,6 +15,8 @@
     zsh
   ];
 
+  astral.infra-update.enable = true;
+
   time.timeZone = "US/Pacific";
 
   # Explicitly don't reboot on kernel upgrade. This server takes forever to reboot, plus 

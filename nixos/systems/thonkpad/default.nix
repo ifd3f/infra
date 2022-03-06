@@ -15,6 +15,8 @@
     zsh
   ];
 
+  astral.infra-update.enable = true;
+
   time.timeZone = "US/Pacific";
 
   boot.loader.grub = {

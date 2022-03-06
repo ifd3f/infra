@@ -8,10 +8,13 @@
     bm-server
     debuggable
     sshd
-        wireguard-client
+    wireguard-client
     zerotier
     zfs-boot
   ];
+
+  astral.infra-update.enable = true;
+
   time.timeZone = "US/Pacific";
 
   networking = {

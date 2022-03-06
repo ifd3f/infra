@@ -27,7 +27,7 @@
 
   # Make a pi jumpserver system in a nice way.
   mkPiJumpserver =
-    { hostName, timeZone ? "US/Pacific", extraZerotierNetworks ? [ ], }:
+    { hostName, timeZone ? "US/Pacific", extraZerotierNetworks ? [ ] }:
     (mkSystem {
       inherit hostName;
       system = "aarch64-linux";
