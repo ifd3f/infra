@@ -161,14 +161,13 @@
       };
 
       diskImages = let
-        installerResult = import ./nixos/systems/installer-iso.nix inputs;
-        rpiBootstrapSDResult =
-          import ./nixos/systems/rpi-bootstrap-sd.nix inputs;
+        installerResult = import ./nixos/systems/installer-iso.nix {
+          nixosModules = self.nixosModules;
+          mkSystem = alib.mkSystem;
+          nixpkgs = nixpkgs-unstable;
+        };
       in {
         installer-iso = installerResult.config.system.build.isoImage;
-        cuttlefish-sd =
-          self.nixosConfigurations.cuttlefish.config.system.build.sdImage;
-        rpi-bootstrap-sd = rpiBootstrapSDResult.config.system.build.sdImage;
       };
 
       wallpapers = import ./home-manager/wallpapers;

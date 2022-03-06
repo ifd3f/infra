@@ -14,7 +14,6 @@
     pipewire
     qmk-udev
     sshd
-    stable-flake
     wireguard-client
     zerotier
     zfs-boot

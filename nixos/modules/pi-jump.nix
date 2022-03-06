@@ -7,8 +7,7 @@
     bm-server
     debuggable
     sshd
-    stable-flake
-  ];
+      ];
 
   nix.autoOptimiseStore = true;
 

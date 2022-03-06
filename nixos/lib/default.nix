@@ -33,7 +33,6 @@
       system = "aarch64-linux";
       modules = with nixosModules; [
         {
-          networking.hostName = hostname;
           time.timeZone = timeZone;
 
           # Don't compress the image.

@@ -8,8 +8,7 @@
     bm-server
     debuggable
     sshd
-    stable-flake
-    wireguard-client
+        wireguard-client
     zerotier
     zfs-boot
   ];

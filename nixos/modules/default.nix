@@ -1,1 +1,4 @@
-inputs: { ... }: { imports = [ ./infra-update.nix ]; }
+inputs: { ... }: { imports = [
+   
+   ./nix-unstable.nix
+  ./infra-update.nix ]; }

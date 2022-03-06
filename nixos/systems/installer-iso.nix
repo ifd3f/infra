@@ -1,9 +1,9 @@
 # Stolen from https://github.com/wagdav/homelab/blob/master/installer/iso.nix
 # Also from https://hoverbear.org/blog/nix-flake-live-media/
 
-{ self, nixpkgs-unstable, ... }:
+# TODO make it a lot better
+{ mkSystem, nixosModules, nixpkgs, ... }:
 let
-  nixpkgs = nixpkgs-unstable;
   specialized = { config, pkgs, system ? builtins.currentSystem, ... }: {
     imports = [
       # https://nixos.wiki/wiki/Creating_a_NixOS_live_CD
@@ -27,8 +27,4 @@ let
       };
     };
   };
-in nixpkgs.lib.nixosSystem {
-  system = "x86_64-linux";
-
-  modules = with self.nixosModules; [ specialized debuggable stable-flake ];
-}
+in mkSystem { modules = with self.nixosModules; [ specialized debuggable ]; }
