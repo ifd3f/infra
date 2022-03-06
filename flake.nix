@@ -136,7 +136,6 @@
         astral = astralModule;
         bm-server = import ./nixos/modules/bm-server.nix inputs;
         cachix = import ./nixos/modules/cachix.nix;
-        debuggable = import ./nixos/modules/debuggable.nix;
         ext4-ephroot = import ./nixos/modules/ext4-ephroot.nix;
         octoprint-full = import ./nixos/modules/octoprint-full.nix inputs;
         gnupg = import ./nixos/modules/gnupg.nix;
@@ -152,8 +151,6 @@
         pi-jump = import ./nixos/modules/pi-jump.nix inputs;
         qmk-udev = import ./nixos/modules/qmk-udev.nix inputs;
         sshd = import ./nixos/modules/sshd.nix;
-        infra-update = import ./nixos/modules/infra-update.nix;
-        #surface-pro6 = import ./nixos/modules/surface-pro6.nix;
         wireguard-client = import ./nixos/modules/wireguard-client.nix;
         zerotier = import ./nixos/modules/zerotier.nix;
         zfs-boot = import ./nixos/modules/zfs-boot.nix;

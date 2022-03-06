@@ -5,7 +5,6 @@
     (import ./hardware-configuration.nix)
 
     bm-server
-    debuggable
     home-manager-unstable.nixosModules.home-manager
     libvirt
     nix-dev

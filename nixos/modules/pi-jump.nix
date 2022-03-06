@@ -5,9 +5,8 @@
     home-manager-unstable.nixosModules.home-manager
 
     bm-server
-    debuggable
     sshd
-      ];
+  ];
 
   nix.autoOptimiseStore = true;
 

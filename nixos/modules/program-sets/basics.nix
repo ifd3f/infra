@@ -1,4 +1,3 @@
-# A minimal environment, but it is still somewhat comfortable to debug.
 { pkgs, ... }: {
   programs = {
     # Neovim is cool and good
@@ -28,8 +27,15 @@
     bitwarden-cli
 
     # Other utilities
-    iotop
+    bind
+    cachix
+    ed
     elinks
+    iftop
+    iotop
     nmap
+    unzip
+    usbutils
+    uwufetch
   ];
 }

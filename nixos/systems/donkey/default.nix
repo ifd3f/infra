@@ -6,7 +6,6 @@
     ./hardware-configuration.nix
 
     bm-server
-    debuggable
     sshd
     wireguard-client
     zerotier

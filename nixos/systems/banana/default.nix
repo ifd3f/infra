@@ -4,7 +4,6 @@
   imports = with self.nixosModules; [
     ./hardware-configuration.nix
 
-    debuggable
     i3-kde
     laptop
     libvirt

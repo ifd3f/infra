@@ -4,8 +4,6 @@
   imports = (with self.nixosModules; [
     ./hardware-configuration.nix
 
-    #surface-pro6
-    debuggable
     i3-kde
     laptop
     libvirt

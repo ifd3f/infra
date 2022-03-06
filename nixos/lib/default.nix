@@ -1,8 +1,9 @@
-{ nixpkgs, home-manager, astralModule, nixosModules # nixosModules to be deprecated soon
+{ nixpkgs, home-manager, astralModule
+, nixosModules # nixosModules to be deprecated soon
 }: rec {
 
   # Make a system customized with my stuff.
-  mkSystem = { hostName, module ? {}, modules ? [ ], system ? "x86_64-linux"
+  mkSystem = { hostName, module ? { }, modules ? [ ], system ? "x86_64-linux"
     , domain ? "id.astrid.tech" }:
     nixpkgs.lib.nixosSystem {
       inherit system;
@@ -15,7 +16,7 @@
           };
         }
         astralModule
-      ] ++ [module] ++ modules;
+      ] ++ [ module ] ++ modules;
     };
 
   # Make multiple system entries in a nice way.

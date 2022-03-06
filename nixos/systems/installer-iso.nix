@@ -29,5 +29,5 @@ let
   };
 in mkSystem {
   hostName = "astral-nixos-installer";
-  modules = with nixosModules; [ specialized debuggable ];
+  modules = with nixosModules; [ specialized ];
 }
