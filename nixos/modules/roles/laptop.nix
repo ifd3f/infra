@@ -1,13 +1,13 @@
 # A role representing a laptop.
-{ pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 with lib; {
-  options.astral.roles.laptop = mkOption {
+  options.astral.roles.laptop.enable = mkOption {
     description = "Laptop";
     default = false;
     type = types.bool;
   };
 
-  config = {
+  config = mkIf config.astral.roles.laptop.enable {
     environment.systemPackages = with pkgs; [
       xorg.xf86videointel
       xorg.xf86inputsynaptics

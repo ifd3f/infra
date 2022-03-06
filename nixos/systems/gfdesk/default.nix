@@ -3,18 +3,9 @@
 { config, lib, pkgs, ... }: {
   imports = with self.nixosModules; [
     ./hardware-configuration.nix
-
-    bm-server
-    home-manager-unstable.nixosModules.home-manager
-    libvirt
-    nix-dev
-    sshd
-    zerotier
-    zfs-boot
-    zsh
   ];
 
-  astral.infra-update.enable = true;
+  astral.roles.server.enable = true;
 
   time.timeZone = "US/Pacific";
 
@@ -23,7 +14,7 @@
   system.autoUpgrade.allowReboot = false;
 
   # a Very Good Friend's user
-  users.users.alia = import ../../users/alia.nix;
+  astral.users.alia.enable = true;
 
   home-manager = {
     useGlobalPkgs = true;
@@ -35,7 +26,6 @@
   };
 
   networking = {
-    hostName = "gfdesk";
     domain = "id.astrid.tech";
 
     hostId = "6d1020a1"; # Required for ZFS

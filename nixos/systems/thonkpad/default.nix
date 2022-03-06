@@ -1,17 +1,7 @@
 # An old Thinkpad T420 to be used as a server.
-{ self, home-manager-unstable, ... }:
 { config, lib, pkgs, ... }: {
-  imports = with self.nixosModules; [
-    (import ./hardware-configuration.nix)
-
-    bm-server
-    home-manager-unstable.nixosModules.home-manager
-    libvirt
-    nix-dev
-    sshd
-    zerotier
-    zfs-boot
-    zsh
+  imports = [
+    ./hardware-configuration.nix
   ];
 
   astral.infra-update.enable = true;
@@ -27,7 +17,6 @@
   };
 
   networking = {
-    hostName = "thonkpad";
     domain = "id.astrid.tech";
     hostId = "49e32584";
 

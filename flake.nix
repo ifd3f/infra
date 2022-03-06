@@ -131,30 +131,8 @@
       });
 
       nixosModule = astralModule;
-
       nixosModules = {
         astral = astralModule;
-        bm-server = import ./nixos/modules/bm-server.nix inputs;
-        cachix = import ./nixos/modules/cachix.nix;
-        ext4-ephroot = import ./nixos/modules/ext4-ephroot.nix;
-        octoprint-full = import ./nixos/modules/octoprint-full.nix inputs;
-        gnupg = import ./nixos/modules/gnupg.nix;
-        i3-kde = import ./nixos/modules/i3-kde.nix;
-        i3-xfce = import ./nixos/modules/i3-xfce.nix;
-        laptop = import ./nixos/modules/laptop.nix inputs;
-        libvirt = import ./nixos/modules/libvirt.nix;
-        nix-dev = import ./nixos/modules/nix-dev.nix;
-        office = import ./nixos/modules/office.nix inputs;
-        persistence = import ./nixos/modules/persistence.nix;
-        pipewire = import ./nixos/modules/pipewire.nix;
-        pc = import ./nixos/modules/pc.nix inputs;
-        pi-jump = import ./nixos/modules/pi-jump.nix inputs;
-        qmk-udev = import ./nixos/modules/qmk-udev.nix inputs;
-        sshd = import ./nixos/modules/sshd.nix;
-        wireguard-client = import ./nixos/modules/wireguard-client.nix;
-        zerotier = import ./nixos/modules/zerotier.nix;
-        zfs-boot = import ./nixos/modules/zfs-boot.nix;
-        zsh = import ./nixos/modules/zsh.nix;
       };
 
       diskImages = let

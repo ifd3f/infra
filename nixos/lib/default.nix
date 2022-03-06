@@ -1,7 +1,4 @@
-{ nixpkgs, home-manager, astralModule
-, nixosModules # nixosModules to be deprecated soon
-}: rec {
-
+{ nixpkgs, baseModule }: rec {
   # Make a system customized with my stuff.
   mkSystem = { hostName, module ? { }, modules ? [ ], system ? "x86_64-linux"
     , domain ? "id.astrid.tech" }:
@@ -15,38 +12,39 @@
             inherit domain;
           };
         }
-        astralModule
-      ] ++ [ module ] ++ modules;
+        baseModule
+        module
+      ] ++ modules;
     };
 
   # Make multiple system entries in a nice way.
-  mkSystemEntries = builtins.mapAttrs (hostName: module:
-    mkSystem {
-      inherit hostName;
-      inherit module;
-    });
+  mkSystemEntries =
+    builtins.mapAttrs (hostName: module: mkSystem { inherit hostName module; });
 
-  # Make a pi jumpserver system in a nice way.
-  mkPiJumpserver =
-    { hostName, timeZone ? "US/Pacific", extraZerotierNetworks ? [ ] }:
+  # Make a Pi jumpserver system in a nice way.
+  mkPiJumpserver = { hostName, module ? { } }:
     (mkSystem {
       inherit hostName;
       system = "aarch64-linux";
-      modules = with nixosModules; [
-        {
-          time.timeZone = timeZone;
+      modules = [
+        ({ pkgs, ... }: {
+          imports =
+            [ "${pkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix" ];
+
+          time.timeZone = "US/Pacific";
+          astral.roles = {
+            jump.enable = true;
+            server.enable = true;
+          };
 
           # Don't compress the image.
           sdImage.compressImage = false;
-
-          services.zerotierone.joinNetworks = extraZerotierNetworks;
-        }
-        pi-jump
-        zerotier
+        })
+        module
       ];
     });
 
   # Make multiple pi jumpserver systems in a nice way.
   mkPiJumpserverEntries = builtins.mapAttrs
-    (hostName: params: mkPiJumpserver (params // { inherit hostName; }));
+    (hostName: module: mkPiJumpserver ({ inherit hostName module; }));
 }

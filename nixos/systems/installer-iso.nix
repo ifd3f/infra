@@ -1,33 +1,18 @@
 # Stolen from https://github.com/wagdav/homelab/blob/master/installer/iso.nix
 # Also from https://hoverbear.org/blog/nix-flake-live-media/
 
-# TODO make it a lot better
-{ mkSystem, nixosModules, nixpkgs, ... }:
-let
-  specialized = { config, pkgs, system ? builtins.currentSystem, ... }: {
-    imports = [
-      # https://nixos.wiki/wiki/Creating_a_NixOS_live_CD
-      "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-      "${nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
-    ];
+{ config, pkgs, ... }: {
+  imports = [
+    # https://nixos.wiki/wiki/Creating_a_NixOS_live_CD
+    "${pkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+    "${pkgs}/nixos/modules/installer/cd-dvd/channel.nix"
+  ];
 
-    systemd.services.sshd.wantedBy = pkgs.lib.mkForce [ "multi-user.target" ];
-    users = {
-      mutableUsers = false;
-      users.nixos = {
-        openssh.authorizedKeys.keys = (import ../../ssh_keys).astrid;
-      };
-    };
+  users.mutableUsers = false;
+  networking.wireless.enable = true;
 
-    services = {
-      openssh = {
-        enable = true;
-        passwordAuthentication = false;
-        permitRootLogin = "yes";
-      };
-    };
+  astral = {
+    users.astrid.enable = true;
+    net.sshd.enable = true;
   };
-in mkSystem {
-  hostName = "astral-nixos-installer";
-  modules = with nixosModules; [ specialized ];
 }

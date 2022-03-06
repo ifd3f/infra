@@ -4,20 +4,13 @@
 { self, ... }: {
   imports = with self.nixosModules; [
     ./hardware-configuration.nix
-
-    bm-server
-    sshd
-    wireguard-client
-    zerotier
-    zfs-boot
   ];
 
-  astral.infra-update.enable = true;
+  astral.roles.server.enable = true;
 
   time.timeZone = "US/Pacific";
 
   networking = {
-    hostName = "donkey";
     domain = "id.astrid.tech";
 
     hostId = "49e32584";

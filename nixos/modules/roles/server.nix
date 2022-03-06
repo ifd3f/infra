@@ -1,12 +1,12 @@
-{ lib, ... }:
+{ config, lib, ... }:
 with lib; {
-  options.astral.roles.bm-server = mkOption {
+  options.astral.roles.server.enable = mkOption {
     description = "Bare metal server";
     default = false;
     type = types.bool;
   };
 
-  config = {
+  config = mkIf config.astral.roles.server.enable {
     # Enable SSH in initrd for debugging
     boot.initrd.network.ssh = {
       enable = true;
@@ -17,6 +17,9 @@ with lib; {
     security.sudo.wheelNeedsPassword = false;
     users.mutableUsers = false;
 
-    astral.net.sshd.enable = true;
+    astral = {
+      net.sshd.enable = true;
+      infra-update.enable = true;
+    };
   };
 }
