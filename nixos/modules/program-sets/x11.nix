@@ -1,7 +1,1 @@
-{ pkgs, ... }: {
-  environment.systemPackages = with pkgs; [
-    nomacs
-    xclip
-    xev
-  ];
-}
+{ pkgs, ... }: { environment.systemPackages = with pkgs; [ nomacs xclip xev ]; }

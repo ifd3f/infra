@@ -1,7 +1,5 @@
 { pkgs, ... }: {
-  astral.program-sets = {
-    browsers = true;
-  };
+  astral.program-sets = { browsers = true; };
 
   nixpkgs.config.allowUnfree = true;
 

@@ -1,10 +1,5 @@
-{ pkgs, ... }:
-{
-  programs = {
-    chromium.enable = true;
-  };
+{ pkgs, ... }: {
+  programs = { chromium.enable = true; };
 
-  environment.systemPackages = with pkgs; [
-    firefox
-  ];
+  environment.systemPackages = with pkgs; [ firefox ];
 }

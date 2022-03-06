@@ -1,4 +1,5 @@
-{ config, lib, pkgs, ... }: with lib; {
+{ config, lib, pkgs, ... }:
+with lib; {
   options.astral.roles.jump.enable = mkOption {
     description = "A standard jump server role";
     default = false;

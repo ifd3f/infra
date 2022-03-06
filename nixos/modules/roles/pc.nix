@@ -7,10 +7,7 @@ with lib; {
   };
 
   config = mkIf config.astral.roles.pc.enable {
-    environment.systemPackages = with pkgs; [
-      home-manager
-      openconnect
-    ];
+    environment.systemPackages = with pkgs; [ home-manager openconnect ];
 
     users.mutableUsers = true;
 
@@ -28,6 +25,14 @@ with lib; {
         security = true;
       };
       hw.kb-flashing.enable = true;
+      virt = {
+
+        docker.enable = true;
+        libvirt = {
+          enable = true;
+          virt-manager.enable = true;
+        };
+      };
     };
 
     security.rtkit.enable = true;

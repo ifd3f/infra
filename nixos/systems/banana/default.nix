@@ -1,13 +1,11 @@
 # My gaming laptop.
 { ... }:
 { pkgs, lib, ... }: {
-  imports = [
-    ./hardware-configuration.nix
-  ];
+  imports = [ ./hardware-configuration.nix ];
 
   time.timeZone = "US/Pacific";
 
-  astral.roles.pc.enable = true;
+  astral = { roles.pc.enable = true; };
 
   # so i can be a *gamer*
   programs.steam.enable = true;

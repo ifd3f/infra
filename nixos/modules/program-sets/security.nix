@@ -4,7 +4,5 @@
     enableSSHSupport = true;
   };
 
-  environment.systemPackages = with pkgs; [
-    pinentry
-  ];
+  environment.systemPackages = with pkgs; [ pinentry ];
 }

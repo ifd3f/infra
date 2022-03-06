@@ -134,7 +134,8 @@
       diskImages = let
         installerSystem = alib.mkSystem {
           hostName = "astral-installer";
-          module = import ./nixos/systems/installer-iso.nix;
+          module =
+            import ./nixos/systems/installer-iso.nix { inherit nixpkgs; };
         };
       in { installer-iso = installerSystem.config.system.build.isoImage; };
 

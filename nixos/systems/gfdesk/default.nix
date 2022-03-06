@@ -1,20 +1,24 @@
 # The desk that is used by Good Friends.
 { self, ... }:
 { config, lib, pkgs, ... }: {
-  imports = with self.nixosModules; [
-    ./hardware-configuration.nix
-  ];
+  imports = with self.nixosModules; [ ./hardware-configuration.nix ];
 
-  astral.roles.server.enable = true;
+  astral = {
+    roles.server.enable = true;
+    users.alia.enable = true;
+    virt = {
+      docker.enable = true;
+      libvirt.enable = true;
+      lxc.enable = true;
+    };
+    net.zerotier.public = true;
+  };
 
   time.timeZone = "US/Pacific";
 
   # Explicitly don't reboot on kernel upgrade. This server takes forever to reboot, plus 
   # it's a jet engine when it boots and it will probably wake me up at 4:00 AM
   system.autoUpgrade.allowReboot = false;
-
-  # a Very Good Friend's user
-  astral.users.alia.enable = true;
 
   home-manager = {
     useGlobalPkgs = true;
@@ -26,8 +30,6 @@
   };
 
   networking = {
-    domain = "id.astrid.tech";
-
     hostId = "6d1020a1"; # Required for ZFS
     useDHCP = false;
 
@@ -41,14 +43,6 @@
       br0.useDHCP = true;
     };
   };
-
-  virtualisation = {
-    lxd.enable = true;
-    lxc.enable = true;
-  };
-
-  # astrid.tech public zerotier network
-  services.zerotierone.joinNetworks = [ "e5cd7a9e1c618388" ];
 
   # Use the GRUB 2 boot loader.
   boot = {

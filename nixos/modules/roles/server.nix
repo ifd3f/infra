@@ -7,6 +7,11 @@ with lib; {
   };
 
   config = mkIf config.astral.roles.server.enable {
+    astral = {
+      net.sshd.enable = true;
+      infra-update.enable = true;
+    };
+
     # Enable SSH in initrd for debugging
     boot.initrd.network.ssh = {
       enable = true;
@@ -16,10 +21,5 @@ with lib; {
     # Passwordless sudo
     security.sudo.wheelNeedsPassword = false;
     users.mutableUsers = false;
-
-    astral = {
-      net.sshd.enable = true;
-      infra-update.enable = true;
-    };
   };
 }

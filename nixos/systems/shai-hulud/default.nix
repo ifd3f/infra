@@ -16,11 +16,6 @@
   astral = {
     roles.pc.enable = true;
     hw.surface.enable = true;
-    virt = {
-      docker.enable = true;
-      libvirt.enable = true;
-      lxc.enable = true;
-    };
   };
 
   hardware = {

@@ -1,9 +1,7 @@
 # An old Thinkpad T420 to be used as a server.
 { ... }:
 { config, lib, pkgs, ... }: {
-  imports = [
-    ./hardware-configuration.nix
-  ];
+  imports = [ ./hardware-configuration.nix ];
 
   astral.roles.server.enable = true;
 

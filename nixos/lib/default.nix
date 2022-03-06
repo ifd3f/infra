@@ -27,8 +27,9 @@
       system = "aarch64-linux";
       modules = [
         ({ pkgs, ... }: {
-          imports =
-            [ "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix" ];
+          imports = [
+            "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+          ];
 
           time.timeZone = "US/Pacific";
 
