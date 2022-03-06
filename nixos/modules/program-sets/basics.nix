@@ -31,7 +31,6 @@
 
     # Other utilities
     bind
-    cachix
     ed
     elinks
     iftop

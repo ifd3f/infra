@@ -4,6 +4,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    cachix
     firefox-devedition-bin
     gh
     gitkraken
