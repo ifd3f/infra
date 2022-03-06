@@ -9,6 +9,7 @@
     gitkraken
     imagemagick
     jetbrains.idea-ultimate
+    nixfmt
     vscode-fhs
   ];
 }
