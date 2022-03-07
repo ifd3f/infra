@@ -15,6 +15,9 @@ with lib; {
       supportedFilesystems = [ "zfs" ];
       zfs.requestEncryptionCredentials = true;
     };
-    services.zfs.autoScrub.enable = true;
+    services.zfs = {
+      autoScrub.enable = true;
+      autoSnapshot.enable = true;
+    };
   };
 }

@@ -42,10 +42,10 @@
       astralModule =
         import ./nixos/modules { inherit nixos-hardware qmk_firmware; };
 
+      astralHome = import ./home-manager/astral { inherit powerlevel10k; };
+
       nixpkgs = nixpkgs-unstable;
-
       home-manager = home-manager-unstable;
-
       alib = import ./nixos/lib {
         inherit nixpkgs;
         baseModules = [ astralModule home-manager.nixosModule ];
@@ -55,6 +55,9 @@
       devShell =
         import ./shell.nix { pkgs = nixpkgs.legacyPackages.${system}; };
     }) // {
+      homeModule = astralHome;
+      homeModules.astral = astralHome;
+
       homeConfigurations = let
         mkAstridConfig = { imports }:
           home-manager.lib.homeManagerConfiguration {
@@ -100,22 +103,8 @@
         };
       };
 
-      homeModules = {
-        nixos-vscode-server =
-          "${nixos-vscode-server}/modules/vscode-server/home.nix";
-
-        astrid_alacritty = import ./home-manager/astrid/alacritty.nix;
-        astrid_cli = import ./home-manager/astrid/cli.nix;
-        astrid_cli_full = import ./home-manager/astrid/cli_full.nix inputs;
-        astrid_vi = import ./home-manager/astrid/vi.nix;
-        astrid_vi_full = import ./home-manager/astrid/vi_full.nix inputs;
-        astrid_x11 = import ./home-manager/astrid/x11.nix inputs;
-        astrid_zsh = import ./home-manager/astrid/zsh.nix inputs;
-
-        conda-hooks = import ./home-manager/conda-hooks.nix;
-        i3-xfce = import ./home-manager/i3-xfce;
-        xclip = import ./home-manager/xclip.nix;
-      };
+      nixosModule = astralModule;
+      nixosModules.astral = astralModule;
 
       nixosConfigurations = (alib.mkSystemEntries {
         banana = import ./nixos/systems/banana inputs;
@@ -127,9 +116,6 @@
         jonathan-js = { };
         joseph-js = { };
       });
-
-      nixosModule = astralModule;
-      nixosModules = { astral = astralModule; };
 
       diskImages = let
         installerSystem = alib.mkSystem {
