@@ -1,4 +1,4 @@
-{ nixpkgs, baseModules, home-manager, baseHomeModules }: rec {
+{ nixpkgs, baseModules, home-manager }: rec {
   # Make a system customized with my stuff.
   mkSystem = { hostName, module ? { }, modules ? [ ], system ? "x86_64-linux"
     , domain ? "id.astrid.tech" }:
@@ -54,6 +54,6 @@
       inherit system;
       homeDirectory = "/home/astrid";
       username = "astrid";
-      configuration.imports = baseHomeModules ++ [module];
+      configuration = module;
     };
 }

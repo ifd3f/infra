@@ -44,11 +44,8 @@
       home-manager = home-manager-unstable;
 
       alib = import ./nixos/lib {
-        inherit nixpkgs;
+        inherit nixpkgs home-manager;
         baseModules = [ self.nixosModule ];
-
-        inherit home-manager;
-        baseHomeModules = [ self.homeModule ];
       };
 
     in (flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" ] (system: {
