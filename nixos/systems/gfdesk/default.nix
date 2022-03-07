@@ -20,15 +20,6 @@
   # it's a jet engine when it boots and it will probably wake me up at 4:00 AM
   system.autoUpgrade.allowReboot = false;
 
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-
-    users.astrid = {
-      imports = with self.homeModules; [ astrid_cli_full astrid_vi_full ];
-    };
-  };
-
   networking = {
     hostId = "6d1020a1"; # Required for ZFS
     useDHCP = false;

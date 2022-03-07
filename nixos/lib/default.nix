@@ -1,4 +1,4 @@
-{ nixpkgs, baseModules }: rec {
+{ nixpkgs, baseModules, home-manager, baseHomeModules }: rec {
   # Make a system customized with my stuff.
   mkSystem = { hostName, module ? { }, modules ? [ ], system ? "x86_64-linux"
     , domain ? "id.astrid.tech" }:
@@ -34,10 +34,7 @@
           time.timeZone = "US/Pacific";
 
           astral = {
-            roles = {
-              jump.enable = true;
-              server.enable = true;
-            };
+            roles.server.enable = true;
             zfs-utils.enable = false;
           };
 
@@ -51,4 +48,12 @@
   # Make multiple pi jumpserver systems in a nice way.
   mkPiJumpserverEntries = builtins.mapAttrs
     (hostName: module: mkPiJumpserver ({ inherit hostName module; }));
+
+  mkHomeConfig = { module ? [], system ? "x86_64-linux" }:
+    home-manager.lib.homeManagerConfiguration {
+      inherit system;
+      homeDirectory = "/home/astrid";
+      username = "astrid";
+      configuration.imports = baseHomeModules ++ [module];
+    };
 }

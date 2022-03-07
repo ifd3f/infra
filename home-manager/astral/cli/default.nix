@@ -1,8 +1,8 @@
 # CLI-only home manager settings
-{ powerlevel10k, ... }:
+{ powerlevel10k }:
 { config, lib, pkgs, ... }:
-let commonProfile = builtins.readFile ./dotfiles/.profile;
-in {
+let commonProfile = builtins.readFile ./.profile;
+in with lib; {
   imports = [ ./conda-hooks.nix ];
 
   options.astral.cli = {
@@ -60,8 +60,6 @@ in {
           ".stack/config.yaml" = { source = ./stack-config.yaml; };
         };
       };
-
-      home-manager.enable = true;
 
       programs.git = {
         enable = true;

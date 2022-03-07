@@ -1,4 +1,4 @@
-{ nixos-hardware, qmk_firmware }:
+{ nixos-hardware, qmk_firmware , homeModules}:
 { ... }: {
   imports = [
     (import ./hw { inherit nixos-hardware qmk_firmware; })
@@ -20,6 +20,6 @@
     ./net/zerotier.nix
     ./users
 
-    ./roles
+    (import ./roles { inherit homeModules; })
   ];
 }

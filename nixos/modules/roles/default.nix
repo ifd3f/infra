@@ -1,1 +1,1 @@
-{ imports = [ ./server.nix ./laptop.nix ./pc.nix ./jump.nix ]; }
+inputs: { imports = [ (import ./server.nix inputs) ./laptop.nix ./pc.nix ]; }

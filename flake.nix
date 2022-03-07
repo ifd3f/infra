@@ -37,74 +37,76 @@
   };
 
   outputs = { self, nixpkgs-unstable, nixos-vscode-server, flake-utils
-    , home-manager-unstable, qmk_firmware, nixos-hardware, ... }@inputs:
+    , home-manager-unstable, qmk_firmware, nixos-hardware, powerlevel10k, ...
+    }@inputs:
     let
-      astralModule =
-        import ./nixos/modules { inherit nixos-hardware qmk_firmware; };
-
-      astralHome = import ./home-manager/astral { inherit powerlevel10k; };
-
       nixpkgs = nixpkgs-unstable;
       home-manager = home-manager-unstable;
+
       alib = import ./nixos/lib {
         inherit nixpkgs;
-        baseModules = [ astralModule home-manager.nixosModule ];
+        baseModules = [
+          home-manager.nixosModule
+          { nixpkgs.overlays = [ self.overlay ]; }
+          self.nixosModule
+        ];
+
+        inherit home-manager;
+        baseHomeModules = [
+          "${nixos-vscode-server}/modules/vscode-server/home.nix"
+          { nixpkgs.overlays = [ self.overlay ]; }
+        ];
       };
 
     in (flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" ] (system: {
       devShell =
         import ./shell.nix { pkgs = nixpkgs.legacyPackages.${system}; };
     }) // {
-      homeModule = astralHome;
-      homeModules.astral = astralHome;
+      overlay = final: prev: {
+        home-manager = home-manager-unstable.packages.home-manager;
+      };
 
-      homeConfigurations = let
-        mkAstridConfig = { imports }:
-          home-manager.lib.homeManagerConfiguration {
-            system = "x86_64-linux";
-            homeDirectory = "/home/astrid";
-            username = "astrid";
-            configuration.imports = imports;
+      homeModule = self.homeModules.astral;
+      homeModules = {
+        astral = import ./home-manager/astral { inherit powerlevel10k; };
+
+        astral-cli = {
+          imports = [ self.homeModules.astral ];
+          astral.cli = {
+            # enable = true;
+            extended = true;
           };
-      in {
-        "astrid@aliaconda" = mkAstridConfig {
-          imports = [
-            self.homeModules.astrid_cli_full
-            self.homeModules.astrid_vi_full
-            self.homeModules.conda-hooks
-          ];
+          astral.vi = {
+            enable = true;
+            ide = true;
+          };
         };
 
-        "astrid@banana" = mkAstridConfig {
-          imports = [
-            self.homeModules.astrid_cli_full
-            self.homeModules.astrid_vi_full
-            self.homeModules.astrid_x11
-            self.homeModules.i3-xfce
-          ];
+        astral-scientific = {
+          imports = [ self.homeModules.astral-cli ];
+          astral.cli.conda-hooks.enable = true;
         };
 
-        "astrid@cracktop-pc" = mkAstridConfig {
-          imports = [
-            self.homeModules.astrid_cli_full
-            self.homeModules.astrid_vi_full
-            self.homeModules.astrid_x11
-            self.homeModules.i3-xfce
-          ];
-        };
-
-        "astrid@shai-hulud" = mkAstridConfig {
-          imports = [
-            self.homeModules.astrid_cli_full
-            self.homeModules.astrid_vi_full
-            self.homeModules.astrid_x11
-            self.homeModules.i3-xfce
-          ];
+        astral-gui = {
+          imports = [ self.homeModules.astral-cli ];
+          astral.gui.enable = true;
         };
       };
 
-      nixosModule = astralModule;
-      nixosModules.astral = astralModule;
+      homeConfigurations = {
+        "astrid@aliaconda" =
+          alib.mkHomeConfig { module = self.homeModules.astral-scientific; };
+        "astrid@banana" =
+          alib.mkHomeConfig { module = self.homeModules.astral-gui; };
+        "astrid@shai-hulud" =
+          alib.mkHomeConfig { module = self.homeModules.astral-gui; };
+      };
+
+      nixosModule = self.nixosModules.astral;
+      nixosModules.astral = import ./nixos/modules {
+        inherit nixos-hardware qmk_firmware;
+        homeModules = self.homeModules;
+      };
 
       nixosConfigurations = (alib.mkSystemEntries {
         banana = import ./nixos/systems/banana inputs;

@@ -1,23 +1,15 @@
 # X11-enabled home manager settings
 { config, lib, pkgs, ... }:
 with lib; {
-  imports = [ ./alacritty.nix ];
-
-  options.astral.cli = {
+  options.astral.gui = {
     enable = mkOption {
-      description = "Enable basic GUI customizations.";
+      description = "Enable GUI customizations.";
       default = true;
-      type = types.bool;
-    };
-
-    alacritty.enable = mkOption {
-      description = "Enable alacritty customizations.";
-      default = false;
       type = types.bool;
     };
   };
 
-  config = let cfg = options.astral.gui;
+  config = let cfg = config.astral.gui;
   in (mkIf cfg.enable (mkMerge [
     {
       nixpkgs.config.allowUnfree = true;
@@ -35,9 +27,8 @@ with lib; {
         "v" = "xclip -o -selection clipboard";
       };
     }
-
-    (mkIf cfg.alacritty.enable {
-      home.packages = [ meslo-lgs-nf ];
+    {
+      home.packages = with pkgs; [ meslo-lgs-nf ];
 
       programs.alacritty = {
         enable = true;
@@ -48,7 +39,7 @@ with lib; {
           };
         };
       };
-    })
+    }
   ]));
 
 }

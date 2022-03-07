@@ -10,11 +10,11 @@ with lib; {
     conda = mkOption {
       description = "Path to the conda executable.";
       default = "/home/astrid/anaconda3/bin/conda";
-      type = types.string;
+      type = types.str;
     };
   };
 
-  config.programs = let cfg = astral.cli.conda-hooks;
+  config.programs = let cfg = config.astral.cli.conda-hooks;
   in mkIf cfg.enable {
     bash.profileExtra = ''
       eval "$(${cfg.conda} shell.bash hook)" 

@@ -29,7 +29,7 @@ with lib; {
     };
 
     environment.systemPackages = with pkgs;
-    # netcat for qemu+ssh:// connections
-      ([ netcat ] ++ (if cfg.virt-manager.enable then virt-manager else [ ]));
+      ([ netcat ] # netcat for qemu+ssh:// connections
+        ++ (if cfg.virt-manager.enable then [ virt-manager ] else [ ]));
   };
 }

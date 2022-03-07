@@ -1,3 +1,4 @@
+{ homeModules }:
 { config, lib, ... }:
 with lib; {
   options.astral.roles.server.enable = mkOption {
@@ -16,6 +17,13 @@ with lib; {
     boot.initrd.network.ssh = {
       enable = true;
       authorizedKeys = [ (import ../../ssh_keys).astrid ];
+    };
+
+    home-manager = {
+      useGlobalPkgs = true;
+      useUserPackages = true;
+
+      users.astrid = homeModules.astral-cli;
     };
 
     # Passwordless sudo

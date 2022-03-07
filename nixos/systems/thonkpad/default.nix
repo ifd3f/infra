@@ -23,14 +23,6 @@
     interfaces.enp0s25.useDHCP = true;
   };
 
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-
-    # TODO refer to self.homeConfigurations."astrid@gfdesk" instead
-    # users.astrid = self.homeModules.astrid_cli_full;
-  };
-
   nixpkgs.config.allowUnfree = true;
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
