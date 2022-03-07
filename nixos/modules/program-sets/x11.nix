@@ -1,14 +1,14 @@
 { pkgs, ... }: {
   environment.systemPackages = with pkgs; [
     bitwarden
-    cheese
+    gnome.cheese
     flameshot
     nomacs
     obs-studio
     remmina
-    tenacity-unstable
+    tenacity
     vlc
     xclip
-    xev
+    xorg.xev
   ];
 }

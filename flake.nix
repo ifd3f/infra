@@ -45,14 +45,10 @@
 
       alib = import ./nixos/lib {
         inherit nixpkgs;
-        baseModules = [
-          home-manager.nixosModule
-          { nixpkgs.overlays = [ self.overlay ]; }
-          self.nixosModule
-        ];
+        baseModules = [ self.nixosModule ];
 
         inherit home-manager;
-        baseHomeModules = [{ nixpkgs.overlays = [ self.overlay ]; }];
+        baseHomeModules = [ self.homeModule ];
       };
 
     in (flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" ] (system: {
@@ -105,9 +101,14 @@
       };
 
       nixosModule = self.nixosModules.astral;
-      nixosModules.astral = import ./nixos/modules {
-        inherit nixos-hardware qmk_firmware;
-        homeModules = self.homeModules;
+      nixosModules.astral = {
+        imports = [
+          home-manager.nixosModule
+          (import ./nixos/modules {
+            inherit nixos-hardware qmk_firmware;
+            homeModules = self.homeModules;
+          })
+        ];
       };
 
       nixosConfigurations = (alib.mkSystemEntries {

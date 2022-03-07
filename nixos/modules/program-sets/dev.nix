@@ -4,7 +4,7 @@
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
-    android-studio-stable
+    android-studio
     cachix
     dbeaver
     firefox-devedition-bin

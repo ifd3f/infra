@@ -20,9 +20,11 @@ with lib; {
       program-sets = {
         browsers = true;
         cad = true;
+        chat = true;
         dev = true;
         office = true;
         security = true;
+        x11 = true;
       };
       hw.kb-flashing.enable = true;
       virt = {

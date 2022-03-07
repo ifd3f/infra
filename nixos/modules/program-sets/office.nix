@@ -4,6 +4,7 @@
     inkscape
     krita
     libreoffice-fresh
+    lmms
     okular
     thunderbird
     xournalpp
