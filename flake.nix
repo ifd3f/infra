@@ -52,10 +52,7 @@
         ];
 
         inherit home-manager;
-        baseHomeModules = [
-          "${nixos-vscode-server}/modules/vscode-server/home.nix"
-          { nixpkgs.overlays = [ self.overlay ]; }
-        ];
+        baseHomeModules = [{ nixpkgs.overlays = [ self.overlay ]; }];
       };
 
     in (flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" ] (system: {
@@ -68,7 +65,12 @@
 
       homeModule = self.homeModules.astral;
       homeModules = {
-        astral = import ./home-manager/astral { inherit powerlevel10k; };
+        astral = {
+          imports = [
+            "${nixos-vscode-server}/modules/vscode-server/home.nix"
+            (import ./home-manager/astral { inherit powerlevel10k; })
+          ];
+        };
 
         astral-cli = {
           imports = [ self.homeModules.astral ];
@@ -126,8 +128,6 @@
             import ./nixos/systems/installer-iso.nix { inherit nixpkgs; };
         };
       in { installer-iso = installerSystem.config.system.build.isoImage; };
-
-      wallpapers = import ./home-manager/wallpapers;
 
       sshKeys = import ./ssh_keys;
     });
