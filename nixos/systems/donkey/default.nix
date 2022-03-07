@@ -2,23 +2,13 @@
 # It's called Donkey because it's slow, but I'll use it to hold data
 # for me as a NAS.
 { self, ... }: {
-  imports = with self.nixosModules; [
-    ./hardware-configuration.nix
+  imports = with self.nixosModules; [ ./hardware-configuration.nix ];
 
-    bm-server
-    debuggable
-    sshd
-    wireguard-client
-    zerotier
-    zfs-boot
-  ];
-
-  astral.infra-update.enable = true;
+  astral.roles.server.enable = true;
 
   time.timeZone = "US/Pacific";
 
   networking = {
-    hostName = "donkey";
     domain = "id.astrid.tech";
 
     hostId = "49e32584";

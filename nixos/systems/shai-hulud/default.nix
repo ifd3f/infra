@@ -1,35 +1,22 @@
 # My Surface Pro.
-{ self, nixos-hardware, ... }:
+{ nixos-hardware, ... }:
 { config, pkgs, lib, ... }: {
-  imports = (with self.nixosModules; [
-    ./hardware-configuration.nix
+  imports = [ ./hardware-configuration.nix ]
+    ++ (with nixos-hardware.nixosModules; [
+      common-cpu-intel
+      common-pc-ssd
+      microsoft-surface
+    ]);
 
-    #surface-pro6
-    debuggable
-    i3-kde
-    laptop
-    libvirt
-    nix-dev
-    office
-    pc
-    pipewire
-    qmk-udev
-    sshd
-    wireguard-client
-    zerotier
-    zfs-boot
-  ]) ++ (with nixos-hardware.nixosModules; [
-    common-cpu-intel
-    common-pc-ssd
-    microsoft-surface
-  ]);
   time.timeZone = "US/Pacific";
-
-  # see surface-pro6.nix
-  #ptw.hardware.surface.enable = true;
 
   # so i can be a *gamer*
   programs.steam.enable = true;
+
+  astral = {
+    roles.pc.enable = true;
+    hw.surface.enable = true;
+  };
 
   hardware = {
     opengl.enable = true;
@@ -37,7 +24,6 @@
   };
 
   networking = {
-    hostName = "shai-hulud";
     domain = "id.astrid.tech";
 
     hostId = "49e32584";
@@ -45,18 +31,16 @@
     useDHCP = false;
   };
 
-  boot = {
-    loader = {
-      efi.canTouchEfiVariables = true;
+  boot.loader = {
+    efi.canTouchEfiVariables = true;
 
-      grub = {
-        devices = [ "nodev" ];
-        efiSupport = true;
-        enable = true;
-        version = 2;
-        useOSProber = true;
-        splashImage = ./shai-hulud-dark.jpg;
-      };
+    grub = {
+      devices = [ "nodev" ];
+      efiSupport = true;
+      enable = true;
+      version = 2;
+      useOSProber = true;
+      splashImage = ./shai-hulud-dark.jpg;
     };
   };
 }

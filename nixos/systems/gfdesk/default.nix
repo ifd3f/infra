@@ -1,21 +1,18 @@
 # The desk that is used by Good Friends.
-{ self, home-manager-unstable, ... }:
+{ self, ... }:
 { config, lib, pkgs, ... }: {
-  imports = with self.nixosModules; [
-    ./hardware-configuration.nix
+  imports = with self.nixosModules; [ ./hardware-configuration.nix ];
 
-    bm-server
-    debuggable
-    home-manager-unstable.nixosModules.home-manager
-    libvirt
-    nix-dev
-    sshd
-    zerotier
-    zfs-boot
-    zsh
-  ];
-
-  astral.infra-update.enable = true;
+  astral = {
+    roles.server.enable = true;
+    users.alia.enable = true;
+    virt = {
+      docker.enable = true;
+      libvirt.enable = true;
+      lxc.enable = true;
+    };
+    net.zerotier.public = true;
+  };
 
   time.timeZone = "US/Pacific";
 
@@ -23,22 +20,7 @@
   # it's a jet engine when it boots and it will probably wake me up at 4:00 AM
   system.autoUpgrade.allowReboot = false;
 
-  # a Very Good Friend's user
-  users.users.alia = import ../../users/alia.nix;
-
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-
-    users.astrid = {
-      imports = with self.homeModules; [ astrid_cli_full astrid_vi_full ];
-    };
-  };
-
   networking = {
-    hostName = "gfdesk";
-    domain = "id.astrid.tech";
-
     hostId = "6d1020a1"; # Required for ZFS
     useDHCP = false;
 
@@ -52,14 +34,6 @@
       br0.useDHCP = true;
     };
   };
-
-  virtualisation = {
-    lxd.enable = true;
-    lxc.enable = true;
-  };
-
-  # astrid.tech public zerotier network
-  services.zerotierone.joinNetworks = [ "e5cd7a9e1c618388" ];
 
   # Use the GRUB 2 boot loader.
   boot = {

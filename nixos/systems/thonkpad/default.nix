@@ -1,21 +1,9 @@
 # An old Thinkpad T420 to be used as a server.
-{ self, home-manager-unstable, ... }:
+{ ... }:
 { config, lib, pkgs, ... }: {
-  imports = with self.nixosModules; [
-    (import ./hardware-configuration.nix)
+  imports = [ ./hardware-configuration.nix ];
 
-    bm-server
-    debuggable
-    home-manager-unstable.nixosModules.home-manager
-    libvirt
-    nix-dev
-    sshd
-    zerotier
-    zfs-boot
-    zsh
-  ];
-
-  astral.infra-update.enable = true;
+  astral.roles.server.enable = true;
 
   time.timeZone = "US/Pacific";
 
@@ -28,7 +16,6 @@
   };
 
   networking = {
-    hostName = "thonkpad";
     domain = "id.astrid.tech";
     hostId = "49e32584";
 
@@ -36,20 +23,7 @@
     interfaces.enp0s25.useDHCP = true;
   };
 
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-
-    # TODO refer to self.homeConfigurations."astrid@gfdesk" instead
-    users.astrid = self.homeModules.astrid_cli_full;
-  };
-
   nixpkgs.config.allowUnfree = true;
-
-  users = {
-    mutableUsers = true;
-    users.astrid = import ../../users/astrid.nix;
-  };
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 }

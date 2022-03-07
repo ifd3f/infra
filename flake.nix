@@ -4,13 +4,7 @@
   inputs = {
     flake-utils.url = "github:numtide/flake-utils";
 
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-21.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-
-    home-manager-stable = {
-      url = "github:nix-community/home-manager/release-21.11";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-    };
     home-manager-unstable = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -43,134 +37,95 @@
   };
 
   outputs = { self, nixpkgs-unstable, nixos-vscode-server, flake-utils
-    , home-manager-unstable, ... }@inputs:
+    , home-manager-unstable, qmk_firmware, nixos-hardware, powerlevel10k, ...
+    }@inputs:
     let
-      astralModule = import ./nixos/modules inputs;
+      nixpkgs = nixpkgs-unstable;
+      home-manager = home-manager-unstable;
+
       alib = import ./nixos/lib {
-        nixpkgs = nixpkgs-unstable;
-        inherit astralModule;
-        home-manager = home-manager-unstable;
-        nixosModules = self.nixosModules;
+        inherit nixpkgs home-manager;
+        baseModules = [ self.nixosModule ];
       };
+
     in (flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" ] (system: {
-      devShell = import ./shell.nix {
-        pkgs = nixpkgs-unstable.legacyPackages.${system};
-      };
+      devShell =
+        import ./shell.nix { pkgs = nixpkgs.legacyPackages.${system}; };
     }) // {
-      homeConfigurations = let
-        mkAstridConfig = { imports }:
-          inputs.home-manager-unstable.lib.homeManagerConfiguration {
-            system = "x86_64-linux";
-            homeDirectory = "/home/astrid";
-            username = "astrid";
-            configuration.imports = imports;
+      overlay = final: prev: {
+        home-manager = home-manager-unstable.packages.home-manager;
+      };
+
+      homeModule = self.homeModules.astral;
+      homeModules = {
+        astral = {
+          imports = [
+            "${nixos-vscode-server}/modules/vscode-server/home.nix"
+            (import ./home-manager/astral { inherit powerlevel10k; })
+          ];
+        };
+
+        astral-cli = {
+          imports = [ self.homeModules.astral ];
+          astral.cli = {
+            # enable = true;
+            extended = true;
           };
-      in {
-        "astrid@aliaconda" = mkAstridConfig {
-          imports = [
-            self.homeModules.astrid_cli_full
-            self.homeModules.astrid_vi_full
-            self.homeModules.conda-hooks
-          ];
+          astral.vi = {
+            enable = true;
+            ide = true;
+          };
         };
 
-        "astrid@banana" = mkAstridConfig {
-          imports = [
-            self.homeModules.astrid_cli_full
-            self.homeModules.astrid_vi_full
-            self.homeModules.astrid_x11
-            self.homeModules.i3-xfce
-          ];
+        astral-scientific = {
+          imports = [ self.homeModules.astral-cli ];
+          astral.cli.conda-hooks.enable = true;
         };
 
-        "astrid@cracktop-pc" = mkAstridConfig {
-          imports = [
-            self.homeModules.astrid_cli_full
-            self.homeModules.astrid_vi_full
-            self.homeModules.astrid_x11
-            self.homeModules.i3-xfce
-          ];
-        };
-
-        "astrid@shai-hulud" = mkAstridConfig {
-          imports = [
-            self.homeModules.astrid_cli_full
-            self.homeModules.astrid_vi_full
-            self.homeModules.astrid_x11
-            self.homeModules.i3-xfce
-          ];
+        astral-gui = {
+          imports = [ self.homeModules.astral-cli ];
+          astral.gui.enable = true;
         };
       };
 
-      homeModules = {
-        nixos-vscode-server =
-          "${nixos-vscode-server}/modules/vscode-server/home.nix";
+      homeConfigurations = {
+        "astrid@aliaconda" =
+          alib.mkHomeConfig { module = self.homeModules.astral-scientific; };
+        "astrid@banana" =
+          alib.mkHomeConfig { module = self.homeModules.astral-gui; };
+        "astrid@shai-hulud" =
+          alib.mkHomeConfig { module = self.homeModules.astral-gui; };
+      };
 
-        astrid_alacritty = import ./home-manager/astrid/alacritty.nix;
-        astrid_cli = import ./home-manager/astrid/cli.nix;
-        astrid_cli_full = import ./home-manager/astrid/cli_full.nix inputs;
-        astrid_vi = import ./home-manager/astrid/vi.nix;
-        astrid_vi_full = import ./home-manager/astrid/vi_full.nix inputs;
-        astrid_x11 = import ./home-manager/astrid/x11.nix inputs;
-        astrid_zsh = import ./home-manager/astrid/zsh.nix inputs;
-
-        conda-hooks = import ./home-manager/conda-hooks.nix;
-        i3-xfce = import ./home-manager/i3-xfce;
-        xclip = import ./home-manager/xclip.nix;
+      nixosModule = self.nixosModules.astral;
+      nixosModules.astral = {
+        imports = [
+          home-manager.nixosModule
+          (import ./nixos/modules {
+            inherit nixos-hardware qmk_firmware;
+            homeModules = self.homeModules;
+          })
+        ];
       };
 
       nixosConfigurations = (alib.mkSystemEntries {
-        "banana" = import ./nixos/systems/banana inputs;
-        "donkey" = import ./nixos/systems/donkey inputs;
-        "gfdesk" = import ./nixos/systems/gfdesk inputs;
-        "shai-hulud" = import ./nixos/systems/shai-hulud inputs;
-        "thonkpad" = import ./nixos/systems/thonkpad inputs;
+        banana = import ./nixos/systems/banana inputs;
+        donkey = import ./nixos/systems/donkey inputs;
+        gfdesk = import ./nixos/systems/gfdesk inputs;
+        shai-hulud = import ./nixos/systems/shai-hulud inputs;
+        thonkpad = import ./nixos/systems/thonkpad inputs;
       }) // (alib.mkPiJumpserverEntries {
         jonathan-js = { };
         joseph-js = { };
       });
 
-      nixosModule = astralModule;
-
-      nixosModules = {
-        astral = astralModule;
-        bm-server = import ./nixos/modules/bm-server.nix inputs;
-        cachix = import ./nixos/modules/cachix.nix;
-        debuggable = import ./nixos/modules/debuggable.nix;
-        ext4-ephroot = import ./nixos/modules/ext4-ephroot.nix;
-        octoprint-full = import ./nixos/modules/octoprint-full.nix inputs;
-        gnupg = import ./nixos/modules/gnupg.nix;
-        i3-kde = import ./nixos/modules/i3-kde.nix;
-        i3-xfce = import ./nixos/modules/i3-xfce.nix;
-        laptop = import ./nixos/modules/laptop.nix inputs;
-        libvirt = import ./nixos/modules/libvirt.nix;
-        nix-dev = import ./nixos/modules/nix-dev.nix;
-        office = import ./nixos/modules/office.nix inputs;
-        persistence = import ./nixos/modules/persistence.nix;
-        pipewire = import ./nixos/modules/pipewire.nix;
-        pc = import ./nixos/modules/pc.nix inputs;
-        pi-jump = import ./nixos/modules/pi-jump.nix inputs;
-        qmk-udev = import ./nixos/modules/qmk-udev.nix inputs;
-        sshd = import ./nixos/modules/sshd.nix;
-        infra-update = import ./nixos/modules/infra-update.nix;
-        #surface-pro6 = import ./nixos/modules/surface-pro6.nix;
-        wireguard-client = import ./nixos/modules/wireguard-client.nix;
-        zerotier = import ./nixos/modules/zerotier.nix;
-        zfs-boot = import ./nixos/modules/zfs-boot.nix;
-        zsh = import ./nixos/modules/zsh.nix;
-      };
-
       diskImages = let
-        installerResult = import ./nixos/systems/installer-iso.nix {
-          nixosModules = self.nixosModules;
-          mkSystem = alib.mkSystem;
-          nixpkgs = nixpkgs-unstable;
+        installerSystem = alib.mkSystem {
+          hostName = "astral-installer";
+          module =
+            import ./nixos/systems/installer-iso.nix { inherit nixpkgs; };
         };
-      in {
-        installer-iso = installerResult.config.system.build.isoImage;
-      };
-
-      wallpapers = import ./home-manager/wallpapers;
+      in { installer-iso = installerSystem.config.system.build.isoImage; };
 
       sshKeys = import ./ssh_keys;
     });

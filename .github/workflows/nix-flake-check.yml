@@ -5,7 +5,6 @@ name: Validate flake and build targets
 
 on:
   push: {}
-  pull_request: {}
   workflow_call: {}
 
 jobs:
@@ -43,10 +42,9 @@ jobs:
       matrix:
         target:
           - banana
-          # - cracktop-pc
           - donkey
           - gfdesk
-          - shai-hulud
+          # TODO: - shai-hulud
           - thonkpad
           # TODO: - jonathan-js
         

@@ -4,39 +4,39 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
-    ];
+  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" ];
+  boot.initrd.availableKernelModules =
+    [ "xhci_pci" "nvme" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    { device = "tank/enc/root";
-      fsType = "zfs";
-    };
+  fileSystems."/" = {
+    device = "tank/enc/root";
+    fsType = "zfs";
+  };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/4DC0-283F";
-      fsType = "vfat";
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/4DC0-283F";
+    fsType = "vfat";
+  };
 
-  fileSystems."/home" =
-    { device = "tank/enc/home";
-      fsType = "zfs";
-    };
+  fileSystems."/home" = {
+    device = "tank/enc/home";
+    fsType = "zfs";
+  };
 
-  fileSystems."/var" =
-    { device = "tank/enc/var";
-      fsType = "zfs";
-    };
+  fileSystems."/var" = {
+    device = "tank/enc/var";
+    fsType = "zfs";
+  };
 
   swapDevices = [ ];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.intel.updateMicrocode =
+    lib.mkDefault config.hardware.enableRedistributableFirmware;
   # high-resolution display
   hardware.video.hidpi.enable = lib.mkDefault true;
 }

@@ -1,24 +1,11 @@
 # My gaming laptop.
-{ self, ... }:
+{ ... }:
 { pkgs, lib, ... }: {
-  imports = with self.nixosModules; [
-    ./hardware-configuration.nix
+  imports = [ ./hardware-configuration.nix ];
 
-    debuggable
-    i3-kde
-    laptop
-    libvirt
-    nix-dev
-    office
-    pc
-    pipewire
-    qmk-udev
-    sshd
-    wireguard-client
-    zerotier
-    zfs-boot
-  ];
   time.timeZone = "US/Pacific";
+
+  astral = { roles.pc.enable = true; };
 
   # so i can be a *gamer*
   programs.steam.enable = true;

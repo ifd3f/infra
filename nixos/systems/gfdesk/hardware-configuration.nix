@@ -4,47 +4,47 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
-    ];
+  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-  boot.initrd.availableKernelModules = [ "ehci_pci" "ata_piix" "uhci_hcd" "hpsa" "usb_storage" "sd_mod" ];
+  boot.initrd.availableKernelModules =
+    [ "ehci_pci" "ata_piix" "uhci_hcd" "hpsa" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/3765a270-e97e-49b5-b94e-96d926dfa7d0";
-      fsType = "ext4";
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/3765a270-e97e-49b5-b94e-96d926dfa7d0";
+    fsType = "ext4";
+  };
 
-  fileSystems."/nix" =
-    { device = "rpool/local/nix";
-      fsType = "zfs";
-    };
+  fileSystems."/nix" = {
+    device = "rpool/local/nix";
+    fsType = "zfs";
+  };
 
-  fileSystems."/home" =
-    { device = "dpool/safe/home";
-      fsType = "zfs";
-    };
+  fileSystems."/home" = {
+    device = "dpool/safe/home";
+    fsType = "zfs";
+  };
 
-  fileSystems."/var" =
-    { device = "rpool/safe/var";
-      fsType = "zfs";
-    };
+  fileSystems."/var" = {
+    device = "rpool/safe/var";
+    fsType = "zfs";
+  };
 
-  fileSystems."/tmp" =
-    { device = "rpool/local/tmp";
-      fsType = "zfs";
-    };
+  fileSystems."/tmp" = {
+    device = "rpool/local/tmp";
+    fsType = "zfs";
+  };
 
-  fileSystems."/var/lib/libvirt" =
-    { device = "dpool/safe/libvirt";
-      fsType = "zfs";
-    };
+  fileSystems."/var/lib/libvirt" = {
+    device = "dpool/safe/libvirt";
+    fsType = "zfs";
+  };
 
   swapDevices = [ ];
 
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.intel.updateMicrocode =
+    lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
 

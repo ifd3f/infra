@@ -5,7 +5,7 @@
 { lib, config, pkgs, ... }: {
   options.astral.infra-update = with pkgs.lib; {
     enable = mkOption {
-      description = "Enable to update from the infra repo.";
+      description = "Enable to periodically update from the infra repo.";
       default = false;
       type = types.bool;
     };
