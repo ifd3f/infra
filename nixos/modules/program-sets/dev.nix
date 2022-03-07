@@ -4,7 +4,9 @@
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
+    android-studio-stable
     cachix
+    dbeaver
     firefox-devedition-bin
     gh
     gitkraken

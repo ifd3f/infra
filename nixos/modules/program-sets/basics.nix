@@ -33,12 +33,14 @@
     bind
     ed
     elinks
+    file
     iftop
     iotop
-    psmisc
     neofetch
     nmap
+    p7zip
     pciutils
+    psmisc
     unzip
     usbutils
     uwufetch
