@@ -28,20 +28,26 @@ with lib; {
         plugins = with pkgs.vimPlugins; [ vim-plug vim-sleuth ];
         extraConfig = ''
           source ${pkgs.vimPlugins.vim-plug}/plug.vim
-        '' + builtins.readFile ./init.nvim;
+
+          ${builtins.readFile ./init.nvim}
+        '';
       };
     }
     (mkIf cfg.ide {
       programs.neovim = {
         coc = {
           enable = true;
-          settings = { "suggest.enablePreview" = true; };
+          settings = builtins.fromJSON (builtins.readFile ./coc-settings.json);
         };
 
-        extraConfig = builtins.readFile ./ide.nvim;
+        extraConfig = ''
+          ${builtins.readFile ./ide.nvim}
+        '';
 
-        plugins = with pkgs.vimPlugins; [ vimtex ];
+        plugins = with pkgs.vimPlugins; [ coc-nvim vimtex ];
       };
+
+      home.packages = with pkgs; [ nodejs nodePackages.npm ];
     })
   ]);
 }

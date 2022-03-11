@@ -1,15 +1,31 @@
-
-call plug#begin('~/.config/nvim/plugged')
-
-" programs.neovim.coc.enable doesn't work
-Plug 'neoclide/coc.nvim', {'branch': 'release'} 
-
-call plug#end()
-
 " Refresh coc faster
-set updatetime=300
+set updatetime=100
+
+let g:coc_global_extensions = ['coc-tsserver']
+autocmd CursorHold * silent call CocActionAsync('highlight')
+autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 
 " Force refresh with c-space
 inoremap <silent><expr> <c-space> coc#refresh()
 
-let g:coc_global_extensions = ['coc-tsserver']
+" Partially stolen from http://0xd34df00d.me/posts/2021/10/vim-and-haskell-in-2021.html
+map <Leader>ggd <Plug>(coc-definition)
+map <Leader>ggi <Plug>(coc-implementation)
+map <Leader>ggt <Plug>(coc-type-definition)
+map <Leader>gh :call CocActionAsync('doHover')<cr>
+map <Leader>gn <Plug>(coc-diagnostic-next)
+map <Leader>gp <Plug>(coc-diagnostic-prev)
+map <Leader>gr <Plug>(coc-references)
+
+map <Leader>rn <Plug>(coc-rename)
+map <Leader>rf <Plug>(coc-refactor)
+map <Leader>.. <Plug>(coc-fix-current)
+
+map <Leader>al <Plug>(coc-codeaction-line)
+map <Leader>ac <Plug>(coc-codeaction-cursor)
+map <Leader>ao <Plug>(coc-codelens-action)
+
+nnoremap <Leader>kd :<C-u>CocList diagnostics<Cr>
+nnoremap <Leader>kc :<C-u>CocList commands<Cr>
+nnoremap <Leader>ko :<C-u>CocList outline<Cr>
+nnoremap <Leader>kr :<C-u>CocListResume<Cr>
