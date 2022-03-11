@@ -29,3 +29,11 @@ nnoremap <Leader>kd :<C-u>CocList diagnostics<Cr>
 nnoremap <Leader>kc :<C-u>CocList commands<Cr>
 nnoremap <Leader>ko :<C-u>CocList outline<Cr>
 nnoremap <Leader>kr :<C-u>CocListResume<Cr>
+
+" Test binds
+nmap <silent> <leader>tt :TestNearest<CR>
+nmap <silent> <leader>tf :TestFile<CR>
+nmap <silent> <leader>ta :TestSuite<CR>
+nmap <silent> <leader>tl :TestLast<CR>
+nmap <silent> <leader>tg :TestVisit<CR>
+

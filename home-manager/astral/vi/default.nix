@@ -25,7 +25,7 @@ with lib; {
         vimAlias = true;
         vimdiffAlias = true;
 
-        plugins = with pkgs.vimPlugins; [ vim-nix vim-plug vim-sleuth ];
+        plugins = with pkgs.vimPlugins; [ nerdtree nerdtree-git-plugin vim-nix vim-plug vim-sleuth ];
         extraConfig = ''
           source ${pkgs.vimPlugins.vim-plug}/plug.vim
 
@@ -44,7 +44,7 @@ with lib; {
           ${builtins.readFile ./ide.nvim}
         '';
 
-        plugins = with pkgs.vimPlugins; [ coc-nvim vimtex ];
+        plugins = with pkgs.vimPlugins; [ coc-nvim vimtex vim-test ];
       };
 
       home.packages = with pkgs; [ nodejs nodePackages.npm ];

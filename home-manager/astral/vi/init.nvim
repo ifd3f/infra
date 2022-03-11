@@ -12,21 +12,43 @@ let g:bullets_enabled_file_types = [
     \ 'scratch'
     \]
 
-" Syntax updates
+" Remapping syntaxes
 autocmd BufNewFile,BufRead *.nvim set syntax=vim
 autocmd BufNewFile,BufRead flake.lock set syntax=json
 autocmd BufNewFile,BufRead coc-settings.json set syntax=jsonc
 
-" Helpful settings
-set autoindent smartindent
+" Change default settings
+set autoindent smartindent ignorecase smartcase number splitbelow
 set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
-set number
-set ignorecase smartcase
 syntax on
 
-" Nerdtree
-nnoremap <leader>nn :NERDTreeFocus<CR>
-nnoremap <C-n> :NERDTree<CR>
-nnoremap <C-t> :NERDTreeToggle<CR>
-nnoremap <C-f> :NERDTreeFind<CR>
+" Detect indent when reading existing file
+autocmd BufRead * Sleuth
+
+" Per-language changes
+autocmd FileType haskell,nix,yaml,json,jsonc setlocal shiftwidth=2 softtabstop=2 expandtab
+
+" Nerdtree helper
+func! Explorer()
+    if !exists("g:NERDTree") 
+        return
+    endif
+
+    if g:NERDTree.IsOpen()
+        :NERDTreeClose
+    else
+        :NERDTreeFind
+    endif
+endfunc
+nnoremap <C-n> :call Explorer()<CR>
+
+" Run make in a split terminal
+func! MakeSplitTerm()
+    exec "w"
+    set splitbelow
+    :sp
+    :res -5
+    term make
+endfunc
+noremap <leader>rr :call MakeSplitTerm()<CR>
 

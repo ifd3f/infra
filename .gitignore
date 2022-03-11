@@ -4,3 +4,7 @@ result
 *.tar 
 *.tar.gz
 *.tar.bz2
+
+# Root Makefile for rapid Vim prototyping
+/Makefile
+
