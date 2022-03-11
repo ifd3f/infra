@@ -25,7 +25,7 @@ with lib; {
         vimAlias = true;
         vimdiffAlias = true;
 
-        plugins = with pkgs.vimPlugins; [ vim-plug vim-sleuth ];
+        plugins = with pkgs.vimPlugins; [ vim-nix vim-plug vim-sleuth ];
         extraConfig = ''
           source ${pkgs.vimPlugins.vim-plug}/plug.vim
 
