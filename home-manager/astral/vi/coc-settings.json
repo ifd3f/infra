@@ -1,11 +1,20 @@
 {
-  "suggest.enablePreview": true,
+  "suggest": {
+    "enablePreview": true,
+    "disableKind": true,
+    "snippetsSupport": false
+  },
+  "diagnostic": {
+    "virtualText": true,
+    "virtualTextCurrentLineOnly": false,
+    "virtualTextLines": 1,
+    "virtualTextPrefix": " —— "
+  },
+  "codeLens.enable": true,
   "languageserver": {
     "haskell": {
       "command": "haskell-language-server-wrapper",
-      "args": [
-        "--lsp"
-      ],
+      "args": ["--lsp"],
       "rootPatterns": [
         ".stack.yaml",
         ".hie-bios",
@@ -17,7 +26,14 @@
         "hs",
         "lhs",
         "haskell"
-      ]
+      ],
+      "initializationOptions": {
+        "languageServerHaskell": {
+          "hlintOn": true,
+          "maxNumberOfProblems": 10,
+          "completionSnippetsOn": true
+        }
+      }
     }
   }
 }
