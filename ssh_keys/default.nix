@@ -4,6 +4,7 @@
   astrid = [
     (builtins.readFile ./astrid_banana_id_ed25519.pub)
     (builtins.readFile ./astrid_cracktop-pc_id_ed25519.pub)
+    (builtins.readFile ./astrid_discovery_id_rsa.pub)
     (builtins.readFile ./astrid_gfdesk_id_ed25519.pub)
     (builtins.readFile ./astrid_jonathan-js_id_rsa.pub)
     (builtins.readFile ./astrid_joseph-js_id_rsa.pub)
