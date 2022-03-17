@@ -2,7 +2,7 @@ name: Flake version bump
 
 on:
   schedule:
-    - cron: "30 3 * * 2" # Every Tuesday at 3:30am - patch Tuesday :D
+    - cron: "00 13 * * 2" # Every Tuesday at 6:00am PST - patch Tuesday :D
   workflow_dispatch:
 
 jobs:
@@ -27,7 +27,7 @@ jobs:
         uses: peter-evans/create-pull-request@v3
         with:
           title: Periodic flake bump ${{ github.run_number }}
-          branch: flake-bump-${{ github.run_number }}
+          branch: auto/flake-bump-${{ github.run_number }}
           commit-message: |
             nix: Bump flake versions (run ${{ github.run_number }})
             
