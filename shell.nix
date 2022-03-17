@@ -13,7 +13,6 @@ pkgs.mkShell {
     google-cloud-sdk
     helmfile
     jq
-    iputils
     kubectl
     kubernetes-helm
     minikube
@@ -31,5 +30,9 @@ pkgs.mkShell {
     wget
     whois
     yq
-  ];
+  ] ++ (
+    if pkgs.system != "x86_64-darwin"
+      then [ iputils ]
+      else []
+  );
 }

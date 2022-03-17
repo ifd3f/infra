@@ -8,8 +8,8 @@ with lib; {
     };
 
     conda = mkOption {
-      description = "Path to the conda executable.";
-      default = "/home/astrid/anaconda3/bin/conda";
+      description = "Conda executable to use.";
+      default = "conda";
       type = types.str;
     };
   };
