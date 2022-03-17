@@ -16,7 +16,7 @@ with lib; {
     # Enable SSH in initrd for debugging
     boot.initrd.network.ssh = {
       enable = true;
-      authorizedKeys = [ (import ../../ssh_keys).astrid ];
+      authorizedKeys = [ (import ../../ssh_keys).users.astrid ];
     };
 
     home-manager = {

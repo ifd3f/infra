@@ -37,7 +37,7 @@
       description =
         "Astrid Yu,astrid.tech/about,(805) 270-5368,nah,astrid@astrid.tech";
       enableByDefault = true;
-      sshKeys = ssh_keys.astrid;
+      sshKeys = ssh_keys.users.astrid;
       defaultGroups = [
         "dialout"
         "docker"
@@ -50,7 +50,7 @@
     })
     (mkUserModule "alia" {
       description = "Alia Lescoulie";
-      sshKeys = ssh_keys.alia;
+      sshKeys = ssh_keys.users.alia;
     })
   ];
 }

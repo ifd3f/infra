@@ -4,7 +4,7 @@
 
 - name: Find public keys to authorize
   connection: local
-  shell: ls {{ ssh_keys_path }}/astrid_*.pub {{ ssh_keys_path }}/gh_rsa.pub  
+  shell: ls {{ ssh_keys_path }}/users/astrid/*.pub {{ ssh_keys_path }}/github/*.pub  
   register: to_authorize
 
 - name: Find public keys to revoke
@@ -25,3 +25,4 @@
     state: absent
     key: "{{ lookup('file', item) }}"
   with_items: "{{ to_revoke.stdout_lines }}"
+
