@@ -44,11 +44,11 @@
       home-manager = home-manager-unstable;
 
       alib = import ./nixos/lib {
-        inherit nixpkgs home-manager;
+        inherit nixpkgs home-manager nixos-vscode-server;
         baseModules = [ self.nixosModule ];
       };
 
-    in (flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" ] (system: {
+    in (flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" ] (system: {
       devShell =
         import ./shell.nix { pkgs = nixpkgs.legacyPackages.${system}; };
     }) // {
@@ -58,12 +58,7 @@
 
       homeModule = self.homeModules.astral;
       homeModules = {
-        astral = {
-          imports = [
-            "${nixos-vscode-server}/modules/vscode-server/home.nix"
-            (import ./home-manager/astral { inherit powerlevel10k; })
-          ];
-        };
+        astral = import ./home-manager/astral { inherit powerlevel10k; };
 
         astral-cli = {
           imports = [ self.homeModules.astral ];
@@ -75,6 +70,20 @@
             enable = true;
             ide = true;
           };
+        };
+
+        astral-macos = {
+          imports = [ self.homeModules.astral ];
+
+          astral.cli = {
+            # enable = true;
+            extended = true;
+          };
+          astral.vi = {
+            enable = true;
+            ide = true;
+          };
+          astral.macos.enable = true;
         };
 
         astral-scientific = {
@@ -99,7 +108,11 @@
         "astrid@shai-hulud" =
           alib.mkHomeConfig { module = self.homeModules.astral-gui; };
         "astrid@soulcaster" =
-          alib.mkHomeConfig { module = self.homeModules.astral-scientific; };
+          alib.mkHomeConfig {
+            module = self.homeModules.astral-macos;
+            vscode-server = false;
+            system = "x86_64-darwin";
+          };
       };
 
       nixosModule = self.nixosModules.astral;

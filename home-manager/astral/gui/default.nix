@@ -4,7 +4,7 @@ with lib; {
   options.astral.gui = {
     enable = mkOption {
       description = "Enable GUI customizations.";
-      default = true;
+      default = false;
       type = types.bool;
     };
   };
