@@ -52,7 +52,10 @@
   mkHomeConfig = { module ? [], system ? "x86_64-linux", vscode-server ? true }:
     home-manager.lib.homeManagerConfiguration {
       inherit system;
-      homeDirectory = "/home/astrid";
+      homeDirectory =
+        if system == "x86_64-darwin"
+          then "/Users/astrid"
+          else "/home/astrid";
       username = "astrid";
       configuration = {
         imports = [ module ] ++

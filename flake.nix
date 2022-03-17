@@ -72,6 +72,20 @@
           };
         };
 
+        astral-macos = {
+          imports = [ self.homeModules.astral ];
+
+          astral.cli = {
+            # enable = true;
+            extended = true;
+          };
+          astral.vi = {
+            enable = true;
+            ide = true;
+          };
+          astral.macos.enable = true;
+        };
+
         astral-scientific = {
           imports = [ self.homeModules.astral-cli ];
           astral.cli.conda-hooks.enable = true;
@@ -95,7 +109,7 @@
           alib.mkHomeConfig { module = self.homeModules.astral-gui; };
         "astrid@soulcaster" =
           alib.mkHomeConfig {
-            module = self.homeModules.astral-scientific;
+            module = self.homeModules.astral-macos;
             vscode-server = false;
             system = "x86_64-darwin";
           };

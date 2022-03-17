@@ -54,7 +54,7 @@ in with lib; {
       home = {
         shellAliases = commonAliases;
         sessionVariables = { EDITOR = "vi"; };
-        packages = with pkgs; [ htop bitwarden-cli ranger ];
+        packages = with pkgs; [ htop home-manager bitwarden-cli ranger ];
         file = {
           ".config/ranger/rc.conf" = { source = ./ranger.conf; };
           ".stack/config.yaml" = { source = ./stack-config.yaml; };
@@ -115,6 +115,9 @@ in with lib; {
           # Do not load identities on start
           # See https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/ssh-agent#settings
           zstyle :omz:plugins:ssh-agent lazy yes
+
+          # Potentially needed on non-NixOS
+          export NIX_PATH=$HOME/.nix-defexpr/channels:/nix/var/nix/profiles/per-user/root/channels''${NIX_PATH:+:$NIX_PATH}
         '';
 
         plugins = [{
