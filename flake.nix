@@ -88,6 +88,7 @@
         };
       };
 
+      homeConfiguration = self.homeModules.astral-cli;
       homeConfigurations = {
         "astrid@aliaconda" =
           alib.mkHomeConfig { module = self.homeModules.astral-scientific; };
@@ -97,6 +98,8 @@
           alib.mkHomeConfig { module = self.homeModules.astral-gui; };
         "astrid@shai-hulud" =
           alib.mkHomeConfig { module = self.homeModules.astral-gui; };
+        "astrid@soulcaster" =
+          alib.mkHomeConfig { module = self.homeModules.astral-scientific; };
       };
 
       nixosModule = self.nixosModules.astral;
