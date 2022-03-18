@@ -28,7 +28,8 @@ autocmd BufRead * Sleuth
 " Per-language changes
 autocmd FileType haskell,nix,yaml,json,jsonc setlocal shiftwidth=2 softtabstop=2 expandtab
 
-" Nerdtree helper
+" Nerdtree configs
+let g:NERDTreeHijackNetrw = 1
 func! Explorer()
     if !exists("g:NERDTree") 
         return
@@ -36,8 +37,10 @@ func! Explorer()
 
     if g:NERDTree.IsOpen()
         :NERDTreeClose
-    else
+    elseif expand('%') != ''
         :NERDTreeFind
+    else
+        :NERDTree
     endif
 endfunc
 nnoremap <C-n> :call Explorer()<CR>
@@ -49,6 +52,10 @@ func! MakeSplitTerm()
     :sp
     :res -5
     term make
+    set nonumber
+
+    " go to end of the buffer
+    :normal G
 endfunc
 noremap <leader>rr :call MakeSplitTerm()<CR>
 

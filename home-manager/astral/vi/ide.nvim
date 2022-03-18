@@ -8,7 +8,10 @@ autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 " Force refresh with c-space
 inoremap <silent><expr> <c-space> coc#refresh()
 
+" CoC binds
 " Partially stolen from http://0xd34df00d.me/posts/2021/10/vim-and-haskell-in-2021.html
+map <Leader>RR :CocRestart<cr>
+
 map <Leader>ggd <Plug>(coc-definition)
 map <Leader>ggi <Plug>(coc-implementation)
 map <Leader>ggt <Plug>(coc-type-definition)
@@ -19,7 +22,8 @@ map <Leader>gr <Plug>(coc-references)
 
 map <Leader>rn <Plug>(coc-rename)
 map <Leader>rf <Plug>(coc-refactor)
-map <Leader>.. <Plug>(coc-fix-current)
+map <Leader>.. :CocFix<cr>
+map <Leader>>> <Plug>(coc-fix-line)
 
 map <Leader>al <Plug>(coc-codeaction-line)
 map <Leader>ac <Plug>(coc-codeaction-cursor)
