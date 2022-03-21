@@ -1,5 +1,5 @@
 { nixos-hardware }:
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 with lib; {
   options.astral.hw.surface.enable = mkOption {
     description = ''
@@ -11,5 +11,11 @@ with lib; {
     type = types.bool;
   };
 
-  # TODO
+  config = let cfg = config.astral.hw.surface; in {
+    environment.systemPackages = with pkgs; [
+      iptsd
+      maliit-keyboard
+      surface-control
+    ];
+  };
 }
