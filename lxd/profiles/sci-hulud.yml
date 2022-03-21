@@ -1,0 +1,27 @@
+description: Shai-hulud's science container!
+config:
+  security.nesting: "true"
+  cloud-init.user-data: |
+    #cloud-config
+    ssh_pwauth: false
+    users:
+      - name: ansible
+        gecos: Ansible
+        sudo: ALL=(ALL) NOPASSWD:ALL
+        ssh_authorized_keys:
+          - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB/+eu2kz9jgv5NSsBoPI/Mfa12w1kSusFPsOoM8/yfr astrid@shai-hulud
+      - name: astrid
+        gecos: Astrid Yu
+        sudo: ALL=(ALL) NOPASSWD:ALL
+        ssh_authorized_keys:
+          - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB/+eu2kz9jgv5NSsBoPI/Mfa12w1kSusFPsOoM8/yfr astrid@shai-hulud
+    packages:
+      - ansible-core
+      - firewalld
+      - tmux
+      - tar
+      - git
+    runcmd:
+      - systemctl enable firewalld
+      - systemctl start firewalld
+
