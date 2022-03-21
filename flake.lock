@@ -22,11 +22,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1646559628,
-        "narHash": "sha256-WDoqxH/IPTV8CkI15wwzvXYgXq9UPr8xd8WKziuaynw=",
+        "lastModified": 1647898899,
+        "narHash": "sha256-DPqZfqNEV3CvTH20FefG2xIMqiq94GrPDUMZgLmH1uA=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "afe96e7433c513bf82375d41473c57d1f66b4e68",
+        "rev": "64823066c20073bc60525b5a06364a3714496d31",
         "type": "github"
       },
       "original": {
@@ -38,17 +38,17 @@
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1645855197,
-        "narHash": "sha256-0FvBpX/9n69vg+XgcMow0RIRYbTHav1uCbL9Xt9HvcA=",
+        "lastModified": 1647447644,
+        "narHash": "sha256-Di7ZCXjQKEys+jxgl8Mp7a8nowRSeAbzH8c9QNYkw2k=",
         "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "c3c66f6db4ac74a59eb83d83e40c10046ebc0b8c",
+        "rev": "32f61571b486efc987baca553fb35df22532ba63",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
+        "ref": "master",
         "repo": "nixos-hardware",
-        "rev": "c3c66f6db4ac74a59eb83d83e40c10046ebc0b8c",
         "type": "github"
       }
     },
@@ -71,11 +71,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1646254136,
-        "narHash": "sha256-8nQx02tTzgYO21BP/dy5BCRopE8OwE8Drsw98j+Qoaw=",
+        "lastModified": 1647800324,
+        "narHash": "sha256-rjwoxrk16zfrcO5Torh6CbAd5GHsHrXw+EwxOvh9AUI=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "3e072546ea98db00c2364b81491b893673267827",
+        "rev": "9bc841fec1c0e8b9772afa29f934d2c7ce57da8e",
         "type": "github"
       },
       "original": {
@@ -88,11 +88,11 @@
     "powerlevel10k": {
       "flake": false,
       "locked": {
-        "lastModified": 1646040639,
-        "narHash": "sha256-5WeEu2VKpOxRtQEeP2DAH1nDi0158No4tlmEXs8gCAg=",
+        "lastModified": 1647784695,
+        "narHash": "sha256-kOwS7WsdVly8CKJqIIKl1XhMPTR9nqqSvvj56Wt3Vmo=",
         "owner": "romkatv",
         "repo": "powerlevel10k",
-        "rev": "f07d7baea36010bfa74708844d404517ea6ac473",
+        "rev": "65599411ec83505a091f68489617316dec355510",
         "type": "github"
       },
       "original": {
@@ -105,11 +105,11 @@
     "qmk_firmware": {
       "flake": false,
       "locked": {
-        "lastModified": 1646421925,
-        "narHash": "sha256-b1Dy7513b7pe4yLprYY6o6GLDODnfxGXQiEcSiaaVz0=",
+        "lastModified": 1646863481,
+        "narHash": "sha256-CgAJLWRxjS5YjskJV8yWTna8PsT/F4wPgGPtm4cSa4c=",
         "owner": "astralbijection",
         "repo": "qmk_firmware",
-        "rev": "1897d1ffd7b28d8a7a8e9bc86afd6778619d6fbc",
+        "rev": "caeb213400e7f612598af10354306fd4d3ee0adf",
         "type": "github"
       },
       "original": {
