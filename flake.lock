@@ -22,11 +22,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1647210221,
-        "narHash": "sha256-mUWwEq+ReRQjIqj28ClqmBDyKV4fr6C5ufqlXLzZFsk=",
+        "lastModified": 1646559628,
+        "narHash": "sha256-WDoqxH/IPTV8CkI15wwzvXYgXq9UPr8xd8WKziuaynw=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "8eb7c009f09f1f7b1ec151e5d537104acf42213a",
+        "rev": "afe96e7433c513bf82375d41473c57d1f66b4e68",
         "type": "github"
       },
       "original": {
@@ -71,11 +71,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1647125019,
-        "narHash": "sha256-PXA76/iIqtbrA0ydCyc7Wpdw7TQTnfEowM87YtTXfB4=",
+        "lastModified": 1646254136,
+        "narHash": "sha256-8nQx02tTzgYO21BP/dy5BCRopE8OwE8Drsw98j+Qoaw=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "b0e141e3fe13ec21f50429773d2e3890e02a80da",
+        "rev": "3e072546ea98db00c2364b81491b893673267827",
         "type": "github"
       },
       "original": {
@@ -105,11 +105,11 @@
     "qmk_firmware": {
       "flake": false,
       "locked": {
-        "lastModified": 1646863481,
-        "narHash": "sha256-CgAJLWRxjS5YjskJV8yWTna8PsT/F4wPgGPtm4cSa4c=",
+        "lastModified": 1646421925,
+        "narHash": "sha256-b1Dy7513b7pe4yLprYY6o6GLDODnfxGXQiEcSiaaVz0=",
         "owner": "astralbijection",
         "repo": "qmk_firmware",
-        "rev": "caeb213400e7f612598af10354306fd4d3ee0adf",
+        "rev": "1897d1ffd7b28d8a7a8e9bc86afd6778619d6fbc",
         "type": "github"
       },
       "original": {
