@@ -16,11 +16,7 @@
     };
 
     nixos-hardware = {
-      # Pin to 5.13 kernel, since ZFS does not seem to support 5.16 yet.
-      # 5.16 update: https://github.com/NixOS/nixos-hardware/commit/3e4d52da0a4734225d292667a735dcc67dcef551
-      url =
-        "github:NixOS/nixos-hardware/c3c66f6db4ac74a59eb83d83e40c10046ebc0b8c";
-      # url = "github:NixOS/nixos-hardware/master";
+      url = "github:NixOS/nixos-hardware/master";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 

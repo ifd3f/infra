@@ -44,7 +44,7 @@ with lib; {
           ${builtins.readFile ./ide.nvim}
         '';
 
-        plugins = with pkgs.vimPlugins; [ coc-nvim vimtex vim-test ];
+        plugins = with pkgs.vimPlugins; [ coc-nvim vimtex vim-test vim-elixir ];
       };
 
       home.packages = with pkgs; [ nodejs nodePackages.npm ];

@@ -1,6 +1,17 @@
 description: Shai-hulud's science container!
 config:
-  security.nesting: "true"
+  security.nesting: true
+  boot.autostart: false
+
+  cloud-init.network-config: |
+    #network-config
+    version: 2
+    ethernets:
+      eth0:
+        match: eth0
+        dhcp4: true
+        nameservers: [8.8.8.8, 8.8.4.4]
+
   cloud-init.user-data: |
     #cloud-config
     ssh_pwauth: false
@@ -18,10 +29,10 @@ config:
     packages:
       - ansible-core
       - firewalld
-      - tmux
-      - tar
       - git
+      - tar
+      - tmux
+      - xz
     runcmd:
-      - systemctl enable firewalld
-      - systemctl start firewalld
+      - systemctl enable firewalld && systemctl start firewalld
 
