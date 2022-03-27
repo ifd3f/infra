@@ -28,6 +28,9 @@ autocmd BufRead * Sleuth
 " Per-language changes
 autocmd FileType haskell,nix,yaml,json,jsonc setlocal shiftwidth=2 softtabstop=2 expandtab
 
+" Enable rainbow
+let g:rainbow_active = 1
+
 " Nerdtree configs
 let g:NERDTreeHijackNetrw = 1
 func! Explorer()
