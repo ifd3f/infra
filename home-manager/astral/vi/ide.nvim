@@ -34,6 +34,9 @@ nnoremap <Leader>kc :<C-u>CocList commands<Cr>
 nnoremap <Leader>ko :<C-u>CocList outline<Cr>
 nnoremap <Leader>kr :<C-u>CocListResume<Cr>
 
+" Make the floating error window easier to read for my shitty eyes
+highlight CocErrorFloat ctermfg=Black guifg=#000000
+
 " Test binds
 nmap <silent> <leader>tt :TestNearest<CR>
 nmap <silent> <leader>tf :TestFile<CR>
