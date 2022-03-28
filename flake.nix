@@ -10,6 +10,11 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    nix-ld = {
+      url = "github:Mic92/nix-ld";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
     nixos-vscode-server = {
       url = "github:msteen/nixos-vscode-server/master";
       flake = false;
@@ -32,7 +37,7 @@
     };
   };
 
-  outputs = { self, nixpkgs-unstable, nixos-vscode-server, flake-utils
+  outputs = { self, nixpkgs-unstable, nixos-vscode-server, flake-utils, nix-ld
     , home-manager-unstable, qmk_firmware, nixos-hardware, powerlevel10k, ...
     }@inputs:
     let
@@ -114,6 +119,7 @@
       nixosModule = self.nixosModules.astral;
       nixosModules.astral = {
         imports = [
+          nix-ld.nixosModules.nix-ld
           home-manager.nixosModule
           (import ./nixos/modules {
             inherit nixos-hardware qmk_firmware;

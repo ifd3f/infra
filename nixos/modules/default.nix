@@ -1,4 +1,4 @@
-{ nixos-hardware, qmk_firmware , homeModules}:
+{ nixos-hardware, qmk_firmware, homeModules }:
 { ... }: {
   imports = [
     (import ./hw { inherit nixos-hardware qmk_firmware; })

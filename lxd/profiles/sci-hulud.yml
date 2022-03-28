@@ -26,13 +26,8 @@ config:
         sudo: ALL=(ALL) NOPASSWD:ALL
         ssh_authorized_keys:
           - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB/+eu2kz9jgv5NSsBoPI/Mfa12w1kSusFPsOoM8/yfr astrid@shai-hulud
-    packages:
-      - ansible-core
-      - firewalld
-      - git
-      - tar
-      - tmux
-      - xz
     runcmd:
+      - sleep 30  # wait for network to successfully go up
+      - dnf install -y ansible-core firewalld git tar tmux xz
       - systemctl enable firewalld && systemctl start firewalld
 
