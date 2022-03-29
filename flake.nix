@@ -5,6 +5,9 @@
     flake-utils.url = "github:numtide/flake-utils";
 
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    nur.url = "github:nix-community/NUR";
+
     home-manager-unstable = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -38,14 +41,14 @@
   };
 
   outputs = { self, nixpkgs-unstable, nixos-vscode-server, flake-utils, nix-ld
-    , home-manager-unstable, qmk_firmware, nixos-hardware, powerlevel10k, ...
+    , nur, home-manager-unstable, qmk_firmware, nixos-hardware, powerlevel10k, ...
     }@inputs:
     let
       nixpkgs = nixpkgs-unstable;
       home-manager = home-manager-unstable;
 
       alib = import ./nixos/lib {
-        inherit nixpkgs home-manager nixos-vscode-server;
+        inherit nixpkgs nur home-manager nixos-vscode-server;
         baseModules = [ self.nixosModule ];
       };
 
