@@ -16,8 +16,7 @@
     ./cachix.nix
     ./infra-update.nix
 
-    ./net/sshd.nix
-    ./net/zerotier.nix
+    ./net
     ./users
 
     (import ./roles { inherit homeModules; })

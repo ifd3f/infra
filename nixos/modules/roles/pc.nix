@@ -34,7 +34,10 @@ with lib; {
           virt-manager.enable = true;
         };
       };
-      net.sshd.enable = true;
+      net = {
+        xrdp.enable = true;
+        sshd.enable = true;
+      };
       infra-update = {
         enable = true;
         dates = "*-*-* 3:00:00 US/Pacific";
