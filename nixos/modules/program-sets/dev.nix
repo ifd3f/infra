@@ -13,6 +13,7 @@
     imagemagick
     jetbrains.idea-ultimate
     nixfmt
+    vagrant
     vscode-fhs
   ];
 }
