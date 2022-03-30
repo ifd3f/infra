@@ -14,8 +14,14 @@
   programs.steam.enable = true;
 
   astral = {
-    roles.pc.enable = true;
+    roles = {
+      laptop.enable = true;
+      pc.enable = true;
+    };
     hw.surface.enable = true;
+
+    # so that we don't rebuild linux kernel on this tiny boi
+    infra-update.branch = "surface";
   };
 
   hardware = {
