@@ -8,8 +8,12 @@ with lib; {
     };
 
     ide = mkOption {
-      description =
-        "Enable extended neovim customizations to make it behave like an IDE.";
+      description = ''
+        Enable extended neovim customizations to make it behave like an IDE.
+
+        Mostly used to enable CoC stuff, which will require installing a whole
+        Node.js runtime and potentially make Neovim slower.
+      '';
       default = false;
       type = types.bool;
     };
@@ -21,6 +25,7 @@ with lib; {
       programs.neovim = {
         enable = true;
 
+        # nvim is too much to type out
         viAlias = true;
         vimAlias = true;
         vimdiffAlias = true;
@@ -61,6 +66,7 @@ with lib; {
 
         plugins = with pkgs.vimPlugins; [
           coc-nvim
+          coc-tsserver
           coq_nvim
           nerdcommenter
           taglist-vim
