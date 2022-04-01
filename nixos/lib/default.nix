@@ -1,4 +1,10 @@
-{ nur, nixpkgs, baseModules, home-manager, nixos-vscode-server }: rec {
+{ self, nur, nixpkgs, baseModules, home-manager, nixos-vscode-server }: rec {
+  overlays = [
+    nur.overlay
+    (import "${home-manager}/overlay.nix")
+    self.overlay
+  ];
+
   # Make a system customized with my stuff.
   mkSystem = { hostName, module ? { }, modules ? [ ], system ? "x86_64-linux"
     , domain ? "id.astrid.tech" }:
@@ -8,7 +14,7 @@
       modules = baseModules ++ [
         {
           nixpkgs = {
-            overlays = [ nur.overlay ];
+            inherit overlays;
             config.packageOverrides = pkgs: {
               nur = import nur { inherit pkgs; };
             };
@@ -66,7 +72,7 @@
       configuration = {
         imports = [
           {
-            nixpkgs.overlays = [ nur.overlay ];
+            nixpkgs.overlays = overlays;
             nixpkgs.config.packageOverrides = pkgs: {
               nur = import nur { inherit pkgs; };
             };

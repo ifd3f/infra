@@ -5,6 +5,9 @@
     flake-utils.url = "github:numtide/flake-utils";
 
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    
+    # My own nixpkgs fork, for customized patches
+    nixpkgs-astralbijection.url = "github:astralbijection/nixpkgs/lxd-vms";
 
     nur.url = "github:nix-community/NUR";
 
@@ -40,7 +43,7 @@
     };
   };
 
-  outputs = { self, nixpkgs-unstable, nixos-vscode-server, flake-utils, nix-ld
+  outputs = { self, nixpkgs-unstable, nixpkgs-astralbijection, nixos-vscode-server, flake-utils, nix-ld
     , nur, home-manager-unstable, qmk_firmware, nixos-hardware, powerlevel10k, ...
     }@inputs:
     let
@@ -48,7 +51,7 @@
       home-manager = home-manager-unstable;
 
       alib = import ./nixos/lib {
-        inherit nixpkgs nur home-manager nixos-vscode-server;
+        inherit self nixpkgs nur home-manager nixos-vscode-server;
         baseModules = [ self.nixosModule ];
       };
 
@@ -80,6 +83,7 @@
               python3
               tcpdump
               terraform
+              terraform-lsp
               wget
               whois
               yq
@@ -92,7 +96,7 @@
           };
     }) // {
       overlay = final: prev: {
-        home-manager = home-manager-unstable.packages.home-manager;
+        lxd = nixpkgs-astralbijection.legacyPackages.${prev.system}.lxd;
       };
 
       homeModule = self.homeModules.astral;
