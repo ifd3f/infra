@@ -1,4 +1,4 @@
-{ nixpkgs, baseModules, home-manager, nixos-vscode-server }: rec {
+{ nur, nixpkgs, baseModules, home-manager, nixos-vscode-server }: rec {
   # Make a system customized with my stuff.
   mkSystem = { hostName, module ? { }, modules ? [ ], system ? "x86_64-linux"
     , domain ? "id.astrid.tech" }:
@@ -7,6 +7,12 @@
 
       modules = baseModules ++ [
         {
+          nixpkgs = {
+            overlays = [ nur.overlay ];
+            config.packageOverrides = pkgs: {
+              nur = import nur { inherit pkgs; };
+            };
+          };
           networking = {
             inherit hostName;
             inherit domain;
@@ -58,7 +64,15 @@
           else "/home/astrid";
       username = "astrid";
       configuration = {
-        imports = [ module ] ++
+        imports = [
+          {
+            nixpkgs.overlays = [ nur.overlay ];
+            nixpkgs.config.packageOverrides = pkgs: {
+              nur = import nur { inherit pkgs; };
+            };
+          }
+          module
+        ] ++
           (if vscode-server
              then [ "${nixos-vscode-server}/modules/vscode-server/home.nix" ]
              else []);

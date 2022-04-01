@@ -25,13 +25,28 @@ with lib; {
         vimAlias = true;
         vimdiffAlias = true;
 
-        plugins = with pkgs.vimPlugins; [ nerdtree nerdtree-git-plugin vim-nix vim-plug vim-sleuth ];
+        plugins = with pkgs.vimPlugins; [ 
+          fzf-vim
+          nerdtree
+          nerdtree-git-plugin
+          pkgs.vimPlugins.rainbow
+          vim-airline
+          vim-easymotion
+          vim-floaterm
+          vim-nix
+          vim-plug
+          vim-sleuth
+        ];
         extraConfig = ''
           source ${pkgs.vimPlugins.vim-plug}/plug.vim
 
           ${builtins.readFile ./init.nvim}
         '';
       };
+
+      home.packages = with pkgs; [
+        ctags
+      ];
     }
     (mkIf cfg.ide {
       programs.neovim = {
@@ -44,7 +59,15 @@ with lib; {
           ${builtins.readFile ./ide.nvim}
         '';
 
-        plugins = with pkgs.vimPlugins; [ coc-nvim vimtex vim-test ];
+        plugins = with pkgs.vimPlugins; [
+          coc-nvim
+          coq_nvim
+          nerdcommenter
+          taglist-vim
+          vim-gitgutter
+          vim-test
+          vimtex
+        ];
       };
 
       home.packages = with pkgs; [ nodejs nodePackages.npm ];

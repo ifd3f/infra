@@ -12,23 +12,35 @@ let g:bullets_enabled_file_types = [
     \ 'scratch'
     \]
 
-" Remapping syntaxes
+" Syntax adjustments
+syntax on
 autocmd BufNewFile,BufRead *.nvim set syntax=vim
 autocmd BufNewFile,BufRead flake.lock set syntax=json
 autocmd BufNewFile,BufRead coc-settings.json set syntax=jsonc
 
-" Change default settings
+" Indentation settings and other stuff
 set autoindent smartindent ignorecase smartcase number splitbelow
 set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
-syntax on
-
-" Detect indent when reading existing file
-autocmd BufRead * Sleuth
 
 " Per-language changes
 autocmd FileType haskell,nix,yaml,json,jsonc setlocal shiftwidth=2 softtabstop=2 expandtab
 
-" Nerdtree helper
+" Detect indent when reading existing file
+autocmd BufRead * Sleuth
+
+" Make coding look like sniping
+set cursorline cursorcolumn
+
+" Rulers for column lengths
+highlight LongLineWarning ctermbg=yellow
+autocmd FileType python call matchadd('LongLineWarning', '\%81v', 100)
+call matchadd('LongLineWarning', '\%121v', 100)
+
+" Enable rainbow
+let g:rainbow_active = 1
+
+" Nerdtree configs
+let g:NERDTreeHijackNetrw = 1
 func! Explorer()
     if !exists("g:NERDTree") 
         return
@@ -36,8 +48,10 @@ func! Explorer()
 
     if g:NERDTree.IsOpen()
         :NERDTreeClose
-    else
+    elseif expand('%') != ''
         :NERDTreeFind
+    else
+        :NERDTree
     endif
 endfunc
 nnoremap <C-n> :call Explorer()<CR>
@@ -49,6 +63,10 @@ func! MakeSplitTerm()
     :sp
     :res -5
     term make
+    set nonumber
+
+    " go to end of the buffer
+    :normal G
 endfunc
 noremap <leader>rr :call MakeSplitTerm()<CR>
 

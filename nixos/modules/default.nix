@@ -1,4 +1,4 @@
-{ nixos-hardware, qmk_firmware , homeModules}:
+{ nixos-hardware, qmk_firmware, homeModules }:
 { ... }: {
   imports = [
     (import ./hw { inherit nixos-hardware qmk_firmware; })
@@ -16,8 +16,7 @@
     ./cachix.nix
     ./infra-update.nix
 
-    ./net/sshd.nix
-    ./net/zerotier.nix
+    ./net
     ./users
 
     (import ./roles { inherit homeModules; })

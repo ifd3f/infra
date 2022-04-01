@@ -28,12 +28,19 @@ with lib; {
       };
       hw.kb-flashing.enable = true;
       virt = {
-
         docker.enable = true;
         libvirt = {
           enable = true;
           virt-manager.enable = true;
         };
+      };
+      net = {
+        xrdp.enable = true;
+        sshd.enable = true;
+      };
+      infra-update = {
+        enable = true;
+        dates = "*-*-* 3:00:00 US/Pacific";
       };
     };
 
