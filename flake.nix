@@ -48,9 +48,44 @@
         baseModules = [ self.nixosModule ];
       };
 
-    in (flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" ] (system: {
-      devShell =
-        import ./shell.nix { pkgs = nixpkgs.legacyPackages.${system}; };
+    in (flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" ] (system:
+      let pkgs = nixpkgs.legacyPackages.${system};
+      in rec {
+        devShell = devShells.reduced;
+        devShells = {
+          full = import ./shell.nix { inherit pkgs; };
+          reduced = pkgs.mkShell {
+            nativeBuildInputs = with pkgs; [
+              ansible
+              backblaze-b2
+              bitwarden-cli
+              curl
+              dnsutils
+              docker
+              docker-compose
+              gh
+              git
+              helmfile
+              jq
+              kubectl
+              kubernetes-helm
+              netcat
+              nixfmt
+              nodePackages.prettier
+              packer
+              python3
+              tcpdump
+              terraform
+              wget
+              whois
+              yq
+            ] ++ (
+              if pkgs.system != "x86_64-darwin"
+              then [ iputils ]
+              else []
+              );
+            };
+          };
     }) // {
       overlay = final: prev: {
         home-manager = home-manager-unstable.packages.home-manager;

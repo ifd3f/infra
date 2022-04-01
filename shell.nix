@@ -17,7 +17,6 @@ pkgs.mkShell {
     kubernetes-helm
     minikube
     mysql80
-    neovim
     netcat
     nixfmt
     nodePackages.prettier
