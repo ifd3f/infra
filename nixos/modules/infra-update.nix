@@ -19,14 +19,14 @@
     branch = mkOption {
       description = "What branch to track.";
       default = "main";
-      type = types.string;
+      type = types.str;
     };
 
     build-host = mkOption {
       description =
         "The remote host to compile the config on. If null, builds it on itself.";
       default = null;
-      type = types.nullOr types.string;
+      type = types.nullOr types.str;
     };
   };
 
