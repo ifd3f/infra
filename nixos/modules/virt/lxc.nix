@@ -22,5 +22,6 @@ with lib; {
         recommendedSysctlSettings = true;
       };
     };
+    boot.kernelModules = [ "vhost_vsock" ];
   };
 }

@@ -1,11 +1,6 @@
 resource "lxd_volume" "aliaconda_home" {
   name = "aliaconda-home"
-  pool = lxd_storage_pool.dpool.name
-}
-
-resource "lxd_volume" "aliaconda_root" {
-  name = "aliaconda-root"
-  pool = lxd_storage_pool.dpool.name
+  pool = lxd_storage_pool.dpool.id
 }
 
 resource "lxd_cached_image" "centos9" {
@@ -43,7 +38,7 @@ resource "lxd_container" "aliaconda" {
     type = "disk"
     properties = {
       path = "/"
-      pool = lxd_volume.aliaconda_root.pool
+      pool = lxd_storage_pool.dpool.id
     }
   }
 }
