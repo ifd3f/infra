@@ -18,6 +18,7 @@ with lib; {
       };
       lxd = {
         enable = true;
+        package = pkgs.lxd.override { useQemu = true; };
         recommendedSysctlSettings = true;
       };
     };

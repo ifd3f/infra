@@ -90,6 +90,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-astralbijection": {
+      "locked": {
+        "lastModified": 1648840987,
+        "narHash": "sha256-FDTT/G1aI6/pKEXf8XrzH/3ofOeFyw2zyLFaeBPvftw=",
+        "owner": "astralbijection",
+        "repo": "nixpkgs",
+        "rev": "856e3364260097d075bd397726b85be5424f444a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "astralbijection",
+        "ref": "lxd-vms",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-unstable": {
       "locked": {
         "lastModified": 1648390671,
@@ -162,6 +178,7 @@
         "nix-ld": "nix-ld",
         "nixos-hardware": "nixos-hardware",
         "nixos-vscode-server": "nixos-vscode-server",
+        "nixpkgs-astralbijection": "nixpkgs-astralbijection",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nur": "nur",
         "powerlevel10k": "powerlevel10k",
