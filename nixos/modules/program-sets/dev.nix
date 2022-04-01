@@ -6,7 +6,6 @@
   environment.systemPackages = with pkgs; [
     android-studio
     cachix
-    dbeaver
     firefox-devedition-bin
     gh
     gitkraken
