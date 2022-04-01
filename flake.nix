@@ -83,6 +83,7 @@
               python3
               tcpdump
               terraform
+              terraform-lsp
               wget
               whois
               yq
