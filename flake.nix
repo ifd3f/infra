@@ -92,7 +92,7 @@
           };
 
         packages = {
-          ci = import ./ci.nix;
+          ci = pkgs.callPackage ./ci.nix { inherit self; };
 
           installer-iso = let
             installerSystem = alib.mkSystem {
