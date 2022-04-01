@@ -90,6 +90,18 @@
               );
             };
           };
+
+        packages = {
+          ci = import ./ci.nix;
+
+          installer-iso = let
+            installerSystem = alib.mkSystem {
+              hostName = "astral-installer";
+              module =
+                import ./nixos/systems/installer-iso.nix { inherit nixpkgs; };
+            };
+          in installerSystem.config.system.build.isoImage;
+        };
     }) // {
       overlay = final: prev: {
         home-manager = home-manager-unstable.packages.home-manager;
@@ -176,14 +188,6 @@
         jonathan-js = { };
         joseph-js = { };
       });
-
-      diskImages = let
-        installerSystem = alib.mkSystem {
-          hostName = "astral-installer";
-          module =
-            import ./nixos/systems/installer-iso.nix { inherit nixpkgs; };
-        };
-      in { installer-iso = installerSystem.config.system.build.isoImage; };
 
       sshKeys = import ./ssh_keys;
     });
