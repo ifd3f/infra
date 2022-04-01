@@ -4,7 +4,7 @@
     "astrid@Discovery"
     "astrid@aliaconda"
     "astrid@banana"
-    "astrid@shai-hulud"
+    # "astrid@shai-hulud" it takes too long to compile Linux
   ];
   nixos = map (name: self.nixosConfigurations."${name}".config.system.build.toplevel) [
     "banana"
@@ -12,7 +12,7 @@
     "gfdesk"
     "shai-hulud"
   ];
-  packages = map (name: self.packages."${name}") [ "installer-iso" ];
+  packages = map (name: self.packages.x86_64-linux."${name}") [ "installer-iso" ];
 in
 stdenv.mkDerivation {
   name = "astralbijection-ci";
