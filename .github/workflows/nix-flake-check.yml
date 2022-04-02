@@ -27,6 +27,9 @@ jobs:
           name: astralbijection
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
-      - name: Validate Nix Flake
-        run: GC_DONT_GC=1 nix flake check
+      - name: Preliminary check without building
+        run: GC_DONT_GC=1 nix flake check -v --keep-going --no-build
+
+      - name: Full check/build
+        run: GC_DONT_GC=1 nix flake check -v --keep-going
 
