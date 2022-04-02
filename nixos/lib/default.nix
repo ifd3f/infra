@@ -1,7 +1,6 @@
 { self, nur, nixpkgs, baseModules, home-manager, nixos-vscode-server }: rec {
   overlays = [
     nur.overlay
-    (import "${home-manager}/overlay.nix")
     self.overlay
   ];
 

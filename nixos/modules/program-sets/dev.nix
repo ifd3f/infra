@@ -1,18 +1,22 @@
-{ pkgs, ... }: {
-  astral.program-sets = { browsers = true; };
+{
+  name = "dev";
+  description = "Development tools";
+  progFn = { pkgs }: {
+    astral.program-sets = { browsers = true; };
 
-  nixpkgs.config.allowUnfree = true;
+    nixpkgs.config.allowUnfree = true;
 
-  environment.systemPackages = with pkgs; [
-    android-studio
-    cachix
-    firefox-devedition-bin
-    gh
-    gitkraken
-    imagemagick
-    jetbrains.idea-ultimate
-    nixfmt
-    vagrant
-    vscode-fhs
-  ];
+    environment.systemPackages = with pkgs; [
+      android-studio
+      cachix
+      firefox-devedition-bin
+      gh
+      gitkraken
+      imagemagick
+      jetbrains.idea-ultimate
+      nixfmt
+      vagrant
+      vscode-fhs
+    ];
+  };
 }

@@ -19,6 +19,6 @@
     ./net
     (import ./users { inherit sshKeyDatabase; })
 
-    (import ./roles { inherit homeModules; })
+    (import ./roles { inherit homeModules sshKeyDatabase; })
   ];
 }

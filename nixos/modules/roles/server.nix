@@ -1,4 +1,4 @@
-{ homeModules }:
+{ homeModules, sshKeyDatabase }:
 { config, lib, ... }:
 with lib; {
   options.astral.roles.server.enable = mkOption {
@@ -16,7 +16,7 @@ with lib; {
     # Enable SSH in initrd for debugging
     boot.initrd.network.ssh = {
       enable = true;
-      authorizedKeys = [ (import ../../ssh_keys).users.astrid ];
+      authorizedKeys = [ sshKeyDatabase.users.astrid ];
     };
 
     home-manager = {
