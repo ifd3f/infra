@@ -31,6 +31,11 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
     powerlevel10k = {
       url = "github:romkatv/powerlevel10k/master";
       flake = false;
@@ -60,6 +65,9 @@
       in rec {
         devShell = devShells.default;
         devShells = import ./shells.nix { inherit pkgs; };
+        packages = {
+          lxd-data = import ./images/internal-lxd-simplestreams { inherit pkgs; };
+        };
     }) // {
       overlay = final: prev: {
         lxd = nixpkgs-astralbijection.legacyPackages.${prev.system}.lxd;
