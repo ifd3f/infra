@@ -3,14 +3,15 @@ resource "lxd_volume" "aliaconda_home" {
   pool = lxd_storage_pool.dpool.id
 }
 
-resource "lxd_cached_image" "centos9" {
+resource "lxd_cached_image" "centos8" {
   source_remote = "images"
-  source_image  = "centos/9-Stream/cloud"
+  source_image  = "centos/8-Stream/cloud"
 }
 
 resource "lxd_container" "aliaconda" {
   name = "aliaconda"
-  image = lxd_cached_image.centos9.fingerprint
+  # zerotier does not yet support centos 9
+  image = lxd_cached_image.centos8.fingerprint
 
   config = yamldecode(file("${var.config_dir}/aliaconda.yml"))
 
@@ -19,7 +20,7 @@ resource "lxd_container" "aliaconda" {
     type = "nic"
     properties = {
       nictype = "bridged"
-      parent = lxd_network.lxdbr0.id
+      parent = var.exposed_bridge
     }
   }
 

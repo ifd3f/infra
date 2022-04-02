@@ -1,3 +1,4 @@
+/*
 resource "lxd_network" "lxdbr0" {
   name = "lxdbr0"
 
@@ -6,4 +7,4 @@ resource "lxd_network" "lxdbr0" {
     "ipv6.nat" = "true"
   }
 }
-
+*/
