@@ -2,8 +2,9 @@
 let
   lxdwriters = import ./lxdwriters.nix { inherit pkgs; };
   flakeTime = self.sourceInfo.lastModified;
-in {
-  internal-lxd-simplestreams-tree = pkgs.callPackage ./internal-lxd-simplestreams-tree
-    (lxdwriters // { inherit flakeTime; });
+in rec {
+  internal-lxd-simplestreams-tree = pkgs.callPackage ./internal-lxd-simplestreams-tree (lxdwriters // { inherit flakeTime; });
+
+  internal-lxd-simplestreams = pkgs.callPackage ./images/internal-lxd-simplestreams { inherit internal-lxd-simplestreams-tree; };
 }
 

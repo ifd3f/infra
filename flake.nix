@@ -67,9 +67,9 @@
         devShells = import ./shells.nix { inherit pkgs; };
         packages = import ./pkgs { inherit self pkgs; };
     }) // {
-      overlay = final: prev: {
+      overlay = final: prev: ({
         lxd = nixpkgs-astralbijection.legacyPackages.${prev.system}.lxd;
-      };
+      });
 
       homeModule = self.homeModules.astral;
       homeModules = {

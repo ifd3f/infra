@@ -39,7 +39,7 @@ let
     done
   '') images));
 in stdenv.mkDerivation {
-  pname = "internal-simplestreams-tree";
+  pname = "internal-lxd-simplestreams-tree";
   version = flakeTimeStr;
 
   buildInputs = [ lxd-image-server linkImagesScript jq ] ++ lib.attrValues images;
