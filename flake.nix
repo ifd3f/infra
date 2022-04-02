@@ -56,44 +56,10 @@
       };
 
     in (flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" ] (system:
-      let pkgs = nixpkgs.legacyPackages.${system};
+      let pkgs = import nixpkgs { inherit system; overlays = alib.overlays; };
       in rec {
-        devShell = devShells.reduced;
-        devShells = {
-          full = import ./shell.nix { inherit pkgs; };
-          reduced = pkgs.mkShell {
-            nativeBuildInputs = with pkgs; [
-              ansible
-              backblaze-b2
-              bitwarden-cli
-              curl
-              dnsutils
-              docker
-              docker-compose
-              gh
-              git
-              helmfile
-              jq
-              kubectl
-              kubernetes-helm
-              netcat
-              nixfmt
-              nodePackages.prettier
-              packer
-              python3
-              tcpdump
-              terraform
-              terraform-lsp
-              wget
-              whois
-              yq
-            ] ++ (
-              if pkgs.system != "x86_64-darwin"
-              then [ iputils ]
-              else []
-              );
-            };
-          };
+        devShell = devShells.default;
+        devShells = import ./shells.nix { inherit pkgs; };
     }) // {
       overlay = final: prev: {
         lxd = nixpkgs-astralbijection.legacyPackages.${prev.system}.lxd;

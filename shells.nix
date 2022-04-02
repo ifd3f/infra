@@ -1,6 +1,6 @@
 { pkgs ? import <nixpkgs> { } }:
-pkgs.mkShell {
-  nativeBuildInputs = with pkgs; [
+let
+  packages = with pkgs; [
     ansible
     backblaze-b2
     bitwarden-cli
@@ -10,28 +10,31 @@ pkgs.mkShell {
     docker-compose
     gh
     git
-    google-cloud-sdk
     helmfile
     jq
     kubectl
     kubernetes-helm
-    minikube
-    mysql80
     netcat
     nixfmt
     nodePackages.prettier
-    # oci-cli
     packer
-    postgresql
     python3
     tcpdump
     terraform
+    terraform-lsp
     wget
     whois
     yq
+
+    nur.repos.astralbijection.talosctl
   ] ++ (
     if pkgs.system != "x86_64-darwin"
-      then [ iputils ]
-      else []
+    then [ iputils ]
+    else []
   );
+in {
+  default = pkgs.mkShell {
+    nativeBuildInputs = packages;
+  };
 }
+
