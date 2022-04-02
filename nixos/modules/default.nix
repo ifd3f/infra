@@ -1,4 +1,4 @@
-{ nixos-hardware, qmk_firmware, homeModules }:
+{ nixos-hardware, qmk_firmware, homeModules, sshKeyDatabase }:
 { ... }: {
   imports = [
     (import ./hw { inherit nixos-hardware qmk_firmware; })
@@ -17,7 +17,7 @@
     ./infra-update.nix
 
     ./net
-    ./users
+    (import ./users { inherit sshKeyDatabase; })
 
     (import ./roles { inherit homeModules; })
   ];

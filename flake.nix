@@ -55,6 +55,7 @@
         baseModules = [ self.nixosModule ];
       };
 
+      sshKeyDatabase = import ./ssh_keys;
     in (flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" ] (system:
       let pkgs = import nixpkgs { inherit system; overlays = alib.overlays; };
       in rec {
@@ -140,7 +141,7 @@
           nix-ld.nixosModules.nix-ld
           home-manager.nixosModule
           (import ./nixos/modules {
-            inherit nixos-hardware qmk_firmware;
+            inherit nixos-hardware qmk_firmware sshKeyDatabase;
             homeModules = self.homeModules;
           })
         ];
@@ -156,7 +157,5 @@
         jonathan-js = { };
         joseph-js = { };
       });
-
-      sshKeys = import ./ssh_keys;
     });
 }
