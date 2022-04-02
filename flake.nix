@@ -59,8 +59,6 @@
       let pkgs = import nixpkgs { inherit system; overlays = alib.overlays; };
       in rec {
         packages = {
-          ci = pkgs.callPackage ./ci.nix { inherit self; };
-
           installer-iso = let
             installerSystem = alib.mkSystem {
               hostName = "astral-installer";
@@ -69,9 +67,10 @@
             };
           in installerSystem.config.system.build.isoImage;
         };
-        devShell = devShells.default;
         devShells = import ./shells.nix { inherit pkgs; };
     }) // {
+      checks = import ./checks { inherit self nixpkgs-unstable; };
+
       overlay = final: prev: {
         lxd = nixpkgs-astralbijection.legacyPackages.${prev.system}.lxd;
       };

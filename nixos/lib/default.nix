@@ -48,6 +48,11 @@
           astral = {
             roles.server.enable = true;
             zfs-utils.enable = false;
+            virt = {
+              docker.enable = false;
+              libvirt.enable = false;
+              lxc.enable = false;
+            };
           };
 
           # Don't compress the image.

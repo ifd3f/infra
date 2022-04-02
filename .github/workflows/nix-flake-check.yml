@@ -30,7 +30,3 @@ jobs:
       - name: Validate Nix Flake
         run: GC_DONT_GC=1 nix flake check
 
-      - name: Build CI items
-        run: |
-          GC_DONT_GC=1 nix build --experimental-features "nix-command flakes" ".#ci"
-
