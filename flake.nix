@@ -65,9 +65,7 @@
       in rec {
         devShell = devShells.default;
         devShells = import ./shells.nix { inherit pkgs; };
-        packages = {
-          lxd-data = import ./images/internal-lxd-simplestreams { inherit pkgs; };
-        };
+        packages = import ./pkgs { inherit self pkgs; };
     }) // {
       overlay = final: prev: {
         lxd = nixpkgs-astralbijection.legacyPackages.${prev.system}.lxd;
