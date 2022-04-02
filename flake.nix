@@ -5,6 +5,9 @@
     flake-utils.url = "github:numtide/flake-utils";
 
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    
+    # My own nixpkgs fork, for customized patches
+    nixpkgs-astralbijection.url = "github:astralbijection/nixpkgs/lxd-vms";
 
     nur.url = "github:nix-community/NUR";
 
@@ -40,7 +43,7 @@
     };
   };
 
-  outputs = { self, nixpkgs-unstable, nixos-vscode-server, flake-utils, nix-ld
+  outputs = { self, nixpkgs-unstable, nixpkgs-astralbijection, nixos-vscode-server, flake-utils, nix-ld
     , nur, home-manager-unstable, qmk_firmware, nixos-hardware, powerlevel10k, ...
     }@inputs:
     let
@@ -48,49 +51,13 @@
       home-manager = home-manager-unstable;
 
       alib = import ./nixos/lib {
-        inherit nixpkgs nur home-manager nixos-vscode-server;
+        inherit self nixpkgs nur home-manager nixos-vscode-server;
         baseModules = [ self.nixosModule ];
       };
 
     in (flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" ] (system:
-      let pkgs = nixpkgs.legacyPackages.${system};
+      let pkgs = import nixpkgs { inherit system; overlays = alib.overlays; };
       in rec {
-        devShell = devShells.reduced;
-        devShells = {
-          full = import ./shell.nix { inherit pkgs; };
-          reduced = pkgs.mkShell {
-            nativeBuildInputs = with pkgs; [
-              ansible
-              backblaze-b2
-              bitwarden-cli
-              curl
-              dnsutils
-              docker
-              docker-compose
-              gh
-              git
-              helmfile
-              jq
-              kubectl
-              kubernetes-helm
-              netcat
-              nixfmt
-              nodePackages.prettier
-              packer
-              python3
-              tcpdump
-              terraform
-              wget
-              whois
-              yq
-            ] ++ (
-              if pkgs.system != "x86_64-darwin"
-              then [ iputils ]
-              else []
-              );
-            };
-          };
-
         packages = {
           ci = pkgs.callPackage ./ci.nix { inherit self; };
 
@@ -102,9 +69,11 @@
             };
           in installerSystem.config.system.build.isoImage;
         };
+        devShell = devShells.default;
+        devShells = import ./shells.nix { inherit pkgs; };
     }) // {
       overlay = final: prev: {
-        home-manager = home-manager-unstable.packages.home-manager;
+        lxd = nixpkgs-astralbijection.legacyPackages.${prev.system}.lxd;
       };
 
       homeModule = self.homeModules.astral;

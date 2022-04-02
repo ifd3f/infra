@@ -11,6 +11,7 @@
     "virtualTextPrefix": " —— "
   },
   "codeLens.enable": true,
+
   "languageserver": {
     "ccls": {
       "command": "ccls",
@@ -55,6 +56,11 @@
           "completionSnippetsOn": true
         }
       }
+    },
+    "terraform": {
+      "command": "terraform-lsp",
+      "filetypes": ["terraform"]
     }
   }
 }
+
