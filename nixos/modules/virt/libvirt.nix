@@ -3,7 +3,7 @@ with lib; {
   options.astral.virt.libvirt = {
     enable = mkOption {
       description = "Use libvirt stuff";
-      default = true;
+      default = false;
       type = types.bool;
     };
 
