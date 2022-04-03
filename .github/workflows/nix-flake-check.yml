@@ -37,24 +37,25 @@ jobs:
           matrix=$(cat matrix.json)
           echo "::set-output name=matrix::$matrix"
 
-  build-x86_64-targets:
-    name: "Build ${{ matrix.target.target }} on ${{ matrix.target.os }}"
+  build-checks:
+    name: "${{ matrix.target.target }}"
     needs: calculate-matrix
     runs-on: "${{ matrix.target.os }}"
     strategy:
       fail-fast: false
       # os/target pairs are written to target variable
-      matrix: ${{ fromJson(needs.calculate-matrix.outputs.matrix).x86_64 }}
+      matrix: ${{ fromJson(needs.calculate-matrix.outputs.matrix) }}
 
     steps:
       - name: Remove unnecessary packages
         run: | # stolen from https://github.com/easimon/maximize-build-space
+          echo "=== Before pruning ==="
           df -h
-
           sudo rm -rf /usr/share/dotnet
           sudo rm -rf /usr/local/lib/android
           sudo rm -rf /opt/ghc
-
+          echo
+          echo "=== After pruning ==="
           df -h
 
       - uses: cachix/install-nix-action@v16
@@ -62,42 +63,17 @@ jobs:
           nix_path: nixpkgs=channel:nixos-unstable
           extra_nix_config: |
             experimental-features = nix-command flakes
+            extra-platforms = aarch64-linux aarch64-darwin arm-linux
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
       - uses: cachix/cachix-action@v10
         with:
           name: astralbijection
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
-      - name: Build target ${{ matrix.target.target }}
+      - name: Build target
         run: |
           export target="github:astralbijection/infra/$GITHUB_SHA#${{ matrix.target.target }}"
           echo "Building $target"
-          GC_DONT_GC=1 nix build $target
-
-  build-other-arch-targets:
-    name: "Build ${{ matrix.target.target }} on ${{ matrix.target.arch }}-linux"
-    runs-on: ubuntu-latest
-    needs: calculate-matrix
-    strategy:
-      fail-fast: false
-      # arch/os/target pairs are written to variable
-      matrix: ${{ fromJson(needs.calculate-matrix.outputs.matrix).other }}
-    steps:
-      - uses: uraimo/run-on-arch-action@v2
-        name: Build artifact
-        id: build
-        with:
-          arch: ${{ matrix.target.arch }}
-          distro: fedora_latest
-          githubToken: ${{ github.token }}
-
-          shell: /bin/sh
-          install: |
-            dnf install -y xz
-            sh <(curl -L https://nixos.org/nix/install) --daemon
-            
-          run: |
-            export target="github:astralbijection/infra/$GITHUB_SHA#${{ matrix.target.target }}"
-            echo "Building $target"
-            nix build ${{ matrix.target.target }}
+          GC_DONT_GC=1 nix build --show-trace $target
 

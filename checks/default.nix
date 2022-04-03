@@ -46,6 +46,8 @@
 in {
   x86_64-linux = builtins.listToAttrs (home-linux ++ machines ++ packages);
   x86_64-darwin = builtins.listToAttrs home-macos;
-  aarch64-linux = builtins.listToAttrs aarch64-machines;
+  # doesn't work rn ;(
+  # aarch64-linux = builtins.listToAttrs aarch64-machines;
+  aarch64-linux = {};
 }
 

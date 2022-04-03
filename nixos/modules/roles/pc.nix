@@ -29,6 +29,7 @@ with lib; {
       hw.kb-flashing.enable = true;
       virt = {
         docker.enable = true;
+        lxc.enable = true;
         libvirt = {
           enable = true;
           virt-manager.enable = true;
