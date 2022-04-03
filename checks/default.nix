@@ -42,6 +42,8 @@
     value = self.packages.x86_64-linux."${name}";
   }) [
     "installer-iso"
+    "internal-lxd-simplestreams"
+    "internal-lxd-simplestreams-tree"
   ];
 in {
   x86_64-linux = builtins.listToAttrs (home-linux ++ machines ++ packages);
