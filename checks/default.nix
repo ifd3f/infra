@@ -3,7 +3,7 @@
   lib = pkgs.lib;
 
   home = map (name: {
-    name = "can-build-home-manager-${name}";
+    name = "01-can-build-home-manager-${name}";
     value = self.homeConfigurations."${name}".activationPackage;
   }) [
     "astrid@Discovery"
@@ -13,8 +13,14 @@
   ];
 
   machines = map (name: {
-    name = "can-build-nixos-machine-${name}";
-    value = self.nixosConfigurations."${name}".config.system.build.toplevel;
+    name = "00-can-build-nixos-machine-${name}";
+
+    # Wrap as the input to a dummy derivation to prevent weird IFD issues
+    value = pkgs.stdenv.mkDerivation {
+      name = "dummy-to-prevent-ifd-for-nixos-machine-${name}";
+      buildInputs = [ self.nixosConfigurations."${name}".config.system.build.toplevel ];
+      phases = [];
+    };
   }) [
     "banana"
     "donkey"
@@ -24,7 +30,7 @@
   ];
 
   packages = map (name: {
-    name = "can-build-package-${name}";
+    name = "02-can-build-package-${name}";
     value = self.packages.x86_64-linux."${name}";
   }) [
     "installer-iso"

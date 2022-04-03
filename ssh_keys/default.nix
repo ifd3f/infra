@@ -10,12 +10,12 @@ with builtins; let
     )
   );
 
-  users = mapAttrs
-    (subdir: _: keysInDir ./users/${subdir})
-    (readDir ./users);
-
 in {
-  inherit users;
+  users = {
+    astrid = keysInDir ./users/astrid;
+    alia = keysInDir ./users/alia;
+    cynthe = keysInDir ./users/cynthe;
+  };
   deprecated = keysInDir ./deprecated;
   github = keysInDir ./github;
 }
