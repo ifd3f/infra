@@ -48,12 +48,10 @@ jobs:
 
     steps:
       - name: Remove unnecessary packages
-        run: | # stolen from https://github.com/easimon/maximize-build-space
+        run: | # partially stolen from https://github.com/easimon/maximize-build-space
           echo "=== Before pruning ==="
           df -h
-          sudo rm -rf /usr/share/dotnet
-          sudo rm -rf /usr/local/lib/android
-          sudo rm -rf /opt/ghc
+          sudo rm -rf /usr/share /usr/local /opt || true
           echo
           echo "=== After pruning ==="
           df -h
