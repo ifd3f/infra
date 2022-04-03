@@ -11,7 +11,13 @@ let
     os = "macos-latest";
   }) self.checks.x86_64-darwin;
 
+  aarch64-linux = lib.mapAttrsToList (k: v: {
+    target = "checks.aarch64-linux.${k}";
+    arch = "aarch64";
+  }) self.checks.aarch64-linux;
+ 
 in writeText "matrix.json" (builtins.toJSON {
-  target = linuxBuilds ++ macosBuilds;
+  x86_64.target = linuxBuilds ++ macosBuilds;
+  other.target = aarch64-linux;
 })
 

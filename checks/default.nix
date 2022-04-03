@@ -29,6 +29,14 @@
     "shai-hulud"
   ];
 
+  aarch64-machines = map (name: {
+    name = "nixos-${name}";
+    value = self.nixosConfigurations."${name}".config.system.build.toplevel;
+  }) [
+    "jonathan-js"
+    "joseph-js"
+  ];
+
   packages = map (name: {
     name = "package-${name}";
     value = self.packages.x86_64-linux."${name}";
@@ -38,5 +46,6 @@
 in {
   x86_64-linux = builtins.listToAttrs (home-linux ++ machines ++ packages);
   x86_64-darwin = builtins.listToAttrs home-macos;
+  aarch64-linux = builtins.listToAttrs aarch64-machines;
 }
 
