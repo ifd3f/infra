@@ -3,7 +3,7 @@ with lib; {
   options.astral.virt.lxc = {
     enable = mkOption {
       description = "Use LXC stuff";
-      default = true;
+      default = false;
       type = types.bool;
     };
   };

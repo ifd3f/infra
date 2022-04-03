@@ -2,7 +2,7 @@
 with lib; {
   options.astral.net.xrdp.enable = mkOption {
     description = "Enable to use customized xrdp configs.";
-    default = true;
+    default = false;
     type = types.bool;
   };
 

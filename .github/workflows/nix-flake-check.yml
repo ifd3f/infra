@@ -38,7 +38,7 @@ jobs:
           echo "::set-output name=matrix::$matrix"
 
   build-checks:
-    name: "Check ${{ matrix.target.target }}"
+    name: "${{ matrix.target.target }}"
     needs: calculate-matrix
     runs-on: "${{ matrix.target.os }}"
     strategy:
