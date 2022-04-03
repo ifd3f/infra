@@ -31,7 +31,7 @@ cloud-init.user-data: |
       ssh_authorized_keys:
         - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK9VBBdNd2mdO493CU+Tg0idjTR679V1UV2I3LVwh+hH astrid@gfdesk
   packages: 
-    - ansible
+    - ansible-core
     - firewalld
     - freeipa-server
     - freeipa-server-dns
