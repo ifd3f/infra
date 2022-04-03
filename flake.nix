@@ -31,6 +31,11 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
     powerlevel10k = {
       url = "github:romkatv/powerlevel10k/master";
       flake = false;
@@ -59,18 +64,17 @@
     in (flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" ] (system:
       let pkgs = import nixpkgs { inherit system; overlays = alib.overlays; };
       in rec {
+        gh-ci-matrix = pkgs.callPackage ./pkgs/gh-ci-matrix { inherit self; };
+        devShells = import ./shells.nix { inherit pkgs; };
         packages = {
           installer-iso = let
             installerSystem = alib.mkSystem {
               hostName = "astral-installer";
               module =
                 import ./nixos/systems/installer-iso.nix { inherit nixpkgs; };
-            };
+              };
           in installerSystem.config.system.build.isoImage;
-
-          gh-ci-matrix = pkgs.callPackage ./pkgs/gh-ci-matrix { inherit self; };
-        };
-        devShells = import ./shells.nix { inherit pkgs; };
+        } // (import ./pkgs { inherit self pkgs; });
     }) // {
       checks = import ./checks { inherit self nixpkgs-unstable; };
 
