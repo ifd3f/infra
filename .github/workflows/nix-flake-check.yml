@@ -39,12 +39,12 @@ jobs:
           echo "::set-output name=matrix::$matrix"
 
   build-targets:
-    name: "Build ${{ matrix.target }}"
+    name: "Build ${{ matrix.target.target }} on ${{ matrix.target.os }}"
     needs: calculate-matrix
-    runs-on: ubuntu-latest
+    runs-on: "${{ matrix.target.os }}"
     strategy:
       fail-fast: false
-      # Build targets are written to target variable
+      # os/target pairs are written to build variable
       matrix: ${{ fromJson(needs.calculate-matrix.outputs.matrix) }}
 
     steps:
@@ -69,8 +69,8 @@ jobs:
           name: astralbijection
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
-      - name: Build target ${{ matrix.target }}
+      - name: Build target ${{ matrix.target.target }}
         run: |
-          export target="github:astralbijection/infra/$GITHUB_SHA#${{ matrix.target }}"
+          export target="github:astralbijection/infra/$GITHUB_SHA#${{ matrix.target.target }}"
           echo "Building $target"
           GC_DONT_GC=1 nix build $target

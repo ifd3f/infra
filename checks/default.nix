@@ -2,7 +2,7 @@
   pkgs = nixpkgs-unstable.legacyPackages.x86_64-linux;
   lib = pkgs.lib;
 
-  home = map (name: {
+  home-linux = map (name: {
     name = "home-manager-${name}";
     value = self.homeConfigurations."${name}".activationPackage;
   }) [
@@ -10,6 +10,13 @@
     "astrid@aliaconda"
     "astrid@banana"
     "astrid@shai-hulud"
+  ];
+
+  home-macos = map (name: {
+    name = "home-manager-${name}";
+    value = self.homeConfigurations."${name}".activationPackage;
+  }) [
+    "astrid@soulcaster"
   ];
 
   machines = map (name: {
@@ -29,6 +36,7 @@
     "installer-iso"
   ];
 in {
-  x86_64-linux = builtins.listToAttrs (home ++ machines ++ packages);
+  x86_64-linux = builtins.listToAttrs (home-linux ++ machines ++ packages);
+  x86_64-darwin = builtins.listToAttrs home-macos;
 }
 
