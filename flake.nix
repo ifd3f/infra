@@ -60,16 +60,27 @@
         baseModules = [ self.nixosModule ];
       };
 
+      sshKeyDatabase = import ./ssh_keys;
     in (flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" ] (system:
       let pkgs = import nixpkgs { inherit system; overlays = alib.overlays; };
       in rec {
-        devShell = devShells.default;
+        gh-ci-matrix = pkgs.callPackage ./pkgs/gh-ci-matrix { inherit self; };
         devShells = import ./shells.nix { inherit pkgs; };
-        packages = import ./pkgs { inherit self pkgs; };
+        packages = {
+          installer-iso = let
+            installerSystem = alib.mkSystem {
+              hostName = "astral-installer";
+              module =
+                import ./nixos/systems/installer-iso.nix { inherit nixpkgs; };
+              };
+          in installerSystem.config.system.build.isoImage;
+        } // (import ./pkgs { inherit self pkgs; });
     }) // {
-      overlay = final: prev: ({
+      checks = import ./checks { inherit self nixpkgs-unstable; };
+
+      overlay = final: prev: {
         lxd = nixpkgs-astralbijection.legacyPackages.${prev.system}.lxd;
-      });
+      };
 
       homeModule = self.homeModules.astral;
       homeModules = {
@@ -136,7 +147,7 @@
           nix-ld.nixosModules.nix-ld
           home-manager.nixosModule
           (import ./nixos/modules {
-            inherit nixos-hardware qmk_firmware;
+            inherit nixos-hardware qmk_firmware sshKeyDatabase;
             homeModules = self.homeModules;
           })
         ];
@@ -152,15 +163,5 @@
         jonathan-js = { };
         joseph-js = { };
       });
-
-      diskImages = let
-        installerSystem = alib.mkSystem {
-          hostName = "astral-installer";
-          module =
-            import ./nixos/systems/installer-iso.nix { inherit nixpkgs; };
-        };
-      in { installer-iso = installerSystem.config.system.build.isoImage; };
-
-      sshKeys = import ./ssh_keys;
     });
 }

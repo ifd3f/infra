@@ -1,8 +1,6 @@
 # Normal user declarations.
-{
+{ sshKeyDatabase }: {
   imports = let
-    ssh_keys = (import ../../../ssh_keys);
-
     # Helper to create a user with the given name.
     mkUserModule = name:
       { description, sshKeys ? [ ], enableByDefault ? false, defaultGroups ? [ ]
@@ -37,7 +35,7 @@
       description =
         "Astrid Yu,astrid.tech/about,(805) 270-5368,nah,astrid@astrid.tech";
       enableByDefault = true;
-      sshKeys = ssh_keys.users.astrid;
+      sshKeys = sshKeyDatabase.users.astrid;
       defaultGroups = [
         "dialout"
         "docker"
@@ -50,7 +48,7 @@
     })
     (mkUserModule "alia" {
       description = "Alia Lescoulie";
-      sshKeys = ssh_keys.users.alia;
+      sshKeys = sshKeyDatabase.users.alia;
     })
   ];
 }

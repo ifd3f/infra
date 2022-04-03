@@ -3,7 +3,7 @@ with lib; {
   options.astral.virt.docker = {
     enable = mkOption {
       description = "Use docker stuff";
-      default = true;
+      default = false;
       type = types.bool;
     };
   };

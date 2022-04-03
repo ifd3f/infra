@@ -1,140 +1,67 @@
 # This is basically just a discount Hydra.
-# TODO: figure out aarch64 builds
 
-name: Validate flake and build targets
+name: Build Nix targets
 
 on:
   push: {}
   workflow_call: {}
 
 jobs:
-  flake-check:
-    name: Check Flake
+  calculate-matrix:
+    name: Calculate build matrix
     runs-on: ubuntu-latest
-
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
-      - uses: actions/checkout@v2
-
-      - uses: cachix/install-nix-action@v13
-        with:
-          nix_path: nixpkgs=channel:nixpkgs-unstable
-          extra_nix_config: |
-            experimental-features = nix-command flakes
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-
-      - uses: cachix/cachix-action@v10
-        with:
-          name: astralbijection
-          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-
-      - name: Validate Nix Flake
-        run: GC_DONT_GC=1 nix flake check
-
-  nixos-build:
-    name: Build NixOS configurations
-    runs-on: ubuntu-latest
-    
-    needs:
-      - flake-check
-    
-    strategy:
-      fail-fast: false
-      matrix:
-        target:
-          - banana
-          - donkey
-          - gfdesk
-          # TODO: - shai-hulud
-          - thonkpad
-          # TODO: - jonathan-js
-        
-    steps:
-      - uses: actions/checkout@v2
-
-      - uses: cachix/install-nix-action@v13
+      - uses: cachix/install-nix-action@v16
         with:
           nix_path: nixpkgs=channel:nixos-unstable
           extra_nix_config: |
             experimental-features = nix-command flakes
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-
       - uses: cachix/cachix-action@v10
         with:
           name: astralbijection
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
-      - name: Install nixos-rebuild
-        run: GC_DONT_GC=1 nix-env -i nixos-rebuild -f '<nixpkgs>'
-
-      - name: Build NixOS expression
-        run: GC_DONT_GC=1 nixos-rebuild build --flake ".#${{ matrix.target }}"
-
-  disk-images-build:
-    name: Build disk images
-    runs-on: ubuntu-latest
-
-    needs:
-      - flake-check
-    
-    strategy:
-      fail-fast: false
-      matrix:
-        target:
-          - installer-iso
-          # TODO: - rpi-bootstrap-sd
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - uses: cachix/install-nix-action@v13
-        with:
-          nix_path: nixpkgs=channel:nixos-unstable
-          extra_nix_config: |
-            experimental-features = nix-command flakes
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-
-      - uses: cachix/cachix-action@v10
-        with:
-          name: astralbijection
-          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-  
-      - name: Build image
+      - name: Calculate build matrix
         run: |
-          GC_DONT_GC=1 nix build --experimental-features "nix-command flakes" ".#diskImages.${{ matrix.target }}"
-          ln -s result/iso/*.iso "${{ matrix.target }}.iso"
+          export target="github:astralbijection/infra/$GITHUB_SHA#gh-ci-matrix"
+          echo "Building $target"
+          GC_DONT_GC=1 nix build -o matrix.json $target
 
-      - name: Upload image
-        uses: actions/upload-artifact@v2.2.4
-        with:
-          name: ${{ matrix.target }}.iso
-          path: ${{ matrix.target }}.iso
+      - name: Set matrix output
+        id: set-matrix
+        run: |
+          jq . matrix.json
+          matrix=$(cat matrix.json)
+          echo "::set-output name=matrix::$matrix"
 
-  home-manager-build:
-    # See https://nix-community.github.io/home-manager/index.html#sec-install-standalone
-    name: Build Home Manager configurations
-    runs-on: ubuntu-latest
-    
-    needs:
-      - flake-check
-    
+  build-checks:
+    name: "${{ matrix.target.target }}"
+    needs: calculate-matrix
+    runs-on: "${{ matrix.target.os }}"
     strategy:
       fail-fast: false
-      matrix:
-        target:
-          - astrid@aliaconda
-          - astrid@banana
-          # - astrid@cracktop-pc
-          - astrid@shai-hulud
-          # TODO: - jonathan-js
-        
-    steps:
-      - uses: actions/checkout@v2
+      # os/target pairs are written to target variable
+      matrix: ${{ fromJson(needs.calculate-matrix.outputs.matrix) }}
 
-      - uses: cachix/install-nix-action@v13
+    steps:
+      - name: Remove unnecessary packages
+        run: | # partially stolen from https://github.com/easimon/maximize-build-space
+          echo "=== Before pruning ==="
+          df -h
+          sudo rm -rf /usr/share /usr/local /opt || true
+          echo
+          echo "=== After pruning ==="
+          df -h
+
+      - uses: cachix/install-nix-action@v16
         with:
           nix_path: nixpkgs=channel:nixos-unstable
           extra_nix_config: |
             experimental-features = nix-command flakes
+            extra-platforms = aarch64-linux aarch64-darwin arm-linux
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
       - uses: cachix/cachix-action@v10
@@ -142,17 +69,9 @@ jobs:
           name: astralbijection
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
-      - name: Install Home Manager
+      - name: Build target
         run: |
-          export GC_DONT_GC=1
-          export NIX_PATH=$HOME/.nix-defexpr/channels${NIX_PATH:+:}$NIX_PATH
-          nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
-          nix-channel --update
-          nix-shell '<home-manager>' -A install
+          export target="github:astralbijection/infra/$GITHUB_SHA#${{ matrix.target.target }}"
+          echo "Building $target"
+          GC_DONT_GC=1 nix build --show-trace $target
 
-      - name: Build Home Manager expression
-        run: |
-          export GC_DONT_GC=1
-          export NIX_PATH=$HOME/.nix-defexpr/channels${NIX_PATH:+:}$NIX_PATH
-          home-manager build --flake '.#${{ matrix.target }}'
-          

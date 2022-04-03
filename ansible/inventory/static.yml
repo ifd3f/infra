@@ -4,6 +4,10 @@ all:
       ansible_host: 192.168.5.2
       ansible_user: ansible
       ansible_python_interpreter: /usr/bin/python3
+    aliaconda:
+      ansible_host: fde5:cd7a:9e1c:6183:8899:9354:3cb7:7ed4
+      ansible_user: ansible
+      ansible_python_interpreter: /usr/bin/python3
 
 bootstrapper_host:
   hosts:

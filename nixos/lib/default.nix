@@ -1,7 +1,6 @@
 { self, nur, nixpkgs, baseModules, home-manager, nixos-vscode-server }: rec {
   overlays = [
     nur.overlay
-    (import "${home-manager}/overlay.nix")
     self.overlay
   ];
 
@@ -48,6 +47,11 @@
           astral = {
             roles.server.enable = true;
             zfs-utils.enable = false;
+            virt = {
+              docker.enable = false;
+              libvirt.enable = false;
+              lxc.enable = false;
+            };
           };
 
           # Don't compress the image.
