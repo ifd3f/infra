@@ -67,6 +67,8 @@
                 import ./nixos/systems/installer-iso.nix { inherit nixpkgs; };
             };
           in installerSystem.config.system.build.isoImage;
+
+          gh-ci-matrix = pkgs.callPackage ./pkgs/gh-ci-matrix { inherit self; };
         };
         devShells = import ./shells.nix { inherit pkgs; };
     }) // {
