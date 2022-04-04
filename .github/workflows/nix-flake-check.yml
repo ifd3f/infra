@@ -39,7 +39,7 @@ jobs:
           echo "::set-output name=matrix::$matrix"
 
   build-checks:
-    name: Nix deriv ${{ matrix.target.target }}
+    name: ${{ matrix.target.name }}
     needs: calculate-matrix
     runs-on: "${{ matrix.target.os }}"
     strategy:
@@ -75,8 +75,8 @@ jobs:
           echo "Building $target"
           GC_DONT_GC=1 nix build --show-trace $target
 
-  build-nix-docker-images:
-    name: Nix OCI ${{ matrix.target.target }}
+  build-nix-containers:
+    name: ${{ matrix.target.name }}
     needs: calculate-matrix
     runs-on: "${{ matrix.target.os }}"
     strategy:
