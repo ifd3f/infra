@@ -118,8 +118,9 @@ jobs:
       - name: Tag and upload Docker images
         if: ${{ github.event_name != 'pull_request' }}
         run: |
+          export ref=${{ env.target_sha }}
           export branchtag=$([ $ref = "refs/heads/main" ] && echo latest || tr '/' '-' <<< "${ref##refs/heads/}")
-          GC_DONT_GC=1 nix run ${{ env.target_flake }}#${{ matrix.target.target }} -- result.tar.gz ${{ env.target_sha }} $branchtag
+          GC_DONT_GC=1 nix run ${{ env.target_flake }}#ci-import-and-tag-docker -- result.tar.gz $ref $branchtag
 
   build-dockerfiles:
     runs-on: ubuntu-latest
