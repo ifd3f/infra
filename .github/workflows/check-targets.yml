@@ -1,11 +1,18 @@
-name: Build all targets
+name: Build and check all targets
 
 on:
   schedule:
     - cron: '0 6 * * 6'
   push: {}
-  workflow_call: {}
   workflow_dispatch: {}
+  workflow_call:
+    inputs:
+      sha:
+        required: true
+        type: string
+
+env:
+  target_flake: github:astralbijection/infra/${{ inputs.sha || github.sha }}
 
 jobs:
   calculate-matrix:
@@ -27,9 +34,7 @@ jobs:
 
       - name: Calculate build matrix
         run: |
-          export target="github:astralbijection/infra/$GITHUB_SHA#gh-ci-matrix"
-          echo "Building $target"
-          GC_DONT_GC=1 nix build -o matrix.json $target
+          GC_DONT_GC=1 nix build -o matrix.json ${{ env.target_flake }}#gh-ci-matrix
 
       - name: Set matrix output
         id: set-matrix
@@ -71,9 +76,7 @@ jobs:
 
       - name: Build target
         run: |
-          export target="github:astralbijection/infra/$GITHUB_SHA#${{ matrix.target.target }}"
-          echo "Building $target"
-          GC_DONT_GC=1 nix build --show-trace $target
+          GC_DONT_GC=1 nix build --show-trace ${{ env.target_flake }}#${{ matrix.target.target }}
 
   build-nix-containers:
     name: ${{ matrix.target.name }}
@@ -109,16 +112,14 @@ jobs:
 
       - name: Build target
         run: |
-          export target="github:astralbijection/infra/$GITHUB_SHA#${{ matrix.target.target }}"
-          echo "Building $target"
-          GC_DONT_GC=1 nix build --show-trace $target -o result.tar.gz
+          GC_DONT_GC=1 nix build --show-trace ${{ env.target_flake }}#${{ matrix.target.target }} -o result.tar.gz
 
       - name: Tag and upload Docker images
         if: ${{ github.event_name != 'pull_request' }}
         run: |
-          export target="github:astralbijection/infra/$GITHUB_SHA#ci-import-and-tag-docker"
-          export branchtag=$([ $GITHUB_REF = "refs/heads/main" ] && echo latest || tr '/' '-' <<< "${GITHUB_REF##refs/heads/}")
-          GC_DONT_GC=1 nix run $target -- result.tar.gz $GITHUB_SHA $branchtag
+          ref=${{ inputs.sha }}
+          export branchtag=$([ $ref = "refs/heads/main" ] && echo latest || tr '/' '-' <<< "${ref##refs/heads/}")
+          GC_DONT_GC=1 nix run ${{ env.target_flake }}#${{ matrix.target.target }} -- result.tar.gz ${{ inputs.sha }} $branchtag
 
   build-dockerfiles:
     runs-on: ubuntu-latest

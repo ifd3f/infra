@@ -1,4 +1,4 @@
-name: Flake version bump
+name: Periodic version bump
 
 on:
   schedule:
@@ -6,12 +6,14 @@ on:
   workflow_dispatch:
 
 jobs:
-  flake-bump:
-    name: Bump Flake
+  version-bump:
+    name: Bump versions
     runs-on: ubuntu-latest
+    outputs:
+      sha: ${{ steps.create-pr.pull-request-head-sha }}
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - uses: cachix/install-nix-action@v13
         with:
@@ -25,6 +27,7 @@ jobs:
 
       - name: Create pull request
         uses: peter-evans/create-pull-request@v3
+        id: create-pr
         with:
           title: Periodic flake bump ${{ github.run_number }}
           branch: auto/flake-bump-${{ github.run_number }}
@@ -34,9 +37,10 @@ jobs:
             See https://github.com/astralbijection/infra/actions/workflows/daily-flake-bump.yml for more details.
           delete-branch: true
 
-      - name: Auto-merge pull request
-        uses: reitermarkus/automerge@v1.5.2
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          merge-method: rebase
-          pull-request: ${{ steps.cpr.outputs.pull-request-number }}
+  trigger-checks:
+    name: "Dispatch checks"
+    needs: version-bump
+    uses: astralbijection/infra/.github/workflows/check-targets.yml@main
+    with:
+      sha: ${{ needs.version-bump.outputs.sha }}
+
