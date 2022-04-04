@@ -7,7 +7,7 @@ on:
 
 env:
   pr_branch: auto/version-bump-${{ github.run_number }}
-  action_url: https://github.com/astralbijection/infra/runs/${{ github.run_id }}
+  action_url: https://github.com/astralbijection/infra/actions/runs/${{ github.run_id }}
 
 jobs:
   version-bump:
@@ -76,6 +76,7 @@ jobs:
       - name: Update check status
         uses: LouisBrunner/checks-action@v1.1.1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           check_id: ${{ needs.version-bump.outputs.check_id }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          details_url: ${{ env.action_url }}
           conclusion: ${{ needs.run-checks.result }}
