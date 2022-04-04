@@ -29,7 +29,7 @@ jobs:
       - name: Bump flake versions
         run: GC_DONT_GC=1 nix flake update
 
-      - name: Create draft pull request
+      - name: Create pull request
         uses: peter-evans/create-pull-request@v3
         id: create-pr
         with:
@@ -46,7 +46,7 @@ jobs:
             
             [See the action run here.](https://github.com/astralbijection/infra/actions/runs/${{ github.run_id }})
           delete-branch: true
-          draft: true
+          draft: false
 
       - name: Annotate SHA with check
         id: create-check
@@ -58,7 +58,6 @@ jobs:
           sha: ${{ steps.create-pr.pull-request-head-sha }}
           details_url: https://github.com/astralbijection/infra/actions/runs/${{ github.run_id }}
           status: in_progress
-          conclusion: ${{ job.status }}
 
   run-checks:
     name: Run checks on PR
