@@ -56,7 +56,8 @@ jobs:
 
   mark-non-draft:
     name: Mark PR as ready
-    needs: trigger-checks
+    # needs: trigger-checks
+    needs: version-bump
     runs-on: ubuntu-latest
     steps:
       - name: Mark PR as ready for review
