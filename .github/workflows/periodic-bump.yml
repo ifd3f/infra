@@ -65,8 +65,8 @@ jobs:
     with:
       sha: ${{ needs.version-bump.outputs.sha }}
 
-  mark-ready:
-    name: Mark PR as ready
+  set-check-result:
+    name: Set check result
     needs: 
       - version-bump
       - run-checks
@@ -75,7 +75,6 @@ jobs:
     steps:
       - name: Update check status
         uses: LouisBrunner/checks-action@v1.1.1
-        if: always()
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           check_id: ${{ needs.version-bump.outputs.check_id }}
