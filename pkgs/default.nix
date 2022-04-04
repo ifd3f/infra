@@ -8,5 +8,7 @@ in rec {
   internal-lxd-simplestreams = pkgs.callPackage ./images/internal-lxd-simplestreams { inherit internal-lxd-simplestreams-tree; };
 
   gh-ci-matrix = pkgs.callPackage ./gh-ci-matrix { inherit self; };
+
+  ci-import-and-tag-docker = pkgs.callPackage ./ci-import-and-tag-docker {};
 }
 
