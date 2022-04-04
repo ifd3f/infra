@@ -14,6 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       sha: ${{ steps.create-pr.pull-request-head-sha }}
+      check_id: ${{ steps.create-check.outputs.check_id }}
 
     steps:
       - uses: actions/checkout@v3
@@ -47,26 +48,38 @@ jobs:
           delete-branch: true
           draft: true
 
-  trigger-checks:
+      - name: Annotate SHA with check
+        id: create-check
+        uses: LouisBrunner/checks-action@v1.1.1
+        if: always()
+        with:
+          name: Running build checks, please wait...
+          token: ${{ secrets.GITHUB_TOKEN }}
+          sha: ${{ steps.create-pr.pull-request-head-sha }}
+          details_url: https://github.com/astralbijection/infra/actions/runs/${{ github.run_id }}
+          status: in_progress
+          conclusion: ${{ job.status }}
+
+  run-checks:
     name: Run checks on PR
     needs: version-bump
     uses: astralbijection/infra/.github/workflows/check-targets.yml@main
     with:
       sha: ${{ needs.version-bump.outputs.sha }}
 
-  mark-non-draft:
+  mark-ready:
     name: Mark PR as ready
     # needs: trigger-checks
-    needs: version-bump
+    needs: 
+      version-bump:
+      # run-checks:
+      #   if: ${{ always() }}
     runs-on: ubuntu-latest
     steps:
-      - name: Mark PR as ready for review
-        uses: vsoch/pull-request-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PULL_REQUEST_BRANCH: ${{ env.pr_branch }}
-          PULL_REQUEST_UPDATE: true
-          PULL_REQUEST_DRAFT: false
-          PULL_REQUEST_REVIEWERS: astralbijection
-          PASS_IF_EXISTS: true
-
+      - name: Update check status
+        uses: LouisBrunner/checks-action@v1.1.1
+        if: always()
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          check_id: ${{ needs.version-bump.outputs.check_id }}
+          conclusion: completed # ${{ needs.run-checks.status }}
