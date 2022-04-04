@@ -7,6 +7,7 @@ on:
 
 env:
   pr_branch: auto/version-bump-${{ github.run_number }}
+  action_url: https://github.com/astralbijection/infra/runs/${{ github.run_id }}
 
 jobs:
   version-bump:
@@ -38,13 +39,11 @@ jobs:
           commit-message: |
             auto: Bump versions (run ${{ github.run_number }})
             
-            See https://github.com/astralbijection/infra/actions/workflows/periodic-bump.yml for more details.
-
-            For action status, check https://github.com/astralbijection/infra/actions/runs/${{ github.run_id }}
+            For more details, see ${{ env.action_url }}
           body: |
-            Automatic flake bump created by [an automated action](https://github.com/astralbijection/infra/actions/workflows/periodic-bump.yml).
+            Automatic flake bump created by [an automated action run](${{ env.action_url }}).
             
-            [See the action run here.](https://github.com/astralbijection/infra/actions/runs/${{ github.run_id }})
+            Please **do not** merge until the "Full check suite" check has completed.
           delete-branch: true
           draft: false
 
@@ -53,10 +52,10 @@ jobs:
         uses: LouisBrunner/checks-action@v1.1.1
         if: always()
         with:
-          name: Running build checks, please wait...
+          name: Full check suite
           token: ${{ secrets.GITHUB_TOKEN }}
           sha: ${{ steps.create-pr.outputs.pull-request-head-sha }}
-          details_url: https://github.com/astralbijection/infra/actions/runs/${{ github.run_id }}
+          details_url: ${{ env.action_url }}
           status: in_progress
 
   run-checks:
@@ -68,7 +67,6 @@ jobs:
 
   mark-ready:
     name: Mark PR as ready
-    # needs: trigger-checks
     needs: 
       - version-bump
       # - run-checks
