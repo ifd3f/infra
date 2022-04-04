@@ -69,7 +69,7 @@ jobs:
     name: Mark PR as ready
     needs: 
       - version-bump
-      # - run-checks
+      - run-checks
     if: ${{ always() }}
     runs-on: ubuntu-latest
     steps:
@@ -79,4 +79,4 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           check_id: ${{ needs.version-bump.outputs.check_id }}
-          conclusion: success # ${{ needs.run-checks.status }}
+          conclusion: ${{ needs.run-checks.result }}
