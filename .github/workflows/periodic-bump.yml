@@ -55,7 +55,7 @@ jobs:
         with:
           name: Running build checks, please wait...
           token: ${{ secrets.GITHUB_TOKEN }}
-          sha: ${{ steps.create-pr.pull-request-head-sha }}
+          sha: ${{ steps.create-pr.outputs.pull-request-head-sha }}
           details_url: https://github.com/astralbijection/infra/actions/runs/${{ github.run_id }}
           status: in_progress
 
