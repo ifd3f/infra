@@ -1,7 +1,7 @@
 variable "config_dir" {
   description = "Configs directory"
   type = string
-  default = "./configs"
+  default = "./cloud-init"
 }
 
 variable "exposed_bridge" {

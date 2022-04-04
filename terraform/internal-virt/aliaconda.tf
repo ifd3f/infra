@@ -23,7 +23,11 @@ resource "lxd_container" "aliaconda" {
     prevent_destroy = true
   }
 
-  config = yamldecode(file("${var.config_dir}/aliaconda.yml"))
+  config = {
+    "security.privileged" = true
+    "security.nesting" = true
+    "cloud-init.user-data" = file("${var.config_dir}/aliaconda.yml")
+  }
 
   device {
     name = "eth0"
