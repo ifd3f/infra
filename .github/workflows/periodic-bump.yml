@@ -5,6 +5,9 @@ on:
     - cron: "00 13 * * 2" # Every Tuesday at 6:00am PST - patch Tuesday :D
   workflow_dispatch:
 
+env:
+  pr_branch: auto/version-bump-${{ github.run_number }}
+
 jobs:
   version-bump:
     name: Submit PR with version bumps
@@ -29,16 +32,18 @@ jobs:
         uses: peter-evans/create-pull-request@v3
         id: create-pr
         with:
-          title: Bump versions ${{ github.run_number }}
-          branch: auto/version-bump-${{ github.run_number }}
+          title: Bump versions (run ${{ github.run_number }})
+          branch: ${{ env.pr_branch }}
           commit-message: |
             auto: Bump versions (run ${{ github.run_number }})
             
             See https://github.com/astralbijection/infra/actions/workflows/periodic-bump.yml for more details.
 
             For action status, check https://github.com/astralbijection/infra/actions/runs/${{ github.run_id }}
-          body:
-            Automatic flake bump created by [this action](https://github.com/astralbijection/infra/actions/runs/${{ github.run_id }}).
+          body: |
+            Automatic flake bump created by [an automated action](https://github.com/astralbijection/infra/actions/workflows/periodic-bump.yml).
+            
+            [See the action run here.](https://github.com/astralbijection/infra/actions/runs/${{ github.run_id }})
           delete-branch: true
           draft: true
 
@@ -54,11 +59,12 @@ jobs:
     needs: trigger-checks
     runs-on: ubuntu-latest
     steps:
-      - name: Update pull request
-        uses: peter-evans/create-pull-request@v3
-        with:
-          title: Bump versions ${{ github.run_number }}
-          branch: auto/version-bump-${{ github.run_number }}
-          draft: false
-          reviewers: astralbijection
+      - name: Mark PR as ready for review
+        uses: vsoch/pull-request-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PULL_REQUEST_BRANCH: ${{ env.pr_branch }}
+          PULL_REQUEST_UPDATE: true
+          PULL_REQUEST_DRAFT: false
+          PULL_REQUEST_REVIEWERS: astralbijection
 
