@@ -7,13 +7,18 @@ fi
 shift 1
 
 echo "=== Loading image $imagetar ==="
-docker load -i $imagetar
+image=$(docker load -i $imagetar | tr -d '\n' | sed -r 's/Loaded image: (.*)$/\1/')
+repository="${image%:*}"
+
+echo "Image:      $image"
+echo "Repository: $repository"
 
 for tag in "$@"; do
-    echo "=== Tagging images with $tag ==="
-    docker image ls --format "docker image tag {{.Repository}}:{{.Tag}} {{.Repository}}:$tag" | bash
+    newTag="$repository:$tag"
+    echo "=== Tagging $image -> $newTag ==="
+    docker image tag $image $newTag
 done
 
 echo "=== Pushing tags ==="
-docker image ls --format "docker push {{.Repository}}:{{.Tag}}" | bash
+docker push -a $repository
 
