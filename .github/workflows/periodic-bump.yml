@@ -5,12 +5,17 @@ on:
     - cron: "00 13 * * 2" # Every Tuesday at 6:00am PST - patch Tuesday :D
   workflow_dispatch:
 
+env:
+  pr_branch: auto/version-bump-${{ github.run_number }}
+  action_url: https://github.com/astralbijection/infra/actions/runs/${{ github.run_id }}
+
 jobs:
   version-bump:
     name: Submit PR with version bumps
     runs-on: ubuntu-latest
     outputs:
       sha: ${{ steps.create-pr.pull-request-head-sha }}
+      check_id: ${{ steps.create-check.outputs.check_id }}
 
     steps:
       - uses: actions/checkout@v3
@@ -25,40 +30,53 @@ jobs:
       - name: Bump flake versions
         run: GC_DONT_GC=1 nix flake update
 
-      - name: Create draft pull request
+      - name: Create pull request
         uses: peter-evans/create-pull-request@v3
         id: create-pr
         with:
-          title: Bump versions ${{ github.run_number }}
-          branch: auto/version-bump-${{ github.run_number }}
+          title: Bump versions (run ${{ github.run_number }})
+          branch: ${{ env.pr_branch }}
           commit-message: |
             auto: Bump versions (run ${{ github.run_number }})
             
-            See https://github.com/astralbijection/infra/actions/workflows/periodic-bump.yml for more details.
-
-            For action status, check https://github.com/astralbijection/infra/actions/runs/${{ github.run_id }}
-          body:
-            Automatic flake bump created by [this action](https://github.com/astralbijection/infra/actions/runs/${{ github.run_id }}).
+            For more details, see ${{ env.action_url }}
+          body: |
+            Automatic flake bump created by [an automated action run](${{ env.action_url }}).
+            
+            Please **do not** merge until the "Full check suite" check has completed.
           delete-branch: true
-          draft: true
+          draft: false
 
-  trigger-checks:
+      - name: Annotate SHA with check
+        id: create-check
+        uses: LouisBrunner/checks-action@v1.1.1
+        if: always()
+        with:
+          name: Full check suite
+          token: ${{ secrets.GITHUB_TOKEN }}
+          sha: ${{ steps.create-pr.outputs.pull-request-head-sha }}
+          details_url: ${{ env.action_url }}
+          status: in_progress
+
+  run-checks:
     name: Run checks on PR
     needs: version-bump
     uses: astralbijection/infra/.github/workflows/check-targets.yml@main
     with:
       sha: ${{ needs.version-bump.outputs.sha }}
 
-  mark-non-draft:
-    name: Mark PR as ready
-    needs: trigger-checks
+  set-check-result:
+    name: Set check result
+    needs: 
+      - version-bump
+      - run-checks
+    if: ${{ always() }}
     runs-on: ubuntu-latest
     steps:
-      - name: Update pull request
-        uses: peter-evans/create-pull-request@v3
+      - name: Update check status
+        uses: LouisBrunner/checks-action@v1.1.1
         with:
-          title: Bump versions ${{ github.run_number }}
-          branch: auto/version-bump-${{ github.run_number }}
-          draft: false
-          reviewers: astralbijection
-
+          check_id: ${{ needs.version-bump.outputs.check_id }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          details_url: ${{ env.action_url }}
+          conclusion: ${{ needs.run-checks.result }}
