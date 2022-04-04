@@ -71,9 +71,9 @@ jobs:
     name: Mark PR as ready
     # needs: trigger-checks
     needs: 
-      version-bump:
-      # run-checks:
-      #   if: ${{ always() }}
+      - version-bump
+      # - run-checks
+    if: ${{ always() }}
     runs-on: ubuntu-latest
     steps:
       - name: Update check status
