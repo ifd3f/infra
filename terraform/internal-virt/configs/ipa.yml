@@ -1,3 +1,6 @@
+limits.cpu: 4
+limits.memory: 6GB
+
 cloud-init.network-config: |
   #network-config
   version: 2
