@@ -7,33 +7,25 @@ This repo holds everything needed to set up my all my infrastructure, including 
 - Ansible playbooks
 - Terraform modules
 - Dotfiles
-- NixOS
+- Nix configs
+
+And so much more!
 
 ## Current Features
 
-Much of this code is experimental and not used in production yet. However, there are some things that *are* being used to great effect:
+This list is not comprehensive and it is likely to expand.
 
-- The Nix flake is being used to deploy my homelab servers
-- Docker Compose, for setting up api.astrid.tech and aay.tw
-- An automated Ansible system for redeploying said Docker services in Oracle Cloud
-- My Cloudflare DNS setup is configured using Terraform so that I can have an auditable and manageable trail of changes
-
-## Subfolder Summary
-
-- `ansible/` - Ansible projects and roles
-- `dev-env/` - Terraform and Packer scripts for setting up a local replica of my homelab for development
-- `docker-compose/` - Old docker-compose projects
-- `docs/` - Wiki (see it rendered at [cloud.astrid.tech](https://cloud.astrid.tech/))
-- `home-manager/` - Home-manager configs, and dotfiles
-- `images/` - Docker and Packer builders for containers, LXCs, and VMs
-- `kubernetes/` - Kubernetes deployment configs
-- `nixos/` - NixOS modules and systems
-- `openwrt/` - OpenWRT configuration and scripts
-- `terraform/` - Terraform projects
+- Public
+  - Dockerized personal website services, served on Oracle Cloud and redeployed with Ansible
+  - Cloudflare DNS, updated by Terraform
+- Internal
+  - PC fleet powered by modular NixOS configurations
+  - Virtualization server powered by LXD/Qemu on NixOS
+- Deployment
+  - Consistent, immutable builds using Nix flakes
+  - Highly-automated and dynamic CI pipeline, building all x86 systems and packages on every push
 
 ## Useful Links
 
 - [cloud.astrid.tech](https://cloud.astrid.tech/), a Github Pages site acting as a wiki documenting this project. Also located in the [docs/](./docs) folder.
-- [An article on my website](https://astrid.tech/projects/infra/) about this project
-
-
+- [An article on my website](https://astrid.tech/projects/infra/) about this project, including some of its history
