@@ -23,8 +23,18 @@ let
     "internal-lxd-simplestreams"
   ];
 
+  dockerfiles = lib.flatten (
+    lib.mapAttrsToList
+      (name: fileType:
+        if fileType == "directory"
+          then [name]
+          else [])
+      (builtins.readDir ../../docker)
+  );
+
 in writeText "matrix.json" (builtins.toJSON {
   checks.target = x86_64-linux ++ aarch64-linux ++ x86_64-darwin;
-  docker-images.target = x86_64-linux-docker-images;
+  nix-docker-images.target = x86_64-linux-docker-images;
+  dockerfiles.image = dockerfiles;
 })
 
