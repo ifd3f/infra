@@ -1,6 +1,11 @@
 resource "lxd_volume" "aliaconda_home" {
   name = "aliaconda-home"
   pool = lxd_storage_pool.dpool.id
+
+  lifecycle {
+    # i don't wanna destroy alia's code
+    prevent_destroy = true
+  }
 }
 
 resource "lxd_cached_image" "centos8" {
@@ -12,6 +17,11 @@ resource "lxd_container" "aliaconda" {
   name = "aliaconda"
   # zerotier does not yet support centos 9
   image = lxd_cached_image.centos8.fingerprint
+
+  lifecycle {
+    # i don't wanna destroy alia's machine
+    prevent_destroy = true
+  }
 
   config = yamldecode(file("${var.config_dir}/aliaconda.yml"))
 

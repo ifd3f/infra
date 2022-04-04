@@ -10,3 +10,9 @@ variable "exposed_bridge" {
   default = "br0"
 }
 
+variable "kubecluster_bridge" {
+  description = "The bridge for the Kubernetes cluster"
+  type = string
+  default = "brk8s"
+}
+

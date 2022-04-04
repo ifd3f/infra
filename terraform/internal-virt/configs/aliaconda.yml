@@ -1,4 +1,5 @@
 security.privileged: true
+security.nesting: true
 cloud-init.user-data: |
   #cloud-config
   ssh_pwauth: false

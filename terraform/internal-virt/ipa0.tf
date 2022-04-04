@@ -10,6 +10,8 @@ resource "lxd_container" "ipa0" {
     properties = {
       nictype = "bridged"
       parent = var.exposed_bridge
+      "ipv4.address" = "192.168.1.5/64"
+      "ipv6.address" = "fd53:1de8:470a:501::dead:beef/64"
     }
   }
 
