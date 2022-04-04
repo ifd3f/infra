@@ -12,6 +12,7 @@ on:
         type: string
 
 env:
+  target_sha: ${{ inputs.sha || github.sha }}
   target_flake: github:astralbijection/infra/${{ inputs.sha || github.sha }}
 
 jobs:
@@ -117,9 +118,8 @@ jobs:
       - name: Tag and upload Docker images
         if: ${{ github.event_name != 'pull_request' }}
         run: |
-          ref=${{ inputs.sha }}
           export branchtag=$([ $ref = "refs/heads/main" ] && echo latest || tr '/' '-' <<< "${ref##refs/heads/}")
-          GC_DONT_GC=1 nix run ${{ env.target_flake }}#${{ matrix.target.target }} -- result.tar.gz ${{ inputs.sha }} $branchtag
+          GC_DONT_GC=1 nix run ${{ env.target_flake }}#${{ matrix.target.target }} -- result.tar.gz ${{ env.target_sha }} $branchtag
 
   build-dockerfiles:
     runs-on: ubuntu-latest

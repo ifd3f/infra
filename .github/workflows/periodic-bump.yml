@@ -7,7 +7,7 @@ on:
 
 jobs:
   version-bump:
-    name: Bump versions
+    name: Submit PR with version bumps
     runs-on: ubuntu-latest
     outputs:
       sha: ${{ steps.create-pr.pull-request-head-sha }}
@@ -25,22 +25,38 @@ jobs:
       - name: Bump flake versions
         run: GC_DONT_GC=1 nix flake update
 
-      - name: Create pull request
+      - name: Create draft pull request
         uses: peter-evans/create-pull-request@v3
         id: create-pr
         with:
-          title: Periodic flake bump ${{ github.run_number }}
+          title: Bump versions ${{ github.run_number }}
           branch: auto/flake-bump-${{ github.run_number }}
           commit-message: |
-            nix: Bump flake versions (run ${{ github.run_number }})
+            auto: Bump versions (run ${{ github.run_number }})
             
-            See https://github.com/astralbijection/infra/actions/workflows/daily-flake-bump.yml for more details.
+            See https://github.com/astralbijection/infra/actions/workflows/periodic-bump.yml for more details.
+
+            For action status, check https://github.com/astralbijection/infra/actions/runs/${{ github.run_id }}
           delete-branch: true
+          draft: true
 
   trigger-checks:
-    name: "Dispatch checks"
+    name: Run checks on PR
     needs: version-bump
     uses: astralbijection/infra/.github/workflows/check-targets.yml@main
     with:
       sha: ${{ needs.version-bump.outputs.sha }}
+
+  mark-non-draft:
+    name: Mark PR as ready
+    needs: trigger-checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update pull request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          title: Bump versions ${{ github.run_number }}
+          branch: auto/flake-bump-${{ github.run_number }}
+          draft: false
+          reviewers: astralbijection
 
