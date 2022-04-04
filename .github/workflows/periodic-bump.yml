@@ -68,4 +68,5 @@ jobs:
           PULL_REQUEST_UPDATE: true
           PULL_REQUEST_DRAFT: false
           PULL_REQUEST_REVIEWERS: astralbijection
+          PASS_IF_EXISTS: true
 
