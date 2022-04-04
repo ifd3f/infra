@@ -81,4 +81,4 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           check_id: ${{ needs.version-bump.outputs.check_id }}
-          conclusion: completed # ${{ needs.run-checks.status }}
+          conclusion: success # ${{ needs.run-checks.status }}
