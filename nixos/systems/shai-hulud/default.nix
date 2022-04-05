@@ -18,6 +18,7 @@
       laptop.enable = true;
       pc.enable = true;
     };
+    virt.vbox.enable = true;
     hw.surface.enable = true;
 
     # so that we don't rebuild linux kernel on this tiny boi
