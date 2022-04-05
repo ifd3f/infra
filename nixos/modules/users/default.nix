@@ -43,6 +43,8 @@
         "lxd"
         "netdev"
         "networkmanager"
+        "vboxsf"
+        "vboxusers"
         "wheel"
       ];
     })
