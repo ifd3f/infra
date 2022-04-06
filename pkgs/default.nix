@@ -1,14 +1,11 @@
 { self, pkgs }:
 let
-  lxdwriters = import ./lxdwriters.nix { inherit pkgs; };
   flakeTime = self.sourceInfo.lastModified;
-in rec {
-  internal-lxd-simplestreams-tree = pkgs.callPackage ./internal-lxd-simplestreams-tree (lxdwriters // { inherit flakeTime; });
-
-  internal-lxd-simplestreams = pkgs.callPackage ./images/internal-lxd-simplestreams { inherit internal-lxd-simplestreams-tree; };
-
   gh-ci-matrix = pkgs.callPackage ./gh-ci-matrix { inherit self; };
-
   ci-import-and-tag-docker = pkgs.callPackage ./ci-import-and-tag-docker {};
-}
+  gigarouter-image = self.nixosConfigurations.gigarouter.config.system.build.vm;
+  vendored-images = import ./images/vendored { inherit pkgs; };
+
+in vendored-images //
+  { inherit gh-ci-matrix ci-import-and-tag-docker gigarouter-image; }
 
