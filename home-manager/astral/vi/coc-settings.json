@@ -58,8 +58,9 @@
       }
     },
     "terraform": {
-      "command": "terraform-lsp",
-      "filetypes": ["terraform"]
+      "command": "terraform-ls",
+      "args": ["serve"],
+      "filetypes": ["tf", "terraform"]
     }
   }
 }
