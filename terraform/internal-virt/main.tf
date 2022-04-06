@@ -1,4 +1,12 @@
 terraform {
+  cloud {
+    organization = "astralbijection"
+
+    workspaces {
+      name = "infra-internal"
+    }
+  }
+
   required_providers {
     lxd = {
       source  = "terraform-lxd/lxd"
