@@ -9,9 +9,12 @@ with lib; {
     };
   };
 
-  config = let cfg = config.astral.virt.docker;
+  config = let cfg = config.astral.virt.vbox;
   in mkIf cfg.enable {
-    virtualisation.virtualbox.host.enable = true;
-    environment.etc."/etc/vbox/networks.conf".text = "* 0.0.0.0/0 ::/0";
+    virtualisation.virtualbox.host = {
+      enable = true;
+      enableExtensionPack = true;
+    };
+    environment.etc."vbox/networks.conf".text = "* 0.0.0.0/0 ::/0";
   };
 }
