@@ -21,7 +21,7 @@ let
     python3
     tcpdump
     terraform
-    terraform-lsp
+    terraform-ls
     wget
     whois
     yq

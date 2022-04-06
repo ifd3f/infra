@@ -16,3 +16,9 @@ variable "kubecluster_bridge" {
   default = "brk8s"
 }
 
+variable "libvirt_uri" {
+  description = "Libvirt socket to connect to"
+  type = string
+  default = "qemu:///system"
+}
+

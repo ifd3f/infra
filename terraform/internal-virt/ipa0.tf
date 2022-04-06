@@ -1,6 +1,6 @@
 resource "lxd_container" "ipa0" {
   name = "ipa0"
-  image = "images:centos/8-Stream/cloud"
+  image = "centos/8-Stream/cloud-nolxd"
   type = "virtual-machine"
   limits = {
     cpu = 4
