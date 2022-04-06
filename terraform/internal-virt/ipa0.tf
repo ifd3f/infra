@@ -1,8 +1,16 @@
 resource "lxd_container" "ipa0" {
   name = "ipa0"
-  image = "images:fedora/35/cloud"
+  image = "images:centos/8-Stream/cloud"
   type = "virtual-machine"
-  config = yamldecode(file("${var.config_dir}/ipa.yml"))
+  limits = {
+    cpu = 4
+    memory = "6GB"
+  }
+
+  config = {
+    "cloud-init.user-data" = file("${var.config_dir}/ipa.yml")
+    "cloud-init.network-config" = file("${var.config_dir}/ipa.net.yml")
+  }
 
   device {
     name = "eth0"
