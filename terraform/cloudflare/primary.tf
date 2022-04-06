@@ -18,11 +18,11 @@ resource "cloudflare_record" "identity_zone" {
   proxied = false
 }
 
-resource "cloudflare_record" "dnd_wiki" {
-  name    = "wiki.dnd"
+resource "cloudflare_record" "aliaconda" {
+  name    = "aliaconda.of"
   proxied = false
-  type    = "A"
-  value   = "152.67.235.7"
+  type    = "AAAA"
+  value   = "fd53:1de8:470a:0011:0000:0000:0000:0027"
   zone_id = cloudflare_zone.primary.id
 }
 
