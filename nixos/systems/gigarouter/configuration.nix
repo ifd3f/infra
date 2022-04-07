@@ -19,8 +19,8 @@
     "net.ipv6.conf.all.use_tempaddr" = 0;
 
     # On WAN, allow IPv6 autoconfiguration and tempory address use.
-    "net.ipv6.conf.${name}.accept_ra" = 2;
-    "net.ipv6.conf.${name}.autoconf" = 1;
+    "net.ipv6.conf.wan.accept_ra" = 2;
+    "net.ipv6.conf.wan.autoconf" = 1;
   };
 
   services.udev.extraRules = ''
@@ -34,7 +34,7 @@
   networking = {
     hostName = "gigarouter";
 
-    nameserver = [ "8.8.8.8" "8.8.4.4" ];
+    # nameserver = [ "8.8.8.8" "8.8.4.4" ];
     nat.enable = false;
 
     # we'll use nftables

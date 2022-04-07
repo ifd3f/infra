@@ -16,6 +16,11 @@ let
 
   build-support = import ./build-support { inherit pkgs; };
 
+  internal-libvirt-images = pkgs.linkFarm "internal-libvirt-images" [
+    { name = "centos-8.qcow2"; path = vendored-images.vendored-centos-8-cloud; }
+    { name = "gigarouter.qcow2"; path = gigarouter-image; }
+  ];
+
 in vendored-images //
-  { inherit gh-ci-matrix ci-import-and-tag-docker gigarouter-image upload-all-to-lxd; }
+  { inherit internal-libvirt-images gh-ci-matrix ci-import-and-tag-docker gigarouter-image upload-all-to-lxd; }
 

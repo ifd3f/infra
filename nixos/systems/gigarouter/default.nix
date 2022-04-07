@@ -1,6 +1,6 @@
-{ lib }:
-lib.nixosSystem {
+{ nixpkgs }:
+nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
-  module = ./module.nix;
-};
+  modules = [ ./configuration.nix ];
+}
 

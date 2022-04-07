@@ -162,6 +162,8 @@
       }) // (alib.mkPiJumpserverEntries {
         jonathan-js = { };
         joseph-js = { };
-      });
+      }) // {
+        gigarouter = import ./nixos/systems/gigarouter { inherit nixpkgs; };
+      };
     });
 }

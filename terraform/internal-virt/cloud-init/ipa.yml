@@ -1,6 +1,6 @@
 #cloud-config
 ssh_pwauth: false
-fdqn: ipa0.id.astrid.tech
+hostname: ipa0.id.astrid.tech
 
 users:
   - name: ansible
