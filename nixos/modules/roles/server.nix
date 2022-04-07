@@ -10,7 +10,7 @@ with lib; {
   config = mkIf config.astral.roles.server.enable {
     astral = {
       net.sshd.enable = true;
-      infra-update.enable = true; # update hourly
+      infra-update.enable = false; # don't update automatically because everything's broken
     };
 
     # Enable SSH in initrd for debugging
