@@ -23,9 +23,7 @@ let
     name = "Nix dockertools ${k}";
     target = "packages.x86_64-linux.${k}";
     os = "ubuntu-latest";
-  }) [
-    "internal-lxd-simplestreams"
-  ];
+  }) [];
 
   dockerfiles = lib.flatten (
     lib.mapAttrsToList
