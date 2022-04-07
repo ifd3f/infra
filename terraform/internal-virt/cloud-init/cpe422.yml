@@ -1,0 +1,36 @@
+#cloud-config
+ssh_pwauth: false
+hostname: cpe422.id.astrid.tech
+
+users:
+  - name: ansible
+    gecos: Ansible
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    ssh_authorized_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK9VBBdNd2mdO493CU+Tg0idjTR679V1UV2I3LVwh+hH astrid@gfdesk
+  - name: astrid
+    gecos: Astrid Yu
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    groups:
+      - vboxusers
+    ssh_authorized_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK9VBBdNd2mdO493CU+Tg0idjTR679V1UV2I3LVwh+hH astrid@gfdesk
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB/+eu2kz9jgv5NSsBoPI/Mfa12w1kSusFPsOoM8/yfr astrid@shai-hulud
+yum_repos:
+  virtualbox:
+    name: Fedora $releasever - $basearch - VirtualBox
+    baseurl: http://download.virtualbox.org/virtualbox/rpm/fedora/$releasever/$basearch
+    enabled: true
+    gpgcheck: true
+    repo_gpgcheck: true
+    gpgkey: https://www.virtualbox.org/download/oracle_vbox.asc
+  zerotier:
+    name: ZeroTier, Inc. RPM Release Repository
+    baseurl: http://download.zerotier.com/redhat/fc/35
+    enabled: true
+    gpgcheck: true
+runcmd:
+  - dnf install -y epel-release
+  - dnf groupinstall -y "Development Tools" "Development Libraries"
+  - dnf install -y VirtualBox-6.1 gh less tmux git git-lfs vagrant zerotier-one ansible-core
+  - /sbin/vboxconfig

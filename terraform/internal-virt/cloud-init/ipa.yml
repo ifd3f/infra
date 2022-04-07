@@ -18,11 +18,9 @@ packages:
   - firewalld
   - freeipa-server
   - freeipa-server-dns
-  - lxd-agent
   - less
   - tmux
 runcmd:
-  - mount -t 9p config /mnt/ && cd /mnt && ./install.sh
   - systemctl enable firewalld && systemctl start firewalld
   - curl -s https://install.zerotier.com | bash
 

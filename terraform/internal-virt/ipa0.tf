@@ -1,9 +1,4 @@
-resource "libvirt_volume" "centos8_base" {
-  name = "centos8.qcow2"
-  source = "${var.libvirt_images_dir}/centos-8.qcow2"
-  format = "qcow2"
-}
-
+/*
 resource "libvirt_volume" "ipa0_root" {
   name = "ipa0.qcow2"
   base_volume_id = libvirt_volume.centos8_base.id
@@ -33,4 +28,4 @@ resource "libvirt_domain" "ipa0" {
     addresses = ["192.168.1.5"]
   }
 }
-
+*/
