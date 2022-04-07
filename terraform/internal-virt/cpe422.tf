@@ -31,7 +31,7 @@ resource "lxd_container" "cpe422" {
     type = "disk"
     properties = {
       path = "/"
-      size = "50GB"
+      size = "85GB"
       pool = lxd_storage_pool.dpool.id
     }
   }

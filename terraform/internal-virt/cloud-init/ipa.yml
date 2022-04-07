@@ -23,4 +23,5 @@ packages:
 runcmd:
   - systemctl enable firewalld && systemctl start firewalld
   - curl -s https://install.zerotier.com | bash
+  - zerotier-cli join b6079f73c67cda0d
 

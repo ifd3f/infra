@@ -1,7 +1,8 @@
 #cloud-config
 ssh_pwauth: false
 hostname: cpe422.id.astrid.tech
-
+groups:
+  - vboxusers
 users:
   - name: ansible
     gecos: Ansible
@@ -24,13 +25,10 @@ yum_repos:
     gpgcheck: true
     repo_gpgcheck: true
     gpgkey: https://www.virtualbox.org/download/oracle_vbox.asc
-  zerotier:
-    name: ZeroTier, Inc. RPM Release Repository
-    baseurl: http://download.zerotier.com/redhat/fc/35
-    enabled: true
-    gpgcheck: true
 runcmd:
-  - dnf install -y epel-release
   - dnf groupinstall -y "Development Tools" "Development Libraries"
-  - dnf install -y VirtualBox-6.1 gh less tmux git git-lfs vagrant zerotier-one ansible-core
+  - dnf install -y VirtualBox-6.1 ansible-core git git-lfs curl wget htop less tmux gh less tmux bind-utils vagrant
+  - (curl -s https://install.zerotier.com | bash) && zerotier-cli join b6079f73c67cda0d
+  - mkdir -p /etc/vbox && (echo "* 0.0.0.0/0 ::/0" > /etc/vbox/networks.conf)
   - /sbin/vboxconfig
+  - cd /tmp && (curl -fsSL -O https://download.virtualbox.org/virtualbox/6.1.32/Oracle_VM_VirtualBox_Extension_Pack-6.1.32.vbox-extpack && VBoxManage extpack install --replace --accept-license=33d7284dc4a0ece381196fda3cfe2ed0e1e8e7ed7f27b9a9ebc4ee22e24bd23c Oracle_VM_VirtualBox_Extension_Pack-6.1.32.vbox-extpack)
