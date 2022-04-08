@@ -1,8 +1,8 @@
 # VM images from external sources
 { pkgs }: {
   vendored-centos-8-cloud = pkgs.fetchurl {
-    url = "https://cloud.centos.org/centos/8-stream/x86_64/images/CentOS-Stream-GenericCloud-8-20220125.1.x86_64.qcow2";
-    sha256 = "sha256-olVgqznhBZTuekodrcunvzA7fDxBVZtKf8PFIlQKZnI=";
+    url = "https://dl.rockylinux.org/pub/rocky/8.5/images/Rocky-8-GenericCloud-8.5-20211114.2.x86_64.qcow2";
+    sha256 = "c23f58f26f73fb9ae92bfb4cf881993c23fdce1bbcfd2881a5831f90373ce0c8";
   };
 
   vendored-talos-os = pkgs.fetchurl {

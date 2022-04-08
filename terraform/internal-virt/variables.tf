@@ -22,8 +22,8 @@ variable "libvirt_uri" {
   default = "qemu:///system"
 }
 
-variable "libvirt_images_dir" {
-  description = "Directory full of pre-downloaded libvirt images"
+variable "centos8_image" {
+  description = "Path to Centos qcow2 to use"
   type = string
 }
 
