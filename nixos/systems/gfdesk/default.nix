@@ -25,15 +25,15 @@
     hostId = "6d1020a1"; # Required for ZFS
     useDHCP = false;
 
-    bridges."br0".interfaces = [ "eno1" ];
     firewall.allowedTCPPorts = [ 25565 ];
-    interfaces = {
-      eno1.useDHCP = true;
-      eno2.useDHCP = true;
-      eno3.useDHCP = true;
-      eno4.useDHCP = true;
-      br0.useDHCP = true;
-    };
+
+    # Primary internet connection
+    interfaces.eno1.useDHCP = true;
+    interfaces.br0.useDHCP = true;
+    bridges.br0.interfaces = [ "eno1" ];
+
+    # Internal kubernetes cluster bridge
+    bridges.brk8s.interfaces = [ "eno2" "eno3" "eno4" ];
   };
 
   # Use the GRUB 2 boot loader.

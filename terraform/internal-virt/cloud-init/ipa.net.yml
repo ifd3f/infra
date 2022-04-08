@@ -1,0 +1,12 @@
+network:
+  version: 2
+  ethernets:
+    eth0:
+      match:
+        name: "eth0"
+      addresses:
+        - 192.168.1.5/24
+        - fd53:1de8:470a::5:1/128
+      gateway4: 192.168.1.1
+      nameservers: [8.8.8.8, 8.8.4.4]
+

@@ -4,6 +4,7 @@ let
     ansible
     backblaze-b2
     bitwarden-cli
+    cdrkit
     curl
     dnsutils
     docker
@@ -21,7 +22,7 @@ let
     python3
     tcpdump
     terraform
-    terraform-lsp
+    terraform-ls
     wget
     whois
     yq
