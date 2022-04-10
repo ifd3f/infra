@@ -43,6 +43,7 @@ with lib; {
         enable = true;
         dates = "*-*-* 3:00:00 US/Pacific";
       };
+      xmonad.enable = true;
     };
 
     security.rtkit.enable = true;
@@ -74,8 +75,6 @@ with lib; {
           useQtScaling = true;
         };
       };
-
-      windowManager.i3.enable = true;
     };
   };
 }

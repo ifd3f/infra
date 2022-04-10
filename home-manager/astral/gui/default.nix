@@ -1,6 +1,10 @@
 # X11-enabled home manager settings
 { config, lib, pkgs, ... }:
 with lib; {
+  imports = [
+    ./tabletwm
+  ];
+
   options.astral.gui = {
     enable = mkOption {
       description = "Enable GUI customizations.";

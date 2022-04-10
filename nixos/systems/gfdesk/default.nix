@@ -53,4 +53,6 @@
 
     extraModulePackages = [ ];
   };
+
+  home-manager.users.astrid = lib.mkOverride homeModules.astral-cli;
 }

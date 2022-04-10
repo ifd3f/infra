@@ -19,6 +19,7 @@
       pc.enable = true;
     };
     hw.surface.enable = true;
+    xmonad.enable = true;
 
     # so that we don't rebuild linux kernel on this tiny boi
     infra-update.branch = "surface";

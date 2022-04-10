@@ -1,13 +1,12 @@
 { homeModules, sshKeyDatabase }:
-{ config, lib, ... }:
-with lib; {
-  options.astral.roles.server.enable = mkOption {
+{ config, lib, ... }: {
+  options.astral.roles.server.enable = lib.mkOption {
     description = "Bare metal server";
     default = false;
-    type = types.bool;
+    type = lib.types.bool;
   };
 
-  config = mkIf config.astral.roles.server.enable {
+  config = lib.mkIf config.astral.roles.server.enable {
     astral = {
       net.sshd.enable = true;
       infra-update.enable = false; # don't update automatically because everything's broken

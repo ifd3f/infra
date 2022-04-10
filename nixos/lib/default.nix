@@ -65,7 +65,7 @@
   mkPiJumpserverEntries = builtins.mapAttrs
     (hostName: module: mkPiJumpserver ({ inherit hostName module; }));
 
-  mkHomeConfig = { module ? [], system ? "x86_64-linux", vscode-server ? true }:
+  mkHomeConfig = { module ? {}, system ? "x86_64-linux", vscode-server ? true }:
     home-manager.lib.homeManagerConfiguration {
       inherit system;
       homeDirectory =

@@ -88,14 +88,13 @@
 
         astral-cli = {
           imports = [ self.homeModules.astral ];
-          astral.cli = {
-            # enable = true;
-            extended = true;
-          };
-          astral.vi = {
-            enable = true;
-            ide = true;
-          };
+          astral.vi.enable = true;
+        };
+
+        astral-cli-full = {
+          imports = [ self.homeModules.astral-cli ];
+          astral.cli.extended = true;
+          astral.vi.ide = true;
         };
 
         astral-macos = {
@@ -118,8 +117,13 @@
         };
 
         astral-gui = {
-          imports = [ self.homeModules.astral-cli ];
+          imports = [ self.homeModules.astral-cli-full ];
           astral.gui.enable = true;
+        };
+        
+        astral-gui-tablet = {
+          imports = [ self.homeModules.astral-gui ];
+          astral.gui.tabletwm.enable = true;
         };
       };
 
