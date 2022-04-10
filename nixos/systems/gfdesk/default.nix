@@ -10,7 +10,6 @@
       docker.enable = true;
       libvirt.enable = true;
       lxc.enable = true;
-      vbox.enable = true;
     };
     net.zerotier.public = true;
   };
