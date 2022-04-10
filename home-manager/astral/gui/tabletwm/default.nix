@@ -1,20 +1,18 @@
-# A 
-{ pkgs, lib, ... }:
-{
+{ config, pkgs, lib, ... }: {
   options.astral.gui.tabletwm = {
-    enable = mkOption {
+    enable = lib.mkOption {
       description = "Enable window manager configuration for tablet.";
       default = false;
-      type = types.bool;
+      type = lib.types.bool;
     };
   };
 
-  config = let cfg = config.astral.gui.xmonad;
-  in (mkIf cfg.enable {
+  config = let cfg = config.astral.gui.tabletwm;
+  in (lib.mkIf cfg.enable {
     xsession.windowManager.xmonad = {
       enable = true;
       enableContribAndExtras = true;
-      config = ./xmonad.hs;
+      config = null;
       haskellPackages = with pkgs.haskellPackages; [
         containers
         X11

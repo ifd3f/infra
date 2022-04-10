@@ -136,7 +136,7 @@
         "astrid@Discovery" =
           alib.mkHomeConfig { module = self.homeModules.astral-gui; };
         "astrid@shai-hulud" =
-          alib.mkHomeConfig { module = self.homeModules.astral-gui; };
+          alib.mkHomeConfig { module = self.homeModules.astral-gui-tablet; };
         "astrid@soulcaster" =
           alib.mkHomeConfig {
             module = self.homeModules.astral-macos;
