@@ -12,8 +12,8 @@
     xsession.windowManager.xmonad = {
       enable = true;
       enableContribAndExtras = true;
-      config = null;
-      haskellPackages = with pkgs.haskellPackages; [
+      config = ./xmonad.hs;
+      extraPackages = self: with pkgs.haskellPackages; [
         containers
         X11
       ];

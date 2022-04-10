@@ -17,6 +17,8 @@ import qualified Data.Map        as Map
 
 win = mod4Mask
 
+myTerminal = "alacritty"
+
 xdisplays :: X [Rectangle]
 xdisplays = withDisplay $ io . getScreenInfo
 
@@ -33,22 +35,23 @@ myManageHook = manageDocks <+> composeAll
     , className =? "Vncviewer" --> doFloat
     ]
 
-myKeybindsP = 
-    [ ("M-w", kill)
-    , ("M-d", spawn "dmenu_run")
-    , ("M-S-R", spawn "xmonad --restart")
+myKeybinds conf@(XConfig {XMonad.terminal = terminal, XMonad.modMask = modMask}) = 
+    [ ((modMask, xK_w), kill)
+    , ((modMask, xK_Return), spawn terminal)
     ]
 
-myOverrideKeys c = c `removeKeysP` [stroke | (stroke, _) <- myKeybindsP] `additionalKeysP` myKeybindsP
+myOverrideKeys c = c `removeKeys` [stroke | (stroke, _) <- kbs] `additionalKeys` kbs
+    where kbs = myKeybinds c
 
 myConfig = ewmh $ myOverrideKeys $ def 
     { modMask = win
-    , terminal = "alacritty"
+    , terminal = myTerminal
     , layoutHook = avoidStruts $ layoutHook def
     , manageHook = myManageHook <+> manageHook def
     , startupHook = myStartupHook
-    , handleEventHook = handleEventHook def <+> fullscreenEventHook
+    , handleEventHook = handleEventHook def -- <+> fullscreenEventHook
     } 
 
 main = do
     xmonad $ docks myConfig 
+
