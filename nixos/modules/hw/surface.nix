@@ -14,8 +14,14 @@ with lib; {
   config = let cfg = config.astral.hw.surface; in {
     environment.systemPackages = with pkgs; [
       iptsd
-      maliit-keyboard
+      onboard
       surface-control
     ];
+
+    services.touchegg.enable = true;
+
+    services.xserver.libinput = {
+      enable = true;
+    };
   };
 }

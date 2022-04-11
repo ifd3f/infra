@@ -15,6 +15,8 @@
       config = ./xmonad.hs;
       extraPackages = self: with pkgs.haskellPackages; [
         containers
+        monad-logger
+        dbus
         X11
       ];
     };
@@ -62,7 +64,15 @@
       };
     };
 
-    home.packages = with pkgs; [ meslo-lgs-nf ];
+    services.polybar = {
+      enable = true;
+      config = ./polybar.ini;
+      script = ''
+        polybar top &
+      '';
+    };
+
+    home.packages = with pkgs; [ meslo-lgs-nf onboard ];
   });
 }
 
