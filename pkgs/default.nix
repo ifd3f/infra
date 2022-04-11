@@ -1,9 +1,11 @@
-{ self, pkgs }:
+{ self, nixos-generators, pkgs }:
 let
   flakeTime = self.sourceInfo.lastModified;
   gh-ci-matrix = pkgs.callPackage ./gh-ci-matrix { inherit self; };
   ci-import-and-tag-docker = pkgs.callPackage ./ci-import-and-tag-docker {};
-  gigarouter-image = self.nixosConfigurations.gigarouter.config.system.build.vm;
+  gigarouter-image = import ./images/gigarouter {
+    inherit nixos-generators pkgs;
+  };
   vendored-images = import ./images/vendored { inherit pkgs; };
 
   upload-all-to-lxd = pkgs.callPackage ./upload-all-to-lxd {
@@ -18,7 +20,7 @@ let
 
   internal-libvirt-images = pkgs.linkFarm "internal-libvirt-images" [
     { name = "centos-8.qcow2"; path = vendored-images.vendored-centos-8-cloud; }
-    { name = "gigarouter.qcow2"; path = gigarouter-image; }
+    { name = "gigarouter.qcow2"; path = "${gigarouter-image}/nixos.qcow2"; }
   ];
 
 in vendored-images //

@@ -32,6 +32,10 @@
     bridges.br0.interfaces = [ "eno1" ];
 
     # Internal kubernetes cluster bridge
+    interfaces.brk8s.useDHCP = false;
+    interfaces.eno2.useDHCP = false;
+    interfaces.eno3.useDHCP = false;
+    interfaces.eno4.useDHCP = false;
     bridges.brk8s.interfaces = [ "eno2" "eno3" "eno4" ];
   };
 

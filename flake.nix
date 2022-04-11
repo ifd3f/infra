@@ -49,7 +49,7 @@
   };
 
   outputs = { self, nixpkgs-unstable, nixpkgs-astralbijection, nixos-vscode-server, flake-utils, nix-ld
-    , nur, home-manager-unstable, qmk_firmware, nixos-hardware, powerlevel10k, ...
+    , nur, home-manager-unstable, qmk_firmware, nixos-hardware, powerlevel10k, nixos-generators, ...
     }@inputs:
     let
       nixpkgs = nixpkgs-unstable;
@@ -74,7 +74,7 @@
                 import ./nixos/systems/installer-iso.nix { inherit nixpkgs; };
               };
           in installerSystem.config.system.build.isoImage;
-        } // (import ./pkgs { inherit self pkgs; });
+        } // (import ./pkgs { inherit self pkgs nixos-generators; });
     }) // {
       checks = import ./checks { inherit self nixpkgs-unstable; };
 
@@ -162,8 +162,6 @@
       }) // (alib.mkPiJumpserverEntries {
         jonathan-js = { };
         joseph-js = { };
-      }) // {
-        gigarouter = import ./nixos/systems/gigarouter { inherit nixpkgs; };
-      };
+      });
     });
 }
