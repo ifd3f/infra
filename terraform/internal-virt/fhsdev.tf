@@ -1,26 +1,26 @@
-resource "lxd_profile" "cpe422" {
-  name = "cpe422"
+resource "lxd_profile" "fhsdev" {
+  name = "fhsdev"
 
   config = {
-    "cloud-init.user-data" = file("${var.config_dir}/cpe422.yml")
+    "cloud-init.user-data" = file("${var.config_dir}/fhsdev.yml")
   }
 }
 
-resource "lxd_container" "cpe422" {
-  name = "cpe422"
+resource "lxd_container" "fhsdev" {
+  name = "fhsdev"
   image = "images:fedora/35/cloud"
   type = "virtual-machine"
 
-  profiles = [ lxd_profile.cpe422.name ]
+  profiles = [ lxd_profile.fhsdev.name ]
 
   lifecycle {
     # i don't wanna destroy my code
-    # prevent_destroy = true
+    prevent_destroy = true
   }
 
   limits = {
-    cpu = 8
-    memory = "16GB"
+    cpu = 16
+    memory = "32GB"
   }
 
   device {

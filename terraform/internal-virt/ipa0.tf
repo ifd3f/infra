@@ -13,6 +13,7 @@ resource "libvirt_network" "ipanet" {
   name = "ipanet"
   mode = "bridge"
   bridge = "br0"
+  autostart = true
 }
 
 resource "libvirt_domain" "ipa0" {
@@ -29,6 +30,7 @@ resource "libvirt_domain" "ipa0" {
   }
 
   network_interface {
+    bridge = libvirt_network.ipanet.bridge
     network_id = libvirt_network.ipanet.id
   }
 }

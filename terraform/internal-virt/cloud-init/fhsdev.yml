@@ -18,18 +18,10 @@ users:
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK9VBBdNd2mdO493CU+Tg0idjTR679V1UV2I3LVwh+hH astrid@gfdesk
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB/+eu2kz9jgv5NSsBoPI/Mfa12w1kSusFPsOoM8/yfr astrid@shai-hulud
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEItddWkLuAL2ZzUnjAbVrUiwE5Bvt8lXkoXfyI7QT49 astrid@soulcaster
-yum_repos:
-  virtualbox:
-    name: Fedora $releasever - $basearch - VirtualBox
-    baseurl: http://download.virtualbox.org/virtualbox/rpm/fedora/$releasever/$basearch
-    enabled: true
-    gpgcheck: true
-    repo_gpgcheck: true
-    gpgkey: https://www.virtualbox.org/download/oracle_vbox.asc
 runcmd:
+  - dnf -y install dnf-plugins-core
+  - dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
   - dnf groupinstall -y "Development Tools" "Development Libraries"
-  - dnf install -y VirtualBox-6.1 ansible-core git git-lfs curl wget htop less tmux gh less tmux bind-utils vagrant
+  - dnf install -y ansible-core git git-lfs curl wget htop less tmux gh less tmux bind-utils docker-ce docker-ce-cli containerd.io
+  - systemctl enable docker && systemctl restart docker
   - (curl -s https://install.zerotier.com | bash) && zerotier-cli join b6079f73c67cda0d
-  - mkdir -p /etc/vbox && (echo "* 0.0.0.0/0 ::/0" > /etc/vbox/networks.conf)
-  - /sbin/vboxconfig
-  - cd /tmp && (curl -fsSL -O https://download.virtualbox.org/virtualbox/6.1.32/Oracle_VM_VirtualBox_Extension_Pack-6.1.32.vbox-extpack && VBoxManage extpack install --replace --accept-license=33d7284dc4a0ece381196fda3cfe2ed0e1e8e7ed7f27b9a9ebc4ee22e24bd23c Oracle_VM_VirtualBox_Extension_Pack-6.1.32.vbox-extpack)
