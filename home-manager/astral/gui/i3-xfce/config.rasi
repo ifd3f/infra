@@ -1,8 +1,0 @@
-configuration {
-    modi: "window,drun,run,ssh";
-    lines: 15;
-    levenshtein-sort: true;
-    sidebar-mode: true;
-}
-
-@theme "/usr/share/rofi/themes/glue_pro_blue.rasi"

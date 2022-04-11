@@ -17,14 +17,12 @@ import qualified Data.Map        as Map
 
 win = mod4Mask
 
-myTerminal = "alacritty"
-
 xdisplays :: X [Rectangle]
 xdisplays = withDisplay $ io . getScreenInfo
 
 myStartupHook = do
     setWMName "L3GD"
-    -- spawnOnce "discord"
+    spawn "xset r rate 250 60" -- faster hold-and-repeat
     -- spawnOnce "redshift-gtk"
     -- spawnOnce "flameshot"
     -- spawnOnce "$HOME/.config/polybar/launch.sh"
@@ -37,6 +35,7 @@ myManageHook = manageDocks <+> composeAll
 
 myKeybinds conf@(XConfig {XMonad.terminal = terminal, XMonad.modMask = modMask}) = 
     [ ((modMask, xK_w), kill)
+    , ((modMask, xK_d), spawn "rofi -show drun")
     , ((modMask, xK_Return), spawn terminal)
     ]
 
@@ -45,7 +44,7 @@ myOverrideKeys c = c `removeKeys` [stroke | (stroke, _) <- kbs] `additionalKeys`
 
 myConfig = ewmh $ myOverrideKeys $ def 
     { modMask = win
-    , terminal = myTerminal
+    , terminal = "alacritty"
     , layoutHook = avoidStruts $ layoutHook def
     , manageHook = myManageHook <+> manageHook def
     , startupHook = myStartupHook
