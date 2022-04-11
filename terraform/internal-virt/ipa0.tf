@@ -30,7 +30,6 @@ resource "libvirt_domain" "ipa0" {
 
   network_interface {
     network_id = libvirt_network.ipanet.id
-    addresses = ["192.168.1.5"]
   }
 }
 

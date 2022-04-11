@@ -67,7 +67,7 @@ jobs:
           nix_path: nixpkgs=channel:nixos-unstable
           extra_nix_config: |
             experimental-features = nix-command flakes
-            extra-platforms = aarch64-linux aarch64-darwin arm-linux
+            extra-platforms = i686-linux aarch64-linux aarch64-darwin arm-linux
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
       - uses: cachix/cachix-action@v10
