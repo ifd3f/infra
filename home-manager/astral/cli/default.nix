@@ -131,12 +131,6 @@ in with lib; {
         enable = true;
         initExtra = commonProfile;
       };
-
-      programs.ssh = {
-        enable = true;
-        extraOptionOverrides = { AddKeysToAgent = "yes"; };
-        includes = [ "config.d/*" ];
-      };
     }
 
     (mkIf cfg.extended {
