@@ -1,8 +1,9 @@
 #cloud-config
 ssh_pwauth: false
-hostname: cpe422.id.astrid.tech
+hostname: webdev.id.astrid.tech
 groups:
-  - vboxusers
+  - docker
+  - podman
 users:
   - name: ansible
     gecos: Ansible
@@ -13,15 +14,17 @@ users:
     gecos: Astrid Yu
     sudo: ALL=(ALL) NOPASSWD:ALL
     groups:
-      - vboxusers
+      - docker
+      - podman
     ssh_authorized_keys:
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK9VBBdNd2mdO493CU+Tg0idjTR679V1UV2I3LVwh+hH astrid@gfdesk
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB/+eu2kz9jgv5NSsBoPI/Mfa12w1kSusFPsOoM8/yfr astrid@shai-hulud
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEItddWkLuAL2ZzUnjAbVrUiwE5Bvt8lXkoXfyI7QT49 astrid@soulcaster
 runcmd:
-  - dnf -y install dnf-plugins-core
-  - dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
   - dnf groupinstall -y "Development Tools" "Development Libraries"
-  - dnf install -y ansible-core git git-lfs curl wget htop less tmux gh less tmux bind-utils docker-ce docker-ce-cli containerd.io
+  - dnf install -y ansible-core git git-lfs curl wget htop less tmux gh less tmux bind-utils dnf-plugins-core
+
+  - dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+  - dnf install -y docker-ce docker-ce-cli containerd.io docker-compose
   - systemctl enable docker && systemctl restart docker
-  - (curl -s https://install.zerotier.com | bash) && zerotier-cli join b6079f73c67cda0d
+

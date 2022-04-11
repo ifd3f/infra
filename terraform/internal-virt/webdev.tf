@@ -1,21 +1,21 @@
-resource "lxd_profile" "fhsdev" {
-  name = "fhsdev"
+resource "lxd_profile" "webdev" {
+  name = "webdev"
 
   config = {
-    "cloud-init.user-data" = file("${var.config_dir}/fhsdev.yml")
+    "security.nesting" = true
+    "cloud-init.user-data" = file("${var.config_dir}/webdev.yml")
   }
 }
 
-resource "lxd_container" "fhsdev" {
-  name = "fhsdev"
+resource "lxd_container" "webdev" {
+  name = "webdev"
   image = "images:fedora/35/cloud"
-  type = "virtual-machine"
 
-  profiles = [ lxd_profile.fhsdev.name ]
+  profiles = [ lxd_profile.webdev.name ]
 
   lifecycle {
     # i don't wanna destroy my code
-    prevent_destroy = true
+    # prevent_destroy = true
   }
 
   limits = {
