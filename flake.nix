@@ -146,7 +146,7 @@
         imports = [
           nix-ld.nixosModules.nix-ld
           home-manager.nixosModule
-          (import ./nixos/modules {
+          (import ./nixos/modules/astral {
             inherit nixos-hardware qmk_firmware sshKeyDatabase;
             homeModules = self.homeModules;
           })
