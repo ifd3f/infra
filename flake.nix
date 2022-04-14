@@ -139,6 +139,8 @@
             vscode-server = false;
             system = "x86_64-darwin";
           };
+        "root@cpe422" =
+          alib.mkHomeConfig { module = self.homeModules.astral-cli; };
       };
 
       nixosModule = self.nixosModules.astral;
