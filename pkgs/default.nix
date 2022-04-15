@@ -1,28 +1,24 @@
-{ self, nixos-generators, pkgs }:
+{ self, nixos-generators, nixpkgs, pkgs }:
 let
   flakeTime = self.sourceInfo.lastModified;
   gh-ci-matrix = pkgs.callPackage ./gh-ci-matrix { inherit self; };
   ci-import-and-tag-docker = pkgs.callPackage ./ci-import-and-tag-docker {};
-  gigarouter-image = import ./images/gigarouter {
-    inherit nixos-generators pkgs;
-  };
   vendored-images = import ./images/vendored { inherit pkgs; };
 
   upload-all-to-lxd = pkgs.callPackage ./upload-all-to-lxd {
-    inherit flakeTime gigarouter-image;
+    inherit flakeTime nixpkgs;
     convertImage = build-support.convertImage;
     lxdUtils = build-support.lxdUtils;
+    gigarouterModule = self.nixosModules.gigarouter;
     vendored-talos-os = vendored-images.vendored-talos-os;
-    vendored-centos-8-cloud = vendored-images.vendored-centos-8-cloud;
   };
 
-  build-support = import ./build-support { inherit pkgs; };
+  build-support = import ./build-support { inherit nixos-generators pkgs; };
 
   internal-libvirt-images = pkgs.linkFarm "internal-libvirt-images" [
     { name = "centos-8.qcow2"; path = vendored-images.vendored-centos-8-cloud; }
-    { name = "gigarouter.qcow2"; path = "${gigarouter-image}/nixos.qcow2"; }
   ];
 
 in vendored-images //
-  { inherit internal-libvirt-images gh-ci-matrix ci-import-and-tag-docker gigarouter-image upload-all-to-lxd; }
+  { inherit internal-libvirt-images gh-ci-matrix ci-import-and-tag-docker upload-all-to-lxd; }
 

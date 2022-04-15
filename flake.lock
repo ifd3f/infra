@@ -128,11 +128,11 @@
     },
     "nixpkgs-astralbijection": {
       "locked": {
-        "lastModified": 1649343368,
-        "narHash": "sha256-2KDtm4gozFbe8TXJAz8Nqjt1EtnPndZgR5J+gMdWgWo=",
+        "lastModified": 1649819834,
+        "narHash": "sha256-sI2duvaqEP/KYsXMHmyYfmSKCq6Qn87O9vqpFxkP3Zo=",
         "owner": "astralbijection",
         "repo": "nixpkgs",
-        "rev": "357f39bd28c362127fcbe184e0b6f7bce3071784",
+        "rev": "4b513ec23a1f3808e21c277e8c98139f2b799bb9",
         "type": "github"
       },
       "original": {

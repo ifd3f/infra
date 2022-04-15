@@ -74,7 +74,7 @@
                 import ./nixos/systems/installer-iso.nix { inherit nixpkgs; };
               };
           in installerSystem.config.system.build.isoImage;
-        } // (import ./pkgs { inherit self pkgs nixos-generators; });
+        } // (import ./pkgs { inherit self pkgs nixpkgs nixos-generators; });
     }) // {
       checks = import ./checks { inherit self nixpkgs-unstable; };
 
@@ -142,15 +142,19 @@
       };
 
       nixosModule = self.nixosModules.astral;
-      nixosModules.astral = {
-        imports = [
-          nix-ld.nixosModules.nix-ld
-          home-manager.nixosModule
-          (import ./nixos/modules/astral {
-            inherit nixos-hardware qmk_firmware sshKeyDatabase;
-            homeModules = self.homeModules;
-          })
-        ];
+      nixosModules = {
+        gigarouter = ./nixos/modules/gigarouter;
+
+        astral = {
+          imports = [
+            nix-ld.nixosModules.nix-ld
+            home-manager.nixosModule
+            (import ./nixos/modules/astral {
+              inherit nixos-hardware qmk_firmware sshKeyDatabase;
+              homeModules = self.homeModules;
+            })
+          ];
+        };
       };
 
       nixosConfigurations = (alib.mkSystemEntries {
