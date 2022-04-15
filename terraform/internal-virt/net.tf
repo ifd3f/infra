@@ -5,6 +5,7 @@ resource "lxd_network" "brdevelop" {
 resource "lxd_container" "gigarouter" {
   name = "gigarouter"
   image = "gigarouter/1/cloud"
+  # image = "images:fedora/35/cloud"
 
   limits = {
     cpu = 4
@@ -12,15 +13,15 @@ resource "lxd_container" "gigarouter" {
   }
 
   config = {
-    #"security.privileged" = true
-    #"linux.sysctl.ipv4.conf.all.forwarding" = 1
-    #"linux.sysctl.ipv6.conf.all.forwarding" = 1
+    "security.privileged" = true
+    "security.nesting" = true
   }
 
   device {
     name = "wan"
     type = "nic"
     properties = {
+      name = "wan"
       nictype = "bridged"
       parent = var.exposed_bridge
     }
@@ -30,20 +31,18 @@ resource "lxd_container" "gigarouter" {
     name = "k8slan"
     type = "nic"
     properties = {
-      nictype = "ipvlan"
+      name = "k8slan"
+      nictype = "bridged"
       parent = var.kubecluster_bridge
-      mode = "l2"
-      "ipv4.address" = "192.168.23.1"
     }
   }
 
   device {
     name = "devlan"
     type = "nic"
-    # TODO ipvlan
     properties = {
-      nictype = "bridged"
-      parent = lxd_network.brdevelop.name
+      name = "devlan"
+      network = lxd_network.brdevelop.name
     }
   }
 
