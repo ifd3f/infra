@@ -1,7 +1,7 @@
-# The VM inside gfdesk that will do all the routing.
+# The LXC inside gfdesk that will do all the routing.
 # Expected NICs:
-#  - enp1s0: wan
-#  - enp2s0: k8s lan
+#  - wan
+#  - k8slan
 
 # Some stuff stolen from https://francis.begyn.be/blog/nixos-home-router
 { config, pkgs, modulesPath, ... }: {
@@ -23,45 +23,18 @@
     "net.ipv6.conf.wan.autoconf" = 1;
   };
 
-  services.udev.extraRules = ''
-    SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", \
-      ATTR{type}=="1", KERNEL=="enp1s0", NAME="wan"
-
-    SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", \
-      ATTR{type}=="1", KERNEL=="enp2s0", NAME="k8slan"
-  '';
-
   networking = {
     hostName = "gigarouter";
 
-    # nameserver = [ "8.8.8.8" "8.8.4.4" ];
-    nat.enable = false;
+    nameservers = [ "8.8.8.8" "8.8.4.4" ];
 
     # we'll use nftables
+    nat.enable = false;
     firewall.enable = false;
     nftables = {
       enable = true;
       rulesetFile = ./nft.conf;
     };
-
-    interfaces = {
-      wan.useDHCP = false;
-      k8slan.useDHCP = false;
-
-      wan.ipv4.addresses = [{
-        address = "192.168.1.2";
-        prefixLength = 24;
-      }];
-      wan.ipv6.addresses = [{
-        address = "fd53:1de8:470a:501::2";
-        prefixLength = 64;
-      }];
-
-      # The kubernetes cluster runs on ipv4 for simplicity
-      k8slan.ipv4.addresses = [{
-        address = "192.168.2.1";
-        prefixLength = 24;
-      }];
-    };
   };
 }
+
