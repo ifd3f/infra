@@ -35,7 +35,6 @@
     hostName = "gigarouter";
 
     nameservers = [ "8.8.8.8" "8.8.4.4" ];
-    useDHCP = false;
 
     # we'll use nftables
     nat.enable = false;
@@ -45,15 +44,19 @@
       rulesetFile = ./nft.conf;
     };
 
-    # defaultGateway = {
-    #   address = "192.168.1.1";
-    #   interface = "wan";
-    # };
-
-    # interfaces.k8slan.ipv4.addresses = [{
-    #   address = "192.168.23.1";
-    #   prefixLength = 24;
-    # }];
+    # Use DHCP on WAN only
+    useDHCP = false;
+    interfaces.wan.useDHCP = true;
+    
+    # Static IP configurations on LANs
+    defaultGateway = {
+      address = "192.168.1.1";
+      interface = "wan";
+    };
+    interfaces.k8slan.ipv4.addresses = [{
+      address = "192.168.23.1";
+      prefixLength = 24;
+    }];
   };
 
   environment.systemPackages = with pkgs; [ tcpdump ];
