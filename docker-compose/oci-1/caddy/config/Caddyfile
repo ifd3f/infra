@@ -14,12 +14,12 @@ api.astrid.tech {
         reverse_proxy http://wm_receiver:8000
     }
 
-    route /api/rpc/processWebmentions {
-        basicauth {
-            rpcuser {$RPC_HASHED_PASSWORD}
-        }
-        reverse_proxy http://wm_receiver:8000
-    }
+    # route /api/rpc/processWebmentions {
+    #     basicauth {
+    #         rpcuser {$RPC_HASHED_PASSWORD}
+    #     }
+    #     reverse_proxy http://wm_receiver:8000
+    # }
 
     route * {
         reverse_proxy * http://astrid_tech_api_1:8001
