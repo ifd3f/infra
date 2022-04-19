@@ -1,4 +1,6 @@
-{ lxc, yq, stdenvNoCC, writeText, writeScript, ... }: rec {
+{ nixos-generators, pkgs }:
+with pkgs;
+rec {
   writeVMMetaTar = { basename, metadata }: stdenvNoCC.mkDerivation {
     name = "${basename}.tar.xz";
 
@@ -22,6 +24,20 @@
     aliasFlag = if alias == null then "" else "--alias=${alias}";
   in writeScript "upload-${name}-to-lxd" ''
     lxc image import ${meta} ${disk} ${aliasFlag} $@
+  '';
+
+  writeNixOSUploader = { pkgs, name, modules, alias ? null }: let
+    meta = nixos-generators.nixosGenerate {
+      inherit pkgs modules;
+      format = "lxc-metadata";
+    };
+    rootfs = nixos-generators.nixosGenerate {
+      inherit pkgs modules;
+      format = "lxc";
+    };
+    aliasFlag = if alias == null then "" else "--alias=${alias}";
+  in writeScript "upload-${name}-to-lxd" ''
+    lxc image import ${meta}/tarball/nixos-system-x86_64-linux.tar.xz ${rootfs}/tarball/nixos-system-x86_64-linux.tar.xz ${aliasFlag} $@
   '';
 }
 
