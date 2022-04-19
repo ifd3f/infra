@@ -82,6 +82,7 @@ jobs:
   build-nix-containers:
     name: ${{ matrix.target.name }}
     needs: calculate-matrix
+    if: false
     runs-on: "${{ matrix.target.os }}"
     strategy:
       fail-fast: false
