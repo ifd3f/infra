@@ -68,6 +68,7 @@ with lib; {
           coc-nvim
           coc-tsserver
           coq_nvim
+          editorconfig-nvim
           nerdcommenter
           taglist-vim
           vim-gitgutter
