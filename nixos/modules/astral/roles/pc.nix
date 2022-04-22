@@ -7,7 +7,11 @@ with lib; {
   };
 
   config = mkIf config.astral.roles.pc.enable {
-    environment.systemPackages = with pkgs; [ home-manager openconnect ];
+    environment.systemPackages = with pkgs; [
+      home-manager
+      openconnect
+      ventoy-bin
+    ];
 
     users.mutableUsers = true;
 
