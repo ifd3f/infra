@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   shortener:
-    image: ghcr.io/astralbijection/armqr
+    image: ghcr.io/astridyu/armqr
     hostname: armqr
     expose:
       - 8000

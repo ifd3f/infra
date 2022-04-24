@@ -1,5 +1,5 @@
 {
-  description = "astralbijection's infrastructure flake";
+  description = "astridyu's infrastructure flake";
 
   inputs = {
     flake-utils.url = "github:numtide/flake-utils";
@@ -7,7 +7,7 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     
     # My own nixpkgs fork, for customized patches
-    nixpkgs-astralbijection.url = "github:astralbijection/nixpkgs/lxd-vms";
+    nixpkgs-astridyu.url = "github:astridyu/nixpkgs/lxd-vms";
 
     nur.url = "github:nix-community/NUR";
 
@@ -43,12 +43,12 @@
 
     # For auto-updating udev rules
     qmk_firmware = {
-      url = "github:astralbijection/qmk_firmware/master";
+      url = "github:astridyu/qmk_firmware/master";
       flake = false;
     };
   };
 
-  outputs = { self, nixpkgs-unstable, nixpkgs-astralbijection, nixos-vscode-server, flake-utils, nix-ld
+  outputs = { self, nixpkgs-unstable, nixpkgs-astridyu, nixos-vscode-server, flake-utils, nix-ld
     , nur, home-manager-unstable, qmk_firmware, nixos-hardware, powerlevel10k, nixos-generators, ...
     }@inputs:
     let
@@ -79,7 +79,7 @@
       checks = import ./checks { inherit self nixpkgs-unstable; };
 
       overlay = final: prev: {
-        lxd = nixpkgs-astralbijection.legacyPackages.${prev.system}.lxd;
+        lxd = nixpkgs-astridyu.legacyPackages.${prev.system}.lxd;
       };
 
       homeModule = self.homeModules.astral;

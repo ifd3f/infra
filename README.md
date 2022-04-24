@@ -1,6 +1,6 @@
 # Infrastructure
 
-[![Build and check all targets](https://github.com/astralbijection/infra/actions/workflows/check-targets.yml/badge.svg)](https://github.com/astralbijection/infra/actions/workflows/check-targets.yml)
+[![Build and check all targets](https://github.com/astridyu/infra/actions/workflows/check-targets.yml/badge.svg)](https://github.com/astridyu/infra/actions/workflows/check-targets.yml)
 
 This repo holds everything needed to set up my all my infrastructure, including personal computers and homelab servers. This includes things like:
 

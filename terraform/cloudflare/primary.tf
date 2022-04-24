@@ -30,7 +30,7 @@ resource "cloudflare_record" "cloud_wiki" {
   name    = "cloud"
   proxied = false
   type    = "CNAME"
-  value   = "astralbijection.github.io"
+  value   = "astridyu.github.io"
   zone_id = cloudflare_zone.primary.id
 }
 
@@ -38,7 +38,7 @@ resource "cloudflare_record" "personal_wiki" {
   name    = "wiki"
   proxied = false
   type    = "CNAME"
-  value   = "astralbijection.github.io"
+  value   = "astridyu.github.io"
   zone_id = cloudflare_zone.primary.id
 }
 

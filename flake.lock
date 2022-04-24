@@ -126,17 +126,17 @@
         "type": "github"
       }
     },
-    "nixpkgs-astralbijection": {
+    "nixpkgs-astridyu": {
       "locked": {
         "lastModified": 1650063982,
         "narHash": "sha256-LaNDt+1acssnD2Y/mBJtQVkikdPUDrScr7yNxTIAzSA=",
-        "owner": "astralbijection",
+        "owner": "astridyu",
         "repo": "nixpkgs",
         "rev": "0bd658c8b128d17a4b030d82f0fb34ded6a7e59b",
         "type": "github"
       },
       "original": {
-        "owner": "astralbijection",
+        "owner": "astridyu",
         "ref": "lxd-vms",
         "repo": "nixpkgs",
         "type": "github"
@@ -195,13 +195,13 @@
       "locked": {
         "lastModified": 1646863481,
         "narHash": "sha256-CgAJLWRxjS5YjskJV8yWTna8PsT/F4wPgGPtm4cSa4c=",
-        "owner": "astralbijection",
+        "owner": "astridyu",
         "repo": "qmk_firmware",
         "rev": "caeb213400e7f612598af10354306fd4d3ee0adf",
         "type": "github"
       },
       "original": {
-        "owner": "astralbijection",
+        "owner": "astridyu",
         "ref": "master",
         "repo": "qmk_firmware",
         "type": "github"
@@ -215,7 +215,7 @@
         "nixos-generators": "nixos-generators",
         "nixos-hardware": "nixos-hardware",
         "nixos-vscode-server": "nixos-vscode-server",
-        "nixpkgs-astralbijection": "nixpkgs-astralbijection",
+        "nixpkgs-astridyu": "nixpkgs-astridyu",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nur": "nur",
         "powerlevel10k": "powerlevel10k",
