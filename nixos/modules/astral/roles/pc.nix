@@ -65,6 +65,11 @@ with lib; {
       # no need to redefine it in your config for now)
       #media-session.enable = true;
     };
+    
+    services.printing = {
+      enable = true;
+      drivers = with pkgs; [ gutenprint gutenprintBin ];
+    };
 
     services.xserver = {
       enable = true;
