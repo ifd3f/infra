@@ -66,6 +66,7 @@ with lib; {
 
         plugins = with pkgs.vimPlugins; [
           coc-nvim
+          coc-rust-analyzer
           coc-tsserver
           coq_nvim
           editorconfig-nvim

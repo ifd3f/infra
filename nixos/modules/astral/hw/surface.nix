@@ -14,7 +14,6 @@ with lib; {
   config = let cfg = config.astral.hw.surface; in {
     environment.systemPackages = with pkgs; [
       iptsd
-      maliit-keyboard
       surface-control
     ];
   };
