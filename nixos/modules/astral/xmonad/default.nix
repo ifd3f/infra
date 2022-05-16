@@ -11,7 +11,7 @@
   config = let cfg = config.astral.xmonad;
   in lib.mkIf cfg.enable {
     services = {
-      gnome3.gnome-keyring.enable = true;
+      gnome.gnome-keyring.enable = true;
       upower.enable = true;
 
       xserver = {
@@ -20,7 +20,7 @@
 
         libinput = {
           enable = true;
-          disableWhileTyping = true;
+          touchpad.disableWhileTyping = true;
         };
 
         displayManager.defaultSession = "none+xmonad";

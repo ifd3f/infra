@@ -16,6 +16,7 @@ with lib; {
       iptsd
       onboard
       surface-control
+      xinput_calibrator
     ];
 
     services.touchegg.enable = true;

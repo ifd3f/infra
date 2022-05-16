@@ -43,10 +43,10 @@ with lib; {
         xrdp.enable = true;
         sshd.enable = true;
       };
-      infra-update = {
-        enable = true;
-        dates = "*-*-* 3:00:00 US/Pacific";
-      };
+      # infra-update = {
+      #   enable = true;
+      #   dates = "*-*-* 3:00:00 US/Pacific";
+      # };
       xmonad.enable = true;
     };
 

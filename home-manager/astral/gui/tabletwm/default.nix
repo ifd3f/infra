@@ -72,7 +72,7 @@
       '';
     };
 
-    home.packages = with pkgs; [ meslo-lgs-nf onboard ];
+    home.packages = with pkgs; [ meslo-lgs-nf onboard redshift-gtk flameshot ];
   });
 }
 
