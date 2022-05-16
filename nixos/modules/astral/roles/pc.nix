@@ -31,6 +31,7 @@ with lib; {
         x11 = true;
       };
       hw.kb-flashing.enable = true;
+      hw.logitech-unifying.enable = true;
       virt = {
         docker.enable = true;
         lxc.enable = false;
