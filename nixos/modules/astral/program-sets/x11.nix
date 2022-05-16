@@ -4,7 +4,7 @@
   progFn = { pkgs }: {
     environment.systemPackages = with pkgs; [
       bitwarden
-      gnome.cheese
+      brightnessctl
       flameshot
       nomacs
       obs-studio

@@ -79,10 +79,10 @@ in {
     };
 
     home.packages = with pkgs; [
+      flameshot
       meslo-lgs-nf
       onboard
       redshift
-      flameshot
       xfce.xfce4-panel
       xfce.xfce4-panel-profiles
     ];
