@@ -24,5 +24,13 @@ with lib; {
     services.xserver.libinput = {
       enable = true;
     };
+
+    # https://github.com/linux-surface/iptsd/blob/master/etc/ipts.conf
+    environment.etc."ipts.conf".text = ''
+      [Config]
+      BlockOnPalm = true
+      TouchThreshold = 20
+      StabilityThreshold = 0.1
+    '';
   };
 }
