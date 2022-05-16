@@ -1,4 +1,4 @@
-{ lib, lxdUtils, convertImage, writeScriptBin, vendored-talos-os, vendored-centos-8-cloud, flakeTime }: let
+{ lib, nixpkgs, lxdUtils, convertImage, writeScriptBin, vendored-talos-os, gigarouterModule, flakeTime, pkgs }: let
   scripts = [
     (lxdUtils.writeVMUploader {
       name = "talos-os";
@@ -19,6 +19,12 @@
           variant = "cloud";
         };
       };
+    })
+    (lxdUtils.writeNixOSUploader {
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      name = "gigarouter";
+      modules = [ gigarouterModule ];
+      alias = "gigarouter/1/cloud";
     })
   ];
 in writeScriptBin "upload-all-to-lxd" (lib.concatMapStrings (x: "${x};") scripts)

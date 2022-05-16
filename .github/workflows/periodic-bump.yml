@@ -7,7 +7,7 @@ on:
 
 env:
   pr_branch: auto/version-bump-${{ github.run_number }}
-  action_url: https://github.com/astralbijection/infra/actions/runs/${{ github.run_id }}
+  action_url: https://github.com/astridyu/infra/actions/runs/${{ github.run_id }}
 
 jobs:
   version-bump:
@@ -61,7 +61,7 @@ jobs:
   run-checks:
     name: Run checks on PR
     needs: version-bump
-    uses: astralbijection/infra/.github/workflows/check-targets.yml@main
+    uses: astridyu/infra/.github/workflows/check-targets.yml@main
     with:
       sha: ${{ needs.version-bump.outputs.sha }}
 

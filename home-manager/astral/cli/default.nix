@@ -63,6 +63,7 @@ in with lib; {
 
       programs.git = {
         enable = true;
+        lfs.enable = true;
         userName = "Astrid Yu";
         userEmail = "astrid@astrid.tech";
         extraConfig = {

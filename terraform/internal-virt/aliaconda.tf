@@ -13,20 +13,26 @@ resource "lxd_cached_image" "centos8" {
   source_image  = "centos/8-Stream/cloud"
 }
 
-resource "lxd_container" "aliaconda" {
+resource "lxd_profile" "aliaconda" {
   name = "aliaconda"
-  # zerotier does not yet support centos 9
-  image = lxd_cached_image.centos8.fingerprint
-
-  lifecycle {
-    # i don't wanna destroy alia's machine
-    prevent_destroy = true
-  }
 
   config = {
     "security.privileged" = true
     "security.nesting" = true
     "cloud-init.user-data" = file("${var.config_dir}/aliaconda.yml")
+  }
+}
+
+resource "lxd_container" "aliaconda" {
+  name = "aliaconda"
+  # zerotier does not yet support centos 9
+  image = lxd_cached_image.centos8.fingerprint
+
+  profiles = [ lxd_profile.aliaconda.name ]
+
+  lifecycle {
+    # i don't wanna destroy alia's machine
+    prevent_destroy = true
   }
 
   device {

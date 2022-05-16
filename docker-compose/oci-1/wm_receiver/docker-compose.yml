@@ -1,14 +1,14 @@
 version: "3.7"
 services:
   webmentions:
-    image: ghcr.io/astralbijection/wm-receiver:main
+    image: ghcr.io/astridyu/wm-receiver:main
     hostname: wm_receiver
     expose:
       - 8000
     environment:
       ALLOWED_TARGET_HOSTS: astrid.tech,aay.tw
       WEBMENTION_SUBDIR: content/webmentions
-      REMOTE_URL: "git@github.com:astralbijection/astrid.tech.git"
+      REMOTE_URL: "git@github.com:astridyu/astrid.tech.git"
       BRANCH_NAME: auto/webmention
       BASE_BRANCH: main
       ROCKET_ADDRESS: "0.0.0.0"

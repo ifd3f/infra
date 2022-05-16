@@ -2,5 +2,6 @@
   imports = [
     (import ./kb-flashing.nix { inherit qmk_firmware; })
     (import ./surface.nix { inherit nixos-hardware; })
+    ./logitech-unifying.nix
   ];
 }

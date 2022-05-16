@@ -1,0 +1,15 @@
+#cloud-config
+ssh_pwauth: false
+users:
+  - name: ansible
+    gecos: Ansible
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    ssh_authorized_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMh9bjqeopX/MELieVU+HqhlvZi84BTr4qjnDRuOST1I astrid@banana
+  - name: astrid
+    gecos: Astrid Yu
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    ssh_authorized_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMh9bjqeopX/MELieVU+HqhlvZi84BTr4qjnDRuOST1I astrid@banana
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK9VBBdNd2mdO493CU+Tg0idjTR679V1UV2I3LVwh+hH astrid@gfdesk
+

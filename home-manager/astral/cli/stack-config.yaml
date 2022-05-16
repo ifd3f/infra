@@ -11,7 +11,7 @@ templates:
     author-name: Astrid Yu
     author-email: astrid@astrid.tech
     copyright: Astrid Yu
-    github-username: astralbijection
+    github-username: astridyu
 system-ghc: true
 
 # The following parameter specifies stack's output styles; STYLES is a

@@ -17,6 +17,7 @@ users:
     ssh_authorized_keys:
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK9VBBdNd2mdO493CU+Tg0idjTR679V1UV2I3LVwh+hH astrid@gfdesk
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB/+eu2kz9jgv5NSsBoPI/Mfa12w1kSusFPsOoM8/yfr astrid@shai-hulud
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEItddWkLuAL2ZzUnjAbVrUiwE5Bvt8lXkoXfyI7QT49 astrid@soulcaster
 yum_repos:
   virtualbox:
     name: Fedora $releasever - $basearch - VirtualBox

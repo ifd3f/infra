@@ -7,7 +7,11 @@ with lib; {
   };
 
   config = mkIf config.astral.roles.pc.enable {
-    environment.systemPackages = with pkgs; [ home-manager openconnect ];
+    environment.systemPackages = with pkgs; [
+      home-manager
+      openconnect
+      ventoy-bin
+    ];
 
     users.mutableUsers = true;
 
@@ -27,6 +31,7 @@ with lib; {
         x11 = true;
       };
       hw.kb-flashing.enable = true;
+      hw.logitech-unifying.enable = true;
       virt = {
         docker.enable = true;
         libvirt = {
@@ -60,6 +65,11 @@ with lib; {
       # use the example session manager (no others are packaged yet so this is enabled by default,
       # no need to redefine it in your config for now)
       #media-session.enable = true;
+    };
+    
+    services.printing = {
+      enable = true;
+      drivers = with pkgs; [ gutenprint gutenprintBin ];
     };
 
     services.xserver = {

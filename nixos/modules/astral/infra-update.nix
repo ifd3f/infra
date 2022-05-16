@@ -33,7 +33,7 @@
   config.system.autoUpgrade = let cfg = config.astral.infra-update;
   in lib.mkIf cfg.enable {
     enable = cfg.enable;
-    flake = "github:astralbijection/infra/${cfg.branch}";
+    flake = "github:astridyu/infra/${cfg.branch}";
     dates = "*-*-* *:00:00";
     flags = (if cfg.build-host == null then
       [ ]
