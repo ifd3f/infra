@@ -1,5 +1,8 @@
+import System.Exit
 import XMonad
 import XMonad.Hooks.DynamicLog
+import XMonad.Prompt
+import XMonad.Prompt.ConfirmPrompt
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
@@ -12,7 +15,6 @@ import Graphics.X11.Xinerama (getScreenInfo)
 import Graphics.X11.Xlib.Types (Rectangle)
 import System.IO
 import qualified XMonad.StackSet as W
-import qualified Data.Map        as Map
 
 
 win = mod4Mask
@@ -23,8 +25,9 @@ xdisplays = withDisplay $ io . getScreenInfo
 myStartupHook = do
     setWMName "L3GD"
     spawn "xset r rate 250 60" -- faster hold-and-repeat
-    -- spawnOnce "redshift-gtk"
-    -- spawnOnce "flameshot"
+    spawn "systemctl restart --user polybar.service" -- faster hold-and-repeat
+    spawnOnce "redshift-gtk"
+    spawnOnce "flameshot"
     -- spawnOnce "$HOME/.config/polybar/launch.sh"
     -- spawn "$HOME/.fehbg"
 
@@ -34,8 +37,9 @@ myManageHook = manageDocks <+> composeAll
     ]
 
 myKeybinds conf@(XConfig {XMonad.terminal = terminal, XMonad.modMask = modMask}) = 
-    [ ((modMask, xK_w), kill)
-    , ((modMask, xK_d), spawn "rofi -show drun")
+    [ ((modMask .|. shiftMask, xK_q), kill) 
+    , ((modMask .|. shiftMask, xK_e), confirmPrompt amberXPConfig "exit" $ io exitSuccess)
+    , ((modMask, xK_d), spawn "rofi -show combi")
     , ((modMask, xK_Return), spawn terminal)
     ]
 
