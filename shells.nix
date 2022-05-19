@@ -28,7 +28,7 @@ let
     whois
     yq
 
-    nur.repos.astralbijection.talosctl
+    nur.repos.astridyu.talosctl
   ] ++ (
     if pkgs.system != "x86_64-darwin"
     then [ iputils ]
