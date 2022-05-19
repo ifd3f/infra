@@ -43,9 +43,17 @@
   }) [
     "installer-iso"
   ];
+
+  shells = system: map (name: {
+    name = "devShell-${name}";
+    value = self.devShells.${system}."${name}";
+  }) [
+    "default"
+    "xmonad-dev"
+  ];
 in {
-  x86_64-linux = builtins.listToAttrs (home-linux ++ machines ++ packages);
-  x86_64-darwin = builtins.listToAttrs home-macos;
+  x86_64-linux = builtins.listToAttrs (home-linux ++ machines ++ packages ++ (shells "x86_64-linux"));
+  x86_64-darwin = builtins.listToAttrs (home-macos ++ (shells "x86_64-darwin"));
   # doesn't work rn ;(
   # aarch64-linux = builtins.listToAttrs aarch64-machines;
   aarch64-linux = {};

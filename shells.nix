@@ -4,7 +4,6 @@ let
     ansible
     backblaze-b2
     bitwarden-cli
-    cdrkit
     curl
     dnsutils
     docker
@@ -31,12 +30,22 @@ let
     nur.repos.astridyu.talosctl
   ] ++ (
     if pkgs.system != "x86_64-darwin"
-    then [ iputils ]
+    then [ cdrkit iputils ]
     else []
   );
 in {
   default = pkgs.mkShell {
     nativeBuildInputs = packages;
+  };
+
+  xmonad-dev = pkgs.haskellPackages.shellFor {
+    withHoogle = true;
+    packages = self: [];
+    buildInputs = with pkgs.haskellPackages; [
+      haskell-language-server
+      ghcid
+      cabal-install
+    ];
   };
 }
 
