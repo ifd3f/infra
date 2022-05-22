@@ -83,6 +83,7 @@ in {
       meslo-lgs-nf
       onboard
       redshift
+      xorg.xmessage
       xfce.xfce4-panel
       xfce.xfce4-panel-profiles
     ];
