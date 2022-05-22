@@ -64,14 +64,18 @@ myKeybinds conf@(XConfig {XMonad.terminal = terminal, XMonad.modMask = modMask})
     where
         spawnHelp :: X ()
         spawnHelp = do
-            runProcessWithInput "rofi" ["-dmenu"] $
-                intercalate "\n" $ map (\(k, h) -> k ++ " - " ++ h) perKeyHelps
-            return ()
+            let entries = map (\(k, h, a) -> (k ++ " - " ++ h, a)) perKeyHelps
+            result <- runProcessWithInput "rofi" ["-dmenu"] $
+                intercalate "\n" $ map fst entries
+            let targetEntry = takeWhile (/='\n') result  -- drop trailing newline
+            case find ((==targetEntry) . fst) entries of
+                Just (_, a) -> a
+                Nothing -> return ()
 
-        perKeyHelps :: [(String, String)]
-        perKeyHelps =
-            [ (buttonMaskToPrefix bm ++ keysymToString ks, help)
-            | ((bm, ks), (help, _)) <- M.toList bindsWithHelp
+        perKeyHelps :: [(String, String, X ())]
+        perKeyHelps = sortBy (\(a, _, _) (b, _, _) -> compare a b)
+            [ (buttonMaskToPrefix bm ++ keysymToString ks, help, action)
+            | ((bm, ks), (help, action)) <- M.toList bindsWithHelp
             ]
 
         bindsWithHelp :: Map (ButtonMask, KeySym) (String, X ())
@@ -115,9 +119,8 @@ myKeybinds conf@(XConfig {XMonad.terminal = terminal, XMonad.modMask = modMask})
             -- quit, or restart
             , ((modMask .|. shiftMask,   xK_q     ), ("Quit XMonad", io (exitWith ExitSuccess)))
 
-            , ((modMask .|. shiftMask,   xK_slash ), ("Run xmessage with a summary of the default keybindings", spawnHelp))
+            , ((modMask,                 xK_slash ), ("Display help prompt", spawnHelp))
             -- repeat the binding for non-American layout keyboards
-            , ((modMask              ,   xK_question), ("Run xmessage with a summary of the default keybindings", spawnHelp))
 
             -- restart/quit
             , ((modMask .|. shiftMask,   xK_r     ), ("Restart XMonad", restartXMonad))  -- note that we do not compile, home-manager does it for us
