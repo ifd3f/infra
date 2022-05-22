@@ -8,6 +8,7 @@
       flameshot
       nomacs
       obs-studio
+      pavucontrol
       remmina
       tenacity
       vlc
