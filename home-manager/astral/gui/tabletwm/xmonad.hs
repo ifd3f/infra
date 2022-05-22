@@ -1,4 +1,4 @@
-import Control.Arrow
+import Control.Arrow ((>>>))
 import System.Exit
 import System.IO
 import Data.Map (Map)
@@ -43,61 +43,61 @@ myManageHook = manageDocks <+> composeAll
 
 myKeybindsWithHelp :: XConfig Layout -> Map (ButtonMask, KeySym) (String, X ())
 myKeybindsWithHelp conf@(XConfig {XMonad.terminal = terminal, XMonad.modMask = modMask}) = M.fromList $
-    [ ((modMask,               xK_Return), spawn terminal) -- %! Launch terminal
-    , ((modMask .|. shiftMask, xK_c     ), kill) -- %! Close the focused window
+    [ ((modMask,                 xK_Return), ("Launch terminal", spawn terminal))
+    , ((modMask .|. shiftMask,   xK_c     ), ("Close the focused window", kill))
 
-    , ((modMask,               xK_space ), sendMessage NextLayout) -- %! Rotate through the available layout algorithms
-    , ((modMask .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf) -- %!  Reset the layouts on the current workspace to default
-    , ((modMask,               xK_d     ), spawnLauncher)
+    , ((modMask,                 xK_space ), ("Rotate through the available layout algorithms", sendMessage NextLayout))
+    , ((modMask .|. shiftMask,   xK_space ), ("Reset the layouts on the current workspace to default", setLayout $ XMonad.layoutHook conf))
+    , ((modMask,                 xK_d     ),  ("Spawn the default launcher", spawnLauncher))
 
-    , ((modMask,               xK_n     ), refresh) -- %! Resize viewed windows to the correct size
+    , ((modMask,                 xK_n     ), ("Resize viewed windows to the correct size", refresh))
 
     -- move focus up or down the window stack
-    , ((modMask,               xK_Tab   ), windows W.focusDown) -- %! Move focus to the next window
-    , ((modMask .|. shiftMask, xK_Tab   ), windows W.focusUp  ) -- %! Move focus to the previous window
-    , ((modMask,               xK_j     ), windows W.focusDown) -- %! Move focus to the next window
-    , ((modMask,               xK_k     ), windows W.focusUp  ) -- %! Move focus to the previous window
-    , ((modMask,               xK_m     ), windows W.focusMaster  ) -- %! Move focus to the master window
+    , ((modMask,                 xK_Tab   ), ("Move focus to the next window", windows W.focusDown))
+    , ((modMask .|. shiftMask,   xK_Tab   ), ("Move focus to the previous window", windows W.focusUp  ))
+    , ((modMask,                 xK_j     ), ("Move focus to the next window", windows W.focusDown))
+    , ((modMask,                 xK_k     ), ("Move focus to the previous window", windows W.focusUp  ))
+    , ((modMask,                 xK_m     ), ("Move focus to the master window", windows W.focusMaster  ))
 
     -- modifying the window order
-    , ((modMask,               xK_Return), windows W.swapMaster) -- %! Swap the focused window and the master window
-    , ((modMask .|. shiftMask, xK_j     ), windows W.swapDown  ) -- %! Swap the focused window with the next window
-    , ((modMask .|. shiftMask, xK_k     ), windows W.swapUp    ) -- %! Swap the focused window with the previous window
+    , ((modMask,                 xK_Return), ("Swap the focused window and the master window", windows W.swapMaster))
+    , ((modMask .|. shiftMask,   xK_j     ), ("Swap the focused window with the next window", windows W.swapDown  ))
+    , ((modMask .|. shiftMask,   xK_k     ), ("Swap the focused window with the previous window", windows W.swapUp    ))
 
     -- resizing the master/slave ratio
-    , ((modMask,               xK_h     ), sendMessage Shrink) -- %! Shrink the master area
-    , ((modMask,               xK_l     ), sendMessage Expand) -- %! Expand the master area
+    , ((modMask,                 xK_h     ), ("Shrink the master area", sendMessage Shrink))
+    , ((modMask,                 xK_l     ), ("Expand the master area", sendMessage Expand))
 
     -- floating layer support
-    , ((modMask,               xK_t     ), withFocused $ windows . W.sink) -- %! Push window back into tiling
+    , ((modMask,                 xK_t     ), ("Push window back into tiling", withFocused $ windows . W.sink))
 
     -- increase or decrease number of windows in the master area
-    , ((modMask .|. controlMask, xK_h     ), sendMessage (IncMasterN 1)) -- %! Increment the number of windows in the master area
-    , ((modMask .|. controlMask, xK_l     ), sendMessage (IncMasterN (-1))) -- %! Deincrement the number of windows in the master area
+    , ((modMask .|. controlMask, xK_h     ), ("Increment the number of windows in the master area", sendMessage (IncMasterN 1)))
+    , ((modMask .|. controlMask, xK_l     ), ("Deincrement the number of windows in the master area", sendMessage (IncMasterN (-1))))
 
     -- quit, or restart
-    , ((modMask .|. shiftMask, xK_q     ), io (exitWith ExitSuccess)) -- %! Quit xmonad
+    , ((modMask .|. shiftMask,   xK_q     ), ("Quit XMonad", io (exitWith ExitSuccess)))
 
-    , ((modMask .|. shiftMask, xK_slash ), helpCommand) -- %! Run xmessage with a summary of the default keybindings (useful for beginners)
+    , ((modMask .|. shiftMask,   xK_slash ), ("Run xmessage with a summary of the default keybindings", helpCommand))
     -- repeat the binding for non-American layout keyboards
-    , ((modMask              , xK_question), helpCommand) -- %! Run xmessage with a summary of the default keybindings (useful for beginners)
+    , ((modMask              ,   xK_question), ("Run xmessage with a summary of the default keybindings", helpCommand))
 
     -- restart/quit
-    , ((modMask .|. shiftMask, xK_r     ), restartXMonad) -- Restart xmonad. Do not compile, home-manager does it for us
-    , ((modMask .|. shiftMask, xK_e     ), confirmPrompt amberXPConfig "exit" $ io exitSuccess) --
+    , ((modMask .|. shiftMask,   xK_r     ), ("Restart XMonad. Do not compile, home-manager does it for us", restartXMonad))
+    , ((modMask .|. shiftMask,   xK_e     ), ("Quit XMonad with a prompt.", confirmPrompt amberXPConfig "exit" $ io exitSuccess))
     ]
     ++
     -- mod-[1..9] %! Switch to workspace N, and 0 goes to 10
     -- mod-shift-[1..9] %! Move client to workspace N
-    [((m .|. modMask, k), windows $ f i)
-        | (i, k) <- zip (XMonad.workspaces conf) ([xK_1 .. xK_9] ++ [xK_0])
-        , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
+    [((mod .|. modMask, k), (hf wsname, windows $ wf wsname))
+        | (wsname, k) <- zip (XMonad.workspaces conf) ([xK_1 .. xK_9] ++ [xK_0])
+        , (wf, mod, hf) <- [(W.greedyView, 0, ("Switch to workspace " ++)), (W.shift, shiftMask, ("Move to workspace " ++))]]
     ++
     -- mod-{w,e,r} %! Switch to physical/Xinerama screens 1, 2, or 3
     -- mod-shift-{w,e,r} %! Move client to screen 1, 2, or 3
-    [((m .|. modMask, key), screenWorkspace sc >>= flip whenJust (windows . f))
+    [((mod .|. modMask, key), (hf sc, screenWorkspace sc >>= flip whenJust (windows . wf)))
         | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
-        , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
+        , (wf, mod, hf) <- [(W.view, 0, ("Switch to screen " ++) . show), (W.shift, shiftMask, ("Move to screen " ++) . show)]]
     where
         helpCommand :: X ()
         helpCommand = return () -- TODO
