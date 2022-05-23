@@ -2,7 +2,7 @@
 { config, lib, pkgs, ... }:
 with lib; {
   imports = [
-    ./tabletwm
+    ./xmonad
   ];
 
   options.astral.gui = {
