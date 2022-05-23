@@ -133,7 +133,6 @@
           astral-gui-tablet = {
             imports = [ self.homeModules.astral-gui ];
             astral.gui.xmonad.enable = true;
-            astral.gui.tablethw.enable = true;
           };
         };
 
@@ -145,7 +144,7 @@
             alib.mkHomeConfig { module = self.homeModules.astral-gui; };
           "astrid@Discovery" =
             alib.mkHomeConfig { module = self.homeModules.astral-gui; };
-          "astrid@shai-hulud" = alib.mkhomeConfig {
+          "astrid@shai-hulud" = alib.mkHomeConfig {
             module = let dpi = 192;
             in {
               imports = [ self.homeModules.astral-gui-tablet ];
