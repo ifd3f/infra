@@ -1,7 +1,7 @@
 # X11-enabled home manager settings
 { config, lib, pkgs, ... }:
 with lib; {
-  imports = [ ./tabletwm ];
+  imports = [ ./xmonad ];
 
   options.astral.gui = {
     enable = mkOption {
