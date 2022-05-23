@@ -73,6 +73,7 @@ with lib; {
           nerdcommenter
           taglist-vim
           vim-gitgutter
+          vim-fugitive
           vim-terraform
           vim-test
           vimtex
