@@ -1,9 +1,7 @@
 # X11-enabled home manager settings
 { config, lib, pkgs, ... }:
 with lib; {
-  imports = [
-    ./tabletwm
-  ];
+  imports = [ ./tabletwm ];
 
   options.astral.gui = {
     enable = mkOption {
@@ -14,23 +12,21 @@ with lib; {
   };
 
   config = let cfg = config.astral.gui;
-  in (mkIf cfg.enable (mkMerge [
-    {
-      nixpkgs.config.allowUnfree = true;
+  in (mkIf cfg.enable (mkMerge [{
+    nixpkgs.config.allowUnfree = true;
 
-      programs = {
-        firefox.enable = true;
-        chromium.enable = true;
-      };
+    programs = {
+      firefox.enable = true;
+      chromium.enable = true;
+    };
 
-      home.packages = with pkgs; [ xclip ];
+    home.packages = with pkgs; [ xclip ];
 
-      home.shellAliases = {
-        # Pipe to/from clipboard
-        "c" = "xclip -selection clipboard";
-        "v" = "xclip -o -selection clipboard";
-      };
-    }
-  ]));
+    home.shellAliases = {
+      # Pipe to/from clipboard
+      "c" = "xclip -selection clipboard";
+      "v" = "xclip -o -selection clipboard";
+    };
+  }]));
 
 }

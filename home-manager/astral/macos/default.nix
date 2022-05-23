@@ -14,10 +14,11 @@ with lib; {
     nixpkgs.config.allowUnfree = true;
     fonts.fontconfig.enable = true;
 
-    home.packages = with pkgs; [
-      powerline-fonts
-      # iterm2 # needs to be compiled, takes too long
-    ];
+    home.packages = with pkgs;
+      [
+        powerline-fonts
+        # iterm2 # needs to be compiled, takes too long
+      ];
   });
 }
 

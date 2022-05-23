@@ -1,4 +1,6 @@
-{ lib, nixpkgs, lxdUtils, convertImage, writeScriptBin, vendored-talos-os, gigarouterModule, flakeTime, pkgs }: let
+{ lib, nixpkgs, lxdUtils, convertImage, writeScriptBin, vendored-talos-os
+, gigarouterModule, flakeTime, pkgs }:
+let
   scripts = [
     (lxdUtils.writeVMUploader {
       name = "talos-os";
@@ -27,5 +29,6 @@
       alias = "gigarouter/1/cloud";
     })
   ];
-in writeScriptBin "upload-all-to-lxd" (lib.concatMapStrings (x: "${x};") scripts)
+in writeScriptBin "upload-all-to-lxd"
+(lib.concatMapStrings (x: "${x};") scripts)
 

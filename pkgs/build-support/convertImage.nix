@@ -1,8 +1,9 @@
 # Converts image formats using qemu.
 { stdenv, pkgs, qemu, ... }:
-{ name, src, inFmt, outFmt ? "qcow2" }: stdenv.mkDerivation {
+{ name, src, inFmt, outFmt ? "qcow2" }:
+stdenv.mkDerivation {
   inherit name src;
-  phases = ["buildPhase" "installPhase"];
+  phases = [ "buildPhase" "installPhase" ];
   buildInputs = [ qemu ];
 
   buildPhase = ''

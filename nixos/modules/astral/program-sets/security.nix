@@ -9,9 +9,6 @@
 
     services.tor.enable = true;
 
-    environment.systemPackages = with pkgs; [
-      pinentry
-      tor-browser-bundle-bin
-    ];
+    environment.systemPackages = with pkgs; [ pinentry tor-browser-bundle-bin ];
   };
 }

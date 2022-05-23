@@ -1,5 +1,5 @@
-{ config, pkgs, lib, ... }: let
-  dpi = 192;
+{ config, pkgs, lib, ... }:
+let dpi = 192;
 in {
   options.astral.gui.tabletwm = {
     enable = lib.mkOption {
@@ -88,9 +88,7 @@ in {
       xfce.xfce4-panel-profiles
     ];
 
-    xresources.properties = {
-      "*.dpi" = dpi;
-    };
+    xresources.properties = { "*.dpi" = dpi; };
   });
 }
 

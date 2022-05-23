@@ -151,9 +151,7 @@ in with lib; {
         mutableKeys = true;
       };
 
-      home.packages = with pkgs; [
-        gh
-      ];
+      home.packages = with pkgs; [ gh ];
     })
   ]);
   # home.file."email" = { source = ./email; };

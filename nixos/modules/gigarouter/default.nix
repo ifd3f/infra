@@ -5,9 +5,7 @@
 
 # Some stuff stolen from https://francis.begyn.be/blog/nixos-home-router
 { config, pkgs, modulesPath, ... }: {
-  imports = [
-    "${modulesPath}/virtualisation/lxc-container.nix"
-  ];
+  imports = [ "${modulesPath}/virtualisation/lxc-container.nix" ];
   boot.isContainer = true;
   boot.kernel.sysctl = {
     # if you use ipv4, this is all you need
@@ -47,7 +45,7 @@
     # Use DHCP on WAN only
     useDHCP = false;
     interfaces.wan.useDHCP = true;
-    
+
     # Static IP configurations on LANs
     defaultGateway = {
       address = "192.168.1.1";

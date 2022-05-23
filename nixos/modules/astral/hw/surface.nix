@@ -11,7 +11,8 @@ with lib; {
     type = types.bool;
   };
 
-  config = let cfg = config.astral.hw.surface; in {
+  config = let cfg = config.astral.hw.surface;
+  in {
     environment.systemPackages = with pkgs; [
       iptsd
       onboard
@@ -21,9 +22,7 @@ with lib; {
 
     services.touchegg.enable = true;
 
-    services.xserver.libinput = {
-      enable = true;
-    };
+    services.xserver.libinput = { enable = true; };
 
     # https://github.com/linux-surface/iptsd/blob/master/etc/ipts.conf
     environment.etc."ipts.conf".text = ''

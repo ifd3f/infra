@@ -1,8 +1,5 @@
 { self, nur, nixpkgs, baseModules, home-manager, nixos-vscode-server }: rec {
-  overlays = [
-    nur.overlay
-    self.overlay
-  ];
+  overlays = [ nur.overlay self.overlay ];
 
   # Make a system customized with my stuff.
   mkSystem = { hostName, module ? { }, modules ? [ ], system ? "x86_64-linux"
@@ -65,13 +62,12 @@
   mkPiJumpserverEntries = builtins.mapAttrs
     (hostName: module: mkPiJumpserver ({ inherit hostName module; }));
 
-  mkHomeConfig = { module ? {}, system ? "x86_64-linux", vscode-server ? true }:
+  mkHomeConfig =
+    { module ? { }, system ? "x86_64-linux", vscode-server ? true }:
     home-manager.lib.homeManagerConfiguration {
       inherit system;
       homeDirectory =
-        if system == "x86_64-darwin"
-          then "/Users/astrid"
-          else "/home/astrid";
+        if system == "x86_64-darwin" then "/Users/astrid" else "/home/astrid";
       username = "astrid";
       configuration = {
         imports = [
@@ -82,10 +78,10 @@
             };
           }
           module
-        ] ++
-          (if vscode-server
-             then [ "${nixos-vscode-server}/modules/vscode-server/home.nix" ]
-             else []);
+        ] ++ (if vscode-server then
+          [ "${nixos-vscode-server}/modules/vscode-server/home.nix" ]
+        else
+          [ ]);
       };
     };
 }

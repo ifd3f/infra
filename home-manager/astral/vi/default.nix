@@ -30,7 +30,7 @@ with lib; {
         vimAlias = true;
         vimdiffAlias = true;
 
-        plugins = with pkgs.vimPlugins; [ 
+        plugins = with pkgs.vimPlugins; [
           fzf-vim
           nerdtree
           nerdtree-git-plugin
@@ -49,9 +49,7 @@ with lib; {
         '';
       };
 
-      home.packages = with pkgs; [
-        ctags
-      ];
+      home.packages = with pkgs; [ ctags ];
     }
     (mkIf cfg.ide {
       programs.neovim = {

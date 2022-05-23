@@ -1,6 +1,6 @@
 # This file generates a build matrix for Github Actions.
 { lib, writeText, self }:
-let 
+let
   x86_64-linux = lib.mapAttrsToList (k: v: {
     name = "Nix check x86_64-linux.${k}";
     target = "checks.x86_64-linux.${k}";
@@ -23,16 +23,11 @@ let
     name = "Nix dockertools ${k}";
     target = "packages.x86_64-linux.${k}";
     os = "ubuntu-latest";
-  }) [];
+  }) [ ];
 
-  dockerfiles = lib.flatten (
-    lib.mapAttrsToList
-      (name: fileType:
-        if fileType == "directory"
-          then [name]
-          else [])
-      (builtins.readDir ../../docker)
-  );
+  dockerfiles = lib.flatten (lib.mapAttrsToList
+    (name: fileType: if fileType == "directory" then [ name ] else [ ])
+    (builtins.readDir ../../docker));
 
 in writeText "matrix.json" (builtins.toJSON {
   checks.target = x86_64-linux ++ aarch64-linux ++ x86_64-darwin;
