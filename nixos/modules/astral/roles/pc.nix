@@ -90,5 +90,10 @@ with lib; {
         };
       };
     };
+
+    services.resolved = {
+      enable = true;
+      domains = ["~id.astrid.tech"];
+    };
   };
 }
