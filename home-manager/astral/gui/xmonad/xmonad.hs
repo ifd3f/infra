@@ -11,6 +11,7 @@ import qualified Data.Map as M
 import Graphics.X11.Xinerama (getScreenInfo)
 import Graphics.X11.Xlib
 import Graphics.X11.Xlib.Extras
+import Graphics.X11.ExtraTypes.XF86
 import Data.Traversable
 import XMonad
 import XMonad.Core (X, withDisplay, io)
@@ -63,19 +64,16 @@ myKeybinds conf@(XConfig {XMonad.terminal = terminal, XMonad.modMask = modMask})
     where
         spawnHelp :: X ()
         spawnHelp = do
-            let entries = map (\(k, h, a) -> (k ++ " - " ++ h, a)) perKeyHelps
-            result <- runProcessWithInput "rofi" ["-dmenu"] $
+            let entries = sortBy (\(a, _) (b, _) -> compare a b)
+                            [ ("<b>" ++ buttonMaskToPrefix bm ++ keysymToString ks ++ "</b> - <i>" ++ help ++ "</i>", action)
+                            | ((bm, ks), (help, action)) <- M.toList bindsWithHelp
+                            ]
+            result <- runProcessWithInput "rofi" ["-dmenu", "-markup-rows"] $
                 intercalate "\n" $ map fst entries
             let targetEntry = takeWhile (/='\n') result  -- drop trailing newline
             case find ((==targetEntry) . fst) entries of
                 Just (_, a) -> a
                 Nothing -> return ()
-
-        perKeyHelps :: [(String, String, X ())]
-        perKeyHelps = sortBy (\(a, _, _) (b, _, _) -> compare a b)
-            [ (buttonMaskToPrefix bm ++ keysymToString ks, help, action)
-            | ((bm, ks), (help, action)) <- M.toList bindsWithHelp
-            ]
 
         bindsWithHelp :: Map (ButtonMask, KeySym) (String, X ())
         bindsWithHelp = M.fromList bindsList
@@ -121,19 +119,28 @@ myKeybinds conf@(XConfig {XMonad.terminal = terminal, XMonad.modMask = modMask})
             -- restart/quit
             , ((modMask .|. controlMask, xK_r     ), ("Restart XMonad", restartXMonad))  -- note that we do not compile, home-manager does it for us
             , ((modMask .|. controlMask, xK_e     ), ("Quit XMonad with a prompt", confirmPrompt amberXPConfig "exit" $ io exitSuccess))
+
+            -- screenshot utilities
+            , ((0,                       xK_Print ), ("Full screenshot", spawn "flameshot full"))
+            , ((controlMask,             xK_Print ), ("Region screenshot", spawn "flameshot gui"))
+
+            -- media keys
+            , ((0, xF86XK_AudioRaiseVolume), ("Raise audio volume", spawn "pactl set-sink-volume @DEFAULT_SINK@ +2%"))
+            , ((0, xF86XK_AudioLowerVolume), ("Lower audio volume", spawn "pactl set-sink-volume @DEFAULT_SINK@ -2%"))
+            , ((0, xF86XK_AudioMute       ), ("Toggle audio mute", spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle"))
             ]
             ++
             -- mod-[1..9] %! Switch to workspace N, and 0 goes to 10
             -- mod-shift-[1..9] %! Move client to workspace N
             [((mod .|. modMask, k), (hf wsname, windows $ wf wsname))
                 | (wsname, k) <- zip (XMonad.workspaces conf) ([xK_1 .. xK_9] ++ [xK_0])
-                , (wf, mod, hf) <- [(W.greedyView, 0, ("Switch to workspace " ++)), (W.shift, shiftMask, ("Move to workspace " ++))]]
+                , (wf, mod, hf) <- [(W.greedyView, 0, ("Focus workspace " ++)), (W.shift, shiftMask, ("Move window to workspace " ++))]]
             ++
             -- mod-{w,e,r} %! Switch to physical/Xinerama screens 1, 2, or 3
             -- mod-shift-{w,e,r} %! Move client to screen 1, 2, or 3
             [((mod .|. modMask, key), (hf sc, screenWorkspace sc >>= flip whenJust (windows . wf)))
                 | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
-                , (wf, mod, hf) <- [(W.view, 0, ("Switch to screen " ++) . show), (W.shift, shiftMask, ("Move to screen " ++) . show)]]
+                , (wf, mod, hf) <- [(W.view, 0, ("Focus screen " ++) . show), (W.shift, shiftMask, ("Move window to screen " ++) . show)]]
 
 toggleFloat w = windows (\s -> if M.member w (W.floating s)
     then W.sink w s

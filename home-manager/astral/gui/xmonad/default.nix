@@ -57,10 +57,11 @@
       flameshot
       meslo-lgs-nf
       onboard
+      pulseaudio
       redshift
-      xorg.xmessage
       xfce.xfce4-panel
       xfce.xfce4-panel-profiles
+      xorg.xmessage
     ];
   });
 }
