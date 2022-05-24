@@ -20,7 +20,7 @@ import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.UrgencyHook
-import XMonad.Layout.Gaps
+import XMonad.Layout.Reflect
 import XMonad.Layout.Spacing
 import XMonad.Prompt
 import XMonad.Prompt.ConfirmPrompt
@@ -32,7 +32,7 @@ import qualified XMonad.StackSet as W
 myConfig = ewmh $ def 
     { modMask = mod4Mask
     , terminal = "alacritty"
-    , layoutHook = spacingWithEdge 10 $ avoidStruts $ layoutHook def
+    , layoutHook = myLayoutHook
     , manageHook = myManageHook <+> manageHook def
     , startupHook = myStartupHook
     , keys = myKeybinds
@@ -46,6 +46,16 @@ main = do
 
 xdisplays :: X [Rectangle]
 xdisplays = withDisplay $ io . getScreenInfo
+
+myLayoutHook = spacingWithEdge 10 $ avoidStruts $ layouts
+    where
+        layouts = masterLeft ||| masterRight ||| masterTop ||| Full
+        masterLeft = Tall nmaster delta ratio
+        masterRight = reflectHoriz masterLeft
+        masterTop = Mirror masterLeft
+        nmaster = 1
+        ratio = 1/2
+        delta = 3/100
 
 myStartupHook = do
     setWMName "L3GD"
