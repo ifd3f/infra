@@ -48,10 +48,10 @@ myStartupHook = do
     setWMName "L3GD"
     spawn "xset r rate 250 60" -- faster hold-and-repeat
     spawn "systemctl restart --user polybar.service" -- faster hold-and-repeat
+    spawn "$HOME/.fehbg"
     spawnOnce "redshift-gtk"
+    spawnOnce "light-locker"
     spawnOnce "flameshot"
-    -- spawnOnce "$HOME/.config/polybar/launch.sh"
-    -- spawn "$HOME/.fehbg"
 
 myManageHook = manageDocks <+> composeAll
     [ className =? "gimp" --> doFloat
@@ -116,9 +116,10 @@ myKeybinds conf@(XConfig {XMonad.terminal = terminal, XMonad.modMask = modMask})
             -- a help prompt for convenience
             , ((modMask,                 xK_slash ), ("Display help prompt", spawnHelp))
 
-            -- restart/quit
+            -- session controls
             , ((modMask .|. controlMask, xK_r     ), ("Restart XMonad", restartXMonad))  -- note that we do not compile, home-manager does it for us
             , ((modMask .|. controlMask, xK_e     ), ("Quit XMonad with a prompt", confirmPrompt amberXPConfig "exit" $ io exitSuccess))
+            , ((modMask .|. controlMask, xK_semicolon), ("Lock session", spawn "light-locker-command -l"))
 
             -- screenshot utilities
             , ((0,                       xK_Print ), ("Full screenshot", spawn "flameshot full"))

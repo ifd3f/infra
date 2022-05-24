@@ -54,7 +54,9 @@
     };
 
     home.packages = with pkgs; [
+      feh
       flameshot
+      lightlocker
       meslo-lgs-nf
       onboard
       pulseaudio
