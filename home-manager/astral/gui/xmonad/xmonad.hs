@@ -20,6 +20,8 @@ import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.UrgencyHook
+import XMonad.Layout.Gaps
+import XMonad.Layout.Spacing
 import XMonad.Prompt
 import XMonad.Prompt.ConfirmPrompt
 import XMonad.Util.EZConfig
@@ -30,10 +32,11 @@ import qualified XMonad.StackSet as W
 myConfig = ewmh $ def 
     { modMask = mod4Mask
     , terminal = "alacritty"
-    , layoutHook = avoidStruts $ layoutHook def
+    , layoutHook = spacingWithEdge 10 $ avoidStruts $ layoutHook def
     , manageHook = myManageHook <+> manageHook def
     , startupHook = myStartupHook
     , keys = myKeybinds
+    , borderWidth = 2
     , handleEventHook = handleEventHook def -- <+> fullscreenEventHook
     , workspaces = map show [1 .. 10 :: Int]
     } 

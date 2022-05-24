@@ -29,6 +29,10 @@
           size = 8;
           normal.family = "MesloLGS NF";
         };
+        window = {
+          opacity = 0.9;
+          decorations = "none";
+        };
       };
     };
 
@@ -43,6 +47,11 @@
         lines = 20;
         sidebar-mode = true;
       };
+    };
+
+    services.picom = {
+      enable = true;
+      blur = true;
     };
 
     services.polybar = {
