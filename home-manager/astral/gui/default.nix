@@ -18,9 +18,10 @@ with lib; {
     programs = {
       firefox.enable = true;
       chromium.enable = true;
+      autorandr.enable = true;
     };
 
-    home.packages = with pkgs; [ xclip ];
+    home.packages = with pkgs; [ xclip arandr ];
 
     home.shellAliases = {
       # Pipe to/from clipboard
