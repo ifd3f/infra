@@ -14,6 +14,11 @@ with lib; {
     ];
 
     users.mutableUsers = true;
+    documentation = {
+      man.enable = true;
+      dev.enable = true;
+      nixos.enable = true;
+    };
 
     services.geoclue2 = {
       enable = true;
