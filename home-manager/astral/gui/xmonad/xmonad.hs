@@ -155,6 +155,11 @@ myKeybinds conf@(XConfig {XMonad.terminal = terminal, XMonad.modMask = modMask})
             [((mod .|. modMask, key), (hf sc, screenWorkspace sc >>= flip whenJust (windows . wf)))
                 | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
                 , (wf, mod, hf) <- [(W.view, 0, ("Focus screen " ++) . show), (W.shift, shiftMask, ("Move window to screen " ++) . show)]]
+            ++
+            -- brightness control + fallback
+            [ (k, ("Raise brightness", spawn "brightnessctl s +5%")) | k <- [(0, xF86XK_MonBrightnessUp), (modMask .|. shiftMask .|. controlMask, xK_equal)] ]
+            ++
+            [ (k, ("Lower brightness", spawn "brightnessctl s 5%-")) | k <- [(0, xF86XK_MonBrightnessDown), (modMask .|. shiftMask .|. controlMask, xK_minus)] ]
 
 toggleFloat w = windows (\s -> if M.member w (W.floating s)
     then W.sink w s
