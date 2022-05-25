@@ -66,13 +66,16 @@
       feh
       flameshot
       lightlocker
-      meslo-lgs-nf
       onboard
       pulseaudio
       redshift
       xfce.xfce4-panel
       xfce.xfce4-panel-profiles
       xorg.xmessage
+
+      meslo-lgs-nf
+      roboto
+      tamsyn
     ];
   });
 }
