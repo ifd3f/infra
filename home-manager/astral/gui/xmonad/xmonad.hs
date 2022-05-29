@@ -139,7 +139,8 @@ myKeybinds conf@(XConfig {XMonad.terminal = terminal, XMonad.modMask = modMask})
             , ((controlMask,             xK_Print ), ("Region screenshot", spawn "flameshot gui"))
 
             -- polybar toggle
-            , ((modMask,                 xK_p),      ("Display help prompt", spawn "polybar-msg cmd toggle"))
+            , ((modMask,                 xK_p     ), ("Toggle top bar", spawn "polybar-msg cmd toggle"))
+            , ((modMask .|. shiftMask,   xK_p     ), ("Toggle spacing", toggleSmartSpacing))
 
             -- media keys
             , ((0, xF86XK_AudioRaiseVolume), ("Raise audio volume", spawn "pactl set-sink-volume @DEFAULT_SINK@ +2%"))
