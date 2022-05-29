@@ -140,8 +140,12 @@
         homeConfigurations = {
           "astrid@aliaconda" =
             alib.mkHomeConfig { module = self.homeModules.astral-scientific; };
-          "astrid@banana" =
-            alib.mkHomeConfig { module = self.homeModules.astral-gui; };
+          "astrid@banana" = alib.mkHomeConfig {
+            module = {
+              imports = [ self.homeModules.astral-gui ];
+              xresources.properties = { "*.dpi" = 96; };
+            };
+          };
           "astrid@Discovery" =
             alib.mkHomeConfig { module = self.homeModules.astral-gui; };
           "astrid@shai-hulud" = alib.mkHomeConfig {
