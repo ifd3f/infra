@@ -1,7 +1,3 @@
-{-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE PatternGuards #-}
-
 import Control.Arrow ((>>>))
 import Data.List
 import Data.Map (Map)
@@ -24,7 +20,6 @@ import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.UrgencyHook
-import XMonad.Layout.LayoutModifier
 import XMonad.Layout.Reflect
 import XMonad.Layout.Spacing
 import XMonad.Prompt
@@ -52,7 +47,7 @@ main = do
 xdisplays :: X [Rectangle]
 xdisplays = withDisplay $ io . getScreenInfo
 
-myLayoutHook = withCompactness $ spacingWithEdge 10 $ avoidStruts $ layouts
+myLayoutHook = spacingWithEdge 10 $ avoidStruts $ layouts
     where
         layouts = masterLeft ||| masterRight ||| masterTop ||| Full
         masterLeft = Tall nmaster delta ratio
@@ -143,9 +138,9 @@ myKeybinds conf@(XConfig {XMonad.terminal = terminal, XMonad.modMask = modMask})
             , ((0,                       xK_Print ), ("Full screenshot", spawn "flameshot full"))
             , ((controlMask,             xK_Print ), ("Region screenshot", spawn "flameshot gui"))
 
-            -- polybar/gaps toggle
-            , ((modMask,                 xK_p     ), ("Toggle compactness", sendMessage NextCompactness))
-            , ((modMask .|. shiftMask,   xK_p     ), ("Toggle compactness", setWindowSpacingEnabled False))
+            -- polybar toggle
+            , ((modMask,                 xK_p     ), ("Toggle top bar", spawn "polybar-msg cmd toggle"))
+            , ((modMask .|. shiftMask,   xK_p     ), ("Toggle spacing", toggleSmartSpacing))
 
             -- media keys
             , ((0, xF86XK_AudioRaiseVolume), ("Raise audio volume", spawn "pactl set-sink-volume @DEFAULT_SINK@ +2%"))
@@ -182,37 +177,3 @@ buttonMaskToPrefix bm = addKey mod4Mask "M" ++ addKey controlMask "C" ++ addKey 
 restartXMonad = spawn "if type xmonad; then xmonad --restart; else xmessage xmonad not in \\$PATH: \"$PATH\"; fi"
 spawnLauncher = spawn "rofi -show combi"
 
-data CompactnessModifier a = GapsAndBar | NoBar | Fullscreen deriving (Show, Read)
-
-withCompactness = ModifiedLayout GapsAndBar
-
-nextCompactness :: CompactnessModifier a -> CompactnessModifier a
-nextCompactness GapsAndBar = NoBar
-nextCompactness NoBar = Fullscreen
-nextCompactness Fullscreen = GapsAndBar
-
-onCompactnessChanged :: CompactnessModifier a -> X ()
-onCompactnessChanged GapsAndBar = do
-    setWindowSpacingEnabled True
-    spawn "polybar-msg cmd show"
-    return ()
-onCompactnessChanged NoBar = do
-    setWindowSpacingEnabled True
-    spawn "polybar-msg cmd hide"
-    return ()
-onCompactnessChanged Fullscreen = do
-    setWindowSpacingEnabled False
-    spawn "polybar-msg cmd hide"
-    return ()
-
-data CompactnessMessage = NextCompactness deriving (Show, Read)
-
-instance Message CompactnessMessage
-
-instance Eq a => LayoutModifier CompactnessModifier a where
-    handleMess st m
-        | Just NextCompactness <- fromMessage m = do
-            onCompactnessChanged st
-            return $ Just (nextCompactness st)
-        | otherwise = return Nothing
-    
