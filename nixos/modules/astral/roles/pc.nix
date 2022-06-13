@@ -7,6 +7,20 @@ with lib; {
   };
 
   config = mkIf config.astral.roles.pc.enable {
+    fonts.fonts = with pkgs; [
+      corefonts
+      dejavu_fonts
+      dina-font
+      fira-code
+      fira-code-symbols
+      noto-fonts
+      noto-fonts-emoji
+      open-fonts
+      proggyfonts
+      redhat-official-fonts
+      vistafonts
+    ];
+
     environment.systemPackages = with pkgs; [
       home-manager
       openconnect
