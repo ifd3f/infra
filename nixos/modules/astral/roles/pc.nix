@@ -107,6 +107,7 @@ with lib; {
 
     services.resolved = {
       enable = true;
+      dnssec = "false";
       domains = ["~id.astrid.tech"];
     };
   };
