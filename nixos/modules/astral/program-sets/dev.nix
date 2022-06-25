@@ -9,14 +9,21 @@
     environment.systemPackages = with pkgs; [
       android-studio
       cachix
+      ckan
+      cmatrix
       firefox-devedition-bin
       gh
       gitkraken
       imagemagick
       jetbrains.idea-ultimate
+      lolcat
       nixfmt
       vagrant
       vscode-fhs
+
+      gnuradio
+      hackrf
+      sdrpp
     ];
   };
 }

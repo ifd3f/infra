@@ -43,6 +43,7 @@
         "lxd"
         "netdev"
         "networkmanager"
+        "plugdev"
         "vboxsf"
         "vboxusers"
         "wheel"

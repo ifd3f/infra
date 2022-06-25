@@ -105,6 +105,9 @@ with lib; {
       };
     };
 
+    hardware.hackrf.enable = true;
+    hardware.rtl-sdr.enable = true;
+
     services.resolved = {
       enable = true;
       dnssec = "false";
