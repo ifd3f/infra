@@ -64,11 +64,9 @@
 
   mkHomeConfig =
     { module ? { }, system ? "x86_64-linux", vscode-server ? true }:
+    let pkgs = nixpkgs.legacyPackages.${system}; in
     home-manager.lib.homeManagerConfiguration {
-      inherit system;
-      homeDirectory =
-        if system == "x86_64-darwin" then "/Users/astrid" else "/home/astrid";
-      username = "astrid";
+      inherit pkgs system;
       configuration = {
         imports = [
           {

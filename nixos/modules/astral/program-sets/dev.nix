@@ -24,6 +24,7 @@
       gnuradio
       hackrf
       sdrpp
+      soapysdr-with-plugins
     ];
   };
 }

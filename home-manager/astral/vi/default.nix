@@ -68,10 +68,12 @@ with lib; {
           coc-tsserver
           coq_nvim
           editorconfig-nvim
+          goyo-vim
+          limelight-vim
           nerdcommenter
           taglist-vim
-          vim-gitgutter
           vim-fugitive
+          vim-gitgutter
           vim-terraform
           vim-test
           vimtex

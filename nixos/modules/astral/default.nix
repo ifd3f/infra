@@ -22,4 +22,6 @@
 
     (import ./roles { inherit homeModules sshKeyDatabase; })
   ];
+
+  system.stateVersion = "22.11";
 }

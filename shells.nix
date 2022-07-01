@@ -27,8 +27,6 @@ let
       wget
       whois
       yq
-
-      nur.repos.astridyu.talosctl
     ] ++ (if pkgs.system != "x86_64-darwin" then [ cdrkit iputils ] else [ ]);
 in {
   default = pkgs.mkShell { nativeBuildInputs = packages; };

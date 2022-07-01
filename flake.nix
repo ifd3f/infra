@@ -55,6 +55,9 @@
       nixpkgs = nixpkgs-unstable;
       home-manager = home-manager-unstable;
 
+      vscode-server-home =
+        "${nixos-vscode-server}/modules/vscode-server/home.nix";
+
       alib = import ./nixos/lib {
         inherit self nixpkgs nur home-manager nixos-vscode-server;
         baseModules = [ self.nixosModule ];
@@ -138,50 +141,62 @@
 
         homeConfiguration = self.homeModules.astral-cli;
         homeConfigurations = {
-          "astrid@aliaconda" =
-            alib.mkHomeConfig { module = self.homeModules.astral-scientific; };
-          "astrid@banana" = alib.mkHomeConfig {
-            module = {
-              imports = [ self.homeModules.astral-gui ];
-              xresources.properties = { "*.dpi" = 96; };
-            };
+          "astrid@aliaconda" = home-manager.lib.homeManagerConfiguration {
+            pkgs = nixpkgs.legacyPackages.x86_64-linux;
+            modules = [ self.homeModules.astral-scientific vscode-server-home ];
           };
-          "astrid@Discovery" =
-            alib.mkHomeConfig { module = self.homeModules.astral-gui; };
-          "astrid@shai-hulud" = alib.mkHomeConfig {
-            module = let dpi = 192;
-            in {
-              imports = [ self.homeModules.astral-gui-tablet ];
-              xresources.properties = { "*.dpi" = dpi; };
-              programs.rofi.extraConfig.dpi = dpi;
-              programs.autorandr = {
-                enable = true;
-                profiles.portable = {
-                  fingerprint = {
-                    eDP-1 =
-                      "00ffffffffffff0030e45505a1000010001a0104a51a117803ee95a3544c99260f5054000000010101010101010101010101010101013f7fb0a0a020347030203a0004ad10000019000000fd00303c000021040a141414141414000000fe004c47445f4d50302e325f0a2020000000fe004c503132335751313132363034003f";
-                  };
-                  config.eDP-1 = {
-                    enable = true;
-                    primary = true;
-                    mode = "2736x1824";
-                    rate = "60.00";
-                    position = "0x0";
-                    crtc = 0;
-                    # 267 PPI (https://www.microsoft.com/en-us/surface/devices/surface-pro-6)
-                    dpi = dpi;
+          "astrid@banana" = home-manager.lib.homeManagerConfiguration {
+            pkgs = nixpkgs.legacyPackages.x86_64-linux;
+            modules = [
+              self.homeModules.astral-gui
+              vscode-server-home
+              { xresources.properties = { "*.dpi" = 96; }; }
+            ];
+          };
+          "astrid@Discovery" = home-manager.lib.homeManagerConfiguration {
+            pkgs = nixpkgs.legacyPackages.x86_64-linux;
+            modules = [
+              self.homeModules.astral-gui
+              vscode-server-home
+              { xresources.properties = { "*.dpi" = 96; }; }
+            ];
+          };
+          "astrid@shai-hulud" = home-manager.lib.homeManagerConfiguration {
+            pkgs = nixpkgs.legacyPackages.x86_64-linux;
+            modules = [
+              self.homeModules.astral-gui-tablet
+              vscode-server-home
+              (let dpi = 192;
+              in {
+                imports = [ self.homeModules.astral-gui-tablet ];
+                xresources.properties = { "*.dpi" = dpi; };
+                programs.rofi.extraConfig.dpi = dpi;
+                programs.autorandr = {
+                  enable = true;
+                  profiles.portable = {
+                    fingerprint = {
+                      eDP-1 =
+                        "00ffffffffffff0030e45505a1000010001a0104a51a117803ee95a3544c99260f5054000000010101010101010101010101010101013f7fb0a0a020347030203a0004ad10000019000000fd00303c000021040a141414141414000000fe004c47445f4d50302e325f0a2020000000fe004c503132335751313132363034003f";
+                    };
+                    config.eDP-1 = {
+                      enable = true;
+                      primary = true;
+                      mode = "2736x1824";
+                      rate = "60.00";
+                      position = "0x0";
+                      crtc = 0;
+                      # 267 PPI (https://www.microsoft.com/en-us/surface/devices/surface-pro-6)
+                      dpi = dpi;
+                    };
                   };
                 };
-              };
-            };
+              })
+            ];
           };
-          "astrid@soulcaster" = alib.mkHomeConfig {
-            module = self.homeModules.astral-macos;
-            vscode-server = false;
-            system = "x86_64-darwin";
+          "astrid@soulcaster" = home-manager.lib.homeManagerConfiguration {
+            pkgs = nixpkgs.legacyPackages.x86_64-linux;
+            modules = [ self.homeModules.astral-macos ];
           };
-          "root@cpe422" =
-            alib.mkHomeConfig { module = self.homeModules.astral-cli; };
         };
 
         nixosModule = self.nixosModules.astral;
