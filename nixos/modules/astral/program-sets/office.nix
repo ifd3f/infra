@@ -9,6 +9,7 @@
       libreoffice-fresh
       lmms
       okular
+      polymc
       thunderbird
       xournalpp
     ];

@@ -1,0 +1,23 @@
+version: "3"
+
+services:
+  mc:
+    image: itzg/minecraft-server
+    ports:
+      - 25565:25565 # minecraft
+      - 25575:25575 # rcon
+    environment:
+      EULA: "TRUE"
+      MOTD: "§lSCOTUS§r can §5§l§n§ofuck§r itself :)"
+      DIFFICULTY: hard
+      OPS: ea5766f1-845a-479c-945c-2bafd20ce06a,093c1956-ac1a-40c0-8dd1-ae50585c64e8
+      ICON: /icon.png
+      OVERRIDE_ICON: "TRUE"
+      SERVER_NAME: gaymerzone
+      OVERRIDE_SERVER_PROPERTIES: true
+    tty: true
+    stdin_open: true
+    restart: unless-stopped
+    volumes:
+      - ./minecraft-data:/data
+      - ./lilalo.png:/icon.png
