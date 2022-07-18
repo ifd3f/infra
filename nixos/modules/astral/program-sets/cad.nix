@@ -4,9 +4,9 @@
   progFn = { pkgs }: {
     environment.systemPackages = with pkgs;
       [
-        # kicad-small # broken for now
+        kicad
         openscad
-        # freecad # broken for now
+        freecad
       ];
   };
 }

@@ -21,6 +21,8 @@
       vagrant
       vscode-fhs
 
+      ghidra
+
       (gnuradio3_8.override {
         extraPackages = with gnuradio3_8Packages; [
           rds
