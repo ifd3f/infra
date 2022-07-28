@@ -30,9 +30,6 @@
       unixtools.xxd
       yq
 
-      # Password manager
-      bitwarden-cli
-
       # Other utilities
       bind
       ed
@@ -48,6 +45,7 @@
       unzip
       usbutils
       uwufetch
+      zip
     ];
   };
 }

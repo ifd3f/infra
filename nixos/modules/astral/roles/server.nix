@@ -7,6 +7,8 @@
   };
 
   config = lib.mkIf config.astral.roles.server.enable {
+    boot.extraModulePackages = [ config.boot.kernelPackages.exfat-nofuse ];
+
     astral = {
       net.sshd.enable = true;
       infra-update.enable =

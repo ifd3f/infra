@@ -25,6 +25,8 @@ with lib; {
       home-manager
       openconnect
       ventoy-bin
+      exfatprogs
+      exfat
     ];
 
     users.mutableUsers = true;

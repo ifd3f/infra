@@ -10,6 +10,7 @@
       lmms
       okular
       polymc
+      kdenlive
       thunderbird
       xournalpp
     ];
