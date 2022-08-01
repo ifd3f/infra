@@ -23,8 +23,7 @@ RUN mkdir -p /etc/akkoma \
 USER akkoma
 WORKDIR /akkoma
 
-RUN git clone -b develop https://akkoma.dev/AkkomaGang/akkoma.git \
-    && git checkout ${PLEROMA_VER} 
+RUN git clone -b ${PLEROMA_VER} https://akkoma.dev/AkkomaGang/akkoma.git --depth 1 .
 
 RUN echo "import Mix.Config" > config/prod.secret.exs \
     && mix local.hex --force \

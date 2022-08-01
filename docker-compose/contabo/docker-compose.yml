@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:12.1-alpine
+    container_name: akkoma_db
+    restart: always
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "akkoma"]
+    environment:
+      POSTGRES_USER: akkoma
+      POSTGRES_PASSWORD: ChangeMe!
+      POSTGRES_DB: akkoma
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
+
+  web:
+    image: ghcr.io/astridyu/akkoma
+    container_name: akkoma_web
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "wget -q --spider --proxy=off localhost:4000 || exit 1",
+        ]
+    restart: always
+    ports:
+      - '4000:4000'
+    volumes:
+      - ./uploads:/var/lib/akkoma/uploads
+      - ./static:/var/lib/akkoma/static
+      - ./config.exs:/etc/akkoma/config.exs:ro
+    environment:
+      DOMAIN: exmaple.com
+      INSTANCE_NAME: "Astrid's Laboratory"
+      ADMIN_EMAIL: admin@example.com
+      NOTIFY_EMAIL: notify@example.com
+      DB_USER: akkoma
+      DB_PASS: ChangeMe!
+      DB_NAME: akkoma
+    depends_on:
+      - db
