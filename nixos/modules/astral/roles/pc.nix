@@ -111,6 +111,8 @@ with lib; {
     hardware.rtl-sdr.enable = true;
     services.sdrplayApi.enable = true;
 
+    services.flatpak.enable = true;
+
     services.resolved = {
       enable = true;
       dnssec = "false";

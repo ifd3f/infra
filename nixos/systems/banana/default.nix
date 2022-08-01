@@ -16,6 +16,8 @@
     blueman.enable = true;
   };
 
+  virtualisation.lxd.enable = true;
+
   hardware = {
     opengl.enable = true;
 
