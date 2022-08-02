@@ -29,12 +29,14 @@ services:
     volumes:
       - ./uploads:/var/lib/akkoma/uploads
       - ./static:/var/lib/akkoma/static
-      - ./config.exs:/etc/akkoma/config.exs:ro
+      - ./config-override.exs:/etc/akkoma/config.exs:ro
+    env_file:
+      - /etc/labnotes.env
     environment:
-      DOMAIN: exmaple.com
+      DOMAIN: labnotes.astrid.tech
       INSTANCE_NAME: "Astrid's Laboratory"
-      ADMIN_EMAIL: admin@example.com
-      NOTIFY_EMAIL: notify@example.com
+      ADMIN_EMAIL: astrid@astrid.tech
+      NOTIFY_EMAIL: astrid@astrid.tech
       DB_USER: akkoma
       DB_PASS: ChangeMe!
       DB_NAME: akkoma
