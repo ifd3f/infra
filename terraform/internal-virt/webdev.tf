@@ -2,16 +2,16 @@ resource "lxd_profile" "webdev" {
   name = "webdev"
 
   config = {
-    "security.nesting" = true
+    "security.nesting"     = true
     "cloud-init.user-data" = file("${var.config_dir}/webdev.yml")
   }
 }
 
 resource "lxd_container" "webdev" {
-  name = "webdev"
+  name  = "webdev"
   image = "images:fedora/35/cloud"
 
-  profiles = [ lxd_profile.webdev.name ]
+  profiles = [lxd_profile.webdev.name]
 
   lifecycle {
     # i don't wanna destroy my code
@@ -19,7 +19,7 @@ resource "lxd_container" "webdev" {
   }
 
   limits = {
-    cpu = 16
+    cpu    = 16
     memory = "32GB"
   }
 
@@ -28,7 +28,7 @@ resource "lxd_container" "webdev" {
     type = "nic"
     properties = {
       nictype = "bridged"
-      parent = var.exposed_bridge
+      parent  = var.exposed_bridge
     }
   }
 

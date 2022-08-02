@@ -1,8 +1,8 @@
 resource "lxd_storage_pool" "dpool" {
-  name = "dpool"
+  name   = "dpool"
   driver = "zfs"
   config = {
-    source = "dpool/lxd"
+    source          = "dpool/lxd"
     "zfs.pool_name" = "dpool/lxd"
   }
 }

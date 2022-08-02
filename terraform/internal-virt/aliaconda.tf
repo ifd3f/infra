@@ -17,8 +17,8 @@ resource "lxd_profile" "aliaconda" {
   name = "aliaconda"
 
   config = {
-    "security.privileged" = true
-    "security.nesting" = true
+    "security.privileged"  = true
+    "security.nesting"     = true
     "cloud-init.user-data" = file("${var.config_dir}/aliaconda.yml")
   }
 }
@@ -28,7 +28,7 @@ resource "lxd_container" "aliaconda" {
   # zerotier does not yet support centos 9
   image = lxd_cached_image.centos8.fingerprint
 
-  profiles = [ lxd_profile.aliaconda.name ]
+  profiles = [lxd_profile.aliaconda.name]
 
   lifecycle {
     # i don't wanna destroy alia's machine
@@ -40,7 +40,7 @@ resource "lxd_container" "aliaconda" {
     type = "nic"
     properties = {
       nictype = "bridged"
-      parent = var.exposed_bridge
+      parent  = var.exposed_bridge
     }
   }
 
@@ -48,9 +48,9 @@ resource "lxd_container" "aliaconda" {
     name = "homevol"
     type = "disk"
     properties = {
-      path = "/home"
+      path   = "/home"
       source = lxd_volume.aliaconda_home.name
-      pool = lxd_volume.aliaconda_home.pool
+      pool   = lxd_volume.aliaconda_home.pool
     }
   }
 

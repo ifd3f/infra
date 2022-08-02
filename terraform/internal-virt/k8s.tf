@@ -7,13 +7,13 @@ resource "lxd_profile" "maastricht" {
 }
 
 resource "lxd_container" "maastricht" {
-  name = "maastricht"
+  name  = "maastricht"
   image = "images:ubuntu/jammy/cloud"
 
-  profiles = [ lxd_profile.maastricht.name ]
+  profiles = [lxd_profile.maastricht.name]
 
   limits = {
-    cpu = 2
+    cpu    = 2
     memory = "2GB"
   }
 
@@ -21,7 +21,7 @@ resource "lxd_container" "maastricht" {
     # needed for ipvlan
     "linux.sysctl.net.ipv4.conf.eth0.forwarding" = 1
     "linux.sysctl.net.ipv6.conf.eth0.forwarding" = 1
-    "linux.sysctl.net.ipv6.conf.eth0.proxy_ndp" = 1
+    "linux.sysctl.net.ipv6.conf.eth0.proxy_ndp"  = 1
   }
 
   device {
@@ -29,8 +29,8 @@ resource "lxd_container" "maastricht" {
     type = "nic"
     properties = {
       nictype = "bridged"
-      name = "eth0"
-      parent = var.kubecluster_bridge
+      name    = "eth0"
+      parent  = var.kubecluster_bridge
     }
   }
 
