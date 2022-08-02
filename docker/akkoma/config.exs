@@ -21,10 +21,10 @@ config :pleroma, Pleroma.Repo,
 config :web_push_encryption, :vapid_details, subject: "mailto:#{System.get_env("NOTIFY_EMAIL")}"
 
 config :pleroma, :database, rum_enabled: false
-config :pleroma, :instance, static_dir: "/var/lib/pleroma/static"
+config :pleroma, :instance, static_dir: "/var/lib/akkoma/static"
 
 # We can't store the secrets in this file, since this is baked into the docker image
-if not File.exists?("/var/lib/pleroma/secret.exs") do
+if not File.exists?("/var/lib/akkoma/secret.exs") do
   secret = :crypto.strong_rand_bytes(64) |> Base.encode64() |> binary_part(0, 64)
   signing_salt = :crypto.strong_rand_bytes(8) |> Base.encode64() |> binary_part(0, 8)
   {web_push_public_key, web_push_private_key} = :crypto.generate_key(:ecdh, :prime256v1)
@@ -48,16 +48,16 @@ if not File.exists?("/var/lib/pleroma/secret.exs") do
       web_push_private_key: Base.url_encode64(web_push_private_key, padding: false)
     )
 
-  File.write("/var/lib/pleroma/secret.exs", secret_file)
+  File.write("/var/lib/akkoma/secret.exs", secret_file)
 end
 
-import_config("/var/lib/pleroma/secret.exs")
+import_config("/var/lib/akkoma/secret.exs")
 
 # For additional user config
-if File.exists?("/var/lib/pleroma/config.exs"),
-  do: import_config("/var/lib/pleroma/config.exs"),
+if File.exists?("/var/lib/akkoma/config.exs"),
+  do: import_config("/var/lib/akkoma/config.exs"),
   else:
-    File.write("/var/lib/pleroma/config.exs", """
+    File.write("/var/lib/akkoma/config.exs", """
     import Config
 
     # For additional configuration outside of environmental variables

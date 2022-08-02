@@ -28,9 +28,9 @@ services:
       - 443:443
       - 4000:4000
     volumes:
-      - ./uploads:/var/lib/pleroma/uploads
-      - ./static:/var/lib/pleroma/static
-      - ./config-override.exs:/etc/pleroma/config.exs:ro
+      - ./uploads:/var/lib/akkoma/uploads
+      - ./static:/var/lib/akkoma/static
+      - ./config-override.exs:/etc/akkoma/config.exs:ro
     env_file:
       - /etc/labnotes.env
     environment:

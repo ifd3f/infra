@@ -1,32 +1,5 @@
 import Config
 
-config :pleroma, :frontends,
-  primary: %{
-    "name" => "pleroma-fe",
-    "ref" => "develop"
-  },
-  admin: %{
-    "name" => "admin-fe",
-    "ref" => "develop"
-  },
-  swagger: %{
-    "name" => "swagger-ui",
-    "ref" => "stable",
-    "enabled" => true
-  } 
-
-config :pleroma, :frontend_configurations,
-  pleroma_fe: %{
-    theme: "pleroma-dark",
-    # ... see /priv/static/static/config.json for the available keys.
-},
-  masto_fe: %{
-    showInstanceSpecificPanel: true
-  }
-
-config :pleroma, :static_fe,
-  enabled: true
-
 config :pleroma, Pleroma.Web.Endpoint,
   url: [host: System.get_env("DOMAIN", "localhost"), scheme: "https", port: 443],
   http: [ip: {0, 0, 0, 0}, port: 4000]
