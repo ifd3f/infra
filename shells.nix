@@ -17,7 +17,6 @@ let
       kubernetes-helm
       netcat
       nixfmt
-      nixops
       nodePackages.prettier
       packer
       python3
