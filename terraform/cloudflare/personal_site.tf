@@ -42,3 +42,9 @@ resource "cloudflare_record" "personal_site_shortener" {
   value   = cloudflare_record.oci_public_ip.value
   proxied = false // Do not proxy, or else ACME won't work
 }
+
+//
+resource "b2_bucket" "example_bucket" {
+  bucket_name = "astrid-tech-storage"
+  bucket_type = "allPublic"
+}
