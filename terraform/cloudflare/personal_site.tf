@@ -43,8 +43,9 @@ resource "cloudflare_record" "personal_site_shortener" {
   proxied = false // Do not proxy, or else ACME won't work
 }
 
-//
-resource "b2_bucket" "example_bucket" {
-  bucket_name = "astrid-tech-storage"
+// A bucket for storing public-facing webservice data.
+resource "b2_bucket" "media_bucket" {
+  bucket_name = "astrid-tech-media"
   bucket_type = "allPublic"
 }
+

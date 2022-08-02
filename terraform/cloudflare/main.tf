@@ -21,8 +21,8 @@ terraform {
 }
 
 provider "b2" {
-    application_key = var.b2_app_key
-    application_key_id = var.b2_app_key_id
+  application_key    = var.b2_app_key
+  application_key_id = var.b2_app_key_id
 }
 
 provider "cloudflare" {
@@ -54,3 +54,21 @@ resource "cloudflare_zone" "tattoo" {
   // Registrar: https://www.cosmotown.com/
   zone = "0q4.org"
 }
+
+locals {
+  contabo_ip = "173.212.242.107"
+}
+
+provider "remote" {
+  alias = "contabo"
+
+  max_sessions = 2
+
+  conn {
+    host        = local.contabo_ip
+    user        = "terraform"
+    sudo        = true
+    private_key = var.ssh_private_key
+  }
+}
+
