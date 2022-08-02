@@ -17,6 +17,9 @@ terraform {
     b2 = {
       source = "Backblaze/b2"
     }
+    remote = {
+      source = "tenstad/remote"
+    }
   }
 }
 

@@ -8,12 +8,12 @@ resource "b2_application_key" "labnotes" {
 resource "remote_file" "labnotes" {
   provider = remote.contabo
 
-  path        = "/etc/appkeys/labnotes.env"
+  path        = "/etc/labnotes.env"
   content     = <<-EOF
-    B2_APP_KEY=${b2_application_key.application_key}
-    B2_APP_KEY_ID=${b2_application_key.application_key_id}
-    B2_BUCKET_ENDPOINT=${b2_application_key.application_key_id}
-    B2_BUCKET_PREFIX=${b2_application_key.name_prefix}
+    B2_APP_KEY=${b2_application_key.labnotes.application_key}
+    B2_APP_KEY_ID=${b2_application_key.labnotes.application_key_id}
+    B2_BUCKET_ENDPOINT=${b2_application_key.labnotes.application_key_id}
+    B2_BUCKET_PREFIX=${b2_application_key.labnotes.name_prefix}
   EOF
   permissions = "0600"
 }
