@@ -42,3 +42,10 @@ resource "cloudflare_record" "personal_site_shortener" {
   value   = cloudflare_record.oci_public_ip.value
   proxied = false // Do not proxy, or else ACME won't work
 }
+
+// A bucket for storing public-facing webservice data.
+resource "b2_bucket" "media_bucket" {
+  bucket_name = "astrid-tech-media"
+  bucket_type = "allPublic"
+}
+

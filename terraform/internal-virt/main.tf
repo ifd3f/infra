@@ -20,7 +20,7 @@ terraform {
 }
 
 provider "lxd" {
-  accept_remote_certificate = true
+  accept_remote_certificate    = true
   generate_client_certificates = true
 }
 

@@ -7,11 +7,11 @@ resource "lxd_profile" "cpe422" {
 }
 
 resource "lxd_container" "cpe422" {
-  name = "cpe422"
+  name  = "cpe422"
   image = "images:fedora/35/cloud"
-  type = "virtual-machine"
+  type  = "virtual-machine"
 
-  profiles = [ lxd_profile.cpe422.name ]
+  profiles = [lxd_profile.cpe422.name]
 
   lifecycle {
     # i don't wanna destroy my code
@@ -19,7 +19,7 @@ resource "lxd_container" "cpe422" {
   }
 
   limits = {
-    cpu = 8
+    cpu    = 8
     memory = "16GB"
   }
 
@@ -28,7 +28,7 @@ resource "lxd_container" "cpe422" {
     type = "nic"
     properties = {
       nictype = "bridged"
-      parent = var.exposed_bridge
+      parent  = var.exposed_bridge
     }
   }
 
