@@ -1,17 +1,13 @@
-import config
+import Config
 
 config :pleroma, :instance,
   registrations_open: false
 
-config :pleroma, :media_proxy,
-  enabled: false,
-  redirect_on_failure: true,
-  base_url: "https://cache.domain.tld"
-
 # S3 upload setup
 config :pleroma, Pleroma.Upload,
+  base_url: "https://labnotes.astrid.tech",
   uploader: Pleroma.Uploaders.S3,
-  strip_exif: true
+  strip_exif: false
 
 config :ex_aws, :s3,
   access_key_id: System.get_env("B2_APP_KEY_ID"),
@@ -19,5 +15,12 @@ config :ex_aws, :s3,
   host: "s3.us-west-000.backblazeb2.com"
 
 config :pleroma, Pleroma.Uploaders.S3,
-  bucket: System.get_env("B2_BUCKET"),
-  public_endpoint: "https://s3.us-west-000.backblazeb2.com"
+  bucket: System.get_env("B2_BUCKET")
+
+config :pleroma, Pleroma.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  username: System.get_env("DB_USER", "pleroma"),
+  password: System.fetch_env!("DB_PASS"),
+  database: System.get_env("DB_NAME", "pleroma"),
+  hostname: System.get_env("DB_HOST", "db"),
+  pool_size: 10
