@@ -28,8 +28,6 @@ services:
       - 443:443
       - 4000:4000
     volumes:
-      - ./uploads:/var/lib/akkoma/uploads
-      - ./static:/var/lib/akkoma/static
       - ./config-override.exs:/etc/akkoma/config.exs:ro
     env_file:
       - /etc/labnotes.env

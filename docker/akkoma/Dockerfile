@@ -13,7 +13,7 @@ RUN echo "http://nl.alpinelinux.org/alpine/latest-stable/community" >> /etc/apk/
 RUN addgroup -g ${GID} akkoma \
     && adduser -h /akkoma -s /bin/false -D -G akkoma -u ${UID} akkoma
 
-ARG DATA=/var/lib/akkoma
+ARG DATA=/var/lib/pleroma
 RUN mkdir -p /etc/akkoma \
     && chown -R akkoma /etc/akkoma \
     && mkdir -p ${DATA}/uploads \
@@ -33,6 +33,20 @@ RUN echo "import Mix.Config" > config/prod.secret.exs \
     && mix release --path /akkoma
 
 COPY ./config.exs /etc/akkoma/config.exs
+
+RUN cd /tmp \
+    && wget -O akkoma-fe.zip https://akkoma-updates.s3-website.fr-par.scw.cloud/frontend/stable/akkoma-fe.zip \
+    && unzip akkoma-fe.zip \
+    && mkdir -p ${DATA}/static/frontends/pleroma-fe \
+    && mv dist ${DATA}/static/frontends/pleroma-fe/stable \
+    && rm /tmp/akkoma-fe.zip
+
+RUN cd /tmp \
+    && wget -O admin-fe.zip https://akkoma-updates.s3-website.fr-par.scw.cloud/frontend/stable/admin-fe.zip \
+    && unzip admin-fe.zip \
+    && mkdir -p ${DATA}/static/frontends/admin-fe \
+    && mv dist ${DATA}/static/frontends/admin-fe/stable \
+    && rm /tmp/admin-fe.zip
 
 EXPOSE 4000
 

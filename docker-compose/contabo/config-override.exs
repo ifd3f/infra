@@ -1,5 +1,9 @@
 import Config
 
+config :pleroma, :frontends,
+  primary: %{"name" => "pleroma-fe", "ref" => "stable"},
+  admin: %{"name" => "admin-fe", "ref" => "stable"}
+
 config :pleroma, Pleroma.Web.Endpoint,
   url: [host: System.get_env("DOMAIN", "localhost"), scheme: "https", port: 443],
   http: [ip: {0, 0, 0, 0}, port: 4000]
