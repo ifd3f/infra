@@ -49,3 +49,13 @@ resource "cloudflare_record" "primary_google_site_verification" {
   value   = "google-site-verification=eeNf9_2KGQ2L9H5zImRlebdGTnR-_t0qBNlnZrHk53Q"
   zone_id = cloudflare_zone.primary.id
 }
+
+// Alias to Backblaze storage.
+resource "cloudflare_record" "backblaze_alias" {
+  zone_id = cloudflare_zone.primary.id
+  type    = "CNAME"
+  name    = "media"
+  value   = "f000.backblazeb2.com"
+  proxied = false
+}
+
