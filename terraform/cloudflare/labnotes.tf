@@ -18,3 +18,11 @@ resource "remote_file" "labnotes" {
   permissions = "0600"
 }
 
+resource "cloudflare_record" "labnotes_akkoma" {
+  name    = "labnotes"
+  proxied = false
+  type    = "A"
+  value   = local.contabo_ip
+  zone_id = cloudflare_zone.primary.id
+}
+
