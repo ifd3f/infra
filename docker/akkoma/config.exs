@@ -1,9 +1,5 @@
 import Config
 
-config :pleroma, Pleroma.Web.Endpoint,
-  url: [host: System.get_env("DOMAIN", "localhost"), scheme: "https", port: 443],
-  http: [ip: {0, 0, 0, 0}, port: 4000]
-
 config :pleroma, :instance,
   name: System.get_env("INSTANCE_NAME", "Pleroma"),
   email: System.get_env("ADMIN_EMAIL"),

@@ -15,7 +15,7 @@ services:
       - ./postgres:/var/lib/postgresql/data
 
   web:
-    image: ghcr.io/astridyu/akkoma
+    image: ghcr.io/astridyu/akkoma:akkoma
     container_name: akkoma_web
     healthcheck:
       test:
@@ -25,6 +25,7 @@ services:
         ]
     restart: always
     ports:
+      - 443:443
       - 4000:4000
     volumes:
       - ./uploads:/var/lib/akkoma/uploads
