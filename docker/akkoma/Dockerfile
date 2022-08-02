@@ -10,18 +10,18 @@ RUN echo "http://nl.alpinelinux.org/alpine/latest-stable/community" >> /etc/apk/
     && apk add git gcc g++ musl-dev make cmake file-dev \
     exiftool imagemagick libmagic ncurses postgresql-client ffmpeg
 
-RUN addgroup -g ${GID} akkoma \
-    && adduser -h /akkoma -s /bin/false -D -G akkoma -u ${UID} akkoma
+RUN addgroup -g ${GID} pleroma \
+    && adduser -h /pleroma -s /bin/false -D -G pleroma -u ${UID} pleroma
 
-ARG DATA=/var/lib/akkoma
-RUN mkdir -p /etc/akkoma \
-    && chown -R akkoma /etc/akkoma \
+ARG DATA=/var/lib/pleroma
+RUN mkdir -p /etc/pleroma \
+    && chown -R pleroma /etc/pleroma \
     && mkdir -p ${DATA}/uploads \
     && mkdir -p ${DATA}/static \
-    && chown -R akkoma ${DATA}
+    && chown -R pleroma ${DATA}
 
-USER akkoma
-WORKDIR /akkoma
+USER pleroma
+WORKDIR /pleroma
 
 RUN git clone -b ${PLEROMA_VER} https://akkoma.dev/AkkomaGang/akkoma.git --depth 1 .
 
@@ -30,10 +30,10 @@ RUN echo "import Mix.Config" > config/prod.secret.exs \
     && mix local.rebar --force \
     && mix deps.get --only prod \
     && mkdir release \
-    && mix release --path /akkoma
+    && mix release --path /pleroma
 
-COPY ./config.exs /etc/akkoma/config.exs
+COPY ./config.exs /etc/pleroma/config.exs
 
 EXPOSE 4000
 
-ENTRYPOINT ["/akkoma/docker-entrypoint.sh"]
+ENTRYPOINT ["/pleroma/docker-entrypoint.sh"]
