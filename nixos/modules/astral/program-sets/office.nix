@@ -4,6 +4,7 @@
   progFn = { pkgs }: {
     environment.systemPackages = with pkgs; [
       gimp
+      darktable
       inkscape
       krita
       libreoffice-fresh
