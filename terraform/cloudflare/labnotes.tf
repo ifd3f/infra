@@ -6,7 +6,7 @@ resource "b2_bucket" "labnotes" {
 
 resource "b2_application_key" "labnotes" {
   key_name     = "labnotes-pleroma"
-  bucket_id    = b2_bucket.labnotes.id
+  bucket_id    = b2_bucket.fedi.id
   capabilities = ["deleteFiles", "listBuckets", "listFiles", "readBucketEncryption", "readBucketReplications", "readBuckets", "readFiles", "shareFiles", "writeBucketEncryption", "writeBucketReplications", "writeFiles"]
 }
 
@@ -17,7 +17,7 @@ resource "remote_file" "labnotes" {
   content     = <<-EOF
     B2_APP_KEY=${b2_application_key.labnotes.application_key}
     B2_APP_KEY_ID=${b2_application_key.labnotes.application_key_id}
-    B2_BUCKET=${b2_bucket.labnotes.bucket_name}
+    B2_BUCKET=${b2_bucket.fedi.bucket_name}
   EOF
   permissions = "0600"
 }
