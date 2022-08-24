@@ -43,6 +43,16 @@ resource "cloudflare_zone" "name" {
   zone = "astridyu.com"
 }
 
+resource "cloudflare_zone" "femboy" {
+  // Registrar: https://porkbun.com
+  zone = "femboy.technology"
+}
+
+resource "cloudflare_zone" "nyaa" {
+  // Registrar: https://porkbun.com
+  zone = "nyaa.download"
+}
+
 resource "cloudflare_zone" "short" {
   // Registrar: https://gandi.net
   zone = "aay.tw"
