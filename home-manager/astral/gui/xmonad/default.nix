@@ -51,7 +51,7 @@
 
     services.picom = {
       enable = true;
-      blur = true;
+      #blur = true;
     };
 
     services.polybar = {

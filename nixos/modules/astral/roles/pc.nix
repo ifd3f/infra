@@ -41,6 +41,8 @@ with lib; {
       enableWifi = true;
     };
 
+    services.gvfs.enable = true;
+
     astral = {
       program-sets = {
         browsers = true;
@@ -110,6 +112,8 @@ with lib; {
     hardware.hackrf.enable = true;
     hardware.rtl-sdr.enable = true;
     services.sdrplayApi.enable = true;
+
+    services.udev.packages = [ pkgs.android-udev-rules ];
 
     services.flatpak.enable = true;
 
