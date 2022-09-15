@@ -19,7 +19,7 @@
       lolcat
       nixfmt
       vagrant
-      vscode-fhs
+      vscode
 
       ghidra
 

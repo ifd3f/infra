@@ -76,7 +76,7 @@ with lib; {
           vim-gitgutter
           vim-terraform
           vim-test
-          vimtex
+          pkgs.vimPlugins.vimtex
         ];
       };
 
