@@ -3,7 +3,7 @@ with lib; {
   options.astral.cli.conda-hooks = {
     enable = mkOption {
       description = "Whether to add conda hooks to CLI.";
-      default = true;
+      default = false;
       type = types.bool;
     };
 

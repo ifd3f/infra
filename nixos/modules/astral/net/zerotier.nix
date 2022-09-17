@@ -1,12 +1,6 @@
 { config, lib, ... }:
 with lib; {
   options.astral.net.zerotier = {
-    enable = mkOption {
-      description = "Whether to enable zerotier support on this device or not.";
-      default = true;
-      type = types.bool;
-    };
-
     internal = mkOption {
       description = "Whether to add to internal network.";
       default = true;
@@ -21,6 +15,7 @@ with lib; {
   };
 
   config = let cfg = config.astral.net.zerotier;
+  enable = cfg.internal || cfg.public;
   in mkIf cfg.enable {
     nixpkgs.config.allowUnfree = true;
 
