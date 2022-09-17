@@ -26,7 +26,12 @@ let
       wget
       whois
       yq
-    ] ++ (if pkgs.system != "x86_64-darwin" then [ cdrkit iputils ] else [ ]);
+    ] ++ (if pkgs.system != "x86_64-darwin" then [
+      cdrkit
+      iputils
+      qemu
+    ] else
+      [ ]);
 in {
   default = pkgs.mkShell { nativeBuildInputs = packages; };
 
