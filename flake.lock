@@ -174,23 +174,6 @@
         "type": "github"
       }
     },
-    "powerlevel10k": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1662312151,
-        "narHash": "sha256-wo2QAcD7DMLjTbqIPRRiEjy/gd+xtBu3GggRaISBICw=",
-        "owner": "romkatv",
-        "repo": "powerlevel10k",
-        "rev": "4bbb198a606b69dfb2d86ac33686e3d41f6d0141",
-        "type": "github"
-      },
-      "original": {
-        "owner": "romkatv",
-        "ref": "master",
-        "repo": "powerlevel10k",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -201,8 +184,7 @@
         "nixos-vscode-server": "nixos-vscode-server",
         "nixpkgs-astridyu": "nixpkgs-astridyu",
         "nixpkgs-unstable": "nixpkgs-unstable",
-        "nur": "nur",
-        "powerlevel10k": "powerlevel10k"
+        "nur": "nur"
       }
     },
     "utils": {

@@ -32,16 +32,11 @@
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-
-    powerlevel10k = {
-      url = "github:romkatv/powerlevel10k/master";
-      flake = false;
-    };
   };
 
   outputs = { self, nixpkgs-unstable, nixpkgs-astridyu, nixos-vscode-server
     , flake-utils, nix-ld, nur, home-manager-unstable, nixos-hardware
-    , powerlevel10k, nixos-generators, ... }@inputs:
+    , nixos-generators, ... }@inputs:
     let
       nixpkgs = nixpkgs-unstable;
       home-manager = home-manager-unstable;
@@ -76,13 +71,12 @@
         checks = import ./checks { inherit self nixpkgs-unstable; };
 
         overlay = final: prev: {
-          lib = self.lib;
           lxd = nixpkgs-astridyu.legacyPackages.${prev.system}.lxd;
         };
 
         homeModule = self.homeModules.astral;
         homeModules = {
-          astral = import ./home-manager/astral { inherit powerlevel10k; };
+          astral = import ./home-manager/astral;
 
           astral-cli = {
             imports = [ self.homeModules.astral ];

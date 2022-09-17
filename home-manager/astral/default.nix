@@ -1,6 +1,5 @@
-{ powerlevel10k }:
 { pkgs, ... }: {
-  imports = [ (import ./cli { inherit powerlevel10k; }) ./macos ./vi ./gui ];
+  imports = [ ./cli ./macos ./vi ./gui ];
   home = {
     username = "astrid";
     homeDirectory =

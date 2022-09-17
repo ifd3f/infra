@@ -1,5 +1,4 @@
 # CLI-only home manager settings
-{ powerlevel10k }:
 { config, lib, pkgs, ... }:
 let commonProfile = builtins.readFile ./.profile;
 in with lib; {
@@ -124,7 +123,7 @@ in with lib; {
         plugins = [{
           name = "powerlevel10k";
           file = "powerlevel10k.zsh-theme";
-          src = powerlevel10k;
+          src = "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k";
         }];
       };
 
