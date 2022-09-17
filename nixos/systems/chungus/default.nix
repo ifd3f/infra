@@ -13,39 +13,13 @@
   virtualisation.lxd.enable = true;
 
   # Nvidia configs, following this page https://nixos.wiki/wiki/Nvidia
-  services = {
-    xserver.videoDrivers = [ "nvidia" ];
-    blueman.enable = true;
+  services.xserver = {
+    videoDrivers = [ "nvidia" ];
   };
 
-  hardware = {
-    opengl.enable = true;
-  };
+  services.blueman.enable = true;
 
-  #   nvidia.prime = {
-  #     # Sync mode for multi-monitor support https://nixos.wiki/wiki/Nvidia#sync_mode
-  #     offload.enable = false;
-  #     sync.enable = true;
-
-  #     # Bus ID of the NVIDIA GPU. You can find it using lspci, either under 3D or VGA
-  #     nvidiaBusId = "PCI:1:0:0";
-
-  #     # Bus ID of the Intel GPU. You can find it using lspci, either under 3D or VGA
-  #     intelBusId = "PCI:0:2:0";
-  #   };
-
-  # specialisation = {
-  #   no-internal-display.configuration.hardware.nvidia.prime = {
-  #     offload.enable = lib.mkForce false;
-  #     sync.enable = lib.mkForce false;
-  #   };
-
-  #   # Offload mode for lower power usage https://nixos.wiki/wiki/Nvidia#offload_mode
-  #   offload-mode.configuration.hardware.nvidia.prime = {
-  #     offload.enable = lib.mkForce true;
-  #     sync.enable = lib.mkForce false;
-  #   };
-  # };
+  hardware.opengl.enable = true;
 
   networking = {
     hostName = "chungus";
