@@ -26,10 +26,7 @@
       flake = false;
     };
 
-    nixos-hardware = {
-      url = "github:NixOS/nixos-hardware/master";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
@@ -54,6 +51,8 @@
     let
       nixpkgs = nixpkgs-unstable;
       home-manager = home-manager-unstable;
+      overlays =
+        [ (import "${home-manager}/overlay.nix") nur.overlay self.overlay ];
 
       vscode-server-home =
         "${nixos-vscode-server}/modules/vscode-server/home.nix";
@@ -69,11 +68,7 @@
       "aarch64-linux"
       "x86_64-darwin"
     ] (system:
-      let
-        pkgs = import nixpkgs {
-          inherit system;
-          overlays = alib.overlays;
-        };
+      let pkgs = import nixpkgs { inherit system overlays; };
       in rec {
         gh-ci-matrix = pkgs.callPackage ./pkgs/gh-ci-matrix { inherit self; };
         devShells = import ./shells.nix { inherit pkgs; };

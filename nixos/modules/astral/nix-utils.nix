@@ -2,7 +2,6 @@
 { pkgs, ... }: {
   nix = {
     # Auto-optimize/GC store
-    autoOptimiseStore = true;
     gc = {
       automatic = true;
       dates = "weekly";
@@ -10,7 +9,10 @@
     };
 
     # Trusted users for remote config builds and uploads
-    trustedUsers = [ "root" "@wheel" ];
+    settings = {
+      trusted-users = [ "root" "@wheel" ];
+      auto-optimise-store = true;
+    };
 
     package = pkgs.nixUnstable;
     extraOptions = "experimental-features = nix-command flakes";
