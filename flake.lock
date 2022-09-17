@@ -191,23 +191,6 @@
         "type": "github"
       }
     },
-    "qmk_firmware": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1646863481,
-        "narHash": "sha256-CgAJLWRxjS5YjskJV8yWTna8PsT/F4wPgGPtm4cSa4c=",
-        "owner": "astridyu",
-        "repo": "qmk_firmware",
-        "rev": "caeb213400e7f612598af10354306fd4d3ee0adf",
-        "type": "github"
-      },
-      "original": {
-        "owner": "astridyu",
-        "ref": "master",
-        "repo": "qmk_firmware",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -219,8 +202,7 @@
         "nixpkgs-astridyu": "nixpkgs-astridyu",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nur": "nur",
-        "powerlevel10k": "powerlevel10k",
-        "qmk_firmware": "qmk_firmware"
+        "powerlevel10k": "powerlevel10k"
       }
     },
     "utils": {

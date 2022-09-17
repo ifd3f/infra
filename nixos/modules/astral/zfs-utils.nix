@@ -2,8 +2,13 @@
 
 { config, lib, ... }:
 with lib; {
-  # Only enable these configs if ZFS is even enabled in the first place
-  config = mkIf config.boot.zfs.enabled {
+  options.astral.zfs-utils.enable = mkOption {
+    description = "Enable to set up utils for ZFS.";
+    default = false;
+    type = types.bool;
+  };
+
+  config = mkIf config.astral.zfs-utils.enable {
     boot = {
       initrd.supportedFilesystems = [ "zfs" ];
       loader.grub.copyKernels = true;

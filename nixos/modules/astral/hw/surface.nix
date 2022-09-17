@@ -1,4 +1,3 @@
-{ nixos-hardware }:
 { config, lib, pkgs, ... }:
 with lib; {
   options.astral.hw.surface.enable = mkOption {

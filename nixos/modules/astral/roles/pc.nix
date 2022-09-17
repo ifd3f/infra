@@ -8,12 +8,9 @@ with lib; {
 
   config = mkIf config.astral.roles.pc.enable {
     # haskell.nix binary cache
-    nix.settings.trusted-public-keys = [
-      "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
-    ];
-    nix.settings.substituters = [
-      "https://cache.iog.io"
-    ];
+    nix.settings.trusted-public-keys =
+      [ "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ=" ];
+    nix.settings.substituters = [ "https://cache.iog.io" ];
 
     fonts.fonts = with pkgs; [
       corefonts
@@ -74,6 +71,7 @@ with lib; {
         xrdp.enable = true;
         sshd.enable = true;
       };
+      zfs-utils.enable = true;
       # infra-update = {
       #   enable = true;
       #   dates = "*-*-* 3:00:00 US/Pacific";
@@ -128,7 +126,7 @@ with lib; {
     services.resolved = {
       enable = true;
       dnssec = "false";
-      domains = ["~id.astrid.tech"];
+      domains = [ "~id.astrid.tech" ];
     };
   };
 }

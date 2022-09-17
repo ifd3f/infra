@@ -37,32 +37,21 @@
       url = "github:romkatv/powerlevel10k/master";
       flake = false;
     };
-
-    # For auto-updating udev rules
-    qmk_firmware = {
-      url = "github:astridyu/qmk_firmware/master";
-      flake = false;
-    };
   };
 
   outputs = { self, nixpkgs-unstable, nixpkgs-astridyu, nixos-vscode-server
-    , flake-utils, nix-ld, nur, home-manager-unstable, qmk_firmware
-    , nixos-hardware, powerlevel10k, nixos-generators, ... }@inputs:
+    , flake-utils, nix-ld, nur, home-manager-unstable, nixos-hardware
+    , powerlevel10k, nixos-generators, ... }@inputs:
     let
       nixpkgs = nixpkgs-unstable;
       home-manager = home-manager-unstable;
+      lib = nixpkgs.lib;
+
       overlays =
         [ (import "${home-manager}/overlay.nix") nur.overlay self.overlay ];
 
       vscode-server-home =
         "${nixos-vscode-server}/modules/vscode-server/home.nix";
-
-      alib = import ./nixos/lib {
-        inherit self nixpkgs nur home-manager nixos-vscode-server;
-        baseModules = [ self.nixosModule ];
-      };
-
-      sshKeyDatabase = import ./ssh_keys;
     in (flake-utils.lib.eachSystem [
       "x86_64-linux"
       "aarch64-linux"
@@ -73,18 +62,21 @@
         gh-ci-matrix = pkgs.callPackage ./pkgs/gh-ci-matrix { inherit self; };
         devShells = import ./shells.nix { inherit pkgs; };
         packages = {
-          installer-iso = let
-            installerSystem = alib.mkSystem {
-              hostName = "astral-installer";
-              module =
-                import ./nixos/systems/installer-iso.nix { inherit nixpkgs; };
-            };
-          in installerSystem.config.system.build.isoImage;
+          #installer-iso = let
+          #  installerSystem = alib.mkSystem {
+          #    hostName = "astral-installer";
+          #    module =
+          #      import ./nixos/systems/installer-iso.nix { inherit nixpkgs; };
+          #  };
+          #in installerSystem.config.system.build.isoImage;
         } // (import ./pkgs { inherit self pkgs nixpkgs nixos-generators; });
       }) // {
+        lib = import ./nixos/lib { inherit self lib nixos-hardware; };
+
         checks = import ./checks { inherit self nixpkgs-unstable; };
 
         overlay = final: prev: {
+          lib = self.lib;
           lxd = nixpkgs-astridyu.legacyPackages.${prev.system}.lxd;
         };
 
@@ -200,26 +192,15 @@
 
           astral = {
             imports = [
-              nix-ld.nixosModules.nix-ld
-              home-manager.nixosModule
               (import ./nixos/modules/astral {
-                inherit nixos-hardware qmk_firmware sshKeyDatabase;
+                inherit self nix-ld home-manager;
                 homeModules = self.homeModules;
               })
             ];
           };
         };
 
-        nixosConfigurations = (alib.mkSystemEntries {
-          banana = import ./nixos/systems/banana inputs;
-          chungus = import ./nixos/systems/chungus inputs; # TODO enable chungus
-          donkey = import ./nixos/systems/donkey inputs;
-          gfdesk = import ./nixos/systems/gfdesk inputs;
-          shai-hulud = import ./nixos/systems/shai-hulud inputs;
-          thonkpad = import ./nixos/systems/thonkpad inputs;
-        }) // (alib.mkPiJumpserverEntries {
-          jonathan-js = { };
-          joseph-js = { };
-        });
+        nixosConfigurations =
+          (import ./nixos/systems { inherit self nixpkgs lib; });
       });
 }

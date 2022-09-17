@@ -1,6 +1,4 @@
-{ qmk_firmware }:
-let qmk-rules = "${qmk_firmware}/util/udev/50-qmk.rules";
-in { config, lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 with lib; {
   options.astral.hw.kb-flashing.enable = mkOption {
     description = ''
@@ -16,7 +14,7 @@ with lib; {
     environment.systemPackages = with pkgs; [ usbutils wally-cli ];
 
     # QMK rules
-    services.udev.extraRules = builtins.readFile qmk-rules;
+    services.udev.packages = [ pkgs.qmk-udev-rules ];
 
     # Ergodox
     hardware.keyboard.zsa.enable = true;

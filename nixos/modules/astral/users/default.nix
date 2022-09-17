@@ -1,5 +1,7 @@
 # Normal user declarations.
-{ sshKeyDatabase }: {
+{ self }:
+let inherit (self.lib) sshKeyDatabase;
+in {
   imports = let
     # Helper to create a user with the given name.
     mkUserModule = name:

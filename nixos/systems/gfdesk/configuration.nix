@@ -1,5 +1,4 @@
 # The desk that is used by Good Friends.
-{ ... }:
 { config, lib, pkgs, ... }: {
   imports = [ ./hardware-configuration.nix ];
 
