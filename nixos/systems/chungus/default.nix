@@ -1,8 +1,7 @@
-# My gaming laptop.
+# My gaming desktop.
 { ... }:
 { pkgs, lib, ... }: {
-  # TODO generate hardware-configuration.nix
-  # imports = [ ./hardware-configuration.nix ];
+  imports = [ ./hardware-configuration.nix ];
 
   time.timeZone = "US/Pacific";
 
@@ -13,14 +12,15 @@
 
   virtualisation.lxd.enable = true;
 
-  # # Nvidia configs, following this page https://nixos.wiki/wiki/Nvidia
-  # services = {
-  #   xserver.videoDrivers = [ "nvidia" ];
-  #   blueman.enable = true;
-  # };
+  # Nvidia configs, following this page https://nixos.wiki/wiki/Nvidia
+  services = {
+    xserver.videoDrivers = [ "nvidia" ];
+    blueman.enable = true;
+  };
 
-  # hardware = {
-  #   opengl.enable = true;
+  hardware = {
+    opengl.enable = true;
+  };
 
   #   nvidia.prime = {
   #     # Sync mode for multi-monitor support https://nixos.wiki/wiki/Nvidia#sync_mode
@@ -33,9 +33,6 @@
   #     # Bus ID of the Intel GPU. You can find it using lspci, either under 3D or VGA
   #     intelBusId = "PCI:0:2:0";
   #   };
-
-  #   bluetooth.enable = true;
-  # };
 
   # specialisation = {
   #   no-internal-display.configuration.hardware.nvidia.prime = {
@@ -71,16 +68,10 @@
         enable = true;
         version = 2;
         useOSProber = true;
-        splashImage = ./banana-grub-bg-dark.jpg;
+	# TODO pick a grub background
+        # splashImage = ./banana-grub-bg-dark.jpg;
       };
     };
   };
-
-  # # Windows drive
-  # fileSystems."/dos/c" = {
-  #   device = "/dev/disk/by-uuid/908CEA3C8CEA1D0A";
-  #   fsType = "ntfs";
-  #   options = [ "rw" ];
-  # };
 }
 

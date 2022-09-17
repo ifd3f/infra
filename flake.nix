@@ -217,7 +217,7 @@
 
         nixosConfigurations = (alib.mkSystemEntries {
           banana = import ./nixos/systems/banana inputs;
-          # chungus = import ./nixos/systems/chungus inputs; # TODO enable chungus
+          chungus = import ./nixos/systems/chungus inputs; # TODO enable chungus
           donkey = import ./nixos/systems/donkey inputs;
           gfdesk = import ./nixos/systems/gfdesk inputs;
           shai-hulud = import ./nixos/systems/shai-hulud inputs;
