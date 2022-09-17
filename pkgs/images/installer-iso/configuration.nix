@@ -1,12 +1,11 @@
 # Stolen from https://github.com/wagdav/homelab/blob/master/installer/iso.nix
 # Also from https://hoverbear.org/blog/nix-flake-live-media/
 
-{ nixpkgs }:
-{ config, pkgs, ... }: {
+{ config, pkgs, modulesPath, ... }: {
   imports = [
     # https://nixos.wiki/wiki/Creating_a_NixOS_live_CD
-    "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-    "${nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
+    "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
+    "${modulesPath}/installer/cd-dvd/channel.nix"
   ];
 
   users.mutableUsers = false;

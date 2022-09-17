@@ -55,20 +55,13 @@
       let pkgs = import nixpkgs { inherit system overlays; };
       in rec {
         gh-ci-matrix = pkgs.callPackage ./pkgs/gh-ci-matrix { inherit self; };
-        devShells = import ./shells.nix { inherit pkgs; };
-        packages = {
-          #installer-iso = let
-          #  installerSystem = alib.mkSystem {
-          #    hostName = "astral-installer";
-          #    module =
-          #      import ./nixos/systems/installer-iso.nix { inherit nixpkgs; };
-          #  };
-          #in installerSystem.config.system.build.isoImage;
-        } // (import ./pkgs { inherit self pkgs nixpkgs nixos-generators; });
+        devShells = import ./nixos/shells.nix { inherit pkgs; };
+        packages =
+          import ./pkgs { inherit self pkgs nixpkgs nixos-generators; };
       }) // {
         lib = import ./nixos/lib { inherit self lib nixos-hardware; };
 
-        checks = import ./checks { inherit self nixpkgs-unstable; };
+        checks = import ./checks { inherit self lib; };
 
         overlay = final: prev: {
           lxd = nixpkgs-astridyu.legacyPackages.${prev.system}.lxd;

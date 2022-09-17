@@ -1,8 +1,5 @@
-{ self, nixpkgs-unstable }:
+{ self, lib }:
 let
-  pkgs = nixpkgs-unstable.legacyPackages.x86_64-linux;
-  lib = pkgs.lib;
-
   home-linux = map (name: {
     name = "home-manager-${name}";
     value = self.homeConfigurations."${name}".activationPackage;
