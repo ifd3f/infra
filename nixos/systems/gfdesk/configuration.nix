@@ -1,7 +1,7 @@
 # The desk that is used by Good Friends.
-{ self, ... }:
+{ ... }:
 { config, lib, pkgs, ... }: {
-  imports = with self.nixosModules; [ ./hardware-configuration.nix ];
+  imports = [ ./hardware-configuration.nix ];
 
   astral = {
     roles.server.enable = true;

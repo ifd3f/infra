@@ -18,9 +18,7 @@
     blueman.enable = true;
   };
 
-  hardware = {
-    opengl.enable = true;
-  };
+  hardware = { opengl.enable = true; };
 
   #   nvidia.prime = {
   #     # Sync mode for multi-monitor support https://nixos.wiki/wiki/Nvidia#sync_mode
@@ -68,7 +66,7 @@
         enable = true;
         version = 2;
         useOSProber = true;
-	# TODO pick a grub background
+        # TODO pick a grub background
         # splashImage = ./banana-grub-bg-dark.jpg;
       };
     };

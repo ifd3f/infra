@@ -4,39 +4,38 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
-    ];
+  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
+  boot.initrd.availableKernelModules =
+    [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    { device = "rpool/enc/root";
-      fsType = "zfs";
-    };
+  fileSystems."/" = {
+    device = "rpool/enc/root";
+    fsType = "zfs";
+  };
 
-  fileSystems."/home" =
-    { device = "rpool/enc/home";
-      fsType = "zfs";
-    };
+  fileSystems."/home" = {
+    device = "rpool/enc/home";
+    fsType = "zfs";
+  };
 
-  fileSystems."/nix" =
-    { device = "rpool/enc/nix";
-      fsType = "zfs";
-    };
+  fileSystems."/nix" = {
+    device = "rpool/enc/nix";
+    fsType = "zfs";
+  };
 
-  fileSystems."/tmp" =
-    { device = "rpool/enc/tmp";
-      fsType = "zfs";
-    };
+  fileSystems."/tmp" = {
+    device = "rpool/enc/tmp";
+    fsType = "zfs";
+  };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/161C-AD08";
-      fsType = "vfat";
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/161C-AD08";
+    fsType = "vfat";
+  };
 
   swapDevices = [ ];
 
@@ -49,7 +48,8 @@
   # networking.interfaces.ztyxa6hkol.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.amd.updateMicrocode =
+    lib.mkDefault config.hardware.enableRedistributableFirmware;
   # high-resolution display
   hardware.video.hidpi.enable = lib.mkDefault true;
 }

@@ -1,8 +1,8 @@
 # An ancient Dell Optiplex 360 I got off of eBay a few years ago for $40.
 # It's called Donkey because it's slow, but I'll use it to hold data
 # for me as a NAS.
-{ self, ... }: {
-  imports = with self.nixosModules; [ ./hardware-configuration.nix ];
+{ ... }: {
+  imports = [ ./hardware-configuration.nix ];
 
   astral.roles.server.enable = true;
 
