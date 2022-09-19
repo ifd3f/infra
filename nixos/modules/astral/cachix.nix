@@ -1,13 +1,10 @@
-# WARN: this file will get overwritten by $ cachix use <name>
-{ pkgs, lib, ... }:
-
-let
-  folder = ./cachix;
-  toImport = name: value: folder + ("/" + name);
-  filterCaches = key: value: value == "regular" && lib.hasSuffix ".nix" key;
-  imports = lib.mapAttrsToList toImport
-    (lib.filterAttrs filterCaches (builtins.readDir folder));
-in {
-  inherit imports;
-  nix.binaryCaches = [ "https://cache.nixos.org/" ];
+{
+  nix.settings = {
+    substituters =
+      [ "https://cache.nixos.org/" "https://astralbijection.cachix.org" ];
+    trusted-public-keys = [
+      "astralbijection.cachix.org-1:Vt/mfnVfzonOeQEN6MzRQs2qlHuzFYkNg6EqxdUhjrs="
+    ];
+  };
 }
+

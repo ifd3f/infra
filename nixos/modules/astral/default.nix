@@ -1,7 +1,9 @@
-{ nixos-hardware, qmk_firmware, homeModules, sshKeyDatabase }:
+{ self, home-manager, nix-ld, homeModules }:
 { ... }: {
   imports = [
-    (import ./hw { inherit nixos-hardware qmk_firmware; })
+    nix-ld.nixosModules.nix-ld
+    home-manager.nixosModule
+    ./hw
 
     ({ pkgs, ... }: {
       programs.zsh.enable = true;
@@ -18,9 +20,9 @@
     ./infra-update.nix
 
     ./net
-    (import ./users { inherit sshKeyDatabase; })
+    (import ./users { inherit self; })
 
-    (import ./roles { inherit homeModules sshKeyDatabase; })
+    (import ./roles { inherit homeModules self; })
   ];
 
   system.stateVersion = "22.11";

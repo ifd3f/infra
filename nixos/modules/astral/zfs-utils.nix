@@ -4,7 +4,7 @@
 with lib; {
   options.astral.zfs-utils.enable = mkOption {
     description = "Enable to set up utils for ZFS.";
-    default = true;
+    default = false;
     type = types.bool;
   };
 

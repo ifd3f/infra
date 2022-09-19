@@ -1,12 +1,9 @@
-{ config, lib, ... }:
+let
+  internalNetwork = "b6079f73c67cda0d";
+  publicNetwork = "e5cd7a9e1c618388";
+in { config, lib, ... }:
 with lib; {
   options.astral.net.zerotier = {
-    enable = mkOption {
-      description = "Whether to enable zerotier support on this device or not.";
-      default = true;
-      type = types.bool;
-    };
-
     internal = mkOption {
       description = "Whether to add to internal network.";
       default = true;
@@ -20,14 +17,16 @@ with lib; {
     };
   };
 
-  config = let cfg = config.astral.net.zerotier;
-  in mkIf cfg.enable {
+  config = let
+    cfg = config.astral.net.zerotier;
+    enable = cfg.internal || cfg.public;
+  in mkIf enable {
     nixpkgs.config.allowUnfree = true;
 
     services.zerotierone = {
       enable = true;
-      joinNetworks = (if cfg.internal then [ "b6079f73c67cda0d" ] else [ ])
-        ++ (if cfg.public then [ "e5cd7a9e1c618388" ] else [ ]);
+      joinNetworks = (if cfg.internal then [ internalNetwork ] else [ ])
+        ++ (if cfg.public then [ publicNetwork ] else [ ]);
     };
   };
 }
