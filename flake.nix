@@ -64,6 +64,13 @@
         checks = import ./checks { inherit self lib; };
 
         overlay = final: prev: {
+          lib = prev.lib.extend (lfinal: lprev:
+            import ./nixos/lib {
+              inherit self nixos-hardware;
+              lib = lfinal;
+              system = prev.system;
+            });
+
           lxd = nixpkgs-astridyu.legacyPackages.${prev.system}.lxd;
         };
 

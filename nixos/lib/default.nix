@@ -1,4 +1,4 @@
-{ self, lib, nixos-hardware }: rec {
+{ self, lib, nixos-hardware, system ? null }: rec {
   sshKeyDatabase = import ../../ssh_keys;
 
   nixosSystem = { system, modules }:
