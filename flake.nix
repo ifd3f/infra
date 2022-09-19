@@ -84,6 +84,14 @@
               { xresources.properties = { "*.dpi" = 96; }; }
             ];
           };
+          "astrid@chungus" = home-manager.lib.homeManagerConfiguration {
+            pkgs = nixpkgs.legacyPackages.x86_64-linux;
+            modules = [
+              self.homeModules.astral-gui
+              vscode-server-home
+              { xresources.properties = { "*.dpi" = 163; }; }
+            ];
+          };
           "astrid@Discovery" = home-manager.lib.homeManagerConfiguration {
             pkgs = nixpkgs.legacyPackages.x86_64-linux;
             modules = [

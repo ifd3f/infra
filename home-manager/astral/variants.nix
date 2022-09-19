@@ -1,23 +1,23 @@
 # Different variants of this home-manager config
-{
+rec {
   astral = import ./.;
 
   astral-cli = {
-    imports = [ self.homeModules.astral ];
+    imports = [ astral ];
     astral.vi.enable = true;
   };
 
   astral-cli-full = {
-    imports = [ self.homeModules.astral-cli ];
+    imports = [ astral-cli ];
     astral.cli.extended = true;
     astral.vi.ide = true;
   };
 
   astral-macos = {
-    imports = [ self.homeModules.astral ];
+    imports = [ astral ];
 
     astral.cli = {
-      # enable = true;
+      enable = true;
       extended = true;
     };
     astral.vi = {
@@ -28,18 +28,18 @@
   };
 
   astral-scientific = {
-    imports = [ self.homeModules.astral-cli ];
+    imports = [ astral-cli-full ];
     astral.cli.conda-hooks.enable = true;
   };
 
   astral-gui = {
-    imports = [ self.homeModules.astral-cli-full ];
+    imports = [ astral-cli-full ];
     astral.gui.enable = true;
     astral.gui.xmonad.enable = true;
   };
 
   astral-gui-tablet = {
-    imports = [ self.homeModules.astral-gui ];
+    imports = [ astral-gui ];
     astral.gui.xmonad.enable = true;
   };
 }
