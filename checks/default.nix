@@ -18,7 +18,7 @@ let
   machines = map (name: {
     name = "nixos-${name}";
     value = self.nixosConfigurations."${name}".config.system.build.toplevel;
-  }) [ "banana" "donkey" "gfdesk" "shai-hulud" ];
+  }) [ "banana" "chungus" "donkey" "gfdesk" "shai-hulud" ];
 
   aarch64-machines = map (name: {
     name = "nixos-${name}";
