@@ -30,6 +30,12 @@ with lib; let
 in {
   services.xserver = {
     videoDrivers = [ "nvidia" ];
+    serverFlagsSection = ''
+      #Option "Xinerama" "True"
+    '';
+    moduleSection = ''
+      Load "glx"
+    '';
     config = mkForce (concatStringsSep "\n" [ preConfig outputConfig ]);
   };
 }
