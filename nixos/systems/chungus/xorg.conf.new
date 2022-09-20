@@ -1,14 +1,12 @@
 Section "ServerLayout"
 	Identifier     "X.org Configured"
-	Screen      0  "Screen0" 0 0
-	Screen      1  "Screen1" RightOf "Screen0"
+	Screen      0  "ScreenVTK" 0 0
+	Screen      1  "ScreenAsus" RightOf "ScreenVTK"
 	InputDevice    "Mouse0" "CorePointer"
 	InputDevice    "Keyboard0" "CoreKeyboard"
 EndSection
 
 Section "Files"
-	ModulePath   "/nix/store/6yzcxxdbaabw9mnz67mji2ib1zafp7fk-xorg-server-1.20.14/lib/xorg/modules"
-	FontPath     ""
 EndSection
 
 Section "Module"
@@ -29,111 +27,55 @@ Section "InputDevice"
 EndSection
 
 Section "Monitor"
-	Identifier   "Monitor0"
-	VendorName   "Monitor Vendor"
-	ModelName    "Monitor Model"
+	# HorizSync source: edid, VertRefresh source: edid
+	Identifier  "MonitorAsus"
+	VendorName  "Unknown"
+	ModelName   "AUS ASUS VP28U"
+	HorizSync    24.0 - 160.0
+	VertRefresh  23.0 - 80.0
+	Option      "DPMS"
 EndSection
 
 Section "Monitor"
-	Identifier   "Monitor1"
-	VendorName   "Monitor Vendor"
-	ModelName    "Monitor Model"
+	# HorizSync source: edid, VertRefresh source: edid
+	Identifier  "MonitorVTK"
+	VendorName  "Unknown"
+	ModelName   "VTK FI24D"
+	HorizSync    74.0 - 111.0
+	VertRefresh  48.0 - 60.0
+	Option      "DPMS"
 EndSection
 
 Section "Device"
-        ### Available Driver options are:-
-        ### Values: <i>: integer, <f>: float, <bool>: "True"/"False",
-        ### <string>: "String", <freq>: "<f> Hz/kHz/MHz",
-        ### <percent>: "<f>%"
-        ### [arg]: arg optional
-        #Option     "SWcursor"           	# [<bool>]
-        #Option     "kmsdev"             	# <str>
-        #Option     "ShadowFB"           	# [<bool>]
-        #Option     "AccelMethod"        	# <str>
-        #Option     "PageFlip"           	# [<bool>]
-        #Option     "ZaphodHeads"        	# <str>
-        #Option     "DoubleShadow"       	# [<bool>]
-        #Option     "Atomic"             	# [<bool>]
-	Identifier  "Card0"
-	Driver      "modesetting"
+	Identifier  "CardSmall"
+	Driver      "nvidia"
+	VendorName  "NVIDIA Corporation"
+	BoardName   "NVIDIA GeForce GTX 750 Ti"
 	BusID       "PCI:4:0:0"
 EndSection
 
 Section "Device"
-        ### Available Driver options are:-
-        ### Values: <i>: integer, <f>: float, <bool>: "True"/"False",
-        ### <string>: "String", <freq>: "<f> Hz/kHz/MHz",
-        ### <percent>: "<f>%"
-        ### [arg]: arg optional
-        #Option     "SWcursor"           	# [<bool>]
-        #Option     "kmsdev"             	# <str>
-        #Option     "ShadowFB"           	# [<bool>]
-        #Option     "AccelMethod"        	# <str>
-        #Option     "PageFlip"           	# [<bool>]
-        #Option     "ZaphodHeads"        	# <str>
-        #Option     "DoubleShadow"       	# [<bool>]
-        #Option     "Atomic"             	# [<bool>]
-	Identifier  "Card1"
-	Driver      "modesetting"
+	Identifier  "CardBig"
+	Driver      "nvidia"
+	VendorName  "NVIDIA Corporation"
+	BoardName   "NVIDIA GeForce RTX 3070 Ti"
 	BusID       "PCI:6:0:0"
 EndSection
 
 Section "Screen"
-	Identifier "Screen0"
-	Device     "Card0"
-	Monitor    "Monitor0"
+	Identifier "ScreenVTK"
+	Device     "CardSmall"
+	Monitor    "MonitorVTK"
 	SubSection "Display"
-		Viewport   0 0
-		Depth     1
-	EndSubSection
-	SubSection "Display"
-		Viewport   0 0
-		Depth     4
-	EndSubSection
-	SubSection "Display"
-		Viewport   0 0
-		Depth     8
-	EndSubSection
-	SubSection "Display"
-		Viewport   0 0
-		Depth     15
-	EndSubSection
-	SubSection "Display"
-		Viewport   0 0
-		Depth     16
-	EndSubSection
-	SubSection "Display"
-		Viewport   0 0
 		Depth     24
 	EndSubSection
 EndSection
 
 Section "Screen"
-	Identifier "Screen1"
-	Device     "Card1"
-	Monitor    "Monitor1"
+	Identifier "ScreenAsus"
+	Device     "CardBig"
+	Monitor    "MonitorAsus"
 	SubSection "Display"
-		Viewport   0 0
-		Depth     1
-	EndSubSection
-	SubSection "Display"
-		Viewport   0 0
-		Depth     4
-	EndSubSection
-	SubSection "Display"
-		Viewport   0 0
-		Depth     8
-	EndSubSection
-	SubSection "Display"
-		Viewport   0 0
-		Depth     15
-	EndSubSection
-	SubSection "Display"
-		Viewport   0 0
-		Depth     16
-	EndSubSection
-	SubSection "Display"
-		Viewport   0 0
 		Depth     24
 	EndSubSection
 EndSection
