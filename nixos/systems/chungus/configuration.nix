@@ -45,7 +45,11 @@ in { pkgs, lib, config, ... }: {
 
     hostId = "b75842a7";
     networkmanager.enable = true;
-    useDHCP = false;
+
+    # Primary internet connection with a bridge
+    bridges.br0.interfaces = [ "enp5s0" ];
+    interfaces.enp5s0.useDHCP = true;
+    interfaces.br0.useDHCP = true;
   };
 
   boot = {
