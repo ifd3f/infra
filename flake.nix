@@ -55,17 +55,17 @@
       let pkgs = import nixpkgs { inherit system overlays; };
       in rec {
         gh-ci-matrix = pkgs.callPackage ./pkgs/gh-ci-matrix { inherit self; };
-        devShells = import ./nixos/shells.nix { inherit pkgs; };
+        devShells = import ./nix/shells.nix { inherit pkgs; };
         packages =
-          import ./pkgs { inherit self pkgs nixpkgs nixos-generators; };
+          import ./nix/pkgs { inherit self pkgs nixpkgs nixos-generators; };
       }) // {
-        lib = import ./nixos/lib { inherit self lib nixos-hardware; };
+        lib = import ./nix/lib { inherit self lib nixos-hardware; };
 
-        checks = import ./checks { inherit self lib; };
+        checks = import ./nix/checks { inherit self lib; };
 
         overlay = final: prev: {
           lib = prev.lib.extend (lfinal: lprev:
-            import ./nixos/lib {
+            import ./nix/lib {
               inherit self nixos-hardware;
               lib = lfinal;
               system = prev.system;
@@ -75,7 +75,7 @@
         };
 
         homeModule = self.homeModules.astral;
-        homeModules = import ./home-manager/astral/variants.nix;
+        homeModules = import ./nix/home-manager/astral/variants.nix;
 
         homeConfiguration = self.homeModules.astral-cli;
         homeConfigurations = {
@@ -147,11 +147,11 @@
 
         nixosModule = self.nixosModules.astral;
         nixosModules = {
-          gigarouter = ./nixos/modules/gigarouter;
+          gigarouter = ./nix/nixos-modules/gigarouter;
 
           astral = {
             imports = [
-              (import ./nixos/modules/astral {
+              (import ./nix/nixos-modules/astral {
                 inherit self nix-ld home-manager;
                 homeModules = self.homeModules;
               })
@@ -160,6 +160,6 @@
         };
 
         nixosConfigurations =
-          (import ./nixos/systems { inherit self nixpkgs lib; });
+          (import ./nix/systems { inherit self nixpkgs lib; });
       });
 }
