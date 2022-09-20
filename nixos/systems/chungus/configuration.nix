@@ -1,6 +1,6 @@
 # My gaming desktop.
 { pkgs, lib, config, ... }: {
-  imports = [ ./hardware-configuration.nix ./vfio.nix ];
+  imports = [ ./hardware-configuration.nix ./vfio.nix ./x11.nix ];
 
   time.timeZone = "US/Pacific";
 
@@ -12,10 +12,9 @@
   virtualisation.lxd.enable = true;
 
   # Nvidia configs, following this page https://nixos.wiki/wiki/Nvidia
-  services.xserver = {
-    videoDrivers = [ "nvidia" ];
-    displayManager.startx.enable = true;
-    displayManager.lightdm.enable = lib.mkForce false;
+  services.xserver.displayManager = {
+    startx.enable = true;
+    lightdm.enable = lib.mkForce false;
   };
 
   services.blueman.enable = true;
