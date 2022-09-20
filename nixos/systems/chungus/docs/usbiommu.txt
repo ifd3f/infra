@@ -1,0 +1,25 @@
+$ for usb_ctrl in /sys/bus/pci/devices/*/usb*; do
+    pci_path=${usb_ctrl%/*}
+    iommu_group=$(readlink $pci_path/iommu_group)
+    echo "Bus $(cat $usb_ctrl/busnum) --> ${pci_path##*/} (IOMMU group ${iommu_group##*/})"
+    lsusb -s ${usb_ctrl#*/usb}:
+    echo
+done
+
+Bus 1 --> 0000:02:00.0 (IOMMU group 0)
+Bus 001 Device 002: ID 12c9:2003 SOAI USB Gaming Mouse
+Bus 001 Device 003: ID 26ce:01a2 ASRock LED Controller
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+
+Bus 2 --> 0000:02:00.0 (IOMMU group 0)
+Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+
+Bus 3 --> 0000:08:00.3 (IOMMU group 14)
+Bus 003 Device 005: ID 17f6:0822 Unicomp, Inc. Ruffian 6 Keyboard v3 [Model M]
+Bus 003 Device 003: ID 174c:2074 ASMedia Technology Inc. ASM1074 High-Speed hub
+Bus 003 Device 002: ID 3297:4976 ZSA Technology Labs ErgoDox EZ Glow
+Bus 003 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+
+Bus 4 --> 0000:08:00.3 (IOMMU group 14)
+Bus 004 Device 002: ID 174c:3074 ASMedia Technology Inc. ASM1074 SuperSpeed hub
+Bus 004 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
