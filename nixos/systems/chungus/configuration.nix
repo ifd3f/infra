@@ -16,6 +16,7 @@ in { pkgs, lib, config, ... }: {
   programs.steam.enable = true;
 
   virtualisation.lxd.enable = true;
+  virtualisation.spiceUSBRedirection.enable = true;
 
   # Nvidia configs, following this page https://nixos.wiki/wiki/Nvidia
   services.xserver = {
