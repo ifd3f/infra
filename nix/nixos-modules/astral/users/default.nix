@@ -41,6 +41,7 @@ in {
       defaultGroups = [
         "dialout"
         "docker"
+        "i2c"
         "libvirtd"
         "lxd"
         "netdev"

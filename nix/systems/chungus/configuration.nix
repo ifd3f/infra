@@ -59,5 +59,11 @@
     system.nixos.tags = [ "with-vfio" ];
     vfio.enable = true;
   };
+
+  # RGB stuff
+  hardware.i2c.enable = true;
+  environment.systemPackages = with pkgs; [
+    openrgb
+  ];
 }
 
