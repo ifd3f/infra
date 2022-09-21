@@ -29,10 +29,7 @@ with lib; let
   '';
 in {
   services.xserver = {
-    videoDrivers = [ "nvidia" ];
-    serverFlagsSection = ''
-      #Option "Xinerama" "True"
-    '';
+    videoDrivers = [ "modesetting" "nvidia" ];
     moduleSection = ''
       Load "glx"
     '';
