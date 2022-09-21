@@ -21,5 +21,7 @@ in vendored-images // {
     name = "centos-8.qcow2";
     path = vendored-images.vendored-centos-8-cloud;
   }];
+
+  win10hotplug = pkgs.callPackage ./win10hotplug { };
 }
 

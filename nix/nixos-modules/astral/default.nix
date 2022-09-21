@@ -8,6 +8,7 @@
     ({ pkgs, ... }: {
       programs.zsh.enable = true;
       users.defaultUserShell = pkgs.zsh;
+      nixpkgs.overlays = [ self.overlay ];
     })
 
     ./zfs-utils.nix

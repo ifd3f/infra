@@ -1,0 +1,8 @@
+<!-- The USB mouse -->
+<hostdev mode="subsystem" type="usb" managed="yes">
+  <source>
+    <vendor id="0x12c9" />
+    <product id="0x2003" />
+  </source>
+</hostdev>
+

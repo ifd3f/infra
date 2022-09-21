@@ -1,0 +1,8 @@
+<!-- The USB keyboard -->
+<hostdev mode="subsystem" type="usb" managed="yes">
+  <source>
+    <vendor id="0x3297" />
+    <product id="0x4976" />
+  </source>
+</hostdev>
+

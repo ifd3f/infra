@@ -72,6 +72,8 @@
             });
 
           lxd = nixpkgs-astridyu.legacyPackages.${prev.system}.lxd;
+
+          inherit (self.packages.${prev.system}) win10hotplug;
         };
 
         homeModule = self.homeModules.astral;
