@@ -12,26 +12,40 @@ case $1 in
         action="detach-device"
         ;;
     *)
-        echo "Usage: [ a | d ] [ [ m | k | u ] ... ]"
+        echo "Usage: [ a | d ] [ [ g | m | k | u ] ... ]"
         exit 1
 esac
 shift 1
 
-for d in "$@"; do
-    case $d in
+for short in "$@"; do
+    case $short in
         "m")
-            file="mouse.xml"
+            name="mouse"
+            files=("mouse.xml")
             ;;
         "k")
-            file="ergodox.xml"
+            name="keyboard"
+            files=("ergodox.xml")
             ;;
         "u")
-            file="usbctl.xml"
+            name="USB controller"
+            files=("usbctl.xml")
+            ;;
+        "g")
+            name="GPU"
+            files=("gpu-pcie.xml" "gpu-vga.xml" "gpu-audio.xml")
             ;;
         *)
-            echo "Unknown device $d"
+            echo "=== Unknown device $d ==="
             continue
             ;;
     esac
-    virsh -c $connection $action $dom --file "$xmldir/$file"
+
+    echo "=== $short - $name ==="
+
+    for file in "${files[@]}"; do
+        fullpath="$(readlink -f "$xmldir/$file")"
+        echo "Using $fullpath"
+        virsh -c "$connection" $action $dom --file "$fullpath" --persistent
+    done
 done
