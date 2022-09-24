@@ -4,7 +4,14 @@
 
   time.timeZone = "US/Pacific";
 
-  astral = { roles.pc.enable = true; };
+  astral = {
+    roles.pc.enable = true;
+    vfio = {
+      enable = true;
+      iommu-mode = "intel_iommu";
+      pci-devs = [ ];
+    };
+  };
 
   # so i can be a *gamer*
   programs.steam.enable = true;
@@ -21,31 +28,12 @@
     opengl.enable = true;
 
     nvidia.prime = {
-      # Sync mode for multi-monitor support https://nixos.wiki/wiki/Nvidia#sync_mode
-      offload.enable = false;
-      sync.enable = true;
-
-      # Bus ID of the NVIDIA GPU. You can find it using lspci, either under 3D or VGA
+      offload.enable = true;
       nvidiaBusId = "PCI:1:0:0";
-
-      # Bus ID of the Intel GPU. You can find it using lspci, either under 3D or VGA
       intelBusId = "PCI:0:2:0";
     };
 
     bluetooth.enable = true;
-  };
-
-  specialisation = {
-    no-internal-display.configuration.hardware.nvidia.prime = {
-      offload.enable = lib.mkForce false;
-      sync.enable = lib.mkForce false;
-    };
-
-    # Offload mode for lower power usage https://nixos.wiki/wiki/Nvidia#offload_mode
-    offload-mode.configuration.hardware.nvidia.prime = {
-      offload.enable = lib.mkForce true;
-      sync.enable = lib.mkForce false;
-    };
   };
 
   networking = {
@@ -74,6 +62,14 @@
         splashImage = ./banana-grub-bg-dark.jpg;
       };
     };
+  };
+
+  specialisation."VFIO".configuration = {
+    system.nixos.tags = [ "with-vfio" ];
+    astral.vfio.pci-devs = lib.mkForce [
+      "10de:1c20" # Graphics
+      "10de:10f1" # Audio
+    ];
   };
 
   # Windows drive
