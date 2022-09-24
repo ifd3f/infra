@@ -20,9 +20,7 @@
 
   config = let cfg = config.astral.vfio;
   in lib.mkIf cfg.enable {
-    # Nvidia configs, following this page https://nixos.wiki/wiki/Nvidia
     services.xserver.videoDrivers = [ "nvidia" ];
-
     virtualisation.spiceUSBRedirection.enable = true;
 
     hardware.opengl.enable = true;

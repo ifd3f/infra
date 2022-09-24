@@ -4,7 +4,14 @@
 
   time.timeZone = "US/Pacific";
 
-  astral = { roles.pc.enable = true; };
+  astral = {
+    roles.pc.enable = true;
+    vfio = {
+      enable = true;
+      iommu-mode = "amd_iommu";
+      pci-devs = [ ];
+    };
+  };
 
   # so i can be a *gamer*
   programs.steam.enable = true;
@@ -57,14 +64,10 @@
 
   specialisation."VFIO".configuration = {
     system.nixos.tags = [ "with-vfio" ];
-    astral.vfio = {
-      enable = true;
-      iommu-mode = "amd_iommu";
-      pci-devs = [
-        "10de:2482" # Graphics
-        "10de:228b" # Audio
-      ];
-    };
+    astral.vfio.pci-devs = lib.mkForce [
+      "10de:2482" # Graphics
+      "10de:228b" # Audio
+    ];
   };
 
   # RGB stuff
