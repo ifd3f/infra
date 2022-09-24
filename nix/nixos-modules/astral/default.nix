@@ -13,6 +13,7 @@
 
     ./zfs-utils.nix
     ./virt
+    ./vfio.nix
     ./xmonad
     ./program-sets
     ./nix-utils.nix

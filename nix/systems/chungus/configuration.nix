@@ -1,6 +1,6 @@
 # My gaming desktop.
 { pkgs, lib, config, ... }: {
-  imports = [ ./hardware-configuration.nix ./vfio.nix ./x11.nix ];
+  imports = [ ./hardware-configuration.nix ./x11.nix ];
 
   time.timeZone = "US/Pacific";
 
@@ -57,14 +57,18 @@
 
   specialisation."VFIO".configuration = {
     system.nixos.tags = [ "with-vfio" ];
-    vfio.enable = true;
+    astral.vfio = {
+      enable = true;
+      iommu-mode = "amd_iommu";
+      pci-devs = [
+        "10de:2482" # Graphics
+        "10de:228b" # Audio
+      ];
+    };
   };
 
   # RGB stuff
   hardware.i2c.enable = true;
-  environment.systemPackages = with pkgs; [
-    openrgb
-    win10hotplug
-  ];
+  environment.systemPackages = with pkgs; [ openrgb win10hotplug ];
 }
 
