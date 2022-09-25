@@ -18,8 +18,10 @@ import XMonad.Core (X, withDisplay, io)
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.UrgencyHook
+import XMonad.Layout.Fullscreen
 import XMonad.Layout.Reflect
 import XMonad.Layout.Spacing
 import XMonad.Prompt
@@ -60,8 +62,9 @@ myLayoutHook = spacingWithEdge 10 $ avoidStruts $ layouts
 myStartupHook = do
     setWMName "L3GD"
     spawn "xset r rate 250 60" -- faster hold-and-repeat
-    spawn "systemctl restart --user polybar.service" -- faster hold-and-repeat
+    -- spawn "systemctl restart --user polybar.service"
     spawn "$HOME/.fehbg"
+    spawnOnce "polybar"
     spawnOnce "redshift-gtk"
     spawnOnce "light-locker"
     spawnOnce "flameshot"
@@ -69,6 +72,7 @@ myStartupHook = do
 myManageHook = manageDocks <+> composeAll
     [ className =? "gimp" --> doFloat
     , className =? "Vncviewer" --> doFloat
+    , isFullscreen --> doFullFloat
     ]
 
 myKeybinds :: XConfig Layout -> Map (ButtonMask, KeySym) (X ())
