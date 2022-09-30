@@ -24,7 +24,7 @@ with lib; {
     nixpkgs.config.allowUnfree = true;
 
     services.zerotierone = {
-      enable = true;
+      #enable = true;
       joinNetworks = (if cfg.internal then [ internalNetwork ] else [ ])
         ++ (if cfg.public then [ publicNetwork ] else [ ]);
     };
