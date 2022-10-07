@@ -71,7 +71,7 @@
               system = prev.system;
             });
 
-          lxd = nixpkgs-astridyu.legacyPackages.${prev.system}.lxd;
+          #lxd = nixpkgs-astridyu.legacyPackages.${prev.system}.lxd;
 
           inherit (self.packages.${prev.system}) win10hotplug;
         };
