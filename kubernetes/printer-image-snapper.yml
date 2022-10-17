@@ -24,7 +24,7 @@ spec:
                         values: [amd64]
           containers:
             - name: printer-image-snapper
-              image: astridyu/printer_image_snapper:latest
+              image: ifd3f/printer_image_snapper:latest
               imagePullPolicy: Always
               env:
                 - name: SNAPSHOT_URL

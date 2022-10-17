@@ -13,7 +13,7 @@ services:
       - apinet
 
   api:
-    image: astridyu/astrid_tech_api:latest
+    image: ifd3f/astrid_tech_api:latest
     hostname: astrid_tech
     depends_on:
       - db

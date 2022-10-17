@@ -4,7 +4,7 @@ with lib; {
     description = ''
       Enable all keyboard flashing functionality for this machine.
 
-      Also see https://github.com/astridyu/qmk_firmware
+      Also see https://github.com/ifd3f/qmk_firmware
     '';
     default = false;
     type = types.bool;

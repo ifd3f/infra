@@ -7,7 +7,7 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     # My own nixpkgs fork, for customized patches
-    nixpkgs-astridyu.url = "github:astridyu/nixpkgs/lxd-vms";
+    nixpkgs-ifd3f.url = "github:ifd3f/nixpkgs/lxd-vms";
 
     nur.url = "github:nix-community/NUR";
 
@@ -34,7 +34,7 @@
     };
   };
 
-  outputs = { self, nixpkgs-unstable, nixpkgs-astridyu, nixos-vscode-server
+  outputs = { self, nixpkgs-unstable, nixpkgs-ifd3f, nixos-vscode-server
     , flake-utils, nix-ld, nur, home-manager-unstable, nixos-hardware
     , nixos-generators, ... }@inputs:
     let
@@ -71,7 +71,7 @@
               system = prev.system;
             });
 
-          #lxd = nixpkgs-astridyu.legacyPackages.${prev.system}.lxd;
+          #lxd = nixpkgs-ifd3f.legacyPackages.${prev.system}.lxd;
 
           inherit (self.packages.${prev.system}) win10hotplug;
         };

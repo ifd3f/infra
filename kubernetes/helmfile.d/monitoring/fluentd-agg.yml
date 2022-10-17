@@ -1,5 +1,5 @@
 image:
-  repository: astridyu/fluentd-custom
+  repository: ifd3f/fluentd-custom
   tag: latest
 
 forwarder:

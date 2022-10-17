@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   shortener:
-    image: ghcr.io/astridyu/aay-tw-shortener:main
+    image: ghcr.io/ifd3f/aay-tw-shortener:main
     hostname: aay_tw
     expose:
       - 8000

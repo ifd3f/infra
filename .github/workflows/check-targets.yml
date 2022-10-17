@@ -13,7 +13,7 @@ on:
 
 env:
   target_sha: ${{ inputs.sha || github.sha }}
-  target_flake: github:astridyu/infra/${{ inputs.sha || github.sha }}
+  target_flake: github:ifd3f/infra/${{ inputs.sha || github.sha }}
 
 jobs:
   calculate-matrix:
@@ -136,7 +136,7 @@ jobs:
 
     env:
       registry: ghcr.io
-      image_name: astridyu/${{ matrix.image }}
+      image_name: ifd3f/${{ matrix.image }}
 
     steps:
       - name: Checkout repository

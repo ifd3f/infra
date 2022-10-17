@@ -24,7 +24,7 @@ services:
       - akkoma_db_data:/var/lib/postgresql/data
 
   akkoma:
-    image: ghcr.io/astridyu/akkoma:akkoma
+    image: ghcr.io/ifd3f/akkoma:akkoma
     container_name: akkoma_web
     healthcheck:
       test:
