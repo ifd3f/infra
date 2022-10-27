@@ -3,15 +3,15 @@
   description = "Office tools";
   progFn = { pkgs }: {
     environment.systemPackages = with pkgs; [
-      gimp
       darktable
+      gimp
       inkscape
+      kdenlive
       krita
       libreoffice-fresh
       lmms
       okular
-      polymc
-      kdenlive
+      prismlauncher
       thunderbird
       xournalpp
     ];
