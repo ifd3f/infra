@@ -28,6 +28,8 @@ with lib; {
       };
     };
 
+    security.polkit.enable = true;
+
     environment.systemPackages = with pkgs;
       ([ netcat ] # netcat for qemu+ssh:// connections
         ++ (if cfg.virt-manager.enable then [ virt-manager ] else [ ]));

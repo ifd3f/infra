@@ -8,7 +8,6 @@
     virt = {
       docker.enable = true;
       libvirt.enable = true;
-      lxc.enable = true;
     };
     net.zerotier.public = true;
   };
@@ -56,6 +55,4 @@
 
     extraModulePackages = [ ];
   };
-
-  home-manager.users.astrid = lib.mkOverride self.homeModules.astral-cli;
 }
