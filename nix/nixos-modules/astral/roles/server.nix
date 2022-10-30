@@ -1,7 +1,7 @@
 { homeModules, self }:
 { config, lib, ... }: {
   options.astral.roles.server.enable = lib.mkOption {
-    description = "Bare metal server";
+    description = "Some headless server that likely runs 24/7.";
     default = false;
     type = lib.types.bool;
   };
