@@ -1,11 +1,13 @@
 {
     "recommendations": [
+        "arrterian.nix-env-selector",
+        "bbenoist.nix",
         "brettm12345.nixfmt-vscode",
         "hashicorp.terraform",
-        "bbenoist.nix",
-        "arrterian.nix-env-selector",
-        "mtxr.sqltools",
+        "haskell.haskell",
+        "jakebecker.elixir-ls",
         "ms-azuretools.vscode-docker",
-        "wholroyd.jinja"
+        "mtxr.sqltools",
+        "wholroyd.jinja",
     ]
 }
