@@ -9,6 +9,8 @@ in vendored-images // {
   ci-import-and-tag-docker = pkgs.callPackage ./ci-import-and-tag-docker { };
   installer-iso = pkgs.callPackage ./images/installer-iso { inherit self; };
 
+  ifd3f-infra-scripts = pkgs.callPackage ./../../scripts { };
+
   upload-all-to-lxd = pkgs.callPackage ./upload-all-to-lxd {
     inherit flakeTime nixpkgs;
     convertImage = build-support.convertImage;

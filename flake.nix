@@ -75,8 +75,10 @@
 
           #inherit (nixpkgs-lxdvms.legacyPackages.${prev.system}) lxd;
 
-          inherit (nixpkgs-akkoma.legacyPackages.${prev.system}) akkoma akkoma-frontends;
-          inherit (self.packages.${prev.system}) win10hotplug;
+          inherit (nixpkgs-akkoma.legacyPackages.${prev.system})
+            akkoma akkoma-frontends;
+          inherit (self.packages.${prev.system})
+            win10hotplug ifd3f-infra-scripts;
         };
 
         homeModule = self.homeModules.astral;

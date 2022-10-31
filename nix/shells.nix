@@ -2,6 +2,8 @@
 let
   packages = with pkgs;
     [
+      ifd3f-infra-scripts
+
       ansible
       backblaze-b2
       bitwarden-cli
