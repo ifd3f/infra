@@ -49,6 +49,7 @@ with lib; {
     services.gvfs.enable = true;
 
     astral = {
+      custom-tty.enable = true;
       program-sets = {
         browsers = true;
         cad = true;

@@ -15,6 +15,7 @@
     ./virt
     ./vfio.nix
     ./xmonad
+    ./custom-tty
     ./program-sets
     ./nix-utils.nix
 

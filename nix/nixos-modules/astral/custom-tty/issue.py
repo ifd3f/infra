@@ -17,13 +17,12 @@ GREEN = "\x1b[32m"
 YELLOW = "\x1b[33m"
 
 ipdata = json.loads(check_output(['ip', '-j', 'addr', 'show']))
-hostname = check_output(['hostname']).strip().decode('utf-8')
 uptime = check_output(['uptime']).strip().decode('utf-8')
 update_time = datetime.now()
 
 print(
     f"{STRIKE}{YELLOW}[[[{RESET} "
-    f"{YELLOW}Welcome to {BOLD}{hostname}{RESET} "
+    f"{YELLOW}Welcome to {BOLD}\\n{RESET} "
     f"{YELLOW}(\\l) "
     f"{STRIKE}{YELLOW}]]]{RESET}"
 )
@@ -45,3 +44,5 @@ for inf in ipdata:
     for l in textwrap.wrap(ips_text):
         print('    ' + l)
     print(RESET, end='')
+
+print()

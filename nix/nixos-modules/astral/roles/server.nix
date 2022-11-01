@@ -11,6 +11,7 @@
       net.sshd.enable = true;
       infra-update.enable =
         false; # don't update automatically because everything's broken
+      custom-tty.enable = true;
     };
 
     # Enable SSH in initrd for debugging
