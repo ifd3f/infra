@@ -35,6 +35,7 @@
 
       ":pleroma"."Pleroma.Upload" = {
         uploader = mkRaw "Pleroma.Uploaders.S3";
+        base_url = "https://s3.us-west-000.backblazeb2.com";
         strip_exif = false;
       };
       ":pleroma"."Pleroma.Uploaders.S3".bucket = "nyaabucket";
