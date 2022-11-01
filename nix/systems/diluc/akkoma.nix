@@ -15,6 +15,10 @@ in {
         registrations_open = false;
       };
 
+      # To allow configuration from admin-fe
+      ":pleroma".":configurable_from_database" = true;
+
+      # S3 setup
       ":pleroma"."Pleroma.Upload" = {
         uploader = mkRaw "Pleroma.Uploaders.S3";
         base_url = "https://s3.us-west-000.backblazeb2.com";
