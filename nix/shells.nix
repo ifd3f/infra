@@ -25,6 +25,7 @@ let
       tcpdump
       terraform
       terraform-ls
+      tmux
       wget
       whois
       yq

@@ -2,4 +2,9 @@
 
 vmname=$1
 
-nixos-rebuild build-vm --flake ".#$vmname" && ./result/bin/run-*-vm
+attr="nixosConfigurations.$vmname.config.system.build.vm"
+session="nixvm $vmname"
+
+tmux new-session -d -s session "nix run .#$attr"
+tmux new-window "sleep 5; ssh localhost -p 2222"
+tmux a
