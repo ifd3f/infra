@@ -2,7 +2,10 @@
 { pkgs, lib, ... }: {
   imports = [ ./hardware-configuration.nix ./akkoma.nix ];
 
-  astral.roles.server.enable = true;
+  astral = {
+    acme.enable = true;
+    roles.server.enable = true;
+  };
 
   boot.cleanTmpDir = true;
   zramSwap.enable = true;
@@ -20,7 +23,6 @@
   networking.firewall.allowedTCPPorts = [ 80 443 ];
 
   services.nginx.enable = true;
-  security.acme.acceptTerms = true;
 
   virtualisation.vmVariant = {
     virtualisation.forwardPorts = [

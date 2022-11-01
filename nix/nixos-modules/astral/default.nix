@@ -11,6 +11,7 @@
       nixpkgs.overlays = [ self.overlay ];
     })
 
+    ./acme.nix
     ./zfs-utils.nix
     ./virt
     ./vfio.nix
