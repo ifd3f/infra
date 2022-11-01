@@ -4,7 +4,7 @@
 
 - name: Find public keys to authorize
   connection: local
-  shell: ls {{ ssh_keys_path }}/users/astrid/*.pub {{ ssh_keys_path }}/github/*.pub  
+  shell: ls {{ ssh_keys_path }}/users/astrid/*.pub {{ ssh_keys_path }}/users/github/*.pub  
   register: to_authorize
 
 - name: Find public keys to revoke

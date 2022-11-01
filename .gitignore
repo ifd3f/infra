@@ -9,3 +9,5 @@ result
 
 # Root Makefile for rapid Vim prototyping
 /Makefile
+
+/secrets

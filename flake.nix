@@ -61,14 +61,15 @@
         packages =
           import ./nix/pkgs { inherit self pkgs nixpkgs nixos-generators; };
       }) // {
-        lib = import ./nix/lib { inherit self lib nixos-hardware; };
+        lib =
+          import ./nix/lib { inherit self lib nixos-hardware nixpkgs-akkoma; };
 
         checks = import ./nix/checks { inherit self lib; };
 
         overlay = final: prev: {
           lib = prev.lib.extend (lfinal: lprev:
             import ./nix/lib {
-              inherit self nixos-hardware;
+              inherit self nixos-hardware nixpkgs-akkoma;
               lib = lfinal;
               system = prev.system;
             });

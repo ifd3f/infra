@@ -1,8 +1,11 @@
 # Contabo VPS.
-{
-  imports = [ ./hardware-configuration.nix ];
+{ pkgs, lib, ... }: {
+  imports = [ ./hardware-configuration.nix ./akkoma.nix ];
 
-  astral.roles.server.enable = true;
+  astral = {
+    acme.enable = true;
+    roles.server.enable = true;
+  };
 
   boot.cleanTmpDir = true;
   zramSwap.enable = true;
@@ -16,5 +19,28 @@
     enable = true;
     version = 2;
   };
-}
 
+  networking.firewall.allowedTCPPorts = [ 80 443 ];
+
+  services.nginx.enable = true;
+
+  virtualisation.vmVariant = {
+    virtualisation.forwardPorts = [
+      {
+        from = "host";
+        host.port = 2222;
+        guest.port = 22;
+      }
+      {
+        from = "host";
+        guest.port = 80;
+        host.port = 8080;
+      }
+      {
+        from = "host";
+        guest.port = 443;
+        host.port = 8443;
+      }
+    ];
+  };
+}
