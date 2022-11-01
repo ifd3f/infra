@@ -1,5 +1,5 @@
 # Contabo VPS.
-{
+{ lib, ... }: {
   imports = [ ./hardware-configuration.nix ];
 
   astral.roles.server.enable = true;
@@ -37,12 +37,22 @@
       };
     };
 
+    nginx = {
+      enableACME = true;
+      forceSSL = true;
+    };
   };
 
   services.nginx.enable = true;
+
   services.postgresql.enable = true;
 
   virtualisation.vmVariant = {
+    services.akkoma.nginx = {
+      enableACME = lib.mkForce false;
+      forceSSL = lib.mkForce false;
+    };
+
     virtualisation.forwardPorts = [
       {
         from = "host";
