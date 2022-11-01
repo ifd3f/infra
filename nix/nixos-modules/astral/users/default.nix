@@ -35,10 +35,13 @@ in {
           createHome = !isAutomationUser;
           isNormalUser = !isAutomationUser;
           isSystemUser = isAutomationUser;
+
+          group = "automaton";
         };
       };
 
   in [
+    { users.groups.automaton = { }; }
     (mkUserModule "astrid" {
       description =
         "Astrid Yu,astrid.tech/about,(805) 270-5368,nah,astrid@astrid.tech";

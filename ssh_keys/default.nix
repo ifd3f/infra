@@ -10,12 +10,12 @@ let
 
 in {
   users = {
-    astrid = keysInDir ./users/astrid;
     alia = keysInDir ./users/alia;
+    astrid = keysInDir ./users/astrid;
     cynthe = keysInDir ./users/cynthe;
+    github = keysInDir ./users/github;
+    terraform = keysInDir ./users/terraform;
   };
 
   deprecated = keysInDir ./deprecated;
-  github = keysInDir ./github;
-  terraform = keysInDir ./terraform;
 }
