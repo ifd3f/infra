@@ -1,5 +1,5 @@
 # Contabo VPS.
-{ lib, ... }: {
+{ pkgs, lib, ... }: {
   imports = [ ./hardware-configuration.nix ];
 
   astral.roles.server.enable = true;
@@ -21,19 +21,27 @@
 
   services.akkoma = {
     enable = true;
-    config = {
-      ":pleroma" = {
-        ":instance" = {
-          name = "da astrid z0ne";
-          description = "astrid's akkoma server";
-          email = "akkoma@astrid.tech";
-          notify_email = "akkoma@astrid.tech";
-          registration_open = false;
-        };
+    config = let inherit ((pkgs.formats.elixirConf { }).lib) mkRaw;
+    in {
+      ":pleroma"."Pleroma.Web.Endpoint".url.host = "fedi.astrid.tech";
+      ":pleroma".":media_proxy".enabled = true;
+      ":pleroma".":instance" = {
+        name = "da astrid z0ne";
+        description = "astrid's akkoma server";
+        email = "akkoma@astrid.tech";
+        notify_email = "akkoma@astrid.tech";
+        registrations_open = false;
+      };
 
-        ":media_proxy" = { enabled = false; };
-
-        "Pleroma.Web.Endpoint" = { url.host = "fedi.astrid.tech"; };
+      ":pleroma"."Pleroma.Upload" = {
+        uploader = mkRaw "Pleroma.Uploaders.S3";
+        strip_exif = false;
+      };
+      ":pleroma"."Pleroma.Uploaders.S3".bucket = "nyaabucket";
+      ":ex_aws".":s3" = {
+        access_key_id._secret = "/var/lib/secrets/akkoma/b2_app_key_id";
+        secret_access_key._secret = "/var/lib/secrets/akkoma/b2_app_key";
+        host = "s3.us-west-000.backblazeb2.com";
       };
     };
 
