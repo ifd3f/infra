@@ -16,5 +16,45 @@
     enable = true;
     version = 2;
   };
-}
 
+  networking.firewall.allowedTCPPorts = [ 80 443 ];
+
+  services.akkoma = {
+    enable = true;
+    config = {
+      ":pleroma" = {
+        ":instance" = {
+          name = "da astrid z0ne";
+          description = "astrid's akkoma server";
+          email = "akkoma@astrid.tech";
+          notify_email = "akkoma@astrid.tech";
+          registration_open = false;
+        };
+
+        ":media_proxy" = { enabled = false; };
+
+        "Pleroma.Web.Endpoint" = { url.host = "fedi.astrid.tech"; };
+      };
+    };
+
+  };
+
+  services.nginx.enable = true;
+  services.postgresql.enable = true;
+
+  virtualisation.vmVariant = {
+    virtualisation.forwardPorts = [
+      {
+        from = "host";
+        host.port = 2222;
+        guest.port = 22;
+      }
+
+      {
+        from = "host";
+        guest.port = 80;
+        host.port = 8080;
+      }
+    ];
+  };
+}
