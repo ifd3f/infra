@@ -11,10 +11,10 @@ BOLD = "\x1b[1m"
 ULINE = "\x1b[4m"
 STRIKE = "\x1b[9m"
 
-DGRAY = "\x1b[30m"
 RED = "\x1b[31m"
 GREEN = "\x1b[32m"
 YELLOW = "\x1b[33m"
+LGRAY = "\x1b[37m"
 
 ipdata = json.loads(check_output(['ip', '-j', 'addr', 'show']))
 uptime = check_output(['uptime']).strip().decode('utf-8')
@@ -38,7 +38,7 @@ for inf in ipdata:
 
     print(
         f'  {BOLD}{GREEN}{ifname}{RESET} '
-        f'{DGRAY}({mac}){RESET}'
+        f'{LGRAY}({mac}){RESET}'
     )
     ips_text = ', '.join((f'{YELLOW}{i}{RESET}' for i in ips))
     for l in textwrap.wrap(ips_text):
