@@ -16,13 +16,27 @@ with lib; {
       corefonts
       dejavu_fonts
       dina-font
+      dosemu_fonts
       fira-code
       fira-code-symbols
+      freefont_ttf
+      gyre-fonts
+      helvetica-neue-lt-std
+      liberation_ttf
+      libertine
+      mplus-outline-fonts.githubRelease
       noto-fonts
+      noto-fonts-cjk
       noto-fonts-emoji
+      noto-fonts-extra
       open-fonts
+      oxygenfonts
+      powerline-fonts
       proggyfonts
       redhat-official-fonts
+      roboto
+      stix-two
+      ubuntu_font_family
       vistafonts
     ];
 
