@@ -5,13 +5,15 @@ in {
   imports = let
     # Helper to create a user with the given name.
     mkUserModule = name:
-      { description, sshKeys ? [ ], enableByDefault ? false, defaultGroups ? [ ]
-      }:
+      { description, isAutomationUser ? false, sshKeys ? [ ]
+      , enableByDefault ? false, defaultGroups ? [ ] }:
       { lib, config, ... }:
       with lib; {
         options.astral.users."${name}" = {
           enable = mkOption {
-            description = "Enable normal user ${user}";
+            description = "Enable ${
+                if isAutomationUser then "system" else "normal"
+              } user ${user}";
             default = enableByDefault;
             type = types.bool;
           };
@@ -28,10 +30,14 @@ in {
           inherit description;
 
           openssh.authorizedKeys.keys = sshKeys;
-          isNormalUser = true;
           extraGroups = defaultGroups ++ cfg.extraGroups;
+
+          createHome = !isAutomationUser;
+          isNormalUser = !isAutomationUser;
+          isSystemUser = isAutomationUser;
         };
       };
+
   in [
     (mkUserModule "astrid" {
       description =
@@ -55,6 +61,19 @@ in {
     (mkUserModule "alia" {
       description = "Alia Lescoulie";
       sshKeys = sshKeyDatabase.users.alia;
+    })
+
+    (mkUserModule "terraform" {
+      description = "Terraform Cloud actor";
+      sshKeys = sshKeyDatabase.users.terraform;
+      isAutomationUser = true;
+      defaultGroups = [ "wheel" ];
+    })
+    (mkUserModule "github" {
+      description = "Github Actions actor";
+      sshKeys = sshKeyDatabase.users.github;
+      isAutomationUser = true;
+      defaultGroups = [ "wheel" ];
     })
   ];
 }

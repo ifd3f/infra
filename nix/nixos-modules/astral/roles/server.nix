@@ -12,6 +12,11 @@
       infra-update.enable =
         false; # don't update automatically because everything's broken
       custom-tty.enable = true;
+
+      users = {
+        github.enable = true;
+        terraform.enable = true;
+      };
     };
 
     # Enable SSH in initrd for debugging

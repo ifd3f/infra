@@ -7,9 +7,9 @@ resource "cloudflare_record" "oci_public_ip" {
 }
 
 resource "cloudflare_record" "diluc_public_ip" {
-  name    = "diluc.id"
+  name    = "diluc.h"
   proxied = false
   type    = "A"
-  value   = "173.212.242.107"
+  value   = local.diluc_ip
   zone_id = cloudflare_zone.primary.id
 }

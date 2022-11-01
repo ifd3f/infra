@@ -69,16 +69,16 @@ resource "cloudflare_zone" "tattoo" {
 }
 
 locals {
-  contabo_ip = "173.212.242.107"
+  diluc_ip = "173.212.242.107"
 }
 
 provider "remote" {
-  alias = "contabo"
+  alias = "diluc"
 
   max_sessions = 2
 
   conn {
-    host        = local.contabo_ip
+    host        = local.diluc_ip
     user        = "terraform"
     sudo        = true
     private_key = var.ssh_private_key

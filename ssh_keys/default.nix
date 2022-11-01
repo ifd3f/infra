@@ -14,6 +14,8 @@ in {
     alia = keysInDir ./users/alia;
     cynthe = keysInDir ./users/cynthe;
   };
+
   deprecated = keysInDir ./deprecated;
   github = keysInDir ./github;
+  terraform = keysInDir ./terraform;
 }
