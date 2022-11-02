@@ -59,6 +59,12 @@
         proxyPass =
           "http://127.0.0.1:${toString gcfg.settings.server.http_port}";
         proxyWebsockets = true;
+
+        # needed to prevent 'Origin not allowed'
+        # see: https://community.grafana.com/t/after-update-to-8-3-5-origin-not-allowed-behind-proxy/60598/4
+        extraConfig = ''
+          proxy_set_header Host grafana.astrid.tech;
+        '';
       };
     };
   };
