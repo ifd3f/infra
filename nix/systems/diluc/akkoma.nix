@@ -12,7 +12,19 @@ in {
         description = "astrid's akkoma server";
         email = "akkoma@astrid.tech";
         notify_email = "akkoma@astrid.tech";
+
         registrations_open = false;
+        invites_enabled = true;
+
+        limit = 69420;
+        remote_limit = 100000;
+        max_pinned_statuses = 10;
+        max_account_fields = 100;
+
+        limit_to_local_content = mkRaw ":unauthenticated";
+        healthcheck = true;
+        cleanup_attachments = true;
+        allow_relay = true;
       };
 
       # To allow configuration from admin-fe
@@ -35,7 +47,7 @@ in {
       ":prometheus"."Pleroma.Web.Endpoint.MetricsExporter" = {
         enabled = true;
         auth = false;
-        # ip_whitelist = [ "127.0.0.1" ];
+        ip_whitelist = [ "127.0.0.1" ];
         path = "/api/pleroma/app_metrics";
         format = mkRaw ":text";
       };
