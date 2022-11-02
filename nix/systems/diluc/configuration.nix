@@ -1,6 +1,6 @@
 # Contabo VPS.
 { pkgs, lib, ... }: {
-  imports = [ ./hardware-configuration.nix ./akkoma.nix ];
+  imports = [ ./hardware-configuration.nix ./akkoma.nix ./monitoring.nix ];
 
   astral = {
     acme.enable = true;
@@ -22,7 +22,14 @@
 
   networking.firewall.allowedTCPPorts = [ 80 443 ];
 
-  services.nginx.enable = true;
+  services.nginx = {
+    enable = true;
+
+    clientMaxBodySize = "16m";
+    recommendedTlsSettings = true;
+    recommendedOptimisation = true;
+    recommendedGzipSettings = true;
+  };
 
   virtualisation.vmVariant = {
     virtualisation.forwardPorts = [
