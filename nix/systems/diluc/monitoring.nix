@@ -49,10 +49,15 @@
 
   services.nginx.statusPage = true;
 
-  services.nginx.virtualHosts = {
-    ${config.services.grafana.domain} = {
+  services.nginx.virtualHosts = let gcfg = config.services.grafana;
+  in {
+    ${gcfg.settings.server.domain} = {
+      enableACME = true;
+      forceSSL = true;
+
       locations."/" = {
-        proxyPass = "http://127.0.0.1:${toString config.services.grafana.port}";
+        proxyPass =
+          "http://127.0.0.1:${toString gcfg.settings.server.http_port}";
         proxyWebsockets = true;
       };
     };
