@@ -7,7 +7,7 @@ in {
     mkUserModule = name:
       { description, isAutomationUser ? false, sshKeys ? [ ]
       , enableByDefault ? false, defaultGroups ? [ ] }:
-      { lib, config, ... }:
+      { pkgs, lib, config, ... }:
       with lib; {
         options.astral.users."${name}" = {
           enable = mkOption {
@@ -36,6 +36,8 @@ in {
           isNormalUser = !isAutomationUser;
           isSystemUser = isAutomationUser;
 
+          shell = mkIf isAutomationUser pkgs.bashInteractive;
+
           group = "automaton";
         };
       };
@@ -43,8 +45,7 @@ in {
   in [
     { users.groups.automaton = { }; }
     (mkUserModule "astrid" {
-      description =
-        "Astrid Yu,astrid.tech/about,(805) 270-5368,nah,astrid@astrid.tech";
+      description = "Astrid Yu";
       enableByDefault = true;
       sshKeys = sshKeyDatabase.users.astrid;
       defaultGroups = [
