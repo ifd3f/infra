@@ -26,6 +26,7 @@
     scrapeConfigs = [
       {
         job_name = "node";
+        scrape_interval = "10s";
         static_configs = [{
           targets = [
             "127.0.0.1:${
@@ -36,6 +37,7 @@
       }
       {
         job_name = "nginx";
+        scrape_interval = "10s";
         static_configs = [{
           targets = [
             "127.0.0.1:${
