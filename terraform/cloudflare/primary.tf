@@ -42,6 +42,14 @@ resource "cloudflare_record" "personal_wiki" {
   zone_id = cloudflare_zone.primary.id
 }
 
+resource "cloudflare_record" "grafana" {
+  name    = "grafana"
+  proxied = false
+  type    = "A"
+  value   = local.diluc_ip
+  zone_id = cloudflare_zone.primary.id
+}
+
 resource "cloudflare_record" "primary_google_site_verification" {
   name    = "astrid.tech"
   proxied = false
