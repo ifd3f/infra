@@ -68,6 +68,7 @@ in {
 
   services.phpfpm.pools.piwigo-pool = {
     user = "piwigo";
+    phpPackage = pkgs.php74;
     settings = {
       pm = "dynamic";
       "listen.owner" = config.services.nginx.user;
