@@ -21,30 +21,31 @@
         enable = true;
         port = 9113;
       };
+      systemd = {
+        enable = true;
+        port = 9558;
+      };
     };
 
-    scrapeConfigs = [
+    scrapeConfigs = let ecfg = config.services.prometheus.exporters;
+    in [
       {
         job_name = "node";
         scrape_interval = "10s";
-        static_configs = [{
-          targets = [
-            "127.0.0.1:${
-              toString config.services.prometheus.exporters.node.port
-            }"
-          ];
-        }];
+        static_configs =
+          [{ targets = [ "127.0.0.1:${toString ecfg.node.port}" ]; }];
       }
       {
         job_name = "nginx";
         scrape_interval = "10s";
-        static_configs = [{
-          targets = [
-            "127.0.0.1:${
-              toString config.services.prometheus.exporters.nginx.port
-            }"
-          ];
-        }];
+        static_configs =
+          [{ targets = [ "127.0.0.1:${toString ecfg.nginx.port}" ]; }];
+      }
+      {
+        job_name = "systemd";
+        scrape_interval = "10s";
+        static_configs =
+          [{ targets = [ "127.0.0.1:${toString ecfg.systemd.port}" ]; }];
       }
     ];
   };
