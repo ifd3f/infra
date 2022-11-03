@@ -67,6 +67,11 @@ in {
 
   services.phpfpm.pools.piwigo-pool = {
     user = "piwigo";
+    # Disable all error messages except fatal ones
+    phpOptions = ''
+      log_errors = true;
+      error_reporting = E_ALL & ~E_DEPRECATED & ~E_NOTICE & ~E_WARNING;
+    '';
     settings = {
       pm = "dynamic";
       "listen.owner" = config.services.nginx.user;
