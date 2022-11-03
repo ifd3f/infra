@@ -1,7 +1,7 @@
 # Contabo VPS.
 { pkgs, lib, ... }: {
   imports =
-    [ ./hardware-configuration.nix ./akkoma ./monitoring.nix ./piwigo.nix ];
+    [ ./hardware-configuration.nix ./akkoma ./monitoring.nix ./piwigo ];
 
   astral = {
     acme.enable = true;

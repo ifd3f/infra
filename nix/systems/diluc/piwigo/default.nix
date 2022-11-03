@@ -17,6 +17,7 @@ in {
       mkdir -p ${webroot}
       cp -r ${piwigo}/* ${webroot}
       mkdir -p ${webroot}/_data
+      cp ${./config.inc.php} ${webroot}/include/config.inc.php
 
       chmod -R 755 ${webroot}/
       chown -R piwigo:piwigo ${webroot}
@@ -67,11 +68,6 @@ in {
 
   services.phpfpm.pools.piwigo-pool = {
     user = "piwigo";
-    # Disable all error messages except fatal ones
-    phpOptions = ''
-      log_errors = true;
-      error_reporting = E_ALL & ~E_DEPRECATED & ~E_NOTICE & ~E_WARNING;
-    '';
     settings = {
       pm = "dynamic";
       "listen.owner" = config.services.nginx.user;
