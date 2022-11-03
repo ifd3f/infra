@@ -42,15 +42,6 @@ in {
         secret_access_key._secret = "/var/lib/secrets/akkoma/b2_app_key";
         host = "s3.us-west-000.backblazeb2.com";
       };
-
-      # Export prometheus metrics
-      ":prometheus"."Pleroma.Web.Endpoint.MetricsExporter" = {
-        enabled = true;
-        auth = false;
-        ip_whitelist = [ "127.0.0.1" ];
-        path = "/api/pleroma/app_metrics";
-        format = mkRaw ":text";
-      };
     };
 
     nginx = {
