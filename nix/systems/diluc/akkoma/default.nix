@@ -3,7 +3,7 @@ let vhost = "fedi.astrid.tech";
 in {
   services.akkoma = {
     enable = true;
-    config = let inherit ((pkgs.formats.elixirConf { }).lib) mkRaw;
+    config = let inherit ((pkgs.formats.elixirConf { }).lib) mkRaw mkMap;
     in {
       ":pleroma"."Pleroma.Web.Endpoint".url.host = vhost;
       ":pleroma".":media_proxy".enabled = true;
@@ -26,6 +26,8 @@ in {
         cleanup_attachments = true;
         allow_relay = true;
       };
+      ":pleroma".":mrf".policies =
+        map mkRaw [ "Pleroma.Web.ActivityPub.MRF.SimplePolicy" ];
 
       # To allow configuration from admin-fe
       ":pleroma".":configurable_from_database" = false;
@@ -41,6 +43,15 @@ in {
         access_key_id._secret = "/var/lib/secrets/akkoma/b2_app_key_id";
         secret_access_key._secret = "/var/lib/secrets/akkoma/b2_app_key";
         host = "s3.us-west-000.backblazeb2.com";
+      };
+
+      # Automated moderation settings
+      # Borrowed from https://github.com/chaossocial/about/blob/master/blocked_instances.md
+      ":pleroma".":mrf_simple" = let blocklist = import ./blocklist.nix;
+      in {
+        media_nsfw = mkMap blocklist.media_nsfw;
+        reject = mkMap blocklist.reject;
+        followers_only = mkMap blocklist.followers_only;
       };
     };
 
