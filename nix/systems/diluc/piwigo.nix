@@ -13,6 +13,11 @@ in {
       enableACME = true;
       forceSSL = true;
       root = piwigo;
+
+      extraConfig = ''
+        index index.php index.htm index.html;
+      '';
+
       locations."~ .php$".extraConfig = ''
         fastcgi_pass  unix:${config.services.phpfpm.pools.piwigo-pool.socket};
         fastcgi_index index.php;
