@@ -28,7 +28,7 @@ in {
       };
 
       # To allow configuration from admin-fe
-      ":pleroma".":configurable_from_database" = true;
+      ":pleroma".":configurable_from_database" = false;
 
       # S3 setup
       ":pleroma"."Pleroma.Upload" = {
