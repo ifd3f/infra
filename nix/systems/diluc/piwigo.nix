@@ -4,7 +4,7 @@ let
     owner = "Piwigo";
     repo = "Piwigo";
     rev = "13.1.0";
-    hash = "sha256-T3R5zfuDl1y3iNUrbouZlljDaNdtBTNro46fr+V67Oo=";
+    hash = "sha256-t22Tx4mCMD9LyE7I6MEAg1YbGyyuWe+u3v7DZMEUT4w=";
   };
 
   webroot = "/var/www/photos";
@@ -16,11 +16,9 @@ in {
     script = ''
       mkdir -p ${webroot}
       cp -r ${piwigo}/* ${webroot}
-      chmod 755 ${webroot}
-
       mkdir -p ${webroot}/_data
-      chmod 777 ${webroot}/_data
 
+      chmod -R 755 ${webroot}/
       chown -R piwigo:piwigo ${webroot}
     '';
   };
