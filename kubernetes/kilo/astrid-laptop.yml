@@ -1,9 +1,0 @@
-apiVersion: kilo.squat.ai/v1alpha1
-kind: Peer
-metadata:
-  name: astrid
-spec:
-  publicKey: 4HwiMXu2hUjGWHtKGSOBn3it8XgvTAssolKrX62jJ38=
-  persistentKeepalive: 10
-  allowedIPs: 
-    - 0.0.0.0/0

@@ -1,9 +1,0 @@
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-namespace: firefly-iii
-commonLabels:
-  app: firefly-app
-resources:
-  - namespace.yaml
-  - database.yaml
-  - firefly.yaml

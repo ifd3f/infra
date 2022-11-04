@@ -1,6 +1,0 @@
-ingress:
-  enabled: true
-  hosts:
-    - host: loki.s.astrid.tech
-      paths:
-        - /

@@ -1,8 +1,0 @@
-repositories:
-  - name: k8s-at-home
-    url: https://k8s-at-home.com/charts/
-releases:
-  - name: qbittorrent
-    namespace: qbittorrent
-    chart: k8s-at-home/qbittorrent
-    installed: false
