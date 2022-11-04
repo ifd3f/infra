@@ -1,4 +1,0 @@
-labnotes.astrid.tech {
-    reverse_proxy * http://akkoma:4000
-    encode zstd gzip
-}
