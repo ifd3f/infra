@@ -1,39 +1,14 @@
-;;
-;; Domain:     aay.tw.
-;; Exported:   2022-11-05 08:19:25
-;;
-;; This file is intended for use for informational and archival
-;; purposes ONLY and MUST be edited before use on a production
-;; DNS server.  In particular, you must:
-;;   -- update the SOA record with the correct authoritative name server
-;;   -- update the SOA record with the contact e-mail address information
-;;   -- update the NS record(s) with the authoritative name servers for this domain.
-;;
-;; For further information, please consult the BIND documentation
-;; located on the following website:
-;;
-;; http://www.isc.org/
-;;
-;; And RFC 1035:
-;;
-;; http://www.ietf.org/rfc/rfc1035.txt
-;;
-;; Please note that we do NOT offer technical support for any use
-;; of this zone data, the BIND name server, or any other third-party
-;; DNS software.
-;;
-;; Use at your own risk.
-;; SOA Record
-aay.tw	3600	IN	SOA	aay.tw root.aay.tw 2041930296 7200 3600 86400 3600
+$ORIGIN aay.tw.
+$TTL 10m
 
-;; A Records
-aay.tw.	1	IN	A	152.67.253.45
-q.aay.tw.	1	IN	A	69.69.69.69
+aay.tw                    IN SOA     aay.tw root.aay.tw (
+        2041930296 7200 3600 86400 3600
+)
 
-;; CNAME Records
-i.aay.tw.	1	IN	CNAME	github.com.
+;;; Shortlink service
+aay.tw.                   IN CNAME   oci.h.astrid.tech
 
-;; TXT Records
-aay.tw.	1	IN	TXT	"v=spf1 -all"
-_dmarc.aay.tw.	1	IN	TXT	"v=DMARC1; p=reject; sp=reject; adkim=s; aspf=s; rua=mailto:astrid@astrid.tech"
-*._domainkey.aay.tw.	1	IN	TXT	"v=DKIM1; p="
+;;; Mail security
+aay.tw.                   IN TXT     "v=spf1 -all"
+_dmarc.aay.tw.            IN TXT     "v=DMARC1; p=reject; sp=reject; adkim=s; aspf=s; rua=mailto:astrid@astrid.tech"
+*._domainkey.aay.tw.      IN TXT     "v=DKIM1; p="

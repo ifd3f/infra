@@ -1,68 +1,51 @@
-;;
-;; Domain:     astrid.tech.
-;; Exported:   2022-11-05 07:14:52
-;;
-;; This file is intended for use for informational and archival
-;; purposes ONLY and MUST be edited before use on a production
-;; DNS server.  In particular, you must:
-;;   -- update the SOA record with the correct authoritative name server
-;;   -- update the SOA record with the contact e-mail address information
-;;   -- update the NS record(s) with the authoritative name servers for this domain.
-;;
-;; For further information, please consult the BIND documentation
-;; located on the following website:
-;;
-;; http://www.isc.org/
-;;
-;; And RFC 1035:
-;;
-;; http://www.ietf.org/rfc/rfc1035.txt
-;;
-;; Please note that we do NOT offer technical support for any use
-;; of this zone data, the BIND name server, or any other third-party
-;; DNS software.
-;;
-;; Use at your own risk.
-;; SOA Record
-astrid.tech	3600	IN	SOA	astrid.tech root.astrid.tech 2041929909 7200 3600 86400 3600
+$ORIGIN astrid.tech.
+$TTL 10m
 
-;; A Records
-astrid.tech.	1	IN	A	76.76.21.21
-diluc.h.astrid.tech.	1	IN	A	173.212.242.107
-fedi.astrid.tech.	1	IN	A	173.212.242.107
-grafana.astrid.tech.	1	IN	A	173.212.242.107
-oci.h.astrid.tech.	1	IN	A	152.67.253.45
-photos.astrid.tech.	1	IN	A	173.212.242.107
-s00.astrid.tech.	1	IN	A	24.23.210.97
-s01.astrid.tech.	1	IN	A	71.84.29.98
+@ 1h                            IN SOA         astrid.tech. root.astrid.tech. (
+        ; SOA value reccommendations
+        ; https://www.ripe.net/publications/docs/ripe-203
+        2022110500 ; serial YYMMDDnn
+        3h         ; refresh (3h to allow faster refresh)
+        1h         ; retry
+        1d         ; expire
+        1h         ; minimum days
+)
 
-;; AAAA Records
-aliaconda.of.astrid.tech.	1	IN	AAAA	fd53:1de8:470a:11::27
+;;; DNS
+ns.                             IN CNAME       oci.h.astrid.tech
 
-;; CNAME Records
-api.astrid.tech.	1	IN	CNAME	oci.h.astrid.tech.
-autoconfig.astrid.tech.	1	IN	CNAME	privateemail.com.
-autodiscover.astrid.tech.	1	IN	CNAME	privateemail.com.
-beta.astrid.tech.	1	IN	CNAME	cname.vercel-dns.com.
-cloud.astrid.tech.	1	IN	CNAME	ifd3f.github.io.
-mail.astrid.tech.	1	IN	CNAME	privateemail.com.
-media.astrid.tech.	1	IN	CNAME	f000.backblazeb2.com.
-staging.astrid.tech.	1	IN	CNAME	cname.vercel-dns.com.
-wiki.astrid.tech.	1	IN	CNAME	ifd3f.github.io.
-www.astrid.tech.	1	IN	CNAME	astrid.tech.
+;;; SERVICES
 
-;; MX Records
-astrid.tech.	1	IN	MX	20 mx2.privateemail.com.
-astrid.tech.	1	IN	MX	10 mx1.privateemail.com.
+;; astrid.tech is hosted on vercel 
+;; more info: https://vercel.com/guides/a-record-and-caa-with-vercel
+@                               IN A           76.76.21.21
+www.                            IN CNAME       astrid.tech.
+photos.                         IN CNAME       diluc.h.astrid.tech
+api.                            IN CNAME       oci.h.astrid.tech.
 
-;; NS Records
-id.astrid.tech.	1	IN	NS	ipa0.id.astrid.tech.
-s.astrid.tech.	1	IN	NS	ipa0.id.astrid.tech.
+;; Mail
+@                               IN MX          20 mx2.privateemail.com.
+@                               IN MX          10 mx1.privateemail.com.
+autoconfig.                     IN CNAME       privateemail.com.
+autodiscover.                   IN CNAME       privateemail.com.
+mail.                           IN CNAME       privateemail.com.
+_autodiscover._tcp.             IN SRV         0 0 443 privateemail.com.
+; Mail security
+@                               IN TXT         "v=spf1 include:spf.privateemail.com ~all"
+_dmarc.                         IN TXT         "v=DMARC1; p=none; rua=mailto:astrid@astrid.tech; ruf=mailto:astrid@astrid.tech; sp=reject; ri=86400"
 
-;; SRV Records
-_autodiscover._tcp.astrid.tech.	1	IN	SRV	0 0 443 privateemail.com.
+;; Misc. other services
+fedi.                           IN CNAME       diluc.h.astrid.tech
+grafana.                        IN CNAME       diluc.h.astrid.tech
 
-;; TXT Records
-astrid.tech.	1	IN	TXT	"v=spf1 include:spf.privateemail.com ~all"
-astrid.tech.	1	IN	TXT	"google-site-verification=eeNf9_2KGQ2L9H5zImRlebdGTnR-_t0qBNlnZrHk53Q"
-_dmarc.astrid.tech.	1	IN	TXT	"v=DMARC1; p=none; rua=mailto:astrid@astrid.tech; ruf=mailto:astrid@astrid.tech; sp=reject; ri=86400"
+
+;;; Hosts
+diluc.h.                        IN A           173.212.242.107
+oci.h.                          IN A           152.67.253.45
+
+;;; Sites
+s00.                            IN A           24.23.210.97
+s02.                            IN A           71.93.45.217
+
+;;; Google analytics
+@                               IN TXT         "google-site-verification=eeNf9_2KGQ2L9H5zImRlebdGTnR-_t0qBNlnZrHk53Q"
