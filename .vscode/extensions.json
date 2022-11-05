@@ -1,5 +1,6 @@
 {
     "recommendations": [
+        "Compilenix.vscode-zonefile",
         "arrterian.nix-env-selector",
         "bbenoist.nix",
         "brettm12345.nixfmt-vscode",
