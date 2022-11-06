@@ -3,5 +3,6 @@
     (import ./server.nix { inherit homeModules self; })
     ./laptop.nix
     ./pc.nix
+    ./auth-dns
   ];
 }

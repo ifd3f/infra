@@ -1,10 +1,10 @@
 $ORIGIN astrid.tech.
 $TTL 10m
 
-@ 1h                            IN SOA         astrid.tech. root.astrid.tech. (
+@ 1h                            IN SOA         diluc.h.astrid.tech. admin.astrid.tech. (
         ; SOA value reccommendations
         ; https://www.ripe.net/publications/docs/ripe-203
-        2022110500 ; serial YYMMDDnn
+        2022110501 ; serial YYMMDDnn
         3h         ; refresh (3h to allow faster refresh)
         1h         ; retry
         1d         ; expire
@@ -12,40 +12,40 @@ $TTL 10m
 )
 
 ;;; DNS
-ns.                             IN CNAME       oci.h.astrid.tech
+@                               IN NS          diluc.h.astrid.tech.
 
 ;;; SERVICES
 
 ;; astrid.tech is hosted on vercel 
 ;; more info: https://vercel.com/guides/a-record-and-caa-with-vercel
 @                               IN A           76.76.21.21
-www.                            IN CNAME       astrid.tech.
-photos.                         IN CNAME       diluc.h.astrid.tech
-api.                            IN CNAME       oci.h.astrid.tech.
+www                             IN CNAME       astrid.tech.
+photos                          IN CNAME       diluc.h.astrid.tech.
+api                             IN CNAME       oci.h.astrid.tech.
 
 ;; Mail
 @                               IN MX          20 mx2.privateemail.com.
 @                               IN MX          10 mx1.privateemail.com.
-autoconfig.                     IN CNAME       privateemail.com.
-autodiscover.                   IN CNAME       privateemail.com.
-mail.                           IN CNAME       privateemail.com.
-_autodiscover._tcp.             IN SRV         0 0 443 privateemail.com.
+autoconfig                      IN CNAME       privateemail.com.
+autodiscover                    IN CNAME       privateemail.com.
+mail                            IN CNAME       privateemail.com.
+_autodiscover._tcp              IN SRV         0 0 443 privateemail.com.
 ; Mail security
 @                               IN TXT         "v=spf1 include:spf.privateemail.com ~all"
-_dmarc.                         IN TXT         "v=DMARC1; p=none; rua=mailto:astrid@astrid.tech; ruf=mailto:astrid@astrid.tech; sp=reject; ri=86400"
+_dmarc                          IN TXT         "v=DMARC1; p=none; rua=mailto:astrid@astrid.tech; ruf=mailto:astrid@astrid.tech; sp=reject; ri=86400"
 
 ;; Misc. other services
-fedi.                           IN CNAME       diluc.h.astrid.tech
-grafana.                        IN CNAME       diluc.h.astrid.tech
+fedi                            IN CNAME       diluc.h.astrid.tech.
+grafana                         IN CNAME       diluc.h.astrid.tech.
 
 
 ;;; Hosts
-diluc.h.                        IN A           173.212.242.107
-oci.h.                          IN A           152.67.253.45
+diluc.h                         IN A           173.212.242.107
+oci.h                           IN A           152.67.253.45
 
 ;;; Sites
-s00.                            IN A           24.23.210.97
-s02.                            IN A           71.93.45.217
+s00                             IN A           24.23.210.97
+s02                             IN A           71.93.45.217
 
 ;;; Google analytics
 @                               IN TXT         "google-site-verification=eeNf9_2KGQ2L9H5zImRlebdGTnR-_t0qBNlnZrHk53Q"

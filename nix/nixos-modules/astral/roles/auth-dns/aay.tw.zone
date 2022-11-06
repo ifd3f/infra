@@ -1,14 +1,22 @@
 $ORIGIN aay.tw.
 $TTL 10m
 
-aay.tw                    IN SOA     aay.tw root.aay.tw (
-        2041930296 7200 3600 86400 3600
+@ 1h                      IN SOA     diluc.h.astrid.tech. admin.astrid.tech. (
+        ; SOA value reccommendations
+        ; https://www.ripe.net/publications/docs/ripe-203
+        2022110501 ; serial YYMMDDnn
+        3h         ; refresh (3h to allow faster refresh)
+        1h         ; retry
+        1d         ; expire
+        1h         ; minimum days
 )
 
+@                         IN NS      diluc.h.astrid.tech.
+
 ;;; Shortlink service
-aay.tw.                   IN CNAME   oci.h.astrid.tech
+@                         IN A       173.212.242.107
 
 ;;; Mail security
-aay.tw.                   IN TXT     "v=spf1 -all"
-_dmarc.aay.tw.            IN TXT     "v=DMARC1; p=reject; sp=reject; adkim=s; aspf=s; rua=mailto:astrid@astrid.tech"
-*._domainkey.aay.tw.      IN TXT     "v=DKIM1; p="
+@                         IN TXT     "v=spf1 -all"
+_dmarc                    IN TXT     "v=DMARC1; p=reject; sp=reject; adkim=s; aspf=s; rua=mailto:astrid@astrid.tech"
+*._domainkey              IN TXT     "v=DKIM1; p="

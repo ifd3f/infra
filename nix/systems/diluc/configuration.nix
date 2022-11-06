@@ -4,7 +4,10 @@
 
   astral = {
     acme.enable = true;
-    roles.server.enable = true;
+    roles = {
+      auth-dns.enable = true;
+      server.enable = true;
+    };
   };
 
   boot.cleanTmpDir = true;
@@ -47,6 +50,12 @@
         from = "host";
         guest.port = 443;
         host.port = 8443;
+      }
+      {
+        from = "host";
+        proto = "udp";
+        guest.port = 53;
+        host.port = 8053;
       }
     ];
   };

@@ -1,14 +1,22 @@
-$ORIGIN astrid.tech.
+$ORIGIN astridyu.com.
 $TTL 10m
 
-@   3600   IN   SOA   astridyu.com root.astridyu.com (
-        2041930295 7200 3600 86400 3600
+@ 1h                             IN SOA         diluc.h.astrid.tech. admin.astrid.tech. (
+        ; SOA value reccommendations
+        ; https://www.ripe.net/publications/docs/ripe-203
+        2022110501 ; serial YYMMDDnn
+        3h         ; refresh (3h to allow faster refresh)
+        1h         ; retry
+        1d         ; expire
+        1h         ; minimum days
 )
 
+@                                IN NS      diluc.h.astrid.tech.
+
 ;;; QR arm portal
-qr.arm.astridyu.com.             IN CNAME   oci.h.astrid.tech.
+qr.arm                           IN CNAME   oci.h.astrid.tech.
 
 ;;; Mail security
-astridyu.com.                    IN TXT     "v=spf1 -all"
-_dmarc.astridyu.com.             IN TXT     "v=DMARC1; p=reject; sp=reject; adkim=s; aspf=s; rua=mailto:astrid@astrid.tech"
-*._domainkey.astridyu.com.       IN TXT     "v=DKIM1; p="
+@                                IN TXT     "v=spf1 -all"
+_dmarc                           IN TXT     "v=DMARC1; p=reject; sp=reject; adkim=s; aspf=s; rua=mailto:astrid@astrid.tech"
+*._domainkey                     IN TXT     "v=DKIM1; p="
