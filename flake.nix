@@ -46,9 +46,6 @@
       home-manager = home-manager-unstable;
       lib = nixpkgs.lib;
 
-      overlays =
-        [ (import "${home-manager}/overlay.nix") nur.overlay self.overlay ];
-
       vscode-server-home =
         "${nixos-vscode-server}/modules/vscode-server/home.nix";
     in (flake-utils.lib.eachSystem [
@@ -56,7 +53,11 @@
       "aarch64-linux"
       "x86_64-darwin"
     ] (system:
-      let pkgs = import nixpkgs { inherit system overlays; };
+      let
+        pkgs = import nixpkgs {
+          inherit system;
+          overlays = [ self.overlay ];
+        };
       in rec {
         gh-ci-matrix = pkgs.callPackage ./pkgs/gh-ci-matrix { inherit self; };
         devShells = import ./nix/shells.nix { inherit pkgs; };
@@ -68,23 +69,32 @@
 
         checks = import ./nix/checks { inherit self lib; };
 
-        overlay = final: prev: {
-          lib = prev.lib.extend (lfinal: lprev:
-            import ./nix/lib {
-              inherit self nixos-hardware nixpkgs-akkoma;
-              lib = lfinal;
-              system = prev.system;
-            });
+        overlay = self.overlays.default;
+        overlays = {
+          default = self.overlays.complete;
+          complete = lib.composeManyExtensions [
+            (import "${home-manager}/overlay.nix")
+            nur.overlay
+            self.overlays.patched
+          ];
+          patched = final: prev: {
+            lib = prev.lib.extend (lfinal: lprev:
+              import ./nix/lib {
+                inherit self nixos-hardware nixpkgs-akkoma;
+                lib = lfinal;
+                system = prev.system;
+              });
 
-          # needed for piwigo compatibility
-          inherit (nixpkgs-php74.legacyPackages.${prev.system}) php74;
+            # needed for piwigo compatibility
+            inherit (nixpkgs-php74.legacyPackages.${prev.system}) php74;
 
-          #inherit (nixpkgs-lxdvms.legacyPackages.${prev.system}) lxd;
+            #inherit (nixpkgs-lxdvms.legacyPackages.${prev.system}) lxd;
 
-          inherit (nixpkgs-akkoma.legacyPackages.${prev.system})
-            akkoma akkoma-frontends;
-          inherit (self.packages.${prev.system})
-            win10hotplug ifd3f-infra-scripts;
+            inherit (nixpkgs-akkoma.legacyPackages.${prev.system})
+              akkoma akkoma-frontends;
+            inherit (self.packages.${prev.system})
+              win10hotplug ifd3f-infra-scripts;
+          };
         };
 
         homeModule = self.homeModules.astral;
