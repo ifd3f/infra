@@ -43,16 +43,19 @@
     "iddqd.social" = ''Discrimination, racism, "free speech zone"²'';
     "itmslaves.com" = ''"free speech zone"², noagenda affiliated'';
     "jaeger.website" = ''Discrimination, racism, "free speech zone"²'';
+    "journa.host" = "Harmful behavior";
     "kenfm.quadplay.tv" = "Conspiracy videos";
     "kiwifarms.cc" = "Discrimination";
     "libre.tube" =
       "Promotion of violence and murder, multiple other violations of our rules";
     "lolicon.rocks" = "Lolicon";
+    "lolison.top" = "Lolicon";
     "mastodon.network" = "Imperaonation linking to porn";
     "mastodon.popps.org" = "Homophobia";
     "meta-tube.de" =
       "Conspiracy, CoVid19 denier videos https://fediblock.org/blocklist/#meta-tube.de";
     "midnightride.rs" = "Discrimination";
+    "monads.online" = "Has historically engaged in bad behavior";
     "mstdn.foxfam.club" = "Right wing twitter mirror";
     "nicecrew.digital" = ''Discrimination, racism, "free speech zone"²'';
     "ns.auction" = "Racism etc";
@@ -74,6 +77,7 @@
     "pl.info.natehiggers.online" = "Racism";
     "pl.tkammer.de" = "Transphobia";
     "poa.st" = "Discrimination";
+    "ryona.agency" = "Bigotry";
     "shitpost.cloud" = ''"Free speech zone"²'';
     "shitposter.club" = ''"Free speech zone"²'';
     "skippers-bin.com" = "Same admin as neckbeard.xyz, same behaviour";
@@ -93,6 +97,7 @@
     "wiki-tube.de" = "Right wing conspiracy videos";
     "wintermute.fr.to" = "Discrimination";
     "yggdrasil.social" = "Discrimination";
+    "youjo.love" = "Actual child porn";
   };
 
   followers_only = {
