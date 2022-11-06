@@ -26,8 +26,10 @@ in {
         cleanup_attachments = true;
         allow_relay = true;
       };
-      ":pleroma".":mrf".policies =
-        map mkRaw [ "Pleroma.Web.ActivityPub.MRF.SimplePolicy" ];
+      ":pleroma".":mrf" = {
+        policies = map mkRaw [ "Pleroma.Web.ActivityPub.MRF.SimplePolicy" ];
+        transparency = false;
+      };
 
       # To allow configuration from admin-fe
       ":pleroma".":configurable_from_database" = false;
