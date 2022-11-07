@@ -3,6 +3,7 @@ let vhost = "fedi.astrid.tech";
 in {
   services.akkoma = {
     enable = true;
+    termsOfService = ./terms-of-service.html;
     config = let inherit ((pkgs.formats.elixirConf { }).lib) mkRaw mkMap;
     in {
       ":pleroma"."Pleroma.Web.Endpoint".url.host = vhost;

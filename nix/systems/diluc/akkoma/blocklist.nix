@@ -82,6 +82,7 @@
     "shitposter.club" = ''"Free speech zone"²'';
     "skippers-bin.com" = "Same admin as neckbeard.xyz, same behaviour";
     "sneak.berlin" = "privacy violation";
+    "sneed.social" = "bigotry";
     "social.urspringer.de" = "Conspiracy, CoVid19 denier";
     "social.ancreport.com" = ''Discrimination, racism, "free speech zone"²'';
     "socnet.supes.com" = ''Right wing "free speech zone"²'';
