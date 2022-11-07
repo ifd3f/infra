@@ -137,5 +137,7 @@ with lib; {
       dnssec = "false";
       domains = [ "~id.astrid.tech" ];
     };
+
+    virtualisation.anbox.enable = true;
   };
 }
