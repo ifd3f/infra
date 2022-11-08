@@ -67,3 +67,10 @@ resource "cloudflare_record" "backblaze_alias" {
   proxied = false
 }
 
+resource "cloudflare_record" "sso" {
+  name    = "sso"
+  proxied = false
+  type    = "CNAME"
+  value   = "diluc.h.astrid.tech"
+  zone_id = cloudflare_zone.primary.id
+}

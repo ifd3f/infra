@@ -7,9 +7,11 @@
     roles = {
       auth-dns.enable = true;
       akkoma.enable = true;
-      monitoring.server.enable = true;
+      monitoring.center.enable = true;
       monitoring.node.enable = true;
       piwigo.enable = true;
+      sso-provider.enable = true;
+
       server.enable = true;
     };
   };

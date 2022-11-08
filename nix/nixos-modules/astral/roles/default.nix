@@ -8,5 +8,6 @@
     ./akkoma
     ./monitoring
     ./piwigo
+    ./sso-provider
   ];
 }
