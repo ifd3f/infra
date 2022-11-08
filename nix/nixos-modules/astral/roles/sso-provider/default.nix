@@ -15,6 +15,9 @@ in {
         hostname = "sso.astrid.tech";
         http-port = 18433;
         http-host = "127.0.0.1";
+
+        hostname-admin-url = "https://sso.astrid.tech";
+        hostname-port = 443;
       };
       database = {
         type = "postgresql";
