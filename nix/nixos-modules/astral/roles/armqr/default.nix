@@ -14,6 +14,7 @@ in {
       enable = true;
       virtualHosts."qr.arm.astridyu.com" = {
         enableACME = true;
+        addSSL = true;
         forceSSL = false;
         locations."/".proxyPass =
           "http://127.0.0.1:${toString config.services.armqr.port}";
