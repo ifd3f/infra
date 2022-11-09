@@ -2,7 +2,7 @@
 resource "cloudflare_record" "qr_tattoo_controller" {
   zone_id = cloudflare_zone.name.id
   name    = "qr.arm"
-  value   = "oci.h.astrid.tech"
+  value   = "diluc.h.astrid.tech"
   type    = "CNAME"
   proxied = false
 }

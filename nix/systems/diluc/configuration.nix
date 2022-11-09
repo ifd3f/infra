@@ -5,8 +5,9 @@
   astral = {
     acme.enable = true;
     roles = {
-      auth-dns.enable = true;
       akkoma.enable = true;
+      armqr.enable = true;
+      auth-dns.enable = true;
       monitoring.center.enable = true;
       monitoring.node.enable = true;
       piwigo.enable = true;

@@ -36,11 +36,16 @@
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+
+    armqr = {
+      url = "github:ifd3f/armqr";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs = { self, nixpkgs-unstable, nixpkgs-php74, nixpkgs-akkoma
     , nixos-vscode-server, flake-utils, nix-ld, nur, home-manager-unstable
-    , nixos-hardware, nixos-generators, ... }@inputs:
+    , nixos-hardware, nixos-generators, armqr, ... }@inputs:
     let
       nixpkgs = nixpkgs-unstable;
       home-manager = home-manager-unstable;
@@ -64,8 +69,9 @@
         packages =
           import ./nix/pkgs { inherit self pkgs nixpkgs nixos-generators; };
       }) // {
-        lib =
-          import ./nix/lib { inherit self lib nixos-hardware nixpkgs-akkoma; };
+        lib = import ./nix/lib {
+          inherit self lib nixos-hardware nixpkgs-akkoma armqr;
+        };
 
         checks = import ./nix/checks { inherit self lib; };
 
@@ -75,12 +81,13 @@
           complete = lib.composeManyExtensions [
             (import "${home-manager}/overlay.nix")
             nur.overlay
+            armqr.overlays.default
             self.overlays.patched
           ];
           patched = final: prev: {
             lib = prev.lib.extend (lfinal: lprev:
               import ./nix/lib {
-                inherit self nixos-hardware nixpkgs-akkoma;
+                inherit self nixos-hardware nixpkgs-akkoma armqr;
                 lib = lfinal;
                 system = prev.system;
               });

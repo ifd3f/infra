@@ -4,8 +4,9 @@
     ./laptop.nix
     ./pc.nix
 
-    ./auth-dns
     ./akkoma
+    ./auth-dns
+    ./armqr
     ./monitoring
     ./piwigo
     ./sso-provider
