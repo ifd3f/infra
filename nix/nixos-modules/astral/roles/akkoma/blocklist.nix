@@ -80,6 +80,7 @@
     "ryona.agency" = "Bigotry";
     "shitpost.cloud" = ''"Free speech zone"²'';
     "shitposter.club" = ''"Free speech zone"²'';
+    "shortstackran.ch" = "Racism";
     "skippers-bin.com" = "Same admin as neckbeard.xyz, same behaviour";
     "sneak.berlin" = "privacy violation";
     "sneed.social" = "bigotry";
