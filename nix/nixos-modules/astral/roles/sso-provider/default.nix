@@ -11,12 +11,12 @@ in {
     services.keycloak = {
       enable = true;
       settings = {
-        proxy = "edge";
+        proxy = "none";
         hostname = "sso.astrid.tech";
         http-port = 18433;
         http-host = "127.0.0.1";
 
-        hostname-admin-url = "https://sso.astrid.tech";
+        hostname-admin-url = "https://sso.astrid.tech/auth";
         hostname-port = 443;
       };
       database = {
@@ -47,6 +47,8 @@ in {
           "http://127.0.0.1:${toString kcfg.settings.http-port}";
         proxyWebsockets = true;
         extraConfig = ''
+          proxy_pass_request_headers on;
+          proxy_set_header X-Forwarded-Proto $scheme;
           proxy_set_header X-Forwarded-Host $host;
           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         '';
