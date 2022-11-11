@@ -28,14 +28,18 @@
     "comfyboy.club" = "Discrimination, racism";
     "daishouri.moe" = "Fascism, openly advertises with swastika";
     "detroitriotcity.com" = ''Discrimination, racism, "free speech zone"²'';
+    "eientei.org" = "Racism";
+    "eveningzoo.club" = "Racism";
+    "f.haeder.net" = "Discrimination";
     "freeatlantis.com" = "Conspiracy theory instance";
     "freefedifollowers.ga" = "Follower spam";
-    "frennet.link" = ''Discrimination, racism, "free speech zone"²'';
     "freespeechextremist.com" = ''Discrimination, racism, "free speech zone"²'';
-    "f.haeder.net" = "Discrimination";
-    "gab.com, gab.ai" = ''Discrimination, racism, "free speech zone"²'';
+    "frennet.link" = ''Discrimination, racism, "free speech zone"²'';
+    "gab.ai" = ''Discrimination, racism, "free speech zone"²'';
+    "gab.com" = ''Discrimination, racism, "free speech zone"²'';
     "gameliberty.club" = ''"free speech zone"²'';
     "gegenstimme.tv" = ''"free speech zone"²'';
+    "geofront.rocks" = "Racism, transphobia, bigotry";
     "gitmo.life" = ''"free speech zone"²'';
     "glindr.org" = "Discrimination";
     "glowers.club" = ''Discrimination, racism, "free speech zone"²'';
@@ -55,6 +59,7 @@
     "meta-tube.de" =
       "Conspiracy, CoVid19 denier videos https://fediblock.org/blocklist/#meta-tube.de";
     "midnightride.rs" = "Discrimination";
+    "miss.mouse.services" = "Transphobia";
     "monads.online" = "Has historically engaged in bad behavior";
     "mstdn.foxfam.club" = "Right wing twitter mirror";
     "nicecrew.digital" = ''Discrimination, racism, "free speech zone"²'';
@@ -77,6 +82,8 @@
     "pl.info.natehiggers.online" = "Racism";
     "pl.tkammer.de" = "Transphobia";
     "poa.st" = "Discrimination";
+    "poster.place" = "Racism";
+    "posting.lolicon.rocks" = "Racism, lolicon";
     "ryona.agency" = "Bigotry";
     "shitpost.cloud" = ''"Free speech zone"²'';
     "shitposter.club" = ''"Free speech zone"²'';
@@ -84,8 +91,8 @@
     "skippers-bin.com" = "Same admin as neckbeard.xyz, same behaviour";
     "sneak.berlin" = "privacy violation";
     "sneed.social" = "bigotry";
-    "social.urspringer.de" = "Conspiracy, CoVid19 denier";
     "social.ancreport.com" = ''Discrimination, racism, "free speech zone"²'';
+    "social.urspringer.de" = "Conspiracy, CoVid19 denier";
     "socnet.supes.com" = ''Right wing "free speech zone"²'';
     "solagg.com" = "Scammers";
     "spinster.xyz" = "Discrimination";
@@ -98,8 +105,10 @@
     "varishangout.net" = "Transphobia, aggressive trolling";
     "wiki-tube.de" = "Right wing conspiracy videos";
     "wintermute.fr.to" = "Discrimination";
+    "wolfgirl.bar" = "Racism, holocaust denial";
     "yggdrasil.social" = "Discrimination";
     "youjo.love" = "Actual child porn";
+    "zztails.gay" = "Racism";
   };
 
   followers_only = {
