@@ -30,6 +30,7 @@
   };
 
   networking = {
+    hostName = "shai-hulud";
     domain = "id.astrid.tech";
 
     hostId = "49e32584";
