@@ -1,7 +1,7 @@
 $ORIGIN aay.tw.
 $TTL 10m
 
-@ 1h                      IN SOA     diluc.h.astrid.tech. admin.astrid.tech. (
+@ 1h                      IN SOA     dennis.astrid.tech. admin.astrid.tech. (
         ; SOA value reccommendations
         ; https://www.ripe.net/publications/docs/ripe-203
         2022110501 ; serial YYMMDDnn
@@ -11,7 +11,7 @@ $TTL 10m
         1h         ; minimum days
 )
 
-@                         IN NS      diluc.h.astrid.tech.
+@                         IN NS      dennis.astrid.tech.
 
 ;;; Shortlink service
 @                         IN A       173.212.242.107

@@ -1,7 +1,7 @@
 $ORIGIN astrid.tech.
 $TTL 10m
 
-@ 1h                            IN SOA         diluc.h.astrid.tech. admin.astrid.tech. (
+@ 1h                            IN SOA         dennis.astrid.tech. admin.astrid.tech. (
         ; SOA value reccommendations
         ; https://www.ripe.net/publications/docs/ripe-203
         2022110501 ; serial YYMMDDnn
@@ -12,7 +12,8 @@ $TTL 10m
 )
 
 ;;; DNS
-@                               IN NS          diluc.h.astrid.tech.
+@                               IN NS          dennis.astrid.tech.
+dennis                          IN A           173.212.242.107
 
 ;;; SERVICES
 
@@ -40,6 +41,7 @@ grafana                         IN CNAME       diluc.h.astrid.tech.
 
 
 ;;; Hosts
+ipa0.h                          IN AAAA        2a02:c207:2087:999:1::2
 diluc.h                         IN A           173.212.242.107
 oci.h                           IN A           152.67.253.45
 
@@ -49,3 +51,6 @@ s02                             IN A           71.93.45.217
 
 ;;; Google analytics
 @                               IN TXT         "google-site-verification=eeNf9_2KGQ2L9H5zImRlebdGTnR-_t0qBNlnZrHk53Q"
+
+;;; Identity zone
+id                              IN NS          ipa0.h.astrid.tech.

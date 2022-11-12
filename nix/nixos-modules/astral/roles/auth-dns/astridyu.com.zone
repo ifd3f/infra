@@ -1,7 +1,7 @@
 $ORIGIN astridyu.com.
 $TTL 10m
 
-@ 1h                             IN SOA         diluc.h.astrid.tech. admin.astrid.tech. (
+@ 1h                             IN SOA     dennis.astrid.tech. admin.astrid.tech. (
         ; SOA value reccommendations
         ; https://www.ripe.net/publications/docs/ripe-203
         2022110501 ; serial YYMMDDnn
@@ -11,10 +11,10 @@ $TTL 10m
         1h         ; minimum days
 )
 
-@                                IN NS      diluc.h.astrid.tech.
+@                                IN NS      dennis.astrid.tech.
 
 ;;; QR arm portal
-qr.arm                           IN CNAME   oci.h.astrid.tech.
+qr.arm                           IN CNAME   dennis.astrid.tech.
 
 ;;; Mail security
 @                                IN TXT     "v=spf1 -all"
