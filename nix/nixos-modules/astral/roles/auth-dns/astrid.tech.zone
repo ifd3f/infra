@@ -11,9 +11,18 @@ $TTL 10m
         1h         ; minimum days
 )
 
-;;; DNS
+;;; Main DNS servers!
+@                               IN NS          charlie.astrid.tech.
 @                               IN NS          dennis.astrid.tech.
 dennis                          IN A           173.212.242.107
+charlie                         IN A           173.212.242.107
+
+; Additional names reserved for DNS
+dee                             IN A           173.212.242.107
+frank                           IN A           173.212.242.107
+mac                             IN A           173.212.242.107
+ns1                             IN A           173.212.242.107
+ns2                             IN A           173.212.242.107
 
 ;;; SERVICES
 
