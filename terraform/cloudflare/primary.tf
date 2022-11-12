@@ -1,29 +1,17 @@
-resource "cloudflare_record" "internal_services" {
-  count = 1
-
-  zone_id = cloudflare_zone.primary.id
-  name    = "s"
-  value   = "ipa${count.index}.id.astrid.tech"
-  type    = "NS"
-  proxied = false
-}
-
-resource "cloudflare_record" "identity_zone" {
-  count = 1
-
+resource "cloudflare_record" "ipa_domain" {
   zone_id = cloudflare_zone.primary.id
   name    = "id"
-  value   = "ipa${count.index}.id.astrid.tech"
+  value   = "ipa0.h.astrid.tech"
   type    = "NS"
   proxied = false
 }
 
-resource "cloudflare_record" "aliaconda" {
-  name    = "aliaconda.of"
-  proxied = false
-  type    = "AAAA"
-  value   = "fd53:1de8:470a:0011:0000:0000:0000:0027"
+resource "cloudflare_record" "ipa_host" {
   zone_id = cloudflare_zone.primary.id
+  name    = "ipa0.h"
+  value   = "2a02:c207:2087:999:1::2"
+  type    = "AAAA"
+  proxied = false
 }
 
 resource "cloudflare_record" "cloud_wiki" {
