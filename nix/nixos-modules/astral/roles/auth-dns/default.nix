@@ -10,8 +10,31 @@ with lib; {
     services.bind = {
       enable = true;
 
+      # DNS hardening ideas borrowed from https://securitytrails.com/blog/8-tips-to-prevent-dns-attacks
       extraOptions = ''
+        // Empty zones bad from what I've heard
         empty-zones-enable no;
+
+        // Severe rate limits (we're an authoritative server)
+        rate-limit {
+          responses-per-second 5;
+          window 5;
+        };
+
+        // Hide the DNS version
+        version "YoMomma";
+
+        // No zone transfers
+        // TODO: allow it for specific servers when I make a secondary server
+        allow-transfer {
+          "none";
+        };
+
+        // Disallow recursion (we're an authoritative server)
+        recursion no;
+        allow-recursion {
+          "none";
+        };
       '';
 
       zones = [

@@ -40,6 +40,7 @@ autoconfig                      IN CNAME       privateemail.com.
 autodiscover                    IN CNAME       privateemail.com.
 mail                            IN CNAME       privateemail.com.
 _autodiscover._tcp              IN SRV         0 0 443 privateemail.com.
+
 ; Mail security
 @                               IN TXT         "v=spf1 include:spf.privateemail.com ~all"
 _dmarc                          IN TXT         "v=DMARC1; p=none; rua=mailto:astrid@astrid.tech; ruf=mailto:astrid@astrid.tech; sp=reject; ri=86400"
