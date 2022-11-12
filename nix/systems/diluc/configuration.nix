@@ -11,7 +11,7 @@
       monitoring.center.enable = true;
       monitoring.node.enable = true;
       piwigo.enable = true;
-      sso-provider.enable = true;
+      sso-provider.enable = false;
 
       server.enable = true;
     };
