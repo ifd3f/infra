@@ -51,7 +51,6 @@ grafana                         IN CNAME       diluc.h.astrid.tech.
 
 
 ;;; Hosts
-ipa0.h                          IN AAAA        2a02:c207:2087:999:1::2
 diluc.h                         IN A           173.212.242.107
 oci.h                           IN A           152.67.253.45
 
@@ -63,4 +62,5 @@ s02                             IN A           71.93.45.217
 @                               IN TXT         "google-site-verification=eeNf9_2KGQ2L9H5zImRlebdGTnR-_t0qBNlnZrHk53Q"
 
 ;;; Identity zone
-id                              IN NS          ipa0.h.astrid.tech.
+id                              IN NS          ipa0.id.astrid.tech.
+ipa0.id                         IN AAAA        2a02:c207:2087:999:1::2
