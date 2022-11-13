@@ -6,7 +6,7 @@ $TTL 10m
 @ 1h                      IN SOA   dennis.astrid.tech. admin.astrid.tech. (
         ; SOA value reccommendations
         ; https://www.ripe.net/publications/docs/ripe-203
-        2022111200 ; serial YYMMDDnn
+        2022111202 ; serial YYMMDDnn
         3h         ; refresh (3h to allow faster refresh)
         1h         ; retry
         1d         ; expire
@@ -14,7 +14,13 @@ $TTL 10m
 )
 
 @                         IN NS    charlie.astrid.tech.
+@                         IN NS    dee.astrid.tech.
 @                         IN NS    dennis.astrid.tech.
+@                         IN NS    frank.astrid.tech.
+@                         IN NS    mac.astrid.tech.
+
+;;; Tattoo redirector
+@                         IN A     173.212.242.107
 
 ;;; Mail security
 @ 5m                      IN TXT   "v=spf1 -all"
