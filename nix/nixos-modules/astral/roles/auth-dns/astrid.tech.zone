@@ -13,14 +13,18 @@ $TTL 10m
 
 ;;; Main DNS servers!
 @                               IN NS          charlie.astrid.tech.
+@                               IN NS          dee.astrid.tech.
 @                               IN NS          dennis.astrid.tech.
-dennis                          IN A           173.212.242.107
-charlie                         IN A           173.212.242.107
+@                               IN NS          frank.astrid.tech.
+@                               IN NS          mac.astrid.tech.
 
-; Additional names reserved for DNS
+charlie                         IN A           173.212.242.107
 dee                             IN A           173.212.242.107
+dennis                          IN A           173.212.242.107
 frank                           IN A           173.212.242.107
 mac                             IN A           173.212.242.107
+
+; Additional names reserved for DNS
 ns1                             IN A           173.212.242.107
 ns2                             IN A           173.212.242.107
 
