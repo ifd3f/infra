@@ -1,20 +1,23 @@
+; Registrar: https://namecheap.com
+
 $ORIGIN astridyu.com.
 $TTL 10m
 
 @ 1h                             IN SOA     dennis.astrid.tech. admin.astrid.tech. (
         ; SOA value reccommendations
         ; https://www.ripe.net/publications/docs/ripe-203
-        2022110501 ; serial YYMMDDnn
+        2022111200 ; serial YYMMDDnn
         3h         ; refresh (3h to allow faster refresh)
         1h         ; retry
         1d         ; expire
         1h         ; minimum days
 )
 
+@                                IN NS      charlie.astrid.tech.
 @                                IN NS      dennis.astrid.tech.
 
 ;;; QR arm portal
-qr.arm                           IN CNAME   dennis.astrid.tech.
+qr.arm                           IN CNAME   diluc.h.astrid.tech.
 
 ;;; Mail security
 @                                IN TXT     "v=spf1 -all"

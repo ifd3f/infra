@@ -1,10 +1,12 @@
+; Registrar: https://namecheap.com
+
 $ORIGIN astrid.tech.
 $TTL 10m
 
 @ 1h                            IN SOA         dennis.astrid.tech. admin.astrid.tech. (
         ; SOA value reccommendations
         ; https://www.ripe.net/publications/docs/ripe-203
-        2022110501 ; serial YYMMDDnn
+        2022111200 ; serial YYMMDDnn
         3h         ; refresh (3h to allow faster refresh)
         1h         ; retry
         1d         ; expire
@@ -67,4 +69,4 @@ s02                             IN A           71.93.45.217
 
 ;;; Identity zone
 id                              IN NS          ipa0.id.astrid.tech.
-ipa0.id                         IN AAAA        2a02:c207:2087:999:1::2
+ipa0.id.astrid.tech.            IN AAAA        2a02:c207:2087:999:1::2
