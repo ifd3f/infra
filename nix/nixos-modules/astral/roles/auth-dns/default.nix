@@ -21,8 +21,8 @@ with lib; {
 
         // Severe rate limits (we're an authoritative server)
         rate-limit {
-          responses-per-second 5;
-          window 5;
+          responses-per-second 20;
+          window 20;
         };
 
         // Hide the DNS version
