@@ -6,7 +6,7 @@ $TTL 5m
 @ 1h                            IN SOA         dennis.astrid.tech. admin.astrid.tech. (
         ; SOA value reccommendations
         ; https://www.ripe.net/publications/docs/ripe-203
-        2022111201 ; serial YYMMDDnn
+        2022111202 ; serial YYMMDDnn
         3h         ; refresh (3h to allow faster refresh)
         1h         ; retry
         1d         ; expire
@@ -67,9 +67,6 @@ s02                             IN A           71.93.45.217
 ;;; Google analytics
 @                               IN TXT         "google-site-verification=eeNf9_2KGQ2L9H5zImRlebdGTnR-_t0qBNlnZrHk53Q"
 
-;;; Identity zone (w/ glue recordd)
-id                              IN NS          ipa0.id.astrid.tech.
-id                              IN NS          charlie.astrid.tech.
-id                              IN NS          dennis.astrid.tech.
-
+;;; Identity zone
 ipa0.id                         IN AAAA        2a02:c207:2087:999:1::2
+id                              IN NS          ipa0.id.astrid.tech.
