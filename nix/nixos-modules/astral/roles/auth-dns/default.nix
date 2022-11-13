@@ -7,6 +7,10 @@ with lib; {
   in mkIf cfg.enable {
     networking.firewall.allowedUDPPorts = [ 53 ];
 
+    # The BIND module sets this to true.
+    # We don't want this because our auth DNS doesn't support recursion.
+    networking.resolvconf.useLocalResolver = false;
+
     services.bind = {
       enable = true;
 
