@@ -34,20 +34,7 @@ with lib; {
           "none";
         };
 
-        // Disallow recursion (we're an authoritative server)
-        recursion no;
-        allow-recursion {
-          "localhost";
-          "none";
-        };
-      '';
-
-      extraConfig = ''
-        zone "id.astrid.tech" {
-          type forward;
-          forward only;
-          forwarders { 2a02:c207:2087:999:1::2; };
-        };
+        recursion yes;
       '';
 
       zones = [
