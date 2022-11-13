@@ -16,6 +16,9 @@ with lib; {
 
       # DNS hardening ideas borrowed from https://securitytrails.com/blog/8-tips-to-prevent-dns-attacks
       extraOptions = ''
+        // Make it listen on IPv6
+        listen-on-v6 { any; };
+
         // Empty zones bad from what I've heard
         empty-zones-enable no;
 

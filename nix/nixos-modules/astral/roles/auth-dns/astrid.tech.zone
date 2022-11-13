@@ -1,7 +1,7 @@
 ; Registrar: https://namecheap.com
 
 $ORIGIN astrid.tech.
-$TTL 2m
+$TTL 30m
 
 @                               IN SOA         dennis.astrid.tech. admin.astrid.tech. (
         ; SOA value reccommendations
