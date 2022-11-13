@@ -42,6 +42,14 @@ with lib; {
         };
       '';
 
+      extraConfig = ''
+        zone "id.astrid.tech" {
+          type forward;
+          forward only;
+          forwarders { 2a02:c207:2087:999:1::2; };
+        };
+      '';
+
       zones = [
         {
           name = "astrid.tech";
