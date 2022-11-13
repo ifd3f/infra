@@ -68,5 +68,8 @@ s02                             IN A           71.93.45.217
 @                               IN TXT         "google-site-verification=eeNf9_2KGQ2L9H5zImRlebdGTnR-_t0qBNlnZrHk53Q"
 
 ;;; Identity zone
-id                              IN NS          ipa0.id.astrid.tech.
-ipa0.id.astrid.tech.            IN AAAA        2a02:c207:2087:999:1::2
+ipa0                            IN AAAA        2a02:c207:2087:999:1::2
+id                              IN NS          ipa0.astrid.tech.
+; glue record method doesn't work
+;ipa0.id                         IN AAAA        2a02:c207:2087:999:1::2
+;id                              IN NS          ipa0.id.astrid.tech.
