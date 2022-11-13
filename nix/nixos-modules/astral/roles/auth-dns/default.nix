@@ -37,6 +37,7 @@ with lib; {
         // Disallow recursion (we're an authoritative server)
         recursion no;
         allow-recursion {
+          "localhost";
           "none";
         };
       '';
