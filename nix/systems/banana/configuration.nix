@@ -38,7 +38,6 @@
 
   networking = {
     hostName = "banana";
-    domain = "id.astrid.tech";
 
     hostId = "76d4a2bc";
     networkmanager.enable = true;

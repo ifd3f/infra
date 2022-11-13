@@ -28,7 +28,6 @@
 
   networking = {
     hostName = "chungus";
-    domain = "id.astrid.tech";
 
     hostId = "b75842a7";
     networkmanager.enable = true;
