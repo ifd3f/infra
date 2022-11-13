@@ -135,6 +135,10 @@ with lib; {
     services.resolved = {
       enable = true;
       dnssec = "false";
+      fallbackDns = [ "8.8.8.8" "8.8.4.4" "1.1.1.1" ];
+      extraConfig = ''
+        Cache=no-negative
+      '';
     };
 
     virtualisation.anbox.enable = true;
