@@ -53,6 +53,7 @@ in {
         "docker"
         "i2c"
         "libvirtd"
+        "lpadmin"
         "lxd"
         "netdev"
         "networkmanager"
