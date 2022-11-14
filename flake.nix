@@ -6,7 +6,7 @@
 
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    nixpkgs-php74.url = "github:NixOS/nixpkgs/nixos-22.05";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-22.05";
 
     # My own nixpkgs fork, for customized patches
     #nixpkgs-ifd4f.url = "github:ifd3f/nixpkgs/lxd-vms";
@@ -43,7 +43,7 @@
     };
   };
 
-  outputs = { self, nixpkgs-unstable, nixpkgs-php74, nixpkgs-akkoma
+  outputs = { self, nixpkgs-unstable, nixpkgs-stable, nixpkgs-akkoma
     , nixos-vscode-server, flake-utils, nix-ld, nur, home-manager-unstable
     , nixos-hardware, nixos-generators, armqr, ... }@inputs:
     let
@@ -70,7 +70,8 @@
           import ./nix/pkgs { inherit self pkgs nixpkgs nixos-generators; };
       }) // {
         lib = import ./nix/lib {
-          inherit self lib nixos-hardware nixpkgs-akkoma armqr;
+          inherit self nixos-hardware nixpkgs-akkoma armqr;
+          nixpkgs = nixpkgs-unstable;
         };
 
         checks = import ./nix/checks { inherit self lib; };
@@ -88,12 +89,12 @@
             lib = prev.lib.extend (lfinal: lprev:
               import ./nix/lib {
                 inherit self nixos-hardware nixpkgs-akkoma armqr;
-                lib = lfinal;
+                nixpkgs = final;
                 system = prev.system;
               });
 
             # needed for piwigo compatibility
-            inherit (nixpkgs-php74.legacyPackages.${prev.system}) php74;
+            inherit (nixpkgs-stable.legacyPackages.${prev.system}) php74;
 
             #inherit (nixpkgs-lxdvms.legacyPackages.${prev.system}) lxd;
 
@@ -182,7 +183,8 @@
           };
         };
 
-        nixosConfigurations =
-          (import ./nix/systems { inherit self nixpkgs lib; });
+        nixosConfigurations = (import ./nix/systems {
+          inherit self nixpkgs-stable nixpkgs-unstable lib;
+        });
       });
 }

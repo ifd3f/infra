@@ -1,8 +1,9 @@
-{ self, lib, nixpkgs-akkoma, nixos-hardware, armqr, system ? null }: rec {
+{ self, nixpkgs, nixpkgs-akkoma, nixos-hardware, armqr
+, system ? null }: rec {
   sshKeyDatabase = import ../../ssh_keys;
 
-  nixosSystem = { system, modules }:
-    lib.nixosSystem {
+  nixosSystem' = { system, modules, nixpkgs ? nixpkgs }:
+    nixpkgs.lib.nixosSystem {
       inherit system;
       modules = [
         armqr.nixosModules.default
