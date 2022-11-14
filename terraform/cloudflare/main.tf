@@ -33,41 +33,6 @@ provider "cloudflare" {
   api_key = var.cloudflare_api_key
 }
 
-resource "cloudflare_zone" "primary" {
-  // Registrar: https://namecheap.com
-  zone = "astrid.tech"
-}
-
-resource "cloudflare_zone" "name" {
-  // Registrar: https://namecheap.com
-  zone = "astridyu.com"
-}
-
-resource "cloudflare_zone" "femboy" {
-  // Registrar: https://porkbun.com
-  zone = "femboy.technology"
-}
-
-resource "cloudflare_zone" "nyaa" {
-  // Registrar: https://porkbun.com
-  zone = "nyaa.download"
-}
-
-resource "cloudflare_zone" "short" {
-  // Registrar: https://gandi.net
-  zone = "aay.tw"
-}
-
-resource "cloudflare_zone" "s3e" {
-  // Registrar: https://porkbun.com
-  zone = "s3e.top"
-}
-
-resource "cloudflare_zone" "tattoo" {
-  // Registrar: https://www.cosmotown.com/
-  zone = "0q4.org"
-}
-
 locals {
   diluc_ip = "173.212.242.107"
 }
