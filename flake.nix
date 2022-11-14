@@ -156,7 +156,11 @@
           };
           "astrid@shai-hulud" = home-manager.lib.homeManagerConfiguration {
             pkgs = nixpkgs.legacyPackages.x86_64-linux;
-            modules = [ self.homeModules.astral-gui-tablet ];
+            modules = [
+              self.homeModules.astral-gui-tablet
+
+              { xresources.properties = { "*.dpi" = 200; }; }
+            ];
           };
           "astrid@soulcaster" = home-manager.lib.homeManagerConfiguration {
             pkgs = nixpkgs.legacyPackages.x86_64-linux;
