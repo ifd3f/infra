@@ -22,12 +22,3 @@ resource "remote_file" "main_fedi_b2_app_key_id" {
   owner       = "akkoma"
   permissions = "0600"
 }
-
-resource "cloudflare_record" "main_fedi" {
-  name    = "fedi"
-  proxied = false
-  type    = "A"
-  value   = local.diluc_ip
-  zone_id = cloudflare_zone.primary.id
-}
-

@@ -9,12 +9,3 @@ resource "b2_application_key" "photos" {
   bucket_id    = b2_bucket.photos.id
   capabilities = ["deleteFiles", "listBuckets", "listFiles", "readBucketEncryption", "readBucketReplications", "readBuckets", "readFiles", "shareFiles", "writeBucketEncryption", "writeBucketReplications", "writeFiles"]
 }
-
-resource "cloudflare_record" "photos" {
-  name    = "photos"
-  proxied = false
-  type    = "A"
-  value   = local.diluc_ip
-  zone_id = cloudflare_zone.primary.id
-}
-
