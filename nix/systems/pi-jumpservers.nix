@@ -1,4 +1,4 @@
-{ self, nixpkgs-stable }:
+{ self, nixpkgs-stable, ... }:
 let
   mkPiJumpservers = builtins.mapAttrs (hostName: moduleExtra:
     (self.lib.nixosSystem' {

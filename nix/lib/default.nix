@@ -7,7 +7,7 @@
       modules = [
         inputs.armqr.nixosModules.default
         "${inputs.nixpkgs-akkoma}/nixos/modules/services/web-apps/akkoma.nix"
-        self.nixosModule
+        self.nixosModules.astral
       ] ++ modules;
 
       specialArgs = { inherit inputs; };

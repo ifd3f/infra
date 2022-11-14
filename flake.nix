@@ -61,7 +61,7 @@
       let
         pkgs = import nixpkgs {
           inherit system;
-          overlays = [ self.overlay ];
+          overlays = [ self.overlays.default ];
         };
       in rec {
         gh-ci-matrix = pkgs.callPackage ./pkgs/gh-ci-matrix { inherit self; };
@@ -76,15 +76,16 @@
 
         checks = import ./nix/checks { inherit self lib; };
 
-        overlay = self.overlays.default;
         overlays = {
           default = self.overlays.complete;
+
           complete = lib.composeManyExtensions [
             (import "${home-manager}/overlay.nix")
             nur.overlay
             armqr.overlays.default
             self.overlays.patched
           ];
+
           patched = final: prev: {
             lib = prev.lib.extend (lfinal: lprev:
               import ./nix/lib {
@@ -159,7 +160,6 @@
             pkgs = nixpkgs.legacyPackages.x86_64-linux;
             modules = [
               self.homeModules.astral-gui-tablet
-
               { xresources.properties = { "*.dpi" = 200; }; }
             ];
           };
@@ -169,22 +169,16 @@
           };
         };
 
-        nixosModule = self.nixosModules.astral;
         nixosModules = {
-          gigarouter = ./nix/nixos-modules/gigarouter;
-
-          astral = {
-            imports = [
-              (import ./nix/nixos-modules/astral {
-                inherit self nix-ld home-manager;
-                homeModules = self.homeModules;
-              })
-            ];
+          default = self.nixosModules.astral;
+          astral = import ./nix/nixos-modules/astral {
+            inherit self nix-ld home-manager;
+            homeModules = self.homeModules;
           };
         };
 
         nixosConfigurations = (import ./nix/systems {
-          inherit self nixpkgs-stable nixpkgs-unstable lib;
+          inherit inputs lib;
         });
       });
 }

@@ -8,7 +8,7 @@
     ({ pkgs, ... }: {
       programs.zsh.enable = true;
       users.defaultUserShell = pkgs.zsh;
-      nixpkgs.overlays = [ self.overlay ];
+      nixpkgs.overlays = [ self.overlays.default ];
     })
 
     ./acme.nix
