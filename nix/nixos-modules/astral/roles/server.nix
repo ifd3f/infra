@@ -1,5 +1,5 @@
 { homeModules, self }:
-{ config, lib, ... }: {
+{ config, lib, pkgs, ... }: {
   options.astral.roles.server.enable = lib.mkOption {
     description = "Some headless server that likely runs 24/7.";
     default = false;
@@ -24,6 +24,8 @@
       enable = true;
       authorizedKeys = [ self.lib.sshKeyDatabase.users.astrid ];
     };
+
+    boot.kernelPackages = pkgs.linuxPackages_5_15_hardened;
 
     home-manager = {
       useGlobalPkgs = true;
