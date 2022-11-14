@@ -1,6 +1,10 @@
 # My gaming desktop.
-{ pkgs, lib, config, nixos-hardware, ... }: {
-  imports = [ ./hardware-configuration.nix ./x11.nix "${nixos-hardware}/common/cpu/amd" ];
+{ pkgs, lib, config, inputs, ... }: {
+  imports = [
+    ./hardware-configuration.nix
+    ./x11.nix
+    "${inputs.nixos-hardware}/common/cpu/amd"
+  ];
 
   time.timeZone = "US/Pacific";
 

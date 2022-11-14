@@ -6,7 +6,7 @@
 
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-22.05";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/release-22.05";
 
     # My own nixpkgs fork, for customized patches
     #nixpkgs-ifd4f.url = "github:ifd3f/nixpkgs/lxd-vms";
@@ -45,7 +45,7 @@
 
   outputs = { self, nixpkgs-unstable, nixpkgs-stable, nixpkgs-akkoma
     , nixos-vscode-server, flake-utils, nix-ld, nur, home-manager-unstable
-    , nixos-hardware, nixos-generators, armqr, ... }@inputs:
+    , nixos-generators, armqr, ... }@inputs:
     let
       nixpkgs = nixpkgs-unstable;
       home-manager = home-manager-unstable;
@@ -70,8 +70,8 @@
           import ./nix/pkgs { inherit self pkgs nixpkgs nixos-generators; };
       }) // {
         lib = import ./nix/lib {
-          inherit self nixos-hardware nixpkgs-akkoma armqr;
-          nixpkgs = nixpkgs-unstable;
+          inherit self inputs;
+          defaultNixpkgs = nixpkgs-unstable;
         };
 
         checks = import ./nix/checks { inherit self lib; };
@@ -88,8 +88,8 @@
           patched = final: prev: {
             lib = prev.lib.extend (lfinal: lprev:
               import ./nix/lib {
-                inherit self nixos-hardware nixpkgs-akkoma armqr;
-                nixpkgs = final;
+                inherit self inputs;
+                defaultNixpkgs = final;
                 system = prev.system;
               });
 

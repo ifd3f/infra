@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, config, inputs, ... }:
 with lib;
 let
   cfg = config.astral.roles.monitoring.center;

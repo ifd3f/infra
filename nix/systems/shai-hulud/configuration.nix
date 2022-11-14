@@ -1,7 +1,7 @@
 # My Surface Pro.
-{ config, pkgs, lib, nixos-hardware, ... }: {
+{ config, pkgs, lib, inputs, ... }: {
   imports = [ ./hardware-configuration.nix ]
-    ++ (with nixos-hardware.nixosModules; [
+    ++ (with inputs.nixos-hardware.nixosModules; [
       common-cpu-intel
       common-pc-ssd
       microsoft-surface
