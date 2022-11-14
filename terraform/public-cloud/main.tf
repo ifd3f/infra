@@ -5,7 +5,7 @@ terraform {
     organization = "astralbijection"
 
     workspaces {
-      name = "cloudflare"
+      name = "public-cloud"
     }
   }
 
