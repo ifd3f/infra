@@ -20,12 +20,12 @@ in { nodes, cachix, cronSchedule }: {
   in "github:${repo}/${sha}";
 
   jobs = mapAttrs' (key:
-    { runsOn ? "ubuntu-latest", needs ? [ ], pruneRunner ? false, build ? [ ]
-    , run ? null }:
+    { name ? key, runsOn ? "ubuntu-latest", needs ? [ ], pruneRunner ? false
+    , build ? [ ], run ? null }:
     nameValuePair (jobname key) (if build == [ ] && run == null then
       abort (toString "${key} did not specify a run or a build")
     else {
-      name = "Build node ${key}";
+      inherit name;
       runs-on = runsOn;
       strategy.fail-fast = false;
 

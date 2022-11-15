@@ -132,7 +132,10 @@
         };
 
         homeConfigurations = {
-          default = self.homeModules.astral-cli;
+          default = home-manager.lib.homeManagerConfiguration {
+            pkgs = nixpkgs.legacyPackages.x86_64-linux;
+            modules = [ self.homeModules.astral-cli ];
+          };
 
           "astrid@aliaconda" = home-manager.lib.homeManagerConfiguration {
             pkgs = nixpkgs.legacyPackages.x86_64-linux;
@@ -168,7 +171,7 @@
             ];
           };
           "astrid@soulcaster" = home-manager.lib.homeManagerConfiguration {
-            pkgs = nixpkgs.legacyPackages.x86_64-linux;
+            pkgs = nixpkgs.legacyPackages.x86_64-darwin;
             modules = [ self.homeModules.astral-macos ];
           };
         };

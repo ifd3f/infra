@@ -6,20 +6,33 @@ with lib; {
 
   nodes = let
     # Generate a node for each x86_64-linux NixOS system.
-    x86SystemNodes = mapAttrs' (hostname: system: {
-      name = "nixos-system-${hostname}";
-      value = {
-        build =
-          "nixosConfigurations.${hostname}.config.system.build.toplevel";
-        needs = system.config.astral.ci.needs;
-      };
-    }) (filterAttrs (_: config: config.pkgs.system == "x86_64-linux")
-      self.nixosConfigurations);
+    nixosNodesForSystem = system:
+      mapAttrs' (hostname: nixosSystem: {
+        name = "nixos-system-${hostname}";
+        value = {
+          name = "NixOS sys. ${hostname}";
+          build =
+            "nixosConfigurations.${hostname}.config.system.build.toplevel";
+          needs = nixosSystem.config.astral.ci.needs;
+        };
+      }) (filterAttrs (_: nixosSystem: nixosSystem.pkgs.system == system)
+        self.nixosConfigurations);
 
+    homeManagerNodeForSystem = system: {
+      name = "Home cfgs. ${system}";
+      build =
+        mapAttrsToList (key: _: "homeConfigurations.${key}.activationPackage")
+        (filterAttrs (_: home: home.pkgs.system == system)
+          self.homeConfigurations);
+    };
   in {
+    "home-manager_x86_64-linux" = homeManagerNodeForSystem "x86_64-linux";
+    "home-manager_x86_64-darwin" = homeManagerNodeForSystem "x86_64-darwin";
+
     "surface-kernel" = {
+      name = "Surface Kernel";
       build =
         "nixosConfigurations.shai-hulud.config.boot.kernelPackages.kernel";
     };
-  } // x86SystemNodes;
+  } // (nixosNodesForSystem "x86_64-linux");
 }
