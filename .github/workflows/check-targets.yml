@@ -3,7 +3,7 @@
 env:
   target_flake: github:${{ github.repository }}/${{ inputs.sha || github.sha }}
 jobs:
-  build-devShells-x86_64-darwin:
+  devShells-x86_64-darwin:
     name: DevShells x86_64-darwin
     needs: []
     runs-on: macos-latest
@@ -33,7 +33,7 @@ jobs:
           '
     strategy:
       fail-fast: false
-  build-devShells-x86_64-linux:
+  devShells-x86_64-linux:
     name: DevShells x86_64-linux
     needs: []
     runs-on: ubuntu-latest
@@ -63,7 +63,7 @@ jobs:
           '
     strategy:
       fail-fast: false
-  build-home-manager-x86_64-darwin:
+  home-manager-x86_64-darwin:
     name: Home cfgs. x86_64-darwin
     needs: []
     runs-on: macos-latest
@@ -93,7 +93,7 @@ jobs:
           '
     strategy:
       fail-fast: false
-  build-home-manager-x86_64-linux:
+  home-manager-x86_64-linux:
     name: Home cfgs. x86_64-linux
     needs: []
     runs-on: ubuntu-latest
@@ -127,11 +127,11 @@ jobs:
           '
     strategy:
       fail-fast: false
-  build-installer-iso:
+  installer-iso:
     name: x86 Installer ISO
     needs:
-      - build-nixos-system-__base
-      - build-home-manager-x86_64-linux
+      - nixos-system-__base
+      - home-manager-x86_64-linux
     runs-on: ubuntu-latest
     steps:
       - uses: cachix/install-nix-action@v16
@@ -159,7 +159,7 @@ jobs:
           '
     strategy:
       fail-fast: false
-  build-nixos-system-__base:
+  nixos-system-__base:
     name: NixOS sys. __base
     needs: []
     runs-on: ubuntu-latest
@@ -189,10 +189,10 @@ jobs:
           '
     strategy:
       fail-fast: false
-  build-nixos-system-__basePC:
+  nixos-system-__basePC:
     name: NixOS sys. __basePC
     needs:
-      - build-nixos-system-__base
+      - nixos-system-__base
     runs-on: ubuntu-latest
     steps:
       - name: Remove unneccessary packages
@@ -234,11 +234,11 @@ jobs:
           '
     strategy:
       fail-fast: false
-  build-nixos-system-__baseServer:
+  nixos-system-__baseServer:
     name: NixOS sys. __baseServer
     needs:
-      - build-home-manager-x86_64-linux
-      - build-nixos-system-__base
+      - home-manager-x86_64-linux
+      - nixos-system-__base
     runs-on: ubuntu-latest
     steps:
       - uses: cachix/install-nix-action@v16
@@ -266,10 +266,10 @@ jobs:
           '
     strategy:
       fail-fast: false
-  build-nixos-system-banana:
+  nixos-system-banana:
     name: NixOS sys. banana
     needs:
-      - build-nixos-system-__basePC
+      - nixos-system-__basePC
     runs-on: ubuntu-latest
     steps:
       - uses: cachix/install-nix-action@v16
@@ -297,10 +297,10 @@ jobs:
           '
     strategy:
       fail-fast: false
-  build-nixos-system-bennett:
+  nixos-system-bennett:
     name: NixOS sys. bennett
     needs:
-      - build-nixos-system-__baseServer
+      - nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
       - uses: cachix/install-nix-action@v16
@@ -334,10 +334,10 @@ jobs:
           '
     strategy:
       fail-fast: false
-  build-nixos-system-chungus:
+  nixos-system-chungus:
     name: NixOS sys. chungus
     needs:
-      - build-nixos-system-__basePC
+      - nixos-system-__basePC
     runs-on: ubuntu-latest
     steps:
       - uses: cachix/install-nix-action@v16
@@ -365,10 +365,10 @@ jobs:
           '
     strategy:
       fail-fast: false
-  build-nixos-system-diluc:
+  nixos-system-diluc:
     name: NixOS sys. diluc
     needs:
-      - build-nixos-system-__baseServer
+      - nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
       - uses: cachix/install-nix-action@v16
@@ -402,10 +402,10 @@ jobs:
           '
     strategy:
       fail-fast: false
-  build-nixos-system-donkey:
+  nixos-system-donkey:
     name: NixOS sys. donkey
     needs:
-      - build-nixos-system-__baseServer
+      - nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
       - uses: cachix/install-nix-action@v16
@@ -433,10 +433,10 @@ jobs:
           '
     strategy:
       fail-fast: false
-  build-nixos-system-durin:
+  nixos-system-durin:
     name: NixOS sys. durin
     needs:
-      - build-nixos-system-__baseServer
+      - nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
       - uses: cachix/install-nix-action@v16
@@ -470,10 +470,10 @@ jobs:
           '
     strategy:
       fail-fast: false
-  build-nixos-system-gfdesk:
+  nixos-system-gfdesk:
     name: NixOS sys. gfdesk
     needs:
-      - build-nixos-system-__baseServer
+      - nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
       - uses: cachix/install-nix-action@v16
@@ -501,11 +501,11 @@ jobs:
           '
     strategy:
       fail-fast: false
-  build-nixos-system-shai-hulud:
+  nixos-system-shai-hulud:
     name: NixOS sys. shai-hulud
     needs:
-      - build-nixos-system-__basePC
-      - build-surface-kernel
+      - nixos-system-__basePC
+      - surface-kernel
     runs-on: ubuntu-latest
     steps:
       - uses: cachix/install-nix-action@v16
@@ -533,10 +533,10 @@ jobs:
           '
     strategy:
       fail-fast: false
-  build-nixos-system-thonkpad:
+  nixos-system-thonkpad:
     name: NixOS sys. thonkpad
     needs:
-      - build-nixos-system-__baseServer
+      - nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
       - uses: cachix/install-nix-action@v16
@@ -564,10 +564,10 @@ jobs:
           '
     strategy:
       fail-fast: false
-  build-nixos-system-yato:
+  nixos-system-yato:
     name: NixOS sys. yato
     needs:
-      - build-nixos-system-__baseServer
+      - nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
       - uses: cachix/install-nix-action@v16
@@ -601,7 +601,7 @@ jobs:
           '
     strategy:
       fail-fast: false
-  build-surface-kernel:
+  surface-kernel:
     name: Compile MS Surface kernel
     needs: []
     runs-on: ubuntu-latest

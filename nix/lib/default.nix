@@ -17,5 +17,4 @@ in rec {
       specialArgs = { inherit inputs; };
     };
 
-  makeGithubAction = import ./makeGithubAction.nix { inherit lib; };
-}
+} // (import ./github-actions.nix { inherit lib; })
