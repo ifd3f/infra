@@ -58,6 +58,9 @@ grafana                         IN CNAME       diluc.h.astrid.tech.
 
 ;;; Hosts
 diluc.h                         IN A           173.212.242.107
+                                IN AAAA        2a02:c207:2087:999::1
+bennett.h                       IN A           154.53.59.80
+                                IN AAAA        2605:a141:2108:6306::1
 oci.h                           IN A           152.67.253.45
 
 ;;; Sites
