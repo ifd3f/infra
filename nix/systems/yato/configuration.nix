@@ -10,5 +10,8 @@
 
   time.timeZone = "US/Pacific";
 
-  services.openssh.enable = true;
+  boot.loader = {
+    efi.canTouchEfiVariables = true;
+    systemd-boot.enable = true;
+  };
 }
