@@ -4,6 +4,9 @@ let
   ghexpr = v: "\${{ ${v} }}";
   jobname = node: "build-${node}";
 in { nodes, cachix, cronSchedule }: {
+  name = "Build and deploy";
+  run-name = "Build and deploy (${ghexpr "inputs.sha || github.sha"})";
+
   on = {
     schedule = [{ cron = cronSchedule; }];
     push = { };

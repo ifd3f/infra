@@ -153,6 +153,20 @@ jobs:
       - build-nixos-system-__base
     runs-on: ubuntu-latest
     steps:
+      - name: Remove unneccessary packages
+        run: 'echo "=== Before pruning ==="
+
+          df -h
+
+          sudo rm -rf /usr/share /usr/local /opt || true
+
+          echo
+
+          echo "=== After pruning ==="
+
+          df -h
+
+          '
       - uses: cachix/install-nix-action@v16
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
@@ -462,10 +476,24 @@ jobs:
     strategy:
       fail-fast: false
   build-surface-kernel:
-    name: Surface Kernel
+    name: Compile MS Surface kernel
     needs: []
     runs-on: ubuntu-latest
     steps:
+      - name: Remove unneccessary packages
+        run: 'echo "=== Before pruning ==="
+
+          df -h
+
+          sudo rm -rf /usr/share /usr/local /opt || true
+
+          echo
+
+          echo "=== After pruning ==="
+
+          df -h
+
+          '
       - uses: cachix/install-nix-action@v16
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
@@ -484,6 +512,7 @@ jobs:
         run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'nixosConfigurations.shai-hulud.config.boot.kernelPackages.kernel'
     strategy:
       fail-fast: false
+name: Build and deploy
 on:
   push: {}
   schedule:
@@ -494,3 +523,4 @@ on:
         required: true
         type: string
   workflow_dispatch: {}
+run-name: Build and deploy (${{ inputs.sha || github.sha }})
