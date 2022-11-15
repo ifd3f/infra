@@ -13,10 +13,11 @@ jobs:
     needs: []
     runs-on: macos-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.7.0
+      - if: ${{ github.ref == 'refs/heads/main' && !inputs.sha }}
+        uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - uses: cachix/install-nix-action@v16
+      - uses: cachix/install-nix-action@v18
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -24,7 +25,7 @@ jobs:
 
             '
           nix_path: nixpkgs=channel:nixos-unstable
-      - uses: cachix/cachix-action@v10
+      - uses: cachix/cachix-action@v12
         with:
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
           name: astralbijection
@@ -46,10 +47,11 @@ jobs:
     needs: []
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.7.0
+      - if: ${{ github.ref == 'refs/heads/main' && !inputs.sha }}
+        uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - uses: cachix/install-nix-action@v16
+      - uses: cachix/install-nix-action@v18
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -57,7 +59,7 @@ jobs:
 
             '
           nix_path: nixpkgs=channel:nixos-unstable
-      - uses: cachix/cachix-action@v10
+      - uses: cachix/cachix-action@v12
         with:
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
           name: astralbijection
@@ -79,10 +81,11 @@ jobs:
     needs: []
     runs-on: macos-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.7.0
+      - if: ${{ github.ref == 'refs/heads/main' && !inputs.sha }}
+        uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - uses: cachix/install-nix-action@v16
+      - uses: cachix/install-nix-action@v18
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -90,7 +93,7 @@ jobs:
 
             '
           nix_path: nixpkgs=channel:nixos-unstable
-      - uses: cachix/cachix-action@v10
+      - uses: cachix/cachix-action@v12
         with:
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
           name: astralbijection
@@ -112,10 +115,11 @@ jobs:
     needs: []
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.7.0
+      - if: ${{ github.ref == 'refs/heads/main' && !inputs.sha }}
+        uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - uses: cachix/install-nix-action@v16
+      - uses: cachix/install-nix-action@v18
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -123,7 +127,7 @@ jobs:
 
             '
           nix_path: nixpkgs=channel:nixos-unstable
-      - uses: cachix/cachix-action@v10
+      - uses: cachix/cachix-action@v12
         with:
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
           name: astralbijection
@@ -151,10 +155,11 @@ jobs:
       - home-manager-x86_64-linux
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.7.0
+      - if: ${{ github.ref == 'refs/heads/main' && !inputs.sha }}
+        uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - uses: cachix/install-nix-action@v16
+      - uses: cachix/install-nix-action@v18
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -162,7 +167,7 @@ jobs:
 
             '
           nix_path: nixpkgs=channel:nixos-unstable
-      - uses: cachix/cachix-action@v10
+      - uses: cachix/cachix-action@v12
         with:
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
           name: astralbijection
@@ -184,10 +189,11 @@ jobs:
     needs: []
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.7.0
+      - if: ${{ github.ref == 'refs/heads/main' && !inputs.sha }}
+        uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - uses: cachix/install-nix-action@v16
+      - uses: cachix/install-nix-action@v18
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -195,7 +201,7 @@ jobs:
 
             '
           nix_path: nixpkgs=channel:nixos-unstable
-      - uses: cachix/cachix-action@v10
+      - uses: cachix/cachix-action@v12
         with:
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
           name: astralbijection
@@ -232,10 +238,11 @@ jobs:
           df -h
 
           '
-      - uses: webfactory/ssh-agent@v0.7.0
+      - if: ${{ github.ref == 'refs/heads/main' && !inputs.sha }}
+        uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - uses: cachix/install-nix-action@v16
+      - uses: cachix/install-nix-action@v18
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -243,7 +250,7 @@ jobs:
 
             '
           nix_path: nixpkgs=channel:nixos-unstable
-      - uses: cachix/cachix-action@v10
+      - uses: cachix/cachix-action@v12
         with:
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
           name: astralbijection
@@ -267,10 +274,11 @@ jobs:
       - nixos-system-__base
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.7.0
+      - if: ${{ github.ref == 'refs/heads/main' && !inputs.sha }}
+        uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - uses: cachix/install-nix-action@v16
+      - uses: cachix/install-nix-action@v18
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -278,7 +286,7 @@ jobs:
 
             '
           nix_path: nixpkgs=channel:nixos-unstable
-      - uses: cachix/cachix-action@v10
+      - uses: cachix/cachix-action@v12
         with:
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
           name: astralbijection
@@ -301,10 +309,11 @@ jobs:
       - nixos-system-__basePC
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.7.0
+      - if: ${{ github.ref == 'refs/heads/main' && !inputs.sha }}
+        uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - uses: cachix/install-nix-action@v16
+      - uses: cachix/install-nix-action@v18
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -312,7 +321,7 @@ jobs:
 
             '
           nix_path: nixpkgs=channel:nixos-unstable
-      - uses: cachix/cachix-action@v10
+      - uses: cachix/cachix-action@v12
         with:
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
           name: astralbijection
@@ -335,10 +344,11 @@ jobs:
       - nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.7.0
+      - if: ${{ github.ref == 'refs/heads/main' && !inputs.sha }}
+        uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - uses: cachix/install-nix-action@v16
+      - uses: cachix/install-nix-action@v18
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -346,7 +356,7 @@ jobs:
 
             '
           nix_path: nixpkgs=channel:nixos-unstable
-      - uses: cachix/cachix-action@v10
+      - uses: cachix/cachix-action@v12
         with:
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
           name: astralbijection
@@ -357,7 +367,7 @@ jobs:
       - env:
           flake_attr: nixosConfigurations.bennett.config.astral.ci.deploy-package
           target_flake: ${{ env.target_flake }}
-        if: ${{ github.ref == 'refs/heads/main' }}
+        if: ${{ github.ref == 'refs/heads/main' && !inputs.sha }}
         name: Deploy with nixosConfigurations.bennett.config.astral.ci.deploy-package
         run: GC_DONT_GC=1 nix run --show-trace "$target_flake#$flake_attr"
       - if: ${{ always() }}
@@ -375,10 +385,11 @@ jobs:
       - nixos-system-__basePC
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.7.0
+      - if: ${{ github.ref == 'refs/heads/main' && !inputs.sha }}
+        uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - uses: cachix/install-nix-action@v16
+      - uses: cachix/install-nix-action@v18
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -386,7 +397,7 @@ jobs:
 
             '
           nix_path: nixpkgs=channel:nixos-unstable
-      - uses: cachix/cachix-action@v10
+      - uses: cachix/cachix-action@v12
         with:
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
           name: astralbijection
@@ -409,10 +420,11 @@ jobs:
       - nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.7.0
+      - if: ${{ github.ref == 'refs/heads/main' && !inputs.sha }}
+        uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - uses: cachix/install-nix-action@v16
+      - uses: cachix/install-nix-action@v18
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -420,7 +432,7 @@ jobs:
 
             '
           nix_path: nixpkgs=channel:nixos-unstable
-      - uses: cachix/cachix-action@v10
+      - uses: cachix/cachix-action@v12
         with:
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
           name: astralbijection
@@ -431,7 +443,7 @@ jobs:
       - env:
           flake_attr: nixosConfigurations.diluc.config.astral.ci.deploy-package
           target_flake: ${{ env.target_flake }}
-        if: ${{ github.ref == 'refs/heads/main' }}
+        if: ${{ github.ref == 'refs/heads/main' && !inputs.sha }}
         name: Deploy with nixosConfigurations.diluc.config.astral.ci.deploy-package
         run: GC_DONT_GC=1 nix run --show-trace "$target_flake#$flake_attr"
       - if: ${{ always() }}
@@ -449,10 +461,11 @@ jobs:
       - nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.7.0
+      - if: ${{ github.ref == 'refs/heads/main' && !inputs.sha }}
+        uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - uses: cachix/install-nix-action@v16
+      - uses: cachix/install-nix-action@v18
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -460,7 +473,7 @@ jobs:
 
             '
           nix_path: nixpkgs=channel:nixos-unstable
-      - uses: cachix/cachix-action@v10
+      - uses: cachix/cachix-action@v12
         with:
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
           name: astralbijection
@@ -483,10 +496,11 @@ jobs:
       - nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.7.0
+      - if: ${{ github.ref == 'refs/heads/main' && !inputs.sha }}
+        uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - uses: cachix/install-nix-action@v16
+      - uses: cachix/install-nix-action@v18
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -494,7 +508,7 @@ jobs:
 
             '
           nix_path: nixpkgs=channel:nixos-unstable
-      - uses: cachix/cachix-action@v10
+      - uses: cachix/cachix-action@v12
         with:
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
           name: astralbijection
@@ -505,7 +519,7 @@ jobs:
       - env:
           flake_attr: nixosConfigurations.durin.config.astral.ci.deploy-package
           target_flake: ${{ env.target_flake }}
-        if: ${{ github.ref == 'refs/heads/main' }}
+        if: ${{ github.ref == 'refs/heads/main' && !inputs.sha }}
         name: Deploy with nixosConfigurations.durin.config.astral.ci.deploy-package
         run: GC_DONT_GC=1 nix run --show-trace "$target_flake#$flake_attr"
       - if: ${{ always() }}
@@ -523,10 +537,11 @@ jobs:
       - nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.7.0
+      - if: ${{ github.ref == 'refs/heads/main' && !inputs.sha }}
+        uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - uses: cachix/install-nix-action@v16
+      - uses: cachix/install-nix-action@v18
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -534,7 +549,7 @@ jobs:
 
             '
           nix_path: nixpkgs=channel:nixos-unstable
-      - uses: cachix/cachix-action@v10
+      - uses: cachix/cachix-action@v12
         with:
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
           name: astralbijection
@@ -558,10 +573,11 @@ jobs:
       - surface-kernel
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.7.0
+      - if: ${{ github.ref == 'refs/heads/main' && !inputs.sha }}
+        uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - uses: cachix/install-nix-action@v16
+      - uses: cachix/install-nix-action@v18
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -569,7 +585,7 @@ jobs:
 
             '
           nix_path: nixpkgs=channel:nixos-unstable
-      - uses: cachix/cachix-action@v10
+      - uses: cachix/cachix-action@v12
         with:
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
           name: astralbijection
@@ -592,10 +608,11 @@ jobs:
       - nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.7.0
+      - if: ${{ github.ref == 'refs/heads/main' && !inputs.sha }}
+        uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - uses: cachix/install-nix-action@v16
+      - uses: cachix/install-nix-action@v18
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -603,7 +620,7 @@ jobs:
 
             '
           nix_path: nixpkgs=channel:nixos-unstable
-      - uses: cachix/cachix-action@v10
+      - uses: cachix/cachix-action@v12
         with:
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
           name: astralbijection
@@ -626,10 +643,11 @@ jobs:
       - nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.7.0
+      - if: ${{ github.ref == 'refs/heads/main' && !inputs.sha }}
+        uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - uses: cachix/install-nix-action@v16
+      - uses: cachix/install-nix-action@v18
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -637,7 +655,7 @@ jobs:
 
             '
           nix_path: nixpkgs=channel:nixos-unstable
-      - uses: cachix/cachix-action@v10
+      - uses: cachix/cachix-action@v12
         with:
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
           name: astralbijection
@@ -648,7 +666,7 @@ jobs:
       - env:
           flake_attr: nixosConfigurations.yato.config.astral.ci.deploy-package
           target_flake: ${{ env.target_flake }}
-        if: ${{ github.ref == 'refs/heads/main' }}
+        if: ${{ github.ref == 'refs/heads/main' && !inputs.sha }}
         name: Deploy with nixosConfigurations.yato.config.astral.ci.deploy-package
         run: GC_DONT_GC=1 nix run --show-trace "$target_flake#$flake_attr"
       - if: ${{ always() }}
@@ -679,10 +697,11 @@ jobs:
           df -h
 
           '
-      - uses: webfactory/ssh-agent@v0.7.0
+      - if: ${{ github.ref == 'refs/heads/main' && !inputs.sha }}
+        uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - uses: cachix/install-nix-action@v16
+      - uses: cachix/install-nix-action@v18
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -690,7 +709,7 @@ jobs:
 
             '
           nix_path: nixpkgs=channel:nixos-unstable
-      - uses: cachix/cachix-action@v10
+      - uses: cachix/cachix-action@v12
         with:
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
           name: astralbijection
