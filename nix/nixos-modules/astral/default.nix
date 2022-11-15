@@ -22,6 +22,7 @@
 
     ./cachix.nix
     ./infra-update.nix
+    ./ci.nix
 
     ./net
     (import ./users { inherit self; })

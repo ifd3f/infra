@@ -4,7 +4,6 @@ let
     with self.packages.${system};
     [
       ifd3f-infra-scripts
-      update-ci-runner
 
       ansible
       backblaze-b2

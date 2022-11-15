@@ -3,7 +3,7 @@
    my stuff, but provides additional helper options.
 */
 { lib, config, pkgs, ... }: {
-  options.astral.infra-update = with pkgs.lib; {
+  options.astral.infra-update = with lib; {
     enable = mkOption {
       description = "Enable to periodically update from the infra repo.";
       default = false;

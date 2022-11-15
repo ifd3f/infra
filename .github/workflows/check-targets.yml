@@ -2,8 +2,169 @@
 env:
   target_flake: github:${{ github.repository }}/${{ inputs.sha || github.sha }}
 jobs:
-  build-shai-hulud:
-    name: Build node shai-hulud
+  build-nixos-system-banana:
+    name: Build node nixos-system-banana
+    needs: []
+    runs-on: ubuntu-latest
+    steps:
+      - uses: cachix/install-nix-action@v16
+        with:
+          extra_nix_config: 'experimental-features = nix-command flakes
+
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+            '
+          nix_path: nixpkgs=channel:nixos-unstable
+      - uses: cachix/cachix-action@v10
+        with:
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          name: astralbijection
+      - env:
+          target_flake: ${{ env.target_flake }}
+        name: Build targets
+        run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'nixosConfigurations.banana.config.system.build.toplevel'
+    strategy:
+      fail-fast: false
+  build-nixos-system-bennett:
+    name: Build node nixos-system-bennett
+    needs: []
+    runs-on: ubuntu-latest
+    steps:
+      - uses: cachix/install-nix-action@v16
+        with:
+          extra_nix_config: 'experimental-features = nix-command flakes
+
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+            '
+          nix_path: nixpkgs=channel:nixos-unstable
+      - uses: cachix/cachix-action@v10
+        with:
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          name: astralbijection
+      - env:
+          target_flake: ${{ env.target_flake }}
+        name: Build targets
+        run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'nixosConfigurations.bennett.config.system.build.toplevel'
+    strategy:
+      fail-fast: false
+  build-nixos-system-chungus:
+    name: Build node nixos-system-chungus
+    needs: []
+    runs-on: ubuntu-latest
+    steps:
+      - uses: cachix/install-nix-action@v16
+        with:
+          extra_nix_config: 'experimental-features = nix-command flakes
+
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+            '
+          nix_path: nixpkgs=channel:nixos-unstable
+      - uses: cachix/cachix-action@v10
+        with:
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          name: astralbijection
+      - env:
+          target_flake: ${{ env.target_flake }}
+        name: Build targets
+        run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'nixosConfigurations.chungus.config.system.build.toplevel'
+    strategy:
+      fail-fast: false
+  build-nixos-system-diluc:
+    name: Build node nixos-system-diluc
+    needs: []
+    runs-on: ubuntu-latest
+    steps:
+      - uses: cachix/install-nix-action@v16
+        with:
+          extra_nix_config: 'experimental-features = nix-command flakes
+
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+            '
+          nix_path: nixpkgs=channel:nixos-unstable
+      - uses: cachix/cachix-action@v10
+        with:
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          name: astralbijection
+      - env:
+          target_flake: ${{ env.target_flake }}
+        name: Build targets
+        run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'nixosConfigurations.diluc.config.system.build.toplevel'
+    strategy:
+      fail-fast: false
+  build-nixos-system-donkey:
+    name: Build node nixos-system-donkey
+    needs: []
+    runs-on: ubuntu-latest
+    steps:
+      - uses: cachix/install-nix-action@v16
+        with:
+          extra_nix_config: 'experimental-features = nix-command flakes
+
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+            '
+          nix_path: nixpkgs=channel:nixos-unstable
+      - uses: cachix/cachix-action@v10
+        with:
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          name: astralbijection
+      - env:
+          target_flake: ${{ env.target_flake }}
+        name: Build targets
+        run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'nixosConfigurations.donkey.config.system.build.toplevel'
+    strategy:
+      fail-fast: false
+  build-nixos-system-durin:
+    name: Build node nixos-system-durin
+    needs: []
+    runs-on: ubuntu-latest
+    steps:
+      - uses: cachix/install-nix-action@v16
+        with:
+          extra_nix_config: 'experimental-features = nix-command flakes
+
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+            '
+          nix_path: nixpkgs=channel:nixos-unstable
+      - uses: cachix/cachix-action@v10
+        with:
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          name: astralbijection
+      - env:
+          target_flake: ${{ env.target_flake }}
+        name: Build targets
+        run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'nixosConfigurations.durin.config.system.build.toplevel'
+    strategy:
+      fail-fast: false
+  build-nixos-system-gfdesk:
+    name: Build node nixos-system-gfdesk
+    needs: []
+    runs-on: ubuntu-latest
+    steps:
+      - uses: cachix/install-nix-action@v16
+        with:
+          extra_nix_config: 'experimental-features = nix-command flakes
+
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+            '
+          nix_path: nixpkgs=channel:nixos-unstable
+      - uses: cachix/cachix-action@v10
+        with:
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          name: astralbijection
+      - env:
+          target_flake: ${{ env.target_flake }}
+        name: Build targets
+        run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'nixosConfigurations.gfdesk.config.system.build.toplevel'
+    strategy:
+      fail-fast: false
+  build-nixos-system-shai-hulud:
+    name: Build node nixos-system-shai-hulud
     needs:
       - build-surface-kernel
     runs-on: ubuntu-latest
@@ -24,6 +185,52 @@ jobs:
           target_flake: ${{ env.target_flake }}
         name: Build targets
         run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'nixosConfigurations.shai-hulud.config.system.build.toplevel'
+    strategy:
+      fail-fast: false
+  build-nixos-system-thonkpad:
+    name: Build node nixos-system-thonkpad
+    needs: []
+    runs-on: ubuntu-latest
+    steps:
+      - uses: cachix/install-nix-action@v16
+        with:
+          extra_nix_config: 'experimental-features = nix-command flakes
+
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+            '
+          nix_path: nixpkgs=channel:nixos-unstable
+      - uses: cachix/cachix-action@v10
+        with:
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          name: astralbijection
+      - env:
+          target_flake: ${{ env.target_flake }}
+        name: Build targets
+        run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'nixosConfigurations.thonkpad.config.system.build.toplevel'
+    strategy:
+      fail-fast: false
+  build-nixos-system-yato:
+    name: Build node nixos-system-yato
+    needs: []
+    runs-on: ubuntu-latest
+    steps:
+      - uses: cachix/install-nix-action@v16
+        with:
+          extra_nix_config: 'experimental-features = nix-command flakes
+
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+            '
+          nix_path: nixpkgs=channel:nixos-unstable
+      - uses: cachix/cachix-action@v10
+        with:
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          name: astralbijection
+      - env:
+          target_flake: ${{ env.target_flake }}
+        name: Build targets
+        run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'nixosConfigurations.yato.config.system.build.toplevel'
     strategy:
       fail-fast: false
   build-surface-kernel:

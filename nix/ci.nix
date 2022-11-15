@@ -5,18 +5,21 @@ with lib; {
   cachix = "astralbijection";
 
   nodes = let
-    nixosSystemNodes = mapAttrsToList (hostname: _:
-      "nixosConfigurations.${hostname}.config.boot.kernelPackages.kernel")
-      self.nixosConfigurations;
+    # Generate a node for each x86_64-linux NixOS system.
+    x86SystemNodes = mapAttrs' (hostname: system: {
+      name = "nixos-system-${hostname}";
+      value = {
+        build =
+          "nixosConfigurations.${hostname}.config.system.build.toplevel";
+        needs = system.config.astral.ci.needs;
+      };
+    }) (filterAttrs (_: config: config.pkgs.system == "x86_64-linux")
+      self.nixosConfigurations);
+
   in {
     "surface-kernel" = {
       build =
         "nixosConfigurations.shai-hulud.config.boot.kernelPackages.kernel";
     };
-
-    "shai-hulud" = {
-      needs = [ "surface-kernel" ];
-      build = "nixosConfigurations.shai-hulud.config.system.build.toplevel";
-    };
-  };
+  } // x86SystemNodes;
 }
