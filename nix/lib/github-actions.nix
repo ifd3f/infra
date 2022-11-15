@@ -50,8 +50,8 @@ with lib; rec {
     key:
     { name ? key, system, needs ? [ ], prune-runner ? false, build ? [ ]
     , run ? null, deploy ? null, extraPreBuildSteps ? [ ] }:
-    if build == [ ] && run == null then
-      abort (toString "${key} did not specify a run or a build")
+    if build == [ ] && run == null && deploy == null then
+      abort (toString "${key} did not specify a run, build, or deploy")
     else {
       inherit name;
       strategy.fail-fast = false;
@@ -127,7 +127,9 @@ with lib; rec {
           name = "Deploy with ${deploy}";
           run =
             ''GC_DONT_GC=1 nix run --show-trace "$target_flake#$flake_attr"'';
-          "if" = ghexpr "github.ref == 'refs/heads/main' || inputs.deploy";
+          "if" = ghexpr
+            ("(github.event_name == 'workflow_call' && inputs.deploy) || "
+              + "(github.event_name != 'workflow_call' && github.ref == 'refs/heads/main')");
           env = {
             flake_attr = deploy;
             target_flake = ghexpr "env.target_flake";
