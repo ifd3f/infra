@@ -87,11 +87,18 @@ in { nodes, cachix, cronSchedule }: {
       }) ++ (optional (deploy != null) {
         name = "Deploy with ${deploy}";
         run = ''GC_DONT_GC=1 nix run --show-trace "$target_flake#$flake_attr"'';
-        "if" = "github.ref == 'refs/heads/main'";
+        "if" = ghexpr "github.ref == 'refs/heads/main'";
         env = {
           flake_attr = deploy;
           target_flake = ghexpr "env.target_flake";
         };
-      });
+      }) ++ [{
+        name = "Log remaining space";
+        "if" = ghexpr "always()";
+        run = ''
+          echo "=== Space left after build ==="
+          df -h
+        '';
+      }];
     })) nodes;
 }

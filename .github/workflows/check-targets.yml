@@ -24,6 +24,13 @@ jobs:
           target_flake: ${{ env.target_flake }}
         name: Build targets
         run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'devShells.x86_64-darwin.default'
+      - if: ${{ always() }}
+        name: Log remaining space
+        run: 'echo "=== Space left after build ==="
+
+          df -h
+
+          '
     strategy:
       fail-fast: false
   build-devShells-x86_64-linux:
@@ -47,6 +54,13 @@ jobs:
           target_flake: ${{ env.target_flake }}
         name: Build targets
         run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'devShells.x86_64-linux.default'
+      - if: ${{ always() }}
+        name: Log remaining space
+        run: 'echo "=== Space left after build ==="
+
+          df -h
+
+          '
     strategy:
       fail-fast: false
   build-home-manager-x86_64-darwin:
@@ -70,6 +84,13 @@ jobs:
           target_flake: ${{ env.target_flake }}
         name: Build targets
         run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'homeConfigurations.astrid@soulcaster.activationPackage'
+      - if: ${{ always() }}
+        name: Log remaining space
+        run: 'echo "=== Space left after build ==="
+
+          df -h
+
+          '
     strategy:
       fail-fast: false
   build-home-manager-x86_64-linux:
@@ -97,6 +118,13 @@ jobs:
           "$target_flake#"'homeConfigurations.astrid@banana.activationPackage' "$target_flake#"'homeConfigurations.astrid@chungus.activationPackage'
           "$target_flake#"'homeConfigurations.astrid@shai-hulud.activationPackage'
           "$target_flake#"'homeConfigurations.default.activationPackage'
+      - if: ${{ always() }}
+        name: Log remaining space
+        run: 'echo "=== Space left after build ==="
+
+          df -h
+
+          '
     strategy:
       fail-fast: false
   build-installer-iso:
@@ -122,6 +150,13 @@ jobs:
           target_flake: ${{ env.target_flake }}
         name: Build targets
         run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'packages.x86_64-linux.installer-iso'
+      - if: ${{ always() }}
+        name: Log remaining space
+        run: 'echo "=== Space left after build ==="
+
+          df -h
+
+          '
     strategy:
       fail-fast: false
   build-nixos-system-__base:
@@ -145,6 +180,13 @@ jobs:
           target_flake: ${{ env.target_flake }}
         name: Build targets
         run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'nixosConfigurations.__base.config.system.build.toplevel'
+      - if: ${{ always() }}
+        name: Log remaining space
+        run: 'echo "=== Space left after build ==="
+
+          df -h
+
+          '
     strategy:
       fail-fast: false
   build-nixos-system-__basePC:
@@ -183,6 +225,13 @@ jobs:
           target_flake: ${{ env.target_flake }}
         name: Build targets
         run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'nixosConfigurations.__basePC.config.system.build.toplevel'
+      - if: ${{ always() }}
+        name: Log remaining space
+        run: 'echo "=== Space left after build ==="
+
+          df -h
+
+          '
     strategy:
       fail-fast: false
   build-nixos-system-__baseServer:
@@ -208,6 +257,13 @@ jobs:
           target_flake: ${{ env.target_flake }}
         name: Build targets
         run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'nixosConfigurations.__baseServer.config.system.build.toplevel'
+      - if: ${{ always() }}
+        name: Log remaining space
+        run: 'echo "=== Space left after build ==="
+
+          df -h
+
+          '
     strategy:
       fail-fast: false
   build-nixos-system-banana:
@@ -232,6 +288,13 @@ jobs:
           target_flake: ${{ env.target_flake }}
         name: Build targets
         run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'nixosConfigurations.banana.config.system.build.toplevel'
+      - if: ${{ always() }}
+        name: Log remaining space
+        run: 'echo "=== Space left after build ==="
+
+          df -h
+
+          '
     strategy:
       fail-fast: false
   build-nixos-system-bennett:
@@ -259,9 +322,16 @@ jobs:
       - env:
           flake_attr: nixosConfigurations.bennett.config.astral.ci.deploy-package
           target_flake: ${{ env.target_flake }}
-        if: github.ref == 'refs/heads/main'
+        if: ${{ github.ref == 'refs/heads/main' }}
         name: Deploy with nixosConfigurations.bennett.config.astral.ci.deploy-package
         run: GC_DONT_GC=1 nix run --show-trace "$target_flake#$flake_attr"
+      - if: ${{ always() }}
+        name: Log remaining space
+        run: 'echo "=== Space left after build ==="
+
+          df -h
+
+          '
     strategy:
       fail-fast: false
   build-nixos-system-chungus:
@@ -286,6 +356,13 @@ jobs:
           target_flake: ${{ env.target_flake }}
         name: Build targets
         run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'nixosConfigurations.chungus.config.system.build.toplevel'
+      - if: ${{ always() }}
+        name: Log remaining space
+        run: 'echo "=== Space left after build ==="
+
+          df -h
+
+          '
     strategy:
       fail-fast: false
   build-nixos-system-diluc:
@@ -313,9 +390,16 @@ jobs:
       - env:
           flake_attr: nixosConfigurations.diluc.config.astral.ci.deploy-package
           target_flake: ${{ env.target_flake }}
-        if: github.ref == 'refs/heads/main'
+        if: ${{ github.ref == 'refs/heads/main' }}
         name: Deploy with nixosConfigurations.diluc.config.astral.ci.deploy-package
         run: GC_DONT_GC=1 nix run --show-trace "$target_flake#$flake_attr"
+      - if: ${{ always() }}
+        name: Log remaining space
+        run: 'echo "=== Space left after build ==="
+
+          df -h
+
+          '
     strategy:
       fail-fast: false
   build-nixos-system-donkey:
@@ -340,6 +424,13 @@ jobs:
           target_flake: ${{ env.target_flake }}
         name: Build targets
         run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'nixosConfigurations.donkey.config.system.build.toplevel'
+      - if: ${{ always() }}
+        name: Log remaining space
+        run: 'echo "=== Space left after build ==="
+
+          df -h
+
+          '
     strategy:
       fail-fast: false
   build-nixos-system-durin:
@@ -367,9 +458,16 @@ jobs:
       - env:
           flake_attr: nixosConfigurations.durin.config.astral.ci.deploy-package
           target_flake: ${{ env.target_flake }}
-        if: github.ref == 'refs/heads/main'
+        if: ${{ github.ref == 'refs/heads/main' }}
         name: Deploy with nixosConfigurations.durin.config.astral.ci.deploy-package
         run: GC_DONT_GC=1 nix run --show-trace "$target_flake#$flake_attr"
+      - if: ${{ always() }}
+        name: Log remaining space
+        run: 'echo "=== Space left after build ==="
+
+          df -h
+
+          '
     strategy:
       fail-fast: false
   build-nixos-system-gfdesk:
@@ -394,6 +492,13 @@ jobs:
           target_flake: ${{ env.target_flake }}
         name: Build targets
         run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'nixosConfigurations.gfdesk.config.system.build.toplevel'
+      - if: ${{ always() }}
+        name: Log remaining space
+        run: 'echo "=== Space left after build ==="
+
+          df -h
+
+          '
     strategy:
       fail-fast: false
   build-nixos-system-shai-hulud:
@@ -419,6 +524,13 @@ jobs:
           target_flake: ${{ env.target_flake }}
         name: Build targets
         run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'nixosConfigurations.shai-hulud.config.system.build.toplevel'
+      - if: ${{ always() }}
+        name: Log remaining space
+        run: 'echo "=== Space left after build ==="
+
+          df -h
+
+          '
     strategy:
       fail-fast: false
   build-nixos-system-thonkpad:
@@ -443,6 +555,13 @@ jobs:
           target_flake: ${{ env.target_flake }}
         name: Build targets
         run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'nixosConfigurations.thonkpad.config.system.build.toplevel'
+      - if: ${{ always() }}
+        name: Log remaining space
+        run: 'echo "=== Space left after build ==="
+
+          df -h
+
+          '
     strategy:
       fail-fast: false
   build-nixos-system-yato:
@@ -470,9 +589,16 @@ jobs:
       - env:
           flake_attr: nixosConfigurations.yato.config.astral.ci.deploy-package
           target_flake: ${{ env.target_flake }}
-        if: github.ref == 'refs/heads/main'
+        if: ${{ github.ref == 'refs/heads/main' }}
         name: Deploy with nixosConfigurations.yato.config.astral.ci.deploy-package
         run: GC_DONT_GC=1 nix run --show-trace "$target_flake#$flake_attr"
+      - if: ${{ always() }}
+        name: Log remaining space
+        run: 'echo "=== Space left after build ==="
+
+          df -h
+
+          '
     strategy:
       fail-fast: false
   build-surface-kernel:
@@ -510,6 +636,13 @@ jobs:
           target_flake: ${{ env.target_flake }}
         name: Build targets
         run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'nixosConfigurations.shai-hulud.config.boot.kernelPackages.kernel'
+      - if: ${{ always() }}
+        name: Log remaining space
+        run: 'echo "=== Space left after build ==="
+
+          df -h
+
+          '
     strategy:
       fail-fast: false
 name: Build and deploy
