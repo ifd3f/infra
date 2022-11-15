@@ -68,10 +68,11 @@ with lib; rec {
         setupSteps = [
           {
             "uses" = "webfactory/ssh-agent@v0.7.0";
+            "if" = ghexpr "github.ref == 'refs/heads/main' && !inputs.sha";
             "with".ssh-private-key = ghexpr "secrets.SSH_PRIVATE_KEY";
           }
           {
-            "uses" = "cachix/install-nix-action@v16";
+            "uses" = "cachix/install-nix-action@v18";
             "with" = {
               nix_path = "nixpkgs=channel:nixos-unstable";
               extra_nix_config = ''
@@ -81,7 +82,7 @@ with lib; rec {
             };
           }
           {
-            "uses" = "cachix/cachix-action@v10";
+            "uses" = "cachix/cachix-action@v12";
             "with" = {
               name = cachix;
               authToken = ghexpr "secrets.CACHIX_AUTH_TOKEN";
@@ -114,7 +115,7 @@ with lib; rec {
           name = "Deploy with ${deploy}";
           run =
             ''GC_DONT_GC=1 nix run --show-trace "$target_flake#$flake_attr"'';
-          "if" = ghexpr "github.ref == 'refs/heads/main'";
+          "if" = ghexpr "github.ref == 'refs/heads/main' && !inputs.sha";
           env = {
             flake_attr = deploy;
             target_flake = ghexpr "env.target_flake";
