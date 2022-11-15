@@ -12,4 +12,7 @@
 
       specialArgs = { inherit inputs; };
     };
+
+  makeGithubAction =
+    import ./makeGithubAction.nix { inherit (inputs.nixpkgs-unstable) lib; };
 }
