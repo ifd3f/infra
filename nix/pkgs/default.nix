@@ -5,12 +5,7 @@ let
   build-support = import ./build-support { inherit nixos-generators pkgs; };
 in vendored-images // {
 
-  ci-action-runner = pkgs.callPackage ./ci-action-runner { inherit self; };
-  update-ci-runner = pkgs.writeScriptBin "update-ci-runner" ''
-    cp ${
-      self.packages.${pkgs.system}.ci-action-runner
-    } .github/workflows/check-targets.yml
-  '';
+  update-ci-workflow = pkgs.callPackage ./update-ci-workflow { inherit self; };
 
   ci-import-and-tag-docker = pkgs.callPackage ./ci-import-and-tag-docker { };
   installer-iso = pkgs.callPackage ./images/installer-iso { inherit self; };

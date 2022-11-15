@@ -2,7 +2,7 @@
 with lib; rec {
   ghexpr = v: "\${{ ${v} }}";
 
-  makeGithubAction = { nodes, cachix, cronSchedule }: {
+  makeGithubWorkflow = { nodes, cachix, cronSchedule }: {
     name = "Build and deploy";
     run-name = "Build and deploy (${ghexpr "inputs.sha || github.sha"})";
 
@@ -65,7 +65,11 @@ with lib; rec {
           '';
         };
 
-        nixSteps = [
+        setupSteps = [
+          {
+            "uses" = "webfactory/ssh-agent@v0.7.0";
+            "with".ssh-private-key = ghexpr "secrets.SSH_PRIVATE_KEY";
+          }
           {
             "uses" = "cachix/install-nix-action@v16";
             "with" = {
@@ -127,7 +131,7 @@ with lib; rec {
         };
       in flatten [
         (optional prune-runner pruneStep)
-        nixSteps
+        setupSteps
         extraPreBuildSteps
         (optional (build != [ ]) buildStep)
         (optional (run != null) runStep)
