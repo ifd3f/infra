@@ -68,6 +68,7 @@ with lib; rec {
         setupSteps = [
           {
             "uses" = "webfactory/ssh-agent@v0.7.0";
+            "if" = ghexpr "github.ref == 'refs/heads/main'";
             "with".ssh-private-key = ghexpr "secrets.SSH_PRIVATE_KEY";
           }
           {
