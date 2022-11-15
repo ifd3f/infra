@@ -7,7 +7,7 @@
 
     # home-manager is embedded in server systems
     ci.needs =
-      lib.mkForce [ "home-manager_x86_64-linux" "nixos-system-__base" ];
+      lib.mkForce [ "home-manager-x86_64-linux" "nixos-system-__base" ];
   };
 
   boot.initrd.availableKernelModules =

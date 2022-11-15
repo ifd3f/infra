@@ -11,7 +11,10 @@ stdenvNoCC.mkDerivation {
   phases = [ "installPhase" ];
 
   installPhase = ''
-    echo "# THIS IS AN AUTO-GENERATED FILE. You should edit /nix/ci.nix instead." >> "$out"
-    yq -y -r --yml-out-ver 1.2 '.' "$json" >> "$out"
+    (
+      echo "# THIS IS AN AUTO-GENERATED FILE. You should edit /nix/ci.nix instead."
+      echo
+      yq -y -r --yml-out-ver 1.2 '.' "$json" 
+    ) > "$out"
   '';
 }

@@ -1,8 +1,55 @@
 # THIS IS AN AUTO-GENERATED FILE. You should edit /nix/ci.nix instead.
+
 env:
   target_flake: github:${{ github.repository }}/${{ inputs.sha || github.sha }}
 jobs:
-  build-home-manager_x86_64-darwin:
+  build-devShells-x86_64-darwin:
+    name: DevShells x86_64-darwin
+    needs: []
+    runs-on: macos-latest
+    steps:
+      - uses: cachix/install-nix-action@v16
+        with:
+          extra_nix_config: 'experimental-features = nix-command flakes
+
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+            '
+          nix_path: nixpkgs=channel:nixos-unstable
+      - uses: cachix/cachix-action@v10
+        with:
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          name: astralbijection
+      - env:
+          target_flake: ${{ env.target_flake }}
+        name: Build targets
+        run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'devShells.x86_64-darwin.default'
+    strategy:
+      fail-fast: false
+  build-devShells-x86_64-linux:
+    name: DevShells x86_64-linux
+    needs: []
+    runs-on: ubuntu-latest
+    steps:
+      - uses: cachix/install-nix-action@v16
+        with:
+          extra_nix_config: 'experimental-features = nix-command flakes
+
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+            '
+          nix_path: nixpkgs=channel:nixos-unstable
+      - uses: cachix/cachix-action@v10
+        with:
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          name: astralbijection
+      - env:
+          target_flake: ${{ env.target_flake }}
+        name: Build targets
+        run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'devShells.x86_64-linux.default'
+    strategy:
+      fail-fast: false
+  build-home-manager-x86_64-darwin:
     name: Home cfgs. x86_64-darwin
     needs: []
     runs-on: macos-latest
@@ -25,7 +72,7 @@ jobs:
         run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'homeConfigurations.astrid@soulcaster.activationPackage'
     strategy:
       fail-fast: false
-  build-home-manager_x86_64-linux:
+  build-home-manager-x86_64-linux:
     name: Home cfgs. x86_64-linux
     needs: []
     runs-on: ubuntu-latest
@@ -50,6 +97,31 @@ jobs:
           "$target_flake#"'homeConfigurations.astrid@banana.activationPackage' "$target_flake#"'homeConfigurations.astrid@chungus.activationPackage'
           "$target_flake#"'homeConfigurations.astrid@shai-hulud.activationPackage'
           "$target_flake#"'homeConfigurations.default.activationPackage'
+    strategy:
+      fail-fast: false
+  build-installer-iso:
+    name: x86 Installer ISO
+    needs:
+      - build-nixos-system-__base
+      - build-home-manager-x86_64-linux
+    runs-on: ubuntu-latest
+    steps:
+      - uses: cachix/install-nix-action@v16
+        with:
+          extra_nix_config: 'experimental-features = nix-command flakes
+
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+            '
+          nix_path: nixpkgs=channel:nixos-unstable
+      - uses: cachix/cachix-action@v10
+        with:
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          name: astralbijection
+      - env:
+          target_flake: ${{ env.target_flake }}
+        name: Build targets
+        run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'packages.x86_64-linux.installer-iso'
     strategy:
       fail-fast: false
   build-nixos-system-__base:
@@ -102,7 +174,7 @@ jobs:
   build-nixos-system-__baseServer:
     name: NixOS sys. __baseServer
     needs:
-      - build-home-manager_x86_64-linux
+      - build-home-manager-x86_64-linux
       - build-nixos-system-__base
     runs-on: ubuntu-latest
     steps:

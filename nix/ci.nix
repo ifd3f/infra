@@ -28,15 +28,32 @@ with lib; {
         (filterAttrs (_: home: home.pkgs.system == system)
           self.homeConfigurations);
     };
-  in {
-    "home-manager_x86_64-linux" = homeManagerNodeForSystem "x86_64-linux";
-    "home-manager_x86_64-darwin" = homeManagerNodeForSystem "x86_64-darwin";
 
-    "surface-kernel" = {
+    devShellNodeForSystem = system: {
+      inherit system;
+
+      name = "DevShells ${system}";
+      build = mapAttrsToList (key: _: "devShells.${system}.${key}")
+        self.devShells.${system};
+    };
+  in {
+    installer-iso = {
+      name = "x86 Installer ISO";
+      system = "x86_64-linux";
+      build = "packages.x86_64-linux.installer-iso";
+
+      needs = [ "nixos-system-__base" "home-manager-x86_64-linux" ];
+    };
+
+    surface-kernel = {
       name = "Surface Kernel";
       system = "x86_64-linux";
       build =
         "nixosConfigurations.shai-hulud.config.boot.kernelPackages.kernel";
     };
-  } // (nixosNodesForSystem "x86_64-linux");
+  } // (foldAttrs mergeAttrs { } (builtins.map (system: {
+    "devShells-${system}" = devShellNodeForSystem system;
+    "home-manager-${system}" = homeManagerNodeForSystem system;
+  }) [ "x86_64-linux" "x86_64-darwin" ]))
+  // (nixosNodesForSystem "x86_64-linux");
 }
