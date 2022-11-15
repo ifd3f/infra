@@ -59,8 +59,8 @@ grafana                         IN CNAME       diluc.h.astrid.tech.
 ;;; Hosts
 
 ; Oracle cloud
-12f.h                           IN A           192.9.229.132
-durin.h                         IN A           192.9.128.212
+durin.h                         IN A           192.9.241.223
+yato.h                          IN A           192.9.153.114
 
 ; Contabo
 diluc.h                         IN A           173.212.242.107
