@@ -63,6 +63,8 @@ with lib; {
     services.gvfs.enable = true;
 
     astral = {
+      ci.needs = [ "nixos-system-__basePC" ];
+
       custom-tty.enable = true;
       program-sets = {
         browsers = true;

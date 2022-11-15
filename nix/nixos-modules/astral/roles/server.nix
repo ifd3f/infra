@@ -17,6 +17,8 @@
         github.enable = true;
         terraform.enable = true;
       };
+
+      ci.needs = [ "nixos-system-__baseServer" ];
     };
 
     # Enable SSH in initrd for debugging
@@ -31,6 +33,7 @@
       useGlobalPkgs = true;
       useUserPackages = true;
 
+      # embed the home-manager into the configuration
       users.astrid = homeModules.astral-cli;
     };
 

@@ -1,172 +1,716 @@
-name: Build and check all targets
+# THIS IS AN AUTO-GENERATED FILE. You should edit /nix/ci.nix instead.
 
+env:
+  target_flake: github:${{ github.repository }}/${{ inputs.sha || github.sha }}
+jobs:
+  devShells-x86_64-darwin:
+    name: DevShells x86_64-darwin
+    needs: []
+    runs-on: macos-latest
+    steps:
+      - uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - uses: cachix/install-nix-action@v16
+        with:
+          extra_nix_config: 'experimental-features = nix-command flakes
+
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+            '
+          nix_path: nixpkgs=channel:nixos-unstable
+      - uses: cachix/cachix-action@v10
+        with:
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          name: astralbijection
+      - env:
+          target_flake: ${{ env.target_flake }}
+        name: Build targets
+        run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'devShells.x86_64-darwin.default'
+      - if: ${{ always() }}
+        name: Log remaining space
+        run: 'echo "=== Space left after build ==="
+
+          df -h
+
+          '
+    strategy:
+      fail-fast: false
+  devShells-x86_64-linux:
+    name: DevShells x86_64-linux
+    needs: []
+    runs-on: ubuntu-latest
+    steps:
+      - uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - uses: cachix/install-nix-action@v16
+        with:
+          extra_nix_config: 'experimental-features = nix-command flakes
+
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+            '
+          nix_path: nixpkgs=channel:nixos-unstable
+      - uses: cachix/cachix-action@v10
+        with:
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          name: astralbijection
+      - env:
+          target_flake: ${{ env.target_flake }}
+        name: Build targets
+        run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'devShells.x86_64-linux.default'
+      - if: ${{ always() }}
+        name: Log remaining space
+        run: 'echo "=== Space left after build ==="
+
+          df -h
+
+          '
+    strategy:
+      fail-fast: false
+  home-manager-x86_64-darwin:
+    name: Home cfgs. x86_64-darwin
+    needs: []
+    runs-on: macos-latest
+    steps:
+      - uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - uses: cachix/install-nix-action@v16
+        with:
+          extra_nix_config: 'experimental-features = nix-command flakes
+
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+            '
+          nix_path: nixpkgs=channel:nixos-unstable
+      - uses: cachix/cachix-action@v10
+        with:
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          name: astralbijection
+      - env:
+          target_flake: ${{ env.target_flake }}
+        name: Build targets
+        run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'homeConfigurations.astrid@soulcaster.activationPackage'
+      - if: ${{ always() }}
+        name: Log remaining space
+        run: 'echo "=== Space left after build ==="
+
+          df -h
+
+          '
+    strategy:
+      fail-fast: false
+  home-manager-x86_64-linux:
+    name: Home cfgs. x86_64-linux
+    needs: []
+    runs-on: ubuntu-latest
+    steps:
+      - uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - uses: cachix/install-nix-action@v16
+        with:
+          extra_nix_config: 'experimental-features = nix-command flakes
+
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+            '
+          nix_path: nixpkgs=channel:nixos-unstable
+      - uses: cachix/cachix-action@v10
+        with:
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          name: astralbijection
+      - env:
+          target_flake: ${{ env.target_flake }}
+        name: Build targets
+        run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'homeConfigurations.astrid@Discovery.activationPackage'
+          "$target_flake#"'homeConfigurations.astrid@aliaconda.activationPackage'
+          "$target_flake#"'homeConfigurations.astrid@banana.activationPackage' "$target_flake#"'homeConfigurations.astrid@chungus.activationPackage'
+          "$target_flake#"'homeConfigurations.astrid@shai-hulud.activationPackage'
+          "$target_flake#"'homeConfigurations.default.activationPackage'
+      - if: ${{ always() }}
+        name: Log remaining space
+        run: 'echo "=== Space left after build ==="
+
+          df -h
+
+          '
+    strategy:
+      fail-fast: false
+  installer-iso:
+    name: x86 Installer ISO
+    needs:
+      - nixos-system-__base
+      - home-manager-x86_64-linux
+    runs-on: ubuntu-latest
+    steps:
+      - uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - uses: cachix/install-nix-action@v16
+        with:
+          extra_nix_config: 'experimental-features = nix-command flakes
+
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+            '
+          nix_path: nixpkgs=channel:nixos-unstable
+      - uses: cachix/cachix-action@v10
+        with:
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          name: astralbijection
+      - env:
+          target_flake: ${{ env.target_flake }}
+        name: Build targets
+        run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'packages.x86_64-linux.installer-iso'
+      - if: ${{ always() }}
+        name: Log remaining space
+        run: 'echo "=== Space left after build ==="
+
+          df -h
+
+          '
+    strategy:
+      fail-fast: false
+  nixos-system-__base:
+    name: NixOS sys. __base
+    needs: []
+    runs-on: ubuntu-latest
+    steps:
+      - uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - uses: cachix/install-nix-action@v16
+        with:
+          extra_nix_config: 'experimental-features = nix-command flakes
+
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+            '
+          nix_path: nixpkgs=channel:nixos-unstable
+      - uses: cachix/cachix-action@v10
+        with:
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          name: astralbijection
+      - env:
+          target_flake: ${{ env.target_flake }}
+        name: Build targets
+        run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'nixosConfigurations.__base.config.system.build.toplevel'
+      - if: ${{ always() }}
+        name: Log remaining space
+        run: 'echo "=== Space left after build ==="
+
+          df -h
+
+          '
+    strategy:
+      fail-fast: false
+  nixos-system-__basePC:
+    name: NixOS sys. __basePC
+    needs:
+      - nixos-system-__base
+    runs-on: ubuntu-latest
+    steps:
+      - name: Remove unneccessary packages
+        run: 'echo "=== Before pruning ==="
+
+          df -h
+
+          sudo rm -rf /usr/share /usr/local /opt || true
+
+          echo
+
+          echo "=== After pruning ==="
+
+          df -h
+
+          '
+      - uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - uses: cachix/install-nix-action@v16
+        with:
+          extra_nix_config: 'experimental-features = nix-command flakes
+
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+            '
+          nix_path: nixpkgs=channel:nixos-unstable
+      - uses: cachix/cachix-action@v10
+        with:
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          name: astralbijection
+      - env:
+          target_flake: ${{ env.target_flake }}
+        name: Build targets
+        run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'nixosConfigurations.__basePC.config.system.build.toplevel'
+      - if: ${{ always() }}
+        name: Log remaining space
+        run: 'echo "=== Space left after build ==="
+
+          df -h
+
+          '
+    strategy:
+      fail-fast: false
+  nixos-system-__baseServer:
+    name: NixOS sys. __baseServer
+    needs:
+      - home-manager-x86_64-linux
+      - nixos-system-__base
+    runs-on: ubuntu-latest
+    steps:
+      - uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - uses: cachix/install-nix-action@v16
+        with:
+          extra_nix_config: 'experimental-features = nix-command flakes
+
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+            '
+          nix_path: nixpkgs=channel:nixos-unstable
+      - uses: cachix/cachix-action@v10
+        with:
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          name: astralbijection
+      - env:
+          target_flake: ${{ env.target_flake }}
+        name: Build targets
+        run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'nixosConfigurations.__baseServer.config.system.build.toplevel'
+      - if: ${{ always() }}
+        name: Log remaining space
+        run: 'echo "=== Space left after build ==="
+
+          df -h
+
+          '
+    strategy:
+      fail-fast: false
+  nixos-system-banana:
+    name: NixOS sys. banana
+    needs:
+      - nixos-system-__basePC
+    runs-on: ubuntu-latest
+    steps:
+      - uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - uses: cachix/install-nix-action@v16
+        with:
+          extra_nix_config: 'experimental-features = nix-command flakes
+
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+            '
+          nix_path: nixpkgs=channel:nixos-unstable
+      - uses: cachix/cachix-action@v10
+        with:
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          name: astralbijection
+      - env:
+          target_flake: ${{ env.target_flake }}
+        name: Build targets
+        run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'nixosConfigurations.banana.config.system.build.toplevel'
+      - if: ${{ always() }}
+        name: Log remaining space
+        run: 'echo "=== Space left after build ==="
+
+          df -h
+
+          '
+    strategy:
+      fail-fast: false
+  nixos-system-bennett:
+    name: NixOS sys. bennett
+    needs:
+      - nixos-system-__baseServer
+    runs-on: ubuntu-latest
+    steps:
+      - uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - uses: cachix/install-nix-action@v16
+        with:
+          extra_nix_config: 'experimental-features = nix-command flakes
+
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+            '
+          nix_path: nixpkgs=channel:nixos-unstable
+      - uses: cachix/cachix-action@v10
+        with:
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          name: astralbijection
+      - env:
+          target_flake: ${{ env.target_flake }}
+        name: Build targets
+        run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'nixosConfigurations.bennett.config.system.build.toplevel'
+      - env:
+          flake_attr: nixosConfigurations.bennett.config.astral.ci.deploy-package
+          target_flake: ${{ env.target_flake }}
+        if: ${{ github.ref == 'refs/heads/main' }}
+        name: Deploy with nixosConfigurations.bennett.config.astral.ci.deploy-package
+        run: GC_DONT_GC=1 nix run --show-trace "$target_flake#$flake_attr"
+      - if: ${{ always() }}
+        name: Log remaining space
+        run: 'echo "=== Space left after build ==="
+
+          df -h
+
+          '
+    strategy:
+      fail-fast: false
+  nixos-system-chungus:
+    name: NixOS sys. chungus
+    needs:
+      - nixos-system-__basePC
+    runs-on: ubuntu-latest
+    steps:
+      - uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - uses: cachix/install-nix-action@v16
+        with:
+          extra_nix_config: 'experimental-features = nix-command flakes
+
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+            '
+          nix_path: nixpkgs=channel:nixos-unstable
+      - uses: cachix/cachix-action@v10
+        with:
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          name: astralbijection
+      - env:
+          target_flake: ${{ env.target_flake }}
+        name: Build targets
+        run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'nixosConfigurations.chungus.config.system.build.toplevel'
+      - if: ${{ always() }}
+        name: Log remaining space
+        run: 'echo "=== Space left after build ==="
+
+          df -h
+
+          '
+    strategy:
+      fail-fast: false
+  nixos-system-diluc:
+    name: NixOS sys. diluc
+    needs:
+      - nixos-system-__baseServer
+    runs-on: ubuntu-latest
+    steps:
+      - uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - uses: cachix/install-nix-action@v16
+        with:
+          extra_nix_config: 'experimental-features = nix-command flakes
+
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+            '
+          nix_path: nixpkgs=channel:nixos-unstable
+      - uses: cachix/cachix-action@v10
+        with:
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          name: astralbijection
+      - env:
+          target_flake: ${{ env.target_flake }}
+        name: Build targets
+        run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'nixosConfigurations.diluc.config.system.build.toplevel'
+      - env:
+          flake_attr: nixosConfigurations.diluc.config.astral.ci.deploy-package
+          target_flake: ${{ env.target_flake }}
+        if: ${{ github.ref == 'refs/heads/main' }}
+        name: Deploy with nixosConfigurations.diluc.config.astral.ci.deploy-package
+        run: GC_DONT_GC=1 nix run --show-trace "$target_flake#$flake_attr"
+      - if: ${{ always() }}
+        name: Log remaining space
+        run: 'echo "=== Space left after build ==="
+
+          df -h
+
+          '
+    strategy:
+      fail-fast: false
+  nixos-system-donkey:
+    name: NixOS sys. donkey
+    needs:
+      - nixos-system-__baseServer
+    runs-on: ubuntu-latest
+    steps:
+      - uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - uses: cachix/install-nix-action@v16
+        with:
+          extra_nix_config: 'experimental-features = nix-command flakes
+
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+            '
+          nix_path: nixpkgs=channel:nixos-unstable
+      - uses: cachix/cachix-action@v10
+        with:
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          name: astralbijection
+      - env:
+          target_flake: ${{ env.target_flake }}
+        name: Build targets
+        run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'nixosConfigurations.donkey.config.system.build.toplevel'
+      - if: ${{ always() }}
+        name: Log remaining space
+        run: 'echo "=== Space left after build ==="
+
+          df -h
+
+          '
+    strategy:
+      fail-fast: false
+  nixos-system-durin:
+    name: NixOS sys. durin
+    needs:
+      - nixos-system-__baseServer
+    runs-on: ubuntu-latest
+    steps:
+      - uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - uses: cachix/install-nix-action@v16
+        with:
+          extra_nix_config: 'experimental-features = nix-command flakes
+
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+            '
+          nix_path: nixpkgs=channel:nixos-unstable
+      - uses: cachix/cachix-action@v10
+        with:
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          name: astralbijection
+      - env:
+          target_flake: ${{ env.target_flake }}
+        name: Build targets
+        run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'nixosConfigurations.durin.config.system.build.toplevel'
+      - env:
+          flake_attr: nixosConfigurations.durin.config.astral.ci.deploy-package
+          target_flake: ${{ env.target_flake }}
+        if: ${{ github.ref == 'refs/heads/main' }}
+        name: Deploy with nixosConfigurations.durin.config.astral.ci.deploy-package
+        run: GC_DONT_GC=1 nix run --show-trace "$target_flake#$flake_attr"
+      - if: ${{ always() }}
+        name: Log remaining space
+        run: 'echo "=== Space left after build ==="
+
+          df -h
+
+          '
+    strategy:
+      fail-fast: false
+  nixos-system-gfdesk:
+    name: NixOS sys. gfdesk
+    needs:
+      - nixos-system-__baseServer
+    runs-on: ubuntu-latest
+    steps:
+      - uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - uses: cachix/install-nix-action@v16
+        with:
+          extra_nix_config: 'experimental-features = nix-command flakes
+
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+            '
+          nix_path: nixpkgs=channel:nixos-unstable
+      - uses: cachix/cachix-action@v10
+        with:
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          name: astralbijection
+      - env:
+          target_flake: ${{ env.target_flake }}
+        name: Build targets
+        run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'nixosConfigurations.gfdesk.config.system.build.toplevel'
+      - if: ${{ always() }}
+        name: Log remaining space
+        run: 'echo "=== Space left after build ==="
+
+          df -h
+
+          '
+    strategy:
+      fail-fast: false
+  nixos-system-shai-hulud:
+    name: NixOS sys. shai-hulud
+    needs:
+      - nixos-system-__basePC
+      - surface-kernel
+    runs-on: ubuntu-latest
+    steps:
+      - uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - uses: cachix/install-nix-action@v16
+        with:
+          extra_nix_config: 'experimental-features = nix-command flakes
+
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+            '
+          nix_path: nixpkgs=channel:nixos-unstable
+      - uses: cachix/cachix-action@v10
+        with:
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          name: astralbijection
+      - env:
+          target_flake: ${{ env.target_flake }}
+        name: Build targets
+        run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'nixosConfigurations.shai-hulud.config.system.build.toplevel'
+      - if: ${{ always() }}
+        name: Log remaining space
+        run: 'echo "=== Space left after build ==="
+
+          df -h
+
+          '
+    strategy:
+      fail-fast: false
+  nixos-system-thonkpad:
+    name: NixOS sys. thonkpad
+    needs:
+      - nixos-system-__baseServer
+    runs-on: ubuntu-latest
+    steps:
+      - uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - uses: cachix/install-nix-action@v16
+        with:
+          extra_nix_config: 'experimental-features = nix-command flakes
+
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+            '
+          nix_path: nixpkgs=channel:nixos-unstable
+      - uses: cachix/cachix-action@v10
+        with:
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          name: astralbijection
+      - env:
+          target_flake: ${{ env.target_flake }}
+        name: Build targets
+        run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'nixosConfigurations.thonkpad.config.system.build.toplevel'
+      - if: ${{ always() }}
+        name: Log remaining space
+        run: 'echo "=== Space left after build ==="
+
+          df -h
+
+          '
+    strategy:
+      fail-fast: false
+  nixos-system-yato:
+    name: NixOS sys. yato
+    needs:
+      - nixos-system-__baseServer
+    runs-on: ubuntu-latest
+    steps:
+      - uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - uses: cachix/install-nix-action@v16
+        with:
+          extra_nix_config: 'experimental-features = nix-command flakes
+
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+            '
+          nix_path: nixpkgs=channel:nixos-unstable
+      - uses: cachix/cachix-action@v10
+        with:
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          name: astralbijection
+      - env:
+          target_flake: ${{ env.target_flake }}
+        name: Build targets
+        run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'nixosConfigurations.yato.config.system.build.toplevel'
+      - env:
+          flake_attr: nixosConfigurations.yato.config.astral.ci.deploy-package
+          target_flake: ${{ env.target_flake }}
+        if: ${{ github.ref == 'refs/heads/main' }}
+        name: Deploy with nixosConfigurations.yato.config.astral.ci.deploy-package
+        run: GC_DONT_GC=1 nix run --show-trace "$target_flake#$flake_attr"
+      - if: ${{ always() }}
+        name: Log remaining space
+        run: 'echo "=== Space left after build ==="
+
+          df -h
+
+          '
+    strategy:
+      fail-fast: false
+  surface-kernel:
+    name: Compile MS Surface kernel
+    needs: []
+    runs-on: ubuntu-latest
+    steps:
+      - name: Remove unneccessary packages
+        run: 'echo "=== Before pruning ==="
+
+          df -h
+
+          sudo rm -rf /usr/share /usr/local /opt || true
+
+          echo
+
+          echo "=== After pruning ==="
+
+          df -h
+
+          '
+      - uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - uses: cachix/install-nix-action@v16
+        with:
+          extra_nix_config: 'experimental-features = nix-command flakes
+
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+            '
+          nix_path: nixpkgs=channel:nixos-unstable
+      - uses: cachix/cachix-action@v10
+        with:
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          name: astralbijection
+      - env:
+          target_flake: ${{ env.target_flake }}
+        name: Build targets
+        run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'nixosConfigurations.shai-hulud.config.boot.kernelPackages.kernel'
+      - if: ${{ always() }}
+        name: Log remaining space
+        run: 'echo "=== Space left after build ==="
+
+          df -h
+
+          '
+    strategy:
+      fail-fast: false
+name: Build and deploy
 on:
-  schedule:
-    - cron: '0 6 * * 6'
   push: {}
-  workflow_dispatch: {}
+  schedule:
+    - cron: 0 6 * * 6
   workflow_call:
     inputs:
       sha:
         required: true
         type: string
-
-env:
-  target_sha: ${{ inputs.sha || github.sha }}
-  target_flake: github:ifd3f/infra/${{ inputs.sha || github.sha }}
-
-jobs:
-  calculate-matrix:
-    name: Calculate build matrix
-    runs-on: ubuntu-latest
-    outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
-    steps:
-      - uses: cachix/install-nix-action@v16
-        with:
-          nix_path: nixpkgs=channel:nixos-unstable
-          extra_nix_config: |
-            experimental-features = nix-command flakes
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-      - uses: cachix/cachix-action@v10
-        with:
-          name: astralbijection
-          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-
-      - name: Calculate build matrix
-        run: |
-          GC_DONT_GC=1 nix build -o matrix.json ${{ env.target_flake }}#gh-ci-matrix
-
-      - name: Set matrix output
-        id: set-matrix
-        run: |
-          jq . matrix.json
-          matrix=$(cat matrix.json)
-          echo "::set-output name=matrix::$matrix"
-
-  build-checks:
-    name: ${{ matrix.target.name }}
-    needs: calculate-matrix
-    runs-on: "${{ matrix.target.os }}"
-    strategy:
-      fail-fast: false
-      matrix: "${{ fromJson(needs.calculate-matrix.outputs.matrix).checks }}"
-
-    steps:
-      - name: Remove unnecessary packages
-        run: | # partially stolen from https://github.com/easimon/maximize-build-space
-          echo "=== Before pruning ==="
-          df -h
-          sudo rm -rf /usr/share /usr/local /opt || true
-          echo
-          echo "=== After pruning ==="
-          df -h
-
-      - uses: cachix/install-nix-action@v16
-        with:
-          nix_path: nixpkgs=channel:nixos-unstable
-          extra_nix_config: |
-            experimental-features = nix-command flakes
-            extra-platforms = i686-linux aarch64-linux aarch64-darwin arm-linux
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-
-      - uses: cachix/cachix-action@v10
-        with:
-          name: astralbijection
-          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-
-      - name: Build target
-        run: |
-          GC_DONT_GC=1 nix build --show-trace ${{ env.target_flake }}#${{ matrix.target.target }}
-
-  build-nix-containers:
-    name: ${{ matrix.target.name }}
-    needs: calculate-matrix
-    if: false
-    runs-on: "${{ matrix.target.os }}"
-    strategy:
-      fail-fast: false
-      matrix: ${{ fromJson(needs.calculate-matrix.outputs.matrix).nix-docker-images }}
-    permissions:
-      contents: read
-      packages: write
-
-    steps:
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v1 
-        with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - uses: cachix/install-nix-action@v16
-        with:
-          nix_path: nixpkgs=channel:nixos-unstable
-          extra_nix_config: |
-            experimental-features = nix-command flakes
-            extra-platforms = i686-linux aarch64-linux aarch64-darwin arm-linux
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-
-      - uses: cachix/cachix-action@v10
-        with:
-          name: astralbijection
-          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-
-      - name: Build target
-        run: |
-          GC_DONT_GC=1 nix build --show-trace ${{ env.target_flake }}#${{ matrix.target.target }} -o result.tar.gz
-
-      - name: Tag and upload Docker images
-        if: ${{ github.event_name != 'pull_request' }}
-        run: |
-          export ref=${{ env.target_sha }}
-          export branchtag=$([ $ref = "refs/heads/main" ] && echo latest || tr '/' '-' <<< "${ref##refs/heads/}")
-          GC_DONT_GC=1 nix run ${{ env.target_flake }}#ci-import-and-tag-docker -- result.tar.gz $ref $branchtag
-
-  build-dockerfiles:
-    runs-on: ubuntu-latest
-    name: Dockerfile ${{ matrix.image }}
-    needs: calculate-matrix
-    strategy:
-      fail-fast: false
-      matrix: "${{ fromJson(needs.calculate-matrix.outputs.matrix).dockerfiles }}"
-    permissions:
-      contents: read
-      packages: write
-
-    env:
-      registry: ghcr.io
-      image_name: ifd3f/${{ matrix.image }}
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      # Login against a Docker registry except on PR
-      # https://github.com/docker/login-action
-      - name: Log into registry ${{ env.registry }}
-        if: github.event_name != 'pull_request'
-        uses: docker/login-action@28218f9b04b4f3f62068d7b6ce6ca5b26e35336c
-        with:
-          registry: ${{ env.registry }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      # Extract metadata (tags, labels) for Docker
-      # https://github.com/docker/metadata-action
-      - name: Extract Docker metadata
-        id: meta
-        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
-        with:
-          images: ${{ env.registry }}/${{ env.image_name }}
-
-      # Build and push Docker image with Buildx (don't push on PR)
-      # https://github.com/docker/build-push-action
-      - name: Build and push Docker image
-        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
-        with:
-          context: docker/${{ matrix.image }}
-          push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-
+  workflow_dispatch: {}
+run-name: Build and deploy (${{ inputs.sha || github.sha }})

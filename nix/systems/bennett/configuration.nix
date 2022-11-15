@@ -3,6 +3,7 @@
   imports = [ ./hardware-configuration.nix ];
 
   astral = {
+    ci.deploy-to = "154.53.59.80";
     roles = { server.enable = true; };
   };
 

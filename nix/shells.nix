@@ -1,6 +1,7 @@
-{ pkgs }:
+{ self, pkgs }:
 let
   packages = with pkgs;
+    with self.packages.${system};
     [
       ifd3f-infra-scripts
 
@@ -37,15 +38,5 @@ let
       [ ]);
 in {
   default = pkgs.mkShell { nativeBuildInputs = packages; };
-
-  xmonad-dev = pkgs.haskellPackages.shellFor {
-    withHoogle = true;
-    packages = self: [ ];
-    buildInputs = with pkgs.haskellPackages; [
-      haskell-language-server
-      ghcid
-      cabal-install
-    ];
-  };
 }
 

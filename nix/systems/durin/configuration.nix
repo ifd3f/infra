@@ -2,7 +2,10 @@
 { pkgs, lib, ... }: {
   imports = [ ./hardware-configuration.nix ];
 
-  astral = { roles.server.enable = true; };
+  astral = {
+    ci.deploy-to = "192.9.241.223";
+    roles.server.enable = true;
+  };
 
   boot.cleanTmpDir = true;
   zramSwap.enable = true;

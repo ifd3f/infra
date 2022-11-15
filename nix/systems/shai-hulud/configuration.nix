@@ -22,6 +22,8 @@
 
     # so that we don't rebuild linux kernel on this tiny boi
     infra-update.branch = "surface";
+
+    ci.needs = [ "surface-kernel" ];
   };
 
   hardware = {

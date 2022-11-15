@@ -3,6 +3,8 @@
   imports = [ ./hardware-configuration.nix ];
 
   astral = {
+    ci.deploy-to = "173.212.242.107";
+
     acme.enable = true;
     roles = {
       akkoma.enable = true;
