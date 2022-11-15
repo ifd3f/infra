@@ -1,7 +1,6 @@
 # THIS IS AN AUTO-GENERATED FILE. You should edit /nix/ci.nix instead.
 env:
-  target_flake: github:${{ github.repository_owner }}/${{ github.repository }}/${{
-    inputs.sha || github.sha }}
+  target_flake: github:${{ github.repository }}/${{ inputs.sha || github.sha }}
 jobs:
   build-shai-hulud:
     name: Build node shai-hulud

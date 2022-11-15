@@ -15,10 +15,9 @@ in { nodes, cachix, cronSchedule }: {
   };
 
   env.target_flake = let
-    owner = ghexpr "github.repository_owner";
     repo = ghexpr "github.repository";
     sha = ghexpr "inputs.sha || github.sha";
-  in "github:${owner}/${repo}/${sha}";
+  in "github:${repo}/${sha}";
 
   jobs = mapAttrs' (key:
     { runsOn ? "ubuntu-latest", needs ? [ ], pruneRunner ? false, build ? [ ]
