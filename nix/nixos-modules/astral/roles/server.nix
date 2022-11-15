@@ -18,8 +18,7 @@
         terraform.enable = true;
       };
 
-      # because my home-manager is embedded in this
-      ci.needs = [ "home-manager_x86_64-linux" ];
+      ci.needs = [ "nixos-system-__baseServer" ];
     };
 
     # Enable SSH in initrd for debugging

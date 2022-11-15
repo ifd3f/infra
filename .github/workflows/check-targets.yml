@@ -52,9 +52,82 @@ jobs:
           "$target_flake#"'homeConfigurations.default.activationPackage'
     strategy:
       fail-fast: false
+  build-nixos-system-__base:
+    name: NixOS sys. __base
+    needs: []
+    runs-on: ubuntu-latest
+    steps:
+      - uses: cachix/install-nix-action@v16
+        with:
+          extra_nix_config: 'experimental-features = nix-command flakes
+
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+            '
+          nix_path: nixpkgs=channel:nixos-unstable
+      - uses: cachix/cachix-action@v10
+        with:
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          name: astralbijection
+      - env:
+          target_flake: ${{ env.target_flake }}
+        name: Build targets
+        run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'nixosConfigurations.__base.config.system.build.toplevel'
+    strategy:
+      fail-fast: false
+  build-nixos-system-__basePC:
+    name: NixOS sys. __basePC
+    needs:
+      - build-nixos-system-__base
+    runs-on: ubuntu-latest
+    steps:
+      - uses: cachix/install-nix-action@v16
+        with:
+          extra_nix_config: 'experimental-features = nix-command flakes
+
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+            '
+          nix_path: nixpkgs=channel:nixos-unstable
+      - uses: cachix/cachix-action@v10
+        with:
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          name: astralbijection
+      - env:
+          target_flake: ${{ env.target_flake }}
+        name: Build targets
+        run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'nixosConfigurations.__basePC.config.system.build.toplevel'
+    strategy:
+      fail-fast: false
+  build-nixos-system-__baseServer:
+    name: NixOS sys. __baseServer
+    needs:
+      - build-home-manager_x86_64-linux
+      - build-nixos-system-__base
+    runs-on: ubuntu-latest
+    steps:
+      - uses: cachix/install-nix-action@v16
+        with:
+          extra_nix_config: 'experimental-features = nix-command flakes
+
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+            '
+          nix_path: nixpkgs=channel:nixos-unstable
+      - uses: cachix/cachix-action@v10
+        with:
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          name: astralbijection
+      - env:
+          target_flake: ${{ env.target_flake }}
+        name: Build targets
+        run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'nixosConfigurations.__baseServer.config.system.build.toplevel'
+    strategy:
+      fail-fast: false
   build-nixos-system-banana:
     name: NixOS sys. banana
-    needs: []
+    needs:
+      - build-nixos-system-__basePC
     runs-on: ubuntu-latest
     steps:
       - uses: cachix/install-nix-action@v16
@@ -78,7 +151,7 @@ jobs:
   build-nixos-system-bennett:
     name: NixOS sys. bennett
     needs:
-      - build-home-manager_x86_64-linux
+      - build-nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
       - uses: cachix/install-nix-action@v16
@@ -101,7 +174,8 @@ jobs:
       fail-fast: false
   build-nixos-system-chungus:
     name: NixOS sys. chungus
-    needs: []
+    needs:
+      - build-nixos-system-__basePC
     runs-on: ubuntu-latest
     steps:
       - uses: cachix/install-nix-action@v16
@@ -125,7 +199,7 @@ jobs:
   build-nixos-system-diluc:
     name: NixOS sys. diluc
     needs:
-      - build-home-manager_x86_64-linux
+      - build-nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
       - uses: cachix/install-nix-action@v16
@@ -149,7 +223,7 @@ jobs:
   build-nixos-system-donkey:
     name: NixOS sys. donkey
     needs:
-      - build-home-manager_x86_64-linux
+      - build-nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
       - uses: cachix/install-nix-action@v16
@@ -173,7 +247,7 @@ jobs:
   build-nixos-system-durin:
     name: NixOS sys. durin
     needs:
-      - build-home-manager_x86_64-linux
+      - build-nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
       - uses: cachix/install-nix-action@v16
@@ -197,7 +271,7 @@ jobs:
   build-nixos-system-gfdesk:
     name: NixOS sys. gfdesk
     needs:
-      - build-home-manager_x86_64-linux
+      - build-nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
       - uses: cachix/install-nix-action@v16
@@ -221,6 +295,7 @@ jobs:
   build-nixos-system-shai-hulud:
     name: NixOS sys. shai-hulud
     needs:
+      - build-nixos-system-__basePC
       - build-surface-kernel
     runs-on: ubuntu-latest
     steps:
@@ -245,7 +320,7 @@ jobs:
   build-nixos-system-thonkpad:
     name: NixOS sys. thonkpad
     needs:
-      - build-home-manager_x86_64-linux
+      - build-nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
       - uses: cachix/install-nix-action@v16
@@ -269,7 +344,7 @@ jobs:
   build-nixos-system-yato:
     name: NixOS sys. yato
     needs:
-      - build-home-manager_x86_64-linux
+      - build-nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
       - uses: cachix/install-nix-action@v16

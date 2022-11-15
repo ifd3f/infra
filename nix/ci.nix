@@ -16,7 +16,7 @@ with lib; {
             "nixosConfigurations.${hostname}.config.system.build.toplevel";
           needs = nixosSystem.config.astral.ci.needs;
         };
-      }) (filterAttrs (_: nixosSystem: nixosSystem.pkgs.system == system)
+      }) (filterAttrs (hostname: nixosSystem: nixosSystem.pkgs.system == system)
         self.nixosConfigurations);
 
     homeManagerNodeForSystem = system: {
