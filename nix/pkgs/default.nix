@@ -11,14 +11,6 @@ in vendored-images // {
 
   ifd3f-infra-scripts = pkgs.callPackage ./../../scripts { };
 
-  upload-all-to-lxd = pkgs.callPackage ./upload-all-to-lxd {
-    inherit flakeTime nixpkgs;
-    convertImage = build-support.convertImage;
-    lxdUtils = build-support.lxdUtils;
-    gigarouterModule = self.nixosModules.gigarouter;
-    vendored-talos-os = vendored-images.vendored-talos-os;
-  };
-
   internal-libvirt-images = pkgs.linkFarm "internal-libvirt-images" [{
     name = "centos-8.qcow2";
     path = vendored-images.vendored-centos-8-cloud;
