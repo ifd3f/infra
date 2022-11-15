@@ -11,7 +11,7 @@ with lib; {
   };
 
   config = let cfg = config.astral.hw.surface;
-  in {
+  in mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       iptsd
       onboard
