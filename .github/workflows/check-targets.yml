@@ -13,7 +13,7 @@ jobs:
     needs: []
     runs-on: macos-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.7
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - uses: cachix/install-nix-action@v18
@@ -46,7 +46,7 @@ jobs:
     needs: []
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.7
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - uses: cachix/install-nix-action@v18
@@ -79,7 +79,7 @@ jobs:
     needs: []
     runs-on: macos-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.7
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - uses: cachix/install-nix-action@v18
@@ -112,7 +112,7 @@ jobs:
     needs: []
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.7
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - uses: cachix/install-nix-action@v18
@@ -151,7 +151,7 @@ jobs:
       - home-manager-x86_64-linux
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.7
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - uses: cachix/install-nix-action@v18
@@ -184,7 +184,7 @@ jobs:
     needs: []
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.7
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - uses: cachix/install-nix-action@v18
@@ -232,7 +232,7 @@ jobs:
           df -h
 
           '
-      - uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.7
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - uses: cachix/install-nix-action@v18
@@ -267,7 +267,7 @@ jobs:
       - nixos-system-__base
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.7
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - uses: cachix/install-nix-action@v18
@@ -301,7 +301,7 @@ jobs:
       - nixos-system-__basePC
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.7
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - uses: cachix/install-nix-action@v18
@@ -335,7 +335,7 @@ jobs:
       - nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.7
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - uses: cachix/install-nix-action@v18
@@ -375,7 +375,7 @@ jobs:
       - nixos-system-__basePC
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.7
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - uses: cachix/install-nix-action@v18
@@ -409,7 +409,7 @@ jobs:
       - nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.7
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - uses: cachix/install-nix-action@v18
@@ -449,7 +449,7 @@ jobs:
       - nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.7
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - uses: cachix/install-nix-action@v18
@@ -483,7 +483,7 @@ jobs:
       - nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.7
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - uses: cachix/install-nix-action@v18
@@ -523,7 +523,7 @@ jobs:
       - nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.7
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - uses: cachix/install-nix-action@v18
@@ -558,7 +558,7 @@ jobs:
       - surface-kernel
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.7
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - uses: cachix/install-nix-action@v18
@@ -592,7 +592,7 @@ jobs:
       - nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.7
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - uses: cachix/install-nix-action@v18
@@ -626,7 +626,7 @@ jobs:
       - nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.7
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - uses: cachix/install-nix-action@v18
@@ -679,7 +679,7 @@ jobs:
           df -h
 
           '
-      - uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.7
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - uses: cachix/install-nix-action@v18

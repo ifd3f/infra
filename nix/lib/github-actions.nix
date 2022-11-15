@@ -80,7 +80,7 @@ with lib; rec {
 
         setupSteps = [
           {
-            "uses" = "webfactory/ssh-agent@v0.7.0";
+            "uses" = "webfactory/ssh-agent@v0.7";
             "with".ssh-private-key = ghexpr "secrets.SSH_PRIVATE_KEY";
           }
           {

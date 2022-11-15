@@ -20,7 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: cachix/install-nix-action@v13
+      - uses: cachix/install-nix-action@v18
         with:
           nix_path: nixpkgs=channel:nixpkgs-unstable
           extra_nix_config: |
@@ -31,7 +31,7 @@ jobs:
         run: GC_DONT_GC=1 nix flake update
 
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v3
+        uses: peter-evans/create-pull-request@v4
         id: create-pr
         with:
           title: Bump versions (run ${{ github.run_number }})
@@ -49,7 +49,7 @@ jobs:
 
       - name: Annotate SHA with check
         id: create-check
-        uses: LouisBrunner/checks-action@v1.1.1
+        uses: LouisBrunner/checks-action@v1.5.0
         if: always()
         with:
           name: Full check suite
@@ -75,7 +75,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Update check status
-        uses: LouisBrunner/checks-action@v1.1.1
+        uses: LouisBrunner/checks-action@v1.5.0
         with:
           check_id: ${{ needs.version-bump.outputs.check_id }}
           token: ${{ secrets.GITHUB_TOKEN }}
