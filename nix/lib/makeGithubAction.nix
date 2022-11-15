@@ -20,7 +20,7 @@ in { nodes, cachix, cronSchedule }: {
     sha = ghexpr "inputs.sha || github.sha";
   in "github:${owner}/${repo}/${sha}";
 
-  jobs = mapAttrsToList (key:
+  jobs = mapAttrs (key:
     { runsOn ? "ubuntu-latest", needs ? [ ], pruneRunner ? false, build ? [ ]
     , run ? null }: {
       ${jobname key} = if build == [ ] && run == null then
@@ -51,29 +51,33 @@ in { nodes, cachix, cronSchedule }: {
           {
             "uses" = "cachix/install-nix-action@v16";
             "with" = {
-              "nix_path" = "nixpkgs=channel:nixos-unstable";
-              "extra_nix_config" = EXTRA_NIX_CONFIG;
+              nix_path = "nixpkgs=channel:nixos-unstable";
+              extra_nix_config = ''
+                experimental-features = nix-command flakes
+                access-tokens = github.com=${ghexpr "secrets.GITHUB_TOKEN"}
+              '';
             };
           }
-
           {
             "uses" = "cachix/cachix-action@v10";
             "with" = {
-              "name" = cachix;
-              "authToken" = ghexpr "secrets.CACHIX_AUTH_TOKEN";
+              name = cachix;
+              authToken = ghexpr "secrets.CACHIX_AUTH_TOKEN";
             };
           }
         ] ++ (optional (build != [ ]) {
           name = "Build targets";
-          run = ''
-            GC_DONT_GC=1 nix run --show-trace "$target_flake#$flake_attr"
-          '';
+          run = let
+            buildList = if isString build then [ build ] else build;
+            installables =
+              map (attr: ''"$target_flake#"'' + escapeShellArg attr) buildList;
+            args = concatStringsSep " " installables;
+          in "GC_DONT_GC=1 nix build --show-trace ${args}";
           env.target_flake = ghexpr "env.target_flake";
         }) ++ (optional (run != null) {
           name = "Run ${run}";
-          run = ''
-            GC_DONT_GC=1 nix run --show-trace "$target_flake#$flake_attr"
-          '';
+          run =
+            ''GC_DONT_GC=1 nix run --show-trace "$target_flake#$flake_attr"'';
           env = {
             flake_attr = run;
             target_flake = ghexpr "env.target_flake";
