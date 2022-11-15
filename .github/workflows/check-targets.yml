@@ -242,6 +242,12 @@ jobs:
           target_flake: ${{ env.target_flake }}
         name: Build targets
         run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'nixosConfigurations.bennett.config.system.build.toplevel'
+      - env:
+          flake_attr: nixosConfigurations.bennett.config.astral.ci.deploy-package
+          target_flake: ${{ env.target_flake }}
+        if: github.ref == 'refs/heads/main'
+        name: Deploy with nixosConfigurations.bennett.config.astral.ci.deploy-package
+        run: GC_DONT_GC=1 nix run --show-trace "$target_flake#$flake_attr"
     strategy:
       fail-fast: false
   build-nixos-system-chungus:
@@ -290,6 +296,12 @@ jobs:
           target_flake: ${{ env.target_flake }}
         name: Build targets
         run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'nixosConfigurations.diluc.config.system.build.toplevel'
+      - env:
+          flake_attr: nixosConfigurations.diluc.config.astral.ci.deploy-package
+          target_flake: ${{ env.target_flake }}
+        if: github.ref == 'refs/heads/main'
+        name: Deploy with nixosConfigurations.diluc.config.astral.ci.deploy-package
+        run: GC_DONT_GC=1 nix run --show-trace "$target_flake#$flake_attr"
     strategy:
       fail-fast: false
   build-nixos-system-donkey:
@@ -338,6 +350,12 @@ jobs:
           target_flake: ${{ env.target_flake }}
         name: Build targets
         run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'nixosConfigurations.durin.config.system.build.toplevel'
+      - env:
+          flake_attr: nixosConfigurations.durin.config.astral.ci.deploy-package
+          target_flake: ${{ env.target_flake }}
+        if: github.ref == 'refs/heads/main'
+        name: Deploy with nixosConfigurations.durin.config.astral.ci.deploy-package
+        run: GC_DONT_GC=1 nix run --show-trace "$target_flake#$flake_attr"
     strategy:
       fail-fast: false
   build-nixos-system-gfdesk:
@@ -435,6 +453,12 @@ jobs:
           target_flake: ${{ env.target_flake }}
         name: Build targets
         run: GC_DONT_GC=1 nix build --show-trace "$target_flake#"'nixosConfigurations.yato.config.system.build.toplevel'
+      - env:
+          flake_attr: nixosConfigurations.yato.config.astral.ci.deploy-package
+          target_flake: ${{ env.target_flake }}
+        if: github.ref == 'refs/heads/main'
+        name: Deploy with nixosConfigurations.yato.config.astral.ci.deploy-package
+        run: GC_DONT_GC=1 nix run --show-trace "$target_flake#$flake_attr"
     strategy:
       fail-fast: false
   build-surface-kernel:

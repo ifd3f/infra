@@ -20,8 +20,8 @@ in { nodes, cachix, cronSchedule }: {
   in "github:${repo}/${sha}";
 
   jobs = mapAttrs' (key:
-    { name ? key, system, needs ? [ ], pruneRunner ? false, build ? [ ]
-    , run ? null }:
+    { name ? key, system, needs ? [ ], prune-runner ? false, build ? [ ]
+    , run ? null, deploy ? null }:
     nameValuePair (jobname key) (if build == [ ] && run == null then
       abort (toString "${key} did not specify a run or a build")
     else {
@@ -37,7 +37,7 @@ in { nodes, cachix, cronSchedule }: {
       else
         map jobname needs;
 
-      steps = (optional pruneRunner {
+      steps = (optional prune-runner {
         name = "Remove unneccessary packages";
         run = ''
           echo "=== Before pruning ==="
@@ -79,6 +79,14 @@ in { nodes, cachix, cronSchedule }: {
         run = ''GC_DONT_GC=1 nix run --show-trace "$target_flake#$flake_attr"'';
         env = {
           flake_attr = run;
+          target_flake = ghexpr "env.target_flake";
+        };
+      }) ++ (optional (deploy != null) {
+        name = "Deploy with ${deploy}";
+        run = ''GC_DONT_GC=1 nix run --show-trace "$target_flake#$flake_attr"'';
+        "if" = "github.ref == 'refs/heads/main'";
+        env = {
+          flake_attr = deploy;
           target_flake = ghexpr "env.target_flake";
         };
       });

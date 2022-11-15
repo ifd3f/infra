@@ -7,16 +7,26 @@ with lib; {
   nodes = let
     # Generate a node for each x86_64-linux NixOS system.
     nixosNodesForSystem = system:
-      mapAttrs' (hostname: nixosSystem: {
-        name = "nixos-system-${hostname}";
-        value = {
-          inherit system;
-          name = "NixOS sys. ${hostname}";
-          build =
-            "nixosConfigurations.${hostname}.config.system.build.toplevel";
-          needs = nixosSystem.config.astral.ci.needs;
-        };
-      }) (filterAttrs (hostname: nixosSystem: nixosSystem.pkgs.system == system)
+      mapAttrs' (hostname: nixosSystem:
+        let cfg = nixosSystem.config.astral.ci;
+        in {
+          name = "nixos-system-${hostname}";
+          value = {
+            inherit system;
+            inherit (cfg) needs prune-runner;
+
+            name = "NixOS sys. ${hostname}";
+            build =
+              "nixosConfigurations.${hostname}.config.system.build.toplevel";
+            run = mapNullable (_:
+              "nixosConfigurations.${hostname}.config.astral.ci.run-package")
+              cfg.run-package;
+            deploy = mapNullable (_:
+              "nixosConfigurations.${hostname}.config.astral.ci.deploy-package")
+              cfg.deploy-package;
+          };
+        })
+      (filterAttrs (hostname: nixosSystem: nixosSystem.pkgs.system == system)
         self.nixosConfigurations);
 
     homeManagerNodeForSystem = system: {
