@@ -59,9 +59,9 @@ jobs:
           status: in_progress
 
   run-checks:
-    name: Run checks on PR
+    name: Checks
     needs: version-bump
-    uses: ifd3f/infra/.github/workflows/check-targets.yml@main
+    uses: ./.github/workflows/check-targets.yml
     with:
       sha: ${{ needs.version-bump.outputs.sha }}
 
