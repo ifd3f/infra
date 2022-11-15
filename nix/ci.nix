@@ -56,8 +56,9 @@ with lib; {
     };
 
     surface-kernel = {
-      name = "Surface Kernel";
+      name = "Compile MS Surface kernel";
       system = "x86_64-linux";
+      prune-runner = true;
       build =
         "nixosConfigurations.shai-hulud.config.boot.kernelPackages.kernel";
     };

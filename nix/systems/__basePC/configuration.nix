@@ -6,6 +6,7 @@
     roles = { pc.enable = true; };
 
     ci.needs = lib.mkForce [ "nixos-system-__base" ];
+    ci.prune-runner = true;
   };
 
   boot.initrd.availableKernelModules =
