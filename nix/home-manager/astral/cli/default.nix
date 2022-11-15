@@ -53,7 +53,7 @@ in with lib; {
       home = {
         shellAliases = commonAliases;
         sessionVariables = { EDITOR = "vi"; };
-        packages = with pkgs; [ htop home-manager bitwarden-cli ranger ];
+        packages = with pkgs; [ htop home-manager ];
         file = {
           ".config/ranger/rc.conf" = { source = ./ranger.conf; };
           ".stack/config.yaml" = { source = ./stack-config.yaml; };
@@ -150,7 +150,7 @@ in with lib; {
         mutableKeys = true;
       };
 
-      home.packages = with pkgs; [ gh ];
+      home.packages = with pkgs; [ bitwarden-cli gh ranger ];
     })
   ]);
   # home.file."email" = { source = ./email; };
