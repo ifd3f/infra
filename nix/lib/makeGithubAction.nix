@@ -20,14 +20,16 @@ in { nodes, cachix, cronSchedule }: {
   in "github:${repo}/${sha}";
 
   jobs = mapAttrs' (key:
-    { name ? key, runsOn ? "ubuntu-latest", needs ? [ ], pruneRunner ? false
-    , build ? [ ], run ? null }:
+    { name ? key, system, needs ? [ ], pruneRunner ? false, build ? [ ]
+    , run ? null }:
     nameValuePair (jobname key) (if build == [ ] && run == null then
       abort (toString "${key} did not specify a run or a build")
     else {
       inherit name;
-      runs-on = runsOn;
       strategy.fail-fast = false;
+
+      runs-on =
+        if system == "x86_64-darwin" then "macos-latest" else "ubuntu-latest";
 
       needs = let missingDeps = filter (d: !(hasAttr d nodes)) needs;
       in if missingDeps != [ ] then

@@ -17,6 +17,9 @@
         github.enable = true;
         terraform.enable = true;
       };
+
+      # because my home-manager is embedded in this
+      ci.needs = [ "home-manager_x86_64-linux" ];
     };
 
     # Enable SSH in initrd for debugging
@@ -31,6 +34,7 @@
       useGlobalPkgs = true;
       useUserPackages = true;
 
+      # embed the home-manager into the configuration
       users.astrid = homeModules.astral-cli;
     };
 

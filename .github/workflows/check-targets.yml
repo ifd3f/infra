@@ -5,7 +5,7 @@ jobs:
   build-home-manager_x86_64-darwin:
     name: Home cfgs. x86_64-darwin
     needs: []
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - uses: cachix/install-nix-action@v16
         with:
@@ -77,7 +77,8 @@ jobs:
       fail-fast: false
   build-nixos-system-bennett:
     name: NixOS sys. bennett
-    needs: []
+    needs:
+      - build-home-manager_x86_64-linux
     runs-on: ubuntu-latest
     steps:
       - uses: cachix/install-nix-action@v16
@@ -123,7 +124,8 @@ jobs:
       fail-fast: false
   build-nixos-system-diluc:
     name: NixOS sys. diluc
-    needs: []
+    needs:
+      - build-home-manager_x86_64-linux
     runs-on: ubuntu-latest
     steps:
       - uses: cachix/install-nix-action@v16
@@ -146,7 +148,8 @@ jobs:
       fail-fast: false
   build-nixos-system-donkey:
     name: NixOS sys. donkey
-    needs: []
+    needs:
+      - build-home-manager_x86_64-linux
     runs-on: ubuntu-latest
     steps:
       - uses: cachix/install-nix-action@v16
@@ -169,7 +172,8 @@ jobs:
       fail-fast: false
   build-nixos-system-durin:
     name: NixOS sys. durin
-    needs: []
+    needs:
+      - build-home-manager_x86_64-linux
     runs-on: ubuntu-latest
     steps:
       - uses: cachix/install-nix-action@v16
@@ -192,7 +196,8 @@ jobs:
       fail-fast: false
   build-nixos-system-gfdesk:
     name: NixOS sys. gfdesk
-    needs: []
+    needs:
+      - build-home-manager_x86_64-linux
     runs-on: ubuntu-latest
     steps:
       - uses: cachix/install-nix-action@v16
@@ -239,7 +244,8 @@ jobs:
       fail-fast: false
   build-nixos-system-thonkpad:
     name: NixOS sys. thonkpad
-    needs: []
+    needs:
+      - build-home-manager_x86_64-linux
     runs-on: ubuntu-latest
     steps:
       - uses: cachix/install-nix-action@v16
@@ -262,7 +268,8 @@ jobs:
       fail-fast: false
   build-nixos-system-yato:
     name: NixOS sys. yato
-    needs: []
+    needs:
+      - build-home-manager_x86_64-linux
     runs-on: ubuntu-latest
     steps:
       - uses: cachix/install-nix-action@v16

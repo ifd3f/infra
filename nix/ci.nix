@@ -10,6 +10,7 @@ with lib; {
       mapAttrs' (hostname: nixosSystem: {
         name = "nixos-system-${hostname}";
         value = {
+          inherit system;
           name = "NixOS sys. ${hostname}";
           build =
             "nixosConfigurations.${hostname}.config.system.build.toplevel";
@@ -19,6 +20,8 @@ with lib; {
         self.nixosConfigurations);
 
     homeManagerNodeForSystem = system: {
+      inherit system;
+
       name = "Home cfgs. ${system}";
       build =
         mapAttrsToList (key: _: "homeConfigurations.${key}.activationPackage")
@@ -31,6 +34,7 @@ with lib; {
 
     "surface-kernel" = {
       name = "Surface Kernel";
+      system = "x86_64-linux";
       build =
         "nixosConfigurations.shai-hulud.config.boot.kernelPackages.kernel";
     };
