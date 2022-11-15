@@ -4,7 +4,11 @@ with lib; {
 
   cachix = "astralbijection";
 
-  nodes = {
+  nodes = let
+    nixosSystemNodes = mapAttrsToList (hostname: _:
+      "nixosConfigurations.${hostname}.config.boot.kernelPackages.kernel")
+      self.nixosConfigurations;
+  in {
     "surface-kernel" = {
       build =
         "nixosConfigurations.shai-hulud.config.boot.kernelPackages.kernel";

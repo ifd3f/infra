@@ -7,7 +7,9 @@ in vendored-images // {
 
   ci-action-runner = pkgs.callPackage ./ci-action-runner { inherit self; };
   update-ci-runner = pkgs.writeScriptBin "update-ci-runner" ''
-    cp ${self.packages.${pkgs.system}.ci-action-runner} .github/workflows/check-targets.yml
+    cp ${
+      self.packages.${pkgs.system}.ci-action-runner
+    } .github/workflows/check-targets.yml
   '';
 
   ci-import-and-tag-docker = pkgs.callPackage ./ci-import-and-tag-docker { };

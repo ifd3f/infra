@@ -69,7 +69,7 @@
         };
       in rec {
         gh-ci-matrix = pkgs.callPackage ./pkgs/gh-ci-matrix { inherit self; };
-        devShells = import ./nix/shells.nix { inherit pkgs; };
+        devShells = import ./nix/shells.nix { inherit self pkgs; };
         packages =
           import ./nix/pkgs { inherit self pkgs nixpkgs nixos-generators; };
       }) // {
