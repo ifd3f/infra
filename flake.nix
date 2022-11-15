@@ -6,7 +6,11 @@
 
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/release-22.05";
+    # TODO set to 22.11
+    # follow the issue here: https://github.com/NixOS/nixpkgs/issues/193585
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    nixpkgs-php74.url = "github:NixOS/nixpkgs/nixos-22.05";
 
     # My own nixpkgs fork, for customized patches
     #nixpkgs-ifd4f.url = "github:ifd3f/nixpkgs/lxd-vms";
@@ -44,8 +48,8 @@
   };
 
   outputs = { self, nixpkgs-unstable, nixpkgs-stable, nixpkgs-akkoma
-    , nixos-vscode-server, flake-utils, nix-ld, nur, home-manager-unstable
-    , nixos-generators, armqr, ... }@inputs:
+    , nixpkgs-php74, nixos-vscode-server, flake-utils, nix-ld, nur
+    , home-manager-unstable, nixos-generators, armqr, ... }@inputs:
     let
       nixpkgs = nixpkgs-unstable;
       home-manager = home-manager-unstable;
@@ -95,7 +99,7 @@
               });
 
             # needed for piwigo compatibility
-            inherit (nixpkgs-stable.legacyPackages.${prev.system}) php74;
+            inherit (nixpkgs-php74.legacyPackages.${prev.system}) php74;
 
             #inherit (nixpkgs-lxdvms.legacyPackages.${prev.system}) lxd;
 
@@ -177,8 +181,6 @@
           };
         };
 
-        nixosConfigurations = (import ./nix/systems {
-          inherit inputs lib;
-        });
+        nixosConfigurations = (import ./nix/systems { inherit inputs lib; });
       });
 }
