@@ -10,15 +10,28 @@ with lib; rec {
       schedule = [{ cron = cronSchedule; }];
       push = { };
       workflow_dispatch = { };
-      workflow_call.inputs.sha = {
+      workflow_call.inputs = {
+        sha = {
+          description = "SHA to run on";
+          required = true;
+          type = "string";
+        };
+        deploy = {
+          description = "Whether to deploy or not";
+          default = false;
+          type = "boolean";
+        };
+      };
+      workflow_call.secrets.SSH_PRIVATE_KEY = {
+        description = "SSH key to use for deployment";
         required = true;
-        type = "string";
       };
     };
 
     env.target_flake = let
       repo = ghexpr "github.repository";
       sha = ghexpr "inputs.sha || github.sha";
+      p = ghexpr "inputs.sha || github.sha";
     in "github:${repo}/${sha}";
 
     jobs = mapAttrs (makeJob { inherit nodes cachix; }) nodes;
@@ -68,7 +81,6 @@ with lib; rec {
         setupSteps = [
           {
             "uses" = "webfactory/ssh-agent@v0.7.0";
-            "if" = ghexpr "github.ref == 'refs/heads/main' && !inputs.sha";
             "with".ssh-private-key = ghexpr "secrets.SSH_PRIVATE_KEY";
           }
           {
@@ -115,7 +127,7 @@ with lib; rec {
           name = "Deploy with ${deploy}";
           run =
             ''GC_DONT_GC=1 nix run --show-trace "$target_flake#$flake_attr"'';
-          "if" = ghexpr "github.ref == 'refs/heads/main' && !inputs.sha";
+          "if" = ghexpr "github.ref == 'refs/heads/main' || inputs.deploy";
           env = {
             flake_attr = deploy;
             target_flake = ghexpr "env.target_flake";

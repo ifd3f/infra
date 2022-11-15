@@ -13,8 +13,7 @@ jobs:
     needs: []
     runs-on: macos-latest
     steps:
-      - if: ${{ github.ref == 'refs/heads/main' && !inputs.sha }}
-        uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - uses: cachix/install-nix-action@v18
@@ -47,8 +46,7 @@ jobs:
     needs: []
     runs-on: ubuntu-latest
     steps:
-      - if: ${{ github.ref == 'refs/heads/main' && !inputs.sha }}
-        uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - uses: cachix/install-nix-action@v18
@@ -81,8 +79,7 @@ jobs:
     needs: []
     runs-on: macos-latest
     steps:
-      - if: ${{ github.ref == 'refs/heads/main' && !inputs.sha }}
-        uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - uses: cachix/install-nix-action@v18
@@ -115,8 +112,7 @@ jobs:
     needs: []
     runs-on: ubuntu-latest
     steps:
-      - if: ${{ github.ref == 'refs/heads/main' && !inputs.sha }}
-        uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - uses: cachix/install-nix-action@v18
@@ -155,8 +151,7 @@ jobs:
       - home-manager-x86_64-linux
     runs-on: ubuntu-latest
     steps:
-      - if: ${{ github.ref == 'refs/heads/main' && !inputs.sha }}
-        uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - uses: cachix/install-nix-action@v18
@@ -189,8 +184,7 @@ jobs:
     needs: []
     runs-on: ubuntu-latest
     steps:
-      - if: ${{ github.ref == 'refs/heads/main' && !inputs.sha }}
-        uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - uses: cachix/install-nix-action@v18
@@ -238,8 +232,7 @@ jobs:
           df -h
 
           '
-      - if: ${{ github.ref == 'refs/heads/main' && !inputs.sha }}
-        uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - uses: cachix/install-nix-action@v18
@@ -274,8 +267,7 @@ jobs:
       - nixos-system-__base
     runs-on: ubuntu-latest
     steps:
-      - if: ${{ github.ref == 'refs/heads/main' && !inputs.sha }}
-        uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - uses: cachix/install-nix-action@v18
@@ -309,8 +301,7 @@ jobs:
       - nixos-system-__basePC
     runs-on: ubuntu-latest
     steps:
-      - if: ${{ github.ref == 'refs/heads/main' && !inputs.sha }}
-        uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - uses: cachix/install-nix-action@v18
@@ -344,8 +335,7 @@ jobs:
       - nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
-      - if: ${{ github.ref == 'refs/heads/main' && !inputs.sha }}
-        uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - uses: cachix/install-nix-action@v18
@@ -367,7 +357,7 @@ jobs:
       - env:
           flake_attr: nixosConfigurations.bennett.config.astral.ci.deploy-package
           target_flake: ${{ env.target_flake }}
-        if: ${{ github.ref == 'refs/heads/main' && !inputs.sha }}
+        if: ${{ github.ref == 'refs/heads/main' || inputs.deploy }}
         name: Deploy with nixosConfigurations.bennett.config.astral.ci.deploy-package
         run: GC_DONT_GC=1 nix run --show-trace "$target_flake#$flake_attr"
       - if: ${{ always() }}
@@ -385,8 +375,7 @@ jobs:
       - nixos-system-__basePC
     runs-on: ubuntu-latest
     steps:
-      - if: ${{ github.ref == 'refs/heads/main' && !inputs.sha }}
-        uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - uses: cachix/install-nix-action@v18
@@ -420,8 +409,7 @@ jobs:
       - nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
-      - if: ${{ github.ref == 'refs/heads/main' && !inputs.sha }}
-        uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - uses: cachix/install-nix-action@v18
@@ -443,7 +431,7 @@ jobs:
       - env:
           flake_attr: nixosConfigurations.diluc.config.astral.ci.deploy-package
           target_flake: ${{ env.target_flake }}
-        if: ${{ github.ref == 'refs/heads/main' && !inputs.sha }}
+        if: ${{ github.ref == 'refs/heads/main' || inputs.deploy }}
         name: Deploy with nixosConfigurations.diluc.config.astral.ci.deploy-package
         run: GC_DONT_GC=1 nix run --show-trace "$target_flake#$flake_attr"
       - if: ${{ always() }}
@@ -461,8 +449,7 @@ jobs:
       - nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
-      - if: ${{ github.ref == 'refs/heads/main' && !inputs.sha }}
-        uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - uses: cachix/install-nix-action@v18
@@ -496,8 +483,7 @@ jobs:
       - nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
-      - if: ${{ github.ref == 'refs/heads/main' && !inputs.sha }}
-        uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - uses: cachix/install-nix-action@v18
@@ -519,7 +505,7 @@ jobs:
       - env:
           flake_attr: nixosConfigurations.durin.config.astral.ci.deploy-package
           target_flake: ${{ env.target_flake }}
-        if: ${{ github.ref == 'refs/heads/main' && !inputs.sha }}
+        if: ${{ github.ref == 'refs/heads/main' || inputs.deploy }}
         name: Deploy with nixosConfigurations.durin.config.astral.ci.deploy-package
         run: GC_DONT_GC=1 nix run --show-trace "$target_flake#$flake_attr"
       - if: ${{ always() }}
@@ -537,8 +523,7 @@ jobs:
       - nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
-      - if: ${{ github.ref == 'refs/heads/main' && !inputs.sha }}
-        uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - uses: cachix/install-nix-action@v18
@@ -573,8 +558,7 @@ jobs:
       - surface-kernel
     runs-on: ubuntu-latest
     steps:
-      - if: ${{ github.ref == 'refs/heads/main' && !inputs.sha }}
-        uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - uses: cachix/install-nix-action@v18
@@ -608,8 +592,7 @@ jobs:
       - nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
-      - if: ${{ github.ref == 'refs/heads/main' && !inputs.sha }}
-        uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - uses: cachix/install-nix-action@v18
@@ -643,8 +626,7 @@ jobs:
       - nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
-      - if: ${{ github.ref == 'refs/heads/main' && !inputs.sha }}
-        uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - uses: cachix/install-nix-action@v18
@@ -666,7 +648,7 @@ jobs:
       - env:
           flake_attr: nixosConfigurations.yato.config.astral.ci.deploy-package
           target_flake: ${{ env.target_flake }}
-        if: ${{ github.ref == 'refs/heads/main' && !inputs.sha }}
+        if: ${{ github.ref == 'refs/heads/main' || inputs.deploy }}
         name: Deploy with nixosConfigurations.yato.config.astral.ci.deploy-package
         run: GC_DONT_GC=1 nix run --show-trace "$target_flake#$flake_attr"
       - if: ${{ always() }}
@@ -697,8 +679,7 @@ jobs:
           df -h
 
           '
-      - if: ${{ github.ref == 'refs/heads/main' && !inputs.sha }}
-        uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - uses: cachix/install-nix-action@v18
@@ -733,8 +714,17 @@ on:
     - cron: 0 6 * * 6
   workflow_call:
     inputs:
+      deploy:
+        default: false
+        description: Whether to deploy or not
+        type: boolean
       sha:
+        description: SHA to run on
         required: true
         type: string
+    secrets:
+      SSH_PRIVATE_KEY:
+        description: SSH key to use for deployment
+        required: true
   workflow_dispatch: {}
 run-name: Build and deploy (${{ inputs.sha || github.sha }})

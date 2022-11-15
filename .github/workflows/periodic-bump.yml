@@ -62,6 +62,7 @@ jobs:
     name: Checks
     needs: version-bump
     uses: ./.github/workflows/check-targets.yml
+    secrets: inherit
     with:
       sha: ${{ needs.version-bump.outputs.sha }}
 
