@@ -3,6 +3,13 @@ with lib;
 let
   vhost = "fedi.astrid.tech";
   cfg = config.astral.roles.akkoma;
+
+  pleroma-fe' = pkgs.akkoma-frontends.pleroma-fe.overrideAttrs (final: prev: {
+    src = pkgs.runCommand "pleroma-fe-modded" ''
+      cp -r ${prev.src} $out
+      cp ${./i18n_en.json} $out/src/i18n/en.json
+    '';
+  });
 in {
   options.astral.roles.akkoma.enable = mkEnableOption "fedi server";
 
@@ -10,6 +17,9 @@ in {
     services.akkoma = {
       enable = true;
       termsOfService = ./terms-of-service.html;
+
+      frontends.primary.package = pleroma-fe';
+
       config = let inherit ((pkgs.formats.elixirConf { }).lib) mkRaw mkMap;
       in {
         ":pleroma"."Pleroma.Web.Endpoint".url.host = vhost;
