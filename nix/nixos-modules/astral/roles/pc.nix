@@ -64,6 +64,7 @@ with lib; {
 
     astral = {
       ci.needs = [ "nixos-system-__basePC" ];
+      ci.prune-runner = true;
 
       custom-tty.enable = true;
       program-sets = {
