@@ -28,7 +28,7 @@ with lib; rec {
       };
     };
 
-    env.target_flake = let
+    env.TARGET_FLAKE = let
       repo = ghexpr "github.repository";
       sha = ghexpr "inputs.sha || github.sha";
       p = ghexpr "inputs.sha || github.sha";
@@ -107,32 +107,32 @@ with lib; rec {
           run = let
             buildList = if isString build then [ build ] else build;
             installables =
-              map (attr: ''"$target_flake#"'' + escapeShellArg attr) buildList;
+              map (attr: ''"$TARGET_FLAKE#"'' + escapeShellArg attr) buildList;
             args = concatStringsSep " " installables;
           in "GC_DONT_GC=1 nix build --show-trace ${args}";
-          env.target_flake = ghexpr "env.target_flake";
+          env.TARGET_FLAKE = ghexpr "env.TARGET_FLAKE";
         };
 
         runStep = {
           name = "Run ${run}";
           run =
-            ''GC_DONT_GC=1 nix run --show-trace "$target_flake#$flake_attr"'';
+            ''GC_DONT_GC=1 nix run --show-trace "$TARGET_FLAKE#$run_flake_attr"'';
           env = {
-            flake_attr = run;
-            target_flake = ghexpr "env.target_flake";
+            run_flake_attr = run;
+            TARGET_FLAKE = ghexpr "env.TARGET_FLAKE";
           };
         };
 
         deployStep = {
           name = "Deploy with ${deploy}";
           run =
-            ''GC_DONT_GC=1 nix run --show-trace "$target_flake#$flake_attr"'';
+            ''GC_DONT_GC=1 nix run --show-trace "$TARGET_FLAKE#$run_flake_attr"'';
           "if" = ghexpr
             ("(github.event_name == 'workflow_call' && inputs.deploy) || "
               + "(github.event_name != 'workflow_call' && github.ref == 'refs/heads/main')");
           env = {
-            flake_attr = deploy;
-            target_flake = ghexpr "env.target_flake";
+            deploy_flake_attr = deploy;
+            TARGET_FLAKE = ghexpr "env.TARGET_FLAKE";
           };
         };
 

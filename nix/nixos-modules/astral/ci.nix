@@ -57,7 +57,7 @@ in {
         runtimeInputs = [ nixos-rebuild ];
         text = ''
           nixos-rebuild switch \
-            --flake "$flake_target#${hostName}" \
+            --flake "$TARGET_FLAKE#${hostName}" \
             --target-host "github@${cfg.deploy-to}" \
             --use-remote-sudo \
             --show-trace
