@@ -25,8 +25,9 @@
         address = "208.87.130.175";
         prefixLength = 24;
       }];
+
       ipv6.addresses = [{
-        address = "2605:a141:2108:6306::1";
+        address = "2602:ff16:4:0:1:214:0:1";
         prefixLength = 64;
       }];
     };
