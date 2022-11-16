@@ -1,7 +1,5 @@
 # A large SSDNodes VPS
 { pkgs, lib, inputs, ... }: {
-  imports = [ inputs.self.nixosModules.contabo-vps ];
-
   astral = {
     ci.deploy-to = "208.87.130.175";
     roles = { server.enable = true; };
