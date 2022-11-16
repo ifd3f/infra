@@ -52,11 +52,15 @@ in {
   config.astral.ci.deploy-package = mkIf (cfg.deploy-to != null) (mkDefault
     (with pkgs;
       let inherit (config.networking) hostName;
-      in writeScriptBin "upload-${hostName}" ''
-        ${nixos-rebuild}/bin/nixos-rebuild switch \
-          --flake "$flake_target#${hostName}" \
-          --target-host "github@${cfg.deploy-to}" \
-          --use-remote-sudo \
-          --show-trace
-      ''));
+      in writeShellApplication {
+        name = "upload-${hostName}";
+        runtimeInputs = [ nixos-rebuild ];
+        text = ''
+          nixos-rebuild switch \
+            --flake "$flake_target#${hostName}" \
+            --target-host "github@${cfg.deploy-to}" \
+            --use-remote-sudo \
+            --show-trace
+        '';
+      }));
 }
