@@ -46,7 +46,6 @@ in {
       type = with types; nullOr types.package;
       default = null;
     };
-
   };
 
   config.astral.ci.deploy-package = mkIf (cfg.deploy-to != null) (mkDefault
@@ -56,6 +55,8 @@ in {
         name = "upload-${hostName}";
         runtimeInputs = [ nixos-rebuild ];
         text = ''
+          set -o xtrace
+
           nixos-rebuild switch \
             --flake "$TARGET_FLAKE#${hostName}" \
             --target-host "github@${cfg.deploy-to}" \

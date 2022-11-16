@@ -7,6 +7,15 @@
   };
 
   config = lib.mkIf config.astral.roles.server.enable {
+    # Use a stable, frozen-version hardened kernel
+    boot.kernelPackages = pkgs.linuxPackages_5_15_hardened;
+
+    # Enable SSH in initrd for debugging
+    boot.initrd.network.ssh = {
+      enable = true;
+      authorizedKeys = [ self.lib.sshKeyDatabase.users.astrid ];
+    };
+
     astral = {
       net.sshd.enable = true;
       infra-update.enable =
@@ -20,14 +29,6 @@
 
       ci.needs = [ "nixos-system-__baseServer" ];
     };
-
-    # Enable SSH in initrd for debugging
-    boot.initrd.network.ssh = {
-      enable = true;
-      authorizedKeys = [ self.lib.sshKeyDatabase.users.astrid ];
-    };
-
-    boot.kernelPackages = pkgs.linuxPackages_5_15_hardened;
 
     home-manager = {
       useGlobalPkgs = true;
