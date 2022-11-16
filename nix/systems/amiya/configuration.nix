@@ -8,11 +8,16 @@
   };
 
   networking = {
-    hostName = "bennett";
+    hostName = "amiya";
 
     defaultGateway = {
       interface = "enp3s0";
       address = "208.87.130.1";
+    };
+
+    defaultGateway6 = {
+      interface = "enp3s0";
+      address = "2602:ff16:4::1";
     };
 
     interfaces.enp3s0 = {
@@ -25,6 +30,12 @@
         prefixLength = 64;
       }];
     };
+  };
+
+  services.resolved = {
+    enable = true;
+    domains =
+      [ "8.8.8.8" "8.8.4.4" "2001:4860:4860::8888" "2001:4860:4860::8844" ];
   };
 
   fileSystems."/" = {
