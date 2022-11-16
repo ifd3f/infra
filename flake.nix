@@ -184,6 +184,7 @@
           };
 
           contabo-vps = import ./nix/nixos-modules/contabo-vps.nix;
+          oracle-cloud-vps = import ./nix/nixos-modules/oracle-cloud-vps.nix;
         };
 
         nixosConfigurations = (import ./nix/systems { inherit inputs lib; });
