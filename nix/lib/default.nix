@@ -3,7 +3,7 @@ let inherit (inputs.nixpkgs-unstable) lib;
 in rec {
   sshKeyDatabase = import ../../ssh_keys;
 
-  ciGraph = import ../ci.nix { inherit self lib; };
+  ci = import ../ci.nix { inherit self lib; };
 
   nixosSystem' = { system, modules, nixpkgs ? defaultNixpkgs }:
     nixpkgs.lib.nixosSystem {
