@@ -115,8 +115,8 @@ with lib; rec {
 
         runStep = {
           name = "Run ${run}";
-          run =
-            ''GC_DONT_GC=1 nix run --show-trace "$TARGET_FLAKE#$run_flake_attr"'';
+          run = ''
+            GC_DONT_GC=1 nix run --show-trace "$TARGET_FLAKE#$run_flake_attr"'';
           env = {
             run_flake_attr = run;
             TARGET_FLAKE = ghexpr "env.TARGET_FLAKE";
@@ -125,8 +125,8 @@ with lib; rec {
 
         deployStep = {
           name = "Deploy with ${deploy}";
-          run =
-            ''GC_DONT_GC=1 nix run --show-trace "$TARGET_FLAKE#$run_flake_attr"'';
+          run = ''
+            GC_DONT_GC=1 nix run --show-trace "$TARGET_FLAKE#$deploy_flake_attr"'';
           "if" = ghexpr
             ("(github.event_name == 'workflow_call' && inputs.deploy) || "
               + "(github.event_name != 'workflow_call' && github.ref == 'refs/heads/main')");
