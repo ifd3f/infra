@@ -8,7 +8,7 @@
 
     # TODO set to 22.11
     # follow the issue here: https://github.com/NixOS/nixpkgs/issues/193585
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/staging-next";
 
     nixpkgs-php74.url = "github:NixOS/nixpkgs/nixos-22.05";
 
