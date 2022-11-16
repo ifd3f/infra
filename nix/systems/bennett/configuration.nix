@@ -23,4 +23,9 @@
     enable = true;
     version = 2;
   };
+
+  fileSystems."/" = {
+    device = "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi0-part3";
+    fsType = "ext4";
+  };
 }

@@ -1,5 +1,7 @@
 # A large SSDNodes VPS
 { pkgs, lib, inputs, ... }: {
+  imports = [ ./hardware-configuration.nix ];
+
   astral = {
     ci.deploy-to = "208.87.130.175";
     roles = { server.enable = true; };
@@ -36,18 +38,12 @@
       [ "8.8.8.8" "8.8.4.4" "2001:4860:4860::8888" "2001:4860:4860::8844" ];
   };
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/bb9bdf23-2368-4452-988d-8b82e64b7fc4";
-    fsType = "ext4";
-  };
-
   time.timeZone = "US/Pacific";
 
-  # SSDNodes does not provide EFI.
-  boot.loader.grub = {
-    device = "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi0-0-0-0";
-    efiSupport = false;
-    enable = true;
-    version = 2;
+  boot = {
+    loader.grub.device = "/dev/sda";
+    initrd.availableKernelModules =
+      [ "ata_piix" "uhci_hcd" "xen_blkfront" "vmw_pvscsi" ];
+    initrd.kernelModules = [ "nvme" ];
   };
 }
