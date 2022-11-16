@@ -6,6 +6,7 @@ result
 *.tar.gz
 *.tar.bz2
 *.qcow2
+.DS_Store
 
 # Root Makefile for rapid Vim prototyping
 /Makefile
