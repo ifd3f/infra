@@ -3,9 +3,6 @@
 
   zramSwap.enable = true;
 
-  hardware.cpu.amd.updateMicrocode =
-    lib.mkDefault config.hardware.enableRedistributableFirmware;
-
   boot = {
     cleanTmpDir = true;
 
@@ -16,12 +13,6 @@
       enable = true;
       version = 2;
     };
-
-    initrd.availableKernelModules =
-      [ "ata_piix" "uhci_hcd" "virtio_pci" "virtio_scsi" "sd_mod" ];
-    initrd.kernelModules = [ ];
-    kernelModules = [ ];
-    extraModulePackages = [ ];
   };
 
   networking = {
