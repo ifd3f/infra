@@ -2,7 +2,7 @@
 with lib; rec {
   ghexpr = v: "\${{ ${v} }}";
 
-  makeGithubWorkflow = { nodes, cachix, cronSchedule }: {
+  makeGithubWorkflow = { nodes, cachix, cronSchedule, known_hosts }: {
     name = "Build and deploy";
     run-name = "Build and deploy (${ghexpr "inputs.sha || github.sha"})";
 
@@ -28,11 +28,14 @@ with lib; rec {
       };
     };
 
-    env.TARGET_FLAKE = let
-      repo = ghexpr "github.repository";
-      sha = ghexpr "inputs.sha || github.sha";
-      p = ghexpr "inputs.sha || github.sha";
-    in "github:${repo}/${sha}";
+    env = {
+      KNOWN_HOSTS = known_hosts;
+      TARGET_FLAKE = let
+        repo = ghexpr "github.repository";
+        sha = ghexpr "inputs.sha || github.sha";
+        p = ghexpr "inputs.sha || github.sha";
+      in "github:${repo}/${sha}";
+    };
 
     jobs = mapAttrs (makeJob { inherit nodes cachix; }) nodes;
   };
@@ -82,6 +85,11 @@ with lib; rec {
           {
             "uses" = "webfactory/ssh-agent@v0.7.0";
             "with".ssh-private-key = ghexpr "secrets.SSH_PRIVATE_KEY";
+          }
+          {
+            name = "Append to known_hosts";
+            run = ''echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts'';
+            env.KNOWN_HOSTS = ghexpr "env.KNOWN_HOSTS";
           }
           {
             "uses" = "cachix/install-nix-action@v18";

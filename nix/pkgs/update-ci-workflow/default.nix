@@ -1,5 +1,5 @@
 # This file generates a Github Actions runner from ci.nix.
-{ self, lib, writeText, writeScriptBin, runCommand, yq }:
+{ self, git, lib, writeText, writeScriptBin, runCommand, yq }:
 let
   workflowJSON =
     writeText "check-targets.json" (builtins.toJSON (self.lib.ci.workflow));

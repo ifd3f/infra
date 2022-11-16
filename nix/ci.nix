@@ -43,6 +43,8 @@ let
   };
 
 in rec {
+  known_hosts = builtins.readFile ./ci/known_hosts;
+
   ssh-deploy-targets = sort lessThan (filter (x: x != null)
     (mapAttrsToList (_: system: system.config.astral.ci.deploy-to)
       self.nixosConfigurations));
@@ -73,5 +75,5 @@ in rec {
   }) [ "x86_64-linux" "x86_64-darwin" ]))
     // (nixosNodesForSystem "x86_64-linux");
 
-  workflow = self.lib.makeGithubWorkflow { inherit cronSchedule cachix nodes; };
+  workflow = self.lib.makeGithubWorkflow { inherit cronSchedule cachix nodes known_hosts; };
 }
