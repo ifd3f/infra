@@ -6,6 +6,7 @@ let
 in vendored-images // {
 
   update-ci-workflow = pkgs.callPackage ./update-ci-workflow { inherit self; };
+  scan-ci-host-keys = pkgs.callPackage ./scan-ci-host-keys { inherit self; };
 
   ci-import-and-tag-docker = pkgs.callPackage ./ci-import-and-tag-docker { };
   installer-iso = pkgs.callPackage ./images/installer-iso { inherit self; };

@@ -43,9 +43,9 @@ let
   };
 
 in rec {
-  ssh-deploy-targets = builtins.filter (x: x != null)
+  ssh-deploy-targets = sort lessThan (filter (x: x != null)
     (mapAttrsToList (_: system: system.config.astral.ci.deploy-to)
-      self.nixosConfigurations);
+      self.nixosConfigurations));
 
   cronSchedule = "0 6 * * 6";
 
