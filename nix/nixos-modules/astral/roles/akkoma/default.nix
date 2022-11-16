@@ -4,12 +4,15 @@ let
   vhost = "fedi.astrid.tech";
   cfg = config.astral.roles.akkoma;
 
-  pleroma-fe' = pkgs.akkoma-frontends.pleroma-fe.overrideAttrs (final: prev: {
-    src = pkgs.runCommand "pleroma-fe-modded" ''
-      cp -r ${prev.src} $out
-      cp ${./i18n_en.json} $out/src/i18n/en.json
-    '';
-  });
+  patched-pleroma-fe = pkgs.akkoma-frontends.pleroma-fe.overrideAttrs
+    (final: prev: {
+      src = pkgs.runCommand "patched-pleroma-fe-src" { } ''
+        cp -r ${prev.src} $out
+        chmod -R +w $out
+        cp ${./i18n_en.json} $out/src/i18n/en.json
+      '';
+    });
+
 in {
   options.astral.roles.akkoma.enable = mkEnableOption "fedi server";
 
@@ -18,7 +21,18 @@ in {
       enable = true;
       termsOfService = ./terms-of-service.html;
 
-      frontends.primary.package = pleroma-fe';
+      frontends = {
+        primary = {
+          package = patched-pleroma-fe;
+          name = "pleroma-fe";
+          ref = "stable";
+        };
+        admin = {
+          package = pkgs.akkoma-frontends.admin-fe;
+          name = "admin-fe";
+          ref = "stable";
+        };
+      };
 
       config = let inherit ((pkgs.formats.elixirConf { }).lib) mkRaw mkMap;
       in {
