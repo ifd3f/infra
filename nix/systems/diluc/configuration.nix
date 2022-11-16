@@ -1,6 +1,6 @@
 # Contabo VPS.
-{ pkgs, lib, ... }: {
-  imports = [ ./hardware-configuration.nix ];
+{ pkgs, lib, inputs, ... }: {
+  imports = [ inputs.self.nixosModules.contabo-vps ];
 
   astral = {
     ci.deploy-to = "173.212.242.107";
@@ -19,20 +19,10 @@
     };
   };
 
-  boot.cleanTmpDir = true;
-  zramSwap.enable = true;
   networking.hostName = "diluc";
+  networking.firewall.allowedTCPPorts = [ 80 443 ];
 
   time.timeZone = "Europe/Berlin";
-
-  boot.loader.grub = {
-    device = "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi0";
-    efiSupport = false;
-    enable = true;
-    version = 2;
-  };
-
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
 
   services.nginx = {
     enable = true;

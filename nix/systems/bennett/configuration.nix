@@ -1,17 +1,15 @@
 # Contabo VPS.
-{ pkgs, lib, ... }: {
-  imports = [ ./hardware-configuration.nix ];
+{ pkgs, lib, inputs, ... }: {
+  imports = [ inputs.self.nixosModules.contabo-vps ];
 
   astral = {
     ci.deploy-to = "154.53.59.80";
     roles = { server.enable = true; };
   };
 
-  boot.cleanTmpDir = true;
-  zramSwap.enable = true;
   networking.hostName = "bennett";
 
-  time.timeZone = "Europe/Berlin";
+  time.timeZone = "US/Pacific";
 
   boot.loader.grub = {
     device = "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi0";

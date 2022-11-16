@@ -182,6 +182,8 @@
             inherit self nix-ld home-manager;
             homeModules = self.homeModules;
           };
+
+          contabo-vps = import ./nix/nixos-modules/contabo-vps.nix;
         };
 
         nixosConfigurations = (import ./nix/systems { inherit inputs lib; });
