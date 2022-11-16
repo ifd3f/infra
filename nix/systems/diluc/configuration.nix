@@ -67,4 +67,9 @@
 
   virtualisation.lxc.enable = true;
   virtualisation.lxd.enable = true;
+
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/ab29083b-5158-43d2-ab40-e3b40437bf31";
+    fsType = "ext4";
+  };
 }

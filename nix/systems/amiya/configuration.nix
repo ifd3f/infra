@@ -37,7 +37,7 @@
   };
 
   fileSystems."/" = {
-    device = "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi0-0-0-0-part2";
+    device = "/dev/disk/by-uuid/bb9bdf23-2368-4452-988d-8b82e64b7fc4";
     fsType = "ext4";
   };
 
