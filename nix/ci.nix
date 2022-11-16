@@ -52,7 +52,7 @@ with lib; {
       system = "x86_64-linux";
       build = "packages.x86_64-linux.installer-iso";
 
-      needs = [ "nixos-system-__base" "home-manager-x86_64-linux" ];
+      needs = [ "home-manager-x86_64-linux" ];
     };
 
     surface-kernel = {

@@ -5,7 +5,7 @@
   astral = {
     roles = { pc.enable = true; };
 
-    ci.needs = lib.mkForce [ "nixos-system-__base" ];
+    ci.needs = lib.mkForce [ ];
     ci.prune-runner = true;
   };
 

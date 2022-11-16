@@ -6,8 +6,7 @@
     roles = { server.enable = true; };
 
     # home-manager is embedded in server systems
-    ci.needs =
-      lib.mkForce [ "home-manager-x86_64-linux" "nixos-system-__base" ];
+    ci.needs = lib.mkForce [ "home-manager-x86_64-linux" ];
   };
 
   boot.initrd.availableKernelModules =
