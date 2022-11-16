@@ -19,8 +19,14 @@
     };
   };
 
-  networking.hostName = "diluc";
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
+  networking = {
+    hostName = "diluc";
+    firewall.allowedTCPPorts = [ 80 443 ];
+    interfaces.ens18.ipv6.addresses = [{
+      address = "2a02:c207:2087:999::1";
+      prefixLength = 128;
+    }];
+  };
 
   time.timeZone = "Europe/Berlin";
 
