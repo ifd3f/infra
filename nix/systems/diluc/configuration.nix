@@ -27,6 +27,12 @@
       address = "2a02:c207:2087:999::1";
       prefixLength = 128;
     }];
+
+    bridges.bripa.interfaces = [ ];
+    interfaces.bripa.ipv6.addresses = [{
+      address = "2a02:c207:2087:999:1::1";
+      prefixLength = 112;
+    }];
   };
 
   time.timeZone = "Europe/Berlin";
