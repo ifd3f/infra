@@ -34,9 +34,9 @@ in {
       scrapeConfigs = let
         ecfg = config.services.prometheus.exporters;
         tls_config = {
-          # ca_file = "${../../ca.crt}";
-          # cert_file = "${./prometheus.pem}";
-          # key_file = cfg.sslKeyFile;
+          ca_file = "${../../ca.crt}";
+          cert_file = "${./prometheus.pem}";
+          key_file = cfg.sslKeyFile;
         };
       in [
         {
