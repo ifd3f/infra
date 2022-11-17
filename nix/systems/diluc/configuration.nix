@@ -6,6 +6,8 @@
     ci.deploy-to = "173.212.242.107";
 
     acme.enable = true;
+    custom-nginx-errors.enable = true;
+
     roles = {
       akkoma.enable = true;
       armqr.enable = true;

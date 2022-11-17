@@ -19,6 +19,7 @@
     ./custom-tty
     ./program-sets
     ./nix-utils.nix
+    ./custom-nginx-errors
 
     ./cachix.nix
     ./infra-update.nix

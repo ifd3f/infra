@@ -50,6 +50,17 @@ in {
         enableACME = true;
         forceSSL = true;
 
+        extraConfig = ''
+          error_page 502 /502.html;
+        '';
+
+        locations."= /502.html" = {
+          root = ../../custom-nginx-errors/static;
+          extraConfig = ''
+            internal;
+          '';
+        };
+
         locations."/" = {
           proxyPass =
             "http://127.0.0.1:${toString gcfg.settings.server.http_port}";
