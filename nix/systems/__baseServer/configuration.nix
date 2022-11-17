@@ -22,6 +22,7 @@
 
   swapDevices = [ ];
   networking.useDHCP = lib.mkDefault true;
+  networking.domain = "h.astrid.tech";
 
   hardware.cpu.amd.updateMicrocode =
     lib.mkDefault config.hardware.enableRedistributableFirmware;

@@ -17,11 +17,10 @@
     };
 
     astral = {
-      net.sshd.enable = true;
-      infra-update.enable =
-        false; # don't update automatically because everything's broken
+      acme.enable = true;
       custom-tty.enable = true;
-      roles.monitoring.node.enable = true;
+      infra-update.enable = false;
+      net.sshd.enable = true;
 
       users = {
         github.enable = true;

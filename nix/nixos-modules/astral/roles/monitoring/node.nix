@@ -14,6 +14,7 @@ in {
 
   config = mkIf cfg.enable {
     astral.roles.monitoring.node.vhost = mkDefault config.networking.fqdn;
+    astral.acme.enable = true;
 
     services.prometheus.exporters = {
       node = {
