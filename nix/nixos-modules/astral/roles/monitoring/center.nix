@@ -8,6 +8,8 @@ in {
     mkEnableOption "monitoring center role";
 
   config = mkIf cfg.enable {
+    astral.custom-nginx-errors.virtualHosts = [ "grafana.astrid.tech" ];
+
     services.grafana = {
       enable = true;
       settings = {
@@ -49,17 +51,6 @@ in {
       ${gcfg.settings.server.domain} = {
         enableACME = true;
         forceSSL = true;
-
-        extraConfig = ''
-          error_page 502 /502.html;
-        '';
-
-        locations."= /502.html" = {
-          root = ../../custom-nginx-errors/static;
-          extraConfig = ''
-            internal;
-          '';
-        };
 
         locations."/" = {
           proxyPass =
