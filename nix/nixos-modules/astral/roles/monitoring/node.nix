@@ -36,11 +36,15 @@ in {
       enableACME = true;
       onlySSL = true;
 
-      # Enforce client authentication
+      # TODO: figure out mTLS
       extraConfig = ''
-        # ssl_client_certificate ${./prometheus.pem};
-        # ssl_verify_depth 3;
-        # ssl_verify_client on;
+        allow 173.212.242.107;
+        allow 2a02:c207:2087:999::1;
+
+        allow 127.0.0.1;
+        allow ::1;
+
+        deny all;
       '';
 
       locations = {
