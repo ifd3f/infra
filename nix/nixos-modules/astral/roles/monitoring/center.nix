@@ -38,6 +38,13 @@ in {
           # cert_file = "${./prometheus.pem}";
           # key_file = cfg.sslKeyFile;
         };
+        targets = [
+          "amiya.h.astrid.tech"
+          "bennett.h.astrid.tech"
+          "diluc.h.astrid.tech"
+          "durin.h.astrid.tech"
+          "yato.h.astrid.tech"
+        ];
       in [
         {
           inherit tls_config;
@@ -46,7 +53,7 @@ in {
           job_name = "node";
           scrape_interval = "10s";
           metrics_path = "/metrics/node";
-          static_configs = [{ targets = [ "diluc.h.astrid.tech" ]; }];
+          static_configs = [{ inherit targets; }];
         }
         {
           inherit tls_config;
@@ -55,7 +62,7 @@ in {
           job_name = "nginx";
           scrape_interval = "10s";
           metrics_path = "/metrics/nginx";
-          static_configs = [{ targets = [ "diluc.h.astrid.tech" ]; }];
+          static_configs = [{ inherit targets; }];
         }
         {
           inherit tls_config;
@@ -64,7 +71,7 @@ in {
           job_name = "systemd";
           scrape_interval = "10s";
           metrics_path = "/metrics/systemd";
-          static_configs = [{ targets = [ "diluc.h.astrid.tech" ]; }];
+          static_configs = [{ inherit targets; }];
         }
       ];
     };

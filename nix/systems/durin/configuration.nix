@@ -7,7 +7,10 @@
     roles.server.enable = true;
   };
 
-  networking.hostName = "durin";
+  networking = {
+    hostName = "durin";
+    domain = "h.astrid.tech";
+  };
 
   time.timeZone = "US/Pacific";
 }

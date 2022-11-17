@@ -21,6 +21,7 @@
       infra-update.enable =
         false; # don't update automatically because everything's broken
       custom-tty.enable = true;
+      roles.monitoring.node.enable = true;
 
       users = {
         github.enable = true;

@@ -10,6 +10,7 @@
 
   networking = {
     hostName = "bennett";
+    domain = "h.astrid.tech";
     interfaces.ens18.ipv6.addresses = [{
       address = "2605:a141:2108:6306::1";
       prefixLength = 64;

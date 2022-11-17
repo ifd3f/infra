@@ -7,7 +7,10 @@
     roles.server.enable = true;
   };
 
-  networking.hostName = "yato";
+  networking = {
+    hostName = "yato";
+    domain = "h.astrid.tech";
+  };
 
   time.timeZone = "US/Pacific";
 }
