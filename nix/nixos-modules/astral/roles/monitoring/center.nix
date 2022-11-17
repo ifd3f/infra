@@ -3,9 +3,17 @@ with lib;
 let
   cfg = config.astral.roles.monitoring.center;
   gcfg = config.services.grafana;
+
 in {
-  options.astral.roles.monitoring.center.enable =
-    mkEnableOption "monitoring center role";
+  options.astral.roles.monitoring.center = {
+    enable = mkEnableOption "monitoring center role";
+
+    sslKeyFile = mkOption {
+      type = types.path;
+      description = "Path to SSL key";
+      default = "/var/lib/secrets/prometheus/prometheus.key";
+    };
+  };
 
   config = mkIf cfg.enable {
     astral.custom-nginx-errors.virtualHosts = [ "grafana.astrid.tech" ];
@@ -21,26 +29,42 @@ in {
 
     services.prometheus = {
       enable = true;
+      checkConfig = "syntax-only";
 
-      scrapeConfigs = let ecfg = config.services.prometheus.exporters;
+      scrapeConfigs = let
+        ecfg = config.services.prometheus.exporters;
+        tls_config = {
+          # ca_file = "${../../ca.crt}";
+          # cert_file = "${./prometheus.pem}";
+          # key_file = cfg.sslKeyFile;
+        };
       in [
         {
+          inherit tls_config;
+
+          scheme = "https";
           job_name = "node";
           scrape_interval = "10s";
-          static_configs =
-            [{ targets = [ "127.0.0.1:${toString ecfg.node.port}" ]; }];
+          metrics_path = "/metrics/node";
+          static_configs = [{ targets = [ "diluc.h.astrid.tech" ]; }];
         }
         {
+          inherit tls_config;
+
+          scheme = "https";
           job_name = "nginx";
           scrape_interval = "10s";
-          static_configs =
-            [{ targets = [ "127.0.0.1:${toString ecfg.nginx.port}" ]; }];
+          metrics_path = "/metrics/nginx";
+          static_configs = [{ targets = [ "diluc.h.astrid.tech" ]; }];
         }
         {
+          inherit tls_config;
+
+          scheme = "https";
           job_name = "systemd";
           scrape_interval = "10s";
-          static_configs =
-            [{ targets = [ "127.0.0.1:${toString ecfg.systemd.port}" ]; }];
+          metrics_path = "/metrics/systemd";
+          static_configs = [{ targets = [ "diluc.h.astrid.tech" ]; }];
         }
       ];
     };
