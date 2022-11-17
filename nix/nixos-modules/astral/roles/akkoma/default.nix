@@ -17,6 +17,8 @@ in {
   options.astral.roles.akkoma.enable = mkEnableOption "fedi server";
 
   config = mkIf cfg.enable {
+    astral.custom-nginx-errors.virtualHosts = [ "grafana.astrid.tech" ];
+
     services.akkoma = {
       enable = true;
       termsOfService = ./terms-of-service.html;

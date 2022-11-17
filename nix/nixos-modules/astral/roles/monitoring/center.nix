@@ -8,6 +8,8 @@ in {
     mkEnableOption "monitoring center role";
 
   config = mkIf cfg.enable {
+    astral.custom-nginx-errors.virtualHosts = [ "grafana.astrid.tech" ];
+
     services.grafana = {
       enable = true;
       settings = {
