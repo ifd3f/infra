@@ -21,7 +21,6 @@ let
       netcat
       nixfmt
       nodePackages.prettier
-      openssl
       packer
       python3
       tcpdump

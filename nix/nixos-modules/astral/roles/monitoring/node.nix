@@ -38,9 +38,9 @@ in {
 
       # Enforce client authentication
       extraConfig = ''
-        ssl_client_certificate ${./prometheus.pem};
-        ssl_verify_depth 3;
-        ssl_verify_client on;
+        # ssl_client_certificate ${./prometheus.pem};
+        # ssl_verify_depth 3;
+        # ssl_verify_client on;
       '';
 
       locations = {
