@@ -5,14 +5,11 @@
   astral = {
     ci.deploy-to = "173.212.242.107";
 
-    acme.enable = true;
-
     roles = {
       akkoma.enable = true;
       armqr.enable = true;
       auth-dns.enable = true;
       monitoring.center.enable = true;
-      monitoring.node.enable = true;
       piwigo.enable = true;
       sso-provider.enable = false;
 
@@ -22,6 +19,8 @@
 
   networking = {
     hostName = "diluc";
+    domain = "h.astrid.tech";
+
     firewall.allowedTCPPorts = [ 80 443 ];
     interfaces.ens18.ipv6.addresses = [{
       address = "2a02:c207:2087:999::1";

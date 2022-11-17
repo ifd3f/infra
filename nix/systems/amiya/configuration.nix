@@ -9,6 +9,7 @@
 
   networking = {
     hostName = "amiya";
+    domain = "h.astrid.tech";
 
     defaultGateway = {
       interface = "enp3s0";
