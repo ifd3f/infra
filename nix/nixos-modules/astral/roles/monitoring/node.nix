@@ -40,7 +40,7 @@ in {
     services.nginx.enable = true;
     services.nginx.virtualHosts.${cfg.vhost} = {
       enableACME = true;
-      onlySSL = true;
+      forceSSL = true;
 
       # TODO: figure out mTLS
       extraConfig = ''
