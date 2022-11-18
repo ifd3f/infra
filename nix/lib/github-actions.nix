@@ -88,7 +88,10 @@ with lib; rec {
           }
           {
             name = "Append to known_hosts";
-            run = ''echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts'';
+            run = ''
+              echo '\n' >> ~/.ssh/known_hosts
+              echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
+            '';
             env.KNOWN_HOSTS = ghexpr "env.KNOWN_HOSTS";
           }
           {
