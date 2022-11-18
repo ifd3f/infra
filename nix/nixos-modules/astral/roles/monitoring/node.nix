@@ -30,6 +30,7 @@ in {
       systemd = {
         enable = true;
         port = 9558;
+        extraFlags = [ "--log.level=error" ];
       };
       nginx = {
         enable = true;
