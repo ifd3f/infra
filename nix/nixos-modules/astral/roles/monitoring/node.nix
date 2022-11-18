@@ -16,6 +16,11 @@ in {
     astral.roles.monitoring.node.vhost = mkDefault config.networking.fqdn;
     astral.acme.enable = true;
 
+    networking.firewall = {
+      enable = true;
+      allowedTCPPorts = [ 80 443 ];
+    };
+
     services.prometheus.exporters = {
       node = {
         enable = true;

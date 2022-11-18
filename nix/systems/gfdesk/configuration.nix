@@ -19,6 +19,9 @@
   system.autoUpgrade.allowReboot = false;
 
   networking = {
+    hostName = "gfdesk";
+    domain = "h.astrid.tech";
+
     hostId = "6d1020a1"; # Required for ZFS
     useDHCP = false;
 
