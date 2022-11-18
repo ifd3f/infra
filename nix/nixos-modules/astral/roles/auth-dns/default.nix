@@ -61,5 +61,18 @@ with lib; {
         }
       ];
     };
+
+    # easter eggs
+    services.nginx.virtualHosts =
+      let hosts = [ "charlie" "dee" "dennis" "frank" "mac" ];
+      in listToAttrs (map (host: {
+        name = "${host}.astrid.tech";
+        value = {
+          enableACME = true;
+          addSSL = true;
+          root = ./placeholder-site;
+          locations."/".index = "${host}.jpg";
+        };
+      }) hosts);
   };
 }
