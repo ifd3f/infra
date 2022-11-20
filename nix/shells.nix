@@ -12,21 +12,18 @@ let
       dnsutils
       docker
       docker-compose
-      gh
       git
       helmfile
       jq
-      kubectl
-      kubernetes-helm
       netcat
       nixfmt
       nodePackages.prettier
-      packer
       python3
       tcpdump
       terraform
       terraform-ls
       tmux
+      vault
       wget
       whois
       yq
