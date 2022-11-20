@@ -1,20 +1,28 @@
 {
-  description = "astridyu's infrastructure flake";
+  description = "Master Grimoire of Astral Clouds";
 
   inputs = {
     flake-utils.url = "github:numtide/flake-utils";
 
+    # PCs and dev shells are on unstable because I want
+    # bleeding-edge software to cut myself on.
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    # TODO set to 22.11
-    # follow the issue here: https://github.com/NixOS/nixpkgs/issues/193585
+    # Servers run on the stable versions because they're less
+    # likely to have breaking updates. 22.11 is not yet released
+    # but I want to use it anyways.
+    # Follow the issue here: https://github.com/NixOS/nixpkgs/issues/193585
     nixpkgs-stable.url = "github:NixOS/nixpkgs/staging-next";
 
+    # We need PHP 7.4 for piwigo to work correctly.
+    # It is removed in 22.11.
     nixpkgs-php74.url = "github:NixOS/nixpkgs/nixos-22.05";
 
     # My own nixpkgs fork, for customized patches
     #nixpkgs-ifd4f.url = "github:ifd3f/nixpkgs/lxd-vms";
 
+    # Akkoma has not been merged into nixpkgs yet.
+    # Follow the issue here: https://github.com/NixOS/nixpkgs/pull/192285
     nixpkgs-akkoma.url = "github:illdefined/nixpkgs/akkoma";
 
     nur.url = "github:nix-community/NUR";
@@ -34,6 +42,8 @@
       flake = false;
     };
 
+    # Specialized hardware configurations for specialized hardware.
+    # Currently used on the Surface Pro.
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     nixos-generators = {
