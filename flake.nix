@@ -44,7 +44,10 @@
 
     # Specialized hardware configurations for specialized hardware.
     # Currently used on the Surface Pro.
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    # The patched Surface kernel is broken for the time being so I'm
+    # following an older version.
+    # Track the issue here: https://github.com/NixOS/nixos-hardware/issues/504
+    nixos-hardware.url = "github:NixOS/nixos-hardware/c3c66f6db4ac74a59eb83d83e40c10046ebc0b8c";
 
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
