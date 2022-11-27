@@ -1,14 +1,13 @@
-{ self, home-manager, nix-ld, homeModules }:
-{ ... }: {
+{ inputs, ... }: {
   imports = [
-    nix-ld.nixosModules.nix-ld
-    home-manager.nixosModule
+    inputs.nix-ld.nixosModules.nix-ld
+    inputs.home-manager-unstable.nixosModule
     ./hw
 
-    ({ pkgs, ... }: {
+    ({ pkgs, inputs, ... }: {
       programs.zsh.enable = true;
       users.defaultUserShell = pkgs.zsh;
-      nixpkgs.overlays = [ self.overlays.default ];
+      nixpkgs.overlays = [ inputs.self.overlays.default ];
     })
 
     ./acme.nix
@@ -26,9 +25,9 @@
     ./ci.nix
 
     ./net
-    (import ./users { inherit self; })
+    ./users
 
-    (import ./roles { inherit homeModules self; })
+    ./roles
   ];
 
   system.stateVersion = "22.11";

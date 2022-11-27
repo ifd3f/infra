@@ -1,5 +1,4 @@
-{ homeModules, self }:
-{ config, lib, pkgs, ... }: {
+{ config, lib, pkgs, inputs, ... }: {
   options.astral.roles.server.enable = lib.mkOption {
     description = "Some headless server that likely runs 24/7.";
     default = false;
@@ -13,7 +12,7 @@
     # Enable SSH in initrd for debugging
     boot.initrd.network.ssh = {
       enable = true;
-      authorizedKeys = [ self.lib.sshKeyDatabase.users.astrid ];
+      authorizedKeys = [ inputs.self.lib.sshKeyDatabase.users.astrid ];
     };
 
     astral = {
@@ -36,7 +35,7 @@
       useUserPackages = true;
 
       # embed the home-manager into the configuration
-      users.astrid = homeModules.astral-cli;
+      users.astrid = inputs.self.homeModules.astral-cli;
     };
 
     # Passwordless sudo

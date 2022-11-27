@@ -1,6 +1,6 @@
-{ homeModules, self }: {
+{
   imports = [
-    (import ./server.nix { inherit homeModules self; })
+    ./server.nix
     ./laptop.nix
     ./pc.nix
 
