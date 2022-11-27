@@ -12,7 +12,7 @@
     # likely to have breaking updates. 22.11 is not yet released
     # but I want to use it anyways.
     # Follow the issue here: https://github.com/NixOS/nixpkgs/issues/193585
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/staging-next";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-22.11";
 
     # We need PHP 7.4 for piwigo to work correctly.
     # It is removed in 22.11.
