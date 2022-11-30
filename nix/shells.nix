@@ -28,6 +28,10 @@ let
       whois
       yq
     ] ++ (if pkgs.system != "x86_64-darwin" then [
+      openldap
+      krb5
+      sssd
+
       cdrkit
       iputils
       qemu
