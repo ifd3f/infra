@@ -5,10 +5,6 @@
   astral = {
     ci.deploy-to = "208.87.130.175";
     roles = { server.enable = true; };
-    virt = {
-      docker.enable = true;
-      libvirt.enable = true;
-    };
   };
 
   networking = {
