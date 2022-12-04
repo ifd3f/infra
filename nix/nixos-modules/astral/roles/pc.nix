@@ -12,6 +12,12 @@ with lib; {
       [ "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ=" ];
     nix.settings.substituters = [ "https://cache.iog.io" ];
 
+    # Enable SSH in initrd for debugging or disk key entry
+    boot.initrd.network.ssh = {
+      enable = true;
+      authorizedKeys = [ inputs.self.lib.sshKeyDatabase.users.astrid ];
+    };
+
     fonts.fonts = with pkgs; [
       corefonts
       dejavu_fonts
