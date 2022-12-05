@@ -39,6 +39,7 @@ in {
 
         extraConfig = ''
           index index.php index.htm index.html;
+          client_max_body_size 100M;
         '';
 
         locations."~ .php$".extraConfig = ''
