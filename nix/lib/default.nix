@@ -10,6 +10,7 @@ in rec {
       inherit system;
       modules = [
         inputs.armqr.nixosModules.default
+        inputs.year-of-bot.nixosModules.default
         "${inputs.nixpkgs-akkoma}/nixos/modules/services/web-apps/akkoma.nix"
         self.nixosModules.astral
       ] ++ modules;

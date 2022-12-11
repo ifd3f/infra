@@ -59,11 +59,16 @@
       url = "github:ifd3f/armqr";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+
+    year-of-bot = {
+      url = "github:ifd3f/year-of-bot";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs = { self, nixpkgs-unstable, nixpkgs-stable, nixpkgs-akkoma
     , nixpkgs-php74, nixos-vscode-server, flake-utils, nix-ld, nur
-    , home-manager-unstable, nixos-generators, armqr, ... }@inputs:
+    , home-manager-unstable, nixos-generators, armqr, year-of-bot, ... }@inputs:
     let
       nixpkgs = nixpkgs-unstable;
       home-manager = home-manager-unstable;
@@ -101,6 +106,7 @@
             (import "${home-manager}/overlay.nix")
             nur.overlay
             armqr.overlays.default
+            year-of-bot.overlays.default
             self.overlays.patched
           ];
 
