@@ -38,6 +38,12 @@ with lib; {
         };
       '';
 
+      extraConfig = ''
+        statistics-channels {
+          inet 127.0.0.1 port 8053 allow { localhost; };
+        };
+      '';
+
       zones = [
         {
           name = "astrid.tech";
@@ -60,6 +66,12 @@ with lib; {
           file = ./astridyu.com.zone;
         }
       ];
+    };
+
+    services.prometheus.exporters.bind = {
+      enable = true;
+      bindURI = "http://localhost:8053/";
+      bindGroups = [ "server" "view" "tasks" ];
     };
 
     # easter eggs

@@ -73,6 +73,15 @@ in {
           metrics_path = "/metrics/systemd";
           static_configs = [{ inherit targets; }];
         }
+        {
+          inherit tls_config;
+
+          scheme = "https";
+          job_name = "bind";
+          scrape_interval = "10s";
+          metrics_path = "/metrics/bind";
+          static_configs = [{ targets = [ "dennis.astrid.tech" ]; }];
+        }
       ];
     };
 
