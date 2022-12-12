@@ -80,7 +80,7 @@ in {
           job_name = "bind";
           scrape_interval = "10s";
           metrics_path = "/metrics/bind";
-          static_configs = [{ targets = [ "dennis.astrid.tech" ]; }];
+          static_configs = [{ targets = [ "diluc.h.astrid.tech" ]; }];
         }
       ];
     };
