@@ -120,6 +120,6 @@ in {
 
     # It seems to be running out of FDs.
     # By default it's 1024, which is a bit too small.
-    systemd.services.akkoma.serviceConfig.LimitNOFILE = 16384;
+    systemd.services.akkoma.serviceConfig.LimitNOFILE = 262144;
   };
 }
