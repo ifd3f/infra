@@ -45,6 +45,10 @@
     server = "https://fedi.astrid.tech";
   };
 
+  services.pleroma-ebooks.bots."@autoastrid@fedi.astrid.tech" = {
+    site = "https://fedi.astrid.tech";
+  };
+
   time.timeZone = "US/Pacific";
 
   boot = {

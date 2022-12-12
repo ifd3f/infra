@@ -11,6 +11,7 @@ in rec {
       modules = [
         inputs.armqr.nixosModules.default
         inputs.year-of-bot.nixosModules.default
+        inputs.nur-ifd3f.nixosModules.pleroma-ebooks
         "${inputs.nixpkgs-akkoma}/nixos/modules/services/web-apps/akkoma.nix"
         self.nixosModules.astral
       ] ++ modules;

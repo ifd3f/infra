@@ -9,9 +9,7 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     # Servers run on the stable versions because they're less
-    # likely to have breaking updates. 22.11 is not yet released
-    # but I want to use it anyways.
-    # Follow the issue here: https://github.com/NixOS/nixpkgs/issues/193585
+    # likely to have breaking updates.
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-22.11";
 
     # We need PHP 7.4 for piwigo to work correctly.
@@ -26,6 +24,12 @@
     nixpkgs-akkoma.url = "github:illdefined/nixpkgs/akkoma";
 
     nur.url = "github:nix-community/NUR";
+
+    # My own NUR repo for bleeding-edge updates
+    nur-ifd3f = {
+      url = "github:ifd3f/nur-packages";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
 
     home-manager-unstable = {
       url = "github:nix-community/home-manager/master";
@@ -68,7 +72,8 @@
 
   outputs = { self, nixpkgs-unstable, nixpkgs-stable, nixpkgs-akkoma
     , nixpkgs-php74, nixos-vscode-server, flake-utils, nix-ld, nur
-    , home-manager-unstable, nixos-generators, armqr, year-of-bot, ... }@inputs:
+    , home-manager-unstable, nixos-generators, armqr, year-of-bot, nur-ifd3f
+    , ... }@inputs:
     let
       nixpkgs = nixpkgs-unstable;
       home-manager = home-manager-unstable;
@@ -107,6 +112,7 @@
             nur.overlay
             armqr.overlays.default
             year-of-bot.overlays.default
+            nur-ifd3f.overlays.default
             self.overlays.patched
           ];
 
