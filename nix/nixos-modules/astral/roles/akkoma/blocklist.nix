@@ -30,7 +30,7 @@
     "detroitriotcity.com" = ''Discrimination, racism, "free speech zone"²'';
     "eientei.org" = "Racism";
     "eveningzoo.club" = "Racism";
-    "f.haeder.net" = "Discrimination";
+    "f.haeder.net" = "Admin is gay";
     "freeatlantis.com" = "Conspiracy theory instance";
     "freefedifollowers.ga" = "Follower spam";
     "freespeechextremist.com" = ''Discrimination, racism, "free speech zone"²'';
@@ -54,6 +54,7 @@
       "Promotion of violence and murder, multiple other violations of our rules";
     "lolicon.rocks" = "Lolicon";
     "lolison.top" = "Lolicon";
+    "mastodon.ie" = "Block bot";
     "mastodon.network" = "Imperaonation linking to porn";
     "mastodon.popps.org" = "Homophobia";
     "meta-tube.de" =
@@ -84,11 +85,13 @@
     "poa.st" = "Discrimination";
     "poster.place" = "Racism";
     "posting.lolicon.rocks" = "Racism, lolicon";
+    "qoto.org" = "Shitty behavior";
     "ryona.agency" = "Bigotry";
     "shitpost.cloud" = ''"Free speech zone"²'';
     "shitposter.club" = ''"Free speech zone"²'';
     "shortstackran.ch" = "Racism";
     "skippers-bin.com" = "Same admin as neckbeard.xyz, same behaviour";
+    "sleepy.cafe" = "Bigotry";
     "sneak.berlin" = "privacy violation";
     "sneed.social" = "bigotry";
     "social.ancreport.com" = ''Discrimination, racism, "free speech zone"²'';
@@ -106,6 +109,7 @@
     "wiki-tube.de" = "Right wing conspiracy videos";
     "wintermute.fr.to" = "Discrimination";
     "wolfgirl.bar" = "Racism, holocaust denial";
+    "www.banepo.st" = "Harassment";
     "yggdrasil.social" = "Discrimination";
     "youjo.love" = "Actual child porn";
     "zztails.gay" = "Racism";
