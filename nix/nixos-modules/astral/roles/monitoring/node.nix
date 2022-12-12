@@ -30,7 +30,10 @@ in {
       systemd = {
         enable = true;
         port = 9558;
-        extraFlags = [ "--log.level=error" ];
+        extraFlags = [
+          "--log.level=error"
+          "--systemd.collector.enable-file-descriptor-size"
+        ];
       };
       nginx = {
         enable = true;
