@@ -47,6 +47,11 @@
 
   services.pleroma-ebooks.bots."@autoastrid@fedi.astrid.tech" = {
     site = "https://fedi.astrid.tech";
+    extraConfig = {
+      cw = "markov post, open at own risk";
+      learn_from_cw = true;
+      overlap_ratio_enabled = true;
+    };
   };
 
   time.timeZone = "US/Pacific";
