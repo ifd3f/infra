@@ -33,6 +33,8 @@ in {
         extraFlags = [
           "--log.level=error"
           "--systemd.collector.enable-file-descriptor-size"
+          "--systemd.collector.enable-ip-accounting"
+          "--systemd.collector.enable-restart-count"
         ];
       };
       nginx = {
