@@ -59,12 +59,14 @@ in {
         deny all;
       '';
 
-      locations = mkMerge (map (name:
-        let thisCfg = ecfg.${name};
-        in mkIf thisCfg.enable {
-          "/metrics/${name}".proxyPass =
-            "http://127.0.0.1:${toString thisCfg.port}/metrics";
-        }) [ "node" "nginx" "systemd" "bind" ]);
+      locations = {
+        "/metrics/node".proxyPass =
+          "http://127.0.0.1:${toString ecfg.node.port}/metrics";
+        "/metrics/nginx".proxyPass =
+          "http://127.0.0.1:${toString ecfg.nginx.port}/metrics";
+        "/metrics/systemd".proxyPass =
+          "http://127.0.0.1:${toString ecfg.systemd.port}/metrics";
+      };
     };
   };
 }

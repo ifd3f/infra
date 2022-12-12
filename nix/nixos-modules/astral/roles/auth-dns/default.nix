@@ -36,12 +36,6 @@ with lib; {
         allow-transfer {
           "none";
         };
-
-        // Open up a statistics channel for bind-exporter.
-        // For more details: https://github.com/prometheus-community/bind_exporter#troubleshooting
-        statistics-channels {
-          inet 127.0.0.1 port 8053 allow { 127.0.0.1; };
-        };
       '';
 
       zones = [
@@ -66,12 +60,6 @@ with lib; {
           file = ./astridyu.com.zone;
         }
       ];
-    };
-
-    services.prometheus.exporters.bind = {
-      enable = true;
-      bindURI = "http://localhost:8053/";
-      bindGroups = [ "server" "view" "tasks" ];
     };
 
     # easter eggs
