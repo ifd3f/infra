@@ -13,6 +13,7 @@ let
       '';
     });
 
+  blocklist = lib.fromTOML ./blocklist.toml;
 in {
   options.astral.roles.akkoma.enable = mkEnableOption "fedi server";
 
@@ -82,8 +83,7 @@ in {
 
         # Automated moderation settings
         # Borrowed from https://github.com/chaossocial/about/blob/master/blocked_instances.md
-        ":pleroma".":mrf_simple" = let blocklist = import ./blocklist.nix;
-        in {
+        ":pleroma".":mrf_simple" = {
           media_nsfw = mkMap blocklist.media_nsfw;
           reject = mkMap blocklist.reject;
           followers_only = mkMap blocklist.followers_only;
