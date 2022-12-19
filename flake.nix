@@ -36,8 +36,10 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    # Temporarily use older version due to it being broken.
+    # error: The option `programs.nix-ld.package' does not exist.
     nix-ld = {
-      url = "github:Mic92/nix-ld";
+      url = "github:Mic92/nix-ld/a6fd41e3934eb35f04f88826ee0118e391b4e31f";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
