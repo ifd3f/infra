@@ -13,7 +13,7 @@ let
       '';
     });
 
-  blocklist = lib.fromTOML ./blocklist.toml;
+  blocklist = lib.importTOML ./blocklist.toml;
 in {
   options.astral.roles.akkoma.enable = mkEnableOption "fedi server";
 
