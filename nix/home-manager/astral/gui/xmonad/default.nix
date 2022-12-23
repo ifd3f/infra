@@ -62,7 +62,16 @@
       '';
     };
 
-    services.dunst.enable = true;
+    services.dunst = {
+      enable = true;
+      settings.global = {
+        mouse_left_click = "do_action, close_current";
+        mouse_middle_click = "close_current";
+        mouse_right_click = "context";
+
+        dmenu = "${pkgs.dmenu}/bin/dmenu -p dunst:";
+      };
+    };
 
     services.gnome-keyring.enable = true;
 
