@@ -22,6 +22,7 @@ import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.UrgencyHook
 import XMonad.Layout.Fullscreen
+import XMonad.Layout.NoBorders
 import XMonad.Layout.Reflect
 import XMonad.Layout.Spacing
 import XMonad.Prompt
@@ -51,7 +52,7 @@ xdisplays = withDisplay $ io . getScreenInfo
 
 myLayoutHook = spacingWithEdge 10 $ avoidStruts $ layouts
     where
-        layouts = masterLeft ||| masterRight ||| masterTop ||| Full
+        layouts = masterLeft ||| masterRight ||| masterTop ||| (smartBorders $ (fullscreenFloat . fullscreenFull) Full)
         masterLeft = Tall nmaster delta ratio
         masterRight = reflectHoriz masterLeft
         masterTop = Mirror masterLeft
