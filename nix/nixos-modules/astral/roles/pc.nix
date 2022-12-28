@@ -53,6 +53,9 @@ with lib; {
       home-manager
       openconnect
       ventoy-bin
+      wine
+      wine64
+      winetricks
     ];
 
     users.mutableUsers = true;
