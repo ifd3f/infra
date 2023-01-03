@@ -22,7 +22,9 @@ in {
 
     services.akkoma = {
       enable = true;
-      termsOfService = ./terms-of-service.html;
+      extraStatic = {
+        "static/terms-of-service.html" = ./terms-of-service.html;
+      };
 
       frontends = {
         primary = {

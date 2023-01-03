@@ -231,22 +231,6 @@
         "type": "indirect"
       }
     },
-    "nixpkgs-akkoma": {
-      "locked": {
-        "lastModified": 1672148221,
-        "narHash": "sha256-S97Fll+KFjZ7Hxs+GLRpE1GtqMfrnXtrAOaavcQirJ0=",
-        "owner": "illdefined",
-        "repo": "nixpkgs",
-        "rev": "a9601933ea41b1af21554d9a6558f950e24619f5",
-        "type": "github"
-      },
-      "original": {
-        "owner": "illdefined",
-        "ref": "akkoma",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs-php74": {
       "locked": {
         "lastModified": 1672580127,
@@ -355,7 +339,6 @@
         "nixos-generators": "nixos-generators",
         "nixos-hardware": "nixos-hardware",
         "nixos-vscode-server": "nixos-vscode-server",
-        "nixpkgs-akkoma": "nixpkgs-akkoma",
         "nixpkgs-php74": "nixpkgs-php74",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",

@@ -19,10 +19,6 @@
     # My own nixpkgs fork, for customized patches
     #nixpkgs-ifd4f.url = "github:ifd3f/nixpkgs/lxd-vms";
 
-    # Akkoma has not been merged into nixpkgs yet.
-    # Follow the issue here: https://github.com/NixOS/nixpkgs/pull/192285
-    nixpkgs-akkoma.url = "github:illdefined/nixpkgs/akkoma";
-
     nur.url = "github:nix-community/NUR";
 
     # My own NUR repo for bleeding-edge updates
@@ -72,10 +68,9 @@
     };
   };
 
-  outputs = { self, nixpkgs-unstable, nixpkgs-stable, nixpkgs-akkoma
-    , nixpkgs-php74, nixos-vscode-server, flake-utils, nix-ld, nur
-    , home-manager-unstable, nixos-generators, armqr, year-of-bot, nur-ifd3f
-    , ... }@inputs:
+  outputs = { self, nixpkgs-unstable, nixpkgs-stable, nixpkgs-php74
+    , nixos-vscode-server, flake-utils, nix-ld, nur, home-manager-unstable
+    , nixos-generators, armqr, year-of-bot, nur-ifd3f, ... }@inputs:
     let
       nixpkgs = nixpkgs-unstable;
       home-manager = home-manager-unstable;
@@ -131,8 +126,6 @@
 
             #inherit (nixpkgs-lxdvms.legacyPackages.${prev.system}) lxd;
 
-            inherit (nixpkgs-akkoma.legacyPackages.${prev.system})
-              akkoma akkoma-frontends;
             inherit (self.packages.${prev.system})
               win10hotplug ifd3f-infra-scripts;
 
