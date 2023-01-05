@@ -1,14 +1,15 @@
 # An ancient Dell Optiplex 360 I got off of eBay a few years ago for $40.
 # It's called Donkey because it's slow, but I'll use it to hold data
 # for me as a NAS.
-{
-  imports = [ ./hardware-configuration.nix ];
-
-  astral.roles.server.enable = true;
+{ inputs, ... }: {
+  imports = [ ./hardware-configuration.nix inputs.self.nixosModules.server ];
 
   time.timeZone = "US/Pacific";
 
   networking = {
+    hostName = "donkey";
+    domain = "h.astrid.tech";
+
     hostId = "49e32584";
     networkmanager.enable = true;
     useDHCP = false;

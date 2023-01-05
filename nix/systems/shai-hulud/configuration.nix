@@ -1,11 +1,14 @@
 # My Surface Pro.
 { config, pkgs, lib, inputs, ... }: {
-  imports = [ ./hardware-configuration.nix ]
-    ++ (with inputs.nixos-hardware.nixosModules; [
-      common-cpu-intel
-      common-pc-ssd
-      microsoft-surface
-    ]);
+  imports = [
+    ./hardware-configuration.nix
+    inputs.self.nixosModules.laptop
+    inputs.self.nixosModules.pc
+  ] ++ (with inputs.nixos-hardware.nixosModules; [
+    common-cpu-intel
+    common-pc-ssd
+    microsoft-surface
+  ]);
 
   time.timeZone = "US/Pacific";
 
@@ -13,10 +16,6 @@
   programs.steam.enable = true;
 
   astral = {
-    roles = {
-      laptop.enable = true;
-      pc.enable = true;
-    };
     hw.surface.enable = true;
     xmonad.enable = true;
 

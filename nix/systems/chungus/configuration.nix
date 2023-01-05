@@ -4,17 +4,15 @@
     ./hardware-configuration.nix
     ./x11.nix
     "${inputs.nixos-hardware}/common/cpu/amd"
+    inputs.self.nixosModules.pc
   ];
 
   time.timeZone = "US/Pacific";
 
-  astral = {
-    roles.pc.enable = true;
-    vfio = {
-      enable = true;
-      iommu-mode = "amd_iommu";
-      pci-devs = [ ];
-    };
+  astral.vfio = {
+    enable = true;
+    iommu-mode = "amd_iommu";
+    pci-devs = [ ];
   };
 
   # so i can be a *gamer*

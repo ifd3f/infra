@@ -1,11 +1,13 @@
 # Contabo VPS.
 { pkgs, lib, inputs, ... }: {
-  imports =
-    [ ./hardware-configuration.nix inputs.self.nixosModules.contabo-vps ];
+  imports = [
+    ./hardware-configuration.nix
+    inputs.self.nixosModules.contabo-vps
+    inputs.self.nixosModules.server
+  ];
 
   astral = {
     ci.deploy-to = "154.53.59.80";
-    roles = { server.enable = true; };
   };
 
   networking = {

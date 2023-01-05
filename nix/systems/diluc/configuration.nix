@@ -1,21 +1,19 @@
 # Contabo VPS.
 { pkgs, lib, inputs, ... }: {
-  imports =
-    [ inputs.self.nixosModules.contabo-vps inputs.self.nixosModules.akkoma ];
+  imports = [
+    inputs.self.nixosModules.contabo-vps
+    inputs.self.nixosModules.server
+
+    inputs.self.nixosModules.akkoma
+    inputs.self.nixosModules.armqr
+    inputs.self.nixosModules.auth-dns
+    inputs.self.nixosModules.piwigo
+    inputs.self.nixosModules.sso-provider
+  ];
 
   astral = {
     ci.deploy-to = "173.212.242.107";
-
-    roles = {
-      akkoma.enable = true;
-      armqr.enable = true;
-      auth-dns.enable = true;
-      monitoring.center.enable = true;
-      piwigo.enable = true;
-      sso-provider.enable = false;
-
-      server.enable = true;
-    };
+    monitoring.center.enable = true;
   };
 
   networking = {

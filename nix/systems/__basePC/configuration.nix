@@ -1,10 +1,11 @@
 # A base machine used strictly for CI purposes.
-{ config, modulesPath, pkgs, lib, ... }: {
-  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
+{ config, modulesPath, pkgs, lib, inputs, ... }: {
+  imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
+    inputs.self.nixosModules.pc
+  ];
 
   astral = {
-    roles = { pc.enable = true; };
-
     ci.needs = lib.mkForce [ ];
     ci.prune-runner = true;
   };
