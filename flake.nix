@@ -200,6 +200,7 @@
         nixosModules = {
           default = self.nixosModules.astral;
           astral = import ./nix/nixos-modules/astral;
+          akkoma = ./nix/nixos-modules/astral/roles/akkoma;
 
           contabo-vps = import ./nix/nixos-modules/contabo-vps.nix;
           oracle-cloud-vps = import ./nix/nixos-modules/oracle-cloud-vps.nix;

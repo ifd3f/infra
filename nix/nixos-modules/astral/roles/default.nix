@@ -4,7 +4,6 @@
     ./laptop.nix
     ./pc.nix
 
-    ./akkoma
     ./auth-dns
     ./armqr
     ./monitoring
