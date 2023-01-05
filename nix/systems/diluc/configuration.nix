@@ -1,6 +1,7 @@
 # Contabo VPS.
 { pkgs, lib, inputs, ... }: {
-  imports = [ inputs.self.nixosModules.contabo-vps ];
+  imports =
+    [ inputs.self.nixosModules.contabo-vps inputs.self.nixosModules.akkoma ];
 
   astral = {
     ci.deploy-to = "173.212.242.107";

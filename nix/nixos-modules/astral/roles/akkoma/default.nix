@@ -14,6 +14,12 @@ let
     });
 
   blocklist = lib.importTOML ./blocklist.toml;
+
+  # Wraps a file in a single-file derivation.
+  wrapFile = name: path:
+    (pkgs.runCommand name { inherit path; } ''
+      cp -r "$path" "$out"
+    '');
 in {
   options.astral.roles.akkoma.enable = mkEnableOption "fedi server";
 
@@ -23,8 +29,10 @@ in {
     services.akkoma = {
       enable = true;
       extraStatic = {
-        "static/terms-of-service.html" = pkgs.writeText "terms-of-service.html"
-          (builtins.readFile ./terms-of-service.html);
+        "static/terms-of-service.html" =
+          wrapFile "terms-of-service.html" ./terms-of-service.html;
+        "favicon.png" = wrapFile "favicon.png" ./favicon.png;
+        "robots.txt" = wrapFile "robots.txt" ./robots.txt;
       };
 
       frontends = {
@@ -40,7 +48,9 @@ in {
         };
       };
 
-      config = let inherit ((pkgs.formats.elixirConf { }).lib) mkRaw mkMap;
+      config = let
+        econf = ((pkgs.formats.elixirConf { }).lib);
+        inherit (econf) mkRaw mkMap;
       in {
         ":pleroma"."Pleroma.Web.Endpoint".url.host = vhost;
         ":pleroma".":media_proxy".enabled = true;
