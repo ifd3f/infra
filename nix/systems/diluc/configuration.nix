@@ -13,15 +13,6 @@
 
   astral = {
     ci.deploy-to = "173.212.242.107";
-
-    roles = {
-      akkoma.enable = true;
-      auth-dns.enable = true;
-      armqr.enable = true;
-      piwigo.enable = true;
-      sso-provider.enable = false;
-    };
-
     monitoring.center.enable = true;
   };
 

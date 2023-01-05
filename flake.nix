@@ -209,7 +209,7 @@
           server = ./nix/nixos-modules/server.nix;
 
           akkoma = ./nix/nixos-modules/roles/akkoma;
-          armqr = ./nix/nixos-modules/roles/armqr;
+          armqr = ./nix/nixos-modules/roles/armqr.nix;
           auth-dns = ./nix/nixos-modules/roles/auth-dns;
           piwigo = ./nix/nixos-modules/roles/piwigo;
           sso-provider = ./nix/nixos-modules/roles/sso-provider;
