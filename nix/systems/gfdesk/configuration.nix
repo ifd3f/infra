@@ -1,9 +1,8 @@
 # The desk that is used by Good Friends.
-{ config, lib, pkgs, ... }: {
-  imports = [ ./hardware-configuration.nix ];
+{ config, lib, pkgs, inputs, ... }: {
+  imports = [ ./hardware-configuration.nix inputs.self.nixosModules.server ];
 
   astral = {
-    roles.server.enable = true;
     users.alia.enable = true;
     virt = {
       docker.enable = true;

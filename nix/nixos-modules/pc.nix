@@ -1,5 +1,5 @@
 # A graphics-enabled PC I would directly use.
-{ config, lib, pkgs, ... }: {
+{ config, lib, pkgs, inputs, ... }: {
   imports = [ ./astral ];
 
   # haskell.nix binary cache

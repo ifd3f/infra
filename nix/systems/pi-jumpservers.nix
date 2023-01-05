@@ -8,10 +8,10 @@ let
         ({ pkgs, ... }: {
           imports = [
             "${nixpkgs-stable}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+            self.nixosModules.server
           ];
 
           astral = {
-            roles.server.enable = true;
             virt = {
               docker.enable = false;
               libvirt.enable = false;

@@ -1,10 +1,12 @@
 # Contabo VPS.
 { pkgs, lib, inputs, ... }: {
-  imports = [ inputs.self.nixosModules.oracle-cloud-vps ];
+  imports = [
+    inputs.self.nixosModules.oracle-cloud-vps
+    inputs.self.nixosModules.server
+  ];
 
   astral = {
     ci.deploy-to = "192.9.153.114";
-    roles.server.enable = true;
   };
 
   networking = {

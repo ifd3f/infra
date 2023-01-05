@@ -15,7 +15,7 @@
     custom-tty.enable = true;
     infra-update.enable = false;
     net.sshd.enable = true;
-    roles.monitoring.node.enable = true;
+    monitoring.node.enable = true;
 
     users = {
       github.enable = true;

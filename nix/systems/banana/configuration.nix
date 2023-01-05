@@ -1,16 +1,17 @@
 # My gaming laptop.
-{ pkgs, lib, ... }: {
-  imports = [ ./hardware-configuration.nix ];
+{ pkgs, lib, inputs, ... }: {
+  imports = [
+    ./hardware-configuration.nix
+    inputs.self.nixosModules.pc
+    inputs.self.nixosModules.laptop
+  ];
 
   time.timeZone = "US/Pacific";
 
-  astral = {
-    roles.pc.enable = true;
-    vfio = {
-      enable = true;
-      iommu-mode = "intel_iommu";
-      pci-devs = [ ];
-    };
+  astral.vfio = {
+    enable = true;
+    iommu-mode = "intel_iommu";
+    pci-devs = [ ];
   };
 
   # so i can be a *gamer*

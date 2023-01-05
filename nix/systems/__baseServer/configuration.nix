@@ -1,10 +1,11 @@
 # A base machine used strictly for CI purposes.
-{ config, modulesPath, pkgs, lib, ... }: {
-  imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
+{ config, modulesPath, pkgs, lib, inputs, ... }: {
+  imports = [
+    (modulesPath + "/profiles/qemu-guest.nix")
+    inputs.self.nixosModules.server
+  ];
 
   astral = {
-    roles = { server.enable = true; };
-
     # home-manager is embedded in server systems
     ci.needs = lib.mkForce [ "home-manager-x86_64-linux" ];
   };
