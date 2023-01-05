@@ -23,7 +23,8 @@ in {
     services.akkoma = {
       enable = true;
       extraStatic = {
-        "static/terms-of-service.html" = ./terms-of-service.html;
+        "static/terms-of-service.html" = pkgs.writeText "terms-of-service.html"
+          (builtins.readFile ./terms-of-service.html);
       };
 
       frontends = {

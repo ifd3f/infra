@@ -1,6 +1,6 @@
-{ self, nixpkgs-stable, ... }:
+{ self, nixpkgs-unstable, ... }:
 self.lib.nixosSystem' {
-  nixpkgs = nixpkgs-stable;
+  nixpkgs = nixpkgs-unstable;
   system = "x86_64-linux";
   modules = [ ./configuration.nix ];
 }
