@@ -199,11 +199,21 @@
 
         nixosModules = {
           default = self.nixosModules.astral;
+
           astral = ./nix/nixos-modules/astral;
-          akkoma = ./nix/nixos-modules/astral/roles/akkoma;
 
           contabo-vps = ./nix/nixos-modules/contabo-vps.nix;
+          laptop = ./nix/nixos-modules/laptop.nix;
           oracle-cloud-vps = ./nix/nixos-modules/oracle-cloud-vps.nix;
+          pc = ./nix/nixos-modules/pc.nix;
+          server = ./nix/nixos-modules/server.nix;
+
+          akkoma = ./nix/nixos-modules/roles/akkoma;
+          armqr = ./nix/nixos-modules/roles/armqr;
+          auth-dns = ./nix/nixos-modules/roles/auth-dns;
+          piwigo = ./nix/nixos-modules/roles/piwigo;
+          sso-provider = ./nix/nixos-modules/roles/sso-provider;
+          vault = ./nix/nixos-modules/roles/vault;
         };
 
         nixosConfigurations = (import ./nix/systems { inherit inputs lib; });

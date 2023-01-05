@@ -27,7 +27,7 @@
     ./net
     ./users
 
-    ./roles
+    ./monitoring
   ];
 
   system.stateVersion = "22.11";

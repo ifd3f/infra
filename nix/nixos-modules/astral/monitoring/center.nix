@@ -1,11 +1,11 @@
 { pkgs, lib, config, inputs, ... }:
 with lib;
 let
-  cfg = config.astral.roles.monitoring.center;
+  cfg = config.astral.monitoring.center;
   gcfg = config.services.grafana;
 
 in {
-  options.astral.roles.monitoring.center = {
+  options.astral.monitoring.center = {
     enable = mkEnableOption "monitoring center role";
 
     sslKeyFile = mkOption {

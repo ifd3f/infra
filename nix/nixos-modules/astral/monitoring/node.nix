@@ -1,10 +1,10 @@
 { pkgs, lib, config, ... }:
 with lib;
 let
-  cfg = config.astral.roles.monitoring.node;
+  cfg = config.astral.monitoring.node;
   ecfg = config.services.prometheus.exporters;
 in {
-  options.astral.roles.monitoring.node = {
+  options.astral.monitoring.node = {
     enable = mkEnableOption "monitored node role";
     vhost = mkOption {
       description = "What vhost to make nginx listen on";
@@ -13,7 +13,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    astral.roles.monitoring.node.vhost = mkDefault config.networking.fqdn;
+    astral.monitoring.node.vhost = mkDefault config.networking.fqdn;
     astral.acme.enable = true;
 
     networking.firewall = {
