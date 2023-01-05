@@ -7,6 +7,9 @@
   time.timeZone = "US/Pacific";
 
   networking = {
+    hostName = "donkey";
+    domain = "h.astrid.tech";
+
     hostId = "49e32584";
     networkmanager.enable = true;
     useDHCP = false;
