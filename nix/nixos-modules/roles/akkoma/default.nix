@@ -29,7 +29,10 @@ in {
         wrapFile "terms-of-service.html" ./terms-of-service.html;
       "favicon.png" = wrapFile "favicon.png" ./favicon.png;
       "robots.txt" = wrapFile "robots.txt" ./robots.txt;
-    };
+    } // lib.mapAttrs' (name: value: {
+      name = "emoji/${name}";
+      inherit value;
+    }) pkgs.akkoma-emoji;
 
     frontends = {
       primary = {
@@ -73,9 +76,6 @@ in {
         policies = map mkRaw [ "Pleroma.Web.ActivityPub.MRF.SimplePolicy" ];
         transparency = false;
       };
-
-      # To allow configuration from admin-fe
-      ":pleroma".":configurable_from_database" = false;
 
       # S3 setup
       ":pleroma"."Pleroma.Upload" = {

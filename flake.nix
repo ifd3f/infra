@@ -66,11 +66,14 @@
       url = "github:ifd3f/year-of-bot";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+
+    vendored-emojis.url = "github:ifd3f/vendored-emojis";
   };
 
   outputs = { self, nixpkgs-unstable, nixpkgs-stable, nixpkgs-php74
     , nixos-vscode-server, flake-utils, nix-ld, nur, home-manager-unstable
-    , nixos-generators, armqr, year-of-bot, nur-ifd3f, ... }@inputs:
+    , nixos-generators, armqr, year-of-bot, nur-ifd3f, vendored-emojis, ...
+    }@inputs:
     let
       nixpkgs = nixpkgs-unstable;
       home-manager = home-manager-unstable;
@@ -93,6 +96,7 @@
         devShells = import ./nix/shells.nix { inherit self pkgs; };
         packages =
           import ./nix/pkgs { inherit self pkgs nixpkgs nixos-generators; };
+        legacyPackages = pkgs;
       }) // {
         lib = import ./nix/lib {
           inherit self inputs;
@@ -110,6 +114,7 @@
             armqr.overlays.default
             year-of-bot.overlays.default
             nur-ifd3f.overlays.default
+            vendored-emojis.overlays.default
             self.overlays.patched
           ];
 
