@@ -59,6 +59,8 @@ in {
         email = "akkoma@astrid.tech";
         notify_email = "akkoma@astrid.tech";
 
+        static_dir = "/var/lib/akkoma/static";
+
         registrations_open = false;
         invites_enabled = true;
 
