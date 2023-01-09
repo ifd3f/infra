@@ -447,11 +447,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1673214503,
-        "narHash": "sha256-P8qKae16v6hQEHpvxKV6mfn4yHGzLBRmpbIByqPSHi0=",
+        "lastModified": 1673233137,
+        "narHash": "sha256-bDQJ/Yz89duTlblZzcuOaxHL1gsHWaYe3VGGTaPXGxs=",
         "owner": "ifd3f",
         "repo": "vendored-emojis",
-        "rev": "22c480b92c5e9c7023f511a6d0a65239c2751fd9",
+        "rev": "d30fb7087275e9dfe6863934530d67ec4d0a885c",
         "type": "github"
       },
       "original": {

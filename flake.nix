@@ -67,6 +67,7 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    # Files are stored using LFS, so the git fetcher is needed.
     vendored-emojis.url = "github:ifd3f/vendored-emojis";
   };
 
