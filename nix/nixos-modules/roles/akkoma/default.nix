@@ -32,7 +32,8 @@ in {
     } // lib.mapAttrs' (name: value: {
       name = "emoji/${name}";
       inherit value;
-    }) pkgs.akkoma-emoji;
+    })
+      (lib.filterAttrs (name: _: name != "recurseForDerivations") pkgs.akkoma-emoji);
 
     frontends = {
       primary = {
