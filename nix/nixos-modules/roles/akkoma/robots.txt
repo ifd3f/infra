@@ -1,5 +1,6 @@
 User-Agent: *
 Disallow: /
 
-User-Agent: crawler-us-il-1.fediverse.network
-Allow: /
+User-Agent: Googlebot
+Disallow: /
+
