@@ -164,6 +164,11 @@
             modules = [ self.homeModules.astral-cli ];
           };
 
+          m1 = home-manager.lib.homeManagerConfiguration {
+            pkgs = nixpkgs.legacyPackages.aarch64-darwin;
+            modules = [ self.homeModules.astral-cli-full ];
+          };
+
           "astrid@aliaconda" = home-manager.lib.homeManagerConfiguration {
             pkgs = nixpkgs.legacyPackages.x86_64-linux;
             modules = [ self.homeModules.astral-scientific vscode-server-home ];
