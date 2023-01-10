@@ -67,14 +67,19 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    catgpt = {
+      url = "github:ifd3f/catgpt";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
     # Files are stored using LFS, so the git fetcher is needed.
     vendored-emojis.url = "github:ifd3f/vendored-emojis";
   };
 
   outputs = { self, nixpkgs-unstable, nixpkgs-stable, nixpkgs-php74
     , nixos-vscode-server, flake-utils, nix-ld, nur, home-manager-unstable
-    , nixos-generators, armqr, year-of-bot, nur-ifd3f, vendored-emojis, ...
-    }@inputs:
+    , nixos-generators, armqr, year-of-bot, nur-ifd3f, vendored-emojis, catgpt
+    , ... }@inputs:
     let
       nixpkgs = nixpkgs-unstable;
       home-manager = home-manager-unstable;
@@ -114,6 +119,7 @@
             nur.overlay
             armqr.overlays.default
             year-of-bot.overlays.default
+            catgpt.overlays.default
             nur-ifd3f.overlays.default
             vendored-emojis.overlays.default
             self.overlays.patched

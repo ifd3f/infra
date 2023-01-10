@@ -44,6 +44,11 @@
     server = "https://fedi.astrid.tech";
   };
 
+  services.catgpt = {
+    enable = true;
+    server = "https://fedi.astrid.tech";
+  };
+
   services.pleroma-ebooks.bots."@autoastrid@fedi.astrid.tech" = {
     site = "https://fedi.astrid.tech";
     extraConfig = {
