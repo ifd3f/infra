@@ -52,6 +52,7 @@ _autodiscover._tcp              IN SRV         0 0 443 privateemail.com.
 _dmarc                          IN TXT         "v=DMARC1; p=none; rua=mailto:astrid@astrid.tech; ruf=mailto:astrid@astrid.tech; sp=reject; ri=86400"
 
 ;; Misc. other services
+sso                             IN CNAME       amiya.h.astrid.tech.
 fedi                            IN CNAME       diluc.h.astrid.tech.
 grafana                         IN CNAME       diluc.h.astrid.tech.
 

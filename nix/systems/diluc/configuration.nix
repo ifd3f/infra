@@ -8,7 +8,6 @@
     inputs.self.nixosModules.armqr
     inputs.self.nixosModules.auth-dns
     inputs.self.nixosModules.piwigo
-    # inputs.self.nixosModules.sso-provider
   ];
 
   astral = {

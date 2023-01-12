@@ -1,10 +1,14 @@
 # A large SSDNodes VPS
 { pkgs, lib, inputs, ... }: {
-  imports = [ ./hardware-configuration.nix inputs.self.nixosModules.server ];
+  imports = [
+    ./hardware-configuration.nix
 
-  astral = {
-    ci.deploy-to = "208.87.130.175";
-  };
+    inputs.self.nixosModules.server
+
+    inputs.self.nixosModules.sso-provider
+  ];
+
+  astral = { ci.deploy-to = "208.87.130.175"; };
 
   networking = {
     hostName = "amiya";
