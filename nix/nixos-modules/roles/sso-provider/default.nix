@@ -5,10 +5,11 @@ in {
   services.keycloak = {
     enable = true;
     settings = {
-      proxy = "none";
+      proxy = "edge";
       hostname = "sso.astrid.tech";
       http-port = 18433;
       http-host = "127.0.0.1";
+      http-enabled = true;
 
       hostname-admin-url = "https://sso.astrid.tech/auth";
       hostname-port = 443;
