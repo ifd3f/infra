@@ -139,7 +139,7 @@
             #inherit (nixpkgs-lxdvms.legacyPackages.${prev.system}) lxd;
 
             inherit (self.packages.${prev.system})
-              win10hotplug ifd3f-infra-scripts;
+              authelia-bin win10hotplug ifd3f-infra-scripts;
 
             anbox = prev.anbox.overrideAttrs (attrs: {
               src = final.fetchFromGitHub {
