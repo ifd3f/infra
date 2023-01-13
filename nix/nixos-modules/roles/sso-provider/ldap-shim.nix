@@ -5,7 +5,7 @@
 { config, pkgs, ... }:
 let
   instance_name = "kc-ldap-shim";
-  shim_ipv4 = "127.46.3.89";
+  shim_ipv4 = "192.168.3.89";
   ldap_ipv6 = "2a02:c207:2087:999:1::2";
 in {
   networking.hosts.${shim_ipv4} = [ "ldap-shim" ];

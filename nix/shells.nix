@@ -14,7 +14,9 @@ let
       docker-compose
       git
       helmfile
+      inetutils
       jq
+      ldapvi
       netcat
       nixfmt
       nodePackages.prettier
