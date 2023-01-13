@@ -2,6 +2,7 @@
 with lib;
 let kcfg = config.services.keycloak;
 in {
+  imports = [ ./ldap-shim.nix ];
   services.keycloak = {
     enable = true;
     settings = {
