@@ -11,6 +11,7 @@ in rec {
       modules = [
         inputs.armqr.nixosModules.default
         inputs.year-of-bot.nixosModules.default
+        inputs.blurred-horse-bot.nixosModules.default
         inputs.catgpt.nixosModules.default
         inputs.nur-ifd3f.nixosModules.pleroma-ebooks
         self.nixosModules.astral

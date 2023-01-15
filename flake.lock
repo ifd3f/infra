@@ -24,6 +24,26 @@
         "type": "github"
       }
     },
+    "blurred-horse-bot": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1673763921,
+        "narHash": "sha256-iHXyYegdtK/tlzjHJKBTKHlsHg7ixs4F0Oq4KO/XvGE=",
+        "owner": "ifd3f",
+        "repo": "horse-diffusion",
+        "rev": "c87107b458db12c2382a3a44ae0ee747149df568",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ifd3f",
+        "repo": "horse-diffusion",
+        "type": "github"
+      }
+    },
     "catgpt": {
       "inputs": {
         "flake-utils": "flake-utils_2",
@@ -398,6 +418,7 @@
     "root": {
       "inputs": {
         "armqr": "armqr",
+        "blurred-horse-bot": "blurred-horse-bot",
         "catgpt": "catgpt",
         "flake-utils": "flake-utils_3",
         "home-manager-unstable": "home-manager-unstable",

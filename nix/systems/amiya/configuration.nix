@@ -53,6 +53,8 @@
     server = "https://fedi.astrid.tech";
   };
 
+  services.blurred-horse-bot.enable = true;
+
   services.pleroma-ebooks.bots."@autoastrid@fedi.astrid.tech" = {
     site = "https://fedi.astrid.tech";
     extraConfig = {
