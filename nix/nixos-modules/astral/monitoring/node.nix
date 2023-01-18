@@ -50,14 +50,30 @@ in {
         scrape_configs = [{
           job_name = "journal";
           journal = {
+            json = true;
             path = "/var/log/journal";
-            max_age = "7d";
+            max_age = "12h";
             labels = {
               host = cfg.vhost;
               job = "journal";
               "__path__" = "/var/log/journal";
             };
           };
+
+          relabel_configs = [
+            {
+              source_labels = [ "__journal__systemd_unit" ];
+              target_label = "unit";
+            }
+            {
+              source_labels = [ "__journal_priority" ];
+              target_label = "priority";
+            }
+            {
+              source_labels = [ "__journal_syslog_identifier" ];
+              target_label = "syslog_id";
+            }
+          ];
         }];
         server = {
           http_listen_port = 9832;
