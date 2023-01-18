@@ -5,7 +5,7 @@ let
     [
       ifd3f-infra-scripts
 
-      ansible
+      #ansible
       backblaze-b2
       bitwarden-cli
       curl
