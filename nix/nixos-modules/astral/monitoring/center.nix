@@ -100,12 +100,12 @@ in {
       extraFlags = [ "-config.expand-env=true" ];
 
       configuration = {
-        # common = { ring.kvstore.store = "memberlist"; };
+        common = { ring.kvstore.store = "memberlist"; };
         auth_enabled = false;
         compactor = {
           compaction_interval = "5m";
           shared_store = "s3";
-          working_directory = "/data/compactor";
+          working_directory = "/var/lib/loki/data/compactor";
         };
         ingester = {
           chunk_idle_period = "5m";
@@ -120,13 +120,13 @@ in {
           reject_old_samples = true;
           reject_old_samples_max_age = "168h";
         };
-        # memberlist = {
-        #   abort_if_cluster_join_fails = false;
-        #   bind_port = 7946;
-        #   max_join_backoff = "1m";
-        #   max_join_retries = 10;
-        #   min_join_backoff = "1s";
-        # };
+        memberlist = {
+          abort_if_cluster_join_fails = false;
+          bind_port = 7946;
+          max_join_backoff = "1m";
+          max_join_retries = 10;
+          min_join_backoff = "1s";
+        };
         schema_config = {
           configs = [{
             from = "2023-01-18";
@@ -145,8 +145,9 @@ in {
         };
         storage_config = {
           aws = {
-            s3 =
-              "s3://\${S3_ACCESS}:\${S3_SECRET}@s3.us-west-000.backblazeb2.com/ifd3f-logging";
+            s3 = "s3://s3.us-west-000.backblazeb2.com/ifd3f-logging";
+            access_key_id = "\${S3_ACCESS}";
+            secret_access_key = "\${S3_SECRET}";
             s3forcepathstyle = true;
           };
           boltdb_shipper = {
