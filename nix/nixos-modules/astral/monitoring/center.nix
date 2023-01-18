@@ -85,7 +85,7 @@ in {
         {
           scheme = "http";
           job_name = "akkoma";
-          scrape_interval = "10s";
+          scrape_interval = "5s";
           metrics_path = "/";
           static_configs = [{ targets = [ "localhost:8895" ]; }];
         }

@@ -6,11 +6,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1674066112,
-        "narHash": "sha256-4+y1GO0lf9PFp969jPoJD0ER263YNPqLoNcCEe1QCwg=",
+        "lastModified": 1674080124,
+        "narHash": "sha256-86AIqtiB8lnHGOk43qjCKD7KH2PA9RYPpYHj0JoQYZM=",
         "owner": "ifd3f",
         "repo": "akkoma-exporter",
-        "rev": "c3654fab31fcc5b2ad15fc44b91bd578ec6fce86",
+        "rev": "cac8e6890ccc7c7e7f90d7f1e6ed3c28f06d72d0",
         "type": "github"
       },
       "original": {
