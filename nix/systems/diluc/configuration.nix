@@ -12,7 +12,6 @@
 
   astral = {
     ci.deploy-to = "173.212.242.107";
-    monitoring.center.enable = true;
   };
 
   networking = {
