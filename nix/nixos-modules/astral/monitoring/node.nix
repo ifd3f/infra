@@ -50,6 +50,8 @@ in {
 
       # TODO: figure out mTLS
       extraConfig = ''
+        allow 192.9.241.223;
+
         allow 127.0.0.1;
         allow ::1;
 
