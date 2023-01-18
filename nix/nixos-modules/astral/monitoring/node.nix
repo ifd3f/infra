@@ -43,6 +43,19 @@ in {
       };
     };
 
+    services.promtail = {
+      enable = true;
+      configuration = {
+        clients = [{
+          external_labels.host = cfg.vhost;
+          url = "https://loki.astrid.tech/api/prom/push";
+        }];
+        positions.filename = "/tmp/promtail/positions.yaml";
+        scrape_configs = [{ journal.labels.job = "journal"; }];
+        server.http_listen_port = 9080;
+      };
+    };
+
     services.nginx.enable = true;
     services.nginx.virtualHosts.${cfg.vhost} = {
       enableACME = true;
