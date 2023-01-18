@@ -6,7 +6,7 @@ $TTL 30m
 @                               IN SOA         dennis.astrid.tech. admin.astrid.tech. (
         ; SOA value reccommendations
         ; https://www.ripe.net/publications/docs/ripe-203
-        2022111204 ; serial YYMMDDnn
+        2023011700 ; serial YYMMDDnn
         3h         ; refresh (3h to allow faster refresh)
         1h         ; retry
         1d         ; expire
