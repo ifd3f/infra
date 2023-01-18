@@ -82,8 +82,17 @@ in {
           metrics_path = "/metrics/bind";
           static_configs = [{ targets = [ "diluc.h.astrid.tech" ]; }];
         }
+        {
+          scheme = "http";
+          job_name = "akkoma";
+          scrape_interval = "10s";
+          metrics_path = "/";
+          static_configs = [{ targets = [ "localhost:8895" ]; }];
+        }
       ];
     };
+
+    services.akkoma-prometheus-exporter."fedi.astrid.tech".port = 8895;
 
     services.nginx.statusPage = true;
 

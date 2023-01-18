@@ -10,6 +10,7 @@ in rec {
       inherit system;
       modules = [
         inputs.armqr.nixosModules.default
+        inputs.akkoma-exporter.nixosModules.default
         inputs.year-of-bot.nixosModules.default
         inputs.blurred-horse-bot.nixosModules.default
         inputs.catgpt.nixosModules.default
