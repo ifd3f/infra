@@ -145,7 +145,7 @@ in {
         };
         storage_config = {
           aws = {
-            s3 = "s3://s3.us-west-000.backblazeb2.com/ifd3f-logging";
+            s3 = "https://s3.us-west-000.backblazeb2.com/ifd3f-logging";
             access_key_id = "\${S3_ACCESS}";
             secret_access_key = "\${S3_SECRET}";
             s3forcepathstyle = true;

@@ -46,13 +46,24 @@ in {
     services.promtail = {
       enable = true;
       configuration = {
-        clients = [{
-          external_labels.host = cfg.vhost;
-          url = "https://loki.astrid.tech/api/prom/push";
+        clients = [{ url = "https://loki.astrid.tech/loki/api/v1/push"; }];
+        scrape_configs = [{
+          job_name = "journal";
+          journal = {
+            path = "/var/log/journal";
+            max_age = "7d";
+            labels = {
+              host = cfg.vhost;
+              job = "journal";
+              "__path__" = "/var/log/journal";
+            };
+          };
         }];
-        positions.filename = "/tmp/promtail/positions.yaml";
-        scrape_configs = [{ journal.labels.job = "journal"; }];
-        server.http_listen_port = 9080;
+        server = {
+          http_listen_port = 9832;
+          http_path_prefix = "/promtail";
+          grpc_listen_port = 0;
+        };
       };
     };
 
@@ -71,12 +82,20 @@ in {
         deny all;
       '';
 
-      locations = mkMerge (map (name:
+      locations = let
+        promtailPort =
+          config.services.promtail.configuration.server.http_listen_port;
+      in mkMerge ((map (name:
         let thisCfg = ecfg.${name};
         in mkIf thisCfg.enable {
           "/metrics/${name}".proxyPass =
             "http://127.0.0.1:${toString thisCfg.port}/metrics";
-        }) [ "node" "nginx" "systemd" "bind" ]);
+        }) [ "node" "nginx" "systemd" "bind" ])
+
+        ++ [{
+          "/promtail".proxyPass =
+            "http://127.0.0.1:${toString promtailPort}/metrics";
+        }]);
     };
   };
 }
