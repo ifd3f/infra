@@ -20,7 +20,7 @@ let
       cp -r "$path" "$out"
     '');
 in {
-  astral.custom-nginx-errors.virtualHosts = [ "grafana.astrid.tech" ];
+  astral.custom-nginx-errors.virtualHosts = [ "fedi.astrid.tech" ];
 
   services.akkoma = {
     enable = true;
