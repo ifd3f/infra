@@ -56,6 +56,7 @@ sso                             IN CNAME       amiya.h.astrid.tech.
 fedi                            IN CNAME       diluc.h.astrid.tech.
 grafana                         IN CNAME       durin.h.astrid.tech.
 loki                            IN CNAME       durin.h.astrid.tech.
+secrets                         IN CNAME       yato.h.astrid.tech.
 
 
 ;;; Hosts
