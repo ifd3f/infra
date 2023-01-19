@@ -9,6 +9,7 @@ in rec {
     nixpkgs.lib.nixosSystem {
       inherit system;
       modules = [
+        inputs.vault-secrets.nixosModules.vault-secrets
         inputs.armqr.nixosModules.default
         inputs.akkoma-exporter.nixosModules.default
         inputs.year-of-bot.nixosModules.default
