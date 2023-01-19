@@ -38,6 +38,9 @@ let
     ] else
       [ ]);
 in {
-  default = pkgs.mkShell { nativeBuildInputs = packages; };
+  default = pkgs.mkShell {
+    nativeBuildInputs = packages;
+    VAULT_ADDR = "https://secrets.astrid.tech";
+  };
 }
 
