@@ -13,3 +13,8 @@ result
 /Makefile
 
 /secrets
+
+# OpenSSL
+*.key
+*.csr
+
