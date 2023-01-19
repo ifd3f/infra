@@ -8,16 +8,15 @@ in {
       proxy = "edge";
       hostname = "sso.astrid.tech";
       http-port = 18433;
-      http-host = "127.0.0.1";
+      http-host = "0.0.0.0";
       http-enabled = true;
 
-      hostname-admin-url = "https://sso.astrid.tech/auth";
-      hostname-port = 443;
+      log-level = "DEBUG";
     };
     database = {
       type = "postgresql";
       name = "keycloak";
-      username = "username";
+      username = "keycloak";
       host = "localhost";
       passwordFile = "/var/lib/secrets/keycloak/dbpassword";
     };
@@ -41,10 +40,9 @@ in {
       proxyPass = "http://127.0.0.1:${toString kcfg.settings.http-port}";
       proxyWebsockets = true;
       extraConfig = ''
-        proxy_pass_request_headers on;
         proxy_set_header X-Forwarded-Proto $scheme;
         proxy_set_header X-Forwarded-Host $host;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-For $proxy_protocol_addr;
       '';
     };
   };

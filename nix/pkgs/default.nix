@@ -5,6 +5,8 @@ let
   build-support = import ./build-support { inherit nixos-generators pkgs; };
 in vendored-images // {
 
+  authelia-bin = pkgs.callPackage ./authelia-bin.nix { };
+
   update-ci-workflow = pkgs.callPackage ./update-ci-workflow { inherit self; };
   scan-ci-host-keys = pkgs.callPackage ./scan-ci-host-keys { inherit self; };
 
