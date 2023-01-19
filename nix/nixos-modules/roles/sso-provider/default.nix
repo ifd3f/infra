@@ -16,7 +16,7 @@ in {
     database = {
       type = "postgresql";
       name = "keycloak";
-      username = "username";
+      username = "keycloak";
       host = "localhost";
       passwordFile = "/var/lib/secrets/keycloak/dbpassword";
     };
