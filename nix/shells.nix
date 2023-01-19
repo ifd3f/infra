@@ -19,6 +19,8 @@ let
       nixfmt
       nodePackages.prettier
       python3
+      step-ca
+      step-cli
       tcpdump
       terraform
       terraform-ls
