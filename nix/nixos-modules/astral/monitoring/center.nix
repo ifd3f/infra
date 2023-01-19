@@ -185,6 +185,20 @@ in {
         enableACME = true;
         forceSSL = true;
 
+        # TODO: figure out mTLS
+        extraConfig = ''
+          allow 154.53.59.80;
+          allow 173.212.242.107;
+          allow 192.9.153.114;
+          allow 192.9.241.223;
+          allow 208.87.130.175;
+
+          allow 127.0.0.1;
+          allow ::1;
+
+          deny all;
+        '';
+
         locations."/" = {
           proxyPass = "http://127.0.0.1:"
             + toString lcfg.configuration.server.http_listen_port;
