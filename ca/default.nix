@@ -5,8 +5,11 @@ with lib; {
 
   intermediates = concatMapAttrs (file: _:
     let
-      m = match "(.*)\\.pem" file;
+      m = match "(.*)\\.(.*)" file;
       serial = elemAt m 0;
-    in if m != null then { "${serial}" = readFile ./certs/${file}; } else { })
-    (builtins.readDir ./certs);
+      ext = elemAt m 1;
+    in if m != null && elem ext [ "crt" "pem" ] then {
+      "${serial}" = readFile ./certs/${file};
+    } else
+      { }) (builtins.readDir ./certs);
 }
