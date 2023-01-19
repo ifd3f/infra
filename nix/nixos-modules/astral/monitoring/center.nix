@@ -1,6 +1,8 @@
 { pkgs, lib, config, inputs, ... }:
 with lib;
 let
+  vs = config.vault-secrets.secrets;
+
   cfg = config.astral.monitoring.center;
   gcfg = config.services.grafana;
   lcfg = config.services.loki;
@@ -16,14 +18,47 @@ in {
   };
 
   config = mkIf cfg.enable {
+    vault-secrets.secrets.grafana-sso-oauth = {
+      # vault kv put kv/grafana-sso-oauth/env GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET=<_>
+      environmentKey = "env";
+    };
+
+    systemd.services.grafana = {
+      after = [ "grafana-sso-oauth-secrets.service" ];
+      serviceConfig.EnvironmentFile = "${vs.grafana-sso-oauth}/environment";
+    };
+
     astral.custom-nginx-errors.virtualHosts = [ "grafana.astrid.tech" ];
 
     services.grafana = {
       enable = true;
       settings = {
-        server.domain = "grafana.astrid.tech";
-        server.http_port = 2342;
-        server.addr = "127.0.0.1";
+        server = {
+          domain = "grafana.astrid.tech";
+          http_port = 2342;
+          addr = "127.0.0.1";
+        };
+
+        "auth.generic_oauth" = {
+          name = "IFD3F-SSO";
+          icon = "signin";
+          enabled = true;
+
+          client_id = "grafana-internal";
+          client_secret = "SECRET THAT GETS OVERRIDEN";
+          scopes = "openid email profile offline_access roles";
+
+          auth_url =
+            "https://sso.astrid.tech/realms/public-users/protocol/openid-connect/auth";
+          token_url =
+            "https://sso.astrid.tech/realms/public-users/protocol/openid-connect/token";
+          api_url =
+            "https://sso.astrid.tech/realms/public-users/protocol/openid-connect/userinfo";
+          email_attribute_path = "email";
+          login_attribute_path = "username";
+          name_attribute_path = "full_name";
+          allow_sign_up = true;
+        };
       };
     };
 

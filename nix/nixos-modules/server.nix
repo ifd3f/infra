@@ -1,6 +1,10 @@
 # Some headless server that likely runs 24/7
 { config, lib, pkgs, inputs, ... }: {
   imports = [ ./astral ];
+
+  # Hashicorp Vault secrets uwu
+  vault-secrets.vaultAddress = "https://secrets.astrid.tech";
+
   # Use a stable, frozen-version hardened kernel
   boot.kernelPackages = pkgs.linuxPackages_5_15_hardened;
 
