@@ -32,8 +32,8 @@ in {
     } // lib.mapAttrs' (name: value: {
       name = "emoji/${name}";
       inherit value;
-    })
-      (lib.filterAttrs (name: _: name != "recurseForDerivations") pkgs.akkoma-emoji);
+    }) (lib.filterAttrs (name: _: name != "recurseForDerivations")
+      pkgs.akkoma-emoji);
 
     frontends = {
       primary = {
@@ -53,7 +53,7 @@ in {
       inherit (econf) mkRaw mkMap;
     in {
       ":pleroma"."Pleroma.Web.Endpoint".url.host = vhost;
-      ":pleroma".":media_proxy".enabled = true;
+      ":pleroma".":media_proxy".enabled = false;
       ":pleroma".":instance" = {
         name = "da astrid z0ne";
         description = "astrid's akkoma server";
@@ -104,6 +104,18 @@ in {
         level = mkRaw ":debug";
         metadata = [ (mkRaw ":request_id") ];
       };
+
+      # Less outgoing retries to improve performance
+      ":pleroma".":workers".retries = {
+        federator_incoming = 5;
+        federator_outgoing = 2;
+      };
+
+      # Biggify the pools and pray it works
+      ":connections_pool".":max_connections" = 500;
+      ":pleroma".":http".pool_size = 150;
+      ":pools".":federation".max_connections = 300;
+      "Pleroma.Repo".":pool_size" = 50;
     };
 
     nginx = {

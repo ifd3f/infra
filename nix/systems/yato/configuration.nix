@@ -3,6 +3,8 @@
   imports = [
     inputs.self.nixosModules.oracle-cloud-vps
     inputs.self.nixosModules.server
+
+    inputs.self.nixosModules.vault
   ];
 
   astral = {

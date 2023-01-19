@@ -57,6 +57,8 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    vault-secrets.url = "github:serokell/vault-secrets";
+
     armqr = {
       url = "github:ifd3f/armqr";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -72,14 +74,21 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    blurred-horse-bot = {
+      url = "github:ifd3f/horse-diffusion";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
+    akkoma-exporter.url = "github:ifd3f/akkoma-exporter";
+
     # Files are stored using LFS, so the git fetcher is needed.
     vendored-emojis.url = "github:ifd3f/vendored-emojis";
   };
 
   outputs = { self, nixpkgs-unstable, nixpkgs-stable, nixpkgs-php74
     , nixos-vscode-server, flake-utils, nix-ld, nur, home-manager-unstable
-    , nixos-generators, armqr, year-of-bot, nur-ifd3f, vendored-emojis, catgpt
-    , ... }@inputs:
+    , nixos-generators, vault-secrets, armqr, year-of-bot, nur-ifd3f
+    , vendored-emojis, catgpt, blurred-horse-bot, akkoma-exporter, ... }@inputs:
     let
       nixpkgs = nixpkgs-unstable;
       home-manager = home-manager-unstable;
@@ -117,7 +126,10 @@
           complete = lib.composeManyExtensions [
             (import "${home-manager}/overlay.nix")
             nur.overlay
+            vault-secrets.overlay
             armqr.overlays.default
+            akkoma-exporter.overlays.default
+            blurred-horse-bot.overlays.default
             year-of-bot.overlays.default
             catgpt.overlays.default
             nur-ifd3f.overlays.default

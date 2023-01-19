@@ -64,3 +64,16 @@ provider "remote" {
   }
 }
 
+provider "remote" {
+  alias = "durin"
+
+  max_sessions = 2
+
+  conn {
+    host        = "durin.h.astrid.tech"
+    user        = "terraform"
+    sudo        = true
+    private_key = var.ssh_private_key
+  }
+}
+

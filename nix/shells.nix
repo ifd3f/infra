@@ -5,7 +5,7 @@ let
     [
       ifd3f-infra-scripts
 
-      ansible
+      #ansible
       backblaze-b2
       bitwarden-cli
       curl
@@ -21,6 +21,8 @@ let
       nixfmt
       nodePackages.prettier
       python3
+      step-ca
+      step-cli
       tcpdump
       terraform
       terraform-ls
@@ -40,6 +42,9 @@ let
     ] else
       [ ]);
 in {
-  default = pkgs.mkShell { nativeBuildInputs = packages; };
+  default = pkgs.mkShell {
+    nativeBuildInputs = packages;
+    VAULT_ADDR = "https://secrets.astrid.tech";
+  };
 }
 
