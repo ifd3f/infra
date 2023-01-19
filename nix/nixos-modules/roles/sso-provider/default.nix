@@ -1,28 +1,7 @@
 { pkgs, lib, config, ... }:
 with lib;
-let
-  kcfg = config.services.keycloak;
-
-  keystore = rec {
-    password = "thepasswordidkitdoesntmatterfuckthisshit";
-    file = "${deriv}";
-    deriv = pkgs.runCommand "keystore.jks" { } ''
-      ${pkgs.jdk}/bin/keytool \
-        -storepass ${password} \
-        -noprompt \
-        -trustcacerts \
-        -import \
-        -alias ipa0.id.astrid.tech \
-        -keystore $out \
-        -file ${./ipa0-id-astrid-tech.crt}
-    '';
-  };
+let kcfg = config.services.keycloak;
 in {
-  imports = [ ./ldap-shim.nix ];
-
-  # Trust the LDAP server's cert
-  security.pki.certificateFiles = [ ./ipa0-id-astrid-tech.crt ];
-
   services.keycloak = {
     enable = true;
     settings = {
@@ -31,9 +10,6 @@ in {
       http-port = 18433;
       http-host = "0.0.0.0";
       http-enabled = true;
-
-      spi-truststore-file-file = keystore.file;
-      spi-truststore-file-password = keystore.password;
 
       log-level = "DEBUG";
     };
@@ -45,10 +21,6 @@ in {
       passwordFile = "/var/lib/secrets/keycloak/dbpassword";
     };
   };
-
-  # # Make Java trust it too
-  # systemd.services.keycloak.environment.JAVA_ARGS =
-  #   "-Djavax.net.ssl.trustStore=${keystore} -Djavax.net.ssl.trustStorePassword=${password}";
 
   services.postgresql = {
     ensureDatabases = [ kcfg.database.name ];
