@@ -131,6 +131,17 @@ in with lib; {
         enable = true;
         initExtra = commonProfile;
       };
+
+      programs.ssh = {
+        enable = true;
+        extraConfig = ''
+          Host *
+            AddKeysToAgent yes
+
+          Host *.astrid.tech
+            ForwardAgent yes
+        '';
+      };
     }
 
     (mkIf cfg.extended {
