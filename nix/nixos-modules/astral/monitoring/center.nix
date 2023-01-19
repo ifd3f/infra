@@ -37,6 +37,7 @@ in {
           domain = "grafana.astrid.tech";
           http_port = 2342;
           addr = "127.0.0.1";
+          root_url = "https://grafana.astrid.tech";
         };
 
         "auth.generic_oauth" = {
@@ -44,7 +45,7 @@ in {
           icon = "signin";
           enabled = true;
 
-          client_id = "grafana-internal";
+          client_id = "internal-grafana";
           client_secret = "SECRET THAT GETS OVERRIDEN";
           scopes = "openid email profile offline_access roles";
 
