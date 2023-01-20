@@ -28,13 +28,11 @@ in with lib; {
         config.vault-secrets.secrets."${config.astral.backup.vault-key}";
     };
 
-    # vault kv put kv/backup-db-${fqdn}/secret \
+    # vault kv put kv/backup-db-${fqdn}/secrets \
     #   repo_password=@
     # vault kv put kv/backup-db-${fqdn}/env \
     #   AWS_ACCESS_KEY_ID=@ \
     #   AWS_SECRET_ACCESS_KEY=@
-    vault-secrets.secrets."backup-${config.networking.fqdn}" = {
-      environmentKey = "env";
-    };
+    vault-secrets.secrets."backup-${config.networking.fqdn}" = { };
   };
 }

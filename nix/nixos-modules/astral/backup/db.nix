@@ -35,7 +35,7 @@ in with lib; {
       };
 
       systemd.services.restic-backups-db = {
-        requisite = [ "${cfg.vault-key}-secrets.service" ];
+        requires = [ "${cfg.vault-key}-secrets.service" ];
         after = [ "${cfg.vault-key}-secrets.service" ];
       };
     })

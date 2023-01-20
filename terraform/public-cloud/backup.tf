@@ -26,7 +26,7 @@ resource "vault_kv_secret_v2" "backup_env" {
   for_each = local.backup_hosts
 
   mount = "kv"
-  name  = "backup-db-${each.key}/env"
+  name  = "backup-${each.key}/environment"
   data_json = jsonencode(
     {
       AWS_ACCESS_KEY_ID     = b2_application_key.backup_storage[each.key].application_key_id
@@ -42,7 +42,7 @@ resource "vault_kv_secret_v2" "backup_repo_password" {
   for_each = local.backup_hosts
 
   mount = "kv"
-  name  = "backup-db-${each.key}/secret"
+  name  = "backup-${each.key}/secrets"
   data_json = jsonencode(
     {
       repo_password = random_password.restic_repo_password[each.key].result
