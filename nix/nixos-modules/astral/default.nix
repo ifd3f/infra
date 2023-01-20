@@ -28,6 +28,7 @@
     ./users
 
     ./monitoring
+    ./backup
   ];
 
   system.stateVersion = "22.11";
