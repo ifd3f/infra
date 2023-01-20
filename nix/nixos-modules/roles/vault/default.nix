@@ -17,5 +17,26 @@ in {
     locations."/" = { proxyPass = "http://${vcfg.address}"; };
   };
 
+  # Expose a CLI for interacting with Vault (convenience)
   environment.systemPackages = with pkgs; [ vault ];
+
+  # Run backups on the vault
+  services.restic.backups.vault-data = {
+    initialize = true;
+    passwordFile = "/var/lib/secrets/vault-backup/repo_password";
+
+    # Variables wanted:
+    #  - AWS_ACCESS_KEY_ID
+    #  - AWS_SECRET_ACCESS_KEY
+    environmentFile = "/var/lib/secrets/vault-backup/env";
+
+    # We'll keep more frequent snapshots, but with less overall
+    # retention time, for Security Reasons.
+    pruneOpts = [ "--keep-hourly 48" "--keep-daily 14" ];
+
+    paths = [ "/var/lib/vault" ];
+    repository = "s3:s3.us-west-000.backblazeb2.com/ifd3f-backup/vault";
+
+    timerConfig.OnCalendar = "hourly";
+  };
 }
