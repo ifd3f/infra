@@ -24,6 +24,7 @@ in {
     };
 
     systemd.services.grafana = {
+      wants = [ "grafana-sso-oauth-secrets.service" ];
       after = [ "grafana-sso-oauth-secrets.service" ];
       serviceConfig.EnvironmentFile = "${vs.grafana-sso-oauth}/environment";
     };
@@ -58,6 +59,8 @@ in {
           email_attribute_path = "email";
           login_attribute_path = "username";
           name_attribute_path = "full_name";
+          role_attribute_path =
+            "contains(roles[*], 'admin') && 'Admin' || contains(roles[*], 'editor') && 'Editor' || 'Viewer'";
           allow_sign_up = true;
         };
       };
