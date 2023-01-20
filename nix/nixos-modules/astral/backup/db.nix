@@ -17,11 +17,11 @@ in with lib; {
         (config.services.postgresql.enable || config.services.mysql.enable);
     }
 
-    (mkIf cfg.enable {
+    (mkIf cfg.db.enable {
       services.restic.backups.db = {
         initialize = true;
-        passwordFile = "${cfg.vault-secrets}/repo_password";
-        environmentFile = "${cfg.vault-secrets}/environment";
+        passwordFile = "${cfg.vault-secret}/repo_password";
+        environmentFile = "${cfg.vault-secret}/environment";
 
         pruneOpts = [
           "--keep-daily 7"
@@ -32,6 +32,11 @@ in with lib; {
 
         repository =
           "s3:s3.us-west-000.backblazeb2.com/ifd3f-backup/hosts/${config.networking.fqdn}/db";
+      };
+
+      systemd.services.restic-backups-db = {
+        requisite = [ "${cfg.vault-key}-secrets.service" ];
+        after = [ "${cfg.vault-key}-secrets.service" ];
       };
     })
 

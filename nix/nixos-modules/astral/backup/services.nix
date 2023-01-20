@@ -1,8 +1,6 @@
 { lib, config, inputs, ... }:
 with lib;
 let
-  vault-key = "backup-services-${config.networking.fqdn}";
-
   vs = config.vault-secrets.secrets."${vault-key}";
   cfg = config.astral.backup;
 
@@ -18,11 +16,11 @@ in with lib; {
   };
 
   config = mkMerge [
-    (mkIf cfg.enable {
-      services.restic.backups.sql = {
+    (mkIf cfg.services.enable {
+      services.restic.backups.services = {
         initialize = true;
-        passwordFile = "${cfg.vault-secrets}/repo_password";
-        environmentFile = "${cfg.vault-secrets}/environment";
+        passwordFile = "${cfg.vault-secret}/repo_password";
+        environmentFile = "${cfg.vault-secret}/environment";
 
         pruneOpts = [
           "--keep-daily 7"
@@ -34,6 +32,11 @@ in with lib; {
         paths = cfg.services.paths;
         repository =
           "s3:s3.us-west-000.backblazeb2.com/ifd3f-backup/hosts/${config.networking.fqdn}/services";
+      };
+
+      systemd.services.restic-backups-services = {
+        requisite = [ "${cfg.vault-key}-secrets.service" ];
+        after = [ "${cfg.vault-key}-secrets.service" ];
       };
     })
   ];

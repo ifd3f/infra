@@ -10,12 +10,24 @@ in with lib; {
   options.astral.backup = {
     vault-key = mkOption {
       description =
-        "Vault secret to use. By default, it will reference the Vault secret key backup-$fqdn.";
+        "Vault secret name to use. By default, it will reference the Vault secret key backup-$fqdn.";
+      type = types.str;
+    };
+
+    vault-secret = mkOption {
+      description =
+        "Vault secret to use. It is grabbed from the key listed in vault-key.";
       type = types.attrs;
     };
   };
 
   config = mkIf (cfg.db.enable || cfg.services.enable) {
+    astral.backup = {
+      vault-key = "backup-${config.networking.fqdn}";
+      vault-secret =
+        config.vault-secrets.secrets."${config.astral.backup.vault-key}";
+    };
+
     # vault kv put kv/backup-db-${fqdn}/secret \
     #   repo_password=@
     # vault kv put kv/backup-db-${fqdn}/env \
@@ -24,8 +36,5 @@ in with lib; {
     vault-secrets.secrets."backup-${config.networking.fqdn}" = {
       environmentKey = "env";
     };
-
-    astral.backup.vault-secret =
-      config.vault-secrets.secrets."backup-${config.networking.fqdn}";
   };
 }
