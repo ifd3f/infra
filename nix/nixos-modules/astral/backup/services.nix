@@ -34,7 +34,7 @@ in with lib; {
 
         paths = cfg.paths;
         repository =
-          "s3:s3.us-west-000.backblazeb2.com/ifd3f-backup/services/${config.networking.fqdn}";
+          "s3:s3.us-west-000.backblazeb2.com/ifd3f-backup/hosts/${config.networking.fqdn}/services";
       };
     })
   ];

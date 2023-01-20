@@ -23,6 +23,7 @@ let
       netcat
       nixfmt
       nodePackages.prettier
+      pwgen
       python3
       step-ca
       step-cli
