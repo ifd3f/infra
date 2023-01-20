@@ -61,6 +61,8 @@ in {
     ];
   };
 
+  services.mysqlBackup.databases = [ "piwigo" ];
+
   users.groups.piwigo = { };
   users.users."piwigo" = {
     group = "piwigo";
