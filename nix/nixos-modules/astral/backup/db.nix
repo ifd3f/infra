@@ -4,7 +4,7 @@ let
   vault-key = "backup-db-${config.networking.fqdn}";
 
   vs = config.vault-secrets.secrets."${vault-key}";
-  cfg = config.astral.backup.db;
+  cfg = config.astral.backup;
 
 in with lib; {
   options.astral.backup.db = {
@@ -18,12 +18,11 @@ in with lib; {
     }
 
     (mkIf cfg.enable {
-      # vault kv put kv/backup-db-${fqdn}/secret repo_password=@
-      vault-secrets.secrets."${vault-key}" = { };
-
       services.restic.backups.db = {
         initialize = true;
-        passwordFile = "${vs}/repo_password";
+        passwordFile = "${cfg.vault-secrets}/repo_password";
+        environmentFile = "${cfg.vault-secrets}/environment";
+
         pruneOpts = [
           "--keep-daily 7"
           "--keep-weekly 6"
@@ -36,13 +35,14 @@ in with lib; {
       };
     })
 
-    (mkIf (cfg.enable && config.services.postgresql.enable) {
+    (mkIf (cfg.db.enable && config.services.postgresql.enable) {
       services.postgresqlBackup = {
         enable = true;
         backupAll = true;
       };
 
-      services.restic.backups.db.paths = [ config.services.postgresqlBackup.location ];
+      services.restic.backups.db.paths =
+        [ config.services.postgresqlBackup.location ];
 
       # do not start automatically
       systemd.timers.postgresqlBackup.enable = false;
@@ -53,13 +53,14 @@ in with lib; {
       };
     })
 
-    (mkIf (cfg.enable && config.services.mysql.enable) {
+    (mkIf (cfg.db.enable && config.services.mysql.enable) {
       services.mysqlBackup = {
         enable = true;
         singleTransaction = true;
       };
 
-      services.restic.backups.db.paths = [ config.services.mysqlBackup.location ];
+      services.restic.backups.db.paths =
+        [ config.services.mysqlBackup.location ];
 
       # do not start automatically
       systemd.timers.mysql-backup.enable = false;
