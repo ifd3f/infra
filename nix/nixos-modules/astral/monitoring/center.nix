@@ -7,6 +7,8 @@ let
   gcfg = config.services.grafana;
   lcfg = config.services.loki;
 in {
+  astral.backup.services.paths = [ "/var/lib/grafana" "/var/lib/prometheus2" ];
+
   options.astral.monitoring.center = {
     enable = mkEnableOption "monitoring center role";
 
