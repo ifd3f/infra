@@ -52,7 +52,7 @@ in with lib; {
       # do not start automatically
       systemd.timers.postgresqlBackup.enable = false;
 
-      systemd.services."restic-backups-sql".unitConfig = {
+      systemd.services."restic-backups-db" = {
         wants = [ "postgresqlBackup.service" ];
         after = [ "postgresqlBackup.service" ];
       };
@@ -70,7 +70,7 @@ in with lib; {
       # do not start automatically
       systemd.timers.mysql-backup.enable = false;
 
-      systemd.services."restic-backups-sql".unitConfig = {
+      systemd.services."restic-backups-db" = {
         wants = [ "mysql-backup.service" ];
         after = [ "mysql-backup.service" ];
       };
