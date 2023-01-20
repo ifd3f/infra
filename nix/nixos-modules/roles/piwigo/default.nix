@@ -62,6 +62,7 @@ in {
   };
 
   services.mysqlBackup.databases = [ "piwigo" ];
+  astral.backup.services.paths = [ "${webroot}/_data" ];
 
   users.groups.piwigo = { };
   users.users."piwigo" = {
