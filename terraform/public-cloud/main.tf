@@ -50,6 +50,9 @@ provider "remote" {
     private_key = var.ssh_private_key
   }
 }
+provider "vault" {
+  address = "https://secrets.astrid.tech"
+}
 
 provider "remote" {
   alias = "diluc"
