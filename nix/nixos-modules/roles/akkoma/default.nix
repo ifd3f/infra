@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, config, ... }:
 with lib;
 let
   vhost = "fedi.astrid.tech";
@@ -48,9 +48,7 @@ in {
       };
     };
 
-    config = let
-      econf = ((pkgs.formats.elixirConf { }).lib);
-      inherit (econf) mkRaw mkMap;
+    config = let inherit ((pkgs.formats.elixirConf { }).lib) mkRaw mkMap;
     in {
       ":pleroma"."Pleroma.Web.Endpoint".url.host = vhost;
       ":pleroma".":media_proxy".enabled = false;
@@ -77,6 +75,23 @@ in {
         policies = map mkRaw [ "Pleroma.Web.ActivityPub.MRF.SimplePolicy" ];
         transparency = false;
       };
+
+      # Yoinked from https://github.com/NixOS/nixpkgs/blob/d7705c01ef0a39c8ef532d1033bace8845a07d35/nixos/modules/services/web-apps/akkoma.nix#L637
+      # We need to manually merge this entry because of Reasons(tm).
+      ":pleroma"."Pleroma.Repo" = {
+        adapter = mkRaw "Ecto.Adapters.Postgres";
+        socket_dir = "/run/postgresql";
+        username = config.services.akkoma.user;
+        database = "akkoma";
+
+        prepare = mkRaw ":named";
+        parameters.plan_cache_mode = "force_custom_plan";
+
+        # Expand the pool size to reduce crashes
+        # NOTE: For now, let's not do this because Pleroma recommended against it.
+        # pool_size = 50;
+      };
+      # ":dangerzone".":override_repo_pool_size" = true;
 
       # S3 setup
       ":pleroma"."Pleroma.Upload" = {
