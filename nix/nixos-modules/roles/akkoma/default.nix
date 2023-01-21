@@ -140,17 +140,6 @@ in {
 
   services.postgresql = {
     enable = true;
-
-    # Recommendations: https://docs-develop.pleroma.social/backend/configuration/postgresql/#2gb-ram-2-cpu
-    settings = {
-      shared_buffers = "512MB";
-      effective_cache_size = "1536MB";
-      maintenance_work_mem = "128MB";
-      work_mem = "26214kB";
-      max_worker_processes = 2;
-      max_parallel_workers_per_gather = 1;
-      max_parallel_workers = 2;
-    };
   };
 
   # Overriden settings for local testing
