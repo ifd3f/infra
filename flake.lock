@@ -6,11 +6,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1674080124,
-        "narHash": "sha256-86AIqtiB8lnHGOk43qjCKD7KH2PA9RYPpYHj0JoQYZM=",
+        "lastModified": 1674295225,
+        "narHash": "sha256-pCrj7rnt08l/hO4+6n/s2dPIgaZpd0KZQCc9hjqIli8=",
         "owner": "ifd3f",
         "repo": "akkoma-exporter",
-        "rev": "cac8e6890ccc7c7e7f90d7f1e6ed3c28f06d72d0",
+        "rev": "2ae0e61723f32257f2d4dce0fc9a71e5258ea6ef",
         "type": "github"
       },
       "original": {
@@ -524,11 +524,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1674258277,
-        "narHash": "sha256-AK9H4OJfM6kukcG0kzA0ddMoLBzv8FSSKjBba4nSwWE=",
+        "lastModified": 1674290152,
+        "narHash": "sha256-2FPfuRPknBrg2ZBBa3latWxbbComAXLizS1ShsJHuLc=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "46a146dae20bbbb2a31197d670088b8544f0b8bc",
+        "rev": "0eb18ae5ae3a5ff8cdef5a0c956d11cc414d757f",
         "type": "github"
       },
       "original": {
