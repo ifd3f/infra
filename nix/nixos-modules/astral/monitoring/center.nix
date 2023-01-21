@@ -125,6 +125,16 @@ in {
           static_configs = [{ targets = [ "diluc.h.astrid.tech" ]; }];
         }
         {
+          inherit tls_config;
+
+          scheme = "https";
+          job_name = "postgres";
+          scrape_interval = "10s";
+          metrics_path = "/metrics/postgres";
+          static_configs =
+            [{ targets = [ "amiya.h.astrid.tech" "diluc.h.astrid.tech" ]; }];
+        }
+        {
           scheme = "http";
           job_name = "akkoma";
           scrape_interval = "5s";

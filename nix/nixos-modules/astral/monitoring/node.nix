@@ -41,6 +41,14 @@ in {
         enable = true;
         port = 9113;
       };
+      postgres = {
+        enable = config.services.postgresql.enable;
+        runAsLocalSuperUser = true;
+        port = 9187;
+        extraFlags = [
+          "--auto-discover-databases"
+        ];
+      };
     };
 
     services.promtail = {
@@ -106,7 +114,7 @@ in {
         in mkIf thisCfg.enable {
           "/metrics/${name}".proxyPass =
             "http://127.0.0.1:${toString thisCfg.port}/metrics";
-        }) [ "node" "nginx" "systemd" "bind" ])
+        }) [ "node" "nginx" "systemd" "bind" "postgres" ])
 
         ++ [{
           "/promtail".proxyPass =
