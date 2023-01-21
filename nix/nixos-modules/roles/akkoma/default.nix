@@ -88,10 +88,9 @@ in {
         parameters.plan_cache_mode = "force_custom_plan";
 
         # Expand the pool size to reduce crashes
-        # NOTE: For now, let's not do this because Pleroma recommended against it.
-        # pool_size = 50;
+        pool_size = 50;
       };
-      # ":dangerzone".":override_repo_pool_size" = true;
+      ":pleroma".":dangerzone".override_repo_pool_size = true;
 
       # S3 setup
       ":pleroma"."Pleroma.Upload" = {
