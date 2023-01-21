@@ -13,7 +13,7 @@ in with lib; {
     };
   };
 
-  config = mkIf ((builtins.length cfg.services.paths) > 0) {
+  config = mkIf (builtins.length cfg.services.paths > 1) {
     services.restic.backups.services = {
       initialize = true;
       passwordFile = "${cfg.vault-secret}/repo_password";

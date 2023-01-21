@@ -21,7 +21,7 @@ in with lib; {
     };
   };
 
-  config = mkIf (cfg.db.enable || cfg.services.enable) {
+  config = mkIf (cfg.db.enable || builtins.length cfg.services.paths > 0) {
     astral.backup = {
       vault-key = "backup-${config.networking.fqdn}";
       vault-secret =
