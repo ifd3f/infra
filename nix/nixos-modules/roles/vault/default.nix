@@ -32,7 +32,7 @@ in {
 
     # We'll keep more frequent snapshots, but with less overall
     # retention time, for Security Reasons.
-    pruneOpts = [ "--keep-hourly 48" "--keep-daily 14" ];
+    pruneOpts = [ "--keep-last 8" "--keep-hourly 48" "--keep-daily 7" ];
 
     paths = [ "/var/lib/vault" ];
     repository = "s3:s3.us-west-000.backblazeb2.com/ifd3f-backup/vault";

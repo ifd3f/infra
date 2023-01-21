@@ -20,6 +20,7 @@ in with lib; {
       environmentFile = "${cfg.vault-secret}/environment";
 
       pruneOpts = [
+        "--keep-last 5"
         "--keep-daily 7"
         "--keep-weekly 6"
         "--keep-monthly 12"
