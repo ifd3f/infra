@@ -2,6 +2,13 @@
 { config, lib, pkgs, inputs, ... }: {
   imports = [ ./astral ];
 
+  # Auto-optimize/GC store on a much more frequent basis than the PC's.
+  nix.gc = lib.mkForce {
+    automatic = true;
+    dates = "daily";
+    options = "--delete-older-than 3d";
+  };
+
   # Hashicorp Vault secrets uwu
   vault-secrets.vaultAddress = "https://secrets.astrid.tech";
 
