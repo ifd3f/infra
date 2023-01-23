@@ -35,6 +35,7 @@ let
       mod_pres_counter = { };
       mod_privacy = { };
       mod_push = { };
+      mod_roster = { };
       mod_time = { };
       mod_vcard = { };
       mod_vcard_xupdate = { };
@@ -42,18 +43,18 @@ let
       # TODO: mod_mqtt = { };
     };
 
+    s2s_use_starttls = "required";
+
     listen = [
       {
         port = 5222;
         module = "ejabberd_c2s";
-        ip = "0.0.0.0";
         starttls = true;
       }
       {
         port = 5269;
         module = "ejabberd_s2s_in";
-        transport = "tcp";
-        tls = true;
+        ip = "::";
       }
       {
         port = 5443;
