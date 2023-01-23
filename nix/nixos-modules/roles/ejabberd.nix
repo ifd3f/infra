@@ -53,6 +53,7 @@ let
         port = 5269;
         module = "ejabberd_s2s_in";
         transport = "tcp";
+        tls = true;
       }
       {
         port = 5443;
