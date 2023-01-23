@@ -21,13 +21,18 @@ in {
     astral.backup.services.paths =
       [ "/var/lib/grafana" "/var/lib/prometheus2" ];
 
-    vault-secrets.secrets.grafana-sso-oauth = {
-      # vault kv put kv/grafana-sso-oauth/env GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET=<_>
-      environmentKey = "env";
+    vault-secrets.secrets = {
+      grafana-sso-oauth = {
+        # vault kv put kv/grafana-sso-oauth/env GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET=@
+        environmentKey = "env";
+      };
+
+      # vault kv put kv/prometheus-xmpp-alerts/environment XMPP_USER_PASSWORD=@
+      prometheus-xmpp-alerts = { };
     };
 
     systemd.services.grafana = {
-      wants = [ "grafana-sso-oauth-secrets.service" ];
+      requires = [ "grafana-sso-oauth-secrets.service" ];
       after = [ "grafana-sso-oauth-secrets.service" ];
       serviceConfig.EnvironmentFile = "${vs.grafana-sso-oauth}/environment";
     };
@@ -45,7 +50,7 @@ in {
         };
 
         "auth.generic_oauth" = {
-          name = "IFD3F-SSO";
+          name = "IFD3F Technologies";
           icon = "signin";
           enabled = true;
 
@@ -69,9 +74,25 @@ in {
       };
     };
 
+    users.groups.prometheus-xmpp-alerts-secrets = { };
+
+    systemd.services.prometheus-xmpp-alerts.serviceConfig.EnvironmentFile =
+      "${vs.prometheus-xmpp-alerts}/environment";
+
     services.prometheus = {
       enable = true;
       checkConfig = "syntax-only";
+
+      xmpp-alerts = {
+        enable = true;
+        settings = {
+          jid = "alertmanager@xmpp.femboy.technology";
+          to_jid = "ifd3f@xmpp.femboy.technology";
+          password_command = "echo $XMPP_USER_PASSWORD";
+          listen_address = "127.0.0.1";
+          listen_port = 9199;
+        };
+      };
 
       scrapeConfigs = let
         ecfg = config.services.prometheus.exporters;
