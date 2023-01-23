@@ -1,13 +1,19 @@
 { config, pkgs, lib, ... }:
+with lib;
 let
-  certbotcfg = config.security.acme.certs."xmpp.femboy.technology";
-
   httpPort = 5443;
+
+  certDomains = [
+    "xmpp.femboy.technology"
+    "pubsub.xmpp.femboy.technology"
+    "vjud.xmpp.femboy.technology"
+    "conference.xmpp.femboy.technology"
+  ];
 
   ejabberd-yml = {
     hosts = [ "xmpp.femboy.technology" ];
-    certfiles =
-      [ "${certbotcfg.directory}/cert.pem" "${certbotcfg.directory}/key.pem" ];
+    certfiles = forEach certDomains
+      (dn: config.security.acme.certs."${dn}".directory + "/*.pem");
 
     acl.admin.user = [ "ifd3f@xmpp.femboy.technology" ];
 
@@ -22,22 +28,29 @@ let
       mod_configure = { };
 
       mod_announce.access = "admin";
+      mod_avatar = { };
       mod_blocking = { };
       mod_bosh = { };
       mod_carboncopy = { };
+      mod_disco = { name = "next-generation femboy technology"; };
       mod_last = { };
-      mod_mam = { };
+      mod_mam = {
+        default = "always";
+        user_mucsub_from_muc_archive = true;
+      };
       mod_muc = { };
       mod_muc_admin = { };
       mod_muc_log = { };
       mod_offline = { };
       mod_ping = { };
       mod_pres_counter = { };
+      mod_private = { };
       mod_privacy = { };
+      mod_pubsub = { };
       mod_push = { };
       mod_roster = { };
       mod_time = { };
-      mod_vcard = { };
+      mod_vcard = { search = true; };
       mod_vcard_xupdate = { };
 
       # TODO: mod_mqtt = { };
@@ -61,6 +74,7 @@ let
         ip = "127.0.0.1";
         module = "ejabberd_http";
         tls = false; # We will use a reverse proxy
+        default_host = "ejabberd.femboy.technology";
         request_handlers = {
           "/" = "ejabberd_xmlrpc";
           "/admin" = "ejabberd_web_admin";
@@ -80,35 +94,35 @@ in {
     configFile = pkgs.writeText "ejabberd.yml" (builtins.toJSON ejabberd-yml);
   };
 
-  security.acme.certs."xmpp.femboy.technology" = {
-    group = "xmppcerts";
-    reloadServices = [ "ejabberd.service" ];
-  };
+  security.acme.certs = mkMerge (forEach certDomains (dn: {
+    "${dn}" = {
+      group = "xmppcerts";
+      reloadServices = [ "ejabberd.service" ];
+    };
+  }));
 
-  networking.firewall.allowedTCPPorts = [ 5222 5269 ];
+  services.nginx.virtualHosts = mkMerge (forEach certDomains (dn: {
+    "${dn}" = {
+      enableACME = true;
+      addSSL = true;
 
-  services.nginx.virtualHosts."xmpp.femboy.technology" = {
-    enableACME = true;
-
-    locations."/".extraConfig = ''
-      rewrite ^/(.*)$ http://ejabberd.femboy.technology/$1 redirect;
-    '';
-  };
-
-  services.nginx.virtualHosts."ejabberd.femboy.technology" = {
-    enableACME = true;
-    forceSSL = true;
-
-    locations."/" = {
-      proxyPass = "http://127.0.0.1:${toString httpPort}";
-      proxyWebsockets = true;
-      extraConfig = ''
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_set_header X-Forwarded-Host $host;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      locations."/".extraConfig = ''
+        rewrite ^/(.*)$ http://ejabberd.femboy.technology/$1 redirect;
       '';
     };
-  };
+  }) ++ [{
+    "ejabberd.femboy.technology" = {
+      enableACME = true;
+      forceSSL = true;
+
+      locations."/" = {
+        proxyPass = "http://127.0.0.1:${toString httpPort}";
+        proxyWebsockets = true;
+      };
+    };
+  }]);
+
+  networking.firewall.allowedTCPPorts = [ 5222 5269 ];
 
   users = {
     users = {

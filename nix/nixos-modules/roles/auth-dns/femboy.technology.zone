@@ -21,6 +21,12 @@ ejabberd                         IN A       208.87.130.175
                                  IN AAAA    2602:ff16:4:0:1:214:0:1
 xmpp                             IN A       208.87.130.175
                                  IN AAAA    2602:ff16:4:0:1:214:0:1
+vjud.xmpp                        IN A       208.87.130.175
+                                 IN AAAA    2602:ff16:4:0:1:214:0:1
+conference.xmpp                  IN A       208.87.130.175
+                                 IN AAAA    2602:ff16:4:0:1:214:0:1
+pubsub.xmpp                      IN A       208.87.130.175
+                                 IN AAAA    2602:ff16:4:0:1:214:0:1
 
 ;;; Mail security
 @                                IN TXT     "v=spf1 -all"
