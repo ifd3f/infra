@@ -45,9 +45,9 @@
     ark
     exfat
     exfatprogs
+    gajim
     home-manager
     openconnect
-    pidgin
     ventoy-bin
     wine
     wine64
