@@ -6,9 +6,41 @@ let
 
   ejabberd-yml = {
     hosts = [ "xmpp.femboy.technology" ];
-    acl.admin.user = [ "ifd3f@xmpp.femboy.technology" ];
     certfiles =
       [ "${certbotcfg.directory}/cert.pem" "${certbotcfg.directory}/key.pem" ];
+
+    acl.admin.user = [ "ifd3f@xmpp.femboy.technology" ];
+
+    access_rules = {
+      configure.allow = "admin";
+      webadmin_view.allow = "viewers";
+    };
+
+    modules = {
+      mod_adhoc = { };
+      mod_admin_extra = { };
+      mod_configure = { };
+
+      mod_announce.access = "admin";
+      mod_blocking = { };
+      mod_bosh = { };
+      mod_carboncopy = { };
+      mod_last = { };
+      mod_mam = { };
+      mod_muc = { };
+      mod_muc_admin = { };
+      mod_muc_log = { };
+      mod_offline = { };
+      mod_ping = { };
+      mod_pres_counter = { };
+      mod_privacy = { };
+      mod_push = { };
+      mod_time = { };
+      mod_vcard = { };
+      mod_vcard_xupdate = { };
+
+      # TODO: mod_mqtt = { };
+    };
 
     listen = [
       {
