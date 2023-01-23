@@ -241,6 +241,7 @@
           armqr = ./nix/nixos-modules/roles/armqr.nix;
           auth-dns = ./nix/nixos-modules/roles/auth-dns;
           ejabberd = ./nix/nixos-modules/roles/ejabberd.nix;
+          monitoring-center = ./nix/nixos-modules/roles/monitoring-center;
           piwigo = ./nix/nixos-modules/roles/piwigo;
           sso-provider = ./nix/nixos-modules/roles/sso-provider;
           vault = ./nix/nixos-modules/roles/vault;

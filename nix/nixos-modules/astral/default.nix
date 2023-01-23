@@ -27,7 +27,7 @@
     ./net
     ./users
 
-    ./monitoring
+    ./monitoring-node.nix
     ./backup
   ];
 
