@@ -47,6 +47,7 @@
     exfatprogs
     home-manager
     openconnect
+    pidgin
     ventoy-bin
     wine
     wine64
@@ -90,10 +91,7 @@
         virt-manager.enable = true;
       };
     };
-    net = {
-      xrdp.enable = true;
-      sshd.enable = true;
-    };
+    net.sshd.enable = true;
     zfs-utils.enable = true;
     # infra-update = {
     #   enable = true;
