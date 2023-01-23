@@ -47,6 +47,7 @@
     exfatprogs
     home-manager
     openconnect
+    pidgin
     ventoy-bin
     wine
     wine64
