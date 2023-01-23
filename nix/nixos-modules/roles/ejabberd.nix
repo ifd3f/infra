@@ -11,11 +11,11 @@ let
   ];
 
   ejabberd-yml = {
-    hosts = [ "xmpp.femboy.technology" ];
+    hosts = [ "ejabberd.femboy.technology" "xmpp.femboy.technology" ];
     certfiles = forEach certDomains
       (dn: config.security.acme.certs."${dn}".directory + "/*.pem");
 
-    acl.admin.user = [ "ifd3f@xmpp.femboy.technology" ];
+    acl.admin = [{user = "ifd3f@xmpp.femboy.technology";}];
 
     access_rules = {
       configure.allow = "admin";
@@ -74,9 +74,7 @@ let
         ip = "127.0.0.1";
         module = "ejabberd_http";
         tls = false; # We will use a reverse proxy
-        default_host = "ejabberd.femboy.technology";
         request_handlers = {
-          "/" = "ejabberd_xmlrpc";
           "/admin" = "ejabberd_web_admin";
         };
       }
@@ -118,6 +116,11 @@ in {
       locations."/" = {
         proxyPass = "http://127.0.0.1:${toString httpPort}";
         proxyWebsockets = true;
+        extraConfig = ''
+          proxy_set_header X-Forwarded-Proto $scheme;
+          proxy_set_header X-Forwarded-Host $host;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        '';
       };
     };
   }]);
