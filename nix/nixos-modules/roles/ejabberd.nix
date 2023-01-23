@@ -87,6 +87,14 @@ in {
 
   services.nginx.virtualHosts."xmpp.femboy.technology" = {
     enableACME = true;
+
+    locations."/".extraConfig = ''
+      rewrite ^/(.*)$ http://ejabberd.femboy.technology/$1 redirect;
+    '';
+  };
+
+  services.nginx.virtualHosts."ejabberd.femboy.technology" = {
+    enableACME = true;
     forceSSL = true;
 
     locations."/" = {
