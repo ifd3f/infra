@@ -14,7 +14,7 @@ let
       {
         port = 5222;
         module = "ejabberd_c2s";
-        ip = "127.0.0.1";
+        ip = "0.0.0.0";
         starttls = true;
       }
       {
@@ -26,8 +26,11 @@ let
         port = 5443;
         ip = "127.0.0.1";
         module = "ejabberd_http";
-        tls = true;
-        request_handlers = { "/admin" = "ejabberd_web_admin"; };
+        tls = false; # We will use a reverse proxy
+        request_handlers = {
+          "/" = "ejabberd_xmlrpc";
+          "/admin" = "ejabberd_web_admin";
+        };
       }
     ];
   };
@@ -43,8 +46,10 @@ in {
     configFile = pkgs.writeText "ejabberd.yml" (builtins.toJSON ejabberd-yml);
   };
 
-  security.acme.certs."xmpp.femboy.technology".reloadServices =
-    [ "ejabberd.service" ];
+  security.acme.certs."xmpp.femboy.technology" = {
+    group = "xmppcerts";
+    reloadServices = [ "ejabberd.service" ];
+  };
 
   networking.firewall.allowedTCPPorts = [ 5222 5269 ];
 
@@ -61,5 +66,13 @@ in {
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
       '';
     };
+  };
+
+  users = {
+    users = {
+      ejabberd.extraGroups = [ "xmppcerts" ];
+      nginx.extraGroups = [ "xmppcerts" ];
+    };
+    groups.xmppcerts = { };
   };
 }
