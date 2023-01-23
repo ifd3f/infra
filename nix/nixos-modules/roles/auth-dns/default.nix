@@ -60,6 +60,11 @@ with lib; {
         master = true;
         file = ./astridyu.com.zone;
       }
+      {
+        name = "femboy.technology";
+        master = true;
+        file = ./femboy.technology.zone;
+      }
     ];
   };
 
