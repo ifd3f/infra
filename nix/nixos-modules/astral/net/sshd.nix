@@ -11,7 +11,7 @@ with lib; {
     services.openssh = {
       enable = true;
       passwordAuthentication = false;
-      permitRootLogin = "yes";
+      permitRootLogin = "no";
     };
 
     # Open ports in the firewall.
