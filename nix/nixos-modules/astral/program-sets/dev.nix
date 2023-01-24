@@ -18,7 +18,6 @@
       jetbrains.idea-ultimate
       lolcat
       nixfmt
-      vagrant
       vscode
 
       ghidra

@@ -19,7 +19,6 @@ let
       helmfile
       inetutils
       jq
-      ldapvi
       netcat
       nixfmt
       nodePackages.prettier
@@ -38,7 +37,7 @@ let
     ] ++ (if pkgs.system != "x86_64-darwin" then [
       openldap
       krb5
-      sssd
+      ldapvi
 
       cdrkit
       iputils
