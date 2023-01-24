@@ -152,7 +152,7 @@
 
             inherit (self.packages.${prev.system})
               authelia-bin win10hotplug ifd3f-infra-scripts;
-            
+
             # gmic is currently broken, use an older version of darktable
             # https://github.com/NixOS/nixpkgs/pull/211600
             inherit (nixpkgs-stable.legacyPackages.${prev.system}) darktable;
@@ -228,6 +228,8 @@
           armqr = ./nix/nixos-modules/roles/armqr.nix;
           auth-dns = ./nix/nixos-modules/roles/auth-dns;
           ejabberd = ./nix/nixos-modules/roles/ejabberd.nix;
+          iot-gw = ./nix/nixos-modules/roles/iot-gw;
+          media-center = ./nix/nixos-modules/roles/media-center;
           monitoring-center = ./nix/nixos-modules/roles/monitoring-center;
           piwigo = ./nix/nixos-modules/roles/piwigo;
           sso-provider = ./nix/nixos-modules/roles/sso-provider;
