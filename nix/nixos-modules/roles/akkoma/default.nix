@@ -86,11 +86,7 @@ in {
 
         prepare = mkRaw ":named";
         parameters.plan_cache_mode = "force_custom_plan";
-
-        # Expand the pool size to reduce crashes
-        pool_size = 50;
       };
-      ":pleroma".":dangerzone".override_repo_pool_size = true;
 
       # S3 setup
       ":pleroma"."Pleroma.Upload" = {
@@ -129,7 +125,6 @@ in {
       ":connections_pool".":max_connections" = 500;
       ":pleroma".":http".pool_size = 150;
       ":pools".":federation".max_connections = 300;
-      "Pleroma.Repo".":pool_size" = 50;
     };
 
     nginx = {
