@@ -152,23 +152,10 @@
 
             inherit (self.packages.${prev.system})
               authelia-bin win10hotplug ifd3f-infra-scripts;
-
-            anbox = prev.anbox.overrideAttrs (attrs: {
-              src = final.fetchFromGitHub {
-                owner = "anbox";
-                repo = "anbox";
-                rev = "7a0bee7195cbbfb27649a6f181ee137cf63b842d";
-                sha256 = "sha256-aEJVkvExF5g8JP65xQwBF0yH6lrx7Qvg3WRdYfdjfO0=";
-                fetchSubmodules = true;
-              };
-
-              postInstall = ''
-                ${attrs.postInstall}
-
-                # apparently it's not executable
-                chmod +x $out/bin/anbox-application-manager
-              '';
-            });
+            
+            # gmic is currently broken, use an older version of darktable
+            # https://github.com/NixOS/nixpkgs/pull/211600
+            inherit (nixpkgs-stable.legacyPackages.${prev.system}) darktable;
           };
         };
 
