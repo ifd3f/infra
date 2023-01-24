@@ -229,7 +229,7 @@
           auth-dns = ./nix/nixos-modules/roles/auth-dns;
           ejabberd = ./nix/nixos-modules/roles/ejabberd.nix;
           iot-gw = ./nix/nixos-modules/roles/iot-gw;
-          media-center = ./nix/nixos-modules/roles/media-center;
+          media-server = ./nix/nixos-modules/roles/media-server;
           monitoring-center = ./nix/nixos-modules/roles/monitoring-center;
           piwigo = ./nix/nixos-modules/roles/piwigo;
           sso-provider = ./nix/nixos-modules/roles/sso-provider;

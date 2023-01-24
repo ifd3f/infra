@@ -152,7 +152,10 @@ in {
     ];
   };
 
-  services.akkoma-prometheus-exporter."fedi.astrid.tech".port = 8895;
+  services.akkoma-prometheus-exporter."fedi.astrid.tech" = {
+    enable = true;
+    port = 8895;
+  };
 
   services.loki = {
     enable = true;
