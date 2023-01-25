@@ -1,5 +1,6 @@
 # My gaming laptop.
-{ pkgs, lib, inputs, ... }: {
+{ pkgs, lib, inputs, ... }:
+with lib; {
   imports = [
     ./hardware-configuration.nix
     inputs.self.nixosModules.pc
@@ -29,7 +30,10 @@
     opengl.enable = true;
 
     nvidia.prime = {
-      offload.enable = true;
+      # Sync mode for multi-monitor support https://nixos.wiki/wiki/Nvidia#sync_mode
+      sync.enable = true;
+      offload.enable = false;
+
       nvidiaBusId = "PCI:1:0:0";
       intelBusId = "PCI:0:2:0";
     };
@@ -64,12 +68,11 @@
     };
   };
 
-  specialisation."VFIO".configuration = {
-    system.nixos.tags = [ "with-vfio" ];
-    astral.vfio.pci-devs = lib.mkForce [
-      "10de:1c20" # Graphics
-      "10de:10f1" # Audio
-    ];
+  specialisation."offload".configuration = {
+    hardware.nvidia.prime = {
+      sync.enable = mkForce false;
+      offload.enable = mkForce true;
+    };
   };
 
   # Windows drive
