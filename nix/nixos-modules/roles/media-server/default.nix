@@ -1,6 +1,12 @@
 # Home media server, hooked up directly to the TV.
 { config, pkgs, lib, ... }:
-with lib; {
+let vs = config.vault-secrets.secrets.media-server;
+in with lib; {
+  # vault kv put kv/media-server/secrets ovpn_conf=@ ovpn_userpass=@
+  #  - ovpn_conf: the config provided by surfshark
+  #  - ovpn_userpass: a string of USERNAME <newline> PASSWORD
+  vault-secrets.secrets."media-server" = { };
+
   boot.kernel.sysctl = {
     "net.ipv4.ip_forward" = 1;
     "net.ipv6.ip_forward" = 1;
@@ -15,6 +21,11 @@ with lib; {
   services.xserver = {
     enable = true;
     desktopManager.kodi.enable = true;
+  };
+
+  systemd.services.media-server-secrets = {
+    requiredBy = [ "container@surfshark.service" ];
+    before = [ "container@surfshark.service" ];
   };
 
   networking = {
@@ -92,6 +103,13 @@ with lib; {
     localAddress = "10.16.50.3/24";
     localAddress6 = "fc00::3/64";
 
+    bindMounts = {
+      "${vs}" = {
+        hostPath = "${vs}";
+        isReadOnly = true;
+      };
+    };
+
     config = { config, pkgs, ... }: {
       system.stateVersion = "22.05";
 
@@ -101,9 +119,10 @@ with lib; {
       };
 
       services.openvpn.servers.surfshark = {
-        # <user data omitted>
-        config =
-          "config ${./us-lax.prod.surfshark.comsurfshark_openvpn_udp.ovpn}";
+        config = ''
+          auth-user-pass ${vs}/ovpn_userpass
+          config ${vs}/ovpn_conf
+        '';
       };
 
       services.resolved = {
@@ -118,17 +137,6 @@ with lib; {
         # Point to the host
         defaultGateway.address = "10.16.50.1";
         defaultGateway6.address = "fc00::1";
-
-        # From surfshark conf
-        # wireguard.interfaces."tun" = {
-        #   ips = [ "10.14.0.2/16" ];
-
-        #   peers = [{
-        #     publicKey = "m+L7BVQWDwU2TxjfspMRLkRctvmo7fOkd+eVk6KC5lM=";
-        #     allowedIPs = [ "0.0.0.0/0" ];
-        #     endpoint = "45.149.173.234:51820";
-        #   }];
-        # };
 
         nat = {
           enable = true;
