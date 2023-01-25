@@ -231,6 +231,7 @@
           iot-gw = ./nix/nixos-modules/roles/iot-gw;
           media-server = ./nix/nixos-modules/roles/media-server;
           monitoring-center = ./nix/nixos-modules/roles/monitoring-center;
+          nextcloud = ./nix/nixos-modules/roles/nextcloud.nix;
           piwigo = ./nix/nixos-modules/roles/piwigo;
           sso-provider = ./nix/nixos-modules/roles/sso-provider;
           vault = ./nix/nixos-modules/roles/vault;
