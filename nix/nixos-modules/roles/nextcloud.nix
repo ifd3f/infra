@@ -10,7 +10,7 @@ in {
     group = "nextcloud-secrets";
   };
 
-  # vault kv put kv/nextcloud-db/secrets dbpass=@
+  # vault kv put kv/nextcloud-db/secrets dbpass=@ oidc_login_client_secret=@
   vault-secrets.secrets.nextcloud-db = {
     user = "nextcloud";
     group = "nextcloud-secrets";
@@ -43,6 +43,26 @@ in {
         secretFile = "${vs.nextcloud}/s3_secret";
       };
     };
+
+    extraOptions = {
+      oidc_login_client_id = "nextcloud";
+      oidc_login_provider_url =
+        "https://sso.astrid.tech/realms/public-users";
+      oidc_login_end_session_redirect = false;
+      oidc_login_logout_url =
+        "https://nextcloud.astrid.tech/apps/oidc_login/oidc";
+      oidc_login_auto_redirect = false;
+      oidc_login_redir_fallback = false;
+      oidc_login_attributes = {
+        id = "preferred_username";
+        mail = "email";
+      };
+      oidc_login_button_text = "Log in with IFD3F SSO";
+
+      overwriteprotocol = "https";
+    };
+
+    secretFile = "/var/lib/nextcloud/secrets.json";
   };
 
   services.nginx.virtualHosts."nextcloud.astrid.tech" = {
@@ -55,9 +75,42 @@ in {
     groups.nextcloud-secrets = { };
   };
 
+  systemd.services.nextcloud-assemble-secret-json = {
+    requires = [ "nextcloud-db-secrets.service" ];
+    path = with pkgs; [ jq ];
+    environment = {
+      oidcsecretpath = "${vs.nextcloud-db}/oidc_login_client_secret";
+      secretout = config.services.nextcloud.secretFile;
+    };
+    script = ''
+      umask 007
+      rm -f $secretout
+      jq -rn --arg oidcsecret $(cat "$oidcsecretpath") \
+        '{oidc_login_client_secret: $oidcsecret, }' > $secretout
+    '';
+
+    serviceConfig = {
+      Type = "oneshot";
+      User = "nextcloud";
+    };
+  };
+
   systemd.services.nextcloud-setup = {
-    requires = [ "nextcloud-secrets.service" "nextcloud-db-secrets.service" ];
-    after = [ "nextcloud-secrets.service" "nextcloud-db-secrets.service" ];
+    requires = [
+      "nextcloud-secrets.service"
+      "nextcloud-db-secrets.service"
+      "nextcloud-assemble-secret-json.service"
+    ];
+    after = [
+      "nextcloud-secrets.service"
+      "nextcloud-db-secrets.service"
+      "nextcloud-assemble-secret-json.service"
+    ];
+  };
+
+  systemd.services.phpfpm-nextcloud = {
+    requires = [ "nextcloud-setup.service" ];
+    after = [ "nextcloud-setup.service" ];
   };
 
   services.postgresql = {
