@@ -5,9 +5,6 @@ let
     [
       ifd3f-infra-scripts
 
-      (vault-push-approle-envs self)
-      (vault-push-approles self)
-
       #ansible
       backblaze-b2
       bitwarden-cli

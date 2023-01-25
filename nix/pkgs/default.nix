@@ -4,7 +4,6 @@ let
   vendored-images = import ./images/vendored { inherit pkgs; };
   build-support = import ./build-support { inherit nixos-generators pkgs; };
 in vendored-images // {
-
   authelia-bin = pkgs.callPackage ./authelia-bin.nix { };
 
   update-ci-workflow = pkgs.callPackage ./update-ci-workflow { inherit self; };
@@ -21,5 +20,12 @@ in vendored-images // {
   }];
 
   win10hotplug = pkgs.callPackage ./win10hotplug { };
+
+  push-vault-secrets = with pkgs;
+    writeScriptBin "push-vault-secrets" ''
+      set -o xtrace
+      ${vault-push-approles self}/bin/vault-push-approles &&
+        ${vault-push-approle-envs self}/bin/vault-push-approle-envs
+    '';
 }
 

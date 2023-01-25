@@ -112,6 +112,7 @@
         packages =
           import ./nix/pkgs { inherit self pkgs nixpkgs nixos-generators; };
         legacyPackages = pkgs;
+
       }) // {
         lib = import ./nix/lib {
           inherit self inputs;
