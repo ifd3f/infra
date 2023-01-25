@@ -1,9 +1,11 @@
 { config, pkgs, lib, ... }:
-with lib; {
+with lib;
+let vs = config.vault-secrets.secrets.nextcloud;
+in {
   astral.backup.services.paths = [ config.services.nextcloud.home ];
 
-  # vault kv put kv/nextcloud/secrets s3_secret=@
-  vault-secrets.secrets.nextcloud = { };
+  # vault kv put kv/nextcloud/secrets s3_secret=@ adminpass=@
+  vault-secrets.secrets.nextcloud = { group = "nextcloud-secrets"; };
 
   services.nextcloud = {
     enable = true;
@@ -12,14 +14,24 @@ with lib; {
     logLevel = 0;
     maxUploadSize = "16G";
 
-    config.objectstore.s3 = {
-      enable = true;
-      hostname = "s3.us-west-000.backblazeb2.com";
-      bucket = "ifd3f-nextcloud";
-      usePathStyle = true;
-      key = "";
-      secretFile =
-        "${config.vault-secrets.secrets.nextcloud}/s3_secret";
+    config = {
+      adminpassFile = "${vs}/adminpass";
+
+      objectstore.s3 = {
+        enable = true;
+        autocreate = false;
+        usePathStyle = true;
+
+        hostname = "s3.us-west-000.backblazeb2.com";
+        bucket = "ifd3f-nextcloud";
+        key = "0003f10c25ba33d000000001e";
+        secretFile = "${vs}/s3_secret";
+      };
     };
+  };
+
+  users = {
+    users.nextcloud.extraGroups = [ "nextcloud-secrets" ];
+    groups.nextcloud-secrets = { };
   };
 }
