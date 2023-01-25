@@ -1,11 +1,18 @@
 # Home media server, hooked up directly to the TV.
 { config, pkgs, lib, ... }:
-let vs = config.vault-secrets.secrets.media-server;
+let
+  vs = config.vault-secrets.secrets.media-server;
+  hosts = {
+    "10.16.50.1" = [ "mediaserv" ];
+    "10.16.50.2" = [ "deluge" ];
+    "10.16.50.3" = [ "surfsharkvpn" ];
+  };
+
 in with lib; {
   # vault kv put kv/media-server/secrets ovpn_conf=@ ovpn_userpass=@
-  #  - ovpn_conf: the config provided by surfshark
+  #  - ovpn_conf: the full config file provided by surfshark
   #  - ovpn_userpass: a string of USERNAME <newline> PASSWORD
-  vault-secrets.secrets."media-server" = { };
+  vault-secrets.secrets."media-server" = { group = "root"; };
 
   boot.kernel.sysctl = {
     "net.ipv4.ip_forward" = 1;
@@ -14,7 +21,7 @@ in with lib; {
 
   services.nginx.virtualHosts."deluge.s02.astrid.tech" = {
     locations."/".proxyPass = let container = config.containers.deluge;
-    in "http://${container.localAddress}"
+    in "http://deluge"
     + ":${toString container.config.services.deluge.web.port}";
   };
 
@@ -51,16 +58,15 @@ in with lib; {
   containers.deluge = {
     autoStart = true;
     privateNetwork = true;
+    ephemeral = true;
 
     hostBridge = "br-torrent";
     localAddress = "10.16.50.2/24";
     localAddress6 = "fc00::2/64";
 
-    bindMounts = {
-      "/srv/deluge" = {
-        hostPath = "/srv/deluge";
-        isReadOnly = false;
-      };
+    bindMounts."${config.containers.deluge.config.services.deluge.dataDir}" = {
+      hostPath = "/srv/deluge";
+      isReadOnly = false;
     };
 
     config = { config, pkgs, ... }: {
@@ -78,6 +84,8 @@ in with lib; {
       };
 
       networking = {
+        inherit hosts;
+
         useHostResolvConf = false;
 
         # Point to the VPN
@@ -96,6 +104,7 @@ in with lib; {
 
   containers.surfshark = {
     autoStart = true;
+    ephemeral = false;
     privateNetwork = true;
     enableTun = true;
 
@@ -103,11 +112,10 @@ in with lib; {
     localAddress = "10.16.50.3/24";
     localAddress6 = "fc00::3/64";
 
-    bindMounts = {
-      "${vs}" = {
-        hostPath = "${vs}";
-        isReadOnly = true;
-      };
+    bindMounts."${vs}" = {
+      hostPath = "${vs}";
+      mountPoint = "${vs}";
+      isReadOnly = true;
     };
 
     config = { config, pkgs, ... }: {
@@ -132,6 +140,8 @@ in with lib; {
       };
 
       networking = {
+        inherit hosts;
+
         useHostResolvConf = false;
 
         # Point to the host

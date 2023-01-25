@@ -20,17 +20,18 @@
     # Autologin as root because we testin here
     services.getty.autologinUser = "root";
 
-    services.nginx.virtualHosts."localhost" = {
-      locations."/" = {
-        proxyPass = "http://localhost:80";
-        extraConfig = ''
-          proxy_set_header Host "deluge.s02.astrid.tech";
-        '';
-      };
+    services.nginx.virtualHosts."localhost".locations."/" = {
+      proxyPass = "http://localhost:80";
+      # Route request to deluge web
+      extraConfig = ''
+        proxy_set_header Host "deluge.s02.astrid.tech";
+      '';
     };
 
     virtualisation = {
       graphics = false;
+      diskSize = 8192;
+
       forwardPorts = [
         {
           from = "host";
