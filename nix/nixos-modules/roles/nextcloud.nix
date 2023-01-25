@@ -34,4 +34,9 @@ in {
     users.nextcloud.extraGroups = [ "nextcloud-secrets" ];
     groups.nextcloud-secrets = { };
   };
+
+  systemd.services.nextcloud-setup = {
+    requires = [ "nextcloud-secrets.service" ];
+    after = [ "nextcloud-secrets.service" ];
+  };
 }
