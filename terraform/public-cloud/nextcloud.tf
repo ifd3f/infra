@@ -9,6 +9,11 @@ resource "b2_application_key" "nextcloud_storage" {
   capabilities = ["deleteFiles", "listBuckets", "listFiles", "readBucketEncryption", "readBucketReplications", "readBuckets", "readFiles", "shareFiles", "writeBucketEncryption", "writeBucketReplications", "writeFiles"]
 }
 
+resource "random_password" "nextcloud_admin_pass" {
+  length  = 32
+  special = false
+}
+
 resource "vault_kv_secret_v2" "nextcloud_s3_key" {
   mount = "kv"
   name  = "nextcloud/secrets"
@@ -16,6 +21,7 @@ resource "vault_kv_secret_v2" "nextcloud_s3_key" {
     {
       s3_key    = b2_application_key.nextcloud_storage.application_key_id
       s3_secret = b2_application_key.nextcloud_storage.application_key
+      adminpass = random_password.nextcloud_admin_pass.result
     }
   )
   custom_metadata {
