@@ -118,6 +118,15 @@ in {
         inherit tls_config;
 
         scheme = "https";
+        job_name = "nginxlog";
+        scrape_interval = "10s";
+        metrics_path = "/metrics/nginxlog";
+        static_configs = [{ inherit targets; }];
+      }
+      {
+        inherit tls_config;
+
+        scheme = "https";
         job_name = "systemd";
         scrape_interval = "10s";
         metrics_path = "/metrics/systemd";
