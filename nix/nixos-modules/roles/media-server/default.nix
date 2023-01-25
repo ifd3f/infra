@@ -24,35 +24,13 @@ with lib; {
     }];
   };
 
-  virtualisation.oci-containers = {
-    backend = "podman";
-
-    # https://github.com/ilteoood/docker-surfshark
-    containers.surfshark = {
-      image = "ghcr.io/ilteoood/docker-surfshark:1.3.0";
-      environment = {
-        SURFSHARK_USER = "YOUR_SURFSHARK_USER";
-        SURFSHARK_PASSWORD = "YOUR_SURFSHARK_PASSWORD";
-        CONNECTION_TYPE = "udp";
-      };
-      extraOptions = [
-        "--cap-add=NET_ADMIN"
-        "--device=/dev/net/tun"
-        "--network=br-torrent"
-        "--ip=10.43.23.2"
-      ];
-    };
-  };
-
   containers.deluge = {
     autoStart = true;
     privateNetwork = true;
 
     hostBridge = "br-torrent";
-    hostAddress = "10.16.50.1";
-    localAddress = "10.16.50.3";
-    hostAddress6 = "fc00::1";
-    localAddress6 = "fc00::3";
+    localAddress = "10.16.50.3/24";
+    localAddress6 = "fc00::3/64";
 
     bindMounts = {
       "/srv/deluge" = {
@@ -69,10 +47,66 @@ with lib; {
         web.enable = true;
       };
 
-      networking.firewall = {
+      services.resolved = {
         enable = true;
-        allowedTCPPorts = [ config.services.deluge.web.port ];
+        # From surfshark conf
+        fallbackDns = [ "162.252.172.57" "149.154.159.92" ];
       };
+
+      networking = {
+        useHostResolvConf = false;
+
+        defaultGateway.address = "10.16.50.2";
+        defaultGateway6.address = "fc00::2";
+
+        firewall = {
+          enable = true;
+          allowedTCPPorts = [ config.services.deluge.web.port ];
+        };
+      };
+
+      services.getty.autologinUser = "root";
+    };
+  };
+
+  containers.surfshark = {
+    autoStart = true;
+    privateNetwork = true;
+
+    hostBridge = "br-torrent";
+    localAddress = "10.16.50.3/24";
+    localAddress6 = "fc00::3/64";
+
+    config = { config, pkgs, ... }: {
+      system.stateVersion = "22.05";
+
+      services.resolved = {
+        enable = true;
+        # From surfshark conf
+        fallbackDns = [ "162.252.172.57" "149.154.159.92" ];
+      };
+
+      # From surfshark conf
+      networking = {
+        useHostResolvConf = false;
+
+        wireguard.interfaces."tun" = {
+          ips = [ "10.14.0.2/16" ];
+
+          peers = [{
+            publicKey = "m+L7BVQWDwU2TxjfspMRLkRctvmo7fOkd+eVk6KC5lM=";
+            allowedIPs = [ "0.0.0.0/0" ];
+            endpoint = "45.149.173.234:51820";
+          }];
+        };
+
+        nat = {
+          enable = true;
+          enableIPv6 = true;
+        };
+      };
+
+      services.getty.autologinUser = "root";
     };
   };
 }
