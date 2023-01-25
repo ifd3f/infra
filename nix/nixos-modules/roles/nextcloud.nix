@@ -5,7 +5,10 @@ in {
   astral.backup.services.paths = [ config.services.nextcloud.home ];
 
   # vault kv put kv/nextcloud/secrets s3_secret=@ adminpass=@
-  vault-secrets.secrets.nextcloud = { group = "nextcloud-secrets"; };
+  vault-secrets.secrets.nextcloud = {
+    user = "nextcloud";
+    group = "nextcloud-secrets";
+  };
 
   services.nextcloud = {
     enable = true;
@@ -28,6 +31,11 @@ in {
         secretFile = "${vs}/s3_secret";
       };
     };
+  };
+
+  services.nginx.virtualHosts."nextcloud.astrid.tech" = {
+    enableACME = true;
+    forceSSL = true;
   };
 
   users = {
