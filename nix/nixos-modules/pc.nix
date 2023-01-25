@@ -47,6 +47,7 @@
     exfatprogs
     gajim
     home-manager
+    nextcloud-client
     openconnect
     ventoy-bin
     wine
