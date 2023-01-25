@@ -225,7 +225,6 @@ in {
   systemd.services.loki.serviceConfig.EnvironmentFile =
     "/var/lib/secrets/loki/secrets.env";
 
-  services.nginx.statusPage = true;
   services.nginx.virtualHosts = {
     ${gcfg.settings.server.domain} = {
       enableACME = true;

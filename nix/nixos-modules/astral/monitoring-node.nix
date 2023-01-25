@@ -45,9 +45,7 @@ in {
         enable = config.services.postgresql.enable;
         runAsLocalSuperUser = true;
         port = 9187;
-        extraFlags = [
-          "--auto-discover-databases"
-        ];
+        extraFlags = [ "--auto-discover-databases" ];
       };
     };
 
@@ -91,35 +89,39 @@ in {
       };
     };
 
-    services.nginx.enable = true;
-    services.nginx.virtualHosts.${cfg.vhost} = {
-      enableACME = true;
-      forceSSL = true;
+    services.nginx = {
+      enable = true;
+      statusPage = true;
 
-      # TODO: figure out mTLS
-      extraConfig = ''
-        allow 192.9.241.223;
+      virtualHosts.${cfg.vhost} = {
+        enableACME = true;
+        forceSSL = true;
 
-        allow 127.0.0.1;
-        allow ::1;
+        # TODO: figure out mTLS
+        extraConfig = ''
+          allow 192.9.241.223;
 
-        deny all;
-      '';
+          allow 127.0.0.1;
+          allow ::1;
 
-      locations = let
-        promtailPort =
-          config.services.promtail.configuration.server.http_listen_port;
-      in mkMerge ((map (name:
-        let thisCfg = ecfg.${name};
-        in mkIf thisCfg.enable {
-          "/metrics/${name}".proxyPass =
-            "http://127.0.0.1:${toString thisCfg.port}/metrics";
-        }) [ "node" "nginx" "systemd" "bind" "postgres" ])
+          deny all;
+        '';
 
-        ++ [{
-          "/promtail".proxyPass =
-            "http://127.0.0.1:${toString promtailPort}/metrics";
-        }]);
+        locations = let
+          promtailPort =
+            config.services.promtail.configuration.server.http_listen_port;
+        in mkMerge ((map (name:
+          let thisCfg = ecfg.${name};
+          in mkIf thisCfg.enable {
+            "/metrics/${name}".proxyPass =
+              "http://127.0.0.1:${toString thisCfg.port}/metrics";
+          }) [ "node" "nginx" "systemd" "bind" "postgres" ])
+
+          ++ [{
+            "/promtail".proxyPass =
+              "http://127.0.0.1:${toString promtailPort}/metrics";
+          }]);
+      };
     };
   };
 }
