@@ -50,5 +50,7 @@
       splashImage = ./shai-hulud-dark.jpg;
     };
   };
+
+  services.xserver.dpi = 180;
 }
 

@@ -74,5 +74,7 @@
   # RGB stuff
   hardware.i2c.enable = true;
   environment.systemPackages = with pkgs; [ openrgb win10hotplug ];
+
+  services.xserver.dpi = 224;
 }
 

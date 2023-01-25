@@ -41,6 +41,9 @@ with lib; {
     bluetooth.enable = true;
   };
 
+  # I have big monitors
+  services.xserver.dpi = 224;
+
   networking = {
     hostName = "banana";
 
@@ -68,11 +71,14 @@ with lib; {
     };
   };
 
+  # Portable config with intel/nvidia offloading
   specialisation."offload".configuration = {
     hardware.nvidia.prime = {
       sync.enable = mkForce false;
       offload.enable = mkForce true;
     };
+
+    services.xserver.dpi = mkForce 96;
   };
 
   # Windows drive
@@ -82,4 +88,3 @@ with lib; {
     options = [ "rw" ];
   };
 }
-
