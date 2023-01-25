@@ -26,11 +26,11 @@ in {
     config = {
       adminpassFile = "${vs.nextcloud}/adminpass";
 
-      # dbtype = "pgsql";
-      # dbuser = "nextcloud";
-      # dbname = "nextcloud";
-      # dbhost = "/run/postgresql";
-      # dbpassFile = "${vs.nextcloud-db}/dbpass";
+      dbtype = "pgsql";
+      dbuser = "nextcloud";
+      dbname = "nextcloud";
+      dbhost = "/run/postgresql";
+      dbpassFile = "${vs.nextcloud-db}/dbpass";
 
       objectstore.s3 = {
         enable = true;
@@ -56,8 +56,8 @@ in {
   };
 
   systemd.services.nextcloud-setup = {
-    requires = [ "nextcloud-secrets.service" ];
-    after = [ "nextcloud-secrets.service" ];
+    requires = [ "nextcloud-secrets.service" "nextcloud-db-secrets.service" ];
+    after = [ "nextcloud-secrets.service" "nextcloud-db-secrets.service" ];
   };
 
   services.postgresql = {
