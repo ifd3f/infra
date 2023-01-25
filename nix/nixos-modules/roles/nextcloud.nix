@@ -1,11 +1,17 @@
 { config, pkgs, lib, ... }:
 with lib;
-let vs = config.vault-secrets.secrets.nextcloud;
+let vs = config.vault-secrets.secrets;
 in {
   astral.backup.services.paths = [ config.services.nextcloud.home ];
 
   # vault kv put kv/nextcloud/secrets s3_secret=@ adminpass=@
   vault-secrets.secrets.nextcloud = {
+    user = "nextcloud";
+    group = "nextcloud-secrets";
+  };
+
+  # vault kv put kv/nextcloud-db/secrets dbpass=@
+  vault-secrets.secrets.nextcloud-db = {
     user = "nextcloud";
     group = "nextcloud-secrets";
   };
@@ -18,7 +24,13 @@ in {
     maxUploadSize = "16G";
 
     config = {
-      adminpassFile = "${vs}/adminpass";
+      adminpassFile = "${vs.nextcloud}/adminpass";
+
+      # dbtype = "pgsql";
+      # dbuser = "nextcloud";
+      # dbname = "nextcloud";
+      # dbhost = "/run/postgresql";
+      # dbpassFile = "${vs.nextcloud-db}/dbpass";
 
       objectstore.s3 = {
         enable = true;
@@ -28,7 +40,7 @@ in {
         hostname = "s3.us-west-000.backblazeb2.com";
         bucket = "ifd3f-nextcloud";
         key = "0003f10c25ba33d000000001e";
-        secretFile = "${vs}/s3_secret";
+        secretFile = "${vs.nextcloud}/s3_secret";
       };
     };
   };
@@ -46,5 +58,14 @@ in {
   systemd.services.nextcloud-setup = {
     requires = [ "nextcloud-secrets.service" ];
     after = [ "nextcloud-secrets.service" ];
+  };
+
+  services.postgresql = {
+    enable = true;
+    ensureDatabases = [ "nextcloud" ];
+    ensureUsers = [{
+      name = "nextcloud";
+      ensurePermissions = { "DATABASE \"nextcloud\"" = "ALL PRIVILEGES"; };
+    }];
   };
 }
