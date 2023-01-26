@@ -50,6 +50,7 @@ in {
       sshKeys = sshKeyDatabase.users.astrid;
       defaultGroups = [
         "dialout"
+        "dnsmasq-extra-hosts"
         "docker"
         "i2c"
         "libvirtd"

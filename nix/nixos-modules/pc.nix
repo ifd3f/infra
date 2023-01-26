@@ -1,5 +1,7 @@
 # A graphics-enabled PC I would directly use.
-{ config, lib, pkgs, inputs, ... }: {
+{ config, lib, pkgs, inputs, ... }:
+let extraHosts = "/var/extraHosts";
+in {
   imports = [ ./astral ];
 
   # haskell.nix binary cache
@@ -145,10 +147,29 @@
     settings = {
       server = [ "1.1.1.1" "8.8.8.8" "8.8.4.4" ];
       listen-address = "127.0.0.1";
-      addn-hosts = "/var/extra-hosts";
+      addn-hosts = extraHosts;
     };
   };
 
+  systemd.services.create-extra-hosts = {
+    description = "Make extraHosts";
+
+    wantedBy = [ "dnsmasq.service" ];
+    before = [ "dnsmasq.service" ];
+
+    script = ''
+      touch ${extraHosts}
+      chmod 664 ${extraHosts}
+      chown dnsmasq:dnsmasq-extra-hosts ${extraHosts}
+    '';
+
+    serviceConfig.Type = "oneshot";
+  };
+
+  users = {
+    users.dnsmasq.extraGroups = [ "dnsmasq-extra-hosts" ];
+    groups.dnsmasq-extra-hosts = { };
+  };
 
   virtualisation.anbox.enable = true;
 
