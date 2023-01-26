@@ -167,7 +167,7 @@ in {
   };
 
   services.loki = {
-    enable = true;
+    enable = false;
 
     extraFlags = [ "-config.expand-env=true" ];
 
