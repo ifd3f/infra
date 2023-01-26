@@ -10,7 +10,7 @@ in with lib; {
     containers.homeassistant = {
       volumes = [ "home-assistant:/config" ];
       environment.TZ = config.time.timeZone;
-      ports = [ 8123 ];
+      ports = [ "8123" ];
       image = "ghcr.io/home-assistant/home-assistant:stable";
     };
   };
@@ -45,18 +45,12 @@ in with lib; {
 
   services.nginx.virtualHosts = {
     "ha.in.astrid.tech" = {
-      addSSL = true;
-      forceSSL = true;
-
       locations."/".proxyPass = "http://localhost:8123";
     };
 
     "zigbee2mqtt.in.astrid.tech" = {
-      addSSL = true;
-      forceSSL = true;
-
-      locations."/".proxyPass =
-        "http://localhost:${config.services.zigbee2mqtt.frontend.port}";
+      locations."/".proxyPass = let z2m = config.services.zigbee2mqtt;
+      in "http://localhost:${toString z2m.settings.frontend.port}";
     };
   };
 }
