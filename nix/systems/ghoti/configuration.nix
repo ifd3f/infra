@@ -9,19 +9,13 @@
   ];
 
   boot.loader.grub.enable = false;
-
-  networking.supplicant."wlan0" = {
-    configFile.path = "/boot/wpa_supplicant.conf";
-    userControlled.group = "network";
-    extraCmdArgs = "-u -W";
-    bridge = "br0";
-  };
-
   hardware.enableRedistributableFirmware = true;
 
   networking = {
     hostName = "ghoti";
     domain = "h.astrid.tech";
+
+    supplicant."wlan0".configFile.path = "/wpa_supplicant.conf";
   };
 
   time.timeZone = "US/Pacific";
