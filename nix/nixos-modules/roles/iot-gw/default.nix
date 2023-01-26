@@ -30,7 +30,7 @@ in with lib; {
       frontend = {
         host = "0.0.0.0";
         port = 38323;
-        url = "https://zigbee2mqtt.in.astrid.tech";
+        url = "https://zigbee2mqtt.s02.astrid.tech";
       };
 
       mqtt = {
@@ -68,12 +68,18 @@ in with lib; {
 
   services.nginx.virtualHosts = {
     "ha.s02.astrid.tech" = {
-      locations."/".proxyPass = "http://localhost:8123";
+      locations."/" = {
+        proxyWebsockets = true;
+        proxyPass = "http://localhost:8123";
+      };
     };
 
     "zigbee2mqtt.s02.astrid.tech" = {
-      locations."/".proxyPass = let z2m = config.services.zigbee2mqtt;
-      in "http://localhost:${toString z2m.settings.frontend.port}";
+      locations."/" = let z2m = config.services.zigbee2mqtt;
+      in {
+        proxyWebsockets = true;
+        proxyPass = "http://localhost:${toString z2m.settings.frontend.port}";
+      };
     };
   };
 }
