@@ -139,14 +139,16 @@
 
   services.flatpak.enable = true;
 
-  services.resolved = {
+  # Use dnsmasq to allow live hosts editing in development
+  services.dnsmasq = {
     enable = true;
-    dnssec = "false";
-    fallbackDns = [ "8.8.8.8" "8.8.4.4" "1.1.1.1" ];
-    extraConfig = ''
-      Cache=no-negative
-    '';
+    settings = {
+      server = [ "1.1.1.1" "8.8.8.8" "8.8.4.4" ];
+      listen-address = "127.0.0.1";
+      addn-hosts = "/var/extra-hosts";
+    };
   };
+
 
   virtualisation.anbox.enable = true;
 
