@@ -44,6 +44,21 @@ in {
       nginxlog = {
         enable = true;
         port = 9117;
+        settings = {
+          namespaces = [{
+            format = ''
+              $remote_addr - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" "$http_x_forwarded_for"'';
+            histogram_buckets =
+              [ 5.0e-3 1.0e-2 2.5e-2 5.0e-2 0.1 0.25 0.5 1 2.5 5 10 ];
+            labels = {
+              app = "application-one";
+              environment = "production";
+              foo = "bar";
+            };
+            name = "app1";
+            source = { files = [ "/var/log/nginx/app1/access.log" ]; };
+          }];
+        };
       };
       postgres = {
         enable = config.services.postgresql.enable;
@@ -57,34 +72,48 @@ in {
       enable = true;
       configuration = {
         clients = [{ url = "https://loki.astrid.tech/loki/api/v1/push"; }];
-        scrape_configs = [{
-          job_name = "journal";
-          journal = {
-            json = true;
-            path = "/var/log/journal";
-            max_age = "12h";
-            labels = {
-              host = cfg.vhost;
-              job = "journal";
-              "__path__" = "/var/log/journal";
+        scrape_configs = [
+          {
+            job_name = "journal";
+            journal = {
+              json = true;
+              path = "/var/log/journal";
+              max_age = "12h";
+              labels = {
+                host = cfg.vhost;
+                job = "journal";
+                "__path__" = "/var/log/journal";
+              };
             };
-          };
 
-          relabel_configs = [
-            {
-              source_labels = [ "__journal__systemd_unit" ];
-              target_label = "unit";
-            }
-            {
-              source_labels = [ "__journal_priority" ];
-              target_label = "priority";
-            }
-            {
-              source_labels = [ "__journal_syslog_identifier" ];
-              target_label = "syslog_id";
-            }
-          ];
-        }];
+            relabel_configs = [
+              {
+                source_labels = [ "__journal__systemd_unit" ];
+                target_label = "unit";
+              }
+              {
+                source_labels = [ "__journal_priority" ];
+                target_label = "priority";
+              }
+              {
+                source_labels = [ "__journal_syslog_identifier" ];
+                target_label = "syslog_id";
+              }
+            ];
+          }
+
+          {
+            job_name = "nginx";
+            static_configs = [{
+              labels = {
+                host = cfg.vhost;
+                job = "nginx";
+                __path__ = "/var/log/nginx/*";
+              };
+            }];
+          }
+        ];
+
         server = {
           http_listen_port = 9832;
           http_path_prefix = "/promtail";
@@ -127,5 +156,7 @@ in {
           }]);
       };
     };
+
+    users.users.promtail.extraGroups = [ "nginx" ];
   };
 }
