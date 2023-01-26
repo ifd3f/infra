@@ -17,7 +17,7 @@ in with lib; {
     containers.homeassistant = {
       volumes = [ "home-assistant:/config" ];
       environment.TZ = config.time.timeZone;
-      ports = [ "8123" ];
+      extraOptions = [ "--network=host" ];
       image = "ghcr.io/home-assistant/home-assistant:stable";
     };
   };
@@ -27,6 +27,7 @@ in with lib; {
     settings = {
       serial.port = zigbeeDongle;
       permit_join = false;
+      homeassistant = true;
       frontend = {
         host = "0.0.0.0";
         port = 38323;
@@ -54,12 +55,13 @@ in with lib; {
     enable = true;
 
     listeners = [
-      # Trust connections on localhost
+      # We trust connections from localhost, so the passwords are quite lax and in cleartext.
       {
         users.zigbee2mqtt.password =
           config.services.zigbee2mqtt.settings.mqtt.password;
 
-        # omitPasswordAuth = true;
+        users.has02.password = "password";
+
         address = "::1";
         port = 1883;
       }
