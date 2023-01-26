@@ -26,7 +26,7 @@ in with lib; {
     enable = true;
     settings = {
       serial.port = zigbeeDongle;
-      permit_join = true;
+      permit_join = false;
       frontend = {
         host = "0.0.0.0";
         port = 38323;
