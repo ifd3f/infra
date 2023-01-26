@@ -8,6 +8,7 @@ let
     "pubsub.xmpp.femboy.technology"
     "vjud.xmpp.femboy.technology"
     "conference.xmpp.femboy.technology"
+    "mqtt.astrid.tech"
   ];
 
   ejabberd-yml = {
@@ -15,7 +16,7 @@ let
     certfiles = forEach certDomains
       (dn: config.security.acme.certs."${dn}".directory + "/*.pem");
 
-    acl.admin = [{user = "ifd3f@xmpp.femboy.technology";}];
+    acl.admin = [{ user = "ifd3f@xmpp.femboy.technology"; }];
 
     access_rules = {
       configure.allow = "admin";
@@ -53,7 +54,7 @@ let
       mod_vcard = { search = true; };
       mod_vcard_xupdate = { };
 
-      # TODO: mod_mqtt = { };
+      mod_mqtt = { };
     };
 
     s2s_use_starttls = "required";
@@ -74,9 +75,13 @@ let
         ip = "127.0.0.1";
         module = "ejabberd_http";
         tls = false; # We will use a reverse proxy
-        request_handlers = {
-          "/admin" = "ejabberd_web_admin";
-        };
+        request_handlers = { "/admin" = "ejabberd_web_admin"; };
+      }
+      {
+        port = 8833;
+        module = "mod_mqtt";
+        tls = true;
+        backlog = 1000;
       }
     ];
   };

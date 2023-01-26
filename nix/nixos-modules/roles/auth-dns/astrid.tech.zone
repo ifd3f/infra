@@ -58,6 +58,7 @@ grafana                         IN CNAME       durin.h.astrid.tech.
 loki                            IN CNAME       durin.h.astrid.tech.
 nextcloud                       IN CNAME       amiya.h.astrid.tech.
 secrets                         IN CNAME       yato.h.astrid.tech.
+mqtt                            IN CNAME       amiya.h.astrid.tech.
 
 
 ;;; Hosts

@@ -16,6 +16,7 @@ let
       helmfile
       inetutils
       jq
+      mqttui
       netcat
       nixfmt
       nodePackages.prettier
