@@ -6,6 +6,7 @@
     inputs.self.nixosModules.server
 
     inputs.self.nixosModules.ejabberd
+    inputs.self.nixosModules.loki-server
     inputs.self.nixosModules.nextcloud
     inputs.self.nixosModules.sso-provider
   ];

@@ -6,7 +6,7 @@ $TTL 30m
 @                               IN SOA         dennis.astrid.tech. admin.astrid.tech. (
         ; SOA value reccommendations
         ; https://www.ripe.net/publications/docs/ripe-203
-        2023011700 ; serial YYMMDDnn
+        2023012600 ; serial YYMMDDnn
         3h         ; refresh (3h to allow faster refresh)
         1h         ; retry
         1d         ; expire
@@ -55,7 +55,7 @@ _dmarc                          IN TXT         "v=DMARC1; p=none; rua=mailto:ast
 sso                             IN CNAME       amiya.h.astrid.tech.
 fedi                            IN CNAME       diluc.h.astrid.tech.
 grafana                         IN CNAME       durin.h.astrid.tech.
-loki                            IN CNAME       durin.h.astrid.tech.
+loki                            IN CNAME       amiya.h.astrid.tech.
 nextcloud                       IN CNAME       amiya.h.astrid.tech.
 secrets                         IN CNAME       yato.h.astrid.tech.
 mqtt                            IN CNAME       amiya.h.astrid.tech.
