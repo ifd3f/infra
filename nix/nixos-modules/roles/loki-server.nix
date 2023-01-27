@@ -5,7 +5,7 @@ let
   lcfg = config.services.loki;
 in {
   # vault kv put kv/loki-server/environment S3_ACCESS=@ S3_SECRET=@
-  vault-secrets.secrets.loki-server = { };
+  vault-secrets.secrets.loki-server = { services = [ "loki.service" ]; };
 
   astral.custom-nginx-errors.virtualHosts = [ "loki.astrid.tech" ];
 
