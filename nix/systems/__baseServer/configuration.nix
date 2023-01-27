@@ -8,6 +8,7 @@
   astral = {
     # home-manager is embedded in server systems
     ci.needs = lib.mkForce [ "home-manager-x86_64-linux" ];
+    tailscale.oneOffKey = "this isn't used ever lol";
   };
 
   boot.initrd.availableKernelModules =

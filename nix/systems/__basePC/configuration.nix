@@ -8,6 +8,7 @@
   astral = {
     ci.needs = lib.mkForce [ ];
     ci.prune-runner = true;
+    tailscale.oneOffKey = "this isn't used ever lol";
   };
 
   boot.initrd.availableKernelModules =
