@@ -15,6 +15,9 @@ with lib; {
     pci-devs = [ ];
   };
 
+  astral.tailscale.oneOffKey =
+    "tskey-auth-kkDfyS4CNTRL-rjiEfAB2FyZ74PsW8LnQzZ9pvLdpGYZd";
+
   # so i can be a *gamer*
   programs.steam.enable = true;
 

@@ -29,6 +29,8 @@
     net.sshd.enable = true;
     monitoring-node.enable = true;
 
+    tailscale.enable = true;
+
     users = {
       github.enable = true;
       terraform.enable = true;

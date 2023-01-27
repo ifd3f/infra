@@ -11,7 +11,11 @@
     inputs.self.nixosModules.sso-provider
   ];
 
-  astral = { ci.deploy-to = "208.87.130.175"; };
+  astral = {
+    ci.deploy-to = "208.87.130.175";
+    tailscale.oneOffKey =
+      "tskey-auth-kupJJz1CNTRL-QgCeXDGtEd5PNzZSfzBqb5kARECWNMH7";
+  };
 
   networking = {
     hostName = "amiya";

@@ -87,6 +87,7 @@ in {
     };
     hw.kb-flashing.enable = true;
     hw.logitech-unifying.enable = true;
+    tailscale.enable = true;
     virt = {
       docker.enable = true;
       libvirt = {

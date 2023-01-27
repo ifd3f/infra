@@ -10,7 +10,11 @@
     inputs.self.nixosModules.piwigo
   ];
 
-  astral = { ci.deploy-to = "173.212.242.107"; };
+  astral = {
+    ci.deploy-to = "173.212.242.107";
+    tailscale.oneOffKey =
+      "tskey-auth-kZQrDU5CNTRL-nWmsZRQDWshXHtvTUvBvth6tnPmUpAkHg";
+  };
 
   networking = {
     hostName = "diluc";

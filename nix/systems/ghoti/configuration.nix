@@ -8,6 +8,9 @@
     inputs.self.nixosModules.iot-gw
   ];
 
+  astral.tailscale.oneOffKey =
+    "tskey-auth-kmaxKP6CNTRL-2367V3ZvY17oaxmkCUeEz6wpSaVDixp9K";
+
   boot.loader.grub.enable = false;
   hardware.enableRedistributableFirmware = true;
 
