@@ -29,6 +29,7 @@
 
     ./monitoring-node.nix
     ./backup
+    ./tailscale.nix
   ];
 
   system.stateVersion = "22.11";
