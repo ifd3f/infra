@@ -226,6 +226,7 @@
           auth-dns = ./nix/nixos-modules/roles/auth-dns;
           ejabberd = ./nix/nixos-modules/roles/ejabberd.nix;
           iot-gw = ./nix/nixos-modules/roles/iot-gw;
+          loki-server = ./nix/nixos-modules/roles/loki-server.nix;
           media-server = ./nix/nixos-modules/roles/media-server;
           monitoring-center = ./nix/nixos-modules/roles/monitoring-center;
           nextcloud = ./nix/nixos-modules/roles/nextcloud.nix;
