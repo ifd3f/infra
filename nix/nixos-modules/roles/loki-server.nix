@@ -10,7 +10,7 @@ in {
   astral.custom-nginx-errors.virtualHosts = [ "loki.astrid.tech" ];
 
   services.loki = {
-    enable = false;
+    enable = true;
 
     extraFlags = [ "-config.expand-env=true" ];
 
