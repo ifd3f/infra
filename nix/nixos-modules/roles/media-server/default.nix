@@ -13,6 +13,11 @@ in with lib; {
       "http://localhost:${toString config.services.deluge.web.port}";
   };
 
+  services.nginx.virtualHosts."transmission.s02.astrid.tech" = {
+    locations."/".proxyPass = "http://localhost:"
+      + toString config.services.transmission.settings.rpc-port;
+  };
+
   services.xserver = {
     enable = true;
 
@@ -34,6 +39,13 @@ in with lib; {
     web.enable = true;
   };
 
+  services.transmission = {
+    enable = true;
+    settings = {
+      bind-interface-ipv4 = "10.8.8.2"; # surfshark
+    };
+  };
+
   services.openvpn.servers.surfshark = {
     config = ''
       config ${vs}/ovpn_conf
@@ -49,7 +61,7 @@ in with lib; {
 
   users.users.tv = {
     group = "users";
-    extraGroups = [ "deluge" ];
+    extraGroups = [ "deluge" "transmission" ];
     isNormalUser = true;
   };
 }
