@@ -3,7 +3,6 @@
 with lib; {
   imports = [
     ./hardware-configuration.nix
-    ./wifi-unbreak-reset-hack.nix
     inputs.nixos-hardware.nixosModules.common-cpu-intel
 
     inputs.self.nixosModules.server
