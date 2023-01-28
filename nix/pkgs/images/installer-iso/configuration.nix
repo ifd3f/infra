@@ -13,7 +13,7 @@ with lib; {
 
   users.mutableUsers = false;
   
-  networking.supplicant."wlan0".configFile.path = "/wpa_supplicant.conf";
+  # networking.supplicant."wlan0".configFile.path = "/wpa_supplicant.conf";
 
   services.openssh.settings.PermitRootLogin = mkForce "no";
 
