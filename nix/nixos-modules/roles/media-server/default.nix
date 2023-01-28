@@ -39,6 +39,9 @@ in with lib; {
   systemd.services.deluged-watchdog = {
     description = "Watchdog for deluged";
 
+    bindsTo = [ "deluged.service" ];
+    requiredBy = [ "deluged.service" ];
+
     path = with pkgs; [ coreutils deluge systemd ];
     script = ''
       set -euxo pipefail
@@ -61,8 +64,6 @@ in with lib; {
       NotifyAccess = "all";
     };
   };
-
-  systemd.services.deluged.requisite = [ "deluged-watchdog.service" ];
 
   users.users.tv = {
     group = "users";
