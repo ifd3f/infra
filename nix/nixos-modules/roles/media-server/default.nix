@@ -36,6 +36,34 @@ in with lib; {
     web.enable = true;
   };
 
+  systemd.services.deluged-watchdog = {
+    description = "Watchdog for deluged";
+
+    path = with pkgs; [ coreutils deluge systemd ];
+    script = ''
+      set -euxo pipefail
+
+      systemd-notify --ready
+
+      while true; do
+        deluge console status  
+        systemd-notify WATCHDOG=1
+        sleep 10
+      done
+    '';
+
+    serviceConfig = {
+      User = "deluge";
+
+      WatchdogSec = 30;
+      Restart = "on-failure";
+      RestartSec = 10;
+      NotifyAccess = "all";
+    };
+  };
+
+  systemd.services.deluged.requisite = [ "deluged-watchdog.service" ];
+
   users.users.tv = {
     group = "users";
     extraGroups = [ "deluge" ];
