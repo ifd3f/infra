@@ -16,7 +16,15 @@ in {
       description =
         "What transport will Prometheus and Loki use to monitor this host?";
       type = types.enum [ "https" "tailscale" ];
-      default = true;
+    };
+
+    exporters = mkOption {
+      description = ''
+        What exporters this host exposes.
+
+        This should get automatically set based on what services are enabled.
+      '';
+      type = with types; listOf str;
     };
   };
 

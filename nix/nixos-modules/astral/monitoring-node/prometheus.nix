@@ -3,6 +3,8 @@ with lib;
 let
   cfg = config.astral.monitoring-node;
   ecfg = config.services.prometheus.exporters;
+  supportedExporters =
+    [ "node" "nginx" "nginxlog" "systemd" "bind" "postgres" ];
 in {
   config = mkIf cfg.enable {
     services.prometheus.exporters = {
@@ -57,7 +59,10 @@ in {
       in mkIf thisCfg.enable {
         "/metrics/${name}".proxyPass =
           "http://127.0.0.1:${toString thisCfg.port}/metrics";
-      }) [ "node" "nginx" "nginxlog" "systemd" "bind" "postgres" ]);
+      }) supportedExporters);
+
+    astral.monitoring-node.exporters =
+      filter (name: ecfg.${name}.enable) supportedExporters;
   };
 
 }
