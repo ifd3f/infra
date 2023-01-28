@@ -15,12 +15,15 @@ with lib; {
     efi.canTouchEfiVariables = true;
   };
 
-  astral.tailscale.enable = mkForce false;
+  astral.tailscale.oneOffKey =
+    "tskey-auth-kFWFLk5CNTRL-RAV9nFFeYsfE4LzP9g5ErfmDptdyAcy4A";
 
   networking = {
     hostName = "bonney";
     domain = "h.astrid.tech";
     hostId = "49e32584";
+
+    networkmanager.enable = true;
   };
 
   time.timeZone = "US/Pacific";
