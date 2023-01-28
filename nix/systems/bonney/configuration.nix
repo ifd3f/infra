@@ -26,6 +26,8 @@ with lib; {
     networkmanager.enable = true;
   };
 
+  hardware.enableRedistributableFirmware = true;
+
   time.timeZone = "US/Pacific";
 
   virtualisation.podman.enable = true;
