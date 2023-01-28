@@ -49,6 +49,7 @@ in with lib; {
 
   users.users.tv = {
     group = "users";
+    extraGroups = [ "deluge" ];
     isNormalUser = true;
   };
 }
