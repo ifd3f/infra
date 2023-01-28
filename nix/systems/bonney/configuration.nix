@@ -20,8 +20,11 @@ with lib; {
     efi.canTouchEfiVariables = true;
   };
 
-  astral.tailscale.oneOffKey =
-    "tskey-auth-kFWFLk5CNTRL-RAV9nFFeYsfE4LzP9g5ErfmDptdyAcy4A";
+  astral = {
+    monitoring-node.scrapeTransport = "tailscale";
+    tailscale.oneOffKey =
+      "tskey-auth-kFWFLk5CNTRL-RAV9nFFeYsfE4LzP9g5ErfmDptdyAcy4A";
+  };
 
   networking = {
     hostName = "bonney";

@@ -6,15 +6,28 @@ let
 in {
   options.astral.monitoring-node = {
     enable = mkEnableOption "monitored node role";
+
     vhost = mkOption {
       description = "What vhost to make nginx listen on";
       type = types.str;
     };
+
+    scrapeTransport = mkOption {
+      description =
+        "What transport will Prometheus and Loki use to monitor this host?";
+      type = types.enum [ "https" "tailscale" ];
+      default = true;
+    };
   };
 
   config = mkIf cfg.enable {
-    astral.monitoring-node.vhost = mkDefault config.networking.fqdn;
-    astral.acme.enable = true;
+    astral.monitoring-node.vhost = mkDefault
+      (if cfg.scrapeTransport == "tailscale" then
+        "${config.networking.hostName}.hyrax-hops.ts.net"
+      else
+        config.networking.fqdn);
+
+    astral.acme.enable = cfg.scrapeTransport == "https";
 
     networking.firewall = {
       enable = true;
@@ -126,35 +139,59 @@ in {
       enable = true;
       statusPage = true;
 
-      virtualHosts.${cfg.vhost} = {
-        enableACME = true;
-        forceSSL = true;
+      virtualHosts.${cfg.vhost} = mkMerge [
+        {
+          locations = mkMerge ((map (name:
+            let thisCfg = ecfg.${name};
+            in mkIf thisCfg.enable {
+              "/metrics/${name}".proxyPass =
+                "http://127.0.0.1:${toString thisCfg.port}/metrics";
+            }) [ "node" "nginx" "nginxlog" "systemd" "bind" "postgres" ])
 
-        # TODO: figure out mTLS
-        extraConfig = ''
-          allow 192.9.241.223;
+            ++ [{
+              "/promtail".proxyPass = let
+                promtailPort =
+                  config.services.promtail.configuration.server.http_listen_port;
+              in "http://127.0.0.1:${toString promtailPort}/metrics";
+            }]);
+        }
 
-          allow 127.0.0.1;
-          allow ::1;
+        (mkIf (cfg.scrapeTransport == "https") {
+          enableACME = true;
+          forceSSL = true;
 
-          deny all;
-        '';
+          # TODO: figure out mTLS
+          extraConfig = ''
+            # durin
+            allow 192.9.241.223;
 
-        locations = let
-          promtailPort =
-            config.services.promtail.configuration.server.http_listen_port;
-        in mkMerge ((map (name:
-          let thisCfg = ecfg.${name};
-          in mkIf thisCfg.enable {
-            "/metrics/${name}".proxyPass =
-              "http://127.0.0.1:${toString thisCfg.port}/metrics";
-          }) [ "node" "nginx" "nginxlog" "systemd" "bind" "postgres" ])
+            # amiya
+            allow 208.87.130.175;
 
-          ++ [{
-            "/promtail".proxyPass =
-              "http://127.0.0.1:${toString promtailPort}/metrics";
-          }]);
-      };
+            allow 127.0.0.1;
+            allow ::1;
+
+            deny all;
+          '';
+        })
+        (mkIf (cfg.scrapeTransport == "tailscale") {
+          # TODO: figure out tail auth?
+          extraConfig = ''
+            # durin
+            allow 100.91.90.4;
+            allow fd7a:115c:a1e0:ab12:4843:cd96:625b:5a04;
+
+            # amiya
+            allow 100.117.107.85;
+            allow fd7a:115c:a1e0:ab12:4843:cd96:6275:6b55;
+
+            allow 127.0.0.1;
+            allow ::1;
+
+            deny all;
+          '';
+        })
+      ];
     };
 
     users.users.promtail.extraGroups = [ "nginx" ];

@@ -11,6 +11,7 @@
     ci.deploy-to = "192.9.153.114";
     tailscale.oneOffKey =
       "tskey-auth-kCfjRX3CNTRL-kx4uk1v9QCdsz6RMdS5wAd9J6czeFeuD";
+    monitoring-node.scrapeTransport = "https";
   };
 
   networking = {
