@@ -13,7 +13,7 @@ in sys.extendModules {
       systemd.services.deluged.serviceConfig.ExecStart = lib.mkForce
         ((builtins.replaceStrings [ "\\" "\n" ] [ "" " " ]
           prev.config.systemd.services.deluged.serviceConfig.ExecStart)
-          + " -L info");
+          + " -L debug");
     })
   ];
   specialArgs = { prev = sys; };
