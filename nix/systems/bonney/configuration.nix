@@ -4,6 +4,7 @@ with lib; {
   imports = [
     ./hardware-configuration.nix
     inputs.nixos-hardware.nixosModules.common-cpu-intel
+    ./intel-7260-fix.nix
 
     inputs.self.nixosModules.server
 
