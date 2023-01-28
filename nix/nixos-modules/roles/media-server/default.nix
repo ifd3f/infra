@@ -1,6 +1,12 @@
 # Home media server, hooked up directly to the TV.
 { config, pkgs, lib, ... }:
-let vs = config.vault-secrets.secrets.media-server;
+let
+  vs = config.vault-secrets.secrets.media-server;
+
+  hosts = {
+    "10.16.50.1" = [ "mediaserv" ];
+    "10.16.50.2" = [ "torrentserv" ];
+  };
 
 in with lib; {
   # vault kv put kv/media-server/secrets ovpn_conf=@ ovpn_userpass=@
@@ -14,8 +20,8 @@ in with lib; {
   };
 
   services.nginx.virtualHosts."transmission.s02.astrid.tech" = {
-    locations."/".proxyPass = "http://localhost:"
-      + toString config.services.transmission.settings.rpc-port;
+    locations."/".proxyPass = "http://localhost:" + toString
+      config.containers.torrentserv.config.services.transmission.settings.rpc-port;
   };
 
   services.xserver = {
@@ -39,29 +45,63 @@ in with lib; {
     web.enable = true;
   };
 
-  services.transmission = {
-    enable = true;
-    settings = {
-      bind-interface-ipv4 = "10.8.8.2"; # surfshark
-    };
-  };
-
-  services.openvpn.servers.surfshark = {
-    config = ''
-      config ${vs}/ovpn_conf
-      auth-user-pass ${vs}/ovpn_userpass
-    '';
-  };
-
-  services.resolved = {
-    enable = true;
-    # From surfshark conf
-    fallbackDns = [ "162.252.172.57" "149.154.159.92" ];
-  };
-
   users.users.tv = {
     group = "users";
     extraGroups = [ "deluge" "transmission" ];
     isNormalUser = true;
+  };
+
+  containers.torrentserv = {
+    autoStart = true;
+    ephemeral = true;
+    enableTun = true;
+
+    bindMounts."${vs}" = {
+      hostPath = "${vs}";
+      mountPoint = "/secrets";
+      isReadOnly = true;
+    };
+
+    bindMounts."${config.containers.torrentserv.config.services.transmission.home}" =
+      {
+        hostPath = "/srv/transmission";
+        isReadOnly = false;
+      };
+
+    config = { config, pkgs, ... }: {
+      system.stateVersion = "23.05";
+
+      services.transmission.enable = true;
+
+      services.openvpn.servers.surfshark = {
+        config = ''
+          config /secrets/ovpn_conf
+          auth-user-pass /secrets/ovpn_userpass
+        '';
+      };
+
+      services.resolved = {
+        enable = true;
+        # From surfshark conf
+        fallbackDns = [ "162.252.172.57" "149.154.159.92" ];
+      };
+
+      networking = {
+        inherit hosts;
+
+        useHostResolvConf = false;
+
+        # Point to the VPN
+        defaultGateway.address = "10.16.50.3";
+        defaultGateway6.address = "fc00::3";
+
+        firewall = {
+          enable = true;
+          allowedTCPPorts = [ config.services.transmission.settings.rpc-port ];
+        };
+      };
+
+      services.getty.autologinUser = "root";
+    };
   };
 }
