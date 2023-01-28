@@ -90,6 +90,9 @@ in {
         allow 192.9.241.223;
         allow 208.87.130.175;
 
+        # tailnet
+        allow 100.100.0.0/16;
+
         allow 127.0.0.1;
         allow ::1;
 
