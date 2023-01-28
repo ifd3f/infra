@@ -15,14 +15,6 @@ in with lib; {
       "http://localhost:${toString config.services.deluge.web.port}";
   };
 
-  services.nginx.virtualHosts."transmission.s02.astrid.tech" = {
-    locations."/" = {
-      proxyPass = "http://localhost:"
-        + toString config.services.transmission.settings.rpc-port;
-      proxyWebsockets = true;
-    };
-  };
-
   services.xserver = {
     enable = true;
 
@@ -46,11 +38,9 @@ in with lib; {
 
   users.users.tv = {
     group = "users";
-    extraGroups = [ "deluge" "transmission" ];
+    extraGroups = [ "deluge" ];
     isNormalUser = true;
   };
-
-  services.transmission.enable = true;
 
   services.openvpn.servers.surfshark = {
     config = ''
@@ -64,32 +54,6 @@ in with lib; {
     # From surfshark conf
     fallbackDns = [ "162.252.172.57" "149.154.159.92" ];
   };
-
-  networking = {
-    useHostResolvConf = false;
-
-    # Point to the VPN
-    defaultGateway.address = "10.16.50.3";
-    defaultGateway6.address = "fc00::3";
-
-    firewall = {
-      enable = true;
-
-      # Transmission must route its traffic through the VPN.
-      extraCommands = ''
-        iptables -t filter -A OUTPUT -m owner --uid-owner transmission -o lo -j ACCEPT
-        iptables -t filter -A OUTPUT -m owner --uid-owner transmission -o tun0 -j ACCEPT
-        iptables -t filter -A OUTPUT -m owner --uid-owner transmission -j REJECT
-      '';
-      extraStopCommands = ''
-        iptables -t filter -D OUTPUT -m owner --uid-owner transmission -o lo -j ACCEPT || true
-        iptables -t filter -D OUTPUT -m owner --uid-owner transmission -o tun0 -j ACCEPT || true
-        iptables -t filter -D OUTPUT -m owner --uid-owner transmission -j REJECT || true
-      '';
-    };
-  };
-
-  services.getty.autologinUser = "root";
 
   environment.systemPackages = with pkgs; [ tcpdump ];
 }
