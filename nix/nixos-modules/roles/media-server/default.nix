@@ -1,7 +1,6 @@
 # Home media server, hooked up directly to the TV.
 { config, pkgs, lib, ... }:
-let
-  vs = config.vault-secrets.secrets.media-server;
+let vs = config.vault-secrets.secrets.media-server;
 in with lib; {
   # vault kv put kv/media-server/secrets ovpn_conf=@ ovpn_userpass=@
   #  - ovpn_conf: the full config file provided by surfshark
@@ -18,8 +17,8 @@ in with lib; {
 
   services.nginx.virtualHosts."transmission.s02.astrid.tech" = {
     locations."/" = {
-      proxyPass = "http://localhost:" + toString
-        config.containers.torrentserv.config.services.transmission.settings.rpc-port;
+      proxyPass = "http://localhost:"
+        + toString config.services.transmission.settings.rpc-port;
       proxyWebsockets = true;
     };
   };
@@ -51,54 +50,42 @@ in with lib; {
     isNormalUser = true;
   };
 
-  environment.systemPackages = with pkgs; [ tcpdump ];
+  services.transmission.enable = true;
 
-  containers.torrentserv = {
-    autoStart = true;
-    ephemeral = true;
-    enableTun = true;
+  services.openvpn.servers.surfshark = {
+    config = ''
+      config /secrets/ovpn_conf
+      auth-user-pass /secrets/ovpn_userpass
+    '';
+  };
 
-    bindMounts."${vs}" = {
-      hostPath = "${vs}";
-      mountPoint = "/secrets";
-      isReadOnly = true;
-    };
+  services.resolved = {
+    enable = true;
+    # From surfshark conf
+    fallbackDns = [ "162.252.172.57" "149.154.159.92" ];
+  };
 
-    bindMounts."${config.containers.torrentserv.config.services.transmission.home}" =
-      {
-        hostPath = "/srv/transmission";
-        isReadOnly = false;
-      };
+  networking = {
+    useHostResolvConf = false;
 
-    config = { config, pkgs, ... }: {
-      system.stateVersion = "23.05";
+    # Point to the VPN
+    defaultGateway.address = "10.16.50.3";
+    defaultGateway6.address = "fc00::3";
 
-      services.transmission.enable = true;
+    firewall = {
+      enable = true;
 
-      services.openvpn.servers.surfshark = {
-        config = ''
-          config /secrets/ovpn_conf
-          auth-user-pass /secrets/ovpn_userpass
-        '';
-      };
-
-      services.resolved = {
-        enable = true;
-        # From surfshark conf
-        fallbackDns = [ "162.252.172.57" "149.154.159.92" ];
-      };
-
-      networking = {
-        useHostResolvConf = false;
-
-        # Point to the VPN
-        defaultGateway.address = "10.16.50.3";
-        defaultGateway6.address = "fc00::3";
-      };
-
-      services.getty.autologinUser = "root";
-
-      environment.systemPackages = with pkgs; [ tcpdump ];
+      # Transmission must route its traffic through the VPN.
+      extraCommands = ''
+        sudo iptables -A OUTPUT -m owner --uid-owner transmission \! -o tun0 -j REJECT
+      '';
+      extraStopCommands = ''
+        sudo iptables -D OUTPUT -m owner --uid-owner transmission \! -o tun0 -j REJECT
+      '';
     };
   };
+
+  services.getty.autologinUser = "root";
+
+  environment.systemPackages = with pkgs; [ tcpdump ];
 }
