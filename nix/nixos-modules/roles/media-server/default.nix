@@ -7,7 +7,7 @@ in with lib; {
   #  - ovpn_userpass: a string of USERNAME <newline> PASSWORD
   vault-secrets.secrets."media-server" = {
     group = "root";
-    services = mkForce [ "container@torrentserv.service" ];
+    services = mkForce [ "openvpn-surfshark.service" ];
   };
 
   services.nginx.virtualHosts."deluge.s02.astrid.tech" = {
@@ -54,8 +54,8 @@ in with lib; {
 
   services.openvpn.servers.surfshark = {
     config = ''
-      config /secrets/ovpn_conf
-      auth-user-pass /secrets/ovpn_userpass
+      config ${vs}/ovpn_conf
+      auth-user-pass ${vs}/ovpn_userpass
     '';
   };
 
@@ -77,10 +77,14 @@ in with lib; {
 
       # Transmission must route its traffic through the VPN.
       extraCommands = ''
-        sudo iptables -A OUTPUT -m owner --uid-owner transmission \! -o tun0 -j REJECT
+        iptables -t filter -A OUTPUT -m owner --uid-owner transmission -o lo -j ACCEPT
+        iptables -t filter -A OUTPUT -m owner --uid-owner transmission -o tun0 -j ACCEPT
+        iptables -t filter -A OUTPUT -m owner --uid-owner transmission -j REJECT
       '';
       extraStopCommands = ''
-        sudo iptables -D OUTPUT -m owner --uid-owner transmission \! -o tun0 -j REJECT
+        iptables -t filter -D OUTPUT -m owner --uid-owner transmission -o lo -j ACCEPT || true
+        iptables -t filter -D OUTPUT -m owner --uid-owner transmission -o tun0 -j ACCEPT || true
+        iptables -t filter -D OUTPUT -m owner --uid-owner transmission -j REJECT || true
       '';
     };
   };
