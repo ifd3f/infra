@@ -15,7 +15,8 @@ in {
     scrapeTransport = mkOption {
       description =
         "What transport will Prometheus and Loki use to monitor this host?";
-      type = types.enum [ "https" "tailscale" ];
+      type = types.enum [ "https" "tailscale" null ];
+      default = null;
     };
 
     exporters = mkOption {
@@ -29,6 +30,12 @@ in {
   };
 
   config = {
+    assertions = [{
+      assertion = cfg.scrapeTransport != null;
+      message =
+        "You must specify a non-null `astral.monitoring-node.scrapeTransport`.";
+    }];
+
     astral.monitoring-node.vhost = mkDefault
       (if cfg.scrapeTransport == "tailscale" then
         "${config.networking.hostName}.hyrax-hops.ts.net"

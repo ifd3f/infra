@@ -1,17 +1,18 @@
 { inputs, lib, ... }:
 with lib;
-let
-  inherit (inputs.self) nixosConfigurations;
-
+let inherit (inputs.self) nixosConfigurations;
+in rec {
   supportedExporters =
     [ "node" "nginx" "nginxlog" "systemd" "bind" "postgres" ];
 
+  nixosKeys = (filter (host:
+    !(hasPrefix "__" host)
+    && nixosConfigurations."${host}".config.astral.monitoring-node.enable)
+    (attrNames nixosConfigurations));
+
   monitoredHosts = with builtins;
     map (host: nixosConfigurations."${host}".config.astral.monitoring-node)
-    (filter (host:
-      !(hasPrefix "__" host)
-      && nixosConfigurations."${host}".config.astral.monitoring-node.enable)
-      (attrNames nixosConfigurations));
+    nixosKeys;
 
   # TODO: set up mTLS
   tls_config = {
@@ -19,7 +20,10 @@ let
     # cert_file = "${./prometheus.pem}";
     # key_file = cfg.sslKeyFile;
   };
-in rec {
+  brokenHosts = with builtins;
+    map (cfg: cfg.vhost)
+    (filter (cfg: cfg.scrapeTransport == null) monitoredHosts);
+
   tailscaleTargets =
     filter (cfg: cfg.scrapeTransport == "tailscale") monitoredHosts;
 

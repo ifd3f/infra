@@ -8,6 +8,7 @@
       docker.enable = true;
       libvirt.enable = true;
     };
+    monitoring-node.scrapeTransport = "tailscale";
     net.zerotier.public = true;
   };
 
