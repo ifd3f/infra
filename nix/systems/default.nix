@@ -1,7 +1,7 @@
+# Import every non-blacklisted folder in this directory
 { inputs, lib }:
-let
-  # Import every folder in this directory
-  primarySystems = with lib.attrsets;
-    (mapAttrs (dir: _: (import "${./.}/${dir}" inputs))
-      (filterAttrs (_: type: type == "directory") (builtins.readDir ./.)));
-in primarySystems
+with lib;
+let blacklist = [ "bennett" "donkey" ];
+in (mapAttrs (dir: _: (import "${./.}/${dir}" inputs)) (filterAttrs
+  (name: type: type == "directory" && !builtins.elem name blacklist)
+  (builtins.readDir ./.)))
