@@ -27,7 +27,7 @@
     ./net
     ./users
 
-    ./monitoring-node.nix
+    ./monitoring-node
     ./backup
     ./tailscale.nix
   ];
