@@ -2,17 +2,14 @@
 { config, pkgs, lib, ... }:
 let
   vs = config.vault-secrets.secrets.media-server;
-
-  hosts = {
-    "10.16.50.1" = [ "mediaserv" ];
-    "10.16.50.2" = [ "torrentserv" ];
-  };
-
 in with lib; {
   # vault kv put kv/media-server/secrets ovpn_conf=@ ovpn_userpass=@
   #  - ovpn_conf: the full config file provided by surfshark
   #  - ovpn_userpass: a string of USERNAME <newline> PASSWORD
-  vault-secrets.secrets."media-server" = { group = "root"; };
+  vault-secrets.secrets."media-server" = {
+    group = "root";
+    services = mkForce [ "container@torrentserv.service" ];
+  };
 
   services.nginx.virtualHosts."deluge.s02.astrid.tech" = {
     locations."/".proxyPass =
@@ -20,8 +17,11 @@ in with lib; {
   };
 
   services.nginx.virtualHosts."transmission.s02.astrid.tech" = {
-    locations."/".proxyPass = "http://localhost:" + toString
-      config.containers.torrentserv.config.services.transmission.settings.rpc-port;
+    locations."/" = {
+      proxyPass = "http://localhost:" + toString
+        config.containers.torrentserv.config.services.transmission.settings.rpc-port;
+      proxyWebsockets = true;
+    };
   };
 
   services.xserver = {
@@ -50,6 +50,8 @@ in with lib; {
     extraGroups = [ "deluge" "transmission" ];
     isNormalUser = true;
   };
+
+  environment.systemPackages = with pkgs; [ tcpdump ];
 
   containers.torrentserv = {
     autoStart = true;
@@ -87,21 +89,16 @@ in with lib; {
       };
 
       networking = {
-        inherit hosts;
-
         useHostResolvConf = false;
 
         # Point to the VPN
         defaultGateway.address = "10.16.50.3";
         defaultGateway6.address = "fc00::3";
-
-        firewall = {
-          enable = true;
-          allowedTCPPorts = [ config.services.transmission.settings.rpc-port ];
-        };
       };
 
       services.getty.autologinUser = "root";
+
+      environment.systemPackages = with pkgs; [ tcpdump ];
     };
   };
 }
