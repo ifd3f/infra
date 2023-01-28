@@ -15,6 +15,12 @@ in with lib; {
 
   services.xserver = {
     enable = true;
+
+    displayManager.autoLogin = {
+      enable = true;
+      user = "tv";
+    };
+
     desktopManager.kodi.enable = true;
   };
 
@@ -39,5 +45,10 @@ in with lib; {
     enable = true;
     # From surfshark conf
     fallbackDns = [ "162.252.172.57" "149.154.159.92" ];
+  };
+
+  users.users.tv = {
+    group = "users";
+    isNormalUser = true;
   };
 }
