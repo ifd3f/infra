@@ -11,6 +11,10 @@ with lib; {
     inputs.self.nixosModules.media-server
   ];
 
+  # Apparently, Linux Zen prevents 7260 issue from happening
+  # https://bbs.archlinux.org/viewtopic.php?pid=1830360#p1830360
+  boot.kernelPackages = mkForce pkgs.linuxPackages_zen;
+
   boot.loader = {
     systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
