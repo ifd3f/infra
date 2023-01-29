@@ -58,9 +58,8 @@ in with lib; {
     serviceConfig = {
       User = "deluge";
 
-      WatchdogSec = 30;
+      WatchdogSec = 20;
       Restart = "on-failure";
-      RestartSec = 10;
       NotifyAccess = "all";
     };
   };
