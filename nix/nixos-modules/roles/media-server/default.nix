@@ -36,6 +36,8 @@ in with lib; {
     web.enable = true;
   };
 
+  services.jellyfin.enable = true;
+
   systemd.services.deluged-watchdog = {
     description = "Watchdog for deluged";
 
@@ -64,10 +66,16 @@ in with lib; {
     };
   };
 
-  users.users.tv = {
-    group = "users";
-    extraGroups = [ "deluge" ];
-    isNormalUser = true;
+  users = {
+    users.tv = {
+      group = "tv";
+      extraGroups = [ "deluge" ];
+      isNormalUser = true;
+    };
+    users.astrid.extraGroups = [ "tv" ];
+    users.jellyfin.extraGroups = [ "tv" ];
+
+    groups.tv = { };
   };
 
   services.openvpn.servers.surfshark = {
