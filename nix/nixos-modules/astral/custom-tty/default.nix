@@ -14,11 +14,11 @@
   in lib.mkIf cfg.enable {
     systemd.services.update-custom-tty = {
       wantedBy = [ "multi-user.target" ];
-      script = with pkgs;
-        let path = lib.makeBinPath [ iproute2 coreutils ];
-        in ''
-          PATH=${path} ${python3}/bin/python3 ${./issue.py} > /var/issue
-        '';
+
+      path = with pkgs; [ python3 iproute2 coreutils ];
+      script = ''
+        ${./issue.py} > /var/issue
+      '';
     };
 
     systemd.timers.update-custom-tty = {
