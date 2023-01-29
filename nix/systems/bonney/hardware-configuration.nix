@@ -17,8 +17,8 @@
     fsType = "zfs";
   };
 
-  fileSystems."/home" = {
-    device = "tank/home";
+  fileSystems."/nix" = {
+    device = "tank/nix";
     fsType = "zfs";
   };
 
@@ -27,14 +27,19 @@
     fsType = "zfs";
   };
 
-  fileSystems."/nix" = {
-    device = "tank/nix";
+  fileSystems."/home" = {
+    device = "tank/home";
     fsType = "zfs";
   };
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/2DCC-4773";
     fsType = "vfat";
+  };
+
+  fileSystems."/var/lib/deluge" = {
+    device = "tank/torrent";
+    fsType = "zfs";
   };
 
   swapDevices = [ ];
@@ -45,6 +50,8 @@
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
   # networking.interfaces.eno1.useDHCP = lib.mkDefault true;
+  # networking.interfaces.tailscale0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.tun0.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlp2s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
