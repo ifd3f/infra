@@ -6,7 +6,7 @@ $TTL 30m
 @                               IN SOA         dennis.astrid.tech. admin.astrid.tech. (
         ; SOA value reccommendations
         ; https://www.ripe.net/publications/docs/ripe-203
-        2023012600 ; serial YYMMDDnn
+        2023012800 ; serial YYMMDDnn
         3h         ; refresh (3h to allow faster refresh)
         1h         ; retry
         1d         ; expire
@@ -59,6 +59,10 @@ loki                            IN CNAME       amiya.h.astrid.tech.
 nextcloud                       IN CNAME       amiya.h.astrid.tech.
 secrets                         IN CNAME       yato.h.astrid.tech.
 mqtt                            IN CNAME       amiya.h.astrid.tech.
+
+; Temporary IoT gateway entries. TODO: proper DDNS
+ha.s02                          IN A           192.168.50.235
+zigbee2mqtt.s02                 IN A           192.168.50.235
 
 
 ;;; Hosts
