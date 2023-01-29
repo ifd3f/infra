@@ -33,7 +33,7 @@ print()
 print(f"{GREEN}{ULINE}{BOLD}Network Info:{RESET}")
 for inf in ipdata:
     ifname = inf['ifname']
-    mac = inf['address']
+    mac = inf.get('address', 'no mac')
     ips = [x['local'] for x in inf['addr_info']]
 
     print(
