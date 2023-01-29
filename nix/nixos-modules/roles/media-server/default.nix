@@ -15,6 +15,12 @@ in with lib; {
       "http://localhost:${toString config.services.deluge.web.port}";
   };
 
+  services.nginx.virtualHosts."jellyfin.s02.astrid.tech" = {
+    # Jellyfin default port. For more info, see:
+    # https://jellyfin.org/docs/general/networking/#port-bindings
+    locations."/".proxyPass = "http://localhost:8096";
+  };
+
   services.xserver = {
     enable = true;
 
@@ -36,7 +42,10 @@ in with lib; {
     web.enable = true;
   };
 
-  services.jellyfin.enable = true;
+  services.jellyfin = {
+    enable = true;
+    group = "tv";
+  };
 
   systemd.services.deluged-watchdog = {
     description = "Watchdog for deluged";
@@ -72,8 +81,8 @@ in with lib; {
       extraGroups = [ "deluge" ];
       isNormalUser = true;
     };
-    users.astrid.extraGroups = [ "tv" ];
-    users.jellyfin.extraGroups = [ "tv" ];
+    users.astrid.extraGroups = [ "tv" "deluge" ];
+    users.jellyfin.extraGroups = [ "tv" "deluge" ];
 
     groups.tv = { };
   };
