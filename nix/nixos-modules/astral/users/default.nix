@@ -5,8 +5,8 @@ in {
   imports = let
     # Helper to create a user with the given name.
     mkUserModule = name:
-      { description, isAutomationUser ? false, sshKeys ? [ ]
-      , enableByDefault ? false, defaultGroups ? [ ] }:
+      { description, isAutomationUser, sshKeys ? [ ], enableByDefault ? false
+      , defaultGroups ? [ ] }:
       { pkgs, lib, config, ... }:
       with lib; {
         options.astral.users."${name}" = {
@@ -38,16 +38,21 @@ in {
 
           shell = mkIf isAutomationUser pkgs.bashInteractive;
 
-          group = "automaton";
+          group = if isAutomationUser then "automaton" else "users";
         };
       };
 
   in [
-    { users.groups.automaton = { }; }
+    {
+      users.groups.automaton = { };
+      users.groups.users = { };
+    }
+
     (mkUserModule "astrid" {
       description = "Astrid Yu";
       enableByDefault = true;
       sshKeys = sshKeyDatabase.users.astrid;
+      isAutomationUser = false;
       defaultGroups = [
         "dialout"
         "dnsmasq-extra-hosts"
@@ -67,6 +72,7 @@ in {
     (mkUserModule "alia" {
       description = "Alia Lescoulie";
       sshKeys = sshKeyDatabase.users.alia;
+      isAutomationUser = false;
     })
 
     (mkUserModule "terraform" {
