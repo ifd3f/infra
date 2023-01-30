@@ -60,9 +60,11 @@ nextcloud                       IN CNAME       amiya.h.astrid.tech.
 secrets                         IN CNAME       yato.h.astrid.tech.
 mqtt                            IN CNAME       amiya.h.astrid.tech.
 
-; Temporary IoT gateway entries. TODO: proper DDNS
-ha.s02                          IN A           192.168.50.235
-zigbee2mqtt.s02                 IN A           192.168.50.235
+;; Site 02 services
+ha.s02                          IN CNAME       ghoti.h.astrid.tech.
+zigbee2mqtt.s02                 IN CNAME       ghoti.h.astrid.tech.
+deluge.s02                      IN CNAME       bonney.h.astrid.tech
+jellyfin.s02                    IN CNAME       bonney.h.astrid.tech
 
 
 ;;; Hosts
@@ -80,6 +82,10 @@ bennett.h                       IN A           154.53.59.80
 ; SSDNodes https://www.ssdnodes.com/manage/clientarea.php
 amiya.h                         IN A           208.87.130.175
                                 IN AAAA        2602:ff16:4:0:1:214:0:1
+
+; Site 02 devices. TODO: proper DDNS
+ghoti.h                         IN A           192.168.50.145
+bonney.h                        IN A           192.168.50.235
 
 
 ;;; Sites
