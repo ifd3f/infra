@@ -22,12 +22,13 @@ in with lib; {
     };
   };
 
+  networking.firewall.allowedTCPPorts = [ 1883 8883 ];
+
   services.zigbee2mqtt = {
     enable = true;
     settings = {
       serial.port = zigbeeDongle;
       permit_join = false;
-      homeassistant = true;
       frontend = {
         host = "0.0.0.0";
         port = 38323;
@@ -35,10 +36,10 @@ in with lib; {
       };
 
       mqtt = {
-        base_topic = "zigbee2mqtt-s02";
+        base_topic = "s02/zigbee2mqtt";
         client_id = "ghoti-zigbee2mqtt";
         user = "zigbee2mqtt";
-        password = "we are connecting over localhost so this is always trusted";
+        password = "password";
         server = "mqtt://localhost:1883";
 
         force_disable_retain = false;
@@ -46,6 +47,13 @@ in with lib; {
         keepalive = 60;
         reject_unauthorized = true;
         version = 4;
+      };
+
+      homeassistant = {
+        discovery_topic = "s02/homeassistant";
+        legacy_entity_attributes = true;
+        legacy_triggers = true;
+        status_topic = "s02/hass/status";
       };
     };
   };
@@ -57,12 +65,28 @@ in with lib; {
     listeners = [
       # We trust connections from localhost, so the passwords are quite lax and in cleartext.
       {
-        users.zigbee2mqtt.password =
-          config.services.zigbee2mqtt.settings.mqtt.password;
+        users.zigbee2mqtt = {
+          acl =
+            [ "readwrite s02/homeassistant/#" "readwrite s02/zigbee2mqtt/#" ];
+          password = config.services.zigbee2mqtt.settings.mqtt.password;
+        };
 
-        users.has02.password = "password";
+        users.has02 = {
+          acl = [ "readwrite #" ];
+          password = "password";
+        };
 
         address = "::1";
+        port = 1883;
+      }
+
+      {
+        users.astrid = {
+          acl = [ "readwrite #" ];
+          passwordFile = "${config.services.mosquitto.dataDir}/astridpassword";
+        };
+
+        address = "192.168.50.235";
         port = 1883;
       }
     ];
