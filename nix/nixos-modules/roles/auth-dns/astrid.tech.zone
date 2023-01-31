@@ -85,7 +85,7 @@ amiya.h                         IN A           208.87.130.175
 
 ; Site 02 devices. TODO: proper DDNS
 ghoti.h                         IN A           192.168.50.235
-bonney.h                        IN A           192.168.50.145
+bonney.h                        IN A           192.168.50.237
 
 
 ;;; Sites
