@@ -6,7 +6,7 @@ $TTL 30m
 @                               IN SOA         dennis.astrid.tech. admin.astrid.tech. (
         ; SOA value reccommendations
         ; https://www.ripe.net/publications/docs/ripe-203
-        2023012800 ; serial YYMMDDnn
+        2023013000 ; serial YYMMDDnn
         3h         ; refresh (3h to allow faster refresh)
         1h         ; retry
         1d         ; expire
@@ -84,8 +84,8 @@ amiya.h                         IN A           208.87.130.175
                                 IN AAAA        2602:ff16:4:0:1:214:0:1
 
 ; Site 02 devices. TODO: proper DDNS
-ghoti.h                         IN A           192.168.50.145
-bonney.h                        IN A           192.168.50.235
+ghoti.h                         IN A           192.168.50.235
+bonney.h                        IN A           192.168.50.145
 
 
 ;;; Sites
