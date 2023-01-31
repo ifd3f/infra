@@ -63,8 +63,8 @@ mqtt                            IN CNAME       amiya.h.astrid.tech.
 ;; Site 02 services
 ha.s02                          IN CNAME       ghoti.h.astrid.tech.
 zigbee2mqtt.s02                 IN CNAME       ghoti.h.astrid.tech.
-deluge.s02                      IN CNAME       bonney.h.astrid.tech
-jellyfin.s02                    IN CNAME       bonney.h.astrid.tech
+deluge.s02                      IN CNAME       bonney.h.astrid.tech.
+jellyfin.s02                    IN CNAME       bonney.h.astrid.tech.
 
 
 ;;; Hosts
