@@ -1,12 +1,12 @@
 ; Registrar: https://namecheap.com
 
 $ORIGIN astrid.tech.
-$TTL 30m
+$TTL 5m
 
 @                               IN SOA         dennis.astrid.tech. admin.astrid.tech. (
         ; SOA value reccommendations
         ; https://www.ripe.net/publications/docs/ripe-203
-        2023013000 ; serial YYMMDDnn
+        2023013001 ; serial YYMMDDnn
         3h         ; refresh (3h to allow faster refresh)
         1h         ; retry
         1d         ; expire
