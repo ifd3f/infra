@@ -6,7 +6,7 @@ $TTL 5m
 @                               IN SOA         dennis.astrid.tech. admin.astrid.tech. (
         ; SOA value reccommendations
         ; https://www.ripe.net/publications/docs/ripe-203
-        2023013001 ; serial YYMMDDnn
+        2023020400 ; serial YYMMDDnn
         3h         ; refresh (3h to allow faster refresh)
         1h         ; retry
         1d         ; expire
@@ -59,6 +59,7 @@ loki                            IN CNAME       amiya.h.astrid.tech.
 nextcloud                       IN CNAME       amiya.h.astrid.tech.
 secrets                         IN CNAME       yato.h.astrid.tech.
 mqtt                            IN CNAME       amiya.h.astrid.tech.
+influxdb                        IN CNAME       amiya.h.astrid.tech.
 
 ;; Site 02 services
 ha.s02                          IN CNAME       ghoti.h.astrid.tech.
