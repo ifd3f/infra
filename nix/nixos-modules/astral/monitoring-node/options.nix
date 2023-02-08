@@ -29,11 +29,11 @@ in {
     };
   };
 
-  config = {
+  config = mkIf cfg.enable {
     assertions = [{
       assertion = cfg.scrapeTransport != null;
       message =
-        "You must specify a non-null `astral.monitoring-node.scrapeTransport`.";
+        "To enable `astral.monitoring-node`, you must specify a non-null `astral.monitoring-node.scrapeTransport`.";
     }];
 
     astral.monitoring-node.vhost = mkDefault
