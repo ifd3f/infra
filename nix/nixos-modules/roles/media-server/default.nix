@@ -75,6 +75,9 @@ in with lib; {
     };
   };
 
+  # Restart surfshark VPN periodically
+  systemd.services.openvpn-surfshark.serviceConfig.RuntimeMaxSec = "12h";
+
   users = {
     users.tv = {
       group = "tv";
