@@ -64,10 +64,7 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
-    year-of-bot = {
-      url = "github:ifd3f/year-of-bot";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
+    year-of-bot.url = "github:ifd3f/year-of-bot";
 
     catgpt = {
       url = "github:ifd3f/catgpt";
@@ -181,28 +178,19 @@
           };
           "astrid@banana" = home-manager.lib.homeManagerConfiguration {
             pkgs = nixpkgs.legacyPackages.x86_64-linux;
-            modules = [
-              self.homeModules.astral-gui
-            ];
+            modules = [ self.homeModules.astral-gui ];
           };
           "astrid@chungus" = home-manager.lib.homeManagerConfiguration {
             pkgs = nixpkgs.legacyPackages.x86_64-linux;
-            modules = [
-              self.homeModules.astral-gui
-            ];
+            modules = [ self.homeModules.astral-gui ];
           };
           "astrid@Discovery" = home-manager.lib.homeManagerConfiguration {
             pkgs = nixpkgs.legacyPackages.x86_64-linux;
-            modules = [
-              self.homeModules.astral-gui
-              vscode-server-home
-            ];
+            modules = [ self.homeModules.astral-gui vscode-server-home ];
           };
           "astrid@shai-hulud" = home-manager.lib.homeManagerConfiguration {
             pkgs = nixpkgs.legacyPackages.x86_64-linux;
-            modules = [
-              self.homeModules.astral-gui-tablet
-            ];
+            modules = [ self.homeModules.astral-gui-tablet ];
           };
           "astrid@soulcaster" = home-manager.lib.homeManagerConfiguration {
             pkgs = nixpkgs.legacyPackages.x86_64-darwin;
