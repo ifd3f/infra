@@ -109,12 +109,6 @@ in {
         followers_only = mkMap blocklist.followers_only;
       };
 
-      # Temporarily enable verbose logging to chase down an annoying 500
-      ":logger".":console" = {
-        level = mkRaw ":debug";
-        metadata = [ (mkRaw ":request_id") ];
-      };
-
       # Less outgoing retries to improve performance
       ":pleroma".":workers".retries = {
         federator_incoming = 5;
