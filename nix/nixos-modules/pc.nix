@@ -55,6 +55,11 @@ in {
     wine
     wine64
     winetricks
+
+    yubico-piv-tool
+    yubikey-manager
+    yubikey-manager-qt
+    yubikey-personalization
   ];
 
   users.mutableUsers = true;
@@ -68,6 +73,8 @@ in {
     enable = true;
     enableWifi = true;
   };
+
+  services.pcscd.enable = true;
 
   services.gvfs.enable = true;
 
