@@ -19,9 +19,9 @@ env:
     #   $ nix run .#scan-ci-target-keys
 
 
-    154.53.59.80 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIET/rvgSMVK1m9u2zXMegDZslEO5Y8Dqfv4yjC9zJRrx
+    154.53.59.80 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM8BUXv+tjVoLSYHBnvNHe0SDUACvpRNt3B852fflZmX
 
-    154.53.59.80 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC/lb8m7ZH1v9e9AY5CxpRiVUBIop+nNBzWzUOjiimlJ9SBIdrJxkLQPxUiftsYYz0kxeibtp1jhpDX5TtaGPjF9WRntmhAlWFM4bbMTJ8Z7I1+Oq/E+yrKfeMrFu5bipic1sb5vREio9r8HEeNJtDaafBTp+J4HkK8XP4zRsHgbEeXXEZi7Oj3MxMhr6nhHvHPkkWmpl+wiT8ak5M80aOWIrEDskvZuaj7jYFHThunb6gNYIl7dUu+JWdikmq/QN89r/eN7hshvkPjgP8oJh4EHoJbTyEJEsjjXTLyb6M3h8kriRbRUNiJqAT1kDuOwwv0+wf2TCL5Oe8mJNjOH5p8qSkZ+FGM8L1Jhlvixamwk7rkhFTB1iowVA4bq3WgZevzZ8GIsFq2BjsIwPjO+sI9KUfbrlXogtzDFAKgwkVzfCOWpRPG+P7urUnwS1kWiMsr3CahiJgRriJUcWYpYHQtGZAOb8WZsSThb8jVpjPIcPdRjIHVZM5DX8gb6+hmXMNvKjhljl9CKRBRRAnt/4mPcGMH1wlZy4aIRPRCvZKxiorxr9YNLdBXHiPlGYXmmMLnnVlBaeFTxrjxRzPT00Mxe/aVtHRIANjgdKscJyBU+rXC1F58yDxANOcziKSUrfaa6L7n2j1XTFgp8J9VgRdVLq6bb2IRX5CHz1lIxEUjZQ==
+    154.53.59.80 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDHP20U4EDXxZukQ+TDibgjWfr6WxMg71IQ6uP7tq77jVybLyqxM3DLWE3LRZbFHFNuL0ECkNlAmb8KIzn/2MHRUD1HZ1GuKdb9wtYR7F5upAtrd1rIJgMb/BL0Vuhu5ExwUzhy0M1E8TjciMmiVoJx+1APeCRpNm/r72wl3K51EfyPym6f3LojbcDy5JGKUTLC3HxPCzgBHmIEIuWvXUdJlSivzR7WxmMUOzz3O+8MEHOULj0aETLSJ3v49MsTld6RvE4IkAnKMqdBLMJWEp0n2mYy4b15RaJszTARFHvmLbLYKv4Py3hGVNQGvLJgGkY+29cOR4Wg/sKmRNmSjAZLjqKsDc+Dw2IrDRBxo7YH8OxTR01LFkHwBBB0yPo+n2mZb3FZBi1OYMBnQUmck6YKYnCVPRjl9spNgGGI5ZG6GdaVHVMvidEafrJ3dOwhkckWe7fJD2wiP06cXkvWu9RsE8JkFfP/2EeM9xsq1vBtaTbMRUj3YZ0h3714UKQ/3Ju6efMs5oFh5zxNBRM7tiN3uSEdzju10hjzyy1p2KQS9rMxm1F/qHCI4vBc9DMs5KAc0+LWBgGhTEKfheJoKDhERRjsQhE4o2WY4U8cqfOqcGNytj9gf0v1m2dUq0uuERWpLtEM738RBKJPsB7VKIgLnGG2snWOc99Cd4BJyGCbSw==
 
     173.212.242.107 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIERtCtjNT5gh3pNZ3RhSv7x6t5tswp2IDkAGKl3Y/tQk
 
@@ -53,8 +53,12 @@ jobs:
       - env:
           KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
         name: Append to known_hosts
-        run: echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
-      - uses: cachix/install-nix-action@v18
+        run: 'echo ''\n'' >> ~/.ssh/known_hosts
+
+          echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
+
+          '
+      - uses: cachix/install-nix-action@v20
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -90,8 +94,12 @@ jobs:
       - env:
           KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
         name: Append to known_hosts
-        run: echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
-      - uses: cachix/install-nix-action@v18
+        run: 'echo ''\n'' >> ~/.ssh/known_hosts
+
+          echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
+
+          '
+      - uses: cachix/install-nix-action@v20
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -127,8 +135,12 @@ jobs:
       - env:
           KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
         name: Append to known_hosts
-        run: echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
-      - uses: cachix/install-nix-action@v18
+        run: 'echo ''\n'' >> ~/.ssh/known_hosts
+
+          echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
+
+          '
+      - uses: cachix/install-nix-action@v20
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -164,8 +176,12 @@ jobs:
       - env:
           KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
         name: Append to known_hosts
-        run: echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
-      - uses: cachix/install-nix-action@v18
+        run: 'echo ''\n'' >> ~/.ssh/known_hosts
+
+          echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
+
+          '
+      - uses: cachix/install-nix-action@v20
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -206,8 +222,12 @@ jobs:
       - env:
           KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
         name: Append to known_hosts
-        run: echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
-      - uses: cachix/install-nix-action@v18
+        run: 'echo ''\n'' >> ~/.ssh/known_hosts
+
+          echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
+
+          '
+      - uses: cachix/install-nix-action@v20
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -257,8 +277,12 @@ jobs:
       - env:
           KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
         name: Append to known_hosts
-        run: echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
-      - uses: cachix/install-nix-action@v18
+        run: 'echo ''\n'' >> ~/.ssh/known_hosts
+
+          echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
+
+          '
+      - uses: cachix/install-nix-action@v20
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -295,8 +319,12 @@ jobs:
       - env:
           KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
         name: Append to known_hosts
-        run: echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
-      - uses: cachix/install-nix-action@v18
+        run: 'echo ''\n'' >> ~/.ssh/known_hosts
+
+          echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
+
+          '
+      - uses: cachix/install-nix-action@v20
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -333,8 +361,12 @@ jobs:
       - env:
           KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
         name: Append to known_hosts
-        run: echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
-      - uses: cachix/install-nix-action@v18
+        run: 'echo ''\n'' >> ~/.ssh/known_hosts
+
+          echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
+
+          '
+      - uses: cachix/install-nix-action@v20
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -392,8 +424,12 @@ jobs:
       - env:
           KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
         name: Append to known_hosts
-        run: echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
-      - uses: cachix/install-nix-action@v18
+        run: 'echo ''\n'' >> ~/.ssh/known_hosts
+
+          echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
+
+          '
+      - uses: cachix/install-nix-action@v20
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -418,8 +454,8 @@ jobs:
           '
     strategy:
       fail-fast: false
-  nixos-system-bennett:
-    name: NixOS sys. bennett
+  nixos-system-bonney:
+    name: NixOS sys. bonney
     needs:
       - nixos-system-__baseServer
     runs-on: ubuntu-latest
@@ -430,8 +466,12 @@ jobs:
       - env:
           KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
         name: Append to known_hosts
-        run: echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
-      - uses: cachix/install-nix-action@v18
+        run: 'echo ''\n'' >> ~/.ssh/known_hosts
+
+          echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
+
+          '
+      - uses: cachix/install-nix-action@v20
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -446,14 +486,7 @@ jobs:
       - env:
           TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
         name: Build targets
-        run: GC_DONT_GC=1 nix build --show-trace "$TARGET_FLAKE#"'nixosConfigurations.bennett.config.system.build.toplevel'
-      - env:
-          TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
-          deploy_flake_attr: nixosConfigurations.bennett.config.astral.ci.deploy-package
-        if: ${{ (github.event_name == 'workflow_call' && inputs.deploy) || (github.event_name
-          != 'workflow_call' && github.ref == 'refs/heads/main') }}
-        name: Deploy with nixosConfigurations.bennett.config.astral.ci.deploy-package
-        run: GC_DONT_GC=1 nix run --show-trace "$TARGET_FLAKE#$deploy_flake_attr"
+        run: GC_DONT_GC=1 nix build --show-trace "$TARGET_FLAKE#"'nixosConfigurations.bonney.config.system.build.toplevel'
       - if: ${{ always() }}
         name: Log remaining space
         run: 'echo "=== Space left after build ==="
@@ -489,8 +522,12 @@ jobs:
       - env:
           KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
         name: Append to known_hosts
-        run: echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
-      - uses: cachix/install-nix-action@v18
+        run: 'echo ''\n'' >> ~/.ssh/known_hosts
+
+          echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
+
+          '
+      - uses: cachix/install-nix-action@v20
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -527,8 +564,12 @@ jobs:
       - env:
           KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
         name: Append to known_hosts
-        run: echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
-      - uses: cachix/install-nix-action@v18
+        run: 'echo ''\n'' >> ~/.ssh/known_hosts
+
+          echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
+
+          '
+      - uses: cachix/install-nix-action@v20
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -560,44 +601,6 @@ jobs:
           '
     strategy:
       fail-fast: false
-  nixos-system-donkey:
-    name: NixOS sys. donkey
-    needs:
-      - nixos-system-__baseServer
-    runs-on: ubuntu-latest
-    steps:
-      - uses: webfactory/ssh-agent@v0.7.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - env:
-          KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
-        name: Append to known_hosts
-        run: echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
-      - uses: cachix/install-nix-action@v18
-        with:
-          extra_nix_config: 'experimental-features = nix-command flakes
-
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-
-            '
-          nix_path: nixpkgs=channel:nixos-unstable
-      - uses: cachix/cachix-action@v12
-        with:
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-          name: astralbijection
-      - env:
-          TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
-        name: Build targets
-        run: GC_DONT_GC=1 nix build --show-trace "$TARGET_FLAKE#"'nixosConfigurations.donkey.config.system.build.toplevel'
-      - if: ${{ always() }}
-        name: Log remaining space
-        run: 'echo "=== Space left after build ==="
-
-          df -h
-
-          '
-    strategy:
-      fail-fast: false
   nixos-system-durin:
     name: NixOS sys. durin
     needs:
@@ -610,8 +613,12 @@ jobs:
       - env:
           KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
         name: Append to known_hosts
-        run: echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
-      - uses: cachix/install-nix-action@v18
+        run: 'echo ''\n'' >> ~/.ssh/known_hosts
+
+          echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
+
+          '
+      - uses: cachix/install-nix-action@v20
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -655,8 +662,12 @@ jobs:
       - env:
           KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
         name: Append to known_hosts
-        run: echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
-      - uses: cachix/install-nix-action@v18
+        run: 'echo ''\n'' >> ~/.ssh/known_hosts
+
+          echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
+
+          '
+      - uses: cachix/install-nix-action@v20
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -708,8 +719,12 @@ jobs:
       - env:
           KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
         name: Append to known_hosts
-        run: echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
-      - uses: cachix/install-nix-action@v18
+        run: 'echo ''\n'' >> ~/.ssh/known_hosts
+
+          echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
+
+          '
+      - uses: cachix/install-nix-action@v20
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -746,8 +761,12 @@ jobs:
       - env:
           KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
         name: Append to known_hosts
-        run: echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
-      - uses: cachix/install-nix-action@v18
+        run: 'echo ''\n'' >> ~/.ssh/known_hosts
+
+          echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
+
+          '
+      - uses: cachix/install-nix-action@v20
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -804,8 +823,12 @@ jobs:
       - env:
           KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
         name: Append to known_hosts
-        run: echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
-      - uses: cachix/install-nix-action@v18
+        run: 'echo ''\n'' >> ~/.ssh/known_hosts
+
+          echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
+
+          '
+      - uses: cachix/install-nix-action@v20
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 

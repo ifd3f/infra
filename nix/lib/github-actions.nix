@@ -95,7 +95,7 @@ with lib; rec {
             env.KNOWN_HOSTS = ghexpr "env.KNOWN_HOSTS";
           }
           {
-            "uses" = "cachix/install-nix-action@v18";
+            "uses" = "cachix/install-nix-action@v20";
             "with" = {
               nix_path = "nixpkgs=channel:nixos-unstable";
               extra_nix_config = ''
