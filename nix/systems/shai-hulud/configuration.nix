@@ -7,7 +7,8 @@
   ] ++ (with inputs.nixos-hardware.nixosModules; [
     common-cpu-intel
     common-pc-ssd
-    microsoft-surface
+    microsoft-surface-common
+    microsoft-surface-pro-intel
   ]);
 
   time.timeZone = "US/Pacific";
