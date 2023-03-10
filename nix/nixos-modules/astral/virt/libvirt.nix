@@ -21,10 +21,14 @@ with lib; {
       binfmt.emulatedSystems = [ "aarch64-linux" ];
     };
 
-    virtualisation = {
-      libvirtd = {
+    virtualisation.libvirtd = {
+      enable = true;
+      qemu.ovmf = {
         enable = true;
-        qemu.ovmf.enable = true;
+        packages = with pkgs; [
+          OVMFFull.fd
+          pkgsCross.aarch64-multiplatform.OVMF.fd
+        ];
       };
     };
 
