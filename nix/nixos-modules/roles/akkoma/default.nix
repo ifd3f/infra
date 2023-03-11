@@ -3,9 +3,9 @@ with lib;
 let
   vhost = "fedi.astrid.tech";
 
-  patched-pleroma-fe = pkgs.akkoma-frontends.pleroma-fe.overrideAttrs
+  patched-akkoma-fe = pkgs.akkoma-frontends.akkoma-fe.overrideAttrs
     (final: prev: {
-      src = pkgs.runCommand "patched-pleroma-fe-src" { } ''
+      src = pkgs.runCommand "patched-akkoma-fe-src" { } ''
         cp -r ${prev.src} $out
         chmod -R +w $out
         cp ${./i18n_en.json} $out/src/i18n/en.json
@@ -37,8 +37,8 @@ in {
 
     frontends = {
       primary = {
-        package = patched-pleroma-fe;
-        name = "pleroma-fe";
+        package = patched-akkoma-fe;
+        name = "akkoma-fe";
         ref = "stable";
       };
       admin = {
