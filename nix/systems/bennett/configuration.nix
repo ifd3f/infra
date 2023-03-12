@@ -2,8 +2,11 @@
 { pkgs, lib, inputs, ... }: {
   imports = [
     ./hardware-configuration.nix
+
     inputs.self.nixosModules.contabo-vps
     inputs.self.nixosModules.server
+
+    inputs.self.nixosModules.auth-dns
   ];
 
   astral = {
