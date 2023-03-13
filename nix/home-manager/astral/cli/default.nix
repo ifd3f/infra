@@ -159,6 +159,9 @@ in with lib; {
       programs.gpg = {
         enable = true;
         mutableKeys = true;
+        scdaemonSettings = {
+          disable-ccid = true;
+        };
       };
 
       home.packages = with pkgs; [ bitwarden-cli gh ranger ];

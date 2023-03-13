@@ -1,5 +1,6 @@
 # A graphics-enabled PC I would directly use.
 { config, lib, pkgs, inputs, ... }:
+with lib;
 let extraHosts = "/var/extraHosts";
 in {
   imports = [ ./astral ];
@@ -56,10 +57,14 @@ in {
     wine64
     winetricks
 
+    opensc
+    pcsclite
+    pcsctools
     yubico-piv-tool
     yubikey-manager
     yubikey-manager-qt
     yubikey-personalization
+    yubikey-personalization-gui
   ];
 
   users.mutableUsers = true;
@@ -74,7 +79,10 @@ in {
     enableWifi = true;
   };
 
-  services.pcscd.enable = true;
+  services.pcscd = {
+    enable = true;
+    plugins = with pkgs; [ ccid libacr38u ];
+  };
 
   services.gvfs.enable = true;
 
