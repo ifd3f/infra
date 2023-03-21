@@ -2,9 +2,15 @@
 with lib; {
   networking.firewall.allowedUDPPorts = [ 53 ];
 
-  # The BIND module sets this to true.
-  # We don't want this because our auth DNS doesn't support recursion.
-  networking.resolvconf.useLocalResolver = false;
+  # Disable resolvconf DNS
+  networking.resolvconf.enable = mkForce false;
+
+  # Statically set the resolver for local services to a public DNS
+  environment.etc."resolv.conf".text = ''
+    nameserver 1.1.1.1
+    nameserver 8.8.4.4
+    nameserver 8.8.8.8
+  '';
 
   services.bind = {
     enable = true;
