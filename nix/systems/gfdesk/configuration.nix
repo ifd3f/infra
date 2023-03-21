@@ -9,6 +9,7 @@
       libvirt.enable = true;
     };
     monitoring-node.scrapeTransport = "tailscale";
+    tailscale.enable = mkForce false;
     net.zerotier.public = true;
   };
 

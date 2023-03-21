@@ -20,6 +20,8 @@
     hw.surface.enable = true;
     xmonad.enable = true;
 
+    tailscale.enable = mkForce false;
+
     # so that we don't rebuild linux kernel on this tiny boi
     infra-update.branch = "surface";
 

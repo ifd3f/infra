@@ -9,6 +9,7 @@
 
   time.timeZone = "US/Pacific";
 
+  astral.tailscale.enable = mkForce false;
   astral.vfio = {
     enable = true;
     iommu-mode = "amd_iommu";
