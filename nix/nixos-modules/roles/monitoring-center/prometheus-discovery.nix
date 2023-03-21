@@ -3,7 +3,7 @@ with lib;
 let inherit (inputs.self) nixosConfigurations;
 in rec {
   supportedExporters =
-    [ "node" "nginx" "nginxlog" "systemd" "bind" "postgres" ];
+    [ "node" "nginx" "systemd" "bind" "postgres" ];
 
   nixosKeys = (filter (host:
     !(hasPrefix "__" host)
