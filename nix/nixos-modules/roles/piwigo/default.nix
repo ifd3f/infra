@@ -3,8 +3,8 @@ let
   piwigo = pkgs.fetchFromGitHub {
     owner = "Piwigo";
     repo = "Piwigo";
-    rev = "13.1.0";
-    hash = "sha256-t22Tx4mCMD9LyE7I6MEAg1YbGyyuWe+u3v7DZMEUT4w=";
+    rev = "13.6.0";
+    hash = "sha256-FWWUMXIb+H0S4aiQ30fr/BobNwmQCwvLBmd0sPnkVlQ=";
   };
 
   webroot = "/var/www/photos";
