@@ -127,9 +127,7 @@ in {
     };
   };
 
-  services.postgresql = {
-    enable = true;
-  };
+  services.postgresql.enable = true;
 
   # Overriden settings for local testing
   virtualisation.vmVariant.services.akkoma.nginx = let
@@ -154,4 +152,21 @@ in {
   # It seems to be running out of FDs.
   # By default it's 1024, which is a bit too small.
   systemd.services.akkoma.serviceConfig.LimitNOFILE = 262144;
+
+  # Auto-prune objects in the database.
+  systemd.timers.akkoma-prune-objects = {
+    wantedBy = [ "multi-user.service" ];
+    timerConfig.OnCalendar = "*-*-* 00:00:00";
+  };
+  systemd.services.akkoma-prune-objects = {
+    requisite = [ "akkoma.service" ];
+    path = with pkgs; [ akkoma ];
+    script = ''
+      pleroma_ctl database prune_objects
+    '';
+    serviceConfig = {
+      Type = "oneshot";
+      User = "akkoma";
+    };
+  };
 }
