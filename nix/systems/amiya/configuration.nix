@@ -14,7 +14,7 @@ with lib; {
   ];
 
   astral = {
-    ci.deploy-to = "208.87.130.175";
+    ci.deploy-to = "2602:ff16:4:0:1:214:0:1";
     tailscale.oneOffKey =
       "tskey-auth-kupJJz1CNTRL-QgCeXDGtEd5PNzZSfzBqb5kARECWNMH7";
     monitoring-node.scrapeTransport = "https";
