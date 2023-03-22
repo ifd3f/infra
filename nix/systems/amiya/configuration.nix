@@ -1,5 +1,6 @@
 # A large SSDNodes VPS
-{ pkgs, lib, inputs, ... }: {
+{ pkgs, lib, inputs, ... }:
+with lib; {
   imports = [
     ./hardware-configuration.nix
 
@@ -70,5 +71,14 @@
     initrd.availableKernelModules =
       [ "ata_piix" "uhci_hcd" "xen_blkfront" "vmw_pvscsi" ];
     initrd.kernelModules = [ "nvme" ];
+  };
+
+  # Statically set the resolver for local services to a public DNS
+  environment.etc."resolv.conf" = mkForce {
+    text = ''
+      nameserver 1.1.1.1
+      nameserver 8.8.4.4
+      nameserver 8.8.8.8
+    '';
   };
 }
