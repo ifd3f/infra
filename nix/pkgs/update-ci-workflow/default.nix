@@ -20,6 +20,8 @@ let
     ) > "$out"
   '';
 in writeScriptBin "update-ci-workflow" ''
+  set -euxo pipefail
+
   root=$(git rev-parse --show-toplevel)
   dest="$root/.github/workflows/check-targets.yml"
 
