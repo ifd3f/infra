@@ -177,6 +177,21 @@
     },
     "flake-utils_5": {
       "locked": {
+        "lastModified": 1678901627,
+        "narHash": "sha256-U02riOqrKKzwjsxc/400XnElV+UtPUQWpANPlyazjH0=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "93a2b84fc4b70d9e089d029deacc3583435c2ed6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "flake-utils_6": {
+      "locked": {
         "lastModified": 1631561581,
         "narHash": "sha256-3VQMV5zvxaVLvqqUrNz3iJelLw30mIVSfZmAaauM3dA=",
         "owner": "numtide",
@@ -189,7 +204,7 @@
         "type": "indirect"
       }
     },
-    "flake-utils_6": {
+    "flake-utils_7": {
       "locked": {
         "lastModified": 1667395993,
         "narHash": "sha256-nuEHfE/LcWyuSWnS8t12N1wc105Qtau+/OdUAjtQ0rA=",
@@ -204,7 +219,7 @@
         "type": "github"
       }
     },
-    "flake-utils_7": {
+    "flake-utils_8": {
       "locked": {
         "lastModified": 1676283394,
         "narHash": "sha256-XX2f9c3iySLCw54rJ/CZs+ZK6IQy7GXNY4nSOyu2QG4=",
@@ -216,6 +231,27 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "googlebird": {
+      "inputs": {
+        "flake-utils": "flake-utils_5",
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1679472412,
+        "narHash": "sha256-8c9hRy14XjAkLg2JCu28duW+mK3ekVTHzMzs+3H+Uog=",
+        "owner": "ifd3f",
+        "repo": "Google-Bird",
+        "rev": "8808faae9ad0566955cbac26bc9345caa6945ec2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ifd3f",
+        "repo": "Google-Bird",
         "type": "github"
       }
     },
@@ -579,6 +615,7 @@
         "blurred-horse-bot": "blurred-horse-bot",
         "catgpt": "catgpt",
         "flake-utils": "flake-utils_4",
+        "googlebird": "googlebird",
         "home-manager-unstable": "home-manager-unstable",
         "nix-ld": "nix-ld",
         "nixos-generators": "nixos-generators",
@@ -661,7 +698,7 @@
     "vault-secrets": {
       "inputs": {
         "flake-compat": "flake-compat_2",
-        "flake-utils": "flake-utils_5",
+        "flake-utils": "flake-utils_6",
         "nix": "nix",
         "nixpkgs": "nixpkgs_5"
       },
@@ -681,7 +718,7 @@
     },
     "vendored-emojis": {
       "inputs": {
-        "flake-utils": "flake-utils_6",
+        "flake-utils": "flake-utils_7",
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
@@ -700,7 +737,7 @@
     },
     "year-of-bot": {
       "inputs": {
-        "flake-utils": "flake-utils_7",
+        "flake-utils": "flake-utils_8",
         "nixpkgs": "nixpkgs_7"
       },
       "locked": {

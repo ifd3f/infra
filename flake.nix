@@ -70,6 +70,11 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    googlebird = {
+      url = "github:ifd3f/Google-Bird";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
     blurred-horse-bot = {
       url = "github:ifd3f/horse-diffusion";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -84,7 +89,8 @@
   outputs = { self, nixpkgs-unstable, nixpkgs-stable, nixpkgs-php74
     , nixos-vscode-server, flake-utils, nix-ld, nur, home-manager-unstable
     , nixos-generators, vault-secrets, armqr, year-of-bot, nur-ifd3f
-    , vendored-emojis, catgpt, blurred-horse-bot, akkoma-exporter, ... }@inputs:
+    , vendored-emojis, catgpt, blurred-horse-bot, akkoma-exporter
+    , googlebird, ... }@inputs:
     let
       nixpkgs = nixpkgs-unstable;
       home-manager = home-manager-unstable;
@@ -129,6 +135,7 @@
             blurred-horse-bot.overlays.default
             year-of-bot.overlays.default
             catgpt.overlays.default
+            googlebird.overlays.default
             nur-ifd3f.overlays.default
             vendored-emojis.overlays.default
             self.overlays.patched
