@@ -1,5 +1,6 @@
 # The desk that is used by Good Friends.
-{ config, lib, pkgs, inputs, ... }: {
+{ config, lib, pkgs, inputs, ... }:
+with lib; {
   imports = [ ./hardware-configuration.nix inputs.self.nixosModules.server ];
 
   astral = {

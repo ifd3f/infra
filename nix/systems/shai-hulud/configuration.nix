@@ -1,5 +1,6 @@
 # My Surface Pro.
-{ config, pkgs, lib, inputs, ... }: {
+{ config, pkgs, lib, inputs, ... }:
+with lib; {
   imports = [
     ./hardware-configuration.nix
     inputs.self.nixosModules.laptop

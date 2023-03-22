@@ -1,5 +1,6 @@
 # My gaming desktop.
-{ pkgs, lib, config, inputs, ... }: {
+{ pkgs, lib, config, inputs, ... }:
+with lib; {
   imports = [
     ./hardware-configuration.nix
     ./x11.nix
