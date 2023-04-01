@@ -14,6 +14,9 @@ with lib; {
 
   services.bind = {
     enable = true;
+    
+    cacheNetworks = mkForce [ "any" ];
+
 
     # DNS hardening ideas borrowed from https://securitytrails.com/blog/8-tips-to-prevent-dns-attacks
     extraOptions = ''
