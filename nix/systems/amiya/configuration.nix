@@ -15,28 +15,40 @@ with lib; {
 
   astral = {
     ci.deploy-to = "2602:ff16:4:0:1:214:0:1";
-    tailscale.oneOffKey =
-      "tskey-auth-kupJJz1CNTRL-QgCeXDGtEd5PNzZSfzBqb5kARECWNMH7";
+    tailscale.enable = mkForce false;
     monitoring-node.scrapeTransport = "https";
   };
 
   networking = {
     hostName = "amiya";
     domain = "h.astrid.tech";
+
+    defaultGateway = {
+      interface = "enp3s0";
+      address = "208.87.130.1";
+    };
+
+    defaultGateway6 = {
+      interface = "enp3s0";
+      address = "2602:ff16:4::1";
+    };
+
+    interfaces.enp3s0 = {
+      ipv4.addresses = [{
+        address = "208.87.130.175";
+        prefixLength = 24;
+      }];
+      ipv6.addresses = [{
+        address = "2605:a141:2108:6306::1";
+        prefixLength = 64;
+      }];
+    };
   };
 
   services.resolved = {
     enable = true;
     domains =
       [ "8.8.8.8" "8.8.4.4" "2001:4860:4860::8888" "2001:4860:4860::8844" ];
-  };
-
-  systemd.network.enable = true;
-  systemd.network.networks."primary" = {
-    name = "enp3s0";
-    dns = [ "8.8.8.8" "8.8.4.4" "2001:4860:4860::8888" "2001:4860:4860::8844" ];
-    address = [ "208.87.130.175/24" "2602:ff16:4:0:1:214:0:1/64" ];
-    gateway = [ "208.87.130.1" "2602:ff16:4::1" ];
   };
 
   services.year-of-bot = {
