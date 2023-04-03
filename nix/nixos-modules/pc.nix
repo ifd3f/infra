@@ -189,5 +189,5 @@ in {
 
   virtualisation.anbox.enable = true;
 
-  i18n.inputMethod.enabled = "fcitx";
+  i18n.inputMethod.enabled = "fcitx5";
 }
