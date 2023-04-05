@@ -120,7 +120,7 @@ with lib; rec {
             installables =
               map (attr: ''"$TARGET_FLAKE#"'' + escapeShellArg attr) buildList;
             args = concatStringsSep " " installables;
-          in "GC_DONT_GC=1 nix build --show-trace ${args}";
+          in "GC_DONT_GC=1 nix build --show-trace --log-lines 10000 ${args}";
           env.TARGET_FLAKE = ghexpr "env.TARGET_FLAKE";
         };
 
