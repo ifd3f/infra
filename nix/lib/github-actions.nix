@@ -139,8 +139,7 @@ with lib; rec {
           run = ''
             GC_DONT_GC=1 nix run --show-trace "$TARGET_FLAKE#$deploy_flake_attr"'';
           "if" = ghexpr
-            ("(github.event_name == 'workflow_call' && inputs.deploy) || "
-              + "(github.event_name != 'workflow_call' && github.ref == 'refs/heads/main')");
+            "github.event_name == 'push' && github.ref == 'refs/heads/main'";
           env = {
             deploy_flake_attr = deploy;
             TARGET_FLAKE = ghexpr "env.TARGET_FLAKE";
@@ -162,7 +161,7 @@ with lib; rec {
         (optional (build != [ ]) buildStep)
         (optional (run != null) runStep)
         (optional (deploy != null) deployStep)
-        (logStep)
+        logStep
       ];
     };
 
