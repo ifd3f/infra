@@ -381,8 +381,7 @@ jobs:
       - env:
           TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
           deploy_flake_attr: nixosConfigurations.amiya.config.astral.ci.deploy-package
-        if: ${{ (github.event_name == 'workflow_call' && inputs.deploy) || (github.event_name
-          != 'workflow_call' && github.ref == 'refs/heads/main') }}
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
         name: Deploy with nixosConfigurations.amiya.config.astral.ci.deploy-package
         run: GC_DONT_GC=1 nix run --show-trace "$TARGET_FLAKE#$deploy_flake_attr"
       - if: ${{ always() }}
@@ -584,8 +583,7 @@ jobs:
       - env:
           TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
           deploy_flake_attr: nixosConfigurations.diluc.config.astral.ci.deploy-package
-        if: ${{ (github.event_name == 'workflow_call' && inputs.deploy) || (github.event_name
-          != 'workflow_call' && github.ref == 'refs/heads/main') }}
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
         name: Deploy with nixosConfigurations.diluc.config.astral.ci.deploy-package
         run: GC_DONT_GC=1 nix run --show-trace "$TARGET_FLAKE#$deploy_flake_attr"
       - if: ${{ always() }}
@@ -633,8 +631,7 @@ jobs:
       - env:
           TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
           deploy_flake_attr: nixosConfigurations.durin.config.astral.ci.deploy-package
-        if: ${{ (github.event_name == 'workflow_call' && inputs.deploy) || (github.event_name
-          != 'workflow_call' && github.ref == 'refs/heads/main') }}
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
         name: Deploy with nixosConfigurations.durin.config.astral.ci.deploy-package
         run: GC_DONT_GC=1 nix run --show-trace "$TARGET_FLAKE#$deploy_flake_attr"
       - if: ${{ always() }}
@@ -781,8 +778,7 @@ jobs:
       - env:
           TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
           deploy_flake_attr: nixosConfigurations.yato.config.astral.ci.deploy-package
-        if: ${{ (github.event_name == 'workflow_call' && inputs.deploy) || (github.event_name
-          != 'workflow_call' && github.ref == 'refs/heads/main') }}
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
         name: Deploy with nixosConfigurations.yato.config.astral.ci.deploy-package
         run: GC_DONT_GC=1 nix run --show-trace "$TARGET_FLAKE#$deploy_flake_attr"
       - if: ${{ always() }}
