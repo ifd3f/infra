@@ -12,6 +12,8 @@ with lib; {
     microsoft-surface-pro-intel
   ]);
 
+  microsoft-surface.kernelVersion = "6.1.18";
+
   time.timeZone = "US/Pacific";
 
   # so i can be a *gamer*
