@@ -37,9 +37,7 @@ with lib; {
     networkmanager.enable = true;
 
     # Primary internet connection with a bridge
-    bridges.br0.interfaces = [ "enp5s0" ];
     interfaces.enp5s0.useDHCP = true;
-    interfaces.br0.useDHCP = true;
   };
 
   boot = {
