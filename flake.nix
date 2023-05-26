@@ -59,10 +59,8 @@
 
     vault-secrets.url = "github:serokell/vault-secrets";
 
-    armqr = {
-      url = "github:ifd3f/armqr";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-    };
+    # TODO update armqr
+    armqr.url = "github:ifd3f/armqr";
 
     year-of-bot.url = "github:ifd3f/year-of-bot";
 
