@@ -258,10 +258,10 @@
         "type": "github"
       }
     },
-    "home-manager-unstable": {
+    "home-manager-stable": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgs-unstable"
+          "nixpkgs-stable"
         ]
       },
       "locked": {
@@ -636,7 +636,7 @@
         "catgpt": "catgpt",
         "flake-utils": "flake-utils_4",
         "googlebird": "googlebird",
-        "home-manager-unstable": "home-manager-unstable",
+        "home-manager-stable": "home-manager-stable",
         "nix-ld": "nix-ld",
         "nixos-generators": "nixos-generators",
         "nixos-hardware": "nixos-hardware",

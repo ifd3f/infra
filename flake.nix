@@ -27,9 +27,10 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
-    home-manager-unstable = {
+    # TODO put it on release-23.05 when they make one
+    home-manager-stable = {
       url = "github:nix-community/home-manager/master";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
     # Temporarily use older version due to it being broken.
@@ -87,13 +88,13 @@
   };
 
   outputs = { self, nixpkgs-unstable, nixpkgs-stable, nixpkgs-php74
-    , nixos-vscode-server, flake-utils, nix-ld, nur, home-manager-unstable
+    , nixos-vscode-server, flake-utils, nix-ld, nur, home-manager-stable
     , nixos-generators, vault-secrets, armqr, year-of-bot, nur-ifd3f
     , vendored-emojis, catgpt, blurred-horse-bot, akkoma-exporter
     , googlebird, ... }@inputs:
     let
       nixpkgs = nixpkgs-unstable;
-      home-manager = home-manager-unstable;
+      home-manager = home-manager-stable;
       lib = nixpkgs.lib;
 
       vscode-server-home =
