@@ -4,12 +4,12 @@
   inputs = {
     flake-utils.url = "github:numtide/flake-utils";
 
-    # PCs and dev shells are on unstable because I want
-    # bleeding-edge software to cut myself on.
+    # If a more bleeding-edge feature or package is needed, we will import
+    # it from unstable.
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    # Servers run on the stable versions because they're less
-    # likely to have breaking updates.
+    # Machines run on nixpkgs-stable because it's less likely to break
+    # in annoying ways.
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-23.05";
 
     # We need PHP 7.4 for piwigo to work correctly.
@@ -54,31 +54,31 @@
 
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
     vault-secrets.url = "github:serokell/vault-secrets";
 
     armqr = {
       url = "github:ifd3f/armqr";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
     year-of-bot.url = "github:ifd3f/year-of-bot";
 
     catgpt = {
       url = "github:ifd3f/catgpt";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
     googlebird = {
       url = "github:ifd3f/Google-Bird";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
     blurred-horse-bot = {
       url = "github:ifd3f/horse-diffusion";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
     akkoma-exporter.url = "github:ifd3f/akkoma-exporter";
@@ -93,7 +93,7 @@
     , vendored-emojis, catgpt, blurred-horse-bot, akkoma-exporter
     , googlebird, ... }@inputs:
     let
-      nixpkgs = nixpkgs-unstable;
+      nixpkgs = nixpkgs-stable;
       home-manager = home-manager-stable;
       lib = nixpkgs.lib;
 
@@ -119,7 +119,7 @@
       }) // {
         lib = import ./nix/lib {
           inherit self inputs;
-          defaultNixpkgs = nixpkgs-unstable;
+          defaultNixpkgs = nixpkgs-stable;
         };
 
         checks = import ./nix/checks { inherit self lib; };
