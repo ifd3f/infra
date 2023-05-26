@@ -10,7 +10,7 @@
 
     # Servers run on the stable versions because they're less
     # likely to have breaking updates.
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-22.11";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-23.05";
 
     # We need PHP 7.4 for piwigo to work correctly.
     # It is removed in 22.11.
