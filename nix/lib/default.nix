@@ -1,5 +1,5 @@
 { self, defaultNixpkgs, inputs, system ? null }:
-let inherit (inputs.nixpkgs-unstable) lib;
+let inherit (inputs.nixpkgs-stable) lib;
 in rec {
   ifd3f-ca = import ../../ca { inherit lib; };
   sshKeyDatabase = import ../../ssh_keys;

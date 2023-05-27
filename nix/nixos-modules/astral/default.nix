@@ -1,7 +1,7 @@
 { inputs, ... }: {
   imports = [
     inputs.nix-ld.nixosModules.nix-ld
-    inputs.home-manager-unstable.nixosModule
+    inputs.home-manager-stable.nixosModule
     ./hw
 
     ({ pkgs, inputs, ... }: {

@@ -22,8 +22,8 @@ let
       nodePackages.prettier
       pwgen
       python3
-      step-ca
-      step-cli
+      #step-ca
+      #step-cli
       tcpdump
       terraform
       terraform-ls
