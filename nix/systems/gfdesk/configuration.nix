@@ -46,7 +46,6 @@ with lib; {
   boot = {
     loader.grub = {
       enable = true;
-      version = 2;
       copyKernels = true;
       # HP G8 only supports BIOS, not UEFI
       device = "/dev/disk/by-id/wwn-0x600508b1001c5e757c79ba52c727a91f";

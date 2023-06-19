@@ -11,7 +11,6 @@
       device = "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi0";
       efiSupport = false;
       enable = true;
-      version = 2;
     };
   };
 
