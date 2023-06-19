@@ -67,7 +67,6 @@ with lib; {
         devices = [ "nodev" ];
         efiSupport = true;
         enable = true;
-        version = 2;
         useOSProber = true;
         splashImage = ./banana-grub-bg-dark.jpg;
       };
