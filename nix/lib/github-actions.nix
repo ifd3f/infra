@@ -83,7 +83,7 @@ with lib; rec {
 
         setupSteps = [
           {
-            "uses" = "webfactory/ssh-agent@v0.7.0";
+            "uses" = "webfactory/ssh-agent@v0.8.0";
             "with".ssh-private-key = ghexpr "secrets.SSH_PRIVATE_KEY";
           }
           {
@@ -95,7 +95,7 @@ with lib; rec {
             env.KNOWN_HOSTS = ghexpr "env.KNOWN_HOSTS";
           }
           {
-            "uses" = "cachix/install-nix-action@v20";
+            "uses" = "cachix/install-nix-action@v22";
             "with" = {
               nix_path = "nixpkgs=channel:nixos-unstable";
               extra_nix_config = ''

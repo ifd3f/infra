@@ -43,7 +43,7 @@ jobs:
     needs: []
     runs-on: macos-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.8.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - env:
@@ -54,7 +54,7 @@ jobs:
           echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
 
           '
-      - uses: cachix/install-nix-action@v20
+      - uses: cachix/install-nix-action@v22
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -84,7 +84,7 @@ jobs:
     needs: []
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.8.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - env:
@@ -95,7 +95,7 @@ jobs:
           echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
 
           '
-      - uses: cachix/install-nix-action@v20
+      - uses: cachix/install-nix-action@v22
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -125,7 +125,7 @@ jobs:
     needs: []
     runs-on: macos-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.8.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - env:
@@ -136,7 +136,7 @@ jobs:
           echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
 
           '
-      - uses: cachix/install-nix-action@v20
+      - uses: cachix/install-nix-action@v22
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -166,7 +166,7 @@ jobs:
     needs: []
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.8.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - env:
@@ -177,7 +177,7 @@ jobs:
           echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
 
           '
-      - uses: cachix/install-nix-action@v20
+      - uses: cachix/install-nix-action@v22
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -212,7 +212,7 @@ jobs:
       - home-manager-x86_64-linux
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.8.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - env:
@@ -223,7 +223,7 @@ jobs:
           echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
 
           '
-      - uses: cachix/install-nix-action@v20
+      - uses: cachix/install-nix-action@v22
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -267,7 +267,7 @@ jobs:
           df -h
 
           '
-      - uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.8.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - env:
@@ -278,7 +278,7 @@ jobs:
           echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
 
           '
-      - uses: cachix/install-nix-action@v20
+      - uses: cachix/install-nix-action@v22
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -309,7 +309,7 @@ jobs:
       - home-manager-x86_64-linux
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.8.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - env:
@@ -320,7 +320,7 @@ jobs:
           echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
 
           '
-      - uses: cachix/install-nix-action@v20
+      - uses: cachix/install-nix-action@v22
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -351,7 +351,7 @@ jobs:
       - nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.8.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - env:
@@ -362,7 +362,7 @@ jobs:
           echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
 
           '
-      - uses: cachix/install-nix-action@v20
+      - uses: cachix/install-nix-action@v22
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -413,7 +413,7 @@ jobs:
           df -h
 
           '
-      - uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.8.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - env:
@@ -424,7 +424,7 @@ jobs:
           echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
 
           '
-      - uses: cachix/install-nix-action@v20
+      - uses: cachix/install-nix-action@v22
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -455,7 +455,7 @@ jobs:
       - nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.8.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - env:
@@ -466,7 +466,7 @@ jobs:
           echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
 
           '
-      - uses: cachix/install-nix-action@v20
+      - uses: cachix/install-nix-action@v22
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -511,7 +511,7 @@ jobs:
           df -h
 
           '
-      - uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.8.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - env:
@@ -522,7 +522,7 @@ jobs:
           echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
 
           '
-      - uses: cachix/install-nix-action@v20
+      - uses: cachix/install-nix-action@v22
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -553,7 +553,7 @@ jobs:
       - nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.8.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - env:
@@ -564,7 +564,7 @@ jobs:
           echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
 
           '
-      - uses: cachix/install-nix-action@v20
+      - uses: cachix/install-nix-action@v22
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -601,7 +601,7 @@ jobs:
       - nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.8.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - env:
@@ -612,7 +612,7 @@ jobs:
           echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
 
           '
-      - uses: cachix/install-nix-action@v20
+      - uses: cachix/install-nix-action@v22
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -649,7 +649,7 @@ jobs:
       - nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.8.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - env:
@@ -660,7 +660,7 @@ jobs:
           echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
 
           '
-      - uses: cachix/install-nix-action@v20
+      - uses: cachix/install-nix-action@v22
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -706,7 +706,7 @@ jobs:
           df -h
 
           '
-      - uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.8.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - env:
@@ -717,7 +717,7 @@ jobs:
           echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
 
           '
-      - uses: cachix/install-nix-action@v20
+      - uses: cachix/install-nix-action@v22
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -742,13 +742,27 @@ jobs:
           '
     strategy:
       fail-fast: false
-  nixos-system-yato:
-    name: NixOS sys. yato
+  nixos-system-twinkpaw:
+    name: NixOS sys. twinkpaw
     needs:
-      - nixos-system-__baseServer
+      - nixos-system-__basePC
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.7.0
+      - name: Remove unneccessary packages
+        run: 'echo "=== Before pruning ==="
+
+          df -h
+
+          sudo rm -rf /usr/share /usr/local /opt || true
+
+          echo
+
+          echo "=== After pruning ==="
+
+          df -h
+
+          '
+      - uses: webfactory/ssh-agent@v0.8.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - env:
@@ -759,7 +773,49 @@ jobs:
           echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
 
           '
-      - uses: cachix/install-nix-action@v20
+      - uses: cachix/install-nix-action@v22
+        with:
+          extra_nix_config: 'experimental-features = nix-command flakes
+
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+            '
+          nix_path: nixpkgs=channel:nixos-unstable
+      - uses: cachix/cachix-action@v12
+        with:
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          name: astralbijection
+      - env:
+          TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
+        name: Build targets
+        run: GC_DONT_GC=1 nix build --show-trace --log-lines 10000 --fallback "$TARGET_FLAKE#"'nixosConfigurations.twinkpaw.config.system.build.toplevel'
+      - if: ${{ always() }}
+        name: Log remaining space
+        run: 'echo "=== Space left after build ==="
+
+          df -h
+
+          '
+    strategy:
+      fail-fast: false
+  nixos-system-yato:
+    name: NixOS sys. yato
+    needs:
+      - nixos-system-__baseServer
+    runs-on: ubuntu-latest
+    steps:
+      - uses: webfactory/ssh-agent@v0.8.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - env:
+          KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
+        name: Append to known_hosts
+        run: 'echo ''\n'' >> ~/.ssh/known_hosts
+
+          echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
+
+          '
+      - uses: cachix/install-nix-action@v22
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
@@ -809,7 +865,7 @@ jobs:
           df -h
 
           '
-      - uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.8.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - env:
@@ -820,7 +876,7 @@ jobs:
           echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
 
           '
-      - uses: cachix/install-nix-action@v20
+      - uses: cachix/install-nix-action@v22
         with:
           extra_nix_config: 'experimental-features = nix-command flakes
 
