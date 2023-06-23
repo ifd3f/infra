@@ -1,19 +1,14 @@
-# A NUC that's my media server, hooked up to the telly
+# A USFF Optiplex that's my media server, hooked up to the telly
 { pkgs, lib, inputs, ... }:
 with lib; {
   imports = [
     ./hardware-configuration.nix
     inputs.nixos-hardware.nixosModules.common-cpu-intel
-    ./intel-7260-fix.nix
 
     inputs.self.nixosModules.server
 
     inputs.self.nixosModules.media-server
   ];
-
-  # Apparently, Linux Zen prevents 7260 issue from happening
-  # https://bbs.archlinux.org/viewtopic.php?pid=1830360#p1830360
-  boot.kernelPackages = mkForce pkgs.linuxPackages_zen;
 
   boot.loader = {
     systemd-boot.enable = true;
@@ -23,13 +18,13 @@ with lib; {
   astral = {
     monitoring-node.scrapeTransport = "tailscale";
     tailscale.oneOffKey =
-      "tskey-auth-kFWFLk5CNTRL-RAV9nFFeYsfE4LzP9g5ErfmDptdyAcy4A";
+      "tskey-auth-ka8GwW6CNTRL-buTFdt8S7P7Cmpwb1uQiM797EGYiPfc3";
   };
 
   networking = {
     hostName = "bonney";
     domain = "h.astrid.tech";
-    hostId = "49e32584";
+    hostId = "f0097b23";
 
     networkmanager.enable = true;
   };
