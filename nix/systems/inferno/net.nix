@@ -2,15 +2,7 @@
 with lib; {
   networking.firewall.enable = mkForce false;
 
-  networking.useDHCP = false; # DHCP not by default
-  networking.interfaces.tmplan.useDHCP = true;
-
-  networking.bridges = {
-    tmplan.interfaces = [ "enp0s31f6" "sw.user" ];
-    mgmt.interfaces = [ "sw.mgmt" ];
-    iot.interfaces = [ "sw.iot" ];
-    infra.interfaces = [ "sw.infra" ];
-  };
+  networking.useDHCP = true;
 
   networking.vlans = {
     "sw.mgmt" = {
