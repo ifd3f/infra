@@ -38,11 +38,13 @@
       file
       iftop
       iotop
+      iperf
       neofetch
       nmap
       p7zip
       pciutils
       psmisc
+      speedtest-rs
       tcpdump
       unzip
       usbutils
