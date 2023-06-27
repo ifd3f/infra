@@ -40,8 +40,7 @@ with lib; {
       devices = [ "nodev" ];
       efiSupport = true;
       enable = true;
-      useOSProber = true;
-      # splashImage = TODO;
+      splashImage = ./bg.jpg;
     };
   };
 }
