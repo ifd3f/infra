@@ -34,6 +34,7 @@
       bind
       ed
       elinks
+      ethtool
       file
       iftop
       iotop
