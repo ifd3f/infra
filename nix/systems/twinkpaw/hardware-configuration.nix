@@ -13,17 +13,17 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/7361e2b9-e00b-4702-89f1-6153034d939c";
+    device = "/dev/disk/by-uuid/63de3b42-fea5-4914-a8e7-b3e679c0f42d";
     fsType = "xfs";
   };
 
   fileSystems."/home" = {
-    device = "/dev/disk/by-uuid/ca64873c-3681-471a-b8c0-30368c4dc34a";
+    device = "/dev/disk/by-uuid/a62291f4-2495-4923-b7ea-140a1cf1c978";
     fsType = "xfs";
   };
 
   fileSystems."/nix" = {
-    device = "/dev/disk/by-uuid/3e0d800b-1010-472f-9f94-407737c77cd8";
+    device = "/dev/disk/by-uuid/8a679539-02bd-4260-bcf9-0dec389fb038";
     fsType = "xfs";
   };
 
