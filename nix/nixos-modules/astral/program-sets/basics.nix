@@ -42,6 +42,7 @@
       p7zip
       pciutils
       psmisc
+      tcpdump
       unzip
       usbutils
       uwufetch
