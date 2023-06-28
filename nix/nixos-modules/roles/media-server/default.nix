@@ -29,8 +29,14 @@ in with lib; {
       user = "tv";
     };
 
+    displayManager.defaultSession = "gnome";
+
     desktopManager.kodi.enable = true;
+    desktopManager.gnome.enable = true;
   };
+
+  programs.firefox.enable = true;
+  programs.gnome-terminal.enable = true;
 
   systemd.services.media-server-secrets = {
     requiredBy = [ "openvpn-surfshark.service" ];
@@ -103,5 +109,5 @@ in with lib; {
     fallbackDns = [ "162.252.172.57" "149.154.159.92" ];
   };
 
-  environment.systemPackages = with pkgs; [ tcpdump ];
+  environment.systemPackages = with pkgs; [ vlc ];
 }
