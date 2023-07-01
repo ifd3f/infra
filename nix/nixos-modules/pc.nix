@@ -187,7 +187,5 @@ in {
     groups.dnsmasq-extra-hosts = { };
   };
 
-  virtualisation.anbox.enable = true;
-
   i18n.inputMethod.enabled = "fcitx5";
 }

@@ -27,9 +27,8 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
-    # TODO put it on release-23.05 when they make one
     home-manager-stable = {
-      url = "github:nix-community/home-manager/master";
+      url = "github:nix-community/home-manager/release-23.05";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
@@ -101,6 +100,7 @@
       "x86_64-linux"
       "aarch64-linux"
       "x86_64-darwin"
+      "aarch64-darwin"
     ] (system:
       let
         pkgs = import nixpkgs {

@@ -52,7 +52,6 @@ with lib; {
         devices = [ "nodev" ];
         efiSupport = true;
         enable = true;
-        version = 2;
         useOSProber = true;
         extraConfig = ''
           GRUB_TERMINAL=console

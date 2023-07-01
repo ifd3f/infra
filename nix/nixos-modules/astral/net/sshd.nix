@@ -10,8 +10,10 @@ with lib; {
   in mkIf cfg.enable {
     services.openssh = {
       enable = true;
-      passwordAuthentication = false;
-      permitRootLogin = "no";
+      settings = {
+        PasswordAuthentication = false;
+        PermitRootLogin = "no";
+      };
     };
 
     # Open ports in the firewall.

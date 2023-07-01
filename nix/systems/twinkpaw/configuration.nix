@@ -40,15 +40,7 @@ with lib; {
       devices = [ "nodev" ];
       efiSupport = true;
       enable = true;
-      version = 2;
-      useOSProber = true;
-      # splashImage = TODO;
-    };
-  };
-
-  boot.initrd.luks.devices = {
-    cryptroot = {
-      device = "/dev/disk/by-uuid/013a892f-48ce-432c-a9bb-9b57d8f0d6b5";
+      splashImage = ./bg.jpg;
     };
   };
 }
