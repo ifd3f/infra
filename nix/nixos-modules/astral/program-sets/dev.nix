@@ -11,10 +11,8 @@
       cachix
       ckan
       cmatrix
-      firefox-devedition-bin
       gh
       ghidra
-      gitkraken
       hackrf
       imagemagick
       jetbrains.idea-ultimate
