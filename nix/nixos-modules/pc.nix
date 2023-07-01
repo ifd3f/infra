@@ -46,8 +46,6 @@ in {
 
   environment.systemPackages = with pkgs; [
     ark
-    exfat
-    exfatprogs
     gajim
     home-manager
     nextcloud-client
