@@ -13,14 +13,16 @@
       cmatrix
       firefox-devedition-bin
       gh
+      ghidra
       gitkraken
+      hackrf
       imagemagick
       jetbrains.idea-ultimate
       lolcat
       nixfmt
+      sdrpp
+      soapysdr-with-plugins
       vscode
-
-      ghidra
       wireshark
 
       (gnuradio3_8.override {
@@ -32,9 +34,6 @@
           limesdr
         ];
       })
-      hackrf
-      sdrpp
-      soapysdr-with-plugins
     ];
   };
 }
