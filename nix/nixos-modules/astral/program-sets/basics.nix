@@ -15,40 +15,35 @@
     };
 
     environment.systemPackages = with pkgs; [
-      # Download stuff from the internet
-      git
-      git-lfs
-      curl
-      wget
-
-      # Useful scripting utilities
-      envsubst
-      jq
-      mktemp
-      python3
-      tree
-      unixtools.xxd
-      yq
-
-      # Other utilities
       bind
+      curl
       ed
       elinks
+      envsubst
       ethtool
       file
+      git
+      git-lfs
       iftop
       iotop
       iperf
+      jq
+      mktemp
       neofetch
       nmap
       p7zip
       pciutils
       psmisc
+      python3
       speedtest-rs
       tcpdump
+      tree
+      unixtools.xxd
       unzip
       usbutils
       uwufetch
+      wget
+      yq
       zip
     ];
   };
