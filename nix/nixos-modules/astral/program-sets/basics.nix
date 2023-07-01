@@ -11,25 +11,33 @@
       };
 
       # Just in case the SSH connection is lost and I'm running something long
-      tmux = { enable = true; };
+      tmux.enable = true;
     };
 
     environment.systemPackages = with pkgs; [
       bind
+      bitwarden-cli
       curl
+      dnsutils
       ed
       elinks
       envsubst
       ethtool
       file
+      gh
       git
       git-lfs
       iftop
+      inetutils
       iotop
       iperf
+      iputils
       jq
       mktemp
       neofetch
+      netcat
+      exfat
+      exfatprogs
       nmap
       p7zip
       pciutils
