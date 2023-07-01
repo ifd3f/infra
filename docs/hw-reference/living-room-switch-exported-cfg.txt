@@ -1,0 +1,93 @@
+!T2500G-10TS
+#
+vlan 10,20,50,69
+#
+vlan 10
+name "user"
+#
+vlan 20
+name "iot"
+#
+vlan 50
+name "srv"
+#
+vlan 69
+name "mgmt"
+#
+#
+#
+#
+#
+hostname "Living Room Switch"
+location "SSF"
+contact-info "astrid.tech"
+#
+mac address-table aging-time 300
+#
+logging buffer 6
+no logging file flash
+#
+#
+no service password-encryption
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+port-channel load-balance src-dst-mac
+#
+#
+#
+#
+#
+interface gigabitEthernet 1/0/1
+  switchport mode trunk
+  switchport trunk allowed vlan 10,20,69
+#
+interface gigabitEthernet 1/0/2
+  switchport mode trunk
+  switchport trunk allowed vlan 10,20,69
+#
+interface gigabitEthernet 1/0/3
+  switchport mode trunk
+  switchport trunk allowed vlan 10,20,69
+#
+interface gigabitEthernet 1/0/4
+  switchport access vlan 10
+#
+interface gigabitEthernet 1/0/5
+  switchport access vlan 10
+#
+interface gigabitEthernet 1/0/6
+  switchport mode trunk
+  switchport trunk allowed vlan 10,20,69
+#
+interface gigabitEthernet 1/0/7
+  switchport access vlan 69
+#
+interface gigabitEthernet 1/0/8
+  switchport access vlan 10
+#
+interface gigabitEthernet 1/0/9
+  switchport mode trunk
+  switchport trunk allowed vlan 10,20,69
+  speed 1000
+  duplex full
+#
+interface gigabitEthernet 1/0/10
+  switchport mode trunk
+  switchport trunk allowed vlan 10,20,69
+  speed 1000
+  duplex full
+#
+ip management-vlan 69
+interface vlan 69
+ip address 192.168.69.3 255.255.255.0
+#
+#
+end
