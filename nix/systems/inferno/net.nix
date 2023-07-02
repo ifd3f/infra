@@ -3,13 +3,24 @@ with lib; {
   networking.firewall.enable = mkForce false;
 
   networking.useDHCP = false; # DHCP not by default
-  networking.interfaces.tmplan.useDHCP = true;
+  networking.interfaces = {
+    br-user.useDHCP = true;
+
+    br-mgmt = {
+      useDHCP = false;
+      ipv4.addresses = [{
+        address = "192.168.69.4";
+        prefixLength = 16;
+      }];
+    };
+  };
 
   networking.bridges = {
-    tmplan.interfaces = [ "enp0s31f6" "sw.user" ];
-    mgmt.interfaces = [ "sw.mgmt" ];
-    iot.interfaces = [ "sw.iot" ];
-    infra.interfaces = [ "sw.infra" ];
+    br-mb.interfaces = [ "enp0s31f6" ];
+    br-swtrunk.interfaces = [ "enp3s0" ];
+
+    br-user.interfaces = [ "sw.user" ];
+    br-mgmt.interfaces = [ "sw.mgmt" ];
   };
 
   networking.vlans = {
@@ -20,16 +31,6 @@ with lib; {
 
     "sw.user" = {
       id = 10;
-      interface = "enp3s0";
-    };
-
-    "sw.iot" = {
-      id = 100;
-      interface = "enp3s0";
-    };
-
-    "sw.infra" = {
-      id = 50;
       interface = "enp3s0";
     };
   };
