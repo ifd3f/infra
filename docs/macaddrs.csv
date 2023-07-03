@@ -3,6 +3,7 @@ gfdesk,eno1,rightmost,d8:9d:67:26:46:3c
 gfdesk,eno2,,d8:9d:67:26:46:3d
 gfdesk,eno3,,d8:9d:67:26:46:3e
 gfdesk,eno4,leftmost,d8:9d:67:26:46:3f
+gfdesk-ilo,,,B4:B5:2F:EC:D3:A6
 banana,enp8s0,,e8:6a:64:99:5d:46
 banana,wlp7s0,,0c:96:e6:9f:2b:7d
 cracktop,enp3s0,,dc:4a:3e:a6:7c:e7
