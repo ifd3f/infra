@@ -13,38 +13,43 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/3765a270-e97e-49b5-b94e-96d926dfa7d0";
-    fsType = "ext4";
+    device = "rootfs";
+    fsType = "tmpfs";
   };
 
   fileSystems."/nix" = {
-    device = "rpool/local/nix";
+    device = "ssdpool/nix";
     fsType = "zfs";
   };
 
   fileSystems."/home" = {
-    device = "dpool/safe/home";
+    device = "ssdpool/home";
     fsType = "zfs";
   };
 
   fileSystems."/var" = {
-    device = "rpool/safe/var";
+    device = "ssdpool/var";
     fsType = "zfs";
   };
 
-  fileSystems."/tmp" = {
-    device = "rpool/local/tmp";
-    fsType = "zfs";
-  };
-
-  fileSystems."/var/lib/libvirt" = {
-    device = "dpool/safe/libvirt";
-    fsType = "zfs";
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/C2BA-585D";
+    fsType = "vfat";
   };
 
   swapDevices = [ ];
 
+  # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
+  # (the default) this is the recommended approach. When using systemd-networkd it's
+  # still possible to use this option, but it's recommended to use it in conjunction
+  # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
+  networking.useDHCP = lib.mkDefault true;
+  # networking.interfaces.eno1.useDHCP = lib.mkDefault true;
+  # networking.interfaces.eno2.useDHCP = lib.mkDefault true;
+  # networking.interfaces.eno3.useDHCP = lib.mkDefault true;
+  # networking.interfaces.eno4.useDHCP = lib.mkDefault true;
+
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode =
     lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
-
