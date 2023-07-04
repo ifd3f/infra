@@ -1,7 +1,8 @@
 # Firewall VM host machine.
 { pkgs, lib, inputs, modulesPath, ... }:
 with lib; {
-  imports = [ ./hardware-configuration.nix inputs.self.nixosModules.server ];
+  imports =
+    [ ./hardware-configuration.nix inputs.self.nixosModules.server ./net.nix ];
 
   astral = {
     monitoring-node.scrapeTransport = "tailscale";
