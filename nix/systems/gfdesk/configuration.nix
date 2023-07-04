@@ -1,7 +1,15 @@
 # The desk that is used by Good Friends.
-{ config, lib, pkgs, inputs, ... }:
+{ lib, inputs, modulesPath, ... }:
 with lib; {
-  imports = [ ./hardware-configuration.nix inputs.self.nixosModules.server ];
+  imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
+
+    inputs.self.nixosModules.server
+
+    ./boot.nix
+    ./fs.nix
+    ./net.nix
+  ];
 
   astral = {
     users.alia.enable = true;
@@ -20,13 +28,5 @@ with lib; {
     domain = "h.astrid.tech";
 
     hostId = "6d1020a1"; # Required for ZFS
-    useDHCP = false;
-  };
-
-  # Use the GRUB boot loader. Note that HP G8 only supports BIOS, not UEFI.
-  boot.loader.grub = {
-    enable = true;
-    copyKernels = true;
-    device = "/dev/disk/by-id/usb-HP_iLO_Internal_SD-CARD_000002660A01-0:0";
   };
 }
