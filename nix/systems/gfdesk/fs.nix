@@ -20,6 +20,11 @@
     fsType = "zfs";
   };
 
+  fileSystems."/etc" = {
+    device = "ssdpool/etc";
+    fsType = "zfs";
+  };
+
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/18E0-62AE";
     fsType = "vfat";
