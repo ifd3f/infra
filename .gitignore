@@ -3,7 +3,7 @@ matrix.json
 result
 .direnv
 *.iso
-*.tar 
+*.tar
 *.tar.gz
 *.tar.bz2
 *.qcow2
@@ -18,3 +18,5 @@ result
 *.key
 *.csr
 
+# Watchman cookies (no more "Watchman would like to access your Documents folder")
+.watchman-cookie-*
