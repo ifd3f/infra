@@ -6,7 +6,7 @@
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/59f761af-8370-4cc4-819e-593aee41d887";
+    device = "/dev/disk/by-uuid/8abd40bb-72a3-4334-b7bc-108fbcd4c1a4";
     fsType = "ext4";
   };
 
