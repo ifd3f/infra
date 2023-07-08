@@ -4,7 +4,7 @@ with lib; {
   boot.loader.grub = {
     enable = true;
     copyKernels = true;
-    device = "/dev/disk/by-id/scsi-3600508b1001c8de11fa59a8fab10513d";
+    device = "/dev/disk/by-id/wwn-0x600508b1001c8de11fa59a8fab10513d";
     splashImage = ./homura.jpg;
   };
 

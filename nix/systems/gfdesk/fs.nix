@@ -2,7 +2,7 @@
   fileSystems."/" = {
     device = "rootfs";
     fsType = "tmpfs";
-    options = [ "size=256M" ];
+    options = [ "defaults" "size=256M" "mode=755" ];
   };
 
   fileSystems."/boot" = {
