@@ -19,6 +19,8 @@ with lib; {
     };
     monitoring-node.scrapeTransport = "tailscale";
     tailscale.enable = mkForce false;
+
+    backup.db.enable = true;
   };
 
   time.timeZone = "US/Pacific";
@@ -28,5 +30,14 @@ with lib; {
     domain = "h.astrid.tech";
 
     hostId = "6d1020a1"; # Required for ZFS
+  };
+
+  services.postgresql = {
+    enable = true;
+    ensureDatabases = [ "akkoma" ];
+    ensureUsers = [{
+      name = "akkoma";
+      ensurePermissions = { "DATABASE \"akkoma\"" = "ALL PRIVILEGES"; };
+    }];
   };
 }
