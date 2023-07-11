@@ -70,6 +70,8 @@ in {
         healthcheck = true;
         cleanup_attachments = true;
         allow_relay = true;
+
+        export_prometheus_metrics = true;
       };
       ":pleroma".":mrf" = {
         policies = map mkRaw [ "Pleroma.Web.ActivityPub.MRF.SimplePolicy" ];
