@@ -21,7 +21,7 @@
     hostName = "diluc";
     domain = "h.astrid.tech";
 
-    firewall.allowedTCPPorts = [ 80 443 ];
+    firewall.allowedTCPPorts = [ 80 443 5432 ];
     interfaces.ens18.ipv6.addresses = [{
       address = "2a02:c207:2087:999::1";
       prefixLength = 128;
