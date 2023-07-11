@@ -6,7 +6,6 @@ with lib; {
 
     inputs.self.nixosModules.server
 
-    inputs.self.nixosModules.auth-dns
     inputs.self.nixosModules.ejabberd
     inputs.self.nixosModules.loki-server
     inputs.self.nixosModules.nextcloud
