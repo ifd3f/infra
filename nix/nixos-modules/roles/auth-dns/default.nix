@@ -1,5 +1,12 @@
-{ pkgs, lib, ... }:
-with lib; {
+{ config, pkgs, lib, ... }:
+let
+  vs = config.vault-secrets.secrets."ddns-key";
+  binddir = config.services.bind.directory;
+in with lib; {
+  # vault kv put kv/ddns-key/secrets \
+  #   s03=@
+  vault-secrets.secrets."ddns-key" = { user = "named"; };
+
   networking.firewall.allowedUDPPorts = [ 53 ];
 
   # Disable resolvconf DNS
@@ -14,9 +21,8 @@ with lib; {
 
   services.bind = {
     enable = true;
-    
-    cacheNetworks = mkForce [ "any" ];
 
+    cacheNetworks = mkForce [ "any" ];
 
     # DNS hardening ideas borrowed from https://securitytrails.com/blog/8-tips-to-prevent-dns-attacks
     extraOptions = ''
@@ -40,6 +46,9 @@ with lib; {
       allow-transfer {
         "none";
       };
+
+      // Include s03 key file
+      // include "${binddir}/s03.include.conf";
     '';
 
     extraConfig = ''
@@ -54,6 +63,16 @@ with lib; {
         master = true;
         file = ./astrid.tech.zone;
       }
+      # {
+      #   name = "d.astrid.tech";
+      #   master = true;
+      #   file = "dyn/d.astrid.tech";
+      #   extraConfig = ''
+      #     allow-update { 
+      #       key s03.astrid.tech.;
+      #     };
+      #   '';
+      # }
       {
         name = "aay.tw";
         master = true;
@@ -95,4 +114,34 @@ with lib; {
         locations."/".index = "${host}.jpg";
       };
     }) hosts);
+
+  systemd.services.generate-bind-key-includes = {
+    description = "Generate config includes for BIND keys";
+
+    after = [ "ddns-key-secrets.service" ];
+    requires = [ "ddns-key-secrets.service" ];
+
+    # before = [ "bind.service" ];
+    # requiredBy = [ "bind.service" ];
+
+    path = with pkgs; [ coreutils ];
+    script = ''
+      set -euo pipefail
+
+      secret="$(cat ${vs}/s03)"
+
+      mkdir -p ${binddir}
+      touch ${binddir}/s03.include.conf
+      chmod 600 ${binddir}/s03.include.conf
+
+      echo "
+        key \"s03.d.astrid.tech.\" {
+          algorithm hmac-sha256;
+          secret "$secret";
+        };
+      " > ${binddir}/s03.include.conf
+    '';
+
+    serviceConfig = { User = "named"; };
+  };
 }
