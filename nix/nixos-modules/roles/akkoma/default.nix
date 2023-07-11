@@ -108,17 +108,6 @@ in {
         reject = mkMap blocklist.reject;
         followers_only = mkMap blocklist.followers_only;
       };
-
-      # Less outgoing retries to improve performance
-      ":pleroma".":workers".retries = {
-        federator_incoming = 5;
-        federator_outgoing = 2;
-      };
-
-      # Biggify the pools and pray it works
-      ":connections_pool".":max_connections" = 500;
-      ":pleroma".":http".pool_size = 150;
-      ":pools".":federation".max_connections = 300;
     };
 
     nginx = {
