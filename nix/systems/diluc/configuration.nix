@@ -76,6 +76,12 @@
       log_min_duration_statement = "10s";
       log_autovacuum_min_duration = 0;
     };
+
+    authentication = ''
+      # allow gfdesk_replicator to authenticate
+      host all gfdesk_replicator 0.0.0.0/24 md5
+      host all gfdesk_replicator ::/128 md5
+    '';
   };
 
   virtualisation.vmVariant = {
