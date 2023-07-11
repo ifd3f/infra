@@ -99,3 +99,7 @@ s02                             IN A           71.93.45.217
 ;;; Identity zone
 ipa0.id                         IN AAAA        2a02:c207:2087:999:1::2
 id                              IN NS          ipa0.id.astrid.tech.
+
+;;; DDNS zone
+d                               IN NS          charlie.astrid.tech.
+d                               IN NS          dennis.astrid.tech.

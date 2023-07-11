@@ -46,15 +46,15 @@ in with lib; {
       allow-transfer {
         "none";
       };
-
-      // Include s03 key file
-      // include "${binddir}/s03.include.conf";
     '';
 
     extraConfig = ''
       statistics-channels {
         inet 127.0.0.1 port 8053 allow { localhost; };
       };
+
+      // Include s03 key file
+      include "${binddir}/s03.include.conf";
     '';
 
     zones = [
@@ -63,16 +63,16 @@ in with lib; {
         master = true;
         file = ./astrid.tech.zone;
       }
-      # {
-      #   name = "d.astrid.tech";
-      #   master = true;
-      #   file = "dyn/d.astrid.tech";
-      #   extraConfig = ''
-      #     allow-update { 
-      #       key s03.astrid.tech.;
-      #     };
-      #   '';
-      # }
+      {
+        name = "d.astrid.tech";
+        master = true;
+        file = "d.astrid.tech.zone";
+        extraConfig = ''
+          allow-update { 
+            key s03;
+          };
+        '';
+      }
       {
         name = "aay.tw";
         master = true;
@@ -121,25 +121,29 @@ in with lib; {
     after = [ "ddns-key-secrets.service" ];
     requires = [ "ddns-key-secrets.service" ];
 
-    # before = [ "bind.service" ];
-    # requiredBy = [ "bind.service" ];
+    before = [ "bind.service" ];
+    requiredBy = [ "bind.service" ];
 
     path = with pkgs; [ coreutils ];
     script = ''
-      set -euo pipefail
+      set -euxo pipefail
 
       secret="$(cat ${vs}/s03)"
-
       mkdir -p ${binddir}
       touch ${binddir}/s03.include.conf
       chmod 600 ${binddir}/s03.include.conf
 
+      set +x # Prevent the secret from being echoed
       echo "
-        key \"s03.d.astrid.tech.\" {
+        key \"s03\" {
           algorithm hmac-sha256;
-          secret "$secret";
+          secret \"$secret\";
         };
       " > ${binddir}/s03.include.conf
+      set -x
+
+      # Copy zone file if not exists
+      cp -n ${./d.astrid.tech.zone} ${binddir}/d.astrid.tech.zone
     '';
 
     serviceConfig = { User = "named"; };
