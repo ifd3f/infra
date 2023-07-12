@@ -81,6 +81,11 @@ with lib; {
       # Adjust the minimum time to collect the data
       log_min_duration_statement = "10s";
       log_autovacuum_min_duration = 0;
+
+      # Query stats
+      shared_preload_libraries = "pg_stat_statements";
+      "pg_stat_statements.max" = 10000;
+      "pg_stat_statements.track" = "all";
     };
 
     authentication = ''
