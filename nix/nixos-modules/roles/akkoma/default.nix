@@ -115,7 +115,27 @@ in {
     nginx = {
       enableACME = true;
       forceSSL = true;
+
+      extraConfig = ''
+        access_log /var/log/nginx/akkoma-access.log akkoma_debug;
+      '';
     };
+  };
+
+  services.nginx = {
+    proxyCachePath."akkoma_cache" = {
+      enable = true;
+      keysZoneName = "akkoma_cache";
+      maxSize = "4g";
+      inactive = "1d";
+    };
+    commonHttpConfig = ''
+      log_format akkoma_debug 'remote_addr=$remote_addr time_local=[$time_local] '
+        'request="$request" status=$status body_bytes_sent=$body_bytes_sent '
+        'referer="$http_referer" user_agent="$http_user_agent" gzip_ratio=$gzip_ratio '
+        'request_time=$request_time '
+        'upstream_response_time=$upstream_response_time';
+    '';
   };
 
   services.postgresql.enable = true;
