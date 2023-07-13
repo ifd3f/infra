@@ -84,11 +84,6 @@ bennett.h                       IN A           154.53.59.80
 amiya.h                         IN A           208.87.130.175
                                 IN AAAA        2602:ff16:4:0:1:214:0:1
 
-; Site 02 devices. TODO: proper DDNS
-ghoti.h                         IN A           192.168.50.235
-bonney.h                        IN A           192.168.50.237
-
-
 ;;; Sites
 s00                             IN A           24.23.210.97
 s02                             IN A           71.93.45.217
