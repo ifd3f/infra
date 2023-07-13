@@ -30,6 +30,8 @@ with lib; {
     domain = "h.astrid.tech";
 
     hostId = "6d1020a1"; # Required for ZFS
+
+    firewall.allowedTCPPorts = [ 5432 ];
   };
 
   services.postgresql = {
@@ -39,5 +41,17 @@ with lib; {
       name = "akkoma";
       ensurePermissions = { "DATABASE \"akkoma\"" = "ALL PRIVILEGES"; };
     }];
+
+    settings = {
+      listen_addresses = mkForce "*";
+      ssl = "on";
+      ssl_cert_file = "/var/lib/postgresql/server.crt";
+      ssl_key_file = "/var/lib/postgresql/server.key";
+    };
+
+    authentication = ''
+      hostssl all akkoma 0.0.0.0/0 md5
+      hostssl all akkoma ::/0 md5
+    '';
   };
 }
