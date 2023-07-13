@@ -22,10 +22,12 @@ with lib; {
 
   virtualisation.lxd.enable = true;
 
-  # Nvidia configs, following this page https://nixos.wiki/wiki/Nvidia
-  services.xserver.displayManager = {
-    startx.enable = false;
-    lightdm.enable = true;
+  services.xserver = {
+    displayManager = {
+      startx.enable = false;
+      lightdm.enable = true;
+    };
+    desktopManager.xfce.enable = true;
   };
 
   services.blueman.enable = true;
