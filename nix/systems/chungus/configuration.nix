@@ -24,8 +24,8 @@ with lib; {
 
   # Nvidia configs, following this page https://nixos.wiki/wiki/Nvidia
   services.xserver.displayManager = {
-    startx.enable = true;
-    lightdm.enable = lib.mkForce false;
+    startx.enable = false;
+    lightdm.enable = true;
   };
 
   services.blueman.enable = true;
