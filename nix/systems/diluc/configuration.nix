@@ -90,8 +90,8 @@ with lib; {
 
     authentication = ''
       # allow gfdesk_replicator to authenticate
-      hostssl all gfdesk_replicator 0.0.0.0/0 md5
-      hostssl all gfdesk_replicator ::/0 md5
+      hostssl replication gfdesk_replicator 0.0.0.0/0 md5
+      hostssl replication gfdesk_replicator ::/0 md5
     '';
   };
 
