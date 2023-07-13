@@ -65,7 +65,6 @@ with lib; {
 
       # Checkpoint Related Configuration
       min_wal_size = "2GB";
-      max_wal_size = "3GB";
       checkpoint_completion_target = 0.9;
       wal_buffers = -1;
 
@@ -86,6 +85,13 @@ with lib; {
       shared_preload_libraries = "pg_stat_statements";
       "pg_stat_statements.max" = 10000;
       "pg_stat_statements.track" = "all";
+
+      # Enable streaming replication as master
+      wal_level = "logical";
+      wal_log_hints = "on";
+      max_wal_senders = 8;
+      max_wal_size = "1GB";
+      hot_standby = "on";
     };
 
     authentication = ''
