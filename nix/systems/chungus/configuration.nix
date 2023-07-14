@@ -10,7 +10,8 @@ with lib; {
 
   time.timeZone = "US/Pacific";
 
-  astral.tailscale.enable = mkForce false;
+  astral.tailscale.oneOffKey =
+    "tskey-auth-kCDetm2CNTRL-3bYunP5bKyUL7q7gdE9DxUHjinjQuZPZ";
   astral.vfio = {
     enable = true;
     iommu-mode = "amd_iommu";

@@ -18,7 +18,8 @@ with lib; {
       libvirt.enable = true;
     };
     monitoring-node.scrapeTransport = "tailscale";
-    tailscale.enable = mkForce false;
+    tailscale.oneOffKey =
+      "tskey-auth-kw1UVH6CNTRL-SfhN6EEVv3A74NvnoJRA5Azutj6eJYwVc";
 
     backup.db.enable = true;
   };
