@@ -23,7 +23,7 @@ in {
   astral.custom-nginx-errors.virtualHosts = [ "fedi.astrid.tech" ];
 
   services.akkoma = {
-    enable = true;
+    enable = false;
     extraStatic = {
       "static/terms-of-service.html" =
         wrapFile "terms-of-service.html" ./terms-of-service.html;
@@ -137,8 +137,6 @@ in {
         'upstream_response_time=$upstream_response_time';
     '';
   };
-
-  services.postgresql.enable = true;
 
   # Overriden settings for local testing
   virtualisation.vmVariant.services.akkoma.nginx = let
