@@ -11,6 +11,10 @@ with lib; {
     inputs.self.nixosModules.piwigo
   ];
 
+  # Logrotate config build fail workaround
+  # https://discourse.nixos.org/t/logrotate-config-fails-due-to-missing-group-30000/28501
+  services.logrotate.checkConfig = false;
+
   astral = {
     ci.deploy-to = "173.212.242.107";
     tailscale.oneOffKey =
