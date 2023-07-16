@@ -54,7 +54,7 @@ in with lib; {
       };
 
       // Include s03 key file
-      include "${binddir}/s03.include.conf";
+      // include "${binddir}/s03.include.conf";
     '';
 
     zones = [
@@ -118,8 +118,8 @@ in with lib; {
   systemd.services.generate-bind-key-includes = {
     description = "Generate config includes for BIND keys";
 
-    after = [ "ddns-key-secrets.service" ];
-    requires = [ "ddns-key-secrets.service" ];
+    # after = [ "ddns-key-secrets.service" ];
+    # requires = [ "ddns-key-secrets.service" ];
 
     before = [ "bind.service" ];
     requiredBy = [ "bind.service" ];
