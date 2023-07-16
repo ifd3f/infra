@@ -1,6 +1,8 @@
 { pkgs, lib, config, ... }:
 with lib;
 let
+  vs = config.vault-secrets.secrets.akkoma;
+
   vhost = "fedi.astrid.tech";
 
   patched-akkoma-fe = pkgs.akkoma-frontends.akkoma-fe.overrideAttrs
@@ -20,10 +22,18 @@ let
       cp -r "$path" "$out"
     '');
 in {
+  # vault kv put kv/akkoma/secrets db_password=@
+  vault-secrets.secrets.akkoma = {
+    user = "akkoma";
+    group = "akkoma";
+  };
+
   astral.custom-nginx-errors.virtualHosts = [ "fedi.astrid.tech" ];
 
   services.akkoma = {
-    enable = false;
+    enable = true;
+    initDb.enable = false;
+
     extraStatic = {
       "static/terms-of-service.html" =
         wrapFile "terms-of-service.html" ./terms-of-service.html;
@@ -78,13 +88,15 @@ in {
         transparency = false;
       };
 
-      # Yoinked from https://github.com/NixOS/nixpkgs/blob/d7705c01ef0a39c8ef532d1033bace8845a07d35/nixos/modules/services/web-apps/akkoma.nix#L637
-      # We need to manually merge this entry because of Reasons(tm).
       ":pleroma"."Pleroma.Repo" = {
         adapter = mkRaw "Ecto.Adapters.Postgres";
-        socket_dir = "/run/postgresql";
-        username = config.services.akkoma.user;
+
+        hostname = "135.180.141.38";
         database = "akkoma";
+        ssl = true;
+
+        username = "akkoma";
+        password._secret = "${vs}/db_password";
 
         prepare = mkRaw ":named";
         parameters.plan_cache_mode = "force_custom_plan";
@@ -161,6 +173,11 @@ in {
   # It seems to be running out of FDs.
   # By default it's 1024, which is a bit too small.
   systemd.services.akkoma.serviceConfig.LimitNOFILE = 262144;
+
+  systemd.services.akkoma-config = {
+    requires = [ "akkoma-secrets.service" ];
+    after = [ "akkoma-secrets.service" ];
+  };
 
   # Auto-prune objects in the database.
   systemd.timers.akkoma-prune-objects = {
