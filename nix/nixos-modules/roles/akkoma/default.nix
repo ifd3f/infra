@@ -47,7 +47,7 @@ in {
 
     frontends = {
       primary = {
-        package = patched-akkoma-fe;
+        package = pkgs.akkoma-frontends.akkoma-fe;
         name = "akkoma-fe";
         ref = "stable";
       };
