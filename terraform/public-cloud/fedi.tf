@@ -5,20 +5,16 @@ resource "b2_application_key" "main_fedi" {
   capabilities = ["deleteFiles", "listBuckets", "listFiles", "readBucketEncryption", "readBucketReplications", "readBuckets", "readFiles", "shareFiles", "writeBucketEncryption", "writeBucketReplications", "writeFiles"]
 }
 
-resource "remote_file" "main_fedi_b2_app_key" {
-  provider = remote.diluc
-
-  path        = "/var/lib/secrets/akkoma/b2_app_key"
-  content     = b2_application_key.main_fedi.application_key
-  owner       = "akkoma"
-  permissions = "0600"
-}
-
-resource "remote_file" "main_fedi_b2_app_key_id" {
-  provider = remote.diluc
-
-  path        = "/var/lib/secrets/akkoma/b2_app_key_id"
-  content     = b2_application_key.main_fedi.application_key_id
-  owner       = "akkoma"
-  permissions = "0600"
+resource "vault_kv_secret_v2" "akkoma_b2" {
+  mount = "kv"
+  name  = "akkoma_b2/secrets"
+  data_json = jsonencode(
+    {
+      b2_app_key_id = b2_application_key.loki_storage_v2.application_key_id
+      b2_app_key = b2_application_key.loki_storage_v2.application_key
+    }
+  )
+  custom_metadata {
+    max_versions = 1
+  }
 }
