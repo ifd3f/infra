@@ -53,7 +53,7 @@ _dmarc                          IN TXT         "v=DMARC1; p=none; rua=mailto:ast
 
 ;; Misc. other services
 sso                             IN CNAME       amiya.h.astrid.tech.
-fedi                            IN CNAME       diluc.h.astrid.tech.
+fedi                            IN CNAME       s03.d.astrid.tech.
 grafana                         IN CNAME       durin.h.astrid.tech.
 loki                            IN CNAME       amiya.h.astrid.tech.
 nextcloud                       IN CNAME       amiya.h.astrid.tech.
