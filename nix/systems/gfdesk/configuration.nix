@@ -6,10 +6,16 @@ with lib; {
 
     inputs.self.nixosModules.server
 
+    inputs.self.nixosModules.akkoma
+
     ./boot.nix
     ./fs.nix
     ./net.nix
   ];
+
+  # Logrotate config build fail workaround
+  # https://discourse.nixos.org/t/logrotate-config-fails-due-to-missing-group-30000/28501
+  services.logrotate.checkConfig = false;
 
   astral = {
     users.alia.enable = true;

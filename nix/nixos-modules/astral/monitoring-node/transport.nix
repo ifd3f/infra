@@ -4,7 +4,7 @@ let
   cfg = config.astral.monitoring-node;
 in {
   config = mkIf cfg.enable {
-    astral.acme.enable = cfg.scrapeTransport == "https";
+    astral.acme.enable = mkIf (cfg.scrapeTransport == "https") true;
 
     networking.firewall = {
       enable = true;
