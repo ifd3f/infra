@@ -1,7 +1,7 @@
 { pkgs, lib, config, ... }:
 with lib;
 let
-  vs = config.vault-secrets.secrets.akkoma;
+  vs = config.vault-secrets.secrets;
 
   vhost = "fedi.astrid.tech";
 
@@ -24,6 +24,12 @@ let
 in {
   # vault kv put kv/akkoma/secrets db_password=@
   vault-secrets.secrets.akkoma = {
+    user = "akkoma";
+    group = "akkoma";
+  };
+
+  # vault kv put kv/akkoma_b2/secrets b2_app_key=@ b2_app_key_id=@
+  vault-secrets.secrets.akkoma_b2 = {
     user = "akkoma";
     group = "akkoma";
   };
@@ -96,7 +102,7 @@ in {
         ssl = true;
 
         username = "akkoma";
-        password._secret = "${vs}/db_password";
+        password._secret = "${vs.akkoma}/db_password";
 
         prepare = mkRaw ":named";
         parameters.plan_cache_mode = "force_custom_plan";
@@ -110,8 +116,8 @@ in {
       };
       ":pleroma"."Pleroma.Uploaders.S3".bucket = "nyaabucket";
       ":ex_aws".":s3" = {
-        access_key_id._secret = "/var/lib/secrets/akkoma/b2_app_key_id";
-        secret_access_key._secret = "/var/lib/secrets/akkoma/b2_app_key";
+        access_key_id._secret = "${vs.akkoma_b2}/b2_app_key_id";
+        secret_access_key._secret = "${vs.akkoma_b2}/b2_app_key";
         host = "s3.us-west-000.backblazeb2.com";
       };
 
@@ -175,8 +181,8 @@ in {
   systemd.services.akkoma.serviceConfig.LimitNOFILE = 262144;
 
   systemd.services.akkoma-config = {
-    requires = [ "akkoma-secrets.service" ];
-    after = [ "akkoma-secrets.service" ];
+    requires = [ "akkoma-secrets.service" "akkoma_b2-secrets.service" ];
+    after = [ "akkoma-secrets.service" "akkoma_b2-secrets.service" ];
   };
 
   # Auto-prune objects in the database.
