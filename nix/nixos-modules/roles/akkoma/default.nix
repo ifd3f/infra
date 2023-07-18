@@ -178,7 +178,11 @@ in {
 
   # It seems to be running out of FDs.
   # By default it's 1024, which is a bit too small.
-  systemd.services.akkoma.serviceConfig.LimitNOFILE = 262144;
+  systemd.services.akkoma.serviceConfig = {
+    LimitNOFILE = 262144;
+    # /run/akkoma/cookie issue?
+    BindReadOnlyPaths = [ "/run/akkoma:/run/akkoma" ];
+  };
 
   systemd.services.akkoma-config = {
     requires = [ "akkoma-secrets.service" "akkoma_b2-secrets.service" ];
