@@ -30,5 +30,10 @@
     fsType = "zfs";
   };
 
+  fileSystems."/root" = {
+    device = "/home/root";
+    options = [ "bind" ];
+  };
+
   swapDevices = [ ];
 }
