@@ -53,7 +53,7 @@ _dmarc                          IN TXT         "v=DMARC1; p=none; rua=mailto:ast
 
 ;; Misc. other services
 sso                             IN CNAME       amiya.h.astrid.tech.
-fedi                            IN CNAME       s03.d.astrid.tech.
+fedi                            IN CNAME       s03.astrid.tech.
 grafana                         IN CNAME       durin.h.astrid.tech.
 loki                            IN CNAME       amiya.h.astrid.tech.
 nextcloud                       IN CNAME       amiya.h.astrid.tech.
@@ -87,6 +87,7 @@ amiya.h                         IN A           208.87.130.175
 ;;; Sites
 s00                             IN A           24.23.210.97
 s02                             IN A           71.93.45.217
+s03                             IN A           135.180.141.38
 
 ;;; Google analytics
 @                               IN TXT         "google-site-verification=eeNf9_2KGQ2L9H5zImRlebdGTnR-_t0qBNlnZrHk53Q"
