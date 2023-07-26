@@ -21,7 +21,7 @@ This list is not comprehensive and it is likely to expand.
 - Multi-cloud system with VPSes in Oracle, Contabo, and SSDNodes
 - PC fleet powered by modular NixOS configs
 - Self-hosted authoritative DNS using BIND
-- An Akkoma server at [fedi.astrid.tech](https://fedi.astrid.tech)
+- An Akkoma server at [fedi.astrid.tech](https://fedi.astrid.tech) (temporarily out of service)
 - Centralized monitoring using Grafana and Prometheus
 - Automated build and deployment system using a custom Github Actions workflow that is automatically generated
 
