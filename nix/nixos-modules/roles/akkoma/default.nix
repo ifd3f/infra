@@ -194,7 +194,7 @@ in {
     requisite = [ "akkoma.service" ];
     path = with pkgs; [ akkoma ];
     script = ''
-      pleroma_ctl database prune_objects
+      pleroma_ctl database prune_objects --keep-threads --keep-non-public --prune-orphaned-activities
     '';
     serviceConfig = {
       Type = "oneshot";
