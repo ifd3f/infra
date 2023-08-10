@@ -61,4 +61,13 @@ with lib; {
       hostssl all akkoma ::/0 md5
     '';
   };
+
+  services.nginx = {
+    enable = true;
+
+    clientMaxBodySize = "16m";
+    recommendedTlsSettings = true;
+    recommendedOptimisation = true;
+    recommendedGzipSettings = true;
+  };
 }
