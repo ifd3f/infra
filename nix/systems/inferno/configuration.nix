@@ -5,7 +5,9 @@ with lib; {
     [ ./hardware-configuration.nix inputs.self.nixosModules.server ./net.nix ];
 
   astral = {
-    monitoring-node.scrapeTransport = "tailscale";
+    # Disable for now because it simply can't be reached
+    monitoring-node.enable = mkForce false;
+
     tailscale.enable = mkForce false;
     virt.libvirt.enable = true;
   };

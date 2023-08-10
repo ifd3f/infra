@@ -27,7 +27,7 @@ with lib; {
     tailscale.oneOffKey =
       "tskey-auth-kw1UVH6CNTRL-SfhN6EEVv3A74NvnoJRA5Azutj6eJYwVc";
 
-    backup.db.enable = true;
+    backup.db.enable = false;
   };
 
   time.timeZone = "US/Pacific";
