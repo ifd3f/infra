@@ -97,7 +97,7 @@ in {
       ":pleroma"."Pleroma.Repo" = {
         adapter = mkRaw "Ecto.Adapters.Postgres";
 
-        hostname = "135.180.141.38";
+        hostname = "localhost";
         database = "akkoma";
         ssl = true;
 
