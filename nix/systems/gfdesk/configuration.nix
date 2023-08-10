@@ -54,6 +54,34 @@ with lib; {
       ssl = "on";
       ssl_cert_file = "/var/lib/postgresql/server.crt";
       ssl_key_file = "/var/lib/postgresql/server.key";
+
+      full_page_writes = "off"; # Postgres runs on zfs
+
+      # random bullshit go
+      shared_buffers = "8GB";
+      effective_cache_size = "24GB";
+      maintenance_work_mem = "2GB";
+      work_mem = "16MB";
+      min_wal_size = "1GB";
+      max_wal_size = "4GB";
+      checkpoint_completion_target = "0.9";
+      wal_buffers = "16MB";
+      random_page_cost = "1.1";
+      effective_io_concurrency = "200";
+      max_worker_processes = 16;
+      max_parallel_workers_per_gather = 4;
+      max_parallel_workers = 16;
+      max_parallel_maintenance_workers = 4;
+      default_statistics_target = 100;
+
+      # Adjust the minimum time to collect the data
+      log_min_duration_statement = "10s";
+      log_autovacuum_min_duration = 0;
+
+      # Query stats
+      shared_preload_libraries = "pg_stat_statements";
+      "pg_stat_statements.max" = 10000;
+      "pg_stat_statements.track" = "all";
     };
 
     authentication = ''
