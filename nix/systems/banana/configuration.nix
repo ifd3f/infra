@@ -16,7 +16,7 @@ with lib; {
   };
 
   astral.tailscale.oneOffKey =
-    "tskey-auth-kkDfyS4CNTRL-rjiEfAB2FyZ74PsW8LnQzZ9pvLdpGYZd";
+    "tskey-auth-kQpYuB2CNTRL-krpVu4TaHhBfxV7SWg3LgBtPG8t3QKyh4";
 
   # so i can be a *gamer*
   programs.steam.enable = true;
@@ -67,7 +67,7 @@ with lib; {
         devices = [ "nodev" ];
         efiSupport = true;
         enable = true;
-        useOSProber = true;
+        useOSProber = false;
         splashImage = ./banana-grub-bg-dark.jpg;
       };
     };
@@ -81,12 +81,5 @@ with lib; {
     };
 
     services.xserver.dpi = mkForce 96;
-  };
-
-  # Windows drive
-  fileSystems."/dos/c" = {
-    device = "/dev/disk/by-uuid/908CEA3C8CEA1D0A";
-    fsType = "ntfs";
-    options = [ "rw" ];
   };
 }

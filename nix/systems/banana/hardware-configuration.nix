@@ -13,23 +13,50 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
-    device = "bigdisk/enc/root";
+    device = "root-tmpfs";
+    fsType = "tmpfs";
+  };
+
+  fileSystems."/nix" = {
+    device = "bigdiskenergy/nix";
+    fsType = "zfs";
+  };
+
+  fileSystems."/etc" = {
+    device = "bigdiskenergy/enc/etc";
     fsType = "zfs";
   };
 
   fileSystems."/home" = {
-    device = "homie/enc/home";
+    device = "bigdiskenergy/enc/home";
     fsType = "zfs";
+  };
+
+  fileSystems."/root" = {
+    device = "/home/root";
+    fsType = "none";
+    options = [ "bind" ];
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/0ED5-B12B";
+    device = "/dev/disk/by-uuid/9273-1FCA";
     fsType = "vfat";
   };
 
-  fileSystems."/nix" = {
-    device = "bigdisk/enc/nix";
+  fileSystems."/var" = {
+    device = "bigdiskenergy/enc/var";
     fsType = "zfs";
+  };
+
+  fileSystems."/root/disk-keys" = {
+    device = "bigdiskenergy/enc/keys";
+    fsType = "zfs";
+  };
+
+  fileSystems."/home/root/disk-keys" = {
+    device = "/root/disk-keys";
+    fsType = "none";
+    options = [ "bind" ];
   };
 
   swapDevices = [ ];
