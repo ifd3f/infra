@@ -26,10 +26,5 @@ in {
       checkConfig = "syntax-only";
       inherit (discovery) scrapeConfigs;
     };
-
-    services.akkoma-prometheus-exporter."fedi.astrid.tech" = {
-      enable = true;
-      port = 8895;
-    };
   };
 }
