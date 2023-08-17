@@ -12,6 +12,7 @@ with lib; {
 
   astral = {
     ci.enable = mkForce false;
+    monitoring-node.enable = mkForce false;
     # ci.deploy-to = "154.53.59.80";
   };
 
