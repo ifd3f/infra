@@ -66,13 +66,6 @@
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
-    blurred-horse-bot = {
-      url = "github:ifd3f/horse-diffusion";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-    };
-
-    akkoma-exporter.url = "github:ifd3f/akkoma-exporter";
-
     # Files are stored using LFS, so the git fetcher is needed.
     vendored-emojis.url = "github:ifd3f/vendored-emojis";
   };
@@ -80,8 +73,7 @@
   outputs = { self, nixpkgs-unstable, nixpkgs-stable, nixpkgs-php74
     , nixos-vscode-server, flake-utils, nix-ld, nur, home-manager-stable
     , nixos-generators, vault-secrets, armqr, year-of-bot, nur-ifd3f
-    , vendored-emojis, catgpt, blurred-horse-bot, akkoma-exporter, googlebird
-    , ... }@inputs:
+    , vendored-emojis, catgpt, googlebird, ... }@inputs:
     let
       nixpkgs = nixpkgs-stable;
       home-manager = home-manager-stable;
@@ -123,8 +115,6 @@
             nur.overlay
             vault-secrets.overlay
             armqr.overlays.default
-            akkoma-exporter.overlays.default
-            blurred-horse-bot.overlays.default
             year-of-bot.overlays.default
             catgpt.overlays.default
             googlebird.overlays.default
