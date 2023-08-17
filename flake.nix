@@ -82,7 +82,6 @@
       vscode-server-home =
         "${nixos-vscode-server}/modules/vscode-server/home.nix";
 
-      machines = import ./nix/systems inputs;
     in (flake-utils.lib.eachSystem [
       "x86_64-linux"
       "aarch64-linux"
@@ -203,6 +202,6 @@
           vault = import ./nix/nixos-modules/roles/vault inputs;
         };
 
-        nixosConfigurations = machines.nixosConfigurations;
+        nixosConfigurations = self.lib.machines.nixosConfigurations;
       });
 }
