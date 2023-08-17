@@ -345,54 +345,6 @@ jobs:
           '
     strategy:
       fail-fast: false
-  nixos-system-amiya:
-    name: NixOS sys. amiya
-    needs:
-      - nixos-system-__baseServer
-    runs-on: ubuntu-latest
-    steps:
-      - uses: webfactory/ssh-agent@v0.8.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - env:
-          KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
-        name: Append to known_hosts
-        run: 'echo ''\n'' >> ~/.ssh/known_hosts
-
-          echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
-
-          '
-      - uses: cachix/install-nix-action@v22
-        with:
-          extra_nix_config: 'experimental-features = nix-command flakes
-
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-
-            '
-          nix_path: nixpkgs=channel:nixos-unstable
-      - uses: cachix/cachix-action@v12
-        with:
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-          name: astralbijection
-      - env:
-          TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
-        name: Build targets
-        run: GC_DONT_GC=1 nix build --show-trace --log-lines 10000 --fallback "$TARGET_FLAKE#"'nixosConfigurations.amiya.config.system.build.toplevel'
-      - env:
-          TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
-          deploy_flake_attr: nixosConfigurations.amiya.config.astral.ci.deploy-package
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-        name: Deploy with nixosConfigurations.amiya.config.astral.ci.deploy-package
-        run: GC_DONT_GC=1 nix run --show-trace "$TARGET_FLAKE#$deploy_flake_attr"
-      - if: ${{ always() }}
-        name: Log remaining space
-        run: 'echo "=== Space left after build ==="
-
-          df -h
-
-          '
-    strategy:
-      fail-fast: false
   nixos-system-banana:
     name: NixOS sys. banana
     needs:
@@ -440,48 +392,6 @@ jobs:
           TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
         name: Build targets
         run: GC_DONT_GC=1 nix build --show-trace --log-lines 10000 --fallback "$TARGET_FLAKE#"'nixosConfigurations.banana.config.system.build.toplevel'
-      - if: ${{ always() }}
-        name: Log remaining space
-        run: 'echo "=== Space left after build ==="
-
-          df -h
-
-          '
-    strategy:
-      fail-fast: false
-  nixos-system-bonney:
-    name: NixOS sys. bonney
-    needs:
-      - nixos-system-__baseServer
-    runs-on: ubuntu-latest
-    steps:
-      - uses: webfactory/ssh-agent@v0.8.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - env:
-          KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
-        name: Append to known_hosts
-        run: 'echo ''\n'' >> ~/.ssh/known_hosts
-
-          echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
-
-          '
-      - uses: cachix/install-nix-action@v22
-        with:
-          extra_nix_config: 'experimental-features = nix-command flakes
-
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-
-            '
-          nix_path: nixpkgs=channel:nixos-unstable
-      - uses: cachix/cachix-action@v12
-        with:
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-          name: astralbijection
-      - env:
-          TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
-        name: Build targets
-        run: GC_DONT_GC=1 nix build --show-trace --log-lines 10000 --fallback "$TARGET_FLAKE#"'nixosConfigurations.bonney.config.system.build.toplevel'
       - if: ${{ always() }}
         name: Log remaining space
         run: 'echo "=== Space left after build ==="
