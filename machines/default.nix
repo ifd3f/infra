@@ -1,8 +1,5 @@
-# Import every non-blacklisted folder in this directory
 { self, nixpkgs-stable, ... }@inputs:
 let
-  blacklist = [ "amiya" "bennett" "bonney" "ghoti" ];
-
   mkMachine = hostname: path: {
     inherit hostname path;
     readme = path + "/README.md";
@@ -12,9 +9,8 @@ let
 
 in with nixpkgs-stable.lib; rec {
   machines = let
-    dirs = (filterAttrs
-      (name: type: type == "directory" && !builtins.elem name blacklist)
-      (builtins.readDir ./.));
+    dirs =
+      (filterAttrs (name: type: type == "directory") (builtins.readDir ./.));
   in mapAttrs (hostname: _: mkMachine hostname (./. + "/${hostname}")) dirs;
 
   nixosConfigurations = mapAttrs (_: data:
