@@ -7,6 +7,12 @@ with lib;
 let cfg = config.astral.ci;
 in {
   options.astral.ci = {
+    enable = mkOption {
+      description = "Whether this machine should be built during CI or not.";
+      type = types.bool;
+      default = true;
+    };
+
     needs = mkOption {
       description = "Nodes that this needs.";
       type = with types; listOf str;
@@ -15,7 +21,7 @@ in {
 
     deploy-to = mkOption {
       description =
-        "Host to upload this system to, after it successfully builds.";
+        "Host to upload this system to, after it successfully builds. If null, then this should not be deployed.";
       type = with types; nullOr str;
       default = null;
     };

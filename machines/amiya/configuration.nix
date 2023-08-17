@@ -4,6 +4,11 @@ with lib; {
   imports = [
     ./hardware-configuration.nix
 
+    inputs.catgpt.nixosModules.default
+    inputs.googlebird.nixosModules.default
+    inputs.nur-ifd3f.nixosModules.pleroma-ebooks
+    inputs.year-of-bot.nixosModules.default
+
     inputs.self.nixosModules.server
 
     inputs.self.nixosModules.ejabberd
@@ -13,7 +18,7 @@ with lib; {
   ];
 
   astral = {
-    ci.deploy-to = "208.87.130.175";
+    # ci.deploy-to = "208.87.130.175";
     tailscale.enable = mkForce false;
     monitoring-node.scrapeTransport = "https";
   };
@@ -64,8 +69,6 @@ with lib; {
     enable = true;
     server = "https://fedi.astrid.tech";
   };
-
-  services.blurred-horse-bot.enable = true;
 
   services.pleroma-ebooks.bots."@autoastrid@fedi.astrid.tech" = {
     site = "https://fedi.astrid.tech";

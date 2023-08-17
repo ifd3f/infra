@@ -10,7 +10,11 @@ with lib; {
     inputs.self.nixosModules.auth-dns
   ];
 
-  astral = { ci.deploy-to = "154.53.59.80"; };
+  astral = {
+    ci.enable = mkForce false;
+    monitoring-node.enable = mkForce false;
+    # ci.deploy-to = "154.53.59.80";
+  };
 
   networking = {
     hostName = "bennett";

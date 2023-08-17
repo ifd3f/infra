@@ -21,8 +21,9 @@ let
             "nixosConfigurations.${hostname}.config.astral.ci.deploy-package")
             cfg.deploy-package;
         };
-      }) (filterAttrs (hostname: nixosSystem: nixosSystem.pkgs.system == system)
-        self.nixosConfigurations);
+      }) (filterAttrs (hostname: nixosSystem:
+        nixosSystem.pkgs.system == system
+        && nixosSystem.config.astral.ci.enable) self.nixosConfigurations);
 
   homeManagerNodeForSystem = system: {
     inherit system;
@@ -75,5 +76,7 @@ in rec {
   }) [ "x86_64-linux" "x86_64-darwin" ]))
     // (nixosNodesForSystem "x86_64-linux");
 
-  workflow = self.lib.makeGithubWorkflow { inherit cronSchedule cachix nodes known_hosts; };
+  workflow = self.lib.makeGithubWorkflow {
+    inherit cronSchedule cachix nodes known_hosts;
+  };
 }
