@@ -84,28 +84,8 @@ in {
 
   nixosModules = {
     default = self.nixosModules.astral;
-
     astral = import ./nixos-modules/astral inputs;
-
-    contabo-vps = import ./nixos-modules/contabo-vps.nix inputs;
-    laptop = import ./nixos-modules/laptop.nix inputs;
-    oracle-cloud-vps = import ./nixos-modules/oracle-cloud-vps.nix inputs;
-    pc = import ./nixos-modules/pc.nix inputs;
-    server = import ./nixos-modules/server.nix inputs;
-
-    akkoma = import ./nixos-modules/roles/akkoma inputs;
-    armqr = import ./nixos-modules/roles/armqr.nix inputs;
-    auth-dns = import ./nixos-modules/roles/auth-dns inputs;
-    ejabberd = import ./nixos-modules/roles/ejabberd.nix inputs;
-    iot-gw = import ./nixos-modules/roles/iot-gw inputs;
-    loki-server = import ./nixos-modules/roles/loki-server.nix inputs;
-    media-server = import ./nixos-modules/roles/media-server inputs;
-    monitoring-center = import ./nixos-modules/roles/monitoring-center inputs;
-    nextcloud = import ./nixos-modules/roles/nextcloud.nix inputs;
-    piwigo = import ./nixos-modules/roles/piwigo inputs;
-    sso-provider = import ./nixos-modules/roles/sso-provider inputs;
-    vault = import ./nixos-modules/roles/vault inputs;
-  };
+  } // import ./nixos-modules/roles.nix inputs;
 
   nixosConfigurations = self.lib.machines.nixosConfigurations;
 } // flake-utils.lib.eachSystem [
