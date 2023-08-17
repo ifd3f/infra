@@ -1,0 +1,127 @@
+{ self, nixpkgs-stable, flake-utils, home-manager-stable, nur, ... }@inputs:
+let
+  nixpkgs = nixpkgs-stable;
+  home-manager = home-manager-stable;
+  lib = nixpkgs.lib;
+
+  vscode-server-home =
+    "${inputs.nixos-vscode-server}/modules/vscode-server/home.nix";
+
+in {
+  lib = import ./lib inputs;
+
+  overlays = {
+    default = self.overlays.complete;
+
+    complete = lib.composeManyExtensions [
+      (import "${home-manager}/overlay.nix")
+      nur.overlay
+      inputs.vault-secrets.overlay
+      inputs.armqr.overlays.default
+      inputs.year-of-bot.overlays.default
+      inputs.catgpt.overlays.default
+      inputs.googlebird.overlays.default
+      inputs.nur-ifd3f.overlays.default
+      inputs.vendored-emojis.overlays.default
+      self.overlays.patched
+    ];
+
+    patched = final: prev: {
+      # needed for piwigo compatibility
+      inherit (inputs.nixpkgs-php74.legacyPackages.${prev.system}) php74;
+
+      #inherit (nixpkgs-lxdvms.legacyPackages.${prev.system}) lxd;
+
+      inherit (self.packages.${prev.system})
+        authelia-bin win10hotplug ifd3f-infra-scripts;
+
+      # gmic is currently broken, use an older version of darktable
+      # https://github.co.O.pkgs/pull/211600
+      inherit (nixpkgs-stable.legacyPackages.${prev.system}) darktable;
+    };
+  };
+
+  homeModules = (import ./home-manager/astral/variants.nix) // {
+    default = self.homeModules.astral;
+  };
+
+  homeConfigurations = {
+    default = home-manager.lib.homeManagerConfiguration {
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      modules = [ self.homeModules.astral-cli ];
+    };
+
+    m1 = home-manager.lib.homeManagerConfiguration {
+      pkgs = nixpkgs.legacyPackages.aarch64-darwin;
+      modules = [ self.homeModules.astral-cli-full ];
+    };
+
+    "astrid@aliaconda" = home-manager.lib.homeManagerConfiguration {
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      modules = [ self.homeModules.astral-scientific vscode-server-home ];
+    };
+    "astrid@banana" = home-manager.lib.homeManagerConfiguration {
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      modules = [ self.homeModules.astral-gui ];
+    };
+    "astrid@chungus" = home-manager.lib.homeManagerConfiguration {
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      modules = [ self.homeModules.astral-gui ];
+    };
+    "astrid@Discovery" = home-manager.lib.homeManagerConfiguration {
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      modules = [ self.homeModules.astral-gui vscode-server-home ];
+    };
+    "astrid@shai-hulud" = home-manager.lib.homeManagerConfiguration {
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      modules = [ self.homeModules.astral-gui-tablet ];
+    };
+    "astrid@soulcaster" = home-manager.lib.homeManagerConfiguration {
+      pkgs = nixpkgs.legacyPackages.x86_64-darwin;
+      modules = [ self.homeModules.astral-macos ];
+    };
+  };
+
+  nixosModules = {
+    default = self.nixosModules.astral;
+
+    astral = import ./nixos-modules/astral inputs;
+
+    contabo-vps = import ./nixos-modules/contabo-vps.nix inputs;
+    laptop = import ./nixos-modules/laptop.nix inputs;
+    oracle-cloud-vps = import ./nixos-modules/oracle-cloud-vps.nix inputs;
+    pc = import ./nixos-modules/pc.nix inputs;
+    server = import ./nixos-modules/server.nix inputs;
+
+    akkoma = import ./nixos-modules/roles/akkoma inputs;
+    armqr = import ./nixos-modules/roles/armqr.nix inputs;
+    auth-dns = import ./nixos-modules/roles/auth-dns inputs;
+    ejabberd = import ./nixos-modules/roles/ejabberd.nix inputs;
+    iot-gw = import ./nixos-modules/roles/iot-gw inputs;
+    loki-server = import ./nixos-modules/roles/loki-server.nix inputs;
+    media-server = import ./nixos-modules/roles/media-server inputs;
+    monitoring-center = import ./nixos-modules/roles/monitoring-center inputs;
+    nextcloud = import ./nixos-modules/roles/nextcloud.nix inputs;
+    piwigo = import ./nixos-modules/roles/piwigo inputs;
+    sso-provider = import ./nixos-modules/roles/sso-provider inputs;
+    vault = import ./nixos-modules/roles/vault inputs;
+  };
+
+  nixosConfigurations = self.lib.machines.nixosConfigurations;
+} // flake-utils.lib.eachSystem [
+  "x86_64-linux"
+  "aarch64-linux"
+  "x86_64-darwin"
+  "aarch64-darwin"
+] (system:
+  let
+    pkgs = import nixpkgs {
+      inherit system;
+      overlays = [ self.overlays.default ];
+    };
+  in rec {
+    gh-ci-matrix = pkgs.callPackage ./pkgs/gh-ci-matrix { inherit self; };
+    devShells = import ./shells.nix { inherit self pkgs; };
+    packages = import ./pkgs inputs pkgs;
+    legacyPackages = pkgs;
+  })

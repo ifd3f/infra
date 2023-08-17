@@ -1,5 +1,7 @@
-{ self, nixos-generators, nixpkgs, pkgs }:
+{ self, nixos-generators, nixpkgs-stable, ... }:
+pkgs:
 let
+  nixpkgs = nixpkgs-stable;
   flakeTime = self.sourceInfo.lastModified;
   vendored-images = import ./images/vendored { inherit pkgs; };
   build-support = import ./build-support { inherit nixos-generators pkgs; };
@@ -10,7 +12,8 @@ in vendored-images // {
   scan-ci-host-keys = pkgs.callPackage ./scan-ci-host-keys { inherit self; };
 
   ci-import-and-tag-docker = pkgs.callPackage ./ci-import-and-tag-docker { };
-  installer-iso = pkgs.callPackage ./images/installer-iso { inherit self nixpkgs; };
+  installer-iso =
+    pkgs.callPackage ./images/installer-iso { inherit self nixpkgs; };
 
   ifd3f-infra-scripts = pkgs.callPackage ./../../scripts { };
 
