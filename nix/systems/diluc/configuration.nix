@@ -1,5 +1,5 @@
-# Contabo VPS.
-{ pkgs, lib, inputs, ... }:
+inputs:
+{ config, pkgs, lib, ... }:
 with lib; {
   imports = [
     inputs.self.nixosModules.contabo-vps

@@ -1,3 +1,4 @@
+inputs:
 { config, pkgs, lib, ... }:
 let
   vs = config.vault-secrets.secrets."ddns-key";

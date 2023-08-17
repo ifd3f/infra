@@ -1,5 +1,6 @@
-# A base machine used strictly for CI purposes.
-{ config, modulesPath, pkgs, lib, inputs, ... }: {
+inputs:
+{ config, pkgs, lib, modulesPath, ... }:
+with lib; {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
     inputs.self.nixosModules.server

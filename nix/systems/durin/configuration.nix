@@ -1,5 +1,6 @@
-# Contabo VPS.
-{ pkgs, lib, inputs, ... }: {
+inputs:
+{ config, pkgs, lib, ... }:
+with lib; {
   imports = [
     inputs.self.nixosModules.oracle-cloud-vps
     inputs.self.nixosModules.server

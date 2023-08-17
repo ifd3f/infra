@@ -1,4 +1,7 @@
+inputs:
 { config, pkgs, lib, ... }: {
+  imports = [ inputs.armqr.nixosModules.default ];
+
   services.armqr = {
     enable = true;
     port = 63423;

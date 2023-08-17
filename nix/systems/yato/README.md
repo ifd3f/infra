@@ -1,0 +1,3 @@
+# `yato`
+
+Contabo VPS.

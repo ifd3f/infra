@@ -1,4 +1,5 @@
-{ lib, config, inputs, ... }:
+inputs:
+{ lib, config, ... }:
 with lib;
 let
   vs = config.vault-secrets.secrets."${vault-key}";

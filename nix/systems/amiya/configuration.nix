@@ -1,5 +1,5 @@
-# A large SSDNodes VPS
-{ pkgs, lib, inputs, ... }:
+inputs:
+{ config, pkgs, lib, ... }:
 with lib; {
   imports = [
     ./hardware-configuration.nix

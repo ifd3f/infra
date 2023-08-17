@@ -1,3 +1,4 @@
+inputs:
 { pkgs, lib, config, ... }:
 with lib;
 let

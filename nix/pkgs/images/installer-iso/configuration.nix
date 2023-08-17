@@ -2,17 +2,19 @@
 # Also from https://hoverbear.org/blog/nix-flake-live-media/
 
 # You can drop in a /wpa_supplicant.conf to connect to wifi headlessly!
-
+self:
 { lib, pkgs, modulesPath, ... }:
 with lib; {
   imports = [
+    self.nixosModules.astral
+
     # https://nixos.wiki/wiki/Creating_a_NixOS_live_CD
     "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
     "${modulesPath}/installer/cd-dvd/channel.nix"
   ];
 
   users.mutableUsers = false;
-  
+
   # networking.supplicant."wlan0".configFile.path = "/wpa_supplicant.conf";
 
   services.openssh.settings.PermitRootLogin = mkForce "no";

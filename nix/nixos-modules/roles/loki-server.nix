@@ -1,4 +1,5 @@
-{ pkgs, lib, config, inputs, ... }:
+inputs:
+{ pkgs, lib, config, ... }:
 with lib;
 let
   vs = config.vault-secrets.secrets;

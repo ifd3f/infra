@@ -81,6 +81,8 @@
 
       vscode-server-home =
         "${nixos-vscode-server}/modules/vscode-server/home.nix";
+
+      machines = import ./nix/systems inputs;
     in (flake-utils.lib.eachSystem [
       "x86_64-linux"
       "aarch64-linux"
@@ -100,12 +102,7 @@
         legacyPackages = pkgs;
 
       }) // {
-        lib = import ./nix/lib {
-          inherit self inputs;
-          defaultNixpkgs = nixpkgs-stable;
-        };
-
-        checks = import ./nix/checks { inherit self lib; };
+        lib = import ./nix/lib inputs;
 
         overlays = {
           default = self.overlays.complete;
@@ -124,13 +121,6 @@
           ];
 
           patched = final: prev: {
-            lib = prev.lib.extend (lfinal: lprev:
-              import ./nix/lib {
-                inherit self inputs;
-                defaultNixpkgs = final;
-                system = prev.system;
-              });
-
             # needed for piwigo compatibility
             inherit (nixpkgs-php74.legacyPackages.${prev.system}) php74;
 
@@ -189,28 +179,30 @@
         nixosModules = {
           default = self.nixosModules.astral;
 
-          astral = ./nix/nixos-modules/astral;
+          astral = import ./nix/nixos-modules/astral inputs;
 
-          contabo-vps = ./nix/nixos-modules/contabo-vps.nix;
-          laptop = ./nix/nixos-modules/laptop.nix;
-          oracle-cloud-vps = ./nix/nixos-modules/oracle-cloud-vps.nix;
-          pc = ./nix/nixos-modules/pc.nix;
-          server = ./nix/nixos-modules/server.nix;
+          contabo-vps = import ./nix/nixos-modules/contabo-vps.nix inputs;
+          laptop = import ./nix/nixos-modules/laptop.nix inputs;
+          oracle-cloud-vps =
+            import ./nix/nixos-modules/oracle-cloud-vps.nix inputs;
+          pc = import ./nix/nixos-modules/pc.nix inputs;
+          server = import ./nix/nixos-modules/server.nix inputs;
 
-          akkoma = ./nix/nixos-modules/roles/akkoma;
-          armqr = ./nix/nixos-modules/roles/armqr.nix;
-          auth-dns = ./nix/nixos-modules/roles/auth-dns;
-          ejabberd = ./nix/nixos-modules/roles/ejabberd.nix;
-          iot-gw = ./nix/nixos-modules/roles/iot-gw;
-          loki-server = ./nix/nixos-modules/roles/loki-server.nix;
-          media-server = ./nix/nixos-modules/roles/media-server;
-          monitoring-center = ./nix/nixos-modules/roles/monitoring-center;
-          nextcloud = ./nix/nixos-modules/roles/nextcloud.nix;
-          piwigo = ./nix/nixos-modules/roles/piwigo;
-          sso-provider = ./nix/nixos-modules/roles/sso-provider;
-          vault = ./nix/nixos-modules/roles/vault;
+          akkoma = import ./nix/nixos-modules/roles/akkoma inputs;
+          armqr = import ./nix/nixos-modules/roles/armqr.nix inputs;
+          auth-dns = import ./nix/nixos-modules/roles/auth-dns inputs;
+          ejabberd = import ./nix/nixos-modules/roles/ejabberd.nix inputs;
+          iot-gw = import ./nix/nixos-modules/roles/iot-gw inputs;
+          loki-server = import ./nix/nixos-modules/roles/loki-server.nix inputs;
+          media-server = import ./nix/nixos-modules/roles/media-server inputs;
+          monitoring-center =
+            import ./nix/nixos-modules/roles/monitoring-center inputs;
+          nextcloud = import ./nix/nixos-modules/roles/nextcloud.nix inputs;
+          piwigo = import ./nix/nixos-modules/roles/piwigo inputs;
+          sso-provider = import ./nix/nixos-modules/roles/sso-provider inputs;
+          vault = import ./nix/nixos-modules/roles/vault inputs;
         };
 
-        nixosConfigurations = (import ./nix/systems { inherit inputs lib; });
+        nixosConfigurations = machines.nixosConfigurations;
       });
 }

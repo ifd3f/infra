@@ -1,7 +1,7 @@
-{ self, system ? "x86_64-linux" }:
+{ self, nixpkgs, system ? "x86_64-linux" }:
 let
-  installerSystem = self.lib.nixosSystem' {
+  installerSystem = nixpkgs.lib.nixosSystem {
     inherit system;
-    modules = [ ./configuration.nix ];
+    modules = [ (import ./configuration.nix self) ];
   };
 in installerSystem.config.system.build.isoImage

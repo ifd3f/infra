@@ -1,10 +1,11 @@
-{ inputs, ... }: {
+inputs: {
   imports = [
+    inputs.vault-secrets.nixosModules.vault-secrets
     inputs.nix-ld.nixosModules.nix-ld
     inputs.home-manager-stable.nixosModule
     ./hw
 
-    ({ pkgs, inputs, ... }: {
+    ({ pkgs, ... }: {
       programs.zsh.enable = true;
       users.defaultUserShell = pkgs.zsh;
       nixpkgs.overlays = [ inputs.self.overlays.default ];
@@ -25,10 +26,10 @@
     ./ci.nix
 
     ./net
-    ./users
+    (import ./users inputs)
 
     ./monitoring-node
-    ./backup
+    (import ./backup inputs)
     ./tailscale.nix
   ];
 

@@ -1,9 +1,10 @@
-{ pkgs, lib, config, inputs, ... }@params:
+inputs:
+{ pkgs, lib, config, ... }@args:
 with lib;
 let
   vs = config.vault-secrets.secrets;
   gcfg = config.services.grafana;
-  discovery = import ./prometheus-discovery.nix params;
+  discovery = import ./prometheus-discovery.nix inputs args;
 in {
   options.astral.monitoring-center._discovery = mkOption {
     type = types.attrs;

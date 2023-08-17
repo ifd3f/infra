@@ -1,3 +1,4 @@
+inputs:
 { config, pkgs, ... }:
 let
   piwigo = pkgs.fetchFromGitHub {

@@ -1,5 +1,5 @@
 # Normal user declarations.
-{ inputs, ... }:
+inputs:
 let inherit (inputs.self.lib) sshKeyDatabase;
 in {
   imports = let
