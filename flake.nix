@@ -16,9 +16,6 @@
     # It is removed in 22.11.
     nixpkgs-php74.url = "github:NixOS/nixpkgs/nixos-22.05";
 
-    # My own nixpkgs fork, for customized patches
-    #nixpkgs-ifd4f.url = "github:ifd3f/nixpkgs/lxd-vms";
-
     nur.url = "github:nix-community/NUR";
 
     # My own NUR repo for bleeding-edge updates
@@ -46,9 +43,6 @@
 
     # Specialized hardware configurations for specialized hardware.
     # Currently used on the Surface Pro.
-    # The patched Surface kernel is broken for the time being so I'm
-    # following an older version.
-    # Track the issue here: https://github.com/NixOS/nixos-hardware/issues/504
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
     nixos-generators = {
@@ -58,7 +52,6 @@
 
     vault-secrets.url = "github:serokell/vault-secrets";
 
-    # TODO update armqr
     armqr.url = "github:ifd3f/armqr";
 
     year-of-bot.url = "github:ifd3f/year-of-bot";
@@ -87,8 +80,8 @@
   outputs = { self, nixpkgs-unstable, nixpkgs-stable, nixpkgs-php74
     , nixos-vscode-server, flake-utils, nix-ld, nur, home-manager-stable
     , nixos-generators, vault-secrets, armqr, year-of-bot, nur-ifd3f
-    , vendored-emojis, catgpt, blurred-horse-bot, akkoma-exporter
-    , googlebird, ... }@inputs:
+    , vendored-emojis, catgpt, blurred-horse-bot, akkoma-exporter, googlebird
+    , ... }@inputs:
     let
       nixpkgs = nixpkgs-stable;
       home-manager = home-manager-stable;
