@@ -1,5 +1,6 @@
-# Raspberry Pi 4 running as an IoT gateway
-{ pkgs, lib, inputs, modulesPath, ... }: {
+inputs:
+{ config, pkgs, lib, modulesPath, ... }:
+with lib; {
   imports = [
     "${modulesPath}/installer/sd-card/sd-image-aarch64.nix"
     inputs.nixos-hardware.nixosModules.raspberry-pi-4

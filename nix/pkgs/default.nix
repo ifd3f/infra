@@ -10,7 +10,7 @@ in vendored-images // {
   scan-ci-host-keys = pkgs.callPackage ./scan-ci-host-keys { inherit self; };
 
   ci-import-and-tag-docker = pkgs.callPackage ./ci-import-and-tag-docker { };
-  installer-iso = pkgs.callPackage ./images/installer-iso { inherit self; };
+  installer-iso = pkgs.callPackage ./images/installer-iso { inherit self nixpkgs; };
 
   ifd3f-infra-scripts = pkgs.callPackage ./../../scripts { };
 

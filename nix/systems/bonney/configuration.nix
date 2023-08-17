@@ -1,5 +1,5 @@
-# A USFF Optiplex that's my media server, hooked up to the telly
-{ pkgs, lib, inputs, ... }:
+inputs:
+{ config, pkgs, lib, ... }:
 with lib; {
   imports = [
     ./hardware-configuration.nix

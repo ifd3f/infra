@@ -1,4 +1,5 @@
 # IoT Gateway, running at home.
+inputs:
 { config, pkgs, lib, ... }:
 let
   vs = config.vault-secrets.secrets.iot-gw-s02;

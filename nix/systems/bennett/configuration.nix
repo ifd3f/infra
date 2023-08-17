@@ -1,5 +1,6 @@
-# Contabo VPS.
-{ pkgs, lib, inputs, ... }: {
+inputs:
+{ config, pkgs, lib, ... }:
+with lib; {
   imports = [
     ./hardware-configuration.nix
 
@@ -9,9 +10,7 @@
     inputs.self.nixosModules.auth-dns
   ];
 
-  astral = {
-    ci.deploy-to = "154.53.59.80";
-  };
+  astral = { ci.deploy-to = "154.53.59.80"; };
 
   networking = {
     hostName = "bennett";

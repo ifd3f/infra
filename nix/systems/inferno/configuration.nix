@@ -1,5 +1,5 @@
-# Firewall VM host machine.
-{ pkgs, lib, inputs, modulesPath, ... }:
+inputs:
+{ config, pkgs, lib, ... }:
 with lib; {
   imports =
     [ ./hardware-configuration.nix inputs.self.nixosModules.server ./net.nix ];

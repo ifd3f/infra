@@ -1,10 +1,9 @@
 # A graphics-enabled PC I would directly use.
-{ config, lib, pkgs, inputs, ... }:
+inputs:
+{ config, lib, pkgs, ... }:
 with lib;
 let extraHosts = "/var/extraHosts";
 in {
-  imports = [ ./astral ];
-
   # haskell.nix binary cache
   nix.settings.trusted-public-keys =
     [ "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ=" ];

@@ -1,4 +1,5 @@
-{ lib, config, inputs, ... }:
+inputs:
+{ lib, config, ... }:
 with lib;
 let
   vault-key = "backup-db-${config.networking.fqdn}";

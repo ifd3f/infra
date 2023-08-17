@@ -1,5 +1,5 @@
-# The desk that is used by Good Friends.
-{ lib, inputs, modulesPath, ... }:
+inputs:
+{ config, pkgs, lib, modulesPath, ... }:
 with lib; {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
