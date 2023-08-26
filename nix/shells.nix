@@ -5,7 +5,7 @@ let
     [
       ifd3f-infra-scripts
 
-      #ansible
+      ansible
       backblaze-b2
       bitwarden-cli
       curl
@@ -13,7 +13,6 @@ let
       docker
       docker-compose
       git
-      helmfile
       inetutils
       jq
       mqttui
@@ -22,8 +21,6 @@ let
       nodePackages.prettier
       pwgen
       python3
-      #step-ca
-      #step-cli
       tcpdump
       terraform
       terraform-ls
