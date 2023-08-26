@@ -1,15 +1,15 @@
 {
     "recommendations": [
-        "Stalinbalraj.timestamp-converter",
-        "arrterian.nix-env-selector",
         "bbenoist.nix",
         "brettm12345.nixfmt-vscode",
         "compilenix.vscode-zonefile",
         "hashicorp.terraform",
         "haskell.haskell",
-        "jakebecker.elixir-ls",
         "ms-azuretools.vscode-docker",
+        "ms-python.python",
         "mtxr.sqltools",
+        "rubymaniac.vscode-direnv",
+        "stalinbalraj.timestamp-converter",
         "wholroyd.jinja",
     ]
 }
