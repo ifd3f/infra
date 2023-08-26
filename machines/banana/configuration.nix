@@ -33,9 +33,8 @@ with lib; {
     opengl.enable = true;
 
     nvidia.prime = {
-      # Sync mode for multi-monitor support https://nixos.wiki/wiki/Nvidia#sync_mode
-      sync.enable = true;
-      offload.enable = false;
+      # This machine will mostly be used for travel now
+      offload.enable = true;
 
       nvidiaBusId = "PCI:1:0:0";
       intelBusId = "PCI:0:2:0";
@@ -44,8 +43,7 @@ with lib; {
     bluetooth.enable = true;
   };
 
-  # I have big monitors
-  services.xserver.dpi = 224;
+  services.xserver.dpi = 96;
 
   networking = {
     hostName = "banana";
@@ -71,15 +69,5 @@ with lib; {
         splashImage = ./banana-grub-bg-dark.jpg;
       };
     };
-  };
-
-  # Portable config with intel/nvidia offloading
-  specialisation."offload".configuration = {
-    hardware.nvidia.prime = {
-      sync.enable = mkForce false;
-      offload.enable = mkForce true;
-    };
-
-    services.xserver.dpi = mkForce 96;
   };
 }
