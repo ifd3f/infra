@@ -48,7 +48,7 @@ with lib; {
   };
 
   boot = {
-    kernelPackages = pkgs.linuxPackages;
+    kernelPackages = pkgs.linuxKernel.packages.linux_6_1;
 
     loader = {
       efi.canTouchEfiVariables = true;
