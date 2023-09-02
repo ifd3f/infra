@@ -9,16 +9,17 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1692234754,
-        "narHash": "sha256-DP/WJzR6v/u5/NRV64npC4yF9VyBxU6AcLzUVPqIpgg=",
+        "lastModified": 1667953854,
+        "narHash": "sha256-d9uro0Fa2s74EFxV2as3mZyJ19msg9IhsB/BDX2yI3U=",
         "owner": "ifd3f",
         "repo": "armqr",
-        "rev": "9e2959b6918472bb2e522bb5a96b485740b8462c",
+        "rev": "867a7e0d7e7774b860d09e2860e8c99e28c884b7",
         "type": "github"
       },
       "original": {
         "owner": "ifd3f",
         "repo": "armqr",
+        "rev": "867a7e0d7e7774b860d09e2860e8c99e28c884b7",
         "type": "github"
       }
     },

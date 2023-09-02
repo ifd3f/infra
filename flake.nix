@@ -52,7 +52,7 @@
 
     vault-secrets.url = "github:serokell/vault-secrets";
 
-    armqr.url = "github:ifd3f/armqr";
+    armqr.url = "github:ifd3f/armqr/867a7e0d7e7774b860d09e2860e8c99e28c884b7";
 
     year-of-bot.url = "github:ifd3f/year-of-bot";
 
