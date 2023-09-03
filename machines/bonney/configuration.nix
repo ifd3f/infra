@@ -34,6 +34,7 @@ with lib; {
   time.timeZone = "US/Pacific";
 
   programs.steam.enable = true;
+  services.flatpak.enable = true; # steam link
 
   virtualisation.podman.enable = true;
   virtualisation.vmVariant = {
