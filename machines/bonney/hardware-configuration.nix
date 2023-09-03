@@ -22,6 +22,11 @@
     fsType = "zfs";
   };
 
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/8615-D349";
+    fsType = "vfat";
+  };
+
   swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
