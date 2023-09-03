@@ -33,6 +33,8 @@ with lib; {
 
   time.timeZone = "US/Pacific";
 
+  programs.steam.enable = true;
+
   virtualisation.podman.enable = true;
   virtualisation.vmVariant = {
     # Autologin as root because we testin here
