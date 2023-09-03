@@ -17,19 +17,14 @@
     fsType = "zfs";
   };
 
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/582B-D4F7";
-    fsType = "vfat";
-  };
-
   fileSystems."/nix" = {
     device = "tank/nix";
     fsType = "zfs";
   };
 
-  fileSystems."/var" = {
-    device = "tank/var";
-    fsType = "zfs";
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/8615-D349";
+    fsType = "vfat";
   };
 
   swapDevices = [ ];
