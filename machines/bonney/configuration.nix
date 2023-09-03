@@ -8,6 +8,8 @@ with lib; {
     inputs.self.nixosModules.server
 
     inputs.self.nixosModules.media-server
+
+    ./steam-link.nix
   ];
 
   boot.loader = {
@@ -18,7 +20,7 @@ with lib; {
   astral = {
     monitoring-node.scrapeTransport = "tailscale";
     tailscale.oneOffKey =
-      "tskey-auth-ka8GwW6CNTRL-buTFdt8S7P7Cmpwb1uQiM797EGYiPfc3";
+      "tskey-auth-kkLCKn6CNTRL-tv1Pmix6CKCfrj9bX1U1JCFRJn7uFRgYd";
   };
 
   networking = {
@@ -33,10 +35,6 @@ with lib; {
 
   time.timeZone = "US/Pacific";
 
-  programs.steam.enable = true;
-  services.flatpak.enable = true; # steam link
-
-  virtualisation.podman.enable = true;
   virtualisation.vmVariant = {
     # Autologin as root because we testin here
     services.getty.autologinUser = "root";
