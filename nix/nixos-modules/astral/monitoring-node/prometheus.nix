@@ -3,8 +3,7 @@ with lib;
 let
   cfg = config.astral.monitoring-node;
   ecfg = config.services.prometheus.exporters;
-  supportedExporters =
-    [ "node" "nginx" "systemd" "bind" "postgres" ];
+  supportedExporters = [ "node" "nginx" "systemd" "bind" "postgres" ];
 in {
   config = mkIf cfg.enable {
     services.prometheus.exporters = {

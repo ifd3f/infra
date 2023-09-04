@@ -11,9 +11,7 @@ with lib; {
   config = let cfg = config.astral.virt.lxc;
   in mkIf cfg.enable {
     virtualisation = {
-      lxc = {
-        enable = true;
-      };
+      lxc = { enable = true; };
       lxd = {
         enable = true;
         package = pkgs.lxd.override { useQemu = true; };

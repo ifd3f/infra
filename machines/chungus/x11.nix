@@ -1,5 +1,6 @@
 { pkgs, lib, config, ... }:
-with lib; let
+with lib;
+let
   cfg = config.services.xserver;
 
   outputConfig = builtins.readFile ./xorg.conf;
@@ -7,7 +8,7 @@ with lib; let
   # This is lifted from the nixpkgs xserver module.
   prefixStringLines = prefix: str:
     concatMapStringsSep "\n" (line: prefix + line) (splitString "\n" str);
-  indent = prefixStringLines "\t";
+  indent = prefixStringLines "	";
   preConfig = ''
     Section "ServerFlags"
       Option "AllowMouseOpenFail" "on"

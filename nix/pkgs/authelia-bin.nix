@@ -3,7 +3,7 @@ stdenvNoCC.mkDerivation {
   pname = "authelia-bin";
   version = "4.37.5";
 
-  buildInputs = [ glibc];
+  buildInputs = [ glibc ];
   nativeBuildInputs = [ autoPatchelfHook ];
 
   src = fetchzip {
