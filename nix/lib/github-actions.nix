@@ -69,12 +69,44 @@ with lib; rec {
         needs;
 
       steps = let
+        rmFiles = lib.concatStringsSep " " [
+          "/usr/bin/buildah"
+          "/usr/bin/containerd*"
+          "/usr/bin/ctr"
+          "/usr/bin/docker*"
+          "/usr/bin/gh"
+          "/usr/bin/git"
+          "/usr/bin/gpg"
+          "/usr/bin/grub*"
+          "/usr/bin/mono-sgen"
+          "/usr/bin/myisam*"
+          "/usr/bin/mysql*"
+          "/usr/bin/openssl"
+          "/usr/bin/pedump"
+          "/usr/bin/php*"
+          "/usr/bin/podman"
+          "/usr/bin/python3.10"
+          "/usr/bin/shellcheck"
+          "/usr/bin/skopeo"
+          "/usr/bin/snap"
+          "/usr/bin/tcpdump"
+          "/usr/bin/tmux"
+          "/usr/bin/x86_64-linux-gnu-*"
+          "/usr/bin/yq"
+
+          "/opt"
+          "/usr/local"
+          "/usr/share"
+          "/var/lib"
+          "/var/log"
+        ];
+
         pruneStep = {
           name = "Remove unneccessary packages";
           run = ''
             echo "=== Before pruning ==="
             df -h
-            sudo rm -rf /usr/share /usr/local /opt || true
+            sudo rm -rf ${rmFiles} || true
             echo
             echo "=== After pruning ==="
             df -h
@@ -155,8 +187,8 @@ with lib; rec {
           '';
         };
       in flatten [
-        (optional prune-runner pruneStep)
         setupSteps
+        (optional prune-runner pruneStep)
         extraPreBuildSteps
         (optional (build != [ ]) buildStep)
         (optional (run != null) runStep)
