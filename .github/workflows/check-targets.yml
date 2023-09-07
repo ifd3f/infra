@@ -253,20 +253,6 @@ jobs:
     needs: []
     runs-on: ubuntu-latest
     steps:
-      - name: Remove unneccessary packages
-        run: 'echo "=== Before pruning ==="
-
-          df -h
-
-          sudo rm -rf /usr/share /usr/local /opt || true
-
-          echo
-
-          echo "=== After pruning ==="
-
-          df -h
-
-          '
       - uses: webfactory/ssh-agent@v0.8.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
@@ -290,6 +276,25 @@ jobs:
         with:
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
           name: astralbijection
+      - name: Remove unneccessary packages
+        run: 'echo "=== Before pruning ==="
+
+          df -h
+
+          sudo rm -rf /usr/bin/buildah /usr/bin/containerd* /usr/bin/ctr /usr/bin/docker*
+          /usr/bin/gh /usr/bin/git /usr/bin/gpg /usr/bin/grub* /usr/bin/mono-sgen
+          /usr/bin/myisam* /usr/bin/mysql* /usr/bin/openssl /usr/bin/pedump /usr/bin/php*
+          /usr/bin/podman /usr/bin/python3.10 /usr/bin/shellcheck /usr/bin/skopeo
+          /usr/bin/snap /usr/bin/tcpdump /usr/bin/tmux /usr/bin/x86_64-linux-gnu-*
+          /usr/bin/yq /opt /usr/local /usr/share /var/lib /var/log || true
+
+          echo
+
+          echo "=== After pruning ==="
+
+          df -h
+
+          '
       - env:
           TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
         name: Build targets
@@ -394,20 +399,6 @@ jobs:
       - nixos-system-__basePC
     runs-on: ubuntu-latest
     steps:
-      - name: Remove unneccessary packages
-        run: 'echo "=== Before pruning ==="
-
-          df -h
-
-          sudo rm -rf /usr/share /usr/local /opt || true
-
-          echo
-
-          echo "=== After pruning ==="
-
-          df -h
-
-          '
       - uses: webfactory/ssh-agent@v0.8.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
@@ -431,6 +422,25 @@ jobs:
         with:
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
           name: astralbijection
+      - name: Remove unneccessary packages
+        run: 'echo "=== Before pruning ==="
+
+          df -h
+
+          sudo rm -rf /usr/bin/buildah /usr/bin/containerd* /usr/bin/ctr /usr/bin/docker*
+          /usr/bin/gh /usr/bin/git /usr/bin/gpg /usr/bin/grub* /usr/bin/mono-sgen
+          /usr/bin/myisam* /usr/bin/mysql* /usr/bin/openssl /usr/bin/pedump /usr/bin/php*
+          /usr/bin/podman /usr/bin/python3.10 /usr/bin/shellcheck /usr/bin/skopeo
+          /usr/bin/snap /usr/bin/tcpdump /usr/bin/tmux /usr/bin/x86_64-linux-gnu-*
+          /usr/bin/yq /opt /usr/local /usr/share /var/lib /var/log || true
+
+          echo
+
+          echo "=== After pruning ==="
+
+          df -h
+
+          '
       - env:
           TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
         name: Build targets
@@ -492,20 +502,6 @@ jobs:
       - nixos-system-__basePC
     runs-on: ubuntu-latest
     steps:
-      - name: Remove unneccessary packages
-        run: 'echo "=== Before pruning ==="
-
-          df -h
-
-          sudo rm -rf /usr/share /usr/local /opt || true
-
-          echo
-
-          echo "=== After pruning ==="
-
-          df -h
-
-          '
       - uses: webfactory/ssh-agent@v0.8.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
@@ -529,6 +525,25 @@ jobs:
         with:
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
           name: astralbijection
+      - name: Remove unneccessary packages
+        run: 'echo "=== Before pruning ==="
+
+          df -h
+
+          sudo rm -rf /usr/bin/buildah /usr/bin/containerd* /usr/bin/ctr /usr/bin/docker*
+          /usr/bin/gh /usr/bin/git /usr/bin/gpg /usr/bin/grub* /usr/bin/mono-sgen
+          /usr/bin/myisam* /usr/bin/mysql* /usr/bin/openssl /usr/bin/pedump /usr/bin/php*
+          /usr/bin/podman /usr/bin/python3.10 /usr/bin/shellcheck /usr/bin/skopeo
+          /usr/bin/snap /usr/bin/tcpdump /usr/bin/tmux /usr/bin/x86_64-linux-gnu-*
+          /usr/bin/yq /opt /usr/local /usr/share /var/lib /var/log || true
+
+          echo
+
+          echo "=== After pruning ==="
+
+          df -h
+
+          '
       - env:
           TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
         name: Build targets
@@ -730,20 +745,6 @@ jobs:
       - surface-kernel
     runs-on: ubuntu-latest
     steps:
-      - name: Remove unneccessary packages
-        run: 'echo "=== Before pruning ==="
-
-          df -h
-
-          sudo rm -rf /usr/share /usr/local /opt || true
-
-          echo
-
-          echo "=== After pruning ==="
-
-          df -h
-
-          '
       - uses: webfactory/ssh-agent@v0.8.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
@@ -767,6 +768,25 @@ jobs:
         with:
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
           name: astralbijection
+      - name: Remove unneccessary packages
+        run: 'echo "=== Before pruning ==="
+
+          df -h
+
+          sudo rm -rf /usr/bin/buildah /usr/bin/containerd* /usr/bin/ctr /usr/bin/docker*
+          /usr/bin/gh /usr/bin/git /usr/bin/gpg /usr/bin/grub* /usr/bin/mono-sgen
+          /usr/bin/myisam* /usr/bin/mysql* /usr/bin/openssl /usr/bin/pedump /usr/bin/php*
+          /usr/bin/podman /usr/bin/python3.10 /usr/bin/shellcheck /usr/bin/skopeo
+          /usr/bin/snap /usr/bin/tcpdump /usr/bin/tmux /usr/bin/x86_64-linux-gnu-*
+          /usr/bin/yq /opt /usr/local /usr/share /var/lib /var/log || true
+
+          echo
+
+          echo "=== After pruning ==="
+
+          df -h
+
+          '
       - env:
           TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
         name: Build targets
@@ -787,20 +807,6 @@ jobs:
       - nixos-system-__basePC
     runs-on: ubuntu-latest
     steps:
-      - name: Remove unneccessary packages
-        run: 'echo "=== Before pruning ==="
-
-          df -h
-
-          sudo rm -rf /usr/share /usr/local /opt || true
-
-          echo
-
-          echo "=== After pruning ==="
-
-          df -h
-
-          '
       - uses: webfactory/ssh-agent@v0.8.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
@@ -824,6 +830,25 @@ jobs:
         with:
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
           name: astralbijection
+      - name: Remove unneccessary packages
+        run: 'echo "=== Before pruning ==="
+
+          df -h
+
+          sudo rm -rf /usr/bin/buildah /usr/bin/containerd* /usr/bin/ctr /usr/bin/docker*
+          /usr/bin/gh /usr/bin/git /usr/bin/gpg /usr/bin/grub* /usr/bin/mono-sgen
+          /usr/bin/myisam* /usr/bin/mysql* /usr/bin/openssl /usr/bin/pedump /usr/bin/php*
+          /usr/bin/podman /usr/bin/python3.10 /usr/bin/shellcheck /usr/bin/skopeo
+          /usr/bin/snap /usr/bin/tcpdump /usr/bin/tmux /usr/bin/x86_64-linux-gnu-*
+          /usr/bin/yq /opt /usr/local /usr/share /var/lib /var/log || true
+
+          echo
+
+          echo "=== After pruning ==="
+
+          df -h
+
+          '
       - env:
           TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
         name: Build targets
@@ -890,20 +915,6 @@ jobs:
     needs: []
     runs-on: ubuntu-latest
     steps:
-      - name: Remove unneccessary packages
-        run: 'echo "=== Before pruning ==="
-
-          df -h
-
-          sudo rm -rf /usr/share /usr/local /opt || true
-
-          echo
-
-          echo "=== After pruning ==="
-
-          df -h
-
-          '
       - uses: webfactory/ssh-agent@v0.8.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
@@ -927,6 +938,25 @@ jobs:
         with:
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
           name: astralbijection
+      - name: Remove unneccessary packages
+        run: 'echo "=== Before pruning ==="
+
+          df -h
+
+          sudo rm -rf /usr/bin/buildah /usr/bin/containerd* /usr/bin/ctr /usr/bin/docker*
+          /usr/bin/gh /usr/bin/git /usr/bin/gpg /usr/bin/grub* /usr/bin/mono-sgen
+          /usr/bin/myisam* /usr/bin/mysql* /usr/bin/openssl /usr/bin/pedump /usr/bin/php*
+          /usr/bin/podman /usr/bin/python3.10 /usr/bin/shellcheck /usr/bin/skopeo
+          /usr/bin/snap /usr/bin/tcpdump /usr/bin/tmux /usr/bin/x86_64-linux-gnu-*
+          /usr/bin/yq /opt /usr/local /usr/share /var/lib /var/log || true
+
+          echo
+
+          echo "=== After pruning ==="
+
+          df -h
+
+          '
       - env:
           TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
         name: Build targets
