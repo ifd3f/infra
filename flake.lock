@@ -341,15 +341,16 @@
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1693718952,
-        "narHash": "sha256-+nGdJlgTk0MPN7NygopipmyylVuAVi7OItIwTlwtGnw=",
-        "owner": "NixOS",
+        "lastModified": 1694111057,
+        "narHash": "sha256-cgXsxHaGNnuYBflOXWDyAnrOoKcijbYWZohCsqamHag=",
+        "owner": "ifd3f",
         "repo": "nixos-hardware",
-        "rev": "793de77d9f83418b428e8ba70d1e42c6507d0d35",
+        "rev": "cfcd12a864148e53c4945fd1239419717811be96",
         "type": "github"
       },
       "original": {
-        "owner": "NixOS",
+        "owner": "ifd3f",
+        "ref": "remove-intel-thread-director",
         "repo": "nixos-hardware",
         "type": "github"
       }
