@@ -104,11 +104,5 @@ in with lib; {
     '';
   };
 
-  services.resolved = {
-    enable = true;
-    # From surfshark conf
-    fallbackDns = [ "162.252.172.57" "149.154.159.92" ];
-  };
-
   environment.systemPackages = with pkgs; [ vlc ];
 }

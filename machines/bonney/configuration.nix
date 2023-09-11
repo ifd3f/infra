@@ -29,6 +29,7 @@ with lib; {
     hostId = "f0097b23";
 
     networkmanager.enable = true;
+    nameservers = [ "8.8.8.8" "8.8.4.4" ];
   };
 
   hardware.enableRedistributableFirmware = true;
