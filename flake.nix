@@ -43,7 +43,7 @@
 
     # Specialized hardware configurations for specialized hardware.
     # Currently used on the Surface Pro.
-    nixos-hardware.url = "github:ifd3f/nixos-hardware/remove-intel-thread-director";
+    nixos-hardware.url = "github:NixOS/nixos-hardware";
 
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
