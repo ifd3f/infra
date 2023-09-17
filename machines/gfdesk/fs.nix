@@ -1,4 +1,6 @@
 {
+  boot.zfs.forceImportAll = true;
+
   fileSystems."/" = {
     device = "rootfs";
     fsType = "tmpfs";
@@ -33,6 +35,11 @@
   fileSystems."/root" = {
     device = "/home/root";
     options = [ "bind" ];
+  };
+
+  fileSystems."/tmp" = {
+    device = "nvmepool/tmp";
+    fsType = "zfs";
   };
 
   swapDevices = [ ];
