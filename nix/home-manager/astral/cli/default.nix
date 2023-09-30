@@ -1,6 +1,8 @@
 # CLI-only home manager settings
 { config, lib, pkgs, ... }:
-let commonProfile = builtins.readFile ./.profile;
+let
+  commonProfile = builtins.readFile ./.profile;
+  quick-python = pkgs.callPackage ../../../pkgs/quick-python.nix { };
 in with lib; {
   imports = [ ./conda-hooks.nix ];
 
@@ -159,12 +161,10 @@ in with lib; {
       programs.gpg = {
         enable = true;
         mutableKeys = true;
-        scdaemonSettings = {
-          disable-ccid = true;
-        };
+        scdaemonSettings = { disable-ccid = true; };
       };
 
-      home.packages = with pkgs; [ bitwarden-cli gh ranger ];
+      home.packages = with pkgs; [ bitwarden-cli gh ranger quick-python ];
     })
   ]);
   # home.file."email" = { source = ./email; };

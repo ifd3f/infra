@@ -30,5 +30,7 @@ in vendored-images // {
       ${vault-push-approles self}/bin/vault-push-approles &&
         ${vault-push-approle-envs self}/bin/vault-push-approle-envs
     '';
+
+  quick-python = pkgs.callPackage ./quick-python.nix { };
 }
 
