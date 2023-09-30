@@ -703,17 +703,13 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1673237472,
-        "narHash": "sha256-skQLqDlu7Bk/rKhayoj2LtvBX2Ek93JdpLHSPyva9X0=",
-        "owner": "ifd3f",
-        "repo": "vendored-emojis",
-        "rev": "57960c74cbb93e9131c4f1020adafcb254ac4ca2",
-        "type": "github"
+        "narHash": "sha256-o7qbHr5vaOEUWIjQk1+fa7Wg2eGBCGMkh9vQa7CZEng=",
+        "type": "tarball",
+        "url": "https://github.com/ifd3f/vendored-emojis/archive/refs/heads/main.zip"
       },
       "original": {
-        "owner": "ifd3f",
-        "repo": "vendored-emojis",
-        "type": "github"
+        "type": "tarball",
+        "url": "https://github.com/ifd3f/vendored-emojis/archive/refs/heads/main.zip"
       }
     },
     "year-of-bot": {
