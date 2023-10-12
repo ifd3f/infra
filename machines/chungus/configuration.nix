@@ -69,14 +69,6 @@ with lib; {
     };
   };
 
-  specialisation."VFIO".configuration = {
-    system.nixos.tags = [ "with-vfio" ];
-    astral.vfio.pci-devs = lib.mkForce [
-      "10de:2482" # Graphics
-      "10de:228b" # Audio
-    ];
-  };
-
   # RGB stuff
   hardware.i2c.enable = true;
   environment.systemPackages = with pkgs; [ openrgb win10hotplug ];
