@@ -42,9 +42,6 @@ with lib; {
 
     hostId = "b75842a7";
     networkmanager.enable = true;
-
-    # Primary internet connection with a bridge
-    interfaces.enp5s0.useDHCP = true;
   };
 
   boot = {
