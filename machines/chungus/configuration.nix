@@ -3,7 +3,6 @@ inputs:
 with lib; {
   imports = [
     ./hardware-configuration.nix
-    ./x11.nix
     "${inputs.nixos-hardware}/common/cpu/amd"
     inputs.self.nixosModules.pc
   ];
