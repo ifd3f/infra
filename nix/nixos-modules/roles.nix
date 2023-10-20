@@ -16,6 +16,7 @@ let
     media-server = ./roles/media-server;
     monitoring-center = ./roles/monitoring-center;
     nextcloud = ./roles/nextcloud.nix;
+    octoprint = ./roles/octoprint.nix;
     piwigo = ./roles/piwigo;
     sso-provider = ./roles/sso-provider;
     vault = ./roles/vault;
