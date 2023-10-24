@@ -14,7 +14,7 @@ with lib; {
       ./fs.nix
     ];
 
-  microsoft-surface.kernelVersion = "6.1.53";
+  microsoft-surface.kernelVersion = "6.1.55";
 
   time.timeZone = "US/Pacific";
 
