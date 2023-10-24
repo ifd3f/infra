@@ -1,16 +1,18 @@
 inputs:
 { config, pkgs, lib, ... }:
 with lib; {
-  imports = [
-    ./hardware-configuration.nix
-    inputs.self.nixosModules.laptop
-    inputs.self.nixosModules.pc
-  ] ++ (with inputs.nixos-hardware.nixosModules; [
-    common-cpu-intel
-    common-pc-ssd
-    microsoft-surface-common
-    microsoft-surface-pro-intel
-  ]);
+  imports = [ ./hardware-configuration.nix ]
+    ++ (with inputs.nixos-hardware.nixosModules; [
+      common-cpu-intel
+      common-pc-ssd
+      microsoft-surface-common
+      microsoft-surface-pro-intel
+    ]) ++ [
+      inputs.self.nixosModules.laptop
+      inputs.self.nixosModules.pc
+
+      ./fs.nix
+    ];
 
   microsoft-surface.kernelVersion = "6.1.53";
 
