@@ -1,7 +1,6 @@
 { pkgs, lib, config, ... }:
 with lib;
-let
-  cfg = config.astral.monitoring-node;
+let cfg = config.astral.monitoring-node;
 in {
   config = mkIf cfg.enable {
     astral.acme.enable = mkIf (cfg.scrapeTransport == "https") true;

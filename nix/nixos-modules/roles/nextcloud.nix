@@ -47,8 +47,7 @@ in {
 
     extraOptions = {
       oidc_login_client_id = "nextcloud";
-      oidc_login_provider_url =
-        "https://sso.astrid.tech/realms/public-users";
+      oidc_login_provider_url = "https://sso.astrid.tech/realms/public-users";
       oidc_login_end_session_redirect = false;
       oidc_login_logout_url =
         "https://nextcloud.astrid.tech/apps/oidc_login/oidc";
