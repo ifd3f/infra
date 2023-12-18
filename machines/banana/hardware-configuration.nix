@@ -32,12 +32,6 @@
     fsType = "zfs";
   };
 
-  fileSystems."/root" = {
-    device = "/home/root";
-    fsType = "none";
-    options = [ "bind" ];
-  };
-
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/9273-1FCA";
     fsType = "vfat";

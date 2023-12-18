@@ -27,6 +27,7 @@ inputs:
     infra-update.enable = false;
     net.sshd.enable = true;
     monitoring-node.enable = true;
+    mount-root-to-home.enable = true;
 
     tailscale.enable = true;
 

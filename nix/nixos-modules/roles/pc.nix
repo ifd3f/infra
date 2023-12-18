@@ -114,6 +114,7 @@ in {
     #   dates = "*-*-* 3:00:00 US/Pacific";
     # };
     xmonad.enable = true;
+    mount-root-to-home.enable = true;
   };
 
   security.rtkit.enable = true;

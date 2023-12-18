@@ -4,6 +4,7 @@ inputs: {
     inputs.nix-ld.nixosModules.nix-ld
     inputs.home-manager-stable.nixosModule
     ./hw
+    ./mount-root-to-home.nix
 
     ({ pkgs, ... }: {
       programs.zsh.enable = true;

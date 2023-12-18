@@ -32,11 +32,6 @@
     fsType = "zfs";
   };
 
-  fileSystems."/root" = {
-    device = "/home/root";
-    options = [ "bind" ];
-  };
-
   fileSystems."/tmp" = {
     device = "nvmepool/tmp";
     fsType = "zfs";
