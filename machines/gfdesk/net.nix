@@ -1,5 +1,7 @@
 {
-  networking.useDHCP = true;
-
-  # TODO set up VLANs when the new switch arrives
+  networking = {
+    useDHCP = false;
+    interfaces."br0".useDHCP = true;
+    bridges."br0".interfaces = [ "eno4" ];
+  };
 }
