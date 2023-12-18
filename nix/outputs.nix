@@ -103,5 +103,4 @@ in {
     gh-ci-matrix = pkgs.callPackage ./pkgs/gh-ci-matrix { inherit self; };
     devShells = import ./shells.nix { inherit self pkgs; };
     packages = import ./pkgs inputs pkgs;
-    legacyPackages = pkgs;
   })
