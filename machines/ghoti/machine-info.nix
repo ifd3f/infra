@@ -1,1 +1,4 @@
-{ arch = "aarch64-linux"; }
+{
+  arch = "aarch64-linux";
+  enabled = false;
+}

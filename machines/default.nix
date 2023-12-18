@@ -13,9 +13,13 @@ in with nixpkgs-stable.lib; rec {
       (filterAttrs (name: type: type == "directory") (builtins.readDir ./.));
   in mapAttrs (hostname: _: mkMachine hostname (./. + "/${hostname}")) dirs;
 
-  nixosConfigurations = mapAttrs (_: data:
-    nixpkgs-stable.lib.nixosSystem {
-      system = data.machine-info.arch;
-      modules = [ self.nixosModules.astral data.configuration ];
-    }) machines;
+  nixosConfigurations = let
+    enabledMachines =
+      filterAttrs (_: m: m.machine-info.enabled or true) machines;
+    mkConfiguration = _: m:
+      nixpkgs-stable.lib.nixosSystem {
+        system = m.machine-info.arch;
+        modules = [ self.nixosModules.astral m.configuration ];
+      };
+  in mapAttrs mkConfiguration enabledMachines;
 }
