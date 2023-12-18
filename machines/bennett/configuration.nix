@@ -6,8 +6,6 @@ with lib; {
 
     inputs.self.nixosModules.contabo-vps
     inputs.self.nixosModules.server
-
-    inputs.self.nixosModules.auth-dns
   ];
 
   astral = {

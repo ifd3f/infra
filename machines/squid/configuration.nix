@@ -4,8 +4,6 @@ with lib; {
   imports = [
     "${modulesPath}/installer/sd-card/sd-image-aarch64.nix"
     inputs.self.nixosModules.server
-
-    inputs.self.nixosModules.iot-gw
   ];
 
   astral = {
