@@ -596,6 +596,7 @@
         "nur": "nur",
         "nur-ifd3f": "nur-ifd3f",
         "vault-secrets": "vault-secrets",
+        "vaultModule": "vaultModule",
         "vendored-emojis": "vendored-emojis",
         "year-of-bot": "year-of-bot"
       }
@@ -731,6 +732,27 @@
       "original": {
         "owner": "serokell",
         "repo": "vault-secrets",
+        "type": "github"
+      }
+    },
+    "vaultModule": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-stable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1689956398,
+        "narHash": "sha256-EiicgTsh53vx574uMI/qWynqUSItnW2rX3z4Zuindw4=",
+        "owner": "DeterminateSystems",
+        "repo": "nixos-vault-service",
+        "rev": "4de9bb77b05df6aa63406d99a1bf77c439414d6e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "DeterminateSystems",
+        "ref": "main",
+        "repo": "nixos-vault-service",
         "type": "github"
       }
     },
