@@ -27,12 +27,14 @@ in {
   vault-secrets.secrets.akkoma = {
     user = "akkoma";
     group = "akkoma";
+    services = mkForce [ "akkoma-config.service" ];
   };
 
   # vault kv put kv/akkoma_b2/secrets b2_app_key=@ b2_app_key_id=@
   vault-secrets.secrets.akkoma_b2 = {
     user = "akkoma";
     group = "akkoma";
+    services = mkForce [ "akkoma-config.service" ];
   };
 
   astral.custom-nginx-errors.virtualHosts = [ "fedi.astrid.tech" ];
@@ -180,11 +182,6 @@ in {
   # It seems to be running out of FDs.
   # By default it's 1024, which is a bit too small.
   systemd.services.akkoma.serviceConfig.LimitNOFILE = 262144;
-
-  systemd.services.akkoma-config = {
-    requires = [ "akkoma-secrets.service" "akkoma_b2-secrets.service" ];
-    after = [ "akkoma-secrets.service" "akkoma_b2-secrets.service" ];
-  };
 
   # Auto-prune objects in the database.
   systemd.timers.akkoma-prune-objects = {
