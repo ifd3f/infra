@@ -10,8 +10,8 @@ resource "vault_kv_secret_v2" "akkoma_b2" {
   name  = "akkoma_b2/secrets"
   data_json = jsonencode(
     {
-      b2_app_key_id = b2_application_key.loki_storage_v2.application_key_id
-      b2_app_key = b2_application_key.loki_storage_v2.application_key
+      b2_app_key_id = b2_application_key.main_fedi.application_key_id
+      b2_app_key = b2_application_key.main_fedi.application_key
     }
   )
   custom_metadata {
