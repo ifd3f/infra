@@ -12,6 +12,7 @@ with lib; {
     ./fs.nix
     ./net.nix
     ./share.nix
+    ./deluge.nix
   ];
 
   # Logrotate config build fail workaround
