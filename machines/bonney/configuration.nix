@@ -68,4 +68,10 @@ with lib; {
   };
 
   system.stateVersion = mkForce "23.05"; # Did you read the comment?
+
+  fileSystems."/mnt/torrent" = {
+    device = "192.168.1.122:/torrent";
+    fsType = "nfs";
+    #options = [ "x-systemd.automount" "noauto" ];
+  };
 }

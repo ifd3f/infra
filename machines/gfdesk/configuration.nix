@@ -11,6 +11,7 @@ with lib; {
     ./boot.nix
     ./fs.nix
     ./net.nix
+    ./share.nix
   ];
 
   # Logrotate config build fail workaround
