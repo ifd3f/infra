@@ -37,6 +37,16 @@ in {
     services = mkForce [ "akkoma-config.service" ];
   };
 
+  # partOf simply isn't enough, we need before
+  systemd.services."akkoma-secrets" = {
+    before = [ "akkoma-config.service" ];
+    requiredBy = [ "akkoma-config.service" ];
+  };
+  systemd.services."akkoma_b2-secrets" = {
+    before = [ "akkoma-config.service" ];
+    requiredBy = [ "akkoma-config.service" ];
+  };
+
   astral.custom-nginx-errors.virtualHosts = [ "fedi.astrid.tech" ];
 
   services.akkoma = {
