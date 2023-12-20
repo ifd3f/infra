@@ -6,5 +6,12 @@
 
   networking.firewall.allowedTCPPorts = [ config.services.deluge.web.port ];
 
+  fileSystems."/var/lib/deluge" = {
+    device = "dpool/torrent";
+    fsType = "zfs";
+  };
+
+  systemd.services.deluged.requires = [ "var-lib-deluge.mount" ];
+
   users.groups."deluge".members = [ "astrid" ];
 }
