@@ -1,0 +1,27 @@
+; Registrar: https://porkbun.com
+
+$ORIGIN nya.haus
+$TTL 1h
+
+@ 1h                      IN SOA     dennis.astrid.tech. admin.astrid.tech. (
+        ; SOA value reccommendations
+        ; https://www.ripe.net/publications/docs/ripe-203
+        2022111200 ; serial YYMMDDnn
+        3h         ; refresh (3h to allow faster refresh)
+        1h         ; retry
+        1d         ; expire
+        1h         ; minimum days
+)
+
+@                         IN NS      charlie.astrid.tech.
+@                         IN NS      dennis.astrid.tech.
+
+;;; FreeIPA and directory services
+id                        IN NS      ipa0.id
+ipa0.id                   IN A       100.64.64.64
+ipa0.id                   IN AAAA    fd7a:115c:a1e0::b4d1:1b7f
+
+;;; Mail security
+@                         IN TXT     "v=spf1 -all"
+_dmarc                    IN TXT     "v=DMARC1; p=reject; sp=reject; adkim=s; aspf=s; rua=mailto:astrid@astrid.tech"
+*._domainkey              IN TXT     "v=DKIM1; p="

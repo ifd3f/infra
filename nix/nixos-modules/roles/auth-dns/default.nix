@@ -94,6 +94,11 @@ in with lib; {
         master = true;
         file = ./femboy.technology.zone;
       }
+      {
+        name = "nya.haus";
+        master = true;
+        file = ./nya.haus.zone;
+      }
     ];
   };
 
