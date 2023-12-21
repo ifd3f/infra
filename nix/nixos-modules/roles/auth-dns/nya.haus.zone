@@ -1,12 +1,12 @@
 ; Registrar: https://porkbun.com
 
-$ORIGIN nya.haus
+$ORIGIN nya.haus.
 $TTL 1h
 
 @ 1h                      IN SOA     dennis.astrid.tech. admin.astrid.tech. (
         ; SOA value reccommendations
         ; https://www.ripe.net/publications/docs/ripe-203
-        2022111200 ; serial YYMMDDnn
+        2023122000 ; serial YYMMDDnn
         3h         ; refresh (3h to allow faster refresh)
         1h         ; retry
         1d         ; expire
@@ -17,9 +17,9 @@ $TTL 1h
 @                         IN NS      dennis.astrid.tech.
 
 ;;; FreeIPA and directory services
-id                        IN NS      ipa0.id
-ipa0.id                   IN A       100.64.64.64
-ipa0.id                   IN AAAA    fd7a:115c:a1e0::b4d1:1b7f
+;id.nya.haus.              IN NS      ipa0.id.nya.haus.
+ipa0.id.nya.haus.         IN A       100.64.64.64
+ipa0.id.nya.haus.         IN AAAA    fd7a:115c:a1e0::b4d1:1b7f
 
 ;;; Mail security
 @                         IN TXT     "v=spf1 -all"

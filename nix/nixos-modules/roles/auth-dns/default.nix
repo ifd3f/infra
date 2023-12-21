@@ -6,7 +6,10 @@ let
 in with lib; {
   # vault kv put kv/ddns-key/secrets \
   #   s03=@
-  vault-secrets.secrets."ddns-key" = { user = "named"; };
+  vault-secrets.secrets."ddns-key" = {
+    user = "named";
+    services = mkForce [ ];
+  };
 
   networking.firewall.allowedUDPPorts = [ 53 ];
 
@@ -124,8 +127,8 @@ in with lib; {
   systemd.services.generate-bind-key-includes = {
     description = "Generate config includes for BIND keys";
 
-    # after = [ "ddns-key-secrets.service" ];
-    # requires = [ "ddns-key-secrets.service" ];
+    after = [ "ddns-key-secrets.service" ];
+    requires = [ "ddns-key-secrets.service" ];
 
     before = [ "bind.service" ];
     requiredBy = [ "bind.service" ];
