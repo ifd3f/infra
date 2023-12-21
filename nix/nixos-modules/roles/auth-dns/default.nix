@@ -50,6 +50,12 @@ in with lib; {
       allow-transfer {
         "none";
       };
+
+      // Disable recursion
+      allow-recursion {
+        "none";
+      };
+      recursion no;
     '';
 
     extraConfig = ''
