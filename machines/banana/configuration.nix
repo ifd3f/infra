@@ -43,7 +43,7 @@ with lib; {
     bluetooth.enable = true;
   };
 
-  services.xserver.dpi = 144;
+  services.xserver.dpi = 120;
 
   networking = {
     hostName = "banana";
