@@ -6,7 +6,7 @@ $TTL 1h
 @ 1h                      IN SOA     dennis.astrid.tech. admin.astrid.tech. (
         ; SOA value reccommendations
         ; https://www.ripe.net/publications/docs/ripe-203
-        2023122000 ; serial YYMMDDnn
+        2023122001 ; serial YYMMDDnn
         3h         ; refresh (3h to allow faster refresh)
         1h         ; retry
         1d         ; expire
@@ -17,7 +17,7 @@ $TTL 1h
 @                         IN NS      dennis.astrid.tech.
 
 ;;; FreeIPA and directory services
-;id.nya.haus.              IN NS      ipa0.id.nya.haus.
+id.nya.haus.              IN NS      ipa0.id.nya.haus.
 ipa0.id.nya.haus.         IN A       100.64.64.64
 ipa0.id.nya.haus.         IN AAAA    fd7a:115c:a1e0::b4d1:1b7f
 
