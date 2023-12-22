@@ -11,7 +11,10 @@
     fsType = "zfs";
   };
 
-  systemd.services.deluged.requires = [ "var-lib-deluge.mount" ];
+  systemd.services.deluged = {
+    requires = [ "var-lib-deluge.mount" ];
+    after = [ "var-lib-deluge.mount" ];
+  };
 
   users.groups."deluge".members = [ "astrid" ];
 }
