@@ -47,37 +47,37 @@ in {
 
   homeConfigurations = {
     default = home-manager.lib.homeManagerConfiguration {
-      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      pkgs = import nixpkgs { system = "x86_64-linux"; };
       modules = [ self.homeModules.astral-cli ];
     };
 
     m1 = home-manager.lib.homeManagerConfiguration {
-      pkgs = nixpkgs.legacyPackages.aarch64-darwin;
+      pkgs = import nixpkgs { system = "aarch64-darwin"; };
       modules = [ self.homeModules.astral-cli-full ];
     };
 
     "astrid@aliaconda" = home-manager.lib.homeManagerConfiguration {
-      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      pkgs = import nixpkgs { system = "x86_64-linux"; };
       modules = [ self.homeModules.astral-scientific vscode-server-home ];
     };
     "astrid@banana" = home-manager.lib.homeManagerConfiguration {
-      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      pkgs = import nixpkgs { system = "x86_64-linux"; };
       modules = [ self.homeModules.astral-gui ];
     };
     "astrid@chungus" = home-manager.lib.homeManagerConfiguration {
-      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      pkgs = import nixpkgs { system = "x86_64-linux"; };
       modules = [ self.homeModules.astral-gui ];
     };
     "astrid@Discovery" = home-manager.lib.homeManagerConfiguration {
-      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      pkgs = import nixpkgs { system = "x86_64-linux"; };
       modules = [ self.homeModules.astral-gui vscode-server-home ];
     };
     "astrid@shai-hulud" = home-manager.lib.homeManagerConfiguration {
-      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      pkgs = import nixpkgs { system = "x86_64-linux"; };
       modules = [ self.homeModules.astral-gui-tablet ];
     };
     "astrid@soulcaster" = home-manager.lib.homeManagerConfiguration {
-      pkgs = nixpkgs.legacyPackages.x86_64-darwin;
+      pkgs = import nixpkgs { system = "x86_64-darwin"; };
       modules = [ self.homeModules.astral-macos ];
     };
   };
@@ -101,6 +101,12 @@ in {
     };
   in rec {
     gh-ci-matrix = pkgs.callPackage ./pkgs/gh-ci-matrix { inherit self; };
-    devShells = import ./shells.nix { inherit self pkgs; };
+    devShells = import ./shells.nix {
+      inherit self;
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      };
+    };
     packages = import ./pkgs inputs pkgs;
   })

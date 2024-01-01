@@ -76,6 +76,4 @@
   };
 
   outputs = inputs: import ./nix/outputs.nix inputs;
-
-  nixConfig.allowUnfree = true;
 }
