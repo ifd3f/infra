@@ -10,7 +10,7 @@
 
     # Machines run on nixpkgs-stable because it's less likely to break
     # in annoying ways.
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-23.05";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-23.11";
 
     # We need PHP 7.4 for piwigo to work correctly.
     # It is removed in 22.11.
@@ -25,14 +25,14 @@
     };
 
     home-manager-stable = {
-      url = "github:nix-community/home-manager/release-23.05";
+      url = "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
     # Temporarily use older version due to it being broken.
     # error: The option `programs.nix-ld.package' does not exist.
     nix-ld = {
-      url = "github:Mic92/nix-ld/a6fd41e3934eb35f04f88826ee0118e391b4e31f";
+      url = "github:Mic92/nix-ld";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
@@ -76,4 +76,6 @@
   };
 
   outputs = inputs: import ./nix/outputs.nix inputs;
+
+  nixConfig.allowUnfree = true;
 }
