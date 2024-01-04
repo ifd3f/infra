@@ -163,4 +163,8 @@ in with lib; {
 
     serviceConfig = { User = "named"; };
   };
+
+  networking.extraHosts = ''
+    192.9.153.114 secrets.astrid.tech
+  '';
 }
