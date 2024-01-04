@@ -68,11 +68,6 @@
 
     # Files are stored using LFS, so the git fetcher is needed.
     vendored-emojis.url = "github:ifd3f/vendored-emojis";
-
-    vaultModule = {
-      url = "github:DeterminateSystems/nixos-vault-service/main";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-    };
   };
 
   outputs = inputs: import ./nix/outputs.nix inputs;
