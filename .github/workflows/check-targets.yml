@@ -43,47 +43,47 @@ jobs:
     needs: []
     runs-on: macos-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.8.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - env:
-          KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
-        name: Append to known_hosts
-        run: 'echo ''\n'' >> ~/.ssh/known_hosts
+    - uses: webfactory/ssh-agent@v0.8.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+    - env:
+        KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
+      name: Append to known_hosts
+      run: 'echo ''\n'' >> ~/.ssh/known_hosts
 
-          echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
+        echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
 
-          '
-      - uses: cachix/install-nix-action@v22
-        with:
-          extra_nix_config: 'experimental-features = nix-command flakes
+        '
+    - uses: cachix/install-nix-action@v22
+      with:
+        extra_nix_config: 'experimental-features = nix-command flakes
 
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-
-            '
-          nix_path: nixpkgs=channel:nixos-unstable
-      - uses: cachix/cachix-action@v12
-        with:
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-          name: astralbijection
-      - name: Enable unfree packages
-        run: 'mkdir -p ~/.config/nixpkgs
-
-          echo ''{ allowUnfree = true; }'' > ~/.config/nixpkgs/config.nix
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
           '
-      - env:
-          TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
-        name: Build targets
-        run: GC_DONT_GC=1 nix build --accept-flake-config --show-trace --log-lines
-          10000 --fallback "$TARGET_FLAKE#"'devShells.x86_64-darwin.default'
-      - if: ${{ always() }}
-        name: Log remaining space
-        run: 'echo "=== Space left after build ==="
+        nix_path: nixpkgs=channel:nixos-unstable
+    - uses: cachix/cachix-action@v12
+      with:
+        authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+        name: astralbijection
+    - name: Enable unfree packages
+      run: 'mkdir -p ~/.config/nixpkgs
 
-          df -h
+        echo ''{ allowUnfree = true; }'' > ~/.config/nixpkgs/config.nix
 
-          '
+        '
+    - env:
+        TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
+      name: Build targets
+      run: GC_DONT_GC=1 nix build --accept-flake-config --show-trace --log-lines 10000
+        --fallback "$TARGET_FLAKE#"'devShells.x86_64-darwin.default'
+    - if: ${{ always() }}
+      name: Log remaining space
+      run: 'echo "=== Space left after build ==="
+
+        df -h
+
+        '
     strategy:
       fail-fast: false
   devShells-x86_64-linux:
@@ -91,47 +91,47 @@ jobs:
     needs: []
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.8.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - env:
-          KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
-        name: Append to known_hosts
-        run: 'echo ''\n'' >> ~/.ssh/known_hosts
+    - uses: webfactory/ssh-agent@v0.8.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+    - env:
+        KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
+      name: Append to known_hosts
+      run: 'echo ''\n'' >> ~/.ssh/known_hosts
 
-          echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
+        echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
 
-          '
-      - uses: cachix/install-nix-action@v22
-        with:
-          extra_nix_config: 'experimental-features = nix-command flakes
+        '
+    - uses: cachix/install-nix-action@v22
+      with:
+        extra_nix_config: 'experimental-features = nix-command flakes
 
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-
-            '
-          nix_path: nixpkgs=channel:nixos-unstable
-      - uses: cachix/cachix-action@v12
-        with:
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-          name: astralbijection
-      - name: Enable unfree packages
-        run: 'mkdir -p ~/.config/nixpkgs
-
-          echo ''{ allowUnfree = true; }'' > ~/.config/nixpkgs/config.nix
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
           '
-      - env:
-          TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
-        name: Build targets
-        run: GC_DONT_GC=1 nix build --accept-flake-config --show-trace --log-lines
-          10000 --fallback "$TARGET_FLAKE#"'devShells.x86_64-linux.default'
-      - if: ${{ always() }}
-        name: Log remaining space
-        run: 'echo "=== Space left after build ==="
+        nix_path: nixpkgs=channel:nixos-unstable
+    - uses: cachix/cachix-action@v12
+      with:
+        authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+        name: astralbijection
+    - name: Enable unfree packages
+      run: 'mkdir -p ~/.config/nixpkgs
 
-          df -h
+        echo ''{ allowUnfree = true; }'' > ~/.config/nixpkgs/config.nix
 
-          '
+        '
+    - env:
+        TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
+      name: Build targets
+      run: GC_DONT_GC=1 nix build --accept-flake-config --show-trace --log-lines 10000
+        --fallback "$TARGET_FLAKE#"'devShells.x86_64-linux.default'
+    - if: ${{ always() }}
+      name: Log remaining space
+      run: 'echo "=== Space left after build ==="
+
+        df -h
+
+        '
     strategy:
       fail-fast: false
   home-manager-x86_64-darwin:
@@ -139,47 +139,47 @@ jobs:
     needs: []
     runs-on: macos-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.8.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - env:
-          KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
-        name: Append to known_hosts
-        run: 'echo ''\n'' >> ~/.ssh/known_hosts
+    - uses: webfactory/ssh-agent@v0.8.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+    - env:
+        KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
+      name: Append to known_hosts
+      run: 'echo ''\n'' >> ~/.ssh/known_hosts
 
-          echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
+        echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
 
-          '
-      - uses: cachix/install-nix-action@v22
-        with:
-          extra_nix_config: 'experimental-features = nix-command flakes
+        '
+    - uses: cachix/install-nix-action@v22
+      with:
+        extra_nix_config: 'experimental-features = nix-command flakes
 
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-
-            '
-          nix_path: nixpkgs=channel:nixos-unstable
-      - uses: cachix/cachix-action@v12
-        with:
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-          name: astralbijection
-      - name: Enable unfree packages
-        run: 'mkdir -p ~/.config/nixpkgs
-
-          echo ''{ allowUnfree = true; }'' > ~/.config/nixpkgs/config.nix
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
           '
-      - env:
-          TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
-        name: Build targets
-        run: GC_DONT_GC=1 nix build --accept-flake-config --show-trace --log-lines
-          10000 --fallback "$TARGET_FLAKE#"'homeConfigurations.astrid@soulcaster.activationPackage'
-      - if: ${{ always() }}
-        name: Log remaining space
-        run: 'echo "=== Space left after build ==="
+        nix_path: nixpkgs=channel:nixos-unstable
+    - uses: cachix/cachix-action@v12
+      with:
+        authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+        name: astralbijection
+    - name: Enable unfree packages
+      run: 'mkdir -p ~/.config/nixpkgs
 
-          df -h
+        echo ''{ allowUnfree = true; }'' > ~/.config/nixpkgs/config.nix
 
-          '
+        '
+    - env:
+        TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
+      name: Build targets
+      run: GC_DONT_GC=1 nix build --accept-flake-config --show-trace --log-lines 10000
+        --fallback "$TARGET_FLAKE#"'homeConfigurations.astrid@soulcaster.activationPackage'
+    - if: ${{ always() }}
+      name: Log remaining space
+      run: 'echo "=== Space left after build ==="
+
+        df -h
+
+        '
     strategy:
       fail-fast: false
   home-manager-x86_64-linux:
@@ -187,100 +187,99 @@ jobs:
     needs: []
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.8.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - env:
-          KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
-        name: Append to known_hosts
-        run: 'echo ''\n'' >> ~/.ssh/known_hosts
+    - uses: webfactory/ssh-agent@v0.8.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+    - env:
+        KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
+      name: Append to known_hosts
+      run: 'echo ''\n'' >> ~/.ssh/known_hosts
 
-          echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
+        echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
 
-          '
-      - uses: cachix/install-nix-action@v22
-        with:
-          extra_nix_config: 'experimental-features = nix-command flakes
+        '
+    - uses: cachix/install-nix-action@v22
+      with:
+        extra_nix_config: 'experimental-features = nix-command flakes
 
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-
-            '
-          nix_path: nixpkgs=channel:nixos-unstable
-      - uses: cachix/cachix-action@v12
-        with:
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-          name: astralbijection
-      - name: Enable unfree packages
-        run: 'mkdir -p ~/.config/nixpkgs
-
-          echo ''{ allowUnfree = true; }'' > ~/.config/nixpkgs/config.nix
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
           '
-      - env:
-          TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
-        name: Build targets
-        run: GC_DONT_GC=1 nix build --accept-flake-config --show-trace --log-lines
-          10000 --fallback "$TARGET_FLAKE#"'homeConfigurations.astrid@Discovery.activationPackage'
-          "$TARGET_FLAKE#"'homeConfigurations.astrid@aliaconda.activationPackage'
-          "$TARGET_FLAKE#"'homeConfigurations.astrid@banana.activationPackage' "$TARGET_FLAKE#"'homeConfigurations.astrid@chungus.activationPackage'
-          "$TARGET_FLAKE#"'homeConfigurations.astrid@shai-hulud.activationPackage'
-          "$TARGET_FLAKE#"'homeConfigurations.default.activationPackage'
-      - if: ${{ always() }}
-        name: Log remaining space
-        run: 'echo "=== Space left after build ==="
+        nix_path: nixpkgs=channel:nixos-unstable
+    - uses: cachix/cachix-action@v12
+      with:
+        authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+        name: astralbijection
+    - name: Enable unfree packages
+      run: 'mkdir -p ~/.config/nixpkgs
 
-          df -h
+        echo ''{ allowUnfree = true; }'' > ~/.config/nixpkgs/config.nix
 
-          '
+        '
+    - env:
+        TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
+      name: Build targets
+      run: GC_DONT_GC=1 nix build --accept-flake-config --show-trace --log-lines 10000
+        --fallback "$TARGET_FLAKE#"'homeConfigurations.astrid@Discovery.activationPackage'
+        "$TARGET_FLAKE#"'homeConfigurations.astrid@aliaconda.activationPackage' "$TARGET_FLAKE#"'homeConfigurations.astrid@banana.activationPackage'
+        "$TARGET_FLAKE#"'homeConfigurations.astrid@chungus.activationPackage' "$TARGET_FLAKE#"'homeConfigurations.astrid@shai-hulud.activationPackage'
+        "$TARGET_FLAKE#"'homeConfigurations.default.activationPackage'
+    - if: ${{ always() }}
+      name: Log remaining space
+      run: 'echo "=== Space left after build ==="
+
+        df -h
+
+        '
     strategy:
       fail-fast: false
   installer-iso:
     name: x86 Installer ISO
     needs:
-      - home-manager-x86_64-linux
+    - home-manager-x86_64-linux
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.8.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - env:
-          KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
-        name: Append to known_hosts
-        run: 'echo ''\n'' >> ~/.ssh/known_hosts
+    - uses: webfactory/ssh-agent@v0.8.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+    - env:
+        KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
+      name: Append to known_hosts
+      run: 'echo ''\n'' >> ~/.ssh/known_hosts
 
-          echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
+        echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
 
-          '
-      - uses: cachix/install-nix-action@v22
-        with:
-          extra_nix_config: 'experimental-features = nix-command flakes
+        '
+    - uses: cachix/install-nix-action@v22
+      with:
+        extra_nix_config: 'experimental-features = nix-command flakes
 
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-
-            '
-          nix_path: nixpkgs=channel:nixos-unstable
-      - uses: cachix/cachix-action@v12
-        with:
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-          name: astralbijection
-      - name: Enable unfree packages
-        run: 'mkdir -p ~/.config/nixpkgs
-
-          echo ''{ allowUnfree = true; }'' > ~/.config/nixpkgs/config.nix
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
           '
-      - env:
-          TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
-        name: Build targets
-        run: GC_DONT_GC=1 nix build --accept-flake-config --show-trace --log-lines
-          10000 --fallback "$TARGET_FLAKE#"'packages.x86_64-linux.installer-iso'
-      - if: ${{ always() }}
-        name: Log remaining space
-        run: 'echo "=== Space left after build ==="
+        nix_path: nixpkgs=channel:nixos-unstable
+    - uses: cachix/cachix-action@v12
+      with:
+        authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+        name: astralbijection
+    - name: Enable unfree packages
+      run: 'mkdir -p ~/.config/nixpkgs
 
-          df -h
+        echo ''{ allowUnfree = true; }'' > ~/.config/nixpkgs/config.nix
 
-          '
+        '
+    - env:
+        TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
+      name: Build targets
+      run: GC_DONT_GC=1 nix build --accept-flake-config --show-trace --log-lines 10000
+        --fallback "$TARGET_FLAKE#"'packages.x86_64-linux.installer-iso'
+    - if: ${{ always() }}
+      name: Log remaining space
+      run: 'echo "=== Space left after build ==="
+
+        df -h
+
+        '
     strategy:
       fail-fast: false
   nixos-system-__basePC:
@@ -288,804 +287,804 @@ jobs:
     needs: []
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.8.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - env:
-          KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
-        name: Append to known_hosts
-        run: 'echo ''\n'' >> ~/.ssh/known_hosts
+    - uses: webfactory/ssh-agent@v0.8.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+    - env:
+        KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
+      name: Append to known_hosts
+      run: 'echo ''\n'' >> ~/.ssh/known_hosts
 
-          echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
+        echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
 
-          '
-      - uses: cachix/install-nix-action@v22
-        with:
-          extra_nix_config: 'experimental-features = nix-command flakes
+        '
+    - uses: cachix/install-nix-action@v22
+      with:
+        extra_nix_config: 'experimental-features = nix-command flakes
 
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-
-            '
-          nix_path: nixpkgs=channel:nixos-unstable
-      - uses: cachix/cachix-action@v12
-        with:
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-          name: astralbijection
-      - name: Enable unfree packages
-        run: 'mkdir -p ~/.config/nixpkgs
-
-          echo ''{ allowUnfree = true; }'' > ~/.config/nixpkgs/config.nix
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
           '
-      - name: Remove unneccessary packages
-        run: 'echo "=== Before pruning ==="
+        nix_path: nixpkgs=channel:nixos-unstable
+    - uses: cachix/cachix-action@v12
+      with:
+        authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+        name: astralbijection
+    - name: Enable unfree packages
+      run: 'mkdir -p ~/.config/nixpkgs
 
-          df -h
+        echo ''{ allowUnfree = true; }'' > ~/.config/nixpkgs/config.nix
 
-          sudo rm -rf /usr/bin/buildah /usr/bin/containerd* /usr/bin/ctr /usr/bin/docker*
-          /usr/bin/gh /usr/bin/git /usr/bin/gpg /usr/bin/grub* /usr/bin/mono-sgen
-          /usr/bin/myisam* /usr/bin/mysql* /usr/bin/openssl /usr/bin/pedump /usr/bin/php*
-          /usr/bin/podman /usr/bin/python3.10 /usr/bin/shellcheck /usr/bin/skopeo
-          /usr/bin/snap /usr/bin/tcpdump /usr/bin/tmux /usr/bin/x86_64-linux-gnu-*
-          /usr/bin/yq /opt /usr/local /usr/share /var/lib /var/log || true
+        '
+    - name: Remove unneccessary packages
+      run: 'echo "=== Before pruning ==="
 
-          echo
+        df -h
 
-          echo "=== After pruning ==="
+        sudo rm -rf /usr/bin/buildah /usr/bin/containerd* /usr/bin/ctr /usr/bin/docker*
+        /usr/bin/gh /usr/bin/git /usr/bin/gpg /usr/bin/grub* /usr/bin/mono-sgen /usr/bin/myisam*
+        /usr/bin/mysql* /usr/bin/openssl /usr/bin/pedump /usr/bin/php* /usr/bin/podman
+        /usr/bin/python3.10 /usr/bin/shellcheck /usr/bin/skopeo /usr/bin/snap /usr/bin/tcpdump
+        /usr/bin/tmux /usr/bin/x86_64-linux-gnu-* /usr/bin/yq /opt /usr/local /usr/share
+        /var/lib /var/log || true
 
-          df -h
+        echo
 
-          '
-      - env:
-          TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
-        name: Build targets
-        run: GC_DONT_GC=1 nix build --accept-flake-config --show-trace --log-lines
-          10000 --fallback "$TARGET_FLAKE#"'nixosConfigurations.__basePC.config.system.build.toplevel'
-      - if: ${{ always() }}
-        name: Log remaining space
-        run: 'echo "=== Space left after build ==="
+        echo "=== After pruning ==="
 
-          df -h
+        df -h
 
-          '
+        '
+    - env:
+        TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
+      name: Build targets
+      run: GC_DONT_GC=1 nix build --accept-flake-config --show-trace --log-lines 10000
+        --fallback "$TARGET_FLAKE#"'nixosConfigurations.__basePC.config.system.build.toplevel'
+    - if: ${{ always() }}
+      name: Log remaining space
+      run: 'echo "=== Space left after build ==="
+
+        df -h
+
+        '
     strategy:
       fail-fast: false
   nixos-system-__baseServer:
     name: NixOS sys. __baseServer
     needs:
-      - home-manager-x86_64-linux
+    - home-manager-x86_64-linux
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.8.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - env:
-          KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
-        name: Append to known_hosts
-        run: 'echo ''\n'' >> ~/.ssh/known_hosts
+    - uses: webfactory/ssh-agent@v0.8.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+    - env:
+        KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
+      name: Append to known_hosts
+      run: 'echo ''\n'' >> ~/.ssh/known_hosts
 
-          echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
+        echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
 
-          '
-      - uses: cachix/install-nix-action@v22
-        with:
-          extra_nix_config: 'experimental-features = nix-command flakes
+        '
+    - uses: cachix/install-nix-action@v22
+      with:
+        extra_nix_config: 'experimental-features = nix-command flakes
 
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-
-            '
-          nix_path: nixpkgs=channel:nixos-unstable
-      - uses: cachix/cachix-action@v12
-        with:
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-          name: astralbijection
-      - name: Enable unfree packages
-        run: 'mkdir -p ~/.config/nixpkgs
-
-          echo ''{ allowUnfree = true; }'' > ~/.config/nixpkgs/config.nix
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
           '
-      - env:
-          TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
-        name: Build targets
-        run: GC_DONT_GC=1 nix build --accept-flake-config --show-trace --log-lines
-          10000 --fallback "$TARGET_FLAKE#"'nixosConfigurations.__baseServer.config.system.build.toplevel'
-      - if: ${{ always() }}
-        name: Log remaining space
-        run: 'echo "=== Space left after build ==="
+        nix_path: nixpkgs=channel:nixos-unstable
+    - uses: cachix/cachix-action@v12
+      with:
+        authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+        name: astralbijection
+    - name: Enable unfree packages
+      run: 'mkdir -p ~/.config/nixpkgs
 
-          df -h
+        echo ''{ allowUnfree = true; }'' > ~/.config/nixpkgs/config.nix
 
-          '
+        '
+    - env:
+        TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
+      name: Build targets
+      run: GC_DONT_GC=1 nix build --accept-flake-config --show-trace --log-lines 10000
+        --fallback "$TARGET_FLAKE#"'nixosConfigurations.__baseServer.config.system.build.toplevel'
+    - if: ${{ always() }}
+      name: Log remaining space
+      run: 'echo "=== Space left after build ==="
+
+        df -h
+
+        '
     strategy:
       fail-fast: false
   nixos-system-amiya:
     name: NixOS sys. amiya
     needs:
-      - nixos-system-__baseServer
+    - nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.8.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - env:
-          KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
-        name: Append to known_hosts
-        run: 'echo ''\n'' >> ~/.ssh/known_hosts
+    - uses: webfactory/ssh-agent@v0.8.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+    - env:
+        KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
+      name: Append to known_hosts
+      run: 'echo ''\n'' >> ~/.ssh/known_hosts
 
-          echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
+        echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
 
-          '
-      - uses: cachix/install-nix-action@v22
-        with:
-          extra_nix_config: 'experimental-features = nix-command flakes
+        '
+    - uses: cachix/install-nix-action@v22
+      with:
+        extra_nix_config: 'experimental-features = nix-command flakes
 
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-
-            '
-          nix_path: nixpkgs=channel:nixos-unstable
-      - uses: cachix/cachix-action@v12
-        with:
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-          name: astralbijection
-      - name: Enable unfree packages
-        run: 'mkdir -p ~/.config/nixpkgs
-
-          echo ''{ allowUnfree = true; }'' > ~/.config/nixpkgs/config.nix
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
           '
-      - env:
-          TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
-        name: Build targets
-        run: GC_DONT_GC=1 nix build --accept-flake-config --show-trace --log-lines
-          10000 --fallback "$TARGET_FLAKE#"'nixosConfigurations.amiya.config.system.build.toplevel'
-      - if: ${{ always() }}
-        name: Log remaining space
-        run: 'echo "=== Space left after build ==="
+        nix_path: nixpkgs=channel:nixos-unstable
+    - uses: cachix/cachix-action@v12
+      with:
+        authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+        name: astralbijection
+    - name: Enable unfree packages
+      run: 'mkdir -p ~/.config/nixpkgs
 
-          df -h
+        echo ''{ allowUnfree = true; }'' > ~/.config/nixpkgs/config.nix
 
-          '
+        '
+    - env:
+        TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
+      name: Build targets
+      run: GC_DONT_GC=1 nix build --accept-flake-config --show-trace --log-lines 10000
+        --fallback "$TARGET_FLAKE#"'nixosConfigurations.amiya.config.system.build.toplevel'
+    - if: ${{ always() }}
+      name: Log remaining space
+      run: 'echo "=== Space left after build ==="
+
+        df -h
+
+        '
     strategy:
       fail-fast: false
   nixos-system-banana:
     name: NixOS sys. banana
     needs:
-      - nixos-system-__basePC
-      - nixos-system-__basePC
+    - nixos-system-__basePC
+    - nixos-system-__basePC
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.8.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - env:
-          KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
-        name: Append to known_hosts
-        run: 'echo ''\n'' >> ~/.ssh/known_hosts
+    - uses: webfactory/ssh-agent@v0.8.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+    - env:
+        KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
+      name: Append to known_hosts
+      run: 'echo ''\n'' >> ~/.ssh/known_hosts
 
-          echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
+        echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
 
-          '
-      - uses: cachix/install-nix-action@v22
-        with:
-          extra_nix_config: 'experimental-features = nix-command flakes
+        '
+    - uses: cachix/install-nix-action@v22
+      with:
+        extra_nix_config: 'experimental-features = nix-command flakes
 
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-
-            '
-          nix_path: nixpkgs=channel:nixos-unstable
-      - uses: cachix/cachix-action@v12
-        with:
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-          name: astralbijection
-      - name: Enable unfree packages
-        run: 'mkdir -p ~/.config/nixpkgs
-
-          echo ''{ allowUnfree = true; }'' > ~/.config/nixpkgs/config.nix
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
           '
-      - name: Remove unneccessary packages
-        run: 'echo "=== Before pruning ==="
+        nix_path: nixpkgs=channel:nixos-unstable
+    - uses: cachix/cachix-action@v12
+      with:
+        authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+        name: astralbijection
+    - name: Enable unfree packages
+      run: 'mkdir -p ~/.config/nixpkgs
 
-          df -h
+        echo ''{ allowUnfree = true; }'' > ~/.config/nixpkgs/config.nix
 
-          sudo rm -rf /usr/bin/buildah /usr/bin/containerd* /usr/bin/ctr /usr/bin/docker*
-          /usr/bin/gh /usr/bin/git /usr/bin/gpg /usr/bin/grub* /usr/bin/mono-sgen
-          /usr/bin/myisam* /usr/bin/mysql* /usr/bin/openssl /usr/bin/pedump /usr/bin/php*
-          /usr/bin/podman /usr/bin/python3.10 /usr/bin/shellcheck /usr/bin/skopeo
-          /usr/bin/snap /usr/bin/tcpdump /usr/bin/tmux /usr/bin/x86_64-linux-gnu-*
-          /usr/bin/yq /opt /usr/local /usr/share /var/lib /var/log || true
+        '
+    - name: Remove unneccessary packages
+      run: 'echo "=== Before pruning ==="
 
-          echo
+        df -h
 
-          echo "=== After pruning ==="
+        sudo rm -rf /usr/bin/buildah /usr/bin/containerd* /usr/bin/ctr /usr/bin/docker*
+        /usr/bin/gh /usr/bin/git /usr/bin/gpg /usr/bin/grub* /usr/bin/mono-sgen /usr/bin/myisam*
+        /usr/bin/mysql* /usr/bin/openssl /usr/bin/pedump /usr/bin/php* /usr/bin/podman
+        /usr/bin/python3.10 /usr/bin/shellcheck /usr/bin/skopeo /usr/bin/snap /usr/bin/tcpdump
+        /usr/bin/tmux /usr/bin/x86_64-linux-gnu-* /usr/bin/yq /opt /usr/local /usr/share
+        /var/lib /var/log || true
 
-          df -h
+        echo
 
-          '
-      - env:
-          TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
-        name: Build targets
-        run: GC_DONT_GC=1 nix build --accept-flake-config --show-trace --log-lines
-          10000 --fallback "$TARGET_FLAKE#"'nixosConfigurations.banana.config.system.build.toplevel'
-      - if: ${{ always() }}
-        name: Log remaining space
-        run: 'echo "=== Space left after build ==="
+        echo "=== After pruning ==="
 
-          df -h
+        df -h
 
-          '
+        '
+    - env:
+        TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
+      name: Build targets
+      run: GC_DONT_GC=1 nix build --accept-flake-config --show-trace --log-lines 10000
+        --fallback "$TARGET_FLAKE#"'nixosConfigurations.banana.config.system.build.toplevel'
+    - if: ${{ always() }}
+      name: Log remaining space
+      run: 'echo "=== Space left after build ==="
+
+        df -h
+
+        '
     strategy:
       fail-fast: false
   nixos-system-bonney:
     name: NixOS sys. bonney
     needs:
-      - nixos-system-__baseServer
+    - nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.8.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - env:
-          KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
-        name: Append to known_hosts
-        run: 'echo ''\n'' >> ~/.ssh/known_hosts
+    - uses: webfactory/ssh-agent@v0.8.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+    - env:
+        KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
+      name: Append to known_hosts
+      run: 'echo ''\n'' >> ~/.ssh/known_hosts
 
-          echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
+        echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
 
-          '
-      - uses: cachix/install-nix-action@v22
-        with:
-          extra_nix_config: 'experimental-features = nix-command flakes
+        '
+    - uses: cachix/install-nix-action@v22
+      with:
+        extra_nix_config: 'experimental-features = nix-command flakes
 
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-
-            '
-          nix_path: nixpkgs=channel:nixos-unstable
-      - uses: cachix/cachix-action@v12
-        with:
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-          name: astralbijection
-      - name: Enable unfree packages
-        run: 'mkdir -p ~/.config/nixpkgs
-
-          echo ''{ allowUnfree = true; }'' > ~/.config/nixpkgs/config.nix
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
           '
-      - env:
-          TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
-        name: Build targets
-        run: GC_DONT_GC=1 nix build --accept-flake-config --show-trace --log-lines
-          10000 --fallback "$TARGET_FLAKE#"'nixosConfigurations.bonney.config.system.build.toplevel'
-      - if: ${{ always() }}
-        name: Log remaining space
-        run: 'echo "=== Space left after build ==="
+        nix_path: nixpkgs=channel:nixos-unstable
+    - uses: cachix/cachix-action@v12
+      with:
+        authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+        name: astralbijection
+    - name: Enable unfree packages
+      run: 'mkdir -p ~/.config/nixpkgs
 
-          df -h
+        echo ''{ allowUnfree = true; }'' > ~/.config/nixpkgs/config.nix
 
-          '
+        '
+    - env:
+        TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
+      name: Build targets
+      run: GC_DONT_GC=1 nix build --accept-flake-config --show-trace --log-lines 10000
+        --fallback "$TARGET_FLAKE#"'nixosConfigurations.bonney.config.system.build.toplevel'
+    - if: ${{ always() }}
+      name: Log remaining space
+      run: 'echo "=== Space left after build ==="
+
+        df -h
+
+        '
     strategy:
       fail-fast: false
   nixos-system-chungus:
     name: NixOS sys. chungus
     needs:
-      - nixos-system-__basePC
+    - nixos-system-__basePC
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.8.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - env:
-          KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
-        name: Append to known_hosts
-        run: 'echo ''\n'' >> ~/.ssh/known_hosts
+    - uses: webfactory/ssh-agent@v0.8.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+    - env:
+        KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
+      name: Append to known_hosts
+      run: 'echo ''\n'' >> ~/.ssh/known_hosts
 
-          echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
+        echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
 
-          '
-      - uses: cachix/install-nix-action@v22
-        with:
-          extra_nix_config: 'experimental-features = nix-command flakes
+        '
+    - uses: cachix/install-nix-action@v22
+      with:
+        extra_nix_config: 'experimental-features = nix-command flakes
 
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-
-            '
-          nix_path: nixpkgs=channel:nixos-unstable
-      - uses: cachix/cachix-action@v12
-        with:
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-          name: astralbijection
-      - name: Enable unfree packages
-        run: 'mkdir -p ~/.config/nixpkgs
-
-          echo ''{ allowUnfree = true; }'' > ~/.config/nixpkgs/config.nix
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
           '
-      - name: Remove unneccessary packages
-        run: 'echo "=== Before pruning ==="
+        nix_path: nixpkgs=channel:nixos-unstable
+    - uses: cachix/cachix-action@v12
+      with:
+        authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+        name: astralbijection
+    - name: Enable unfree packages
+      run: 'mkdir -p ~/.config/nixpkgs
 
-          df -h
+        echo ''{ allowUnfree = true; }'' > ~/.config/nixpkgs/config.nix
 
-          sudo rm -rf /usr/bin/buildah /usr/bin/containerd* /usr/bin/ctr /usr/bin/docker*
-          /usr/bin/gh /usr/bin/git /usr/bin/gpg /usr/bin/grub* /usr/bin/mono-sgen
-          /usr/bin/myisam* /usr/bin/mysql* /usr/bin/openssl /usr/bin/pedump /usr/bin/php*
-          /usr/bin/podman /usr/bin/python3.10 /usr/bin/shellcheck /usr/bin/skopeo
-          /usr/bin/snap /usr/bin/tcpdump /usr/bin/tmux /usr/bin/x86_64-linux-gnu-*
-          /usr/bin/yq /opt /usr/local /usr/share /var/lib /var/log || true
+        '
+    - name: Remove unneccessary packages
+      run: 'echo "=== Before pruning ==="
 
-          echo
+        df -h
 
-          echo "=== After pruning ==="
+        sudo rm -rf /usr/bin/buildah /usr/bin/containerd* /usr/bin/ctr /usr/bin/docker*
+        /usr/bin/gh /usr/bin/git /usr/bin/gpg /usr/bin/grub* /usr/bin/mono-sgen /usr/bin/myisam*
+        /usr/bin/mysql* /usr/bin/openssl /usr/bin/pedump /usr/bin/php* /usr/bin/podman
+        /usr/bin/python3.10 /usr/bin/shellcheck /usr/bin/skopeo /usr/bin/snap /usr/bin/tcpdump
+        /usr/bin/tmux /usr/bin/x86_64-linux-gnu-* /usr/bin/yq /opt /usr/local /usr/share
+        /var/lib /var/log || true
 
-          df -h
+        echo
 
-          '
-      - env:
-          TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
-        name: Build targets
-        run: GC_DONT_GC=1 nix build --accept-flake-config --show-trace --log-lines
-          10000 --fallback "$TARGET_FLAKE#"'nixosConfigurations.chungus.config.system.build.toplevel'
-      - if: ${{ always() }}
-        name: Log remaining space
-        run: 'echo "=== Space left after build ==="
+        echo "=== After pruning ==="
 
-          df -h
+        df -h
 
-          '
+        '
+    - env:
+        TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
+      name: Build targets
+      run: GC_DONT_GC=1 nix build --accept-flake-config --show-trace --log-lines 10000
+        --fallback "$TARGET_FLAKE#"'nixosConfigurations.chungus.config.system.build.toplevel'
+    - if: ${{ always() }}
+      name: Log remaining space
+      run: 'echo "=== Space left after build ==="
+
+        df -h
+
+        '
     strategy:
       fail-fast: false
   nixos-system-diluc:
     name: NixOS sys. diluc
     needs:
-      - nixos-system-__baseServer
+    - nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.8.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - env:
-          KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
-        name: Append to known_hosts
-        run: 'echo ''\n'' >> ~/.ssh/known_hosts
+    - uses: webfactory/ssh-agent@v0.8.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+    - env:
+        KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
+      name: Append to known_hosts
+      run: 'echo ''\n'' >> ~/.ssh/known_hosts
 
-          echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
+        echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
 
-          '
-      - uses: cachix/install-nix-action@v22
-        with:
-          extra_nix_config: 'experimental-features = nix-command flakes
+        '
+    - uses: cachix/install-nix-action@v22
+      with:
+        extra_nix_config: 'experimental-features = nix-command flakes
 
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-
-            '
-          nix_path: nixpkgs=channel:nixos-unstable
-      - uses: cachix/cachix-action@v12
-        with:
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-          name: astralbijection
-      - name: Enable unfree packages
-        run: 'mkdir -p ~/.config/nixpkgs
-
-          echo ''{ allowUnfree = true; }'' > ~/.config/nixpkgs/config.nix
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
           '
-      - env:
-          TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
-        name: Build targets
-        run: GC_DONT_GC=1 nix build --accept-flake-config --show-trace --log-lines
-          10000 --fallback "$TARGET_FLAKE#"'nixosConfigurations.diluc.config.system.build.toplevel'
-      - env:
-          TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
-          deploy_flake_attr: nixosConfigurations.diluc.config.astral.ci.deploy-package
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-        name: Deploy with nixosConfigurations.diluc.config.astral.ci.deploy-package
-        run: GC_DONT_GC=1 nix run --accept-flake-config --show-trace --log-lines 10000
-          "$TARGET_FLAKE#$deploy_flake_attr"
-      - if: ${{ always() }}
-        name: Log remaining space
-        run: 'echo "=== Space left after build ==="
+        nix_path: nixpkgs=channel:nixos-unstable
+    - uses: cachix/cachix-action@v12
+      with:
+        authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+        name: astralbijection
+    - name: Enable unfree packages
+      run: 'mkdir -p ~/.config/nixpkgs
 
-          df -h
+        echo ''{ allowUnfree = true; }'' > ~/.config/nixpkgs/config.nix
 
-          '
+        '
+    - env:
+        TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
+      name: Build targets
+      run: GC_DONT_GC=1 nix build --accept-flake-config --show-trace --log-lines 10000
+        --fallback "$TARGET_FLAKE#"'nixosConfigurations.diluc.config.system.build.toplevel'
+    - env:
+        TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
+        deploy_flake_attr: nixosConfigurations.diluc.config.astral.ci.deploy-package
+      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+      name: Deploy with nixosConfigurations.diluc.config.astral.ci.deploy-package
+      run: GC_DONT_GC=1 nix run --accept-flake-config --show-trace --log-lines 10000
+        "$TARGET_FLAKE#$deploy_flake_attr"
+    - if: ${{ always() }}
+      name: Log remaining space
+      run: 'echo "=== Space left after build ==="
+
+        df -h
+
+        '
     strategy:
       fail-fast: false
   nixos-system-durin:
     name: NixOS sys. durin
     needs:
-      - nixos-system-__baseServer
+    - nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.8.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - env:
-          KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
-        name: Append to known_hosts
-        run: 'echo ''\n'' >> ~/.ssh/known_hosts
+    - uses: webfactory/ssh-agent@v0.8.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+    - env:
+        KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
+      name: Append to known_hosts
+      run: 'echo ''\n'' >> ~/.ssh/known_hosts
 
-          echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
+        echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
 
-          '
-      - uses: cachix/install-nix-action@v22
-        with:
-          extra_nix_config: 'experimental-features = nix-command flakes
+        '
+    - uses: cachix/install-nix-action@v22
+      with:
+        extra_nix_config: 'experimental-features = nix-command flakes
 
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-
-            '
-          nix_path: nixpkgs=channel:nixos-unstable
-      - uses: cachix/cachix-action@v12
-        with:
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-          name: astralbijection
-      - name: Enable unfree packages
-        run: 'mkdir -p ~/.config/nixpkgs
-
-          echo ''{ allowUnfree = true; }'' > ~/.config/nixpkgs/config.nix
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
           '
-      - env:
-          TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
-        name: Build targets
-        run: GC_DONT_GC=1 nix build --accept-flake-config --show-trace --log-lines
-          10000 --fallback "$TARGET_FLAKE#"'nixosConfigurations.durin.config.system.build.toplevel'
-      - env:
-          TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
-          deploy_flake_attr: nixosConfigurations.durin.config.astral.ci.deploy-package
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-        name: Deploy with nixosConfigurations.durin.config.astral.ci.deploy-package
-        run: GC_DONT_GC=1 nix run --accept-flake-config --show-trace --log-lines 10000
-          "$TARGET_FLAKE#$deploy_flake_attr"
-      - if: ${{ always() }}
-        name: Log remaining space
-        run: 'echo "=== Space left after build ==="
+        nix_path: nixpkgs=channel:nixos-unstable
+    - uses: cachix/cachix-action@v12
+      with:
+        authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+        name: astralbijection
+    - name: Enable unfree packages
+      run: 'mkdir -p ~/.config/nixpkgs
 
-          df -h
+        echo ''{ allowUnfree = true; }'' > ~/.config/nixpkgs/config.nix
 
-          '
+        '
+    - env:
+        TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
+      name: Build targets
+      run: GC_DONT_GC=1 nix build --accept-flake-config --show-trace --log-lines 10000
+        --fallback "$TARGET_FLAKE#"'nixosConfigurations.durin.config.system.build.toplevel'
+    - env:
+        TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
+        deploy_flake_attr: nixosConfigurations.durin.config.astral.ci.deploy-package
+      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+      name: Deploy with nixosConfigurations.durin.config.astral.ci.deploy-package
+      run: GC_DONT_GC=1 nix run --accept-flake-config --show-trace --log-lines 10000
+        "$TARGET_FLAKE#$deploy_flake_attr"
+    - if: ${{ always() }}
+      name: Log remaining space
+      run: 'echo "=== Space left after build ==="
+
+        df -h
+
+        '
     strategy:
       fail-fast: false
   nixos-system-gfdesk:
     name: NixOS sys. gfdesk
     needs:
-      - nixos-system-__baseServer
+    - nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.8.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - env:
-          KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
-        name: Append to known_hosts
-        run: 'echo ''\n'' >> ~/.ssh/known_hosts
+    - uses: webfactory/ssh-agent@v0.8.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+    - env:
+        KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
+      name: Append to known_hosts
+      run: 'echo ''\n'' >> ~/.ssh/known_hosts
 
-          echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
+        echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
 
-          '
-      - uses: cachix/install-nix-action@v22
-        with:
-          extra_nix_config: 'experimental-features = nix-command flakes
+        '
+    - uses: cachix/install-nix-action@v22
+      with:
+        extra_nix_config: 'experimental-features = nix-command flakes
 
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-
-            '
-          nix_path: nixpkgs=channel:nixos-unstable
-      - uses: cachix/cachix-action@v12
-        with:
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-          name: astralbijection
-      - name: Enable unfree packages
-        run: 'mkdir -p ~/.config/nixpkgs
-
-          echo ''{ allowUnfree = true; }'' > ~/.config/nixpkgs/config.nix
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
           '
-      - env:
-          TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
-        name: Build targets
-        run: GC_DONT_GC=1 nix build --accept-flake-config --show-trace --log-lines
-          10000 --fallback "$TARGET_FLAKE#"'nixosConfigurations.gfdesk.config.system.build.toplevel'
-      - if: ${{ always() }}
-        name: Log remaining space
-        run: 'echo "=== Space left after build ==="
+        nix_path: nixpkgs=channel:nixos-unstable
+    - uses: cachix/cachix-action@v12
+      with:
+        authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+        name: astralbijection
+    - name: Enable unfree packages
+      run: 'mkdir -p ~/.config/nixpkgs
 
-          df -h
+        echo ''{ allowUnfree = true; }'' > ~/.config/nixpkgs/config.nix
 
-          '
+        '
+    - env:
+        TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
+      name: Build targets
+      run: GC_DONT_GC=1 nix build --accept-flake-config --show-trace --log-lines 10000
+        --fallback "$TARGET_FLAKE#"'nixosConfigurations.gfdesk.config.system.build.toplevel'
+    - if: ${{ always() }}
+      name: Log remaining space
+      run: 'echo "=== Space left after build ==="
+
+        df -h
+
+        '
     strategy:
       fail-fast: false
   nixos-system-inferno:
     name: NixOS sys. inferno
     needs:
-      - nixos-system-__baseServer
+    - nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.8.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - env:
-          KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
-        name: Append to known_hosts
-        run: 'echo ''\n'' >> ~/.ssh/known_hosts
+    - uses: webfactory/ssh-agent@v0.8.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+    - env:
+        KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
+      name: Append to known_hosts
+      run: 'echo ''\n'' >> ~/.ssh/known_hosts
 
-          echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
+        echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
 
-          '
-      - uses: cachix/install-nix-action@v22
-        with:
-          extra_nix_config: 'experimental-features = nix-command flakes
+        '
+    - uses: cachix/install-nix-action@v22
+      with:
+        extra_nix_config: 'experimental-features = nix-command flakes
 
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-
-            '
-          nix_path: nixpkgs=channel:nixos-unstable
-      - uses: cachix/cachix-action@v12
-        with:
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-          name: astralbijection
-      - name: Enable unfree packages
-        run: 'mkdir -p ~/.config/nixpkgs
-
-          echo ''{ allowUnfree = true; }'' > ~/.config/nixpkgs/config.nix
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
           '
-      - env:
-          TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
-        name: Build targets
-        run: GC_DONT_GC=1 nix build --accept-flake-config --show-trace --log-lines
-          10000 --fallback "$TARGET_FLAKE#"'nixosConfigurations.inferno.config.system.build.toplevel'
-      - if: ${{ always() }}
-        name: Log remaining space
-        run: 'echo "=== Space left after build ==="
+        nix_path: nixpkgs=channel:nixos-unstable
+    - uses: cachix/cachix-action@v12
+      with:
+        authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+        name: astralbijection
+    - name: Enable unfree packages
+      run: 'mkdir -p ~/.config/nixpkgs
 
-          df -h
+        echo ''{ allowUnfree = true; }'' > ~/.config/nixpkgs/config.nix
 
-          '
+        '
+    - env:
+        TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
+      name: Build targets
+      run: GC_DONT_GC=1 nix build --accept-flake-config --show-trace --log-lines 10000
+        --fallback "$TARGET_FLAKE#"'nixosConfigurations.inferno.config.system.build.toplevel'
+    - if: ${{ always() }}
+      name: Log remaining space
+      run: 'echo "=== Space left after build ==="
+
+        df -h
+
+        '
     strategy:
       fail-fast: false
   nixos-system-shai-hulud:
     name: NixOS sys. shai-hulud
     needs:
-      - nixos-system-__basePC
-      - nixos-system-__basePC
-      - surface-kernel
+    - nixos-system-__basePC
+    - nixos-system-__basePC
+    - surface-kernel
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.8.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - env:
-          KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
-        name: Append to known_hosts
-        run: 'echo ''\n'' >> ~/.ssh/known_hosts
+    - uses: webfactory/ssh-agent@v0.8.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+    - env:
+        KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
+      name: Append to known_hosts
+      run: 'echo ''\n'' >> ~/.ssh/known_hosts
 
-          echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
+        echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
 
-          '
-      - uses: cachix/install-nix-action@v22
-        with:
-          extra_nix_config: 'experimental-features = nix-command flakes
+        '
+    - uses: cachix/install-nix-action@v22
+      with:
+        extra_nix_config: 'experimental-features = nix-command flakes
 
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-
-            '
-          nix_path: nixpkgs=channel:nixos-unstable
-      - uses: cachix/cachix-action@v12
-        with:
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-          name: astralbijection
-      - name: Enable unfree packages
-        run: 'mkdir -p ~/.config/nixpkgs
-
-          echo ''{ allowUnfree = true; }'' > ~/.config/nixpkgs/config.nix
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
           '
-      - name: Remove unneccessary packages
-        run: 'echo "=== Before pruning ==="
+        nix_path: nixpkgs=channel:nixos-unstable
+    - uses: cachix/cachix-action@v12
+      with:
+        authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+        name: astralbijection
+    - name: Enable unfree packages
+      run: 'mkdir -p ~/.config/nixpkgs
 
-          df -h
+        echo ''{ allowUnfree = true; }'' > ~/.config/nixpkgs/config.nix
 
-          sudo rm -rf /usr/bin/buildah /usr/bin/containerd* /usr/bin/ctr /usr/bin/docker*
-          /usr/bin/gh /usr/bin/git /usr/bin/gpg /usr/bin/grub* /usr/bin/mono-sgen
-          /usr/bin/myisam* /usr/bin/mysql* /usr/bin/openssl /usr/bin/pedump /usr/bin/php*
-          /usr/bin/podman /usr/bin/python3.10 /usr/bin/shellcheck /usr/bin/skopeo
-          /usr/bin/snap /usr/bin/tcpdump /usr/bin/tmux /usr/bin/x86_64-linux-gnu-*
-          /usr/bin/yq /opt /usr/local /usr/share /var/lib /var/log || true
+        '
+    - name: Remove unneccessary packages
+      run: 'echo "=== Before pruning ==="
 
-          echo
+        df -h
 
-          echo "=== After pruning ==="
+        sudo rm -rf /usr/bin/buildah /usr/bin/containerd* /usr/bin/ctr /usr/bin/docker*
+        /usr/bin/gh /usr/bin/git /usr/bin/gpg /usr/bin/grub* /usr/bin/mono-sgen /usr/bin/myisam*
+        /usr/bin/mysql* /usr/bin/openssl /usr/bin/pedump /usr/bin/php* /usr/bin/podman
+        /usr/bin/python3.10 /usr/bin/shellcheck /usr/bin/skopeo /usr/bin/snap /usr/bin/tcpdump
+        /usr/bin/tmux /usr/bin/x86_64-linux-gnu-* /usr/bin/yq /opt /usr/local /usr/share
+        /var/lib /var/log || true
 
-          df -h
+        echo
 
-          '
-      - env:
-          TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
-        name: Build targets
-        run: GC_DONT_GC=1 nix build --accept-flake-config --show-trace --log-lines
-          10000 --fallback "$TARGET_FLAKE#"'nixosConfigurations.shai-hulud.config.system.build.toplevel'
-      - if: ${{ always() }}
-        name: Log remaining space
-        run: 'echo "=== Space left after build ==="
+        echo "=== After pruning ==="
 
-          df -h
+        df -h
 
-          '
+        '
+    - env:
+        TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
+      name: Build targets
+      run: GC_DONT_GC=1 nix build --accept-flake-config --show-trace --log-lines 10000
+        --fallback "$TARGET_FLAKE#"'nixosConfigurations.shai-hulud.config.system.build.toplevel'
+    - if: ${{ always() }}
+      name: Log remaining space
+      run: 'echo "=== Space left after build ==="
+
+        df -h
+
+        '
     strategy:
       fail-fast: false
   nixos-system-twinkpaw:
     name: NixOS sys. twinkpaw
     needs:
-      - nixos-system-__basePC
-      - nixos-system-__basePC
+    - nixos-system-__basePC
+    - nixos-system-__basePC
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.8.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - env:
-          KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
-        name: Append to known_hosts
-        run: 'echo ''\n'' >> ~/.ssh/known_hosts
+    - uses: webfactory/ssh-agent@v0.8.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+    - env:
+        KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
+      name: Append to known_hosts
+      run: 'echo ''\n'' >> ~/.ssh/known_hosts
 
-          echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
+        echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
 
-          '
-      - uses: cachix/install-nix-action@v22
-        with:
-          extra_nix_config: 'experimental-features = nix-command flakes
+        '
+    - uses: cachix/install-nix-action@v22
+      with:
+        extra_nix_config: 'experimental-features = nix-command flakes
 
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-
-            '
-          nix_path: nixpkgs=channel:nixos-unstable
-      - uses: cachix/cachix-action@v12
-        with:
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-          name: astralbijection
-      - name: Enable unfree packages
-        run: 'mkdir -p ~/.config/nixpkgs
-
-          echo ''{ allowUnfree = true; }'' > ~/.config/nixpkgs/config.nix
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
           '
-      - name: Remove unneccessary packages
-        run: 'echo "=== Before pruning ==="
+        nix_path: nixpkgs=channel:nixos-unstable
+    - uses: cachix/cachix-action@v12
+      with:
+        authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+        name: astralbijection
+    - name: Enable unfree packages
+      run: 'mkdir -p ~/.config/nixpkgs
 
-          df -h
+        echo ''{ allowUnfree = true; }'' > ~/.config/nixpkgs/config.nix
 
-          sudo rm -rf /usr/bin/buildah /usr/bin/containerd* /usr/bin/ctr /usr/bin/docker*
-          /usr/bin/gh /usr/bin/git /usr/bin/gpg /usr/bin/grub* /usr/bin/mono-sgen
-          /usr/bin/myisam* /usr/bin/mysql* /usr/bin/openssl /usr/bin/pedump /usr/bin/php*
-          /usr/bin/podman /usr/bin/python3.10 /usr/bin/shellcheck /usr/bin/skopeo
-          /usr/bin/snap /usr/bin/tcpdump /usr/bin/tmux /usr/bin/x86_64-linux-gnu-*
-          /usr/bin/yq /opt /usr/local /usr/share /var/lib /var/log || true
+        '
+    - name: Remove unneccessary packages
+      run: 'echo "=== Before pruning ==="
 
-          echo
+        df -h
 
-          echo "=== After pruning ==="
+        sudo rm -rf /usr/bin/buildah /usr/bin/containerd* /usr/bin/ctr /usr/bin/docker*
+        /usr/bin/gh /usr/bin/git /usr/bin/gpg /usr/bin/grub* /usr/bin/mono-sgen /usr/bin/myisam*
+        /usr/bin/mysql* /usr/bin/openssl /usr/bin/pedump /usr/bin/php* /usr/bin/podman
+        /usr/bin/python3.10 /usr/bin/shellcheck /usr/bin/skopeo /usr/bin/snap /usr/bin/tcpdump
+        /usr/bin/tmux /usr/bin/x86_64-linux-gnu-* /usr/bin/yq /opt /usr/local /usr/share
+        /var/lib /var/log || true
 
-          df -h
+        echo
 
-          '
-      - env:
-          TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
-        name: Build targets
-        run: GC_DONT_GC=1 nix build --accept-flake-config --show-trace --log-lines
-          10000 --fallback "$TARGET_FLAKE#"'nixosConfigurations.twinkpaw.config.system.build.toplevel'
-      - if: ${{ always() }}
-        name: Log remaining space
-        run: 'echo "=== Space left after build ==="
+        echo "=== After pruning ==="
 
-          df -h
+        df -h
 
-          '
+        '
+    - env:
+        TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
+      name: Build targets
+      run: GC_DONT_GC=1 nix build --accept-flake-config --show-trace --log-lines 10000
+        --fallback "$TARGET_FLAKE#"'nixosConfigurations.twinkpaw.config.system.build.toplevel'
+    - if: ${{ always() }}
+      name: Log remaining space
+      run: 'echo "=== Space left after build ==="
+
+        df -h
+
+        '
     strategy:
       fail-fast: false
   nixos-system-xn--vp9h:
     name: NixOS sys. xn--vp9h
     needs:
-      - nixos-system-__baseServer
+    - nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.8.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - env:
-          KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
-        name: Append to known_hosts
-        run: 'echo ''\n'' >> ~/.ssh/known_hosts
+    - uses: webfactory/ssh-agent@v0.8.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+    - env:
+        KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
+      name: Append to known_hosts
+      run: 'echo ''\n'' >> ~/.ssh/known_hosts
 
-          echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
+        echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
 
-          '
-      - uses: cachix/install-nix-action@v22
-        with:
-          extra_nix_config: 'experimental-features = nix-command flakes
+        '
+    - uses: cachix/install-nix-action@v22
+      with:
+        extra_nix_config: 'experimental-features = nix-command flakes
 
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-
-            '
-          nix_path: nixpkgs=channel:nixos-unstable
-      - uses: cachix/cachix-action@v12
-        with:
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-          name: astralbijection
-      - name: Enable unfree packages
-        run: 'mkdir -p ~/.config/nixpkgs
-
-          echo ''{ allowUnfree = true; }'' > ~/.config/nixpkgs/config.nix
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
           '
-      - env:
-          TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
-        name: Build targets
-        run: GC_DONT_GC=1 nix build --accept-flake-config --show-trace --log-lines
-          10000 --fallback "$TARGET_FLAKE#"'nixosConfigurations.xn--vp9h.config.system.build.toplevel'
-      - if: ${{ always() }}
-        name: Log remaining space
-        run: 'echo "=== Space left after build ==="
+        nix_path: nixpkgs=channel:nixos-unstable
+    - uses: cachix/cachix-action@v12
+      with:
+        authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+        name: astralbijection
+    - name: Enable unfree packages
+      run: 'mkdir -p ~/.config/nixpkgs
 
-          df -h
+        echo ''{ allowUnfree = true; }'' > ~/.config/nixpkgs/config.nix
 
-          '
+        '
+    - env:
+        TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
+      name: Build targets
+      run: GC_DONT_GC=1 nix build --accept-flake-config --show-trace --log-lines 10000
+        --fallback "$TARGET_FLAKE#"'nixosConfigurations.xn--vp9h.config.system.build.toplevel'
+    - if: ${{ always() }}
+      name: Log remaining space
+      run: 'echo "=== Space left after build ==="
+
+        df -h
+
+        '
     strategy:
       fail-fast: false
   nixos-system-yato:
     name: NixOS sys. yato
     needs:
-      - nixos-system-__baseServer
+    - nixos-system-__baseServer
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.8.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - env:
-          KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
-        name: Append to known_hosts
-        run: 'echo ''\n'' >> ~/.ssh/known_hosts
+    - uses: webfactory/ssh-agent@v0.8.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+    - env:
+        KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
+      name: Append to known_hosts
+      run: 'echo ''\n'' >> ~/.ssh/known_hosts
 
-          echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
+        echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
 
-          '
-      - uses: cachix/install-nix-action@v22
-        with:
-          extra_nix_config: 'experimental-features = nix-command flakes
+        '
+    - uses: cachix/install-nix-action@v22
+      with:
+        extra_nix_config: 'experimental-features = nix-command flakes
 
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-
-            '
-          nix_path: nixpkgs=channel:nixos-unstable
-      - uses: cachix/cachix-action@v12
-        with:
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-          name: astralbijection
-      - name: Enable unfree packages
-        run: 'mkdir -p ~/.config/nixpkgs
-
-          echo ''{ allowUnfree = true; }'' > ~/.config/nixpkgs/config.nix
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
           '
-      - env:
-          TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
-        name: Build targets
-        run: GC_DONT_GC=1 nix build --accept-flake-config --show-trace --log-lines
-          10000 --fallback "$TARGET_FLAKE#"'nixosConfigurations.yato.config.system.build.toplevel'
-      - env:
-          TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
-          deploy_flake_attr: nixosConfigurations.yato.config.astral.ci.deploy-package
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-        name: Deploy with nixosConfigurations.yato.config.astral.ci.deploy-package
-        run: GC_DONT_GC=1 nix run --accept-flake-config --show-trace --log-lines 10000
-          "$TARGET_FLAKE#$deploy_flake_attr"
-      - if: ${{ always() }}
-        name: Log remaining space
-        run: 'echo "=== Space left after build ==="
+        nix_path: nixpkgs=channel:nixos-unstable
+    - uses: cachix/cachix-action@v12
+      with:
+        authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+        name: astralbijection
+    - name: Enable unfree packages
+      run: 'mkdir -p ~/.config/nixpkgs
 
-          df -h
+        echo ''{ allowUnfree = true; }'' > ~/.config/nixpkgs/config.nix
 
-          '
+        '
+    - env:
+        TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
+      name: Build targets
+      run: GC_DONT_GC=1 nix build --accept-flake-config --show-trace --log-lines 10000
+        --fallback "$TARGET_FLAKE#"'nixosConfigurations.yato.config.system.build.toplevel'
+    - env:
+        TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
+        deploy_flake_attr: nixosConfigurations.yato.config.astral.ci.deploy-package
+      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+      name: Deploy with nixosConfigurations.yato.config.astral.ci.deploy-package
+      run: GC_DONT_GC=1 nix run --accept-flake-config --show-trace --log-lines 10000
+        "$TARGET_FLAKE#$deploy_flake_attr"
+    - if: ${{ always() }}
+      name: Log remaining space
+      run: 'echo "=== Space left after build ==="
+
+        df -h
+
+        '
     strategy:
       fail-fast: false
   surface-kernel:
@@ -1093,73 +1092,73 @@ jobs:
     needs: []
     runs-on: ubuntu-latest
     steps:
-      - uses: webfactory/ssh-agent@v0.8.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - env:
-          KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
-        name: Append to known_hosts
-        run: 'echo ''\n'' >> ~/.ssh/known_hosts
+    - uses: webfactory/ssh-agent@v0.8.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+    - env:
+        KNOWN_HOSTS: ${{ env.KNOWN_HOSTS }}
+      name: Append to known_hosts
+      run: 'echo ''\n'' >> ~/.ssh/known_hosts
 
-          echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
+        echo "$KNOWN_HOSTS" >> ~/.ssh/known_hosts
 
-          '
-      - uses: cachix/install-nix-action@v22
-        with:
-          extra_nix_config: 'experimental-features = nix-command flakes
+        '
+    - uses: cachix/install-nix-action@v22
+      with:
+        extra_nix_config: 'experimental-features = nix-command flakes
 
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-
-            '
-          nix_path: nixpkgs=channel:nixos-unstable
-      - uses: cachix/cachix-action@v12
-        with:
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-          name: astralbijection
-      - name: Enable unfree packages
-        run: 'mkdir -p ~/.config/nixpkgs
-
-          echo ''{ allowUnfree = true; }'' > ~/.config/nixpkgs/config.nix
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
           '
-      - name: Remove unneccessary packages
-        run: 'echo "=== Before pruning ==="
+        nix_path: nixpkgs=channel:nixos-unstable
+    - uses: cachix/cachix-action@v12
+      with:
+        authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+        name: astralbijection
+    - name: Enable unfree packages
+      run: 'mkdir -p ~/.config/nixpkgs
 
-          df -h
+        echo ''{ allowUnfree = true; }'' > ~/.config/nixpkgs/config.nix
 
-          sudo rm -rf /usr/bin/buildah /usr/bin/containerd* /usr/bin/ctr /usr/bin/docker*
-          /usr/bin/gh /usr/bin/git /usr/bin/gpg /usr/bin/grub* /usr/bin/mono-sgen
-          /usr/bin/myisam* /usr/bin/mysql* /usr/bin/openssl /usr/bin/pedump /usr/bin/php*
-          /usr/bin/podman /usr/bin/python3.10 /usr/bin/shellcheck /usr/bin/skopeo
-          /usr/bin/snap /usr/bin/tcpdump /usr/bin/tmux /usr/bin/x86_64-linux-gnu-*
-          /usr/bin/yq /opt /usr/local /usr/share /var/lib /var/log || true
+        '
+    - name: Remove unneccessary packages
+      run: 'echo "=== Before pruning ==="
 
-          echo
+        df -h
 
-          echo "=== After pruning ==="
+        sudo rm -rf /usr/bin/buildah /usr/bin/containerd* /usr/bin/ctr /usr/bin/docker*
+        /usr/bin/gh /usr/bin/git /usr/bin/gpg /usr/bin/grub* /usr/bin/mono-sgen /usr/bin/myisam*
+        /usr/bin/mysql* /usr/bin/openssl /usr/bin/pedump /usr/bin/php* /usr/bin/podman
+        /usr/bin/python3.10 /usr/bin/shellcheck /usr/bin/skopeo /usr/bin/snap /usr/bin/tcpdump
+        /usr/bin/tmux /usr/bin/x86_64-linux-gnu-* /usr/bin/yq /opt /usr/local /usr/share
+        /var/lib /var/log || true
 
-          df -h
+        echo
 
-          '
-      - env:
-          TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
-        name: Build targets
-        run: GC_DONT_GC=1 nix build --accept-flake-config --show-trace --log-lines
-          10000 --fallback "$TARGET_FLAKE#"'nixosConfigurations.shai-hulud.config.boot.kernelPackages.kernel'
-      - if: ${{ always() }}
-        name: Log remaining space
-        run: 'echo "=== Space left after build ==="
+        echo "=== After pruning ==="
 
-          df -h
+        df -h
 
-          '
+        '
+    - env:
+        TARGET_FLAKE: ${{ env.TARGET_FLAKE }}
+      name: Build targets
+      run: GC_DONT_GC=1 nix build --accept-flake-config --show-trace --log-lines 10000
+        --fallback "$TARGET_FLAKE#"'nixosConfigurations.shai-hulud.config.boot.kernelPackages.kernel'
+    - if: ${{ always() }}
+      name: Log remaining space
+      run: 'echo "=== Space left after build ==="
+
+        df -h
+
+        '
     strategy:
       fail-fast: false
 name: Build and deploy
-on:
+'on':
   push: {}
   schedule:
-    - cron: 0 6 * * 6
+  - cron: 0 6 * * 6
   workflow_call:
     inputs:
       deploy:
