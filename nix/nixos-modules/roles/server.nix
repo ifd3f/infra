@@ -11,8 +11,8 @@ inputs:
   # Hashicorp Vault secrets uwu
   vault-secrets.vaultAddress = "https://secrets.astrid.tech";
 
-  # Use a stable, frozen-version hardened kernel
-  boot.kernelPackages = pkgs.linuxPackages_5_15_hardened;
+  # Use a hardened kernel
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_hardened;
 
   # Enable SSH in initrd for debugging
   boot.initrd.network.ssh = {
