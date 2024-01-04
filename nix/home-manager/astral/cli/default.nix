@@ -85,7 +85,7 @@ in with lib; {
         enable = true;
         initExtra = commonProfile;
         enableCompletion = true;
-        enableSyntaxHighlighting = true;
+        syntaxHighlighting.enable = true;
 
         autocd = true;
         defaultKeymap = "emacs";

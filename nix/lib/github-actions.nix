@@ -1,5 +1,6 @@
 { lib }:
-with lib; rec {
+let nixFlags = "--accept-flake-config --show-trace --log-lines 10000";
+in with lib; rec {
   ghexpr = v: "\${{ ${v} }}";
 
   makeGithubWorkflow = { nodes, cachix, cronSchedule, known_hosts }: {
@@ -143,6 +144,13 @@ with lib; rec {
               authToken = ghexpr "secrets.CACHIX_AUTH_TOKEN";
             };
           }
+          {
+            name = "Enable unfree packages";
+            run = ''
+              mkdir -p ~/.config/nixpkgs
+              echo '{ allowUnfree = true; }' > ~/.config/nixpkgs/config.nix
+            '';
+          }
         ];
 
         buildStep = {
@@ -152,14 +160,14 @@ with lib; rec {
             installables =
               map (attr: ''"$TARGET_FLAKE#"'' + escapeShellArg attr) buildList;
             args = concatStringsSep " " installables;
-          in "GC_DONT_GC=1 nix build --show-trace --log-lines 10000 --fallback ${args}";
+          in "GC_DONT_GC=1 nix build ${nixFlags} --fallback ${args}";
           env.TARGET_FLAKE = ghexpr "env.TARGET_FLAKE";
         };
 
         runStep = {
           name = "Run ${run}";
           run = ''
-            GC_DONT_GC=1 nix run --show-trace "$TARGET_FLAKE#$run_flake_attr"'';
+            GC_DONT_GC=1 nix run ${nixFlags} "$TARGET_FLAKE#$run_flake_attr"'';
           env = {
             run_flake_attr = run;
             TARGET_FLAKE = ghexpr "env.TARGET_FLAKE";
@@ -169,7 +177,7 @@ with lib; rec {
         deployStep = {
           name = "Deploy with ${deploy}";
           run = ''
-            GC_DONT_GC=1 nix run --show-trace "$TARGET_FLAKE#$deploy_flake_attr"'';
+            GC_DONT_GC=1 nix run ${nixFlags} "$TARGET_FLAKE#$deploy_flake_attr"'';
           "if" = ghexpr
             "github.event_name == 'push' && github.ref == 'refs/heads/main'";
           env = {

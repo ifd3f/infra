@@ -27,7 +27,8 @@ with lib; {
         enable = true;
         packages = with pkgs; [
           OVMFFull.fd
-          pkgsCross.aarch64-multiplatform.OVMF.fd
+          # broken as of upgrade to 23.11
+          # pkgsCross.aarch64-multiplatform.OVMF.fd
         ];
       };
     };
