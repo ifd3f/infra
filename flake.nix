@@ -67,7 +67,7 @@
     };
 
     # Files are stored using LFS, so the git fetcher is needed.
-    vendored-emojis.url = "github:ifd3f/vendored-emojis";
+    vendored-emojis.url = "git+https://github.com/ifd3f/vendored-emojis?fetchLFS=true";
   };
 
   outputs = inputs: import ./nix/outputs.nix inputs;
