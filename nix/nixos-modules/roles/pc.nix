@@ -54,6 +54,8 @@ in {
     wine64
     winetricks
 
+    transmission
+
     opensc
     pcsclite
     pcsctools
