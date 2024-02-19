@@ -55,6 +55,9 @@ in {
     winetricks
 
     transmission
+    transmission-qt
+
+    anki
 
     opensc
     pcsclite
