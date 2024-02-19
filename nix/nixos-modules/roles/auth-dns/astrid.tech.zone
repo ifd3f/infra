@@ -32,9 +32,16 @@ ns2                             IN A           173.212.242.107
 
 ;;; SERVICES
 
-;; astrid.tech is hosted on vercel 
-;; more info: https://vercel.com/guides/a-record-and-caa-with-vercel
-@                               IN A           76.76.21.21
+;; astrid.tech is hosted on github pages
+;; more info: https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site
+@                               IN A           185.199.108.153
+@                               IN A           185.199.109.153
+@                               IN A           185.199.110.153
+@                               IN A           185.199.111.153
+@                               IN AAAA        2606:50c0:8000::153
+@                               IN AAAA        2606:50c0:8001::153
+@                               IN AAAA        2606:50c0:8002::153
+@                               IN AAAA        2606:50c0:8003::153
 www                             IN CNAME       astrid.tech.
 photos                          IN CNAME       diluc.h.astrid.tech.
 api                             IN CNAME       oci.h.astrid.tech.
