@@ -50,9 +50,10 @@ main = do
 xdisplays :: X [Rectangle]
 xdisplays = withDisplay $ io . getScreenInfo
 
-myLayoutHook = spacingWithEdge 10 $ avoidStruts $ layouts
+myLayoutHook = (spacingWithEdge 10 $ avoidStruts standardLayouts) ||| fullscreenLayout
     where
-        layouts = masterLeft ||| masterRight ||| masterTop ||| (smartBorders $ (fullscreenFloat . fullscreenFull) Full)
+        standardLayouts = masterLeft ||| masterRight ||| masterTop
+        fullscreenLayout = noBorders $ (fullscreenFloat . fullscreenFull) Full
         masterLeft = Tall nmaster delta ratio
         masterRight = reflectHoriz masterLeft
         masterTop = Mirror masterLeft
