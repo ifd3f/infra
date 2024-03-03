@@ -9,17 +9,23 @@
     environment.systemPackages = with pkgs; [
       android-studio
       cachix
+      cargo
       ckan
       cmatrix
+      efibootmgr
       gh
       ghidra
       hackrf
+      cabal-install
+      hping
       imagemagick
-      jetbrains.idea-ultimate
       lolcat
       nixfmt
+      racket
+      refind
       sdrpp
       soapysdr-with-plugins
+      testdisk
       vscode
       wireshark
 

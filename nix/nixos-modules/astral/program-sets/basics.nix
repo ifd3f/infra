@@ -33,6 +33,7 @@
       iperf
       iputils
       jq
+      magic-wormhole
       mktemp
       neofetch
       netcat
