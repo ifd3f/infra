@@ -15,9 +15,12 @@ let
       git
       inetutils
       jq
+      kubectl
       mqttui
       netcat
       nixfmt
+      nodejs
+      nodePackages.yarn
       nodePackages.prettier
       pwgen
       python3
