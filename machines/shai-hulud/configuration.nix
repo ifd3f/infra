@@ -3,10 +3,8 @@ inputs:
 with lib; {
   imports = [ ./hardware-configuration.nix ]
     ++ (with inputs.nixos-hardware.nixosModules; [
-      common-cpu-intel
       common-pc-ssd
       microsoft-surface-common
-      microsoft-surface-pro-intel
     ]) ++ [
       inputs.self.nixosModules.laptop
       inputs.self.nixosModules.pc
@@ -15,6 +13,16 @@ with lib; {
     ];
 
   microsoft-surface.kernelVersion = "6.6";
+  microsoft-surface.ipts = {
+    enable = true;
+    config = {
+      Config = {
+        BlockOnPalm = true;
+        TouchThreshold = 20;
+        StabilityThreshold = 0.1;
+      };
+    };
+  };
 
   time.timeZone = "US/Pacific";
 
