@@ -33,7 +33,10 @@ with lib; {
     hw.surface.enable = true;
     xmonad.enable = true;
 
-    tailscale.enable = mkForce false;
+    tailscale = {
+      enable = true;
+      oneOffKey = "tskey-auth-kRbfM94CNTRL-cPfcJPJu5j9hifAP6gXzh92oaMd4hjvnV";
+    };
 
     # so that we don't rebuild linux kernel on this tiny boi
     infra-update.branch = "surface";
