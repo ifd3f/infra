@@ -3,10 +3,8 @@ inputs:
 with lib; {
   imports = [ ./hardware-configuration.nix ]
     ++ (with inputs.nixos-hardware.nixosModules; [
-      common-cpu-intel
       common-pc-ssd
       microsoft-surface-common
-      microsoft-surface-pro-intel
     ]) ++ [
       inputs.self.nixosModules.laptop
       inputs.self.nixosModules.pc
