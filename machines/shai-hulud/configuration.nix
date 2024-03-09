@@ -13,6 +13,16 @@ with lib; {
     ];
 
   microsoft-surface.kernelVersion = "6.6";
+  microsoft-surface.ipts = {
+    enable = true;
+    config = {
+      Config = {
+        BlockOnPalm = true;
+        TouchThreshold = 20;
+        StabilityThreshold = 0.1;
+      };
+    };
+  };
 
   time.timeZone = "US/Pacific";
 
