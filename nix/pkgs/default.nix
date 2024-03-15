@@ -24,6 +24,11 @@ in vendored-images // rec {
 
   win10hotplug = pkgs.callPackage ./win10hotplug { };
 
+  surface-screen-rotate = pkgs.runCommand "surface-screen-rotate" { } ''
+    mkdir -p $out/bin
+    ln -s ${./surface-screen-rotate.py} $out/bin/surface-screen-rotate
+  '';
+
   vault-push-approles = with pkgs;
     writeScriptBin "vault-push-approles" ''
       ${pkgs.vault-push-approles self}/bin/vault-push-approles
