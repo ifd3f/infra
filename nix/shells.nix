@@ -19,11 +19,13 @@ let
       netcat
       nixfmt
       nodePackages.prettier
+      pixiecore
       pwgen
       python3
       tcpdump
       terraform
       terraform-ls
+      tftp-hpa
       tmux
       vault
       wget

@@ -12,8 +12,8 @@ in vendored-images // rec {
   scan-ci-host-keys = pkgs.callPackage ./scan-ci-host-keys { inherit self; };
 
   ci-import-and-tag-docker = pkgs.callPackage ./ci-import-and-tag-docker { };
-  installer-iso =
-    pkgs.callPackage ./images/installer-iso { inherit self nixpkgs; };
+  installer-system = pkgs.callPackage ./images/installer-system { inherit self nixpkgs; };
+  installer-iso = installer-system.isoImage;
 
   ifd3f-infra-scripts = pkgs.callPackage ./../../scripts { };
 

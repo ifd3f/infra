@@ -7,10 +7,6 @@ self:
 with lib; {
   imports = [
     self.nixosModules.astral
-
-    # https://nixos.wiki/wiki/Creating_a_NixOS_live_CD
-    "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
-    "${modulesPath}/installer/cd-dvd/channel.nix"
   ];
 
   users.mutableUsers = false;

@@ -212,4 +212,6 @@ in {
       libvdpau-va-gl
     ];
   };
+
+  #services.atftpd.enable = true;
 }
