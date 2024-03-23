@@ -28,6 +28,7 @@ let
       vault
       wget
       whois
+      wireguard-tools
       yq
     ] ++ (if pkgs.system != "x86_64-darwin" then [
       openldap
