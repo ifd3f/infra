@@ -20,6 +20,6 @@ with lib; {
     ];
 
     services.touchegg.enable = true;
-    services.xserver.libinput.enable = true; 
+    services.xserver.libinput.enable = true;
   };
 }

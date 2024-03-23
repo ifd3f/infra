@@ -5,9 +5,7 @@
 self:
 { lib, pkgs, modulesPath, ... }:
 with lib; {
-  imports = [
-    self.nixosModules.astral
-  ];
+  imports = [ self.nixosModules.astral ];
 
   users.mutableUsers = false;
 

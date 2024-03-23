@@ -9,7 +9,9 @@ in {
     enable = true;
     exports = ''
       /export ${policyaddrs [ lan4 lan6 ] "ro,fsid=0,no_subtree_check"}
-      /export/torrent ${policyaddrs [ lan4 lan6 ] "ro,insecure,no_root_squash,sync"}
+      /export/torrent ${
+        policyaddrs [ lan4 lan6 ] "ro,insecure,no_root_squash,sync"
+      }
     '';
   };
 
