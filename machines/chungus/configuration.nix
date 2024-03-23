@@ -30,9 +30,13 @@ with lib; {
     desktopManager.xfce.enable = true;
   };
 
-  # AMD Starship/Matisse Audio is broken on pipewire, maybe this fixes?
-  services.pipewire.enable = mkForce false;
-  hardware.pulseaudio.enable = mkForce true;
+  services.pipewire = {
+    enable = mkForce true;
+    jack.enable = true;
+    wireplumber.enable = true;
+    pulse.enable = true;
+  };
+  # hardware.pulseaudio.enable = mkForce true;
 
   services.blueman.enable = true;
 
