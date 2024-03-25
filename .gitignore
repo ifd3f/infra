@@ -1,3 +1,5 @@
+talosconfig
+kubeconfig
 .env
 matrix.json
 result

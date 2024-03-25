@@ -21,7 +21,9 @@ let
       nodePackages.prettier
       pixiecore
       pwgen
+      kubectl
       python3
+      talosctl
       tcpdump
       terraform
       terraform-ls
