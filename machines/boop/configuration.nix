@@ -17,6 +17,7 @@ with lib; {
 
   astral = {
     users.alia.enable = true;
+    users.astrid.enable = true;
     virt = {
       docker.enable = true;
       libvirt.enable = true;
@@ -43,5 +44,34 @@ with lib; {
     recommendedTlsSettings = true;
     recommendedOptimisation = true;
     recommendedGzipSettings = true;
+  };
+  
+  # tmp for debug
+  services.getty.autologinUser = "root";
+
+  virtualisation.vmVariant = {
+    # Autologin as root because we testin here
+    services.getty.autologinUser = "root";
+
+    networking.interfaces.eth0.useDHCP = true;
+    networking.interfaces.eno0.useDHCP = mkForce false;
+
+    virtualisation = {
+      graphics = false;
+      diskSize = 8192;
+
+      forwardPorts = [
+        {
+          from = "host";
+          host.port = 2222;
+          guest.port = 22;
+        }
+        {
+          from = "host";
+          guest.port = 80;
+          host.port = 8080;
+        }
+      ];
+    };
   };
 }

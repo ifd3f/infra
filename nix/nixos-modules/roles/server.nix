@@ -16,10 +16,10 @@ with lib; {
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_hardened;
 
   # Enable SSH in initrd for debugging
-  boot.initrd.network.ssh = {
-    enable = true;
-    authorizedKeys = [ inputs.self.lib.sshKeyDatabase.users.astrid ];
-  };
+  # boot.initrd.network.ssh = {
+  #   enable = true;
+  #   authorizedKeys = [ inputs.self.lib.sshKeyDatabase.users.astrid ];
+  # };
 
   astral = {
     acme.enable = true;

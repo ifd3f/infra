@@ -1,16 +1,18 @@
 inputs:
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 with lib;
 let constants = import ./constants.nix;
 in {
   boot.loader = {
-    efi.canTouchEfiVariables = true;
+    efi = {
+      efiSysMountPoint = "/boot";
+      canTouchEfiVariables = true;
+    };
 
     grub = {
       enable = true;
       devices = [ "nodev" ];
       efiSupport = true;
-      useOSProber = true;
       # splashImage = ./nerd-emoji.jpg;
     };
   };
@@ -23,17 +25,17 @@ in {
 
   # because we want to be able to decrypt host keys over SSH
   boot.initrd.network = {
-    udhcpc = {
-      enable = true;
-      extraArgs = [ "-i" constants.mgmt_if ];
-    };
+    enable = true;
+    udhcpc.enable = true;
     postCommands = ''
       ip addr
     '';
     ssh = {
       enable = true;
-      port = 2222;
-      hostKeys = [ ./initrd/ssh_host_rsa_key ./initrd/ssh_host_ed25519_key ];
+      hostKeys = [
+        (pkgs.writeText "ssh_host_rsa_key" (builtins.readFile ./initrd/ssh_host_rsa_key))
+        (pkgs.writeText "ssh_host_ed25519_key" (builtins.readFile ./initrd/ssh_host_ed25519_key))
+      ];
       authorizedKeys = inputs.self.lib.sshKeyDatabase.users.astrid;
     };
   };
