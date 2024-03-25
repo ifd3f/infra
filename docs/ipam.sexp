@@ -2,10 +2,16 @@
   (net CA7DC fca7:b01:f00d::/48
     (description "IPs for the primary datacenter")
 
-    (net CA7DC-DEVVM fca7:b01:f00d:de7::/64
+    (net CA7DC-DEVVM fca7:b01:f00d:0de7::/64
       (description "Developer VMs")
       (attr trust-level TRUSTED)
       (attr vlan 300)
+    )
+
+    (net CA7DC-K8S fca7:b01:f00d:c00b::/64
+      (description "Kubernetes cluster inter-node IP space")
+      (attr trust-level TRUSTED)
+      (attr vlan 100)
     )
 
     (net CA7DC-SERVICE fca7:b01:f00d:cafe::/64
