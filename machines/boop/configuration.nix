@@ -17,6 +17,7 @@ with lib; {
 
   astral = {
     users.alia.enable = true;
+    users.astrid.enable = true;
     virt = {
       docker.enable = true;
       libvirt.enable = true;

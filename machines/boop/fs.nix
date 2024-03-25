@@ -4,6 +4,7 @@
   fileSystems."/" = {
     device = "rootfs";
     fsType = "tmpfs";
+    options = [ "defaults" "size=256M" "mode=755" ];
   };
 
   fileSystems."/tmp" = {

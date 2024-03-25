@@ -1,3 +1,3 @@
-# `xn--vp9h` (pronounced 🤓)
+# boop
 
 another server for applications and compute and stuff

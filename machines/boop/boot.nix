@@ -23,16 +23,13 @@ in {
 
   # because we want to be able to decrypt host keys over SSH
   boot.initrd.network = {
-    udhcpc = {
-      enable = true;
-      extraArgs = [ "-i" constants.mgmt_if ];
-    };
+    enable = true;
+    udhcpc.enable = true;
     postCommands = ''
       ip addr
     '';
     ssh = {
       enable = true;
-      port = 2222;
       hostKeys = [ ./initrd/ssh_host_rsa_key ./initrd/ssh_host_ed25519_key ];
       authorizedKeys = inputs.self.lib.sshKeyDatabase.users.astrid;
     };
