@@ -1,6 +1,8 @@
 inputs:
 { config, lib, ... }:
-with lib; {
+with lib;
+let constants = import ./constants.nix;
+in {
   boot.loader = {
     efi.canTouchEfiVariables = true;
 
@@ -20,9 +22,20 @@ with lib; {
   boot.extraModulePackages = [ ];
 
   # because we want to be able to decrypt host keys over SSH
-  boot.initrd.network.ssh = {
-    enable = true;
-    authorizedKeys = inputs.self.lib.sshKeyDatabase.users.astrid;
+  boot.initrd.network = {
+    udhcpc = {
+      enable = true;
+      extraArgs = [ "-i" constants.mgmt_if ];
+    };
+    postCommands = ''
+      ip addr
+    '';
+    ssh = {
+      enable = true;
+      port = 2222;
+      hostKeys = [ ./initrd/ssh_host_rsa_key ./initrd/ssh_host_ed25519_key ];
+      authorizedKeys = inputs.self.lib.sshKeyDatabase.users.astrid;
+    };
   };
 
   nixpkgs.hostPlatform = "x86_64-linux";

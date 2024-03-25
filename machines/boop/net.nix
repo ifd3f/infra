@@ -1,4 +1,5 @@
-{
+let constants = import ./constants.nix;
+in {
   networking.useDHCP = false;
-  networking.interfaces.eno1.useDHCP = true;
+  networking.interfaces.${constants.mgmt_if}.useDHCP = true;
 }
