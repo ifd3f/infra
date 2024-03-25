@@ -1,6 +1,7 @@
 # Some headless server that likely runs 24/7
 inputs:
-{ config, lib, pkgs, ... }: {
+{ config, lib, pkgs, ... }:
+with lib; {
   # Auto-optimize/GC store on a much more frequent basis than the PC's.
   nix.gc = lib.mkForce {
     automatic = true;
@@ -29,7 +30,7 @@ inputs:
     monitoring-node.enable = true;
     mount-root-to-home.enable = true;
 
-    tailscale.enable = true;
+    tailscale.enable = mkDefault true;
 
     users = {
       github.enable = true;
