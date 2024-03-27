@@ -44,6 +44,13 @@
     )
   )
 
+  (net CA7DC-DN42 fd00:ca7:b015::/48
+    (alias-v4 172.23.7.176/28)
+    (description "nyahaus network, DN42")
+    (attr trust-level UNTRUSTED)
+    (attr vlan 107)
+  )
+
   (net CA7NET-VPN fd:ca7:f8a3::/48
     (description "VPN subnet")
 
