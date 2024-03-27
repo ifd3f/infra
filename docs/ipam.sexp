@@ -62,6 +62,19 @@
     (net CA7NET-VPN-ADMIN fd:ca7:f8a3:400::/64
       (description "VPN for me to perform total system administration! Has access over literally everything! Very dangerous!")
       (attr trust-level FULLY-TRUSTED)
+
+      (net CA7NET-VPN-ADMIN-CHUNGUS fd:ca7:f8a3:400::1/128
+        (description "Firewall IP")
+        (attr trust-level FULLY-TRUSTED)
+      )
+      (net CA7NET-VPN-ADMIN-BANANA fd:ca7:f8a3:400::2/128
+        (description "BANANA IP")
+        (attr trust-level FULLY-TRUSTED)
+      )
+      (net CA7NET-VPN-ADMIN-CHUNGUS fd:ca7:f8a3:400::3/128
+        (description "Chungus IP")
+        (attr trust-level FULLY-TRUSTED)
+      )
     )
   )
 )
