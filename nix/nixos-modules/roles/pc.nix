@@ -59,6 +59,7 @@ in {
 
     anki
 
+    wireguard-tools
     opensc
     pcsclite
     pcsctools
