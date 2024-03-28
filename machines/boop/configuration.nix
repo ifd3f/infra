@@ -45,9 +45,6 @@ with lib; {
     recommendedOptimisation = true;
     recommendedGzipSettings = true;
   };
-  
-  # tmp for debug
-  services.getty.autologinUser = "root";
 
   virtualisation.vmVariant = {
     # Autologin as root because we testin here

@@ -25,7 +25,7 @@ in {
     "usbhid"
     "usb_storage"
     "sd_mod"
-    "tg3" # tg3 needed for initrd networking on this machine
+    "tg3" # needed for initrd networking on this machine
   ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
@@ -34,12 +34,22 @@ in {
   # because we want to be able to decrypt host keys over SSH
   boot.initrd.network = {
     enable = true;
-    udhcpc.enable = true;
+    udhcpc = {
+      enable = true;
+      extraArgs = [
+        "-i"
+        constants.mgmt_if
+        "-x"
+        "hostname:boop"
+        "-b" # background if lease not obtained
+      ];
+    };
     postCommands = ''
       ip addr
     '';
     ssh = {
       enable = true;
+      port = 2222; # because we are using a different host key
       hostKeys = [
         (pkgs.writeText "ssh_host_rsa_key"
           (builtins.readFile ./initrd/ssh_host_rsa_key))
