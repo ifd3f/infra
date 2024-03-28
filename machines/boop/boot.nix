@@ -17,8 +17,16 @@ in {
     };
   };
 
-  boot.initrd.availableKernelModules =
-    [ "xhci_pci" "ehci_pci" "uhci_hcd" "hpsa" "usbhid" "usb_storage" "sd_mod" ];
+  boot.initrd.availableKernelModules = [
+    "xhci_pci"
+    "ehci_pci"
+    "uhci_hcd"
+    "hpsa"
+    "usbhid"
+    "usb_storage"
+    "sd_mod"
+    "tg3" # tg3 needed for initrd networking on this machine
+  ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
@@ -33,8 +41,10 @@ in {
     ssh = {
       enable = true;
       hostKeys = [
-        (pkgs.writeText "ssh_host_rsa_key" (builtins.readFile ./initrd/ssh_host_rsa_key))
-        (pkgs.writeText "ssh_host_ed25519_key" (builtins.readFile ./initrd/ssh_host_ed25519_key))
+        (pkgs.writeText "ssh_host_rsa_key"
+          (builtins.readFile ./initrd/ssh_host_rsa_key))
+        (pkgs.writeText "ssh_host_ed25519_key"
+          (builtins.readFile ./initrd/ssh_host_ed25519_key))
       ];
       authorizedKeys = inputs.self.lib.sshKeyDatabase.users.astrid;
     };
