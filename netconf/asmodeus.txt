@@ -1,0 +1,192 @@
+container {
+    name gortr {
+        command "-cache https://dn42.burble.com/roa/dn42_roa_46.json -verify=false -checktime=false -bind :8082"
+        image cloudflare/gortr
+        network rpki {
+            address 172.16.2.10
+        }
+        restart on-failure
+    }
+    network rpki {
+        prefix 172.16.2.0/24
+    }
+}
+interfaces {
+    ethernet eth0 {
+        address dhcp
+        hw-id 52:54:00:40:30:53
+    }
+    loopback lo {
+    }
+    wireguard wg4242422717 {
+        address fe80::1846/64
+        address fd00:ca7:b015::7e57/64
+        description "peering tunnel to whojk"
+        peer whojk {
+            address 141.148.191.208
+            allowed-ips ::/0
+            allowed-ips 0.0.0.0/0
+            port 24210
+            public-key ****************
+        }
+        private-key ****************
+    }
+}
+nat {
+    source {
+        rule 10 {
+            outbound-interface {
+                name eth0
+            }
+            source {
+                address 172.16.2.0/24
+            }
+            translation {
+                address masquerade
+            }
+        }
+    }
+}
+policy {
+    route-map dn42-neighbors {
+        rule 2 {
+            action permit
+            match {
+            }
+        }
+    }
+}
+protocols {
+    bgp {
+        address-family {
+            ipv4-unicast {
+                network 172.23.7.176/28 {
+                }
+            }
+            ipv6-unicast {
+                network fd00:ca7:b015::/48 {
+                }
+            }
+        }
+        neighbor fe80::2717 {
+            address-family {
+                ipv4-unicast {
+                    route-map {
+                        export dn42-neighbors
+                        import dn42-neighbors
+                    }
+                    soft-reconfiguration {
+                        inbound
+                    }
+                }
+                ipv6-unicast {
+                    route-map {
+                        export dn42-neighbors
+                        import dn42-neighbors
+                    }
+                    soft-reconfiguration {
+                        inbound
+                    }
+                }
+            }
+            description "whojk dn42"
+            interface {
+                source-interface wg4242422717
+                v6only {
+                }
+            }
+            peer-group dn42
+            remote-as 4242422717
+            update-source wg4242422717
+        }
+        parameters {
+            router-id 172.23.7.177
+        }
+        peer-group dn42 {
+            address-family {
+                ipv4-unicast {
+                }
+                ipv6-unicast {
+                }
+            }
+            capability {
+                extended-nexthop
+            }
+        }
+        system-as 4242421846
+    }
+    rpki {
+        cache 172.16.2.10 {
+            port 8082
+            preference 1
+        }
+    }
+    static {
+        route 0.0.0.0/0 {
+            next-hop 192.168.122.1 {
+            }
+        }
+    }
+}
+service {
+    ntp {
+        allow-client {
+            address 0.0.0.0/0
+            address ::/0
+        }
+        server time1.vyos.net {
+        }
+        server time2.vyos.net {
+        }
+        server time3.vyos.net {
+        }
+    }
+    ssh {
+        port 22
+    }
+}
+system {
+    config-management {
+        commit-revisions 10000
+    }
+    conntrack {
+        modules {
+            ftp
+            h323
+            nfs
+            pptp
+            sip
+            sqlnet
+            tftp
+        }
+    }
+    console {
+        device ttyS0 {
+            speed 115200
+        }
+    }
+    host-name asmodeus
+    login {
+        user vyos {
+            authentication {
+                encrypted-password ****************
+                public-keys chungus {
+                    key ****************
+                    type ssh-ed25519
+                }
+            }
+        }
+    }
+    name-server 8.8.8.8
+    name-server 8.8.4.4
+    syslog {
+        global {
+            facility all {
+                level info
+            }
+            facility local7 {
+                level debug
+            }
+        }
+    }
+}
