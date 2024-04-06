@@ -22,3 +22,5 @@ result
 
 # Watchman cookies (no more "Watchman would like to access your Documents folder")
 .watchman-cookie-*
+
+__pycache__
