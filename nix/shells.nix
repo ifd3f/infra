@@ -15,14 +15,15 @@ let
       git
       inetutils
       jq
+      kubectl
       mqttui
       netcat
       nixfmt
       nodePackages.prettier
       pixiecore
       pwgen
-      kubectl
       python3
+      racket-minimal
       talosctl
       tcpdump
       terraform
