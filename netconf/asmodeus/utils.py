@@ -66,3 +66,47 @@ class LinkLocalBgpPeer(NamedTuple):
             f"set protocols bgp neighbor {self.peer_address} remote-as {self.peer_asn}",
             f"set protocols bgp neighbor {self.peer_address} update-source {self.ifname}",
         ]
+
+
+class AddressFamily(NamedTuple):
+    group_suffix: str
+    network_group_key: str
+    firewall_name: str
+
+    def suffix(self, group_name: str):
+        """Suffix the given string with -v4 or -v6"""
+        return f"{group_name}-{self.group_suffix}"
+
+    def extract(self, obj):
+        """Given an object, extracts attribute .v4 or .v6"""
+        if self == v4:
+            return obj.v4
+        if self == v6:
+            return obj.v6
+
+
+v4 = AddressFamily(
+    group_suffix="v4", network_group_key="network-group", firewall_name="ipv4"
+)
+v6 = AddressFamily(
+    group_suffix="v6", network_group_key="ipv6-network-group", firewall_name="ipv6"
+)
+afs = [v4, v6]
+
+
+class NetGroup(NamedTuple):
+    base_name: str
+    v4: List[str]
+    v6: List[str]
+
+    def make_firewall_groups(self):
+        cmds = []
+        for af in afs:
+            cmds += [
+                f"set firewall group {af.network_group_key} {af.suffix(self.base_name)}"
+            ]
+            for addr in af.extract(self):
+                cmds += [
+                    f"set firewall group {af.network_group_key} {af.suffix(self.base_name)} network {addr}"
+                ]
+        return cmds
