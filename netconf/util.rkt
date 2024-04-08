@@ -3,8 +3,9 @@
          (for-doc scribble/base scribble/manual))
 
 (require net/ip)
+(require rebellion/type/record)
 (require racket/symbol)
-(require racket/trait)
+
 
 (provide
  command->string
@@ -30,8 +31,7 @@
    (set policy route-map dn42-roa rule 20 action permit)
    (set policy route-map dn42-roa rule 20 match rpki notfound)
    (set policy route-map dn42-roa rule 30 action deny)
-   (set policy route-map dn42-roa rule 30 match rpki invalid))]})
- )
+   (set policy route-map dn42-roa rule 30 match rpki invalid))]}))
 
 (define (command->string c)
   (string-join (map (match-lambda
@@ -55,49 +55,29 @@
    (cons (cons obj before) after)]
   [('()) (cons '() '())])
 
-(define dual-stack
-  (interface () into-af))
+(define-record-type WireguardTunnel
+  (ifname
+   our-address
+   our-private-key
+   description
+   peers
+   our-endpoint-port))
 
-(define wireguard/tunnel%
-  (class object%
-    (super-new)
-    (init-field ifname
-                our-address
-                our-private-key
-                description
-                peers
-                our-endpoint-port)))
+(define-record-type WireguardPeer
+  (name
+   public-key
+   endpoint))
 
-(define wireguard/peer
-  (class object%
-    (super-new)
-    (init-field name
-                public-key
-                endpoint)))
+(define-record-type LinkLocalBgpPeer
+  (link-ifname
+   description
+   peer-address
+   peer-asn
+   peer-group))
 
-(define bgp/link-local-peer
-  (class object%
-    (super-new)
-    (init-field link-ifname
-                description
-                peer-address
-                peer-asn
-                peer-group)))
+(define-record-type FirewallRule
+  (description
+   cmds
+   src
+   dst))
 
-(define firewall/rule
-  (class* object% (dual-stack)
-    (super-new)
-    (init-field description
-                cmds
-                src
-                dst)
-    (define/public (into-af af)
-      (new firewall/rule
-           [description (get-field description this)]
-           [cmds (get-field cmds this)]
-           [src (into-af (get-field src this))]
-           [dst (into-af (get-field dst this))]))))
-
-(define address
-
-(new firewall/rule [description "test"] [cmds '(abc)] [src 
