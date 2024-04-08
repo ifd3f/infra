@@ -82,22 +82,34 @@
    public-key
    endpoint))
 (define-record-setter wireguard/peer)
-(define (wireguard/peer:render-vyos r)
-  `(peer ,(wireguard/peer-name r) [(public-key (wireguard/peer-public-key r))
-                                   (allowed-ips "::/0")
-                                   (allowed-ips "0.0.0.0/0")
-                                   ,@(match (wireguard/peer-endpoint r)
-                                       [(cons address port) `((address ,address) (port ,port))]
-                                       ['() `()]
-                                       [_ (error "expected endpoint to be either nil or (cons address port)")])]))
 
-(define-record-type bgp/link-local-peer
-  (link-ifname
+(define (wireguard/peer:render-vyos r)
+  `(peer ,(wireguard/peer-name r)
+         [(public-key (wireguard/peer-public-key r))
+          (allowed-ips "::/0")
+          (allowed-ips "0.0.0.0/0")
+          ,@(match (wireguard/peer-endpoint r)
+              [(cons address port) `((address ,address) (port ,port))]
+              ['() `()]
+              [_ (error "expected endpoint to be either nil or (cons address port)")])]))
+
+(define-record-type bgp/link-local
+  (ifname
    description
    peer-address
    peer-asn
    peer-group))
-(define-record-setter bgp/link-local-peer)
+(define-record-setter bgp/link-local)
+
+(define (bgp/link-local-peer:render-vyos r)
+`[(delete protocols bgp neighbor (bgp/link-local-peer-address r))
+  (set protocols bgp neighbor ,(bgp/link-local-peer-address r)
+       [(description ,(bgp/link-local-description r))
+        (interface source-interface ,(bgp/link-local-ifname r))
+        (interface v6only)
+        (peer-group ,(bgp/link-local-ifname r))
+        (remote-as ,(bgp/link-local-peer-asn r))
+        (update-source ,(bgp/link-local-ifname r))])])
 
 (define-record-type firewall/rule
   (description
