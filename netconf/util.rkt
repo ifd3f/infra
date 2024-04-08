@@ -55,7 +55,16 @@
    (cons (cons obj before) after)]
   [('()) (cons '() '())])
 
-(define-record-type WireguardTunnel
+(struct dual-stack (v4 v6))
+
+(define-syntax (network-struct stx)
+  (syntax-case stx ()
+    [(_ name fields)
+     (syntax-case (datum->syntax #'name
+                                 (string->symbol (format "~a-raw" (syntax->datum #'name)))) ()
+       [raw-constructor-name #'(struct name fields #:transparent #:constructor-name raw-constructor-name)])]))
+
+(define-record-type wireguard/tunnel
   (ifname
    our-address
    our-private-key
@@ -63,21 +72,26 @@
    peers
    our-endpoint-port))
 
-(define-record-type WireguardPeer
+(define-record-type wireguard/peer
   (name
    public-key
    endpoint))
 
-(define-record-type LinkLocalBgpPeer
+(define-record-type bgp/link-local-peer
   (link-ifname
    description
    peer-address
    peer-asn
    peer-group))
 
-(define-record-type FirewallRule
-  (description
-   cmds
-   src
-   dst))
+(network-struct firewall/rule
+                (description
+                 cmds
+                 src
+                 dst))
 
+#;(define (firewall/rule-fmap f))
+
+;(define orig (firewall/rule-id #:description "test rule" #:cmds '(a) #:src 'a #:dst 'a))
+
+;(struct-copy firewall/rule orig [src 'b])
