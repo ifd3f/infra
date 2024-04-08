@@ -5,6 +5,7 @@
 (require net/ip)
 (require rebellion/type/record)
 (require racket/symbol)
+(require (for-syntax racket/syntax))
 
 
 (provide
@@ -31,7 +32,10 @@
    (set policy route-map dn42-roa rule 20 action permit)
    (set policy route-map dn42-roa rule 20 match rpki notfound)
    (set policy route-map dn42-roa rule 30 action deny)
-   (set policy route-map dn42-roa rule 30 match rpki invalid))]}))
+   (set policy route-map dn42-roa rule 30 match rpki invalid))]})
+ wireguard/tunnel:render-vyos
+ wireguard/tunnel
+ wireguard/peer)
 
 (define (command->string c)
   (string-join (map (match-lambda
@@ -57,13 +61,6 @@
 
 (struct dual-stack (v4 v6))
 
-(define-syntax (network-struct stx)
-  (syntax-case stx ()
-    [(_ name fields)
-     (syntax-case (datum->syntax #'name
-                                 (string->symbol (format "~a-raw" (syntax->datum #'name)))) ()
-       [raw-constructor-name #'(struct name fields #:transparent #:constructor-name raw-constructor-name)])]))
-
 (define-record-type wireguard/tunnel
   (ifname
    our-address
@@ -71,11 +68,28 @@
    description
    peers
    our-endpoint-port))
+(define-record-setter wireguard/tunnel)
+
+(define (wireguard/tunnel:render-vyos r)
+  `((delete interfaces wireguard ,(wireguard/tunnel-ifname r))
+    (set interfaces wireguard ,(wireguard/tunnel-ifname r)
+         [(address ,(wireguard/tunnel-our-address r))
+          (description ,(wireguard/tunnel-description r))
+          ,@(map wireguard/peer:render-vyos (wireguard/tunnel-peers r))])))
 
 (define-record-type wireguard/peer
   (name
    public-key
    endpoint))
+(define-record-setter wireguard/peer)
+(define (wireguard/peer:render-vyos r)
+  `(peer ,(wireguard/peer-name r) [(public-key (wireguard/peer-public-key r))
+                                   (allowed-ips "::/0")
+                                   (allowed-ips "0.0.0.0/0")
+                                   ,@(match (wireguard/peer-endpoint r)
+                                       [(cons address port) `((address ,address) (port ,port))]
+                                       ['() `()]
+                                       [_ (error "expected endpoint to be either nil or (cons address port)")])]))
 
 (define-record-type bgp/link-local-peer
   (link-ifname
@@ -83,15 +97,11 @@
    peer-address
    peer-asn
    peer-group))
+(define-record-setter bgp/link-local-peer)
 
-(network-struct firewall/rule
-                (description
-                 cmds
-                 src
-                 dst))
-
-#;(define (firewall/rule-fmap f))
-
-;(define orig (firewall/rule-id #:description "test rule" #:cmds '(a) #:src 'a #:dst 'a))
-
-;(struct-copy firewall/rule orig [src 'b])
+(define-record-type firewall/rule
+  (description
+   cmds
+   src
+   dst))
+(define-record-setter firewall/rule)
