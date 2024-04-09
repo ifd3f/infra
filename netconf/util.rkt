@@ -35,7 +35,8 @@
    (set policy route-map dn42-roa rule 30 match rpki invalid))]})
  wireguard/tunnel:render-vyos
  wireguard/tunnel
- wireguard/peer)
+ wireguard/peer
+ commandtree->string)
 
 (define (command->string c)
   (string-join (map (match-lambda
@@ -52,6 +53,9 @@
                         (map (lambda (command) (append before command))
                              (expand-command-tree subtree)))
                       lists))]))
+
+(define (commandtree->string t)
+  (map command->string (expand-command-tree t)))
 
 (define/match (split-at-first-list l)
   [((cons (? list? l) rest)) (cons '() (cons l rest))]
