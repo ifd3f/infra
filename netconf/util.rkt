@@ -33,6 +33,7 @@
    (set policy route-map dn42-roa rule 30 match rpki invalid)]]})
  dual-stack
  afmap
+ afall
  extract-v4
  extract-v6
  extract-all
@@ -75,6 +76,7 @@
 
 (struct dual-stack (v4 v6)
   #:transparent)
+
 (define extract-v4 dual-stack-v4)
 (define extract-v6 dual-stack-v6)
 (define (extract-all ds)
@@ -86,9 +88,11 @@
 (define (afmap f t)
   (match t
     ['() '()]
-    [(cons (? list? l) rest) (cons (afmap f l) (afmap f rest))]
-    [(cons (? dual-stack? ds) rest) (cons (f ds) (afmap f rest))]
-    [(cons other rest) (cons other (afmap f rest))]))
+    [(? list? l) (map (lambda (x) (afmap f x)) l)]
+    [(? dual-stack? ds) (f ds)]
+    [other other]))
+(define (afall t)
+  `(,(afmap extract-v4 t) ,(afmap extract-v6 t)))
 
 (define-record-type wireguard/tunnel
   (ifname

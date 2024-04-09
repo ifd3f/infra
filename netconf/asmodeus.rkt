@@ -2,6 +2,7 @@
 
 (require "util.rkt")
 (require "dn42.rkt")
+(require "vyos-firewall.rkt")
 
 (define wg-privkey "testkey") ; TODO: get from env
 
@@ -18,15 +19,8 @@
                              #:peer-endpoint (cons "141.148.191.208" 24210)
                              #:peer-asn 4242422717
                              #:peer-public-key "SpnH/BlVNDx5QiMxHhuF4i8hKr5qWMxnPYky6Mp4fEA=")
-    (set firewall
-         (global-options state-policy [(established action accept)
-                                       (related action accept)
-                                       (invalid action accept)])
-         (group network-group
-                (dn42-allowed-transit-v4 network
-                                         ("10.0.0.0/8")
-                                         ("172.20.0.0/14")
-                                         ("172.31.0.0/16"))))))
+    ,(router-rules)
+    ,(afall (dn42-tunnels-in))))
 
 (for ([s (commandtree->strings commands)])
   (displayln s))
