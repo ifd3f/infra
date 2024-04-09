@@ -21,18 +21,18 @@
   `[(delete protocols bgp peer-group dn42)
     (set protocols bgp peer-group dn42
          [(capability extended-nexthop)
-          ,(for/list ([af bgp-afs])
-             `(,af [(route-map export ,dn42-roa-route-map)
-                    (route-map import ,dn42-roa-route-map)
-                    (soft-reconfiguration inbound)]))])])
+          (address-family ,(for/list ([af bgp-afs])
+                             `(,af [(route-map export ,dn42-roa-route-map)
+                                    (route-map import ,dn42-roa-route-map)
+                                    (soft-reconfiguration inbound)])))])])
 
 (define (dn42/route-collector)
   (define addr "fd42:4242:2601:ac12::1")
   (define routemap 'deny-all)
-  
+
   `[(delete policy route-map ,routemap)
     (set policy route-map ,routemap rule 1 action deny)
-    
+
     (delete protocols bgp neighbor ,addr)
     (set protocols bgp neighbor ,addr
          [(capability extended-nexthop)

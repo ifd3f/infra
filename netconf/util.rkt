@@ -8,7 +8,7 @@
 
 (provide
  command->string
- 
+
  (proc-doc/names
   expand-command-tree
   (-> list list)
@@ -34,6 +34,7 @@
  dual-stack
  afmap
  afall
+ dsmap
  extract-v4
  extract-v6
  extract-all
@@ -93,6 +94,8 @@
     [other other]))
 (define (afall t)
   `(,(afmap extract-v4 t) ,(afmap extract-v6 t)))
+(define/match (dsmap f t)
+  [(f (dual-stack v4 v6)) (dual-stack (f v4) (f v6))])
 
 (define-record-type wireguard/tunnel
   (ifname
@@ -108,6 +111,10 @@
     (set interfaces wireguard ,(wireguard/tunnel-ifname r)
          [(address ,(wireguard/tunnel-our-address r))
           (description ,(wireguard/tunnel-description r))
+          (private-key ,(wireguard/tunnel-our-private-key r))
+          ,@(match (wireguard/tunnel-our-endpoint-port r)
+              ['() '()]
+              [port `(port ,port)])
           ,@(map wireguard/peer:render-vyos (wireguard/tunnel-peers r))])))
 
 (define-record-type wireguard/peer
@@ -118,7 +125,7 @@
 
 (define (wireguard/peer:render-vyos r)
   `(peer ,(wireguard/peer-name r)
-         [(public-key (wireguard/peer-public-key r))
+         [(public-key ,(wireguard/peer-public-key r))
           (allowed-ips "::/0")
           (allowed-ips "0.0.0.0/0")
           ,@(match (wireguard/peer-endpoint r)
@@ -135,12 +142,12 @@
 (define-record-setter bgp/link-local)
 
 (define (bgp/link-local:render-vyos r)
-  `[(delete protocols bgp neighbor (bgp/link-local-peer-address r))
+  `[(delete protocols bgp neighbor ,(bgp/link-local-peer-address r))
     (set protocols bgp neighbor ,(bgp/link-local-peer-address r)
          [(description ,(bgp/link-local-description r))
           (interface source-interface ,(bgp/link-local-ifname r))
           (interface v6only)
-          (peer-group ,(bgp/link-local-ifname r))
+          (peer-group ,(bgp/link-local-peer-group r))
           (remote-as ,(bgp/link-local-peer-asn r))
           (update-source ,(bgp/link-local-ifname r))])])
 
