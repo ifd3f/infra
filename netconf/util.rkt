@@ -7,7 +7,6 @@
 (require racket/symbol)
 (require (for-syntax racket/syntax))
 
-
 (provide
  command->string
  
@@ -27,16 +26,19 @@
            (match rpki invalid)))]
 @racket[expand-command-tree] will convert into this:
 @racketblock[
- '((set policy route-map dn42-roa rule 10 action permit)
+ '[(set policy route-map dn42-roa rule 10 action permit)
    (set policy route-map dn42-roa rule 10 match rpki valid)
    (set policy route-map dn42-roa rule 20 action permit)
    (set policy route-map dn42-roa rule 20 match rpki notfound)
    (set policy route-map dn42-roa rule 30 action deny)
-   (set policy route-map dn42-roa rule 30 match rpki invalid))]})
+   (set policy route-map dn42-roa rule 30 match rpki invalid)]]})
  wireguard/tunnel:render-vyos
  wireguard/tunnel
  wireguard/peer
- commandtree->string)
+ commandtree->string
+ commandtree->strings
+ bgp/link-local
+ bgp/link-local:render-vyos)
 
 (define (command->string c)
   (string-join (map (match-lambda
@@ -54,8 +56,11 @@
                              (expand-command-tree subtree)))
                       lists))]))
 
-(define (commandtree->string t)
+(define (commandtree->strings t)
   (map command->string (expand-command-tree t)))
+
+(define (commandtree->string t)
+  (string-join (commandtree->strings t) "\n"))
 
 (define/match (split-at-first-list l)
   [((cons (? list? l) rest)) (cons '() (cons l rest))]
@@ -105,15 +110,15 @@
    peer-group))
 (define-record-setter bgp/link-local)
 
-(define (bgp/link-local-peer:render-vyos r)
-`[(delete protocols bgp neighbor (bgp/link-local-peer-address r))
-  (set protocols bgp neighbor ,(bgp/link-local-peer-address r)
-       [(description ,(bgp/link-local-description r))
-        (interface source-interface ,(bgp/link-local-ifname r))
-        (interface v6only)
-        (peer-group ,(bgp/link-local-ifname r))
-        (remote-as ,(bgp/link-local-peer-asn r))
-        (update-source ,(bgp/link-local-ifname r))])])
+(define (bgp/link-local:render-vyos r)
+  `[(delete protocols bgp neighbor (bgp/link-local-peer-address r))
+    (set protocols bgp neighbor ,(bgp/link-local-peer-address r)
+         [(description ,(bgp/link-local-description r))
+          (interface source-interface ,(bgp/link-local-ifname r))
+          (interface v6only)
+          (peer-group ,(bgp/link-local-ifname r))
+          (remote-as ,(bgp/link-local-peer-asn r))
+          (update-source ,(bgp/link-local-ifname r))])])
 
 (define-record-type firewall/rule
   (description
