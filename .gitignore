@@ -3,6 +3,7 @@ kubeconfig
 .env
 matrix.json
 result
+result-*
 .direnv
 *.iso
 *.tar
