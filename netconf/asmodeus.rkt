@@ -28,4 +28,5 @@
                                          ("172.20.0.0/14")
                                          ("172.31.0.0/16"))))))
 
-(displayln (commandtree->string commands))
+(for ([s (commandtree->strings commands)])
+  (displayln s))

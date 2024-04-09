@@ -2,7 +2,6 @@
 (require scribble/srcdoc
          (for-doc scribble/base scribble/manual))
 
-(require net/ip)
 (require rebellion/type/record)
 (require racket/symbol)
 (require (for-syntax racket/syntax))
@@ -32,6 +31,12 @@
    (set policy route-map dn42-roa rule 20 match rpki notfound)
    (set policy route-map dn42-roa rule 30 action deny)
    (set policy route-map dn42-roa rule 30 match rpki invalid)]]})
+ dual-stack
+ afmap
+ extract-v4
+ extract-v6
+ extract-all
+ dual-stacked-suffix
  wireguard/tunnel:render-vyos
  wireguard/tunnel
  wireguard/peer
@@ -68,7 +73,22 @@
    (cons (cons obj before) after)]
   [('()) (cons '() '())])
 
-(struct dual-stack (v4 v6))
+(struct dual-stack (v4 v6)
+  #:transparent)
+(define extract-v4 dual-stack-v4)
+(define extract-v6 dual-stack-v6)
+(define (extract-all ds)
+  (append (extract-v4 ds) (extract-v6 ds)))
+(define (dual-stacked-suffix name)
+  (dual-stack (format "~a-v4" name)
+              (format "~a-v6" name)))
+
+(define (afmap f t)
+  (match t
+    ['() '()]
+    [(cons (? list? l) rest) (cons (afmap f l) (afmap f rest))]
+    [(cons (? dual-stack? ds) rest) (cons (f ds) (afmap f rest))]
+    [(cons other rest) (cons other (afmap f rest))]))
 
 (define-record-type wireguard/tunnel
   (ifname

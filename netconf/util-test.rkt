@@ -1,7 +1,6 @@
 #lang racket
 
 (require rackunit "util.rkt")
-(require net/ip)
 
 (check-equal? (expand-command-tree '()) '(()))
 (check-equal? (expand-command-tree '(a b)) '((a b)))
