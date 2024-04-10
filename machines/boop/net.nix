@@ -1,4 +1,11 @@
-let constants = import ./constants.nix;
+{ pkgs, ... }:
+let
+  constants = import ./constants.nix;
+  unaddressedNetwork = {
+    LinkLocalAddressing = "no";
+    LLDP = "no";
+    IPv6AcceptRA = "no";
+  };
 in {
   networking.useDHCP = false;
   networking.interfaces.${constants.mgmt_if}.useDHCP = true;
@@ -34,18 +41,47 @@ in {
     networks."20-bond007" = {
       name = "bond007";
       matchConfig.Type = "bond";
-      networkConfig = {
+      networkConfig = unaddressedNetwork // {
         Description = "Bond of primary ethernet devices";
         VLAN = [ "prod-vlan" ];
-        LinkLocalAddressing = "no";
-        LLDP = "no";
-        IPv6AcceptRA = "no";
       };
     };
     networks."20-bond-prod-vlan" = {
       name = "prod-vlan";
       matchConfig.Type = "vlan";
-      networkConfig.Description = "VLAN of prod traffic over the bond";
+      bridge = [ "prod-vlan-bridge" ];
+      networkConfig = unaddressedNetwork // {
+        Description = "VLAN of prod traffic over the bond";
+      };
+    };
+
+    netdevs."30-prodbr" = {
+      netdevConfig = {
+        Name = "prodbr";
+        Kind = "bridge";
+      };
+    };
+    networks."30-prodbr" = {
+      name = "prodbr";
+      matchConfig.Type = "bridge";
+      networkConfig = unaddressedNetwork // {
+        Description = "Bridge of prod traffic";
+      };
+    };
+
+    netdevs."30-k8sbr" = {
+      netdevConfig = {
+        Name = "k8sbr";
+        Kind = "bridge";
+        Description = "Bridge for Kubernetes VMs";
+      };
+    };
+    networks."30-k8sbr" = {
+      name = "k8sbr";
+      matchConfig.Type = "bridge";
+      networkConfig = unaddressedNetwork // {
+        Description = "Bridge for Kubernetes VMs";
+      };
     };
   };
 }
