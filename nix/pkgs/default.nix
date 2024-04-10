@@ -51,5 +51,7 @@ in vendored-images // rec {
   push-vault-secrets = pkgs.writeScriptBin "push-vault-secrets" ''
     ${vault-push-approles}/bin/vault-push-approles && ${vault-push-approle-envs}/bin/vault-push-approle-envs
   '';
+
+  vm-spawn = pkgs.callPackage ./vm-spawn.nix { };
 }
 
