@@ -49,7 +49,7 @@ in {
     networks."20-bond-prod-vlan" = {
       name = "prod-vlan";
       matchConfig.Type = "vlan";
-      bridge = [ "prod-vlan-bridge" ];
+      bridge = [ "prodbr" ];
       networkConfig = unaddressedNetwork // {
         Description = "VLAN of prod traffic over the bond";
       };
