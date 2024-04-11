@@ -1,4 +1,7 @@
 (net ULA-V6 fc00::/7
+  (net DC-ROUTER-SWITCHING "fd67:0113:7c37:3339::/64"
+    (description "Inter-router switch net")
+  )
   (net CA7DC fca7:b01:f00d::/48
     (description "IPs for the primary datacenter")
 

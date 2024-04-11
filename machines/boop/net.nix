@@ -60,6 +60,10 @@ in {
         Name = "prodbr";
         Kind = "bridge";
       };
+      extraConfig = ''
+        [Bridge]
+        STP = yes
+      '';
     };
     networks."30-prodbr" = {
       name = "prodbr";
