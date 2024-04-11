@@ -45,7 +45,8 @@
  commandtree->string
  commandtree->strings
  bgp/link-local
- bgp/link-local:render-vyos)
+ bgp/link-local:render-vyos
+ basic-vyos-conf)
 
 (define (command->string c)
   (string-join (map (match-lambda
@@ -157,3 +158,7 @@
    src
    dst))
 (define-record-setter firewall/rule)
+
+(define (basic-vyos-conf)
+  '(set system [(console device ttyS0 speed "115200")
+                (config-management commit-revisions "10000")]))
