@@ -21,15 +21,17 @@
                      (ethernet ,k8sbr [(hw-id "52:54:00:06:8c:9a")
                                        (description "k8sbr")
                                        (address "fca7:b01:f00d:c00b::1/64")
-                                       (address "2001:5a8:4002:9308::1/64")])])
+                                       (address "2001:5a8:4002:9388::1/64")])])
 
+    (delete protocols static)
     (set protocols static [(route "0.0.0.0/0" [(next-hop ,upstream-ll-addr4)
                                                (interface ,wan)])
                            (route6 "::/0" [(next-hop ,upstream-ll-addr6)
                                            (interface ,wan)])])
 
+    (delete service router-advert)
     (set service router-advert interface ,k8sbr [(prefix "fca7:b01:f00d:c00b::/64")
-                                                 (prefix "2001:5a8:4002:9308::/64")
+                                                 (prefix "2001:5a8:4002:9388::/64")
                                                  (name-server "fca7:b01:f00d:c00b::1")
                                                  (default-preference high)])])
 

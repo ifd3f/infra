@@ -92,11 +92,11 @@
 
 (net SONIC-PROVIDED-V6 2001:5a8:4002:9300::/56
   (description "Sonic gave me this prefix for my house")
-  (net PROD-PUBLIC 2001:5a8:4002:9301::/64
-    (description "Address space for public services")
-  )
-  (net PROD-K8S 2001:5a8:4002:9308::/64
-    (description "Public address space for k8s nodes")
+  (net PUBLIC-DC 2001:5a8:4002:9380::/57
+    (description "Public address space for datacenter")
+    (net PROD-K8S 2001:5a8:4002:9388::/64
+      (description "Public address space for k8s nodes")
+    )
   )
   (net HOME-USERS-V6 2001:5a8:4002:930a::/64
     (description "IP space for ethernet connected users")
