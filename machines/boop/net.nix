@@ -1,5 +1,4 @@
-{ pkgs, lib, ... }:
-with lib;
+{ pkgs, ... }:
 let
   constants = import ./constants.nix;
   unaddressedNetwork = {
@@ -10,7 +9,6 @@ let
 in {
   networking.useDHCP = false;
   networking.interfaces.${constants.mgmt_if}.useDHCP = true;
-  networking.firewall.enable = mkForce false;
 
   systemd.network = {
     enable = true;
@@ -51,24 +49,26 @@ in {
     networks."20-bond-prod-vlan" = {
       name = "prod-vlan";
       matchConfig.Type = "vlan";
-      # bridge = [ "prodbr" ];
-      networkConfig = {
+      bridge = [ "prodbr" ];
+      networkConfig = unaddressedNetwork // {
         Description = "VLAN of prod traffic over the bond";
-        Address = ["169.254.0.5/24" "fd67:113:7c37:3339::2/64" ];
       };
     };
 
-    /*
     netdevs."30-prodbr" = {
       netdevConfig = {
         Name = "prodbr";
         Kind = "bridge";
       };
+      extraConfig = ''
+        [Bridge]
+        STP = yes
+      '';
     };
     networks."30-prodbr" = {
       name = "prodbr";
       matchConfig.Type = "bridge";
-      networkConfig = {
+      networkConfig = unaddressedNetwork // {
         Description = "Bridge of prod traffic";
       };
     };
@@ -87,6 +87,5 @@ in {
         Description = "Bridge for Kubernetes VMs";
       };
     };
-    */
   };
 }
