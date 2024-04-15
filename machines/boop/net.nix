@@ -2,9 +2,12 @@
 let
   constants = import ./constants.nix;
   unaddressedNetwork = {
-    LinkLocalAddressing = "no";
-    LLDP = "no";
+    DHCP = "no";
     IPv6AcceptRA = "no";
+    IPv6SendRA = "no";
+    LLDP = "no";
+    EmitLLDP = "no";
+    LinkLocalAddressing = "no";
   };
 in {
   networking.useDHCP = false;
@@ -13,20 +16,13 @@ in {
   systemd.network = {
     enable = true;
 
-    netdevs."10-prod-vlan-100" = {
-      netdevConfig = {
-        Name = "prod-vlan";
-        Kind = "vlan";
-        Description = "Public prod traffic VLAN";
-      };
-      vlanConfig.Id = 100;
-    };
     networks."10-bond-enos" = {
       name = "eno2 eno3 eno4";
       matchConfig.Type = "ether";
       networkConfig.Description = "Primary ethernet devices";
       bond = [ "bond007" ];
     };
+
     netdevs."20-bond007" = {
       netdevConfig = {
         Name = "bond007";
@@ -43,11 +39,20 @@ in {
       matchConfig.Type = "bond";
       networkConfig = unaddressedNetwork // {
         Description = "Bond of primary ethernet devices";
-        VLAN = [ "prod-vlan" ];
+        VLAN = [ "bond007.100" ];
       };
     };
-    networks."20-bond-prod-vlan" = {
-      name = "prod-vlan";
+
+    netdevs."30-bond007-vlan100" = {
+      netdevConfig = {
+        Name = "bond007.100";
+        Kind = "vlan";
+        Description = "Public prod traffic VLAN";
+      };
+      vlanConfig.Id = 100;
+    };
+    networks."30-bond007-vlan100" = {
+      name = "bond007.100";
       matchConfig.Type = "vlan";
       bridge = [ "prodbr" ];
       networkConfig = unaddressedNetwork // {
@@ -55,7 +60,7 @@ in {
       };
     };
 
-    netdevs."30-prodbr" = {
+    netdevs."40-prodbr" = {
       netdevConfig = {
         Name = "prodbr";
         Kind = "bridge";
@@ -65,7 +70,7 @@ in {
         STP = yes
       '';
     };
-    networks."30-prodbr" = {
+    networks."40-prodbr" = {
       name = "prodbr";
       matchConfig.Type = "bridge";
       networkConfig = unaddressedNetwork // {
@@ -73,14 +78,14 @@ in {
       };
     };
 
-    netdevs."30-k8sbr" = {
+    netdevs."40-k8sbr" = {
       netdevConfig = {
         Name = "k8sbr";
         Kind = "bridge";
         Description = "Bridge for Kubernetes VMs";
       };
     };
-    networks."30-k8sbr" = {
+    networks."40-k8sbr" = {
       name = "k8sbr";
       matchConfig.Type = "bridge";
       networkConfig = unaddressedNetwork // {
