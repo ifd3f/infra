@@ -9,8 +9,9 @@ let
 
 in with nixpkgs-stable.lib; rec {
   machines = let
-    dirs =
-      (filterAttrs (name: type: type == "directory") (builtins.readDir ./.));
+    dirs = (filterAttrs (name: type:
+      type == "directory" && pathExists (././${name}/machine-info.nix))
+      (builtins.readDir ./.));
   in mapAttrs (hostname: _: mkMachine hostname (./. + "/${hostname}")) dirs;
 
   nixosConfigurations = let
