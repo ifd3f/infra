@@ -9,11 +9,13 @@ exit
 vlan 69 name mgmt by port
  tagged ethernet 1/1/1
  untagged ethernet 1/1/2 ethernet 1/1/37 to 1/1/48
+ spanning-tree rstp
 exit
 
 vlan 100 name prod by port
  tagged ethernet 1/1/1
  tagged ethernet 1/1/25 to 1/1/27
+ spanning-tree rstp
 exit
 
 interface ethernet 1/1/25 to 1/1/27
