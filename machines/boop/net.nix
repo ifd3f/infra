@@ -1,4 +1,5 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
+with lib;
 let
   constants = import ./constants.nix;
   unaddressedNetwork = {
@@ -12,6 +13,7 @@ let
 in {
   networking.useDHCP = false;
   networking.interfaces.${constants.mgmt_if}.useDHCP = true;
+  networking.firewall.enable = mkForce false;
 
   systemd.network = {
     enable = true;
@@ -75,6 +77,7 @@ in {
       matchConfig.Type = "bridge";
       networkConfig = unaddressedNetwork // {
         Description = "Bridge of prod traffic";
+        ConfigureWithoutCarrier = "yes";
       };
     };
 
