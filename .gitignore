@@ -11,6 +11,7 @@ result-*
 *.tar.bz2
 *.qcow2
 .DS_Store
+secrets.yaml
 
 # Root Makefile for rapid Vim prototyping
 /Makefile

@@ -11,10 +11,25 @@
       (attr vlan 300)
     )
 
-    (net CA7DC-K8S fca7:b01:f00d:c00b::/64
-      (description "Kubernetes cluster inter-node IP space")
-      (attr trust-level TRUSTED)
-      (attr vlan 100)
+    (net CA7DC-K8S fca7:b01:f00d:4000::/52
+      (description "Kubernetes cluster IPs")
+
+      (net CA7DC-K8S-SERVICES fca7:b01:f00d:4000::/64
+        (description "Kubernetes cluster services")
+      )
+      (net CA7DC-K8S-PODS fca7:b01:f00d:4001::/64
+        (description "Kubernetes cluster pods")
+      )
+      (net CA7DC-K8S-CONTROL-PLANE fca7:b01:f00d:4800::/64
+        (description "Kubernetes cluster control plane")
+        (attr vlan 180)
+
+        (net CA7DC-K8S-CONTROL-PLANE-VIP fca7:b01:f00d:4800::1/128)
+      )
+      (net CA7DC-K8S-WORKERS fca7:b01:f00d:4801::/64
+        (description "Kubernetes cluster workers")
+        (attr vlan 181)
+      )
     )
 
     (net CA7DC-SERVICE fca7:b01:f00d:cafe::/64
