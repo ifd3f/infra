@@ -32,8 +32,8 @@ vyos-iso ? fetchurl {
     '';
   };
 
-  talos = writeShellApplication {
-    name = "vm-spawn.talos";
+  talos-worker = writeShellApplication {
+    name = "vm-spawn.talos-worker";
     runtimeInputs = [ virt-manager ];
     text = ''
       set -euxo pipefail
@@ -46,15 +46,41 @@ vyos-iso ? fetchurl {
       ln -sf ${talos-iso} /var/lib/libvirt/images/talos-install.iso
 
       virt-install \
-        -n "k8s-node$1" \
-        --description "Talos Node $1" \
+        -n "talos-worker-$1" \
+        --description "Talos Worker $1" \
         --os-variant=linux2022 \
         --ram=16384 \
         --vcpus=8 \
         --disk path="/var/lib/libvirt/images/talos-node-$1.img",bus=virtio,size=32 \
         --graphics none \
         --cdrom /var/lib/libvirt/images/talos-install.iso \
-        --network bridge:k8sbr
+        --network bridge:brk8sw
+    '';
+  };
+
+  talos-cp = writeShellApplication {
+    name = "vm-spawn.talos-cp";
+    runtimeInputs = [ virt-manager ];
+    text = ''
+      set -euxo pipefail
+
+      if [ $# -ne 1 ]; then
+        echo "usage: $0 <VM_NUMBER>"
+        exit 1
+      fi
+
+      ln -sf ${talos-iso} /var/lib/libvirt/images/talos-install.iso
+
+      virt-install \
+        -n "talos-cp-$1" \
+        --description "Talos Node $1" \
+        --os-variant=linux2022 \
+        --ram=4096 \
+        --vcpus=4 \
+        --disk path="/var/lib/libvirt/images/talos-cp-node-$1.img",bus=virtio,size=24 \
+        --graphics none \
+        --cdrom /var/lib/libvirt/images/talos-install.iso \
+        --network bridge:brk8scp
     '';
   };
 }

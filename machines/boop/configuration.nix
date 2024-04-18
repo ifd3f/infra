@@ -8,7 +8,7 @@ with lib; {
 
     (import ./boot.nix inputs)
     ./fs.nix
-    ./net.nix
+    ./net
   ];
 
   # Logrotate config build fail workaround
