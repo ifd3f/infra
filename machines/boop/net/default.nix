@@ -4,7 +4,7 @@ let
   constants = import ../constants.nix;
   unaddressedNetwork = (import ./util.nix).unaddressedNetwork;
 in {
-  imports = [ ./bond.nix ];
+  imports = [ ./bond.nix ./k8s.nix ];
 
   networking.useDHCP = false;
   networking.interfaces.${constants.mgmt_if}.useDHCP = true;
