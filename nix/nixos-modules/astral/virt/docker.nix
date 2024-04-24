@@ -10,9 +10,7 @@ with lib; {
 
   config = let cfg = config.astral.virt.docker;
   in mkIf cfg.enable {
-    virtualisation.docker.enable = true;
-
-    # For raw, non-k8s docker
-    environment.systemPackages = with pkgs; [ docker-compose ];
+    virtualisation.podman.enable = true;
+    environment.systemPackages = with pkgs; [ podman-compose ];
   };
 }
