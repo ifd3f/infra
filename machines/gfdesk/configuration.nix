@@ -99,11 +99,5 @@ with lib; {
     recommendedTlsSettings = true;
     recommendedOptimisation = true;
     recommendedGzipSettings = true;
-
-    virtualHosts."s03.astrid.tech" = {
-      addSSL = true;
-      enableACME = true;
-      root = "/var/www/s03.astrid.tech";
-    };
   };
 }
