@@ -7,7 +7,6 @@ let
 
       ansible
       backblaze-b2
-      bitwarden-cli
       curl
       dnsutils
       docker

@@ -16,7 +16,6 @@
 
     environment.systemPackages = with pkgs; [
       bind
-      bitwarden-cli
       curl
       dnsutils
       ed
