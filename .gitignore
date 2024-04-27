@@ -5,6 +5,7 @@ matrix.json
 result
 result-*
 .direnv
+*.raw
 *.iso
 *.tar
 *.tar.gz
