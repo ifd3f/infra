@@ -5,6 +5,8 @@ in with lib; {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
     inputs.self.nixosModules.server
+
+    ./net.nix
   ];
 
   services.qemuGuest.enable = true;
