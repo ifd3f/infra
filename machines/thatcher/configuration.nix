@@ -7,6 +7,8 @@ in with lib; {
     inputs.self.nixosModules.server
   ];
 
+  services.qemuGuest.enable = true;
+
   astral = {
     tailscale.enable = mkForce false;
     monitoring-node.scrapeTransport = "https";
