@@ -53,7 +53,6 @@ in {
     wine
     wine64
     winetricks
-    obsidian
 
     transmission
     transmission-qt
