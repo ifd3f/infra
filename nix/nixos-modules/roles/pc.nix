@@ -44,15 +44,16 @@ in {
   ];
 
   environment.systemPackages = with pkgs; [
+    android-tools
     ark
     gajim
     home-manager
     nextcloud-client
-    openconnect
     ventoy-bin
     wine
     wine64
     winetricks
+    obsidian
 
     transmission
     transmission-qt
