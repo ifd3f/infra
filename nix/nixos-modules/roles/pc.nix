@@ -161,6 +161,7 @@ in {
 
   services.flatpak.enable = true;
 
+  /*
   # Use dnsmasq to allow live hosts editing in development
   services.dnsmasq = {
     enable = true;
@@ -190,6 +191,7 @@ in {
     users.dnsmasq.extraGroups = [ "dnsmasq-extra-hosts" ];
     groups.dnsmasq-extra-hosts = { };
   };
+  */
 
   i18n.inputMethod = {
     enabled = "fcitx5";
