@@ -12,7 +12,7 @@ with lib; {
       ./fs.nix
     ];
 
-  microsoft-surface.kernelVersion = "6.6";
+  microsoft-surface.kernelVersion = "6.8";
   microsoft-surface.ipts = {
     enable = true;
     config = {
