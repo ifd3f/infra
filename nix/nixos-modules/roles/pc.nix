@@ -68,6 +68,8 @@ in {
     yubikey-manager-qt
     yubikey-personalization
     yubikey-personalization-gui
+
+    inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.caligula
   ];
 
   users.mutableUsers = true;
