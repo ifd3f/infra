@@ -32,18 +32,6 @@ with lib; {
     nameservers = [ "8.8.8.8" "8.8.4.4" ];
   };
 
-  services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.nvidia = {
-    package = config.boot.kernelPackages.nvidiaPackages.production;
-    nvidiaSettings = true;
-  };
-  hardware.opengl = {
-    enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
-    extraPackages = with pkgs; [ vaapiVdpau ];
-  };
-
   hardware.enableRedistributableFirmware = true;
 
   time.timeZone = "US/Pacific";
