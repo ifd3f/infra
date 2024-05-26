@@ -23,7 +23,7 @@ in with lib; {
   users = {
     users.tv = {
       group = "tv";
-      extraGroups = [ "deluge" ];
+      extraGroups = [ "wheel" "deluge" ];
       isNormalUser = true;
     };
     users.astrid.extraGroups = [ "tv" ];

@@ -43,6 +43,7 @@ with lib; {
     driSupport32Bit = true;
     extraPackages = with pkgs; [ vaapiVdpau ];
   };
+  hardware.xpadneo.enable = true;
 
   hardware.enableRedistributableFirmware = true;
 
