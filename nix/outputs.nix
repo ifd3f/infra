@@ -80,6 +80,10 @@ in {
       pkgs = import nixpkgs { system = "x86_64-darwin"; };
       modules = [ self.homeModules.astral-macos ];
     };
+    "astrid@twinkpaw" = home-manager.lib.homeManagerConfiguration {
+      pkgs = import nixpkgs { system = "x86_64-linux"; };
+      modules = [ self.homeModules.astral-gui ];
+    };
   };
 
   nixosModules = {
