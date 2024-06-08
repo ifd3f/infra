@@ -7,29 +7,50 @@
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
   boot.initrd.availableKernelModules =
-    [ "ehci_pci" "ahci" "firewire_ohci" "usb_storage" "sd_mod" "sdhci_pci" ];
-  boot.initrd.kernelModules = [ "dm-snapshot" ];
+    [ "xhci_pci" "ahci" "nvme" "usb_storage" "sd_mod" ];
+  boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/63de3b42-fea5-4914-a8e7-b3e679c0f42d";
-    fsType = "xfs";
-  };
-
-  fileSystems."/home" = {
-    device = "/dev/disk/by-uuid/a62291f4-2495-4923-b7ea-140a1cf1c978";
-    fsType = "xfs";
+    device = "root-tmpfs";
+    fsType = "tmpfs";
   };
 
   fileSystems."/nix" = {
-    device = "/dev/disk/by-uuid/8a679539-02bd-4260-bcf9-0dec389fb038";
-    fsType = "xfs";
+    device = "bigdiskenergy/nix";
+    fsType = "zfs";
+  };
+
+  fileSystems."/etc" = {
+    device = "bigdiskenergy/enc/etc";
+    fsType = "zfs";
+  };
+
+  fileSystems."/home" = {
+    device = "bigdiskenergy/enc/home";
+    fsType = "zfs";
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/AE3C-E97B";
+    device = "/dev/disk/by-uuid/9273-1FCA";
     fsType = "vfat";
+  };
+
+  fileSystems."/var" = {
+    device = "bigdiskenergy/enc/var";
+    fsType = "zfs";
+  };
+
+  fileSystems."/root/disk-keys" = {
+    device = "bigdiskenergy/enc/keys";
+    fsType = "zfs";
+  };
+
+  fileSystems."/home/root/disk-keys" = {
+    device = "/root/disk-keys";
+    fsType = "none";
+    options = [ "bind" ];
   };
 
   swapDevices = [ ];
@@ -39,11 +60,11 @@
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.enp0s25.useDHCP = lib.mkDefault true;
-  # networking.interfaces.wlp3s0.useDHCP = lib.mkDefault true;
-  # networking.interfaces.wwp0s29u1u4.useDHCP = lib.mkDefault true;
+  # networking.interfaces.enp8s0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.wlp7s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   hardware.cpu.intel.updateMicrocode =
     lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
