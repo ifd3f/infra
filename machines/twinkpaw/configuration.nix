@@ -48,7 +48,7 @@ with lib; {
         splashImage = let
           image = with pkgs;
             runCommand "twinkpaw-bg.jpg" { } ''
-              ${imagemagick}/bin/convert -brightness-contrast -50 ${
+              ${imagemagick}/bin/convert -brightness-contrast -10 ${
                 ./bg.jpg
               } $out
             '';
