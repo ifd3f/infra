@@ -24,7 +24,7 @@ with lib; {
     bluetooth.enable = true;
   };
 
-  services.xserver.dpi = 120;
+  services.xserver.dpi = 209;
 
   networking = {
     hostName = "twinkpaw";
