@@ -10,6 +10,7 @@
       krita
       libreoffice-fresh
       lmms
+      musescore
       okular
       prismlauncher
       thunderbird
