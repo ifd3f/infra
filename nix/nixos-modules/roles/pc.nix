@@ -70,6 +70,28 @@ in {
     yubikey-personalization-gui
 
     inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.caligula
+
+    config.boot.kernelPackages.perf
+
+    android-tools
+    binwalk
+    calibre
+    dasel
+    ffmpeg
+    lutris
+    magic-wormhole
+    minicom
+    musescore
+    nfs-utils
+    protontricks
+    scc
+    socat
+    sshpass
+    tiled
+    tpm2-tools
+    tpm2-tss
+    transmission
+    usbtop
   ];
 
   users.mutableUsers = true;
@@ -163,36 +185,35 @@ in {
 
   services.flatpak.enable = true;
 
-  /*
-  # Use dnsmasq to allow live hosts editing in development
-  services.dnsmasq = {
-    enable = true;
-    settings = {
-      server = [ "1.1.1.1" "8.8.8.8" "8.8.4.4" ];
-      listen-address = "127.0.0.1";
-      addn-hosts = extraHosts;
-    };
-  };
+  /* # Use dnsmasq to allow live hosts editing in development
+     services.dnsmasq = {
+       enable = true;
+       settings = {
+         server = [ "1.1.1.1" "8.8.8.8" "8.8.4.4" ];
+         listen-address = "127.0.0.1";
+         addn-hosts = extraHosts;
+       };
+     };
 
-  systemd.services.create-extra-hosts = {
-    description = "Make extraHosts";
+     systemd.services.create-extra-hosts = {
+       description = "Make extraHosts";
 
-    wantedBy = [ "dnsmasq.service" ];
-    before = [ "dnsmasq.service" ];
+       wantedBy = [ "dnsmasq.service" ];
+       before = [ "dnsmasq.service" ];
 
-    script = ''
-      touch ${extraHosts}
-      chmod 664 ${extraHosts}
-      chown dnsmasq:dnsmasq-extra-hosts ${extraHosts}
-    '';
+       script = ''
+         touch ${extraHosts}
+         chmod 664 ${extraHosts}
+         chown dnsmasq:dnsmasq-extra-hosts ${extraHosts}
+       '';
 
-    serviceConfig.Type = "oneshot";
-  };
+       serviceConfig.Type = "oneshot";
+     };
 
-  users = {
-    users.dnsmasq.extraGroups = [ "dnsmasq-extra-hosts" ];
-    groups.dnsmasq-extra-hosts = { };
-  };
+     users = {
+       users.dnsmasq.extraGroups = [ "dnsmasq-extra-hosts" ];
+       groups.dnsmasq-extra-hosts = { };
+     };
   */
 
   i18n.inputMethod = {
