@@ -1,1 +1,1 @@
-inputs: { services.octoprint.enable = true; }
+{ services.octoprint.enable = true; }

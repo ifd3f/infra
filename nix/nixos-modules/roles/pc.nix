@@ -1,8 +1,9 @@
 # A graphics-enabled PC I would directly use.
-inputs:
 { config, lib, pkgs, ... }:
 with lib;
-let extraHosts = "/var/extraHosts";
+let
+  extraHosts = "/var/extraHosts";
+  inputs = config.astral.inputs;
 in {
   # haskell.nix binary cache
   nix.settings.trusted-public-keys =

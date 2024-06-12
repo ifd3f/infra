@@ -1,7 +1,6 @@
-inputs:
-{ lib, ... }:
+{ config, lib, ... }:
 with lib;
-let inherit (inputs.self) nixosConfigurations;
+let inherit (config.astral.inputs.self) nixosConfigurations;
 in rec {
   supportedExporters = [ "node" "nginx" "systemd" "bind" "postgres" ];
 

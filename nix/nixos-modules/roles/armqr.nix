@@ -1,5 +1,6 @@
-inputs:
-{ config, pkgs, lib, ... }: {
+{ config, pkgs, lib, ... }:
+let inputs = config.astral.inputs;
+in {
   imports = [ inputs.armqr.nixosModules.default ];
 
   services.armqr = {

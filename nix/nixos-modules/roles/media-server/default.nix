@@ -1,5 +1,4 @@
 # Home media server, hooked up directly to the TV.
-inputs:
 { config, pkgs, lib, ... }:
 let vs = config.vault-secrets.secrets.media-server;
 in with lib; {

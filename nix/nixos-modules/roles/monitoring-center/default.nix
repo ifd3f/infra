@@ -1,4 +1,1 @@
-inputs: {
-  imports =
-    [ ./grafana.nix (import ./prometheus.nix inputs) ./xmpp-alerts.nix ];
-}
+{ imports = [ ./grafana.nix ./prometheus.nix ./xmpp-alerts.nix ]; }
