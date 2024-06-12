@@ -3,6 +3,9 @@ inputs: {
     inputs.vault-secrets.nixosModules.vault-secrets
     inputs.nix-ld.nixosModules.nix-ld
     inputs.home-manager-stable.nixosModule
+
+    ./flake-input.nix
+
     ./hw
     ./mount-root-to-home.nix
 
@@ -10,6 +13,7 @@ inputs: {
       programs.zsh.enable = true;
       users.defaultUserShell = pkgs.zsh;
       nixpkgs.overlays = [ inputs.self.overlays.default ];
+      astral.inputs = inputs;
     })
 
     ./acme.nix
@@ -27,10 +31,10 @@ inputs: {
     ./ci.nix
 
     ./net
-    (import ./users inputs)
+    ./users
 
     ./monitoring-node
-    (import ./backup inputs)
+    ./backup
     ./tailscale.nix
   ];
 

@@ -1,9 +1,9 @@
-inputs:
 { lib, config, ... }:
 with lib;
 let
   vs = config.vault-secrets.secrets."${vault-key}";
   cfg = config.astral.backup;
+  inputs = config.astral.inputs;
 
 in with lib; {
   options.astral.backup.services = {

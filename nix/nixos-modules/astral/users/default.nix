@@ -1,6 +1,6 @@
 # Normal user declarations.
-inputs:
-let inherit (inputs.self.lib) sshKeyDatabase;
+{ config, ... }:
+let inherit (config.astral.inputs.self.lib) sshKeyDatabase;
 in {
   imports = let
     # Helper to create a user with the given name.
