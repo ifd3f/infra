@@ -1,4 +1,5 @@
 { config, pkgs, lib, ... }:
+with lib;
 let
   httpPort = 5443;
 

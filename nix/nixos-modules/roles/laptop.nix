@@ -3,7 +3,7 @@
 { config, pkgs, lib, ... }:
 let inputs = config.astral.inputs;
 in {
-  imports = [ inputs.self.nixosModules.pc ];
+  # imports = [ inputs.self.nixosModules.pc ];
 
   environment.systemPackages = with pkgs; [
     xorg.xf86videointel

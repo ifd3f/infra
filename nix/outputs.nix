@@ -89,7 +89,7 @@ in {
   nixosModules = {
     default = self.nixosModules.astral;
     astral = import ./nixos-modules/astral inputs;
-  } // import ./nixos-modules/roles.nix inputs;
+  } // import ./nixos-modules/roles.nix;
 
   nixosConfigurations = self.lib.machines.nixosConfigurations;
 } // flake-utils.lib.eachSystem [
