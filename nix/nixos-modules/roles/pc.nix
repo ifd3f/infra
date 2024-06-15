@@ -77,6 +77,8 @@ in {
     android-tools
     binwalk
     calibre
+    carla
+    drumgizmo
     dasel
     ffmpeg
     lutris
@@ -156,6 +158,7 @@ in {
       enable = true;
       support32Bit = true;
     };
+    jack.enable = true;
     pulse.enable = true;
   };
 

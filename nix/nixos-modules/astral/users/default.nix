@@ -58,6 +58,7 @@ in {
         "dnsmasq-extra-hosts"
         "docker"
         "i2c"
+        "jackaudio"
         "libvirtd"
         "lpadmin"
         "lxd"
