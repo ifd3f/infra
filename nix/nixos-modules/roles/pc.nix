@@ -95,6 +95,7 @@ in {
     tpm2-tss
     transmission
     usbtop
+    wdisplays
   ];
 
   users.mutableUsers = true;
@@ -178,6 +179,10 @@ in {
         enable = true;
         useQtScaling = true;
       };
+    };
+    windowManager.qtile = {
+      enable = true;
+      backend = "wayland";
     };
   };
 
