@@ -1,6 +1,12 @@
 inputs:
-{ config, pkgs, lib, ... }:
-with lib; {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+with lib;
+{
   imports = [
     ./hardware-configuration.nix
     inputs.self.nixosModules.pc
@@ -9,13 +15,14 @@ with lib; {
 
   time.timeZone = "US/Pacific";
 
-  astral.tailscale.oneOffKey =
-    "tskey-auth-kQpYuB2CNTRL-krpVu4TaHhBfxV7SWg3LgBtPG8t3QKyh4";
+  astral.tailscale.oneOffKey = "tskey-auth-kQpYuB2CNTRL-krpVu4TaHhBfxV7SWg3LgBtPG8t3QKyh4";
 
   # so i can be a *gamer*
   programs.steam.enable = true;
 
-  services = { blueman.enable = true; };
+  services = {
+    blueman.enable = true;
+  };
 
   virtualisation.lxd.enable = true;
 
@@ -45,14 +52,15 @@ with lib; {
         efiSupport = true;
         enable = true;
         useOSProber = false;
-        splashImage = let
-          image = with pkgs;
-            runCommand "twinkpaw-bg.jpg" { } ''
-              ${imagemagick}/bin/convert -brightness-contrast -10 ${
-                ./bg.jpg
-              } $out
-            '';
-        in "${image}";
+        splashImage =
+          let
+            image =
+              with pkgs;
+              runCommand "twinkpaw-bg.jpg" { } ''
+                ${imagemagick}/bin/convert -brightness-contrast -10 ${./bg.jpg} $out
+              '';
+          in
+          "${image}";
       };
     };
   };

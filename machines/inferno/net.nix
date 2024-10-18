@@ -1,5 +1,11 @@
-{ config, pkgs, lib, ... }:
-with lib; {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+with lib;
+{
   networking.firewall.enable = mkForce false;
 
   networking.useDHCP = false;
@@ -13,20 +19,24 @@ with lib; {
   # Motherboard port, accessible for debugging purposes.
   networking.interfaces.enp0s31f6 = {
     useDHCP = true;
-    ipv4.addresses = [{
-      address = "172.16.69.1";
-      prefixLength = 24;
-    }];
+    ipv4.addresses = [
+      {
+        address = "172.16.69.1";
+        prefixLength = 24;
+      }
+    ];
     tempAddress = "enabled";
   };
 
   # This is connected to vlan 69, albeit indirectly.
   networking.bridges.mgmtlink.interfaces = [ ];
   networking.interfaces.mgmtlink = {
-    ipv4.addresses = [{
-      address = "192.168.69.10";
-      prefixLength = 24;
-    }];
+    ipv4.addresses = [
+      {
+        address = "192.168.69.10";
+        prefixLength = 24;
+      }
+    ];
     tempAddress = "disabled";
   };
 

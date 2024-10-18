@@ -1,7 +1,15 @@
 # Home media server, hooked up directly to the TV.
-{ config, pkgs, lib, ... }:
-let vs = config.vault-secrets.secrets.media-server;
-in with lib; {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+let
+  vs = config.vault-secrets.secrets.media-server;
+in
+with lib;
+{
   services.xserver = {
     enable = true;
 
@@ -22,7 +30,10 @@ in with lib; {
   users = {
     users.tv = {
       group = "tv";
-      extraGroups = [ "wheel" "deluge" ];
+      extraGroups = [
+        "wheel"
+        "deluge"
+      ];
       isNormalUser = true;
     };
     users.astrid.extraGroups = [ "tv" ];

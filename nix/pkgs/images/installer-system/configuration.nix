@@ -3,8 +3,14 @@
 
 # You can drop in a /wpa_supplicant.conf to connect to wifi headlessly!
 self:
-{ lib, pkgs, modulesPath, ... }:
-with lib; {
+{
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}:
+with lib;
+{
   imports = [ self.nixosModules.astral ];
 
   users.mutableUsers = false;

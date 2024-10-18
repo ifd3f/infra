@@ -1,6 +1,13 @@
 inputs:
-{ config, pkgs, lib, modulesPath, ... }:
-with lib; {
+{
+  config,
+  pkgs,
+  lib,
+  modulesPath,
+  ...
+}:
+with lib;
+{
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
     inputs.self.nixosModules.server
@@ -13,8 +20,13 @@ with lib; {
     tailscale.oneOffKey = "this isn't used ever lol";
   };
 
-  boot.initrd.availableKernelModules =
-    [ "ata_piix" "uhci_hcd" "virtio_pci" "virtio_scsi" "sd_mod" ];
+  boot.initrd.availableKernelModules = [
+    "ata_piix"
+    "uhci_hcd"
+    "virtio_pci"
+    "virtio_scsi"
+    "sd_mod"
+  ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
@@ -28,8 +40,7 @@ with lib; {
   networking.useDHCP = lib.mkDefault true;
   networking.domain = "h.astrid.tech";
 
-  hardware.cpu.amd.updateMicrocode =
-    lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   boot.cleanTmpDir = true;
   zramSwap.enable = true;

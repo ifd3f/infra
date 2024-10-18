@@ -7,17 +7,17 @@ let
   cfg = config.astral.backup;
   inputs = config.astral.inputs;
 
-in with lib; {
+in
+with lib;
+{
   options.astral.backup = {
     vault-key = mkOption {
-      description =
-        "Vault secret name to use. By default, it will reference the Vault secret key backup-$fqdn.";
+      description = "Vault secret name to use. By default, it will reference the Vault secret key backup-$fqdn.";
       type = types.str;
     };
 
     vault-secret = mkOption {
-      description =
-        "Vault secret to use. It is grabbed from the key listed in vault-key.";
+      description = "Vault secret to use. It is grabbed from the key listed in vault-key.";
       type = types.attrs;
     };
   };
@@ -25,8 +25,7 @@ in with lib; {
   config = mkIf (cfg.db.enable || builtins.length cfg.services.paths > 0) {
     astral.backup = {
       vault-key = "backup-${config.networking.fqdn}";
-      vault-secret =
-        config.vault-secrets.secrets."${config.astral.backup.vault-key}";
+      vault-secret = config.vault-secrets.secrets."${config.astral.backup.vault-key}";
     };
 
     # vault kv put kv/backup-db-${fqdn}/secrets \

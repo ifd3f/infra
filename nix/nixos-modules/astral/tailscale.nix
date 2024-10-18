@@ -1,6 +1,14 @@
-{ pkgs, lib, config, ... }:
-let cfg = config.astral.tailscale;
-in with lib; {
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+let
+  cfg = config.astral.tailscale;
+in
+with lib;
+{
   options.astral.tailscale = {
     enable = mkEnableOption "internal tailscale network";
     oneOffKey = mkOption {
@@ -20,14 +28,23 @@ in with lib; {
       description = "Automatic connection to Tailscale";
 
       # make sure tailscale is running before trying to connect to tailscale
-      after = [ "network-pre.target" "tailscale.service" ];
-      wants = [ "network-pre.target" "tailscale.service" ];
+      after = [
+        "network-pre.target"
+        "tailscale.service"
+      ];
+      wants = [
+        "network-pre.target"
+        "tailscale.service"
+      ];
       wantedBy = [ "multi-user.target" ];
 
       # set this service as a oneshot job
       serviceConfig.Type = "oneshot";
 
-      path = with pkgs; [ jq tailscale ];
+      path = with pkgs; [
+        jq
+        tailscale
+      ];
 
       environment.oneOffKey = cfg.oneOffKey;
 

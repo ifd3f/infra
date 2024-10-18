@@ -1,10 +1,22 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 with lib;
 let
   cfg = config.astral.monitoring-node;
   ecfg = config.services.prometheus.exporters;
-  supportedExporters = [ "node" "nginx" "systemd" "bind" "postgres" ];
-in {
+  supportedExporters = [
+    "node"
+    "nginx"
+    "systemd"
+    "bind"
+    "postgres"
+  ];
+in
+{
   config = mkIf cfg.enable {
     services.prometheus.exporters = {
       node = {
@@ -33,15 +45,19 @@ in {
       };
     };
 
-    services.nginx.virtualHosts."${cfg.vhost}".locations = mkMerge (map (name:
-      let thisCfg = ecfg.${name};
-      in mkIf thisCfg.enable {
-        "/metrics/${name}".proxyPass =
-          "http://127.0.0.1:${toString thisCfg.port}/metrics";
-      }) supportedExporters);
+    services.nginx.virtualHosts."${cfg.vhost}".locations = mkMerge (
+      map (
+        name:
+        let
+          thisCfg = ecfg.${name};
+        in
+        mkIf thisCfg.enable {
+          "/metrics/${name}".proxyPass = "http://127.0.0.1:${toString thisCfg.port}/metrics";
+        }
+      ) supportedExporters
+    );
 
-    astral.monitoring-node.exporters =
-      filter (name: ecfg.${name}.enable) supportedExporters;
+    astral.monitoring-node.exporters = filter (name: ecfg.${name}.enable) supportedExporters;
   };
 
 }

@@ -1,13 +1,21 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 with lib;
 let
   vs = config.vault-secrets.secrets;
   gcfg = config.services.grafana;
-in {
+in
+{
   astral.backup.services.paths = [ "/var/lib/grafana" ];
 
   # vault kv put kv/grafana-sso-oauth/env GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET=@
-  vault-secrets.secrets.grafana-sso-oauth = { environmentKey = "env"; };
+  vault-secrets.secrets.grafana-sso-oauth = {
+    environmentKey = "env";
+  };
 
   systemd.services.grafana = {
     requires = [ "grafana-sso-oauth-secrets.service" ];
@@ -34,17 +42,13 @@ in {
         client_secret = "SECRET THAT GETS OVERRIDEN";
         scopes = "openid email profile offline_access roles";
 
-        auth_url =
-          "https://sso.astrid.tech/realms/public-users/protocol/openid-connect/auth";
-        token_url =
-          "https://sso.astrid.tech/realms/public-users/protocol/openid-connect/token";
-        api_url =
-          "https://sso.astrid.tech/realms/public-users/protocol/openid-connect/userinfo";
+        auth_url = "https://sso.astrid.tech/realms/public-users/protocol/openid-connect/auth";
+        token_url = "https://sso.astrid.tech/realms/public-users/protocol/openid-connect/token";
+        api_url = "https://sso.astrid.tech/realms/public-users/protocol/openid-connect/userinfo";
         email_attribute_path = "email";
         login_attribute_path = "username";
         name_attribute_path = "full_name";
-        role_attribute_path =
-          "contains(roles[*], 'admin') && 'Admin' || contains(roles[*], 'editor') && 'Editor' || 'Viewer'";
+        role_attribute_path = "contains(roles[*], 'admin') && 'Admin' || contains(roles[*], 'editor') && 'Editor' || 'Viewer'";
         allow_sign_up = true;
       };
     };
@@ -56,8 +60,7 @@ in {
       forceSSL = true;
 
       locations."/" = {
-        proxyPass =
-          "http://127.0.0.1:${toString gcfg.settings.server.http_port}";
+        proxyPass = "http://127.0.0.1:${toString gcfg.settings.server.http_port}";
         proxyWebsockets = true;
 
         # needed to prevent 'Origin not allowed'

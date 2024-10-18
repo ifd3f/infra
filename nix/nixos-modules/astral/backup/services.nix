@@ -5,7 +5,9 @@ let
   cfg = config.astral.backup;
   inputs = config.astral.inputs;
 
-in with lib; {
+in
+with lib;
+{
   options.astral.backup.services = {
     paths = mkOption {
       description = "Paths to add to backup. If empty, this will not be run.";
@@ -29,8 +31,7 @@ in with lib; {
       ];
 
       paths = cfg.services.paths;
-      repository =
-        "s3:s3.us-west-000.backblazeb2.com/ifd3f-backup/hosts/${config.networking.fqdn}/services";
+      repository = "s3:s3.us-west-000.backblazeb2.com/ifd3f-backup/hosts/${config.networking.fqdn}/services";
     };
 
     systemd.services.restic-backups-services = {

@@ -1,9 +1,15 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 with lib;
 let
   cfg = config.astral.roles.vault;
   vcfg = config.services.vault;
-in {
+in
+{
   services.vault = {
     enable = true;
     storageBackend = "file";
@@ -14,7 +20,9 @@ in {
     enableACME = true;
     forceSSL = true;
 
-    locations."/" = { proxyPass = "http://${vcfg.address}"; };
+    locations."/" = {
+      proxyPass = "http://${vcfg.address}";
+    };
   };
 
   # Expose a CLI for interacting with Vault (convenience)
@@ -32,7 +40,11 @@ in {
 
     # We'll keep more frequent snapshots, but with less overall
     # retention time, for Security Reasons.
-    pruneOpts = [ "--keep-last 8" "--keep-hourly 48" "--keep-daily 7" ];
+    pruneOpts = [
+      "--keep-last 8"
+      "--keep-hourly 48"
+      "--keep-daily 7"
+    ];
 
     paths = [ "/var/lib/vault" ];
     repository = "s3:s3.us-west-000.backblazeb2.com/ifd3f-backup/vault";

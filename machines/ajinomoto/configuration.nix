@@ -1,6 +1,13 @@
 inputs:
-{ config, lib, pkgs, modulesPath, ... }:
-with lib; {
+{
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}:
+with lib;
+{
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
 

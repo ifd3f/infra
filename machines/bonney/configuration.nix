@@ -1,6 +1,12 @@
 inputs:
-{ config, pkgs, lib, ... }:
-with lib; {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+with lib;
+{
   imports = [
     ./hardware-configuration.nix
     inputs.nixos-hardware.nixosModules.common-cpu-intel
@@ -19,8 +25,7 @@ with lib; {
 
   astral = {
     monitoring-node.scrapeTransport = "tailscale";
-    tailscale.oneOffKey =
-      "tskey-auth-kkLCKn6CNTRL-tv1Pmix6CKCfrj9bX1U1JCFRJn7uFRgYd";
+    tailscale.oneOffKey = "tskey-auth-kkLCKn6CNTRL-tv1Pmix6CKCfrj9bX1U1JCFRJn7uFRgYd";
   };
 
   networking = {
@@ -29,7 +34,10 @@ with lib; {
     hostId = "f0097b23";
 
     networkmanager.enable = true;
-    nameservers = [ "8.8.8.8" "8.8.4.4" ];
+    nameservers = [
+      "8.8.8.8"
+      "8.8.4.4"
+    ];
   };
 
   services.xserver.videoDrivers = [ "nvidia" ];

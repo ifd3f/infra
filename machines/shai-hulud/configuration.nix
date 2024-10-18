@@ -1,11 +1,19 @@
 inputs:
-{ config, pkgs, lib, ... }:
-with lib; {
-  imports = [ ./hardware-configuration.nix ]
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+with lib;
+{
+  imports =
+    [ ./hardware-configuration.nix ]
     ++ (with inputs.nixos-hardware.nixosModules; [
       common-pc-ssd
       microsoft-surface-common
-    ]) ++ [
+    ])
+    ++ [
       inputs.self.nixosModules.laptop
       inputs.self.nixosModules.pc
 
@@ -71,4 +79,3 @@ with lib; {
 
   services.xserver.dpi = 180;
 }
-

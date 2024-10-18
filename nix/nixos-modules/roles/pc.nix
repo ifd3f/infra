@@ -1,13 +1,18 @@
 # A graphics-enabled PC I would directly use.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   extraHosts = "/var/extraHosts";
   inputs = config.astral.inputs;
-in {
+in
+{
   # haskell.nix binary cache
-  nix.settings.trusted-public-keys =
-    [ "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ=" ];
+  nix.settings.trusted-public-keys = [ "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ=" ];
   nix.settings.substituters = [ "https://cache.iog.io" ];
 
   # Enable SSH in initrd for debugging or disk key entry
@@ -112,7 +117,10 @@ in {
 
   services.pcscd = {
     enable = true;
-    plugins = with pkgs; [ ccid libacr38u ];
+    plugins = with pkgs; [
+      ccid
+      libacr38u
+    ];
   };
 
   services.gvfs.enable = true;
@@ -165,13 +173,18 @@ in {
 
   services.printing = {
     enable = true;
-    drivers = with pkgs; [ gutenprint gutenprintBin ];
+    drivers = with pkgs; [
+      gutenprint
+      gutenprintBin
+    ];
   };
 
   services.xserver = {
     enable = true;
 
-    displayManager = { lightdm.enable = true; };
+    displayManager = {
+      lightdm.enable = true;
+    };
 
     desktopManager = {
       xterm.enable = false;
@@ -194,35 +207,36 @@ in {
 
   services.flatpak.enable = true;
 
-  /* # Use dnsmasq to allow live hosts editing in development
-     services.dnsmasq = {
-       enable = true;
-       settings = {
-         server = [ "1.1.1.1" "8.8.8.8" "8.8.4.4" ];
-         listen-address = "127.0.0.1";
-         addn-hosts = extraHosts;
-       };
-     };
+  /*
+    # Use dnsmasq to allow live hosts editing in development
+    services.dnsmasq = {
+      enable = true;
+      settings = {
+        server = [ "1.1.1.1" "8.8.8.8" "8.8.4.4" ];
+        listen-address = "127.0.0.1";
+        addn-hosts = extraHosts;
+      };
+    };
 
-     systemd.services.create-extra-hosts = {
-       description = "Make extraHosts";
+    systemd.services.create-extra-hosts = {
+      description = "Make extraHosts";
 
-       wantedBy = [ "dnsmasq.service" ];
-       before = [ "dnsmasq.service" ];
+      wantedBy = [ "dnsmasq.service" ];
+      before = [ "dnsmasq.service" ];
 
-       script = ''
-         touch ${extraHosts}
-         chmod 664 ${extraHosts}
-         chown dnsmasq:dnsmasq-extra-hosts ${extraHosts}
-       '';
+      script = ''
+        touch ${extraHosts}
+        chmod 664 ${extraHosts}
+        chown dnsmasq:dnsmasq-extra-hosts ${extraHosts}
+      '';
 
-       serviceConfig.Type = "oneshot";
-     };
+      serviceConfig.Type = "oneshot";
+    };
 
-     users = {
-       users.dnsmasq.extraGroups = [ "dnsmasq-extra-hosts" ];
-       groups.dnsmasq-extra-hosts = { };
-     };
+    users = {
+      users.dnsmasq.extraGroups = [ "dnsmasq-extra-hosts" ];
+      groups.dnsmasq-extra-hosts = { };
+    };
   */
 
   i18n.inputMethod = {

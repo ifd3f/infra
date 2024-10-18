@@ -1,17 +1,30 @@
 # This file generates a Github Actions runner from ci.nix.
-{ self, lib, git, openssh, writeShellApplication }:
+{
+  self,
+  lib,
+  git,
+  openssh,
+  writeShellApplication,
+}:
 with builtins;
 with lib;
 let
-  commands = map (sshTarget:
+  commands = map (
+    sshTarget:
     let
       components = splitString "@" sshTarget;
       host = if length components == 2 then elemAt components 1 else sshTarget;
-    in "ssh-keyscan ${host}") self.lib.ci.ssh-deploy-targets;
+    in
+    "ssh-keyscan ${host}"
+  ) self.lib.ci.ssh-deploy-targets;
 
-in writeShellApplication {
+in
+writeShellApplication {
   name = "scan-hostkeys";
-  runtimeInputs = [ git openssh ];
+  runtimeInputs = [
+    git
+    openssh
+  ];
   text = ''
     set -euxo pipefail
 

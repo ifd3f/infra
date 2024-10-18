@@ -1,5 +1,6 @@
 { config, lib, ... }:
-with lib; {
+with lib;
+{
   # Use the GRUB boot loader in BIOS mode because tfw no EFI
   boot.loader.grub = {
     enable = true;
@@ -8,13 +9,18 @@ with lib; {
     splashImage = ./homura.jpg;
   };
 
-  boot.initrd.availableKernelModules =
-    [ "ehci_pci" "ata_piix" "uhci_hcd" "hpsa" "usb_storage" "sd_mod" ];
+  boot.initrd.availableKernelModules = [
+    "ehci_pci"
+    "ata_piix"
+    "uhci_hcd"
+    "hpsa"
+    "usb_storage"
+    "sd_mod"
+  ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
   nixpkgs.hostPlatform = "x86_64-linux";
-  hardware.cpu.intel.updateMicrocode =
-    mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.intel.updateMicrocode = mkDefault config.hardware.enableRedistributableFirmware;
 }

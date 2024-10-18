@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 with lib;
 let
   httpPort = 5443;
@@ -12,11 +17,13 @@ let
   ];
 
   ejabberd-yml = {
-    hosts = [ "ejabberd.femboy.technology" "xmpp.femboy.technology" ];
-    certfiles = forEach certDomains
-      (dn: config.security.acme.certs."${dn}".directory + "/*.pem");
+    hosts = [
+      "ejabberd.femboy.technology"
+      "xmpp.femboy.technology"
+    ];
+    certfiles = forEach certDomains (dn: config.security.acme.certs."${dn}".directory + "/*.pem");
 
-    acl.admin = [{ user = "ifd3f@xmpp.femboy.technology"; }];
+    acl.admin = [ { user = "ifd3f@xmpp.femboy.technology"; } ];
 
     access_rules = {
       configure.allow = "admin";
@@ -33,7 +40,9 @@ let
       mod_blocking = { };
       mod_bosh = { };
       mod_carboncopy = { };
-      mod_disco = { name = "next-generation femboy technology"; };
+      mod_disco = {
+        name = "next-generation femboy technology";
+      };
       mod_last = { };
       mod_mam = {
         default = "always";
@@ -51,7 +60,9 @@ let
       mod_push = { };
       mod_roster = { };
       mod_time = { };
-      mod_vcard = { search = true; };
+      mod_vcard = {
+        search = true;
+      };
       mod_vcard_xupdate = { };
 
       mod_mqtt = { };
@@ -75,7 +86,9 @@ let
         ip = "127.0.0.1";
         module = "ejabberd_http";
         tls = false; # We will use a reverse proxy
-        request_handlers = { "/admin" = "ejabberd_web_admin"; };
+        request_handlers = {
+          "/admin" = "ejabberd_web_admin";
+        };
       }
       {
         port = 8833;
@@ -86,7 +99,8 @@ let
     ];
   };
 
-in {
+in
+{
   astral = {
     custom-nginx-errors.virtualHosts = [ "xmpp.femboy.technology" ];
     backup.services.paths = [ config.services.ejabberd.spoolDir ];
@@ -97,40 +111,50 @@ in {
     configFile = pkgs.writeText "ejabberd.yml" (builtins.toJSON ejabberd-yml);
   };
 
-  security.acme.certs = mkMerge (forEach certDomains (dn: {
-    "${dn}" = {
-      group = "xmppcerts";
-      reloadServices = [ "ejabberd.service" ];
-    };
-  }));
+  security.acme.certs = mkMerge (
+    forEach certDomains (dn: {
+      "${dn}" = {
+        group = "xmppcerts";
+        reloadServices = [ "ejabberd.service" ];
+      };
+    })
+  );
 
-  services.nginx.virtualHosts = mkMerge (forEach certDomains (dn: {
-    "${dn}" = {
-      enableACME = true;
-      addSSL = true;
+  services.nginx.virtualHosts = mkMerge (
+    forEach certDomains (dn: {
+      "${dn}" = {
+        enableACME = true;
+        addSSL = true;
 
-      locations."/".extraConfig = ''
-        rewrite ^/(.*)$ http://ejabberd.femboy.technology/$1 redirect;
-      '';
-    };
-  }) ++ [{
-    "ejabberd.femboy.technology" = {
-      enableACME = true;
-      forceSSL = true;
-
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:${toString httpPort}";
-        proxyWebsockets = true;
-        extraConfig = ''
-          proxy_set_header X-Forwarded-Proto $scheme;
-          proxy_set_header X-Forwarded-Host $host;
-          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        locations."/".extraConfig = ''
+          rewrite ^/(.*)$ http://ejabberd.femboy.technology/$1 redirect;
         '';
       };
-    };
-  }]);
+    })
+    ++ [
+      {
+        "ejabberd.femboy.technology" = {
+          enableACME = true;
+          forceSSL = true;
 
-  networking.firewall.allowedTCPPorts = [ 5222 5269 ];
+          locations."/" = {
+            proxyPass = "http://127.0.0.1:${toString httpPort}";
+            proxyWebsockets = true;
+            extraConfig = ''
+              proxy_set_header X-Forwarded-Proto $scheme;
+              proxy_set_header X-Forwarded-Host $host;
+              proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            '';
+          };
+        };
+      }
+    ]
+  );
+
+  networking.firewall.allowedTCPPorts = [
+    5222
+    5269
+  ];
 
   users = {
     users = {

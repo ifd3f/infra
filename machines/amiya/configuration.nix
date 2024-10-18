@@ -1,6 +1,12 @@
 inputs:
-{ config, pkgs, lib, ... }:
-with lib; {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+with lib;
+{
   imports = [
     ./hardware-configuration.nix
 
@@ -38,21 +44,29 @@ with lib; {
     };
 
     interfaces.enp3s0 = {
-      ipv4.addresses = [{
-        address = "208.87.130.175";
-        prefixLength = 24;
-      }];
-      ipv6.addresses = [{
-        address = "2605:a141:2108:6306::1";
-        prefixLength = 64;
-      }];
+      ipv4.addresses = [
+        {
+          address = "208.87.130.175";
+          prefixLength = 24;
+        }
+      ];
+      ipv6.addresses = [
+        {
+          address = "2605:a141:2108:6306::1";
+          prefixLength = 64;
+        }
+      ];
     };
   };
 
   services.resolved = {
     enable = true;
-    domains =
-      [ "8.8.8.8" "8.8.4.4" "2001:4860:4860::8888" "2001:4860:4860::8844" ];
+    domains = [
+      "8.8.8.8"
+      "8.8.4.4"
+      "2001:4860:4860::8888"
+      "2001:4860:4860::8844"
+    ];
   };
 
   services.year-of-bot = {
@@ -82,8 +96,12 @@ with lib; {
 
   boot = {
     loader.grub.device = "/dev/sda";
-    initrd.availableKernelModules =
-      [ "ata_piix" "uhci_hcd" "xen_blkfront" "vmw_pvscsi" ];
+    initrd.availableKernelModules = [
+      "ata_piix"
+      "uhci_hcd"
+      "xen_blkfront"
+      "vmw_pvscsi"
+    ];
     initrd.kernelModules = [ "nvme" ];
   };
 

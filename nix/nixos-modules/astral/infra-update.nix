@@ -1,8 +1,15 @@
-/* Regularly updates the system from this flake repo.
-   Wraps around system.autoUpdate and customized for
-   my stuff, but provides additional helper options.
+/*
+  Regularly updates the system from this flake repo.
+  Wraps around system.autoUpdate and customized for
+  my stuff, but provides additional helper options.
 */
-{ lib, config, pkgs, ... }: {
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+{
   options.astral.infra-update = with lib; {
     enable = mkOption {
       description = "Enable to periodically update from the infra repo.";
@@ -23,23 +30,28 @@
     };
 
     build-host = mkOption {
-      description =
-        "The remote host to compile the config on. If null, builds it on itself.";
+      description = "The remote host to compile the config on. If null, builds it on itself.";
       default = null;
       type = types.nullOr types.str;
     };
   };
 
-  config.system.autoUpgrade = let cfg = config.astral.infra-update;
-  in lib.mkIf cfg.enable {
-    enable = cfg.enable;
-    flake = "github:ifd3f/infra/${cfg.branch}";
-    dates = "*-*-* *:00:00";
-    flags = (if cfg.build-host == null then
-      [ ]
-    else [
-      "--build-host"
-      cfg.build-host
-    ]);
-  };
+  config.system.autoUpgrade =
+    let
+      cfg = config.astral.infra-update;
+    in
+    lib.mkIf cfg.enable {
+      enable = cfg.enable;
+      flake = "github:ifd3f/infra/${cfg.branch}";
+      dates = "*-*-* *:00:00";
+      flags = (
+        if cfg.build-host == null then
+          [ ]
+        else
+          [
+            "--build-host"
+            cfg.build-host
+          ]
+      );
+    };
 }

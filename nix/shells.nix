@@ -1,6 +1,7 @@
 { self, pkgs }:
 let
-  packages = with pkgs;
+  packages =
+    with pkgs;
     with self.packages.${system};
     [
       ifd3f-infra-scripts
@@ -33,20 +34,25 @@ let
       whois
       wireguard-tools
       yq
-    ] ++ (if pkgs.system != "x86_64-darwin" then [
-      openldap
-      krb5
-      ldapvi
+    ]
+    ++ (
+      if pkgs.system != "x86_64-darwin" then
+        [
+          openldap
+          krb5
+          ldapvi
 
-      cdrkit
-      iputils
-      qemu
-    ] else
-      [ ]);
-in {
+          cdrkit
+          iputils
+          qemu
+        ]
+      else
+        [ ]
+    );
+in
+{
   default = pkgs.mkShell {
     nativeBuildInputs = packages;
     VAULT_ADDR = "https://secrets.astrid.tech";
   };
 }
-

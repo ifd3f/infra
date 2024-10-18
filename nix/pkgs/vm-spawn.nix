@@ -1,14 +1,17 @@
-{ writeShellApplication, fetchurl, virt-manager,
+{
+  writeShellApplication,
+  fetchurl,
+  virt-manager,
 
-vyos-iso ? fetchurl {
-  url =
-    "https://github.com/vyos/vyos-rolling-nightly-builds/releases/download/1.5-rolling-202404090019/vyos-1.5-rolling-202404090019-amd64.iso";
-  hash = "sha256-pqjCay7m3bQSLhUBAfCEhuQ0Cef6rcbNLf3PqKUIl3c=";
-}, talos-iso ? fetchurl {
-  url =
-    "https://github.com/siderolabs/talos/releases/download/v1.6.7/metal-amd64.iso";
-  hash = "sha256-Dqw05mI9lpIn36jKkFuAmxnom5qIXSjEqQiQ6F7HC34=";
-} }:
+  vyos-iso ? fetchurl {
+    url = "https://github.com/vyos/vyos-rolling-nightly-builds/releases/download/1.5-rolling-202404090019/vyos-1.5-rolling-202404090019-amd64.iso";
+    hash = "sha256-pqjCay7m3bQSLhUBAfCEhuQ0Cef6rcbNLf3PqKUIl3c=";
+  },
+  talos-iso ? fetchurl {
+    url = "https://github.com/siderolabs/talos/releases/download/v1.6.7/metal-amd64.iso";
+    hash = "sha256-Dqw05mI9lpIn36jKkFuAmxnom5qIXSjEqQiQ6F7HC34=";
+  },
+}:
 {
   charon = writeShellApplication {
     name = "vm-spawn.charon";

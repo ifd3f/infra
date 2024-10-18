@@ -1,5 +1,11 @@
-{ config, lib, pkgs, ... }:
-with lib; {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib;
+{
   options.astral.hw.kb-flashing.enable = mkOption {
     description = ''
       Enable all keyboard flashing functionality for this machine.
@@ -11,7 +17,10 @@ with lib; {
   };
 
   config = mkIf config.astral.hw.kb-flashing.enable {
-    environment.systemPackages = with pkgs; [ usbutils wally-cli ];
+    environment.systemPackages = with pkgs; [
+      usbutils
+      wally-cli
+    ];
 
     # QMK rules
     services.udev.packages = [ pkgs.qmk-udev-rules ];

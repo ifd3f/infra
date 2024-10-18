@@ -1,4 +1,9 @@
-{ stdenvNoCC, glibc, fetchzip, autoPatchelfHook }:
+{
+  stdenvNoCC,
+  glibc,
+  fetchzip,
+  autoPatchelfHook,
+}:
 stdenvNoCC.mkDerivation {
   pname = "authelia-bin";
   version = "4.37.5";
@@ -7,8 +12,7 @@ stdenvNoCC.mkDerivation {
   nativeBuildInputs = [ autoPatchelfHook ];
 
   src = fetchzip {
-    url =
-      "https://github.com/authelia/authelia/releases/download/v4.37.5/authelia-v4.37.5-linux-amd64.tar.gz";
+    url = "https://github.com/authelia/authelia/releases/download/v4.37.5/authelia-v4.37.5-linux-amd64.tar.gz";
     sha256 = "sha256-2dkmzfkmM8QmnhrrALYVhRM943k07+ZSzZ8iHLYkhTU=";
     stripRoot = false;
   };

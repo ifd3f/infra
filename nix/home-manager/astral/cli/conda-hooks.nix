@@ -1,5 +1,6 @@
 { config, lib, ... }:
-with lib; {
+with lib;
+{
   options.astral.cli.conda-hooks = {
     enable = mkOption {
       description = "Whether to add conda hooks to CLI.";
@@ -14,14 +15,17 @@ with lib; {
     };
   };
 
-  config.programs = let cfg = config.astral.cli.conda-hooks;
-  in mkIf cfg.enable {
-    bash.profileExtra = ''
-      eval "$(${cfg.conda} shell.bash hook)" 
-    '';
+  config.programs =
+    let
+      cfg = config.astral.cli.conda-hooks;
+    in
+    mkIf cfg.enable {
+      bash.profileExtra = ''
+        eval "$(${cfg.conda} shell.bash hook)" 
+      '';
 
-    zsh.profileExtra = ''
-      eval "$(${cfg.conda} shell.zsh hook)" 
-    '';
-  };
+      zsh.profileExtra = ''
+        eval "$(${cfg.conda} shell.zsh hook)" 
+      '';
+    };
 }

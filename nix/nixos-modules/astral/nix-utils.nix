@@ -1,5 +1,6 @@
 # Enables Nix Unstable and Flakes.
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   nix = {
     # Auto-optimize/GC store
     gc = {
@@ -10,7 +11,10 @@
 
     # Trusted users for remote config builds and uploads
     settings = {
-      trusted-users = [ "root" "@wheel" ];
+      trusted-users = [
+        "root"
+        "@wheel"
+      ];
       auto-optimise-store = true;
     };
 

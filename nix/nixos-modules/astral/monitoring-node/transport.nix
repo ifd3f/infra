@@ -1,13 +1,23 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 with lib;
-let cfg = config.astral.monitoring-node;
-in {
+let
+  cfg = config.astral.monitoring-node;
+in
+{
   config = mkIf cfg.enable {
     astral.acme.enable = mkIf (cfg.scrapeTransport == "https") true;
 
     networking.firewall = {
       enable = true;
-      allowedTCPPorts = [ 80 443 ];
+      allowedTCPPorts = [
+        80
+        443
+      ];
     };
 
     services.nginx = {

@@ -1,8 +1,15 @@
 inputs:
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
-let constants = import ./constants.nix;
-in {
+let
+  constants = import ./constants.nix;
+in
+{
   boot.loader = {
     efi = {
       efiSysMountPoint = "/boot";
@@ -51,16 +58,13 @@ in {
       enable = true;
       port = 2222; # because we are using a different host key
       hostKeys = [
-        (pkgs.writeText "ssh_host_rsa_key"
-          (builtins.readFile ./initrd/ssh_host_rsa_key))
-        (pkgs.writeText "ssh_host_ed25519_key"
-          (builtins.readFile ./initrd/ssh_host_ed25519_key))
+        (pkgs.writeText "ssh_host_rsa_key" (builtins.readFile ./initrd/ssh_host_rsa_key))
+        (pkgs.writeText "ssh_host_ed25519_key" (builtins.readFile ./initrd/ssh_host_ed25519_key))
       ];
       authorizedKeys = inputs.self.lib.sshKeyDatabase.users.astrid;
     };
   };
 
   nixpkgs.hostPlatform = "x86_64-linux";
-  hardware.cpu.intel.updateMicrocode =
-    mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.intel.updateMicrocode = mkDefault config.hardware.enableRedistributableFirmware;
 }

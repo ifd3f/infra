@@ -1,6 +1,13 @@
 inputs:
-{ config, pkgs, lib, modulesPath, ... }:
-with lib; {
+{
+  config,
+  pkgs,
+  lib,
+  modulesPath,
+  ...
+}:
+with lib;
+{
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
 
@@ -26,8 +33,7 @@ with lib; {
       libvirt.enable = true;
     };
     monitoring-node.scrapeTransport = "tailscale";
-    tailscale.oneOffKey =
-      "tskey-auth-kw1UVH6CNTRL-SfhN6EEVv3A74NvnoJRA5Azutj6eJYwVc";
+    tailscale.oneOffKey = "tskey-auth-kw1UVH6CNTRL-SfhN6EEVv3A74NvnoJRA5Azutj6eJYwVc";
 
     backup.db.enable = false;
   };
@@ -46,10 +52,14 @@ with lib; {
   services.postgresql = {
     enable = true;
     ensureDatabases = [ "akkoma" ];
-    ensureUsers = [{
-      name = "akkoma";
-      ensurePermissions = { "DATABASE \"akkoma\"" = "ALL PRIVILEGES"; };
-    }];
+    ensureUsers = [
+      {
+        name = "akkoma";
+        ensurePermissions = {
+          "DATABASE \"akkoma\"" = "ALL PRIVILEGES";
+        };
+      }
+    ];
 
     settings = {
       listen_addresses = mkForce "*";

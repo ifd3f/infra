@@ -1,6 +1,12 @@
 inputs:
-{ config, pkgs, lib, ... }:
-with lib; {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+with lib;
+{
   imports = [
     ./hardware-configuration.nix
 
@@ -17,10 +23,12 @@ with lib; {
   networking = {
     hostName = "bennett";
     domain = "h.astrid.tech";
-    interfaces.ens18.ipv6.addresses = [{
-      address = "2605:a141:2108:6306::1";
-      prefixLength = 64;
-    }];
+    interfaces.ens18.ipv6.addresses = [
+      {
+        address = "2605:a141:2108:6306::1";
+        prefixLength = 64;
+      }
+    ];
   };
 
   time.timeZone = "US/Pacific";

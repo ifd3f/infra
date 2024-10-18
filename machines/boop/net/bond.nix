@@ -6,7 +6,8 @@ let
   bondname = "bond007";
   prodvlan = "bond007.100";
   prodbr = "prodbr";
-in {
+in
+{
   systemd.network = {
     networks."10-bond-enos" = {
       name = "eno2 eno3 eno4";

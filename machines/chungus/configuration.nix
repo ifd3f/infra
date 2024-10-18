@@ -1,6 +1,12 @@
 inputs:
-{ config, pkgs, lib, ... }:
-with lib; {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+with lib;
+{
   imports = [
     ./hardware-configuration.nix
     "${inputs.nixos-hardware}/common/cpu/amd"
@@ -9,8 +15,7 @@ with lib; {
 
   time.timeZone = "US/Pacific";
 
-  astral.tailscale.oneOffKey =
-    "tskey-auth-kCDetm2CNTRL-3bYunP5bKyUL7q7gdE9DxUHjinjQuZPZ";
+  astral.tailscale.oneOffKey = "tskey-auth-kCDetm2CNTRL-3bYunP5bKyUL7q7gdE9DxUHjinjQuZPZ";
   astral.vfio = {
     enable = true;
     iommu-mode = "amd_iommu";
@@ -71,8 +76,10 @@ with lib; {
 
   # RGB stuff
   hardware.i2c.enable = true;
-  environment.systemPackages = with pkgs; [ openrgb win10hotplug ];
+  environment.systemPackages = with pkgs; [
+    openrgb
+    win10hotplug
+  ];
 
   services.xserver.dpi = 224;
 }
-

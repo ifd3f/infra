@@ -1,12 +1,19 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 with lib;
-let cfg = config.astral.monitoring-node;
-in {
+let
+  cfg = config.astral.monitoring-node;
+in
+{
   config = mkIf cfg.enable {
     services.promtail = {
       enable = true;
       configuration = {
-        clients = [{ url = "https://loki.astrid.tech/loki/api/v1/push"; }];
+        clients = [ { url = "https://loki.astrid.tech/loki/api/v1/push"; } ];
         scrape_configs = [
           {
             job_name = "journal";
@@ -39,13 +46,15 @@ in {
 
           {
             job_name = "nginx";
-            static_configs = [{
-              labels = {
-                host = cfg.vhost;
-                job = "nginx";
-                __path__ = "/var/log/nginx/*";
-              };
-            }];
+            static_configs = [
+              {
+                labels = {
+                  host = cfg.vhost;
+                  job = "nginx";
+                  __path__ = "/var/log/nginx/*";
+                };
+              }
+            ];
           }
         ];
 
@@ -58,10 +67,11 @@ in {
     };
 
     services.nginx.virtualHosts."${cfg.vhost}".locations = {
-      "/promtail".proxyPass = let
-        promtailPort =
-          config.services.promtail.configuration.server.http_listen_port;
-      in "http://127.0.0.1:${toString promtailPort}/metrics";
+      "/promtail".proxyPass =
+        let
+          promtailPort = config.services.promtail.configuration.server.http_listen_port;
+        in
+        "http://127.0.0.1:${toString promtailPort}/metrics";
     };
 
     users.users.promtail.extraGroups = [ "nginx" ];

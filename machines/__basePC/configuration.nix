@@ -1,6 +1,13 @@
 inputs:
-{ config, pkgs, lib, modulesPath, ... }:
-with lib; {
+{
+  config,
+  pkgs,
+  lib,
+  modulesPath,
+  ...
+}:
+with lib;
+{
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
     inputs.self.nixosModules.pc
@@ -13,8 +20,14 @@ with lib; {
     tailscale.oneOffKey = "this isn't used ever lol";
   };
 
-  boot.initrd.availableKernelModules =
-    [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
+  boot.initrd.availableKernelModules = [
+    "xhci_pci"
+    "ahci"
+    "nvme"
+    "usbhid"
+    "usb_storage"
+    "sd_mod"
+  ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
@@ -71,4 +84,3 @@ with lib; {
     };
   };
 }
-

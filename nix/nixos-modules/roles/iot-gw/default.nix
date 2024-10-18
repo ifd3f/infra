@@ -1,12 +1,18 @@
 # IoT Gateway, running at home.
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   vs = config.vault-secrets.secrets.iot-gw-s02;
 
-  zigbeeDongle =
-    "/dev/serial/by-id/usb-ITead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_6aa3627f3e98ec119bbbaad044d80d13-if00-port0";
+  zigbeeDongle = "/dev/serial/by-id/usb-ITead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_6aa3627f3e98ec119bbbaad044d80d13-if00-port0";
 
-in with lib; {
+in
+with lib;
+{
   # vault kv put kv/iot-gw-s02/environment \
   #   ZIGBEE2MQTT_CONFIG_MQTT_USER=@ \
   #   ZIGBEE2MQTT_CONFIG_MQTT_PASSWORD=@
@@ -22,7 +28,10 @@ in with lib; {
     };
   };
 
-  networking.firewall.allowedTCPPorts = [ 1883 8883 ];
+  networking.firewall.allowedTCPPorts = [
+    1883
+    8883
+  ];
 
   services.zigbee2mqtt = {
     enable = true;
@@ -66,8 +75,10 @@ in with lib; {
       # We trust connections from localhost, so the passwords are quite lax and in cleartext.
       {
         users.zigbee2mqtt = {
-          acl =
-            [ "readwrite s02/homeassistant/#" "readwrite s02/zigbee2mqtt/#" ];
+          acl = [
+            "readwrite s02/homeassistant/#"
+            "readwrite s02/zigbee2mqtt/#"
+          ];
           password = config.services.zigbee2mqtt.settings.mqtt.password;
         };
 
@@ -106,11 +117,14 @@ in with lib; {
     };
 
     "zigbee2mqtt.s02.astrid.tech" = {
-      locations."/" = let z2m = config.services.zigbee2mqtt;
-      in {
-        proxyWebsockets = true;
-        proxyPass = "http://localhost:${toString z2m.settings.frontend.port}";
-      };
+      locations."/" =
+        let
+          z2m = config.services.zigbee2mqtt;
+        in
+        {
+          proxyWebsockets = true;
+          proxyPass = "http://localhost:${toString z2m.settings.frontend.port}";
+        };
     };
   };
 }

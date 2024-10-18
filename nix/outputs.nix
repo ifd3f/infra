@@ -1,13 +1,20 @@
-{ self, nixpkgs-stable, flake-utils, home-manager-stable, nur, ... }@inputs:
+{
+  self,
+  nixpkgs-stable,
+  flake-utils,
+  home-manager-stable,
+  nur,
+  ...
+}@inputs:
 let
   nixpkgs = nixpkgs-stable;
   home-manager = home-manager-stable;
   lib = nixpkgs.lib;
 
-  vscode-server-home =
-    "${inputs.nixos-vscode-server}/modules/vscode-server/home.nix";
+  vscode-server-home = "${inputs.nixos-vscode-server}/modules/vscode-server/home.nix";
 
-in {
+in
+{
   lib = import ./lib inputs;
 
   overlays = {
@@ -32,8 +39,7 @@ in {
 
       #inherit (nixpkgs-lxdvms.legacyPackages.${prev.system}) lxd;
 
-      inherit (self.packages.${prev.system})
-        authelia-bin win10hotplug ifd3f-infra-scripts;
+      inherit (self.packages.${prev.system}) authelia-bin win10hotplug ifd3f-infra-scripts;
 
       # gmic is currently broken, use an older version of darktable
       # https://github.co.O.pkgs/pull/211600
@@ -58,7 +64,10 @@ in {
 
     "astrid@aliaconda" = home-manager.lib.homeManagerConfiguration {
       pkgs = import nixpkgs { system = "x86_64-linux"; };
-      modules = [ self.homeModules.astral-scientific vscode-server-home ];
+      modules = [
+        self.homeModules.astral-scientific
+        vscode-server-home
+      ];
     };
     "astrid@banana" = home-manager.lib.homeManagerConfiguration {
       pkgs = import nixpkgs { system = "x86_64-linux"; };
@@ -70,7 +79,10 @@ in {
     };
     "astrid@Discovery" = home-manager.lib.homeManagerConfiguration {
       pkgs = import nixpkgs { system = "x86_64-linux"; };
-      modules = [ self.homeModules.astral-gui vscode-server-home ];
+      modules = [
+        self.homeModules.astral-gui
+        vscode-server-home
+      ];
     };
     "astrid@shai-hulud" = home-manager.lib.homeManagerConfiguration {
       pkgs = import nixpkgs { system = "x86_64-linux"; };
@@ -92,25 +104,32 @@ in {
   } // import ./nixos-modules/roles.nix;
 
   nixosConfigurations = self.lib.machines.nixosConfigurations;
-} // flake-utils.lib.eachSystem [
-  "x86_64-linux"
-  "aarch64-linux"
-  "x86_64-darwin"
-  "aarch64-darwin"
-] (system:
-  let
-    pkgs = import nixpkgs {
-      inherit system;
-      overlays = [ self.overlays.default ];
-    };
-  in rec {
-    gh-ci-matrix = pkgs.callPackage ./pkgs/gh-ci-matrix { inherit self; };
-    devShells = import ./shells.nix {
-      inherit self;
-      pkgs = import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-      };
-    };
-    packages = import ./pkgs inputs pkgs;
-  })
+}
+//
+  flake-utils.lib.eachSystem
+    [
+      "x86_64-linux"
+      "aarch64-linux"
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ]
+    (
+      system:
+      let
+        pkgs = import nixpkgs {
+          inherit system;
+          overlays = [ self.overlays.default ];
+        };
+      in
+      rec {
+        gh-ci-matrix = pkgs.callPackage ./pkgs/gh-ci-matrix { inherit self; };
+        devShells = import ./shells.nix {
+          inherit self;
+          pkgs = import nixpkgs {
+            inherit system;
+            config.allowUnfree = true;
+          };
+        };
+        packages = import ./pkgs inputs pkgs;
+      }
+    )

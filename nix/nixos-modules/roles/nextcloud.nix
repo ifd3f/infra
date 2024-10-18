@@ -1,7 +1,14 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 with lib;
-let vs = config.vault-secrets.secrets;
-in {
+let
+  vs = config.vault-secrets.secrets;
+in
+{
   astral.backup.services.paths = [ config.services.nextcloud.home ];
 
   # vault kv put kv/nextcloud/secrets s3_secret=@ adminpass=@
@@ -48,8 +55,7 @@ in {
       oidc_login_client_id = "nextcloud";
       oidc_login_provider_url = "https://sso.astrid.tech/realms/public-users";
       oidc_login_end_session_redirect = false;
-      oidc_login_logout_url =
-        "https://nextcloud.astrid.tech/apps/oidc_login/oidc";
+      oidc_login_logout_url = "https://nextcloud.astrid.tech/apps/oidc_login/oidc";
       oidc_login_auto_redirect = false;
       oidc_login_redir_fallback = false;
       oidc_login_attributes = {
@@ -115,9 +121,13 @@ in {
   services.postgresql = {
     enable = true;
     ensureDatabases = [ "nextcloud" ];
-    ensureUsers = [{
-      name = "nextcloud";
-      ensurePermissions = { "DATABASE \"nextcloud\"" = "ALL PRIVILEGES"; };
-    }];
+    ensureUsers = [
+      {
+        name = "nextcloud";
+        ensurePermissions = {
+          "DATABASE \"nextcloud\"" = "ALL PRIVILEGES";
+        };
+      }
+    ];
   };
 }

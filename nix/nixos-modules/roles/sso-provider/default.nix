@@ -1,7 +1,14 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 with lib;
-let kcfg = config.services.keycloak;
-in {
+let
+  kcfg = config.services.keycloak;
+in
+{
   services.keycloak = {
     enable = true;
     settings = {

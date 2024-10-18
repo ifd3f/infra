@@ -1,7 +1,16 @@
 inputs:
-{ config, pkgs, lib, modulesPath, ... }:
-let rootFSUID = "5a713012-c18f-4b4f-b900-137c5739c854";
-in with lib; {
+{
+  config,
+  pkgs,
+  lib,
+  modulesPath,
+  ...
+}:
+let
+  rootFSUID = "5a713012-c18f-4b4f-b900-137c5739c854";
+in
+with lib;
+{
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
     inputs.self.nixosModules.server
@@ -29,20 +38,29 @@ in with lib; {
 
   boot = {
     growPartition = true;
-    kernelParams = [ "console=tty0" "boot.shell_on_fail" ];
+    kernelParams = [
+      "console=tty0"
+      "boot.shell_on_fail"
+    ];
     loader.grub.device = "/dev/vda";
     loader.timeout = 3;
   };
 
-  system.build.raw = mkForce
-    (import "${toString modulesPath}/../lib/make-disk-image.nix" {
-      inherit lib config pkgs rootFSUID;
+  system.build.raw = mkForce (
+    import "${toString modulesPath}/../lib/make-disk-image.nix" {
+      inherit
+        lib
+        config
+        pkgs
+        rootFSUID
+        ;
       name = "thatcher-disk-image";
       label = "root";
       diskSize = "auto";
       format = "raw";
       copyChannel = false;
-    });
+    }
+  );
 
   # This script reproduces, as close as possible, the conditions of the actual machine.
   # This is useful for testing if the wget -O- | dd of=/dev/vda will work.

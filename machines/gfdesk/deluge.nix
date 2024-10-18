@@ -1,4 +1,5 @@
-{ config, ... }: {
+{ config, ... }:
+{
   services.deluge = {
     enable = true;
     web.enable = true;

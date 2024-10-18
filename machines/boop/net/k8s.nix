@@ -1,5 +1,7 @@
-let util = import ./util.nix;
-in {
+let
+  util = import ./util.nix;
+in
+{
   imports = [
     (util.unaddressedBridge {
       name = "brk8s-w";

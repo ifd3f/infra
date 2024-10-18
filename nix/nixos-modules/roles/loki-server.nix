@@ -1,11 +1,19 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 with lib;
 let
   vs = config.vault-secrets.secrets;
   lcfg = config.services.loki;
-in {
+in
+{
   # vault kv put kv/loki-server/environment S3_ACCESS=@ S3_SECRET=@
-  vault-secrets.secrets.loki-server = { services = [ "loki.service" ]; };
+  vault-secrets.secrets.loki-server = {
+    services = [ "loki.service" ];
+  };
 
   astral.custom-nginx-errors.virtualHosts = [ "loki.astrid.tech" ];
 
@@ -15,7 +23,9 @@ in {
     extraFlags = [ "-config.expand-env=true" ];
 
     configuration = {
-      common = { ring.kvstore.store = "memberlist"; };
+      common = {
+        ring.kvstore.store = "memberlist";
+      };
       auth_enabled = false;
       compactor = {
         compaction_interval = "5m";
@@ -43,16 +53,18 @@ in {
         min_join_backoff = "1s";
       };
       schema_config = {
-        configs = [{
-          from = "2023-01-18";
-          index = {
-            period = "24h";
-            prefix = "index_";
-          };
-          object_store = "s3";
-          schema = "v11";
-          store = "boltdb-shipper";
-        }];
+        configs = [
+          {
+            from = "2023-01-18";
+            index = {
+              period = "24h";
+              prefix = "index_";
+            };
+            object_store = "s3";
+            schema = "v11";
+            store = "boltdb-shipper";
+          }
+        ];
       };
       server = {
         http_listen_address = "0.0.0.0";
@@ -74,8 +86,7 @@ in {
     };
   };
 
-  systemd.services.loki.serviceConfig.EnvironmentFile =
-    "${vs.loki-server}/environment";
+  systemd.services.loki.serviceConfig.EnvironmentFile = "${vs.loki-server}/environment";
 
   services.nginx.virtualHosts = {
     "loki.astrid.tech" = {
@@ -100,8 +111,7 @@ in {
       '';
 
       locations."/" = {
-        proxyPass = "http://127.0.0.1:"
-          + toString lcfg.configuration.server.http_listen_port;
+        proxyPass = "http://127.0.0.1:" + toString lcfg.configuration.server.http_listen_port;
         proxyWebsockets = true;
       };
     };

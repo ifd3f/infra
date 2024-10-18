@@ -1,7 +1,8 @@
 # See also: https://nixos.wiki/wiki/NixOS_on_ZFS
 
 { config, lib, ... }:
-with lib; {
+with lib;
+{
   options.astral.zfs-utils.enable = mkOption {
     description = "Enable to set up utils for ZFS.";
     default = false;

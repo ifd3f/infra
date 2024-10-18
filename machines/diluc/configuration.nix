@@ -1,6 +1,12 @@
 inputs:
-{ config, pkgs, lib, ... }:
-with lib; {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+with lib;
+{
   imports = [
     inputs.self.nixosModules.contabo-vps
     inputs.self.nixosModules.server
@@ -16,8 +22,7 @@ with lib; {
 
   astral = {
     ci.deploy-to = "173.212.242.107";
-    tailscale.oneOffKey =
-      "tskey-auth-kZQrDU5CNTRL-nWmsZRQDWshXHtvTUvBvth6tnPmUpAkHg";
+    tailscale.oneOffKey = "tskey-auth-kZQrDU5CNTRL-nWmsZRQDWshXHtvTUvBvth6tnPmUpAkHg";
     monitoring-node.scrapeTransport = "https";
   };
 
@@ -25,17 +30,25 @@ with lib; {
     hostName = "diluc";
     domain = "h.astrid.tech";
 
-    firewall.allowedTCPPorts = [ 80 443 5432 ];
-    interfaces.ens18.ipv6.addresses = [{
-      address = "2a02:c207:2087:999::1";
-      prefixLength = 128;
-    }];
+    firewall.allowedTCPPorts = [
+      80
+      443
+      5432
+    ];
+    interfaces.ens18.ipv6.addresses = [
+      {
+        address = "2a02:c207:2087:999::1";
+        prefixLength = 128;
+      }
+    ];
 
     bridges.bripa.interfaces = [ ];
-    interfaces.bripa.ipv6.addresses = [{
-      address = "2a02:c207:2087:999:1::1";
-      prefixLength = 112;
-    }];
+    interfaces.bripa.ipv6.addresses = [
+      {
+        address = "2a02:c207:2087:999:1::1";
+        prefixLength = 112;
+      }
+    ];
   };
 
   time.timeZone = "Europe/Berlin";

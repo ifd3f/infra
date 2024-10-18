@@ -1,11 +1,17 @@
 # A standard Oracle Cloud VPS.
-{ config, lib, pkgs, modulesPath, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}:
+{
   imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
 
   zramSwap.enable = true;
 
-  hardware.cpu.amd.updateMicrocode =
-    lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   boot = {
     cleanTmpDir = true;
@@ -16,8 +22,13 @@
       systemd-boot.enable = true;
     };
 
-    initrd.availableKernelModules =
-      [ "ata_piix" "uhci_hcd" "virtio_pci" "virtio_scsi" "sd_mod" ];
+    initrd.availableKernelModules = [
+      "ata_piix"
+      "uhci_hcd"
+      "virtio_pci"
+      "virtio_scsi"
+      "sd_mod"
+    ];
     initrd.kernelModules = [ ];
 
     kernelModules = [ "kvm-amd" ];

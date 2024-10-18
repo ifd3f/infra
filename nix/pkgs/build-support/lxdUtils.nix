@@ -1,12 +1,17 @@
 { nixos-generators, pkgs }:
-with pkgs; rec {
-  writeVMMetaTar = { basename, metadata }:
+with pkgs;
+rec {
+  writeVMMetaTar =
+    { basename, metadata }:
     stdenvNoCC.mkDerivation {
       name = "${basename}.tar.xz";
 
       src = writeText "metadata.json" (builtins.toJSON metadata);
       buildInputs = [ yq ];
-      phases = [ "buildPhase" "installPhase" ];
+      phases = [
+        "buildPhase"
+        "installPhase"
+      ];
 
       buildPhase = ''
         cd $TMPDIR
@@ -19,18 +24,31 @@ with pkgs; rec {
       '';
     };
 
-  writeVMUploader = { name, disk, metadata, alias ? null }:
+  writeVMUploader =
+    {
+      name,
+      disk,
+      metadata,
+      alias ? null,
+    }:
     let
       meta = writeVMMetaTar {
         inherit metadata;
         basename = name;
       };
       aliasFlag = if alias == null then "" else "--alias=${alias}";
-    in writeScript "upload-${name}-to-lxd" ''
+    in
+    writeScript "upload-${name}-to-lxd" ''
       lxc image import ${meta} ${disk} ${aliasFlag} $@
     '';
 
-  writeNixOSUploader = { pkgs, name, modules, alias ? null }:
+  writeNixOSUploader =
+    {
+      pkgs,
+      name,
+      modules,
+      alias ? null,
+    }:
     let
       meta = nixos-generators.nixosGenerate {
         inherit pkgs modules;
@@ -41,8 +59,8 @@ with pkgs; rec {
         format = "lxc";
       };
       aliasFlag = if alias == null then "" else "--alias=${alias}";
-    in writeScript "upload-${name}-to-lxd" ''
+    in
+    writeScript "upload-${name}-to-lxd" ''
       lxc image import ${meta}/tarball/nixos-system-x86_64-linux.tar.xz ${rootfs}/tarball/nixos-system-x86_64-linux.tar.xz ${aliasFlag} $@
     '';
 }
-

@@ -1,5 +1,6 @@
 { config, lib, ... }:
-with lib; {
+with lib;
+{
   options.astral.acme.enable = mkOption {
     description = "Enable to set up pre-customized ACME stuff.";
     default = false;

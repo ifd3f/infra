@@ -1,7 +1,15 @@
 # Some headless server that likely runs 24/7
-{ config, lib, pkgs, ... }:
-let inputs = config.astral.inputs;
-in with lib; {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  inputs = config.astral.inputs;
+in
+with lib;
+{
   # Auto-optimize/GC store on a much more frequent basis than the PC's.
   nix.gc = lib.mkForce {
     automatic = true;

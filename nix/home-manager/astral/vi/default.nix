@@ -1,5 +1,11 @@
-{ config, lib, pkgs, ... }:
-with lib; {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib;
+{
   options.astral.vi = {
     enable = mkOption {
       description = "Enable neovim customizations.";
@@ -19,68 +25,74 @@ with lib; {
     };
   };
 
-  config = let cfg = config.astral.vi;
-  in mkIf cfg.enable (mkMerge [
-    {
-      programs.neovim = {
-        enable = true;
-
-        # nvim is too much to type out
-        viAlias = true;
-        vimAlias = true;
-        vimdiffAlias = true;
-
-        plugins = with pkgs.vimPlugins; [
-          fzf-vim
-          nerdtree
-          nerdtree-git-plugin
-          pkgs.vimPlugins.rainbow
-          vim-airline
-          vim-easymotion
-          vim-floaterm
-          vim-nix
-          vim-plug
-          vim-sleuth
-        ];
-        extraConfig = ''
-          source ${pkgs.vimPlugins.vim-plug}/plug.vim
-
-          ${builtins.readFile ./init.nvim}
-        '';
-      };
-
-      home.packages = with pkgs; [ ctags ];
-    }
-    (mkIf cfg.ide {
-      programs.neovim = {
-        coc = {
+  config =
+    let
+      cfg = config.astral.vi;
+    in
+    mkIf cfg.enable (mkMerge [
+      {
+        programs.neovim = {
           enable = true;
-          settings = builtins.fromJSON (builtins.readFile ./coc-settings.json);
+
+          # nvim is too much to type out
+          viAlias = true;
+          vimAlias = true;
+          vimdiffAlias = true;
+
+          plugins = with pkgs.vimPlugins; [
+            fzf-vim
+            nerdtree
+            nerdtree-git-plugin
+            pkgs.vimPlugins.rainbow
+            vim-airline
+            vim-easymotion
+            vim-floaterm
+            vim-nix
+            vim-plug
+            vim-sleuth
+          ];
+          extraConfig = ''
+            source ${pkgs.vimPlugins.vim-plug}/plug.vim
+
+            ${builtins.readFile ./init.nvim}
+          '';
         };
 
-        extraConfig = ''
-          ${builtins.readFile ./ide.nvim}
-        '';
+        home.packages = with pkgs; [ ctags ];
+      }
+      (mkIf cfg.ide {
+        programs.neovim = {
+          coc = {
+            enable = true;
+            settings = builtins.fromJSON (builtins.readFile ./coc-settings.json);
+          };
 
-        plugins = with pkgs.vimPlugins; [
-          coc-nvim
-          coc-rust-analyzer
-          coc-tsserver
-          coq_nvim
-          editorconfig-nvim
-          goyo-vim
-          limelight-vim
-          nerdcommenter
-          taglist-vim
-          vim-fugitive
-          vim-gitgutter
-          vim-terraform
-          vim-test
-          pkgs.vimPlugins.vimtex
+          extraConfig = ''
+            ${builtins.readFile ./ide.nvim}
+          '';
+
+          plugins = with pkgs.vimPlugins; [
+            coc-nvim
+            coc-rust-analyzer
+            coc-tsserver
+            coq_nvim
+            editorconfig-nvim
+            goyo-vim
+            limelight-vim
+            nerdcommenter
+            taglist-vim
+            vim-fugitive
+            vim-gitgutter
+            vim-terraform
+            vim-test
+            pkgs.vimPlugins.vimtex
+          ];
+        };
+
+        home.packages = with pkgs; [
+          nodejs
+          nodePackages.npm
         ];
-      };
-
-      home.packages = with pkgs; [ nodejs nodePackages.npm ];
-    })
-  ]);
+      })
+    ]);
 }

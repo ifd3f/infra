@@ -1,1 +1,7 @@
-{ imports = [ ./docker.nix ./libvirt.nix ./lxc.nix ]; }
+{
+  imports = [
+    ./docker.nix
+    ./libvirt.nix
+    ./lxc.nix
+  ];
+}

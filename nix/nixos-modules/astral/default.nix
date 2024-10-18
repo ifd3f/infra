@@ -9,12 +9,15 @@ inputs: {
     ./hw
     ./mount-root-to-home.nix
 
-    ({ pkgs, ... }: {
-      programs.zsh.enable = true;
-      users.defaultUserShell = pkgs.zsh;
-      nixpkgs.overlays = [ inputs.self.overlays.default ];
-      astral.inputs = inputs;
-    })
+    (
+      { pkgs, ... }:
+      {
+        programs.zsh.enable = true;
+        users.defaultUserShell = pkgs.zsh;
+        nixpkgs.overlays = [ inputs.self.overlays.default ];
+        astral.inputs = inputs;
+      }
+    )
 
     ./acme.nix
     ./zfs-utils.nix

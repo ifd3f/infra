@@ -1,1 +1,7 @@
-{ imports = [ ./sshd.nix ./xrdp.nix ./zerotier.nix ]; }
+{
+  imports = [
+    ./sshd.nix
+    ./xrdp.nix
+    ./zerotier.nix
+  ];
+}

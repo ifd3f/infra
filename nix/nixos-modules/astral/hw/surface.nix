@@ -1,5 +1,11 @@
-{ config, lib, pkgs, ... }:
-with lib; {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib;
+{
   options.astral.hw.surface.enable = mkOption {
     description = ''
       Enable standard Surface Pro configs
@@ -10,16 +16,19 @@ with lib; {
     type = types.bool;
   };
 
-  config = let cfg = config.astral.hw.surface;
-  in mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [
-      iptsd
-      onboard
-      surface-control
-      xinput_calibrator
-    ];
+  config =
+    let
+      cfg = config.astral.hw.surface;
+    in
+    mkIf cfg.enable {
+      environment.systemPackages = with pkgs; [
+        iptsd
+        onboard
+        surface-control
+        xinput_calibrator
+      ];
 
-    services.touchegg.enable = true;
-    services.xserver.libinput.enable = true;
-  };
+      services.touchegg.enable = true;
+      services.xserver.libinput.enable = true;
+    };
 }

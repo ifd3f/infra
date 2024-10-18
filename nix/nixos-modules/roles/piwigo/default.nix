@@ -8,7 +8,8 @@ let
   };
 
   webroot = "/var/www/photos";
-in {
+in
+{
   systemd.services.piwigo-config = {
     description = "Copy Piwigo source code to directory";
     after = [ "network-online.target" ];
@@ -52,11 +53,15 @@ in {
     ensureUsers = [
       {
         name = "piwigo";
-        ensurePermissions = { "piwigo.*" = "ALL PRIVILEGES"; };
+        ensurePermissions = {
+          "piwigo.*" = "ALL PRIVILEGES";
+        };
       }
       {
         name = "backup";
-        ensurePermissions = { "*.*" = "SELECT, LOCK TABLES"; };
+        ensurePermissions = {
+          "*.*" = "SELECT, LOCK TABLES";
+        };
       }
     ];
   };

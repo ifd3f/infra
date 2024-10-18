@@ -1,6 +1,12 @@
 inputs:
-{ config, pkgs, lib, ... }:
-with lib; {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+with lib;
+{
   imports = [
     inputs.self.nixosModules.oracle-cloud-vps
     inputs.self.nixosModules.server
@@ -10,8 +16,7 @@ with lib; {
 
   astral = {
     ci.deploy-to = "192.9.241.223";
-    tailscale.oneOffKey =
-      "tskey-auth-kc9Bdo5CNTRL-mF1eQASE3L1p6CwLorXdJ1aZYCwBy8raR";
+    tailscale.oneOffKey = "tskey-auth-kc9Bdo5CNTRL-mF1eQASE3L1p6CwLorXdJ1aZYCwBy8raR";
     monitoring-node.scrapeTransport = "https";
   };
 

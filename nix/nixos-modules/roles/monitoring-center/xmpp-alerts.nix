@@ -1,10 +1,19 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 with lib;
 let
   vs = config.vault-secrets.secrets;
   gcfg = config.services.grafana;
-in {
-  astral.backup.services.paths = [ "/var/lib/grafana" "/var/lib/prometheus2" ];
+in
+{
+  astral.backup.services.paths = [
+    "/var/lib/grafana"
+    "/var/lib/prometheus2"
+  ];
 
   # vault kv put kv/prometheus-xmpp-alerts/environment XMPP_USER_PASSWORD=@
   vault-secrets.secrets.prometheus-xmpp-alerts = {
@@ -13,8 +22,7 @@ in {
 
   users.groups.prometheus-xmpp-alerts-secrets = { };
 
-  systemd.services.prometheus-xmpp-alerts.serviceConfig.EnvironmentFile =
-    "${vs.prometheus-xmpp-alerts}/environment";
+  systemd.services.prometheus-xmpp-alerts.serviceConfig.EnvironmentFile = "${vs.prometheus-xmpp-alerts}/environment";
 
   services.prometheus.xmpp-alerts = {
     enable = true;

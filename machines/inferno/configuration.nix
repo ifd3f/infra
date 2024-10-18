@@ -1,8 +1,17 @@
 inputs:
-{ config, pkgs, lib, ... }:
-with lib; {
-  imports =
-    [ ./hardware-configuration.nix inputs.self.nixosModules.server ./net.nix ];
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+with lib;
+{
+  imports = [
+    ./hardware-configuration.nix
+    inputs.self.nixosModules.server
+    ./net.nix
+  ];
 
   astral = {
     # Disable for now because it simply can't be reached

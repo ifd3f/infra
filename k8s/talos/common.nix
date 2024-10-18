@@ -21,6 +21,6 @@ rec {
 
     # All hosts only have one interface. This will pick the interface 
     # https://www.talos.dev/v1.6/talos-guides/network/predictable-interface-names/#single-network-interface
-    network.interfaces = [{ deviceSelector.busPath = "0*"; }];
+    network.interfaces = [ { deviceSelector.busPath = "0*"; } ];
   };
 }

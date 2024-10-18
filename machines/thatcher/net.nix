@@ -1,5 +1,6 @@
 { pkgs, lib, ... }:
-with lib; {
+with lib;
+{
   networking.useDHCP = false;
 
   systemd.network = {
@@ -17,9 +18,9 @@ with lib; {
         { addressConfig.Address = "100.64.0.45/31"; }
         { addressConfig.Address = "2a11:f2c0:3:16::1/64"; }
       ];
-      routes = [{ routeConfig.Gateway = "100.64.0.44"; }];
+      routes = [ { routeConfig.Gateway = "100.64.0.44"; } ];
     };
   };
 
-  environment.systemPackages = with pkgs; [dhcpcd];
+  environment.systemPackages = with pkgs; [ dhcpcd ];
 }

@@ -7,15 +7,18 @@ let
   cfg = config.astral.backup;
   inputs = config.astral.inputs;
 
-in with lib; {
+in
+with lib;
+{
   options.astral.backup.db = {
     enable = mkEnableOption "automated database backup";
   };
 
   config = mkMerge [
     {
-      astral.backup.db.enable = mkDefault
-        (config.services.postgresql.enable || config.services.mysql.enable);
+      astral.backup.db.enable = mkDefault (
+        config.services.postgresql.enable || config.services.mysql.enable
+      );
     }
 
     (mkIf cfg.db.enable {
@@ -32,8 +35,7 @@ in with lib; {
           "--keep-yearly 75"
         ];
 
-        repository =
-          "s3:s3.us-west-000.backblazeb2.com/ifd3f-backup/hosts/${config.networking.fqdn}/db";
+        repository = "s3:s3.us-west-000.backblazeb2.com/ifd3f-backup/hosts/${config.networking.fqdn}/db";
       };
 
       systemd.services.restic-backups-db = {
@@ -48,8 +50,7 @@ in with lib; {
         backupAll = true;
       };
 
-      services.restic.backups.db.paths =
-        [ config.services.postgresqlBackup.location ];
+      services.restic.backups.db.paths = [ config.services.postgresqlBackup.location ];
 
       # do not start automatically
       systemd.timers.postgresqlBackup.enable = false;
@@ -66,8 +67,7 @@ in with lib; {
         singleTransaction = true;
       };
 
-      services.restic.backups.db.paths =
-        [ config.services.mysqlBackup.location ];
+      services.restic.backups.db.paths = [ config.services.mysqlBackup.location ];
 
       # do not start automatically
       systemd.timers.mysql-backup.enable = false;

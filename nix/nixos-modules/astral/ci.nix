@@ -1,11 +1,19 @@
-/* Regularly updates the system from this flake repo.
-   Wraps around system.autoUpdate and customized for
-   my stuff, but provides additional helper options.
+/*
+  Regularly updates the system from this flake repo.
+  Wraps around system.autoUpdate and customized for
+  my stuff, but provides additional helper options.
 */
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 with lib;
-let cfg = config.astral.ci;
-in {
+let
+  cfg = config.astral.ci;
+in
+{
   options.astral.ci = {
     enable = mkOption {
       description = "Whether this machine should be built during CI or not.";
@@ -20,8 +28,7 @@ in {
     };
 
     deploy-to = mkOption {
-      description =
-        "Host to upload this system to, after it successfully builds. If null, then this should not be deployed.";
+      description = "Host to upload this system to, after it successfully builds. If null, then this should not be deployed.";
       type = with types; nullOr str;
       default = null;
     };
@@ -54,10 +61,13 @@ in {
     };
   };
 
-  config.astral.ci.deploy-package = mkIf (cfg.deploy-to != null) (mkDefault
-    (with pkgs;
-      let inherit (config.networking) hostName;
-      in writeShellApplication {
+  config.astral.ci.deploy-package = mkIf (cfg.deploy-to != null) (
+    mkDefault (
+      with pkgs;
+      let
+        inherit (config.networking) hostName;
+      in
+      writeShellApplication {
         name = "upload-${hostName}";
         runtimeInputs = [ nixos-rebuild ];
         text = ''
@@ -69,5 +79,7 @@ in {
             --use-remote-sudo \
             --show-trace
         '';
-      }));
+      }
+    )
+  );
 }

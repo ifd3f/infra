@@ -1,6 +1,12 @@
 inputs:
-{ config, pkgs, lib, ... }:
-with lib; {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+with lib;
+{
   imports = [
     ./hardware-configuration.nix
     inputs.self.nixosModules.pc
@@ -15,8 +21,7 @@ with lib; {
     pci-devs = [ ];
   };
 
-  astral.tailscale.oneOffKey =
-    "tskey-auth-kQpYuB2CNTRL-krpVu4TaHhBfxV7SWg3LgBtPG8t3QKyh4";
+  astral.tailscale.oneOffKey = "tskey-auth-kQpYuB2CNTRL-krpVu4TaHhBfxV7SWg3LgBtPG8t3QKyh4";
 
   # so i can be a *gamer*
   programs.steam.enable = true;

@@ -1,6 +1,13 @@
 inputs:
-{ config, pkgs, lib, modulesPath, ... }:
-with lib; {
+{
+  config,
+  pkgs,
+  lib,
+  modulesPath,
+  ...
+}:
+with lib;
+{
   imports = [
     "${modulesPath}/installer/sd-card/sd-image-aarch64.nix"
     inputs.self.nixosModules.server

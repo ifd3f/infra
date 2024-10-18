@@ -1,5 +1,11 @@
-{ config, lib, pkgs, ... }:
-with lib; {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib;
+{
   options.astral.virt.docker = {
     enable = mkOption {
       description = "Use docker stuff";
@@ -8,9 +14,12 @@ with lib; {
     };
   };
 
-  config = let cfg = config.astral.virt.docker;
-  in mkIf cfg.enable {
-    virtualisation.podman.enable = true;
-    environment.systemPackages = with pkgs; [ podman-compose ];
-  };
+  config =
+    let
+      cfg = config.astral.virt.docker;
+    in
+    mkIf cfg.enable {
+      virtualisation.podman.enable = true;
+      environment.systemPackages = with pkgs; [ podman-compose ];
+    };
 }
