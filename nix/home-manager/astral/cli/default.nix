@@ -1,6 +1,6 @@
 # CLI-only home manager settings
 { config, lib, pkgs, ... }:
-let commonProfile = builtins.readFile ./.profile;
+let commonProfile = builtins.readFile ./profile.sh;
 in with lib; {
   imports = [ ./conda-hooks.nix ];
 
@@ -107,7 +107,7 @@ in with lib; {
 
         initExtraBeforeCompInit = ''
           # Powerlevel10k configuration
-          source ${./.p10k.zsh}
+          source ${./p10k.zsh}
 
           # kubectl completion
           type kubectl > /dev/null && source <(kubectl completion zsh)
