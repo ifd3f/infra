@@ -17,7 +17,7 @@ let
       kubectl
       mqttui
       netcat
-      nixfmt
+      nixfmt-rfc-style
       nodePackages.prettier
       pixiecore
       pwgen
