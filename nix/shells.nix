@@ -27,7 +27,6 @@ let
       tcpdump
       terraform
       terraform-ls
-      tftp-hpa
       tmux
       vault
       wget
