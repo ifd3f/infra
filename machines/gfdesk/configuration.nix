@@ -48,7 +48,7 @@ with lib; {
     ensureDatabases = [ "akkoma" ];
     ensureUsers = [{
       name = "akkoma";
-      ensurePermissions = { "DATABASE \"akkoma\"" = "ALL PRIVILEGES"; };
+      ensureDBOwnership = true;
     }];
 
     settings = {
