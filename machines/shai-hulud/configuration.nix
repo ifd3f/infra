@@ -12,8 +12,8 @@ with lib; {
       ./fs.nix
     ];
 
-  microsoft-surface.kernelVersion = "6.8";
-  microsoft-surface.ipts = {
+  microsoft-surface.kernelVersion = "6.10";
+  services.iptsd = {
     enable = true;
     config = {
       Config = {
