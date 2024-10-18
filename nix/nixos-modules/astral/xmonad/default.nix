@@ -14,23 +14,23 @@
       gnome.gnome-keyring.enable = true;
       upower.enable = true;
 
+      libinput = {
+        enable = true;
+        touchpad.disableWhileTyping = true;
+      };
+
+      defaultSession = "none+xmonad";
+
       xserver = {
         enable = true;
-        layout = "us";
-
-        libinput = {
-          enable = true;
-          touchpad.disableWhileTyping = true;
-        };
-
-        displayManager.defaultSession = "none+xmonad";
 
         windowManager.xmonad = {
           enable = true;
           enableContribAndExtras = true;
         };
 
-        xkbOptions = "caps:ctrl_modifier";
+        xkb.layout = "us";
+        xkb.options = "caps:ctrl_modifier";
       };
     };
 

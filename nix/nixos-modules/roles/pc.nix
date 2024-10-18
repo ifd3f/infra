@@ -16,7 +16,7 @@ in {
     authorizedKeys = [ inputs.self.lib.sshKeyDatabase.users.astrid ];
   };
 
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
     corefonts
     dejavu_fonts
     dina-font
