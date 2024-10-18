@@ -21,7 +21,7 @@ in {
           extraGroups = mkOption {
             description = "Extra groups for ${user}";
             default = [ ];
-            type = types.listOf types.string;
+            type = types.listOf types.str;
           };
         };
 
