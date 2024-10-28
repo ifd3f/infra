@@ -162,6 +162,11 @@ in with lib; {
         scdaemonSettings = { disable-ccid = true; };
       };
 
+      programs.taskwarrior = {
+        enable = true;
+        package = pkgs.taskwarrior3;
+      };
+
       home.packages = with pkgs; [ bitwarden-cli gh ranger ];
     })
   ]);
