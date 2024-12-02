@@ -22,7 +22,6 @@ in {
       inputs.catgpt.overlays.default
       inputs.googlebird.overlays.default
       inputs.nur-ifd3f.overlays.default
-      inputs.vendored-emojis.overlays.default
       self.overlays.patched
     ];
 

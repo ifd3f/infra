@@ -140,21 +140,6 @@
       }
     },
     "flake-utils_5": {
-      "locked": {
-        "lastModified": 1667395993,
-        "narHash": "sha256-nuEHfE/LcWyuSWnS8t12N1wc105Qtau+/OdUAjtQ0rA=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "5aed5285a952e0b949eb3ba02c12fa4fcfef535f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
-    "flake-utils_6": {
       "inputs": {
         "systems": "systems_2"
       },
@@ -433,20 +418,6 @@
     },
     "nixpkgs_5": {
       "locked": {
-        "lastModified": 1673180965,
-        "narHash": "sha256-gMhL6w9RVluvPs+irJ9n0Q1BphZm+Ek4XGn5Ow7YQ3k=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "0c9aadc8eff6daaa5149d2df9e6c49baaf44161c",
-        "type": "github"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "type": "indirect"
-      }
-    },
-    "nixpkgs_6": {
-      "locked": {
         "lastModified": 1686476475,
         "narHash": "sha256-W9yUePvCSDghn+YUXewuodyPxt+kJl/a7zdY4Q6r4MU=",
         "owner": "nixos",
@@ -513,7 +484,6 @@
         "nur": "nur",
         "nur-ifd3f": "nur-ifd3f",
         "vault-secrets": "vault-secrets",
-        "vendored-emojis": "vendored-emojis",
         "year-of-bot": "year-of-bot"
       }
     },
@@ -600,29 +570,10 @@
         "type": "github"
       }
     },
-    "vendored-emojis": {
+    "year-of-bot": {
       "inputs": {
         "flake-utils": "flake-utils_5",
         "nixpkgs": "nixpkgs_5"
-      },
-      "locked": {
-        "lastModified": 1705723550,
-        "narHash": "sha256-3k21MoUt3nX+PQG4Oup95JS/Va8yj23bd/q2CphQNTM=",
-        "owner": "ifd3f",
-        "repo": "vendored-emojis",
-        "rev": "c1d83fdffc69405d78838bb569d0eee9680e216e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ifd3f",
-        "repo": "vendored-emojis",
-        "type": "github"
-      }
-    },
-    "year-of-bot": {
-      "inputs": {
-        "flake-utils": "flake-utils_6",
-        "nixpkgs": "nixpkgs_6"
       },
       "locked": {
         "lastModified": 1701459697,
