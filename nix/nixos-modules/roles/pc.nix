@@ -96,6 +96,8 @@ in {
     transmission
     usbtop
     wdisplays
+
+    bambu-studio
   ];
 
   users.mutableUsers = true;
