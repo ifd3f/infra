@@ -98,6 +98,7 @@ in {
     wdisplays
 
     bambu-studio
+    openscad
   ];
 
   users.mutableUsers = true;
