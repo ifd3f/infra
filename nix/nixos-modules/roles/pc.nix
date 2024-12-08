@@ -30,7 +30,7 @@ in {
     libertine
     mplus-outline-fonts.githubRelease
     noto-fonts
-    noto-fonts-cjk
+    noto-fonts-cjk-sans
     noto-fonts-emoji
     noto-fonts-extra
     open-fonts
@@ -96,6 +96,9 @@ in {
     transmission
     usbtop
     wdisplays
+
+    bambu-studio
+    openscad-unstable
   ];
 
   users.mutableUsers = true;
@@ -179,10 +182,6 @@ in {
         enable = true;
         useQtScaling = true;
       };
-    };
-    windowManager.qtile = {
-      enable = true;
-      backend = "wayland";
     };
   };
 

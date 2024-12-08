@@ -73,6 +73,8 @@ with lib; {
   hardware.i2c.enable = true;
   environment.systemPackages = with pkgs; [ openrgb win10hotplug ];
 
+  hardware.nvidia.open = true;
+
   services.xserver.dpi = 224;
 }
 
