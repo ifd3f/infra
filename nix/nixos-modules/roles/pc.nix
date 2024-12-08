@@ -98,7 +98,7 @@ in {
     wdisplays
 
     bambu-studio
-    openscad
+    openscad-unstable
   ];
 
   users.mutableUsers = true;
