@@ -1,7 +1,0 @@
-<!-- The USB 3.0 controller on IOMMU group 14 -->
-<hostdev mode="subsystem" type="pci" managed="yes">
-  <source>
-    <address domain="0x0000" bus="0x09" slot="0x00" function="0x3"/>
-  </source>
-</hostdev>
-

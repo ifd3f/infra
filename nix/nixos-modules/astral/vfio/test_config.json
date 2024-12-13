@@ -1,0 +1,18 @@
+{
+  "connection": "qemu:///system",
+  "dom": "win10",
+  "groups": {
+    "keyboard": [
+      {
+        "type": "usb",
+        "id": "3297:4976"
+      }
+    ],
+    "mouse": [
+      {
+        "type": "usb",
+        "id": "12c9:2003"
+      }
+    ]
+  }
+}

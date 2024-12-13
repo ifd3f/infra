@@ -27,7 +27,35 @@ in with lib; {
   astral.vfio = {
     enable = false;
     iommu-mode = "amd_iommu";
-    pci-devs = mainGpu.pciDevs;
+    gpuIds = mainGpu.pciDevs;
+    vfiohotplugConfig = {
+      connection = "qemu:///system";
+      dom = "win10";
+      groups = {
+        gpu = [
+          {
+            type = "pcie";
+            id = mainGpu.audio;
+          }
+          {
+            type = "pcie";
+            id = mainGpu.video;
+          }
+        ];
+        keyboard = [{
+          type = "usb";
+          id = "3297:4976";
+        }];
+        mouse = [{
+          type = "usb";
+          id = "12c9:2003";
+        }];
+        usbcontroller = [{
+          type = "pcie";
+          id = "1022:149c";
+        }];
+      };
+    };
   };
 
   # so i can be a *gamer*

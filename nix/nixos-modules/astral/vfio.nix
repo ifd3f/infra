@@ -9,13 +9,15 @@
       '';
     };
 
-    pci-devs = mkOption {
+    gpuIds = mkOption {
       type = with types; listOf str;
       description = ''
         A list of PCI IDs in the form "vendor:product" where vendor and product
         are 4-digit hex values.
       '';
     };
+
+    vfiohotplugConfig = mkOption { type = with types; attrs; };
   };
 
   config = let cfg = config.astral.vfio;
@@ -31,18 +33,17 @@
         "${cfg.iommu-mode}=on"
       ] ++
         # isolate the GPU
-        lib.optional (builtins.length cfg.pci-devs > 0)
-        ("vfio-pci.ids=" + lib.concatStringsSep "," cfg.pci-devs);
+        lib.optional (builtins.length cfg.gpuIds > 0)
+        ("vfio-pci.ids=" + lib.concatStringsSep "," cfg.gpuIds);
 
-      initrd.kernelModules = [
-        "vfio_pci"
-        "vfio"
-        "vfio_iommu_type1"
-      ];
+      initrd.kernelModules = [ "vfio_pci" "vfio" "vfio_iommu_type1" ];
     };
 
     environment.systemPackages = [
-      (pkgs.callPackage ./vfio/win10hotplug { })
+      (pkgs.callPackage ./vfio/vfiohotplug.nix {
+        config = cfg.vfiohotplugConfig;
+        version = config.networking.hostName;
+      })
     ];
   };
 }
