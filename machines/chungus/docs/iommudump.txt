@@ -1,0 +1,583 @@
+=== LSPCI ===
+0000:00:00.0 Host bridge: Advanced Micro Devices, Inc. [AMD] Starship/Matisse Root Complex
+	Subsystem: Advanced Micro Devices, Inc. [AMD] Starship/Matisse Root Complex
+	Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+	Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+
+0000:00:00.2 IOMMU: Advanced Micro Devices, Inc. [AMD] Starship/Matisse IOMMU
+	Subsystem: Advanced Micro Devices, Inc. [AMD] Starship/Matisse IOMMU
+	Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr+ Stepping- SERR- FastB2B- DisINTx+
+	Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	Interrupt: pin ? routed to IRQ 26
+	Capabilities: <access denied>
+
+0000:00:01.0 Host bridge: Advanced Micro Devices, Inc. [AMD] Starship/Matisse PCIe Dummy Host Bridge
+	Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+	Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	IOMMU group: 0
+
+0000:00:01.1 PCI bridge: Advanced Micro Devices, Inc. [AMD] Starship/Matisse GPP Bridge (prog-if 00 [Normal decode])
+	Subsystem: Advanced Micro Devices, Inc. [AMD] Device 1453
+	Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx+
+	Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	Latency: 0, Cache Line Size: 64 bytes
+	Interrupt: pin ? routed to IRQ 28
+	IOMMU group: 0
+	Bus: primary=00, secondary=01, subordinate=01, sec-latency=0
+	I/O behind bridge: 0000f000-00000fff [disabled] [32-bit]
+	Memory behind bridge: fc500000-fc5fffff [size=1M] [32-bit]
+	Prefetchable memory behind bridge: 00000000fff00000-00000000000fffff [disabled] [64-bit]
+	Secondary status: 66MHz- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- <SERR- <PERR-
+	BridgeCtl: Parity- SERR+ NoISA- VGA- VGA16+ MAbort- >Reset- FastB2B-
+		PriDiscTmr- SecDiscTmr- DiscTmrStat- DiscTmrSERREn-
+	Capabilities: <access denied>
+	Kernel driver in use: pcieport
+
+0000:00:01.2 PCI bridge: Advanced Micro Devices, Inc. [AMD] Starship/Matisse GPP Bridge (prog-if 00 [Normal decode])
+	Subsystem: Advanced Micro Devices, Inc. [AMD] Device 1453
+	Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx+
+	Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	Latency: 0, Cache Line Size: 64 bytes
+	Interrupt: pin ? routed to IRQ 29
+	IOMMU group: 0
+	Bus: primary=00, secondary=02, subordinate=07, sec-latency=0
+	I/O behind bridge: d000-efff [size=8K] [16-bit]
+	Memory behind bridge: f9000000-fa5fffff [size=22M] [32-bit]
+	Prefetchable memory behind bridge: 7e10000000-7e21ffffff [size=288M] [32-bit]
+	Secondary status: 66MHz- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort+ <SERR- <PERR-
+	BridgeCtl: Parity- SERR+ NoISA- VGA- VGA16+ MAbort- >Reset- FastB2B-
+		PriDiscTmr- SecDiscTmr- DiscTmrStat- DiscTmrSERREn-
+	Capabilities: <access denied>
+	Kernel driver in use: pcieport
+
+0000:00:02.0 Host bridge: Advanced Micro Devices, Inc. [AMD] Starship/Matisse PCIe Dummy Host Bridge
+	Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+	Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	IOMMU group: 1
+
+0000:00:03.0 Host bridge: Advanced Micro Devices, Inc. [AMD] Starship/Matisse PCIe Dummy Host Bridge
+	Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+	Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	IOMMU group: 2
+
+0000:00:03.1 PCI bridge: Advanced Micro Devices, Inc. [AMD] Starship/Matisse GPP Bridge (prog-if 00 [Normal decode])
+	Subsystem: Advanced Micro Devices, Inc. [AMD] Device 1453
+	Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx+
+	Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	Latency: 0, Cache Line Size: 64 bytes
+	Interrupt: pin ? routed to IRQ 30
+	IOMMU group: 2
+	Bus: primary=00, secondary=08, subordinate=08, sec-latency=0
+	I/O behind bridge: f000-ffff [size=4K] [16-bit]
+	Memory behind bridge: fb000000-fc0fffff [size=17M] [32-bit]
+	Prefetchable memory behind bridge: 7c00000000-7e01ffffff [size=8224M] [32-bit]
+	Secondary status: 66MHz- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- <SERR- <PERR-
+	BridgeCtl: Parity- SERR+ NoISA- VGA- VGA16+ MAbort- >Reset- FastB2B-
+		PriDiscTmr- SecDiscTmr- DiscTmrStat- DiscTmrSERREn-
+	Capabilities: <access denied>
+	Kernel driver in use: pcieport
+
+0000:00:04.0 Host bridge: Advanced Micro Devices, Inc. [AMD] Starship/Matisse PCIe Dummy Host Bridge
+	Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+	Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	IOMMU group: 3
+
+0000:00:05.0 Host bridge: Advanced Micro Devices, Inc. [AMD] Starship/Matisse PCIe Dummy Host Bridge
+	Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+	Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	IOMMU group: 4
+
+0000:00:07.0 Host bridge: Advanced Micro Devices, Inc. [AMD] Starship/Matisse PCIe Dummy Host Bridge
+	Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+	Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	IOMMU group: 5
+
+0000:00:07.1 PCI bridge: Advanced Micro Devices, Inc. [AMD] Starship/Matisse Internal PCIe GPP Bridge 0 to bus[E:B] (prog-if 00 [Normal decode])
+	Subsystem: Advanced Micro Devices, Inc. [AMD] Starship/Matisse Internal PCIe GPP Bridge 0 to bus[E:B]
+	Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx+
+	Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	Latency: 0, Cache Line Size: 64 bytes
+	Interrupt: pin A routed to IRQ 32
+	IOMMU group: 6
+	Bus: primary=00, secondary=09, subordinate=09, sec-latency=0
+	I/O behind bridge: 0000f000-00000fff [disabled] [32-bit]
+	Memory behind bridge: fff00000-000fffff [disabled] [32-bit]
+	Prefetchable memory behind bridge: 00000000fff00000-00000000000fffff [disabled] [64-bit]
+	Secondary status: 66MHz- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- <SERR- <PERR-
+	BridgeCtl: Parity- SERR+ NoISA- VGA- VGA16+ MAbort- >Reset- FastB2B-
+		PriDiscTmr- SecDiscTmr- DiscTmrStat- DiscTmrSERREn-
+	Capabilities: <access denied>
+	Kernel driver in use: pcieport
+
+0000:00:08.0 Host bridge: Advanced Micro Devices, Inc. [AMD] Starship/Matisse PCIe Dummy Host Bridge
+	Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+	Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	IOMMU group: 7
+
+0000:00:08.1 PCI bridge: Advanced Micro Devices, Inc. [AMD] Starship/Matisse Internal PCIe GPP Bridge 0 to bus[E:B] (prog-if 00 [Normal decode])
+	Subsystem: Advanced Micro Devices, Inc. [AMD] Starship/Matisse Internal PCIe GPP Bridge 0 to bus[E:B]
+	Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx+
+	Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	Latency: 0, Cache Line Size: 64 bytes
+	Interrupt: pin A routed to IRQ 33
+	IOMMU group: 8
+	Bus: primary=00, secondary=0a, subordinate=0a, sec-latency=0
+	I/O behind bridge: 0000f000-00000fff [disabled] [32-bit]
+	Memory behind bridge: fc200000-fc4fffff [size=3M] [32-bit]
+	Prefetchable memory behind bridge: 00000000fff00000-00000000000fffff [disabled] [64-bit]
+	Secondary status: 66MHz- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- <SERR- <PERR-
+	BridgeCtl: Parity- SERR+ NoISA- VGA- VGA16+ MAbort- >Reset- FastB2B-
+		PriDiscTmr- SecDiscTmr- DiscTmrStat- DiscTmrSERREn-
+	Capabilities: <access denied>
+	Kernel driver in use: pcieport
+
+0000:00:14.0 SMBus: Advanced Micro Devices, Inc. [AMD] FCH SMBus Controller (rev 61)
+	Subsystem: ASRock Incorporation Device ffff
+	Control: I/O+ Mem+ BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx+
+	Status: Cap- 66MHz+ UDF- FastB2B- ParErr- DEVSEL=medium >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	IOMMU group: 9
+	Kernel driver in use: piix4_smbus
+	Kernel modules: i2c_piix4, sp5100_tco
+
+0000:00:14.3 ISA bridge: Advanced Micro Devices, Inc. [AMD] FCH LPC Bridge (rev 51)
+	Subsystem: ASRock Incorporation Device ffff
+	Control: I/O+ Mem+ BusMaster+ SpecCycle+ MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+	Status: Cap- 66MHz+ UDF- FastB2B- ParErr- DEVSEL=medium >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	Latency: 0
+	IOMMU group: 9
+
+0000:00:18.0 Host bridge: Advanced Micro Devices, Inc. [AMD] Matisse/Vermeer Data Fabric: Device 18h; Function 0
+	Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+	Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	IOMMU group: 10
+
+0000:00:18.1 Host bridge: Advanced Micro Devices, Inc. [AMD] Matisse/Vermeer Data Fabric: Device 18h; Function 1
+	Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+	Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	IOMMU group: 10
+
+0000:00:18.2 Host bridge: Advanced Micro Devices, Inc. [AMD] Matisse/Vermeer Data Fabric: Device 18h; Function 2
+	Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+	Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	IOMMU group: 10
+
+0000:00:18.3 Host bridge: Advanced Micro Devices, Inc. [AMD] Matisse/Vermeer Data Fabric: Device 18h; Function 3
+	Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+	Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	IOMMU group: 10
+	Kernel driver in use: k10temp
+	Kernel modules: k10temp
+
+0000:00:18.4 Host bridge: Advanced Micro Devices, Inc. [AMD] Matisse/Vermeer Data Fabric: Device 18h; Function 4
+	Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+	Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	IOMMU group: 10
+
+0000:00:18.5 Host bridge: Advanced Micro Devices, Inc. [AMD] Matisse/Vermeer Data Fabric: Device 18h; Function 5
+	Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+	Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	IOMMU group: 10
+
+0000:00:18.6 Host bridge: Advanced Micro Devices, Inc. [AMD] Matisse/Vermeer Data Fabric: Device 18h; Function 6
+	Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+	Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	IOMMU group: 10
+
+0000:00:18.7 Host bridge: Advanced Micro Devices, Inc. [AMD] Matisse/Vermeer Data Fabric: Device 18h; Function 7
+	Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+	Status: Cap- 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	IOMMU group: 10
+
+0000:00:01.1/00.0 Non-Volatile memory controller: Micron/Crucial Technology P2 [Nick P2] / P3 / P3 Plus NVMe PCIe SSD (DRAM-less) (rev 01) (prog-if 02 [NVM Express])
+	Subsystem: Micron/Crucial Technology P2 [Nick P2] / P3 / P3 Plus NVMe PCIe SSD (DRAM-less)
+	Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx+
+	Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	Latency: 0, Cache Line Size: 64 bytes
+	Interrupt: pin A routed to IRQ 40
+	IOMMU group: 0
+	Region 0: Memory at fc500000 (64-bit, non-prefetchable) [size=16K]
+	Capabilities: <access denied>
+	Kernel driver in use: nvme
+	Kernel modules: nvme
+
+0000:00:01.2/00.0 USB controller: Advanced Micro Devices, Inc. [AMD] 500 Series Chipset USB 3.1 XHCI Controller (prog-if 30 [XHCI])
+	Subsystem: ASMedia Technology Inc. ASM1042A USB 3.0 Host Controller
+	Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx+
+	Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	Latency: 0, Cache Line Size: 64 bytes
+	Interrupt: pin A routed to IRQ 34
+	IOMMU group: 0
+	Region 0: Memory at fa5a0000 (64-bit, non-prefetchable) [size=32K]
+	Capabilities: <access denied>
+	Kernel driver in use: xhci_hcd
+	Kernel modules: xhci_pci
+
+0000:00:01.2/00.1 SATA controller: Advanced Micro Devices, Inc. [AMD] 500 Series Chipset SATA Controller (prog-if 01 [AHCI 1.0])
+	Subsystem: ASMedia Technology Inc. ASM1062 Serial ATA Controller
+	Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx+
+	Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	Latency: 0, Cache Line Size: 64 bytes
+	Interrupt: pin B routed to IRQ 75
+	IOMMU group: 0
+	Region 5: Memory at fa580000 (32-bit, non-prefetchable) [size=128K]
+	Expansion ROM at fa500000 [disabled] [size=512K]
+	Capabilities: <access denied>
+	Kernel driver in use: ahci
+	Kernel modules: ahci
+
+0000:00:01.2/00.2 PCI bridge: Advanced Micro Devices, Inc. [AMD] 500 Series Chipset Switch Upstream Port (prog-if 00 [Normal decode])
+	Subsystem: ASMedia Technology Inc. Device 0201
+	Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+	Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	Latency: 0, Cache Line Size: 64 bytes
+	Interrupt: pin C routed to IRQ 24
+	IOMMU group: 0
+	Bus: primary=02, secondary=03, subordinate=07, sec-latency=0
+	I/O behind bridge: d000-efff [size=8K] [16-bit]
+	Memory behind bridge: f9000000-fa4fffff [size=21M] [32-bit]
+	Prefetchable memory behind bridge: 7e10000000-7e21ffffff [size=288M] [32-bit]
+	Secondary status: 66MHz- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- <SERR- <PERR-
+	BridgeCtl: Parity- SERR+ NoISA- VGA- VGA16+ MAbort- >Reset- FastB2B-
+		PriDiscTmr- SecDiscTmr- DiscTmrStat- DiscTmrSERREn-
+	Capabilities: <access denied>
+	Kernel driver in use: pcieport
+
+0000:00:01.2/00.2/00.0 PCI bridge: Advanced Micro Devices, Inc. [AMD] Device 43ea (prog-if 00 [Normal decode])
+	Subsystem: ASMedia Technology Inc. Device 3308
+	Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx+
+	Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	Latency: 0, Cache Line Size: 64 bytes
+	Interrupt: pin A routed to IRQ 35
+	IOMMU group: 0
+	Bus: primary=03, secondary=04, subordinate=04, sec-latency=0
+	I/O behind bridge: e000-efff [size=4K] [16-bit]
+	Memory behind bridge: f9000000-fa0fffff [size=17M] [32-bit]
+	Prefetchable memory behind bridge: 7e10000000-7e21ffffff [size=288M] [32-bit]
+	Secondary status: 66MHz- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- <SERR- <PERR-
+	BridgeCtl: Parity- SERR+ NoISA- VGA- VGA16+ MAbort- >Reset- FastB2B-
+		PriDiscTmr- SecDiscTmr- DiscTmrStat- DiscTmrSERREn-
+	Capabilities: <access denied>
+	Kernel driver in use: pcieport
+
+0000:00:01.2/00.2/06.0 PCI bridge: Advanced Micro Devices, Inc. [AMD] Device 43ea (prog-if 00 [Normal decode])
+	Subsystem: ASMedia Technology Inc. Device 3308
+	Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx+
+	Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	Latency: 0, Cache Line Size: 64 bytes
+	Interrupt: pin A routed to IRQ 36
+	IOMMU group: 0
+	Bus: primary=03, secondary=05, subordinate=05, sec-latency=0
+	I/O behind bridge: 0000f000-00000fff [disabled] [32-bit]
+	Memory behind bridge: fa400000-fa4fffff [size=1M] [32-bit]
+	Prefetchable memory behind bridge: 00000000fff00000-00000000000fffff [disabled] [64-bit]
+	Secondary status: 66MHz- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- <SERR- <PERR-
+	BridgeCtl: Parity- SERR+ NoISA- VGA- VGA16+ MAbort- >Reset- FastB2B-
+		PriDiscTmr- SecDiscTmr- DiscTmrStat- DiscTmrSERREn-
+	Capabilities: <access denied>
+	Kernel driver in use: pcieport
+
+0000:00:01.2/00.2/08.0 PCI bridge: Advanced Micro Devices, Inc. [AMD] Device 43ea (prog-if 00 [Normal decode])
+	Subsystem: ASMedia Technology Inc. Device 3308
+	Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx+
+	Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	Latency: 0, Cache Line Size: 64 bytes
+	Interrupt: pin A routed to IRQ 37
+	IOMMU group: 0
+	Bus: primary=03, secondary=06, subordinate=06, sec-latency=0
+	I/O behind bridge: d000-dfff [size=4K] [16-bit]
+	Memory behind bridge: fa300000-fa3fffff [size=1M] [32-bit]
+	Prefetchable memory behind bridge: 00000000fff00000-00000000000fffff [disabled] [64-bit]
+	Secondary status: 66MHz- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- <SERR- <PERR-
+	BridgeCtl: Parity- SERR+ NoISA- VGA- VGA16+ MAbort- >Reset- FastB2B-
+		PriDiscTmr- SecDiscTmr- DiscTmrStat- DiscTmrSERREn-
+	Capabilities: <access denied>
+	Kernel driver in use: pcieport
+
+0000:00:01.2/00.2/09.0 PCI bridge: Advanced Micro Devices, Inc. [AMD] Device 43ea (prog-if 00 [Normal decode])
+	Subsystem: ASMedia Technology Inc. Device 3308
+	Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx+
+	Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	Latency: 0, Cache Line Size: 64 bytes
+	Interrupt: pin A routed to IRQ 39
+	IOMMU group: 0
+	Bus: primary=03, secondary=07, subordinate=07, sec-latency=0
+	I/O behind bridge: 0000f000-00000fff [disabled] [32-bit]
+	Memory behind bridge: fa200000-fa2fffff [size=1M] [32-bit]
+	Prefetchable memory behind bridge: 00000000fff00000-00000000000fffff [disabled] [64-bit]
+	Secondary status: 66MHz- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- <SERR- <PERR-
+	BridgeCtl: Parity- SERR+ NoISA- VGA- VGA16+ MAbort- >Reset- FastB2B-
+		PriDiscTmr- SecDiscTmr- DiscTmrStat- DiscTmrSERREn-
+	Capabilities: <access denied>
+	Kernel driver in use: pcieport
+
+0000:00:01.2/00.2/00.0/00.0 VGA compatible controller: NVIDIA Corporation GP107GL [Quadro P620] (rev a1) (prog-if 00 [VGA controller])
+	Subsystem: NVIDIA Corporation Device 1264
+	Control: I/O+ Mem+ BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+	Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	Interrupt: pin A routed to IRQ 34
+	IOMMU group: 0
+	Region 0: Memory at f9000000 (32-bit, non-prefetchable) [size=16M]
+	Region 1: Memory at 7e10000000 (64-bit, prefetchable) [size=256M]
+	Region 3: Memory at 7e20000000 (64-bit, prefetchable) [size=32M]
+	Region 5: I/O ports at e000 [size=128]
+	Expansion ROM at fa000000 [disabled] [size=512K]
+	Capabilities: <access denied>
+	Kernel modules: nvidiafb, nouveau, nvidia_drm, nvidia
+
+0000:00:01.2/00.2/00.0/00.1 Audio device: NVIDIA Corporation GP107GL High Definition Audio Controller (rev a1)
+	Subsystem: NVIDIA Corporation Device 1264
+	Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+	Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	Latency: 0, Cache Line Size: 64 bytes
+	Interrupt: pin B routed to IRQ 38
+	IOMMU group: 0
+	Region 0: Memory at fa080000 (32-bit, non-prefetchable) [size=16K]
+	Capabilities: <access denied>
+	Kernel driver in use: snd_hda_intel
+	Kernel modules: snd_hda_intel
+
+0000:00:01.2/00.2/06.0/00.0 USB controller: Fresco Logic FL1100 USB 3.0 Host Controller (rev 10) (prog-if 30 [XHCI])
+	Subsystem: Fresco Logic FL1100 USB 3.0 Host Controller
+	Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx+
+	Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	Latency: 0, Cache Line Size: 64 bytes
+	Interrupt: pin A routed to IRQ 24
+	IOMMU group: 0
+	Region 0: Memory at fa400000 (64-bit, non-prefetchable) [size=64K]
+	Region 2: Memory at fa411000 (64-bit, non-prefetchable) [size=4K]
+	Region 4: Memory at fa410000 (64-bit, non-prefetchable) [size=4K]
+	Capabilities: <access denied>
+	Kernel driver in use: xhci_hcd
+	Kernel modules: xhci_pci
+
+0000:00:01.2/00.2/08.0/00.0 Ethernet controller: Realtek Semiconductor Co., Ltd. RTL8125 2.5GbE Controller (rev 05)
+	Subsystem: ASRock Incorporation Device 8125
+	Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx+
+	Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	Latency: 0, Cache Line Size: 64 bytes
+	Interrupt: pin A routed to IRQ 34
+	IOMMU group: 0
+	Region 0: I/O ports at d000 [size=256]
+	Region 2: Memory at fa300000 (64-bit, non-prefetchable) [size=64K]
+	Region 4: Memory at fa310000 (64-bit, non-prefetchable) [size=16K]
+	Capabilities: <access denied>
+	Kernel driver in use: r8169
+	Kernel modules: r8169
+
+0000:00:01.2/00.2/09.0/00.0 Network controller: Intel Corporation Wi-Fi 6 AX200 (rev 1a)
+	Subsystem: Intel Corporation Device 0080
+	Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx+
+	Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	Latency: 0, Cache Line Size: 64 bytes
+	Interrupt: pin A routed to IRQ 38
+	IOMMU group: 0
+	Region 0: Memory at fa200000 (64-bit, non-prefetchable) [size=16K]
+	Capabilities: <access denied>
+	Kernel driver in use: iwlwifi
+	Kernel modules: iwlwifi
+
+0000:00:03.1/00.0 VGA compatible controller: NVIDIA Corporation GA104 [GeForce RTX 3070 Ti] (rev a1) (prog-if 00 [VGA controller])
+	Subsystem: ASUSTeK Computer Inc. Device 8813
+	Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx+
+	Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	Latency: 0
+	Interrupt: pin A routed to IRQ 100
+	IOMMU group: 2
+	Region 0: Memory at fb000000 (32-bit, non-prefetchable) [size=16M]
+	Region 1: Memory at 7c00000000 (64-bit, prefetchable) [size=8G]
+	Region 3: Memory at 7e00000000 (64-bit, prefetchable) [size=32M]
+	Region 5: I/O ports at f000 [size=128]
+	Expansion ROM at fc000000 [virtual] [disabled] [size=512K]
+	Capabilities: <access denied>
+	Kernel driver in use: nvidia
+	Kernel modules: nvidiafb, nouveau, nvidia_drm, nvidia
+
+0000:00:03.1/00.1 Audio device: NVIDIA Corporation GA104 High Definition Audio Controller (rev a1)
+	Subsystem: ASUSTeK Computer Inc. Device 8813
+	Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+	Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	Latency: 0, Cache Line Size: 64 bytes
+	Interrupt: pin B routed to IRQ 97
+	IOMMU group: 2
+	Region 0: Memory at fc080000 (32-bit, non-prefetchable) [size=16K]
+	Capabilities: <access denied>
+	Kernel driver in use: snd_hda_intel
+	Kernel modules: snd_hda_intel
+
+0000:00:07.1/00.0 Non-Essential Instrumentation [1300]: Advanced Micro Devices, Inc. [AMD] Starship/Matisse PCIe Dummy Function
+	Subsystem: Advanced Micro Devices, Inc. [AMD] Starship/Matisse PCIe Dummy Function
+	Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+	Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	IOMMU group: 11
+	Capabilities: <access denied>
+
+0000:00:08.1/00.0 Non-Essential Instrumentation [1300]: Advanced Micro Devices, Inc. [AMD] Starship/Matisse Reserved SPP
+	Subsystem: Advanced Micro Devices, Inc. [AMD] Starship/Matisse Reserved SPP
+	Control: I/O- Mem- BusMaster- SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx-
+	Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	IOMMU group: 12
+	Capabilities: <access denied>
+
+0000:00:08.1/00.1 Encryption controller: Advanced Micro Devices, Inc. [AMD] Starship/Matisse Cryptographic Coprocessor PSPCPP
+	Subsystem: Advanced Micro Devices, Inc. [AMD] Starship/Matisse Cryptographic Coprocessor PSPCPP
+	Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx+
+	Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	Latency: 0, Cache Line Size: 64 bytes
+	Interrupt: pin A routed to IRQ 76
+	IOMMU group: 13
+	Region 2: Memory at fc300000 (32-bit, non-prefetchable) [size=1M]
+	Region 5: Memory at fc408000 (32-bit, non-prefetchable) [size=8K]
+	Capabilities: <access denied>
+	Kernel driver in use: ccp
+	Kernel modules: ccp
+
+0000:00:08.1/00.3 USB controller: Advanced Micro Devices, Inc. [AMD] Matisse USB 3.0 Host Controller (prog-if 30 [XHCI])
+	Subsystem: ASRock Incorporation Device ffff
+	Control: I/O+ Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx+
+	Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	Latency: 0, Cache Line Size: 64 bytes
+	Interrupt: pin C routed to IRQ 58
+	IOMMU group: 14
+	Region 0: Memory at fc200000 (64-bit, non-prefetchable) [size=1M]
+	Capabilities: <access denied>
+	Kernel driver in use: xhci_hcd
+	Kernel modules: xhci_pci
+
+0000:00:08.1/00.4 Audio device: Advanced Micro Devices, Inc. [AMD] Starship/Matisse HD Audio Controller
+	Subsystem: ASRock Incorporation Device 1897
+	Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx+
+	Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+	Latency: 0, Cache Line Size: 64 bytes
+	Interrupt: pin D routed to IRQ 99
+	IOMMU group: 15
+	Region 0: Memory at fc400000 (32-bit, non-prefetchable) [size=32K]
+	Capabilities: <access denied>
+	Kernel driver in use: snd_hda_intel
+	Kernel modules: snd_hda_intel
+
+
+=== LSUSB ===
+/:  Bus 001.Port 001: Dev 001, Class=root_hub, Driver=xhci_hcd/10p, 480M
+    ID 1d6b:0002 Linux Foundation 2.0 root hub
+    /sys/bus/usb/devices/usb1  /dev/bus/usb/001/001
+    |__ Port 009: Dev 002, If 0, Class=Wireless, Driver=btusb, 12M
+        ID 8087:0029 Intel Corp. AX200 Bluetooth
+        /sys/bus/usb/devices/1-9  /dev/bus/usb/001/002
+    |__ Port 009: Dev 002, If 1, Class=Wireless, Driver=btusb, 12M
+        ID 8087:0029 Intel Corp. AX200 Bluetooth
+        /sys/bus/usb/devices/1-9  /dev/bus/usb/001/002
+    |__ Port 010: Dev 003, If 0, Class=Human Interface Device, Driver=usbhid, 12M
+        ID 26ce:01a2  
+        /sys/bus/usb/devices/1-10  /dev/bus/usb/001/003
+/:  Bus 002.Port 001: Dev 001, Class=root_hub, Driver=xhci_hcd/4p, 10000M
+    ID 1d6b:0003 Linux Foundation 3.0 root hub
+    /sys/bus/usb/devices/usb2  /dev/bus/usb/002/001
+/:  Bus 003.Port 001: Dev 001, Class=root_hub, Driver=xhci_hcd/4p, 480M
+    ID 1d6b:0002 Linux Foundation 2.0 root hub
+    /sys/bus/usb/devices/usb3  /dev/bus/usb/003/001
+/:  Bus 004.Port 001: Dev 001, Class=root_hub, Driver=xhci_hcd/4p, 5000M
+    ID 1d6b:0003 Linux Foundation 3.0 root hub
+    /sys/bus/usb/devices/usb4  /dev/bus/usb/004/001
+/:  Bus 005.Port 001: Dev 001, Class=root_hub, Driver=xhci_hcd/4p, 480M
+    ID 1d6b:0002 Linux Foundation 2.0 root hub
+    /sys/bus/usb/devices/usb5  /dev/bus/usb/005/001
+    |__ Port 001: Dev 024, If 0, Class=Human Interface Device, Driver=usbhid, 12M
+        ID 3297:4976  
+        /sys/bus/usb/devices/5-1  /dev/bus/usb/005/024
+    |__ Port 001: Dev 024, If 1, Class=Human Interface Device, Driver=usbhid, 12M
+        ID 3297:4976  
+        /sys/bus/usb/devices/5-1  /dev/bus/usb/005/024
+    |__ Port 002: Dev 003, If 0, Class=Hub, Driver=hub/4p, 480M
+        ID 174c:2074 ASMedia Technology Inc. ASM1074 High-Speed hub
+        /sys/bus/usb/devices/5-2  /dev/bus/usb/005/003
+/:  Bus 006.Port 001: Dev 001, Class=root_hub, Driver=xhci_hcd/4p, 10000M
+    ID 1d6b:0003 Linux Foundation 3.0 root hub
+    /sys/bus/usb/devices/usb6  /dev/bus/usb/006/001
+    |__ Port 002: Dev 002, If 0, Class=Hub, Driver=hub/4p, 5000M
+        ID 174c:3074 ASMedia Technology Inc. ASM1074 SuperSpeed hub
+        /sys/bus/usb/devices/6-2  /dev/bus/usb/006/002
+
+=== IOMMU GROUPS ===
+IOMMU Group 0:
+	00:01.0 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Starship/Matisse PCIe Dummy Host Bridge [1022:1482]
+	00:01.1 PCI bridge [0604]: Advanced Micro Devices, Inc. [AMD] Starship/Matisse GPP Bridge [1022:1483]
+	00:01.2 PCI bridge [0604]: Advanced Micro Devices, Inc. [AMD] Starship/Matisse GPP Bridge [1022:1483]
+	01:00.0 Non-Volatile memory controller [0108]: Micron/Crucial Technology P2 [Nick P2] / P3 / P3 Plus NVMe PCIe SSD (DRAM-less) [c0a9:540a] (rev 01)
+	02:00.0 USB controller [0c03]: Advanced Micro Devices, Inc. [AMD] 500 Series Chipset USB 3.1 XHCI Controller [1022:43ee]
+	02:00.1 SATA controller [0106]: Advanced Micro Devices, Inc. [AMD] 500 Series Chipset SATA Controller [1022:43eb]
+	02:00.2 PCI bridge [0604]: Advanced Micro Devices, Inc. [AMD] 500 Series Chipset Switch Upstream Port [1022:43e9]
+	03:00.0 PCI bridge [0604]: Advanced Micro Devices, Inc. [AMD] Device [1022:43ea]
+	03:06.0 PCI bridge [0604]: Advanced Micro Devices, Inc. [AMD] Device [1022:43ea]
+	03:08.0 PCI bridge [0604]: Advanced Micro Devices, Inc. [AMD] Device [1022:43ea]
+	03:09.0 PCI bridge [0604]: Advanced Micro Devices, Inc. [AMD] Device [1022:43ea]
+	04:00.0 VGA compatible controller [0300]: NVIDIA Corporation GP107GL [Quadro P620] [10de:1cb6] (rev a1)
+	04:00.1 Audio device [0403]: NVIDIA Corporation GP107GL High Definition Audio Controller [10de:0fb9] (rev a1)
+	05:00.0 USB controller [0c03]: Fresco Logic FL1100 USB 3.0 Host Controller [1b73:1100] (rev 10)
+	06:00.0 Ethernet controller [0200]: Realtek Semiconductor Co., Ltd. RTL8125 2.5GbE Controller [10ec:8125] (rev 05)
+	07:00.0 Network controller [0280]: Intel Corporation Wi-Fi 6 AX200 [8086:2723] (rev 1a)
+IOMMU Group 1:
+	00:02.0 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Starship/Matisse PCIe Dummy Host Bridge [1022:1482]
+IOMMU Group 2:
+	00:03.0 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Starship/Matisse PCIe Dummy Host Bridge [1022:1482]
+	00:03.1 PCI bridge [0604]: Advanced Micro Devices, Inc. [AMD] Starship/Matisse GPP Bridge [1022:1483]
+	08:00.0 VGA compatible controller [0300]: NVIDIA Corporation GA104 [GeForce RTX 3070 Ti] [10de:2482] (rev a1)
+	08:00.1 Audio device [0403]: NVIDIA Corporation GA104 High Definition Audio Controller [10de:228b] (rev a1)
+IOMMU Group 3:
+	00:04.0 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Starship/Matisse PCIe Dummy Host Bridge [1022:1482]
+IOMMU Group 4:
+	00:05.0 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Starship/Matisse PCIe Dummy Host Bridge [1022:1482]
+IOMMU Group 5:
+	00:07.0 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Starship/Matisse PCIe Dummy Host Bridge [1022:1482]
+IOMMU Group 6:
+	00:07.1 PCI bridge [0604]: Advanced Micro Devices, Inc. [AMD] Starship/Matisse Internal PCIe GPP Bridge 0 to bus[E:B] [1022:1484]
+IOMMU Group 7:
+	00:08.0 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Starship/Matisse PCIe Dummy Host Bridge [1022:1482]
+IOMMU Group 8:
+	00:08.1 PCI bridge [0604]: Advanced Micro Devices, Inc. [AMD] Starship/Matisse Internal PCIe GPP Bridge 0 to bus[E:B] [1022:1484]
+IOMMU Group 9:
+	00:14.0 SMBus [0c05]: Advanced Micro Devices, Inc. [AMD] FCH SMBus Controller [1022:790b] (rev 61)
+	00:14.3 ISA bridge [0601]: Advanced Micro Devices, Inc. [AMD] FCH LPC Bridge [1022:790e] (rev 51)
+IOMMU Group 10:
+	00:18.0 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Matisse/Vermeer Data Fabric: Device 18h; Function 0 [1022:1440]
+	00:18.1 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Matisse/Vermeer Data Fabric: Device 18h; Function 1 [1022:1441]
+	00:18.2 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Matisse/Vermeer Data Fabric: Device 18h; Function 2 [1022:1442]
+	00:18.3 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Matisse/Vermeer Data Fabric: Device 18h; Function 3 [1022:1443]
+	00:18.4 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Matisse/Vermeer Data Fabric: Device 18h; Function 4 [1022:1444]
+	00:18.5 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Matisse/Vermeer Data Fabric: Device 18h; Function 5 [1022:1445]
+	00:18.6 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Matisse/Vermeer Data Fabric: Device 18h; Function 6 [1022:1446]
+	00:18.7 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Matisse/Vermeer Data Fabric: Device 18h; Function 7 [1022:1447]
+IOMMU Group 11:
+	09:00.0 Non-Essential Instrumentation [1300]: Advanced Micro Devices, Inc. [AMD] Starship/Matisse PCIe Dummy Function [1022:148a]
+IOMMU Group 12:
+	0a:00.0 Non-Essential Instrumentation [1300]: Advanced Micro Devices, Inc. [AMD] Starship/Matisse Reserved SPP [1022:1485]
+IOMMU Group 13:
+	0a:00.1 Encryption controller [1080]: Advanced Micro Devices, Inc. [AMD] Starship/Matisse Cryptographic Coprocessor PSPCPP [1022:1486]
+IOMMU Group 14:
+	0a:00.3 USB controller [0c03]: Advanced Micro Devices, Inc. [AMD] Matisse USB 3.0 Host Controller [1022:149c]
+IOMMU Group 15:
+	0a:00.4 Audio device [0403]: Advanced Micro Devices, Inc. [AMD] Starship/Matisse HD Audio Controller [1022:1487]
+
+=== USB IOMMU GROUPS ===
+Bus 1 --> 0000:02:00.0 (IOMMU group 0)
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 001 Device 002: ID 8087:0029 Intel Corp. AX200 Bluetooth
+Bus 001 Device 003: ID 26ce:01a2 ASRock LED Controller
+
+Bus 2 --> 0000:02:00.0 (IOMMU group 0)
+Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+
+Bus 3 --> 0000:05:00.0 (IOMMU group 0)
+Bus 003 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+
+Bus 4 --> 0000:05:00.0 (IOMMU group 0)
+Bus 004 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+
+Bus 5 --> 0000:0a:00.3 (IOMMU group 14)
+Bus 005 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 005 Device 003: ID 174c:2074 ASMedia Technology Inc. ASM1074 High-Speed hub
+Bus 005 Device 024: ID 3297:4976 ZSA Technology Labs ErgoDox EZ Glow
+
+Bus 6 --> 0000:0a:00.3 (IOMMU group 14)
+Bus 006 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+Bus 006 Device 002: ID 174c:3074 ASMedia Technology Inc. ASM1074 SuperSpeed hub
+
