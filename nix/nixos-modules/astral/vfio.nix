@@ -40,6 +40,10 @@
         "vfio_iommu_type1"
       ];
     };
+
+    environment.systemPackages = [
+      (pkgs.callPackage ./vfio/win10hotplug { })
+    ];
   };
 }
 

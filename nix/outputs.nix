@@ -32,7 +32,7 @@ in {
       #inherit (nixpkgs-lxdvms.legacyPackages.${prev.system}) lxd;
 
       inherit (self.packages.${prev.system})
-        authelia-bin win10hotplug ifd3f-infra-scripts;
+        authelia-bin ifd3f-infra-scripts;
 
       # gmic is currently broken, use an older version of darktable
       # https://github.co.O.pkgs/pull/211600

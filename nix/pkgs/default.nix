@@ -23,8 +23,6 @@ in vendored-images // rec {
     path = vendored-images.vendored-centos-8-cloud;
   }];
 
-  win10hotplug = pkgs.callPackage ./win10hotplug { };
-
   surface-screen-rotate = pkgs.runCommand "surface-screen-rotate" { } ''
     mkdir -p $out/bin
     ln -s ${./surface-screen-rotate.py} $out/bin/surface-screen-rotate

@@ -85,7 +85,7 @@ in with lib; {
 
   # RGB stuff
   hardware.i2c.enable = true;
-  environment.systemPackages = with pkgs; [ openrgb win10hotplug ];
+  environment.systemPackages = with pkgs; [ openrgb ];
 
   hardware.nvidia.open = true;
 
