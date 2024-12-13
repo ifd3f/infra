@@ -1,6 +1,19 @@
 inputs:
 { config, pkgs, lib, ... }:
-with lib; {
+let
+  mkGpu = { video, audio }: {
+    inherit video audio;
+    pciDevs = [ video audio ];
+  };
+  mainGpu = mkGpu {
+    video = "10de:2482";
+    audio = "10de:228b";
+  };
+  backupGpu = mkGpu {
+    video = "10de:1cb6";
+    audio = "10de:0fb9";
+  };
+in with lib; {
   imports = [
     ./hardware-configuration.nix
     "${inputs.nixos-hardware}/common/cpu/amd"
@@ -12,9 +25,9 @@ with lib; {
   astral.tailscale.oneOffKey =
     "tskey-auth-kCDetm2CNTRL-3bYunP5bKyUL7q7gdE9DxUHjinjQuZPZ";
   astral.vfio = {
-    enable = true;
+    enable = false;
     iommu-mode = "amd_iommu";
-    pci-devs = [ ];
+    pci-devs = mainGpu.pciDevs;
   };
 
   # so i can be a *gamer*
@@ -77,5 +90,10 @@ with lib; {
   hardware.nvidia.open = true;
 
   services.xserver.dpi = 224;
+
+  specialisation."VFIO".configuration = {
+    system.nixos.tags = [ "with-vfio" ];
+    astral.vfio.enable = mkForce true;
+  };
 }
 
