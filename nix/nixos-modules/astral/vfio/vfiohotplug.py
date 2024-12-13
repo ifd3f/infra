@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+import re
 import logging
 import os
 import subprocess
@@ -27,6 +27,14 @@ class Config:
     connection: str
     dom: str
     groups: t.Dict[str, t.List[Device]]
+
+
+@dataclass
+class PCIPath:
+    domain: str
+    bus: str
+    slot: str
+    function: str
 
 
 def parser():
@@ -95,11 +103,21 @@ def assoc_group_name(query: str, config: Config) -> str:
 
 def manage_device(action: str, device: Device, config: Config):
     with tempfile.NamedTemporaryFile("w") as f:
-        xml = f"""<hostdev mode="subsystem" type="{device.type}" managed="yes">
+        match device.type:
+            case "usb":
+                xml = f"""<hostdev mode="subsystem" type="{device.type}" managed="yes">
 <source>
-<vendor id="{device.vendor}" />
-<product id="{device.product}" />
+<vendor id="0x{device.vendor}" />
+<product id="0x{device.product}" />
 </source>
+</hostdev>"""
+            case "pci":
+                path = find_pci_path(device.vendor, device.product)
+                xml = f"""
+<hostdev mode="subsystem" type="pci" managed="yes">
+  <source>
+    <address domain="0x{path.domain}" bus="0x{path.bus}" slot="0x{path.slot}" function="0x{path.function}"/>
+  </source>
 </hostdev>"""
         logger.debug("Writing XML file %r: %r", f.name, xml)
 
@@ -155,7 +173,24 @@ def parse_device(d: dict) -> Device:
         vendor, product = d["id"].split(":")
     except ValueError:
         raise ValueError(f"ID not in <vendor>:<product> form: {d['id']}")
-    return Device(dt, "0x" + vendor, "0x" + product)
+    return Device(dt, vendor, product)
+
+
+def find_pci_path(vendor: str, product: str) -> PCIPath:
+    vpid = f"{vendor}:{product}"
+    logger.debug("querying path of device %s", vpid)
+    output = (
+        subprocess.check_output(["lspci", "-d", vpid, "-D"])
+        .decode()
+        .strip()
+        .splitlines()
+    )
+
+    results = [
+        PCIPath(*re.match(r"(\d+):(\d+):(\d+).(\d+).*", l).groups()) for l in output
+    ]
+    logger.info("associated pci:%s to paths: %r", vpid, results)
+    return results[0]
 
 
 if __name__ == "__main__":
