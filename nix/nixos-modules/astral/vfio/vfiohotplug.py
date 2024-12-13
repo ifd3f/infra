@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 
 @dataclass
 class Device:
-    type: t.Literal["usb"] | t.Literal["pcie"]
+    type: t.Literal["usb"] | t.Literal["pci"]
     vendor: str
     product: str
 
@@ -149,7 +149,7 @@ def get_config() -> Config:
 
 def parse_device(d: dict) -> Device:
     dt = d["type"]
-    if dt not in ["usb", "pcie"]:
+    if dt not in ["usb", "pci"]:
         raise ValueError(f"Unexpected device type {dt}")
     try:
         vendor, product = d["id"].split(":")

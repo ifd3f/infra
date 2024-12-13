@@ -34,11 +34,11 @@ in with lib; {
       groups = {
         gpu = [
           {
-            type = "pcie";
+            type = "pci";
             id = mainGpu.audio;
           }
           {
-            type = "pcie";
+            type = "pci";
             id = mainGpu.video;
           }
         ];
@@ -48,10 +48,10 @@ in with lib; {
         }];
         mouse = [{
           type = "usb";
-          id = "12c9:2003";
+          id = "046d:c08a";
         }];
         usbcontroller = [{
-          type = "pcie";
+          type = "pci";
           id = "1022:149c";
         }];
       };
