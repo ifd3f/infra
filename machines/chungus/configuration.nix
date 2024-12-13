@@ -62,6 +62,7 @@ with lib; {
         useOSProber = true;
         extraConfig = ''
           GRUB_TERMINAL=console
+          GRUB_GFXMODE=640x480
         '';
         # TODO pick a grub background
         # splashImage = ./banana-grub-bg-dark.jpg;
