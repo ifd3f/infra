@@ -102,7 +102,7 @@ in with lib; {
         enable = true;
         useOSProber = true;
         extraConfig = ''
-          GRUB_TERMINAL=console
+          GRUB_TERMINAL=gfxterm
           GRUB_GFXMODE=640x480
         '';
         # TODO pick a grub background
@@ -116,7 +116,7 @@ in with lib; {
   environment.systemPackages = with pkgs; [ openrgb ];
 
   hardware.nvidia.open = true;
-
+  services.xserver.videoDrivers = [ "nvidia" ];
   services.xserver.dpi = 224;
 
   specialisation."VFIO".configuration = {
