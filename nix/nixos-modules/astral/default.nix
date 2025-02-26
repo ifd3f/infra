@@ -1,7 +1,7 @@
 inputs: {
   imports = [
     inputs.vault-secrets.nixosModules.vault-secrets
-    inputs.nix-ld.nixosModules.nix-ld
+    # inputs.nix-ld.nixosModules.nix-ld
     inputs.home-manager-stable.nixosModule
 
     ./flake-input.nix
