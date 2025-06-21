@@ -51,5 +51,15 @@ in vendored-images // rec {
   '';
 
   vm-spawn = pkgs.callPackage ./vm-spawn.nix { };
+
+  # Convenience target that builds all of the PC OS configs
+  pc-os-targets = pkgs.symlinkJoin {
+    name = "pc-os-targets";
+    paths = map (c: c.config.system.build.toplevel) [
+      self.nixosConfigurations.chungus
+      self.nixosConfigurations.shai-hulud
+      self.nixosConfigurations.twinkpaw
+    ];
+  };
 }
 
