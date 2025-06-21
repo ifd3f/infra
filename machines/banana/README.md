@@ -1,3 +1,0 @@
-# `banana`
-
-My gaming laptop.

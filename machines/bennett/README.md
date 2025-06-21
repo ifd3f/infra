@@ -1,3 +1,0 @@
-# `bennett`
-
-Contabo VPS.

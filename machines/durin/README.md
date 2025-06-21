@@ -1,3 +1,0 @@
-# `durin`
-
-Contabo VPS.
