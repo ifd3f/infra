@@ -28,15 +28,7 @@
       vscode
       wireshark
 
-      (gnuradio3_8.override {
-        extraPackages = with gnuradio3_8Packages; [
-          rds
-          ais
-          grnet
-          osmosdr
-          limesdr
-        ];
-      })
+      gnuradio
     ];
   };
 }

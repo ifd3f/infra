@@ -6,12 +6,12 @@
       darktable
       gimp
       inkscape
-      kdenlive
+      kdePackages.kdenlive
       krita
       libreoffice-fresh
       lmms
       musescore
-      okular
+      kdePackages.okular
       prismlauncher
       thunderbird
       xournalpp

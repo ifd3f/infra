@@ -10,7 +10,7 @@
 
     # Machines run on nixpkgs-stable because it's less likely to break
     # in annoying ways.
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
 
     # We need PHP 7.4 for piwigo to work correctly.
     # It is removed in 22.11.
@@ -25,7 +25,7 @@
     };
 
     home-manager-stable = {
-      url = "github:nix-community/home-manager/release-24.11";
+      url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 

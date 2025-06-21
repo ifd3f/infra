@@ -46,11 +46,11 @@ in {
 
   environment.systemPackages = with pkgs; [
     android-tools
-    ark
+    kdePackages.ark
     gajim
     home-manager
     nextcloud-client
-    ventoy-bin
+    # ventoy-bin
     wine
     wine64
     winetricks
@@ -65,8 +65,7 @@ in {
     pcsclite
     pcsctools
     yubico-piv-tool
-    yubikey-manager
-    yubikey-manager-qt
+    yubioath-flutter
     yubikey-personalization
     yubikey-personalization-gui
 
@@ -171,18 +170,13 @@ in {
     drivers = with pkgs; [ gutenprint gutenprintBin ];
   };
 
+  services.desktopManager.plasma6.enable = true;
   services.xserver = {
     enable = true;
 
     displayManager = { lightdm.enable = true; };
 
-    desktopManager = {
-      xterm.enable = false;
-      plasma5 = {
-        enable = true;
-        useQtScaling = true;
-      };
-    };
+    desktopManager = { xterm.enable = false; };
   };
 
   hardware.hackrf.enable = true;
