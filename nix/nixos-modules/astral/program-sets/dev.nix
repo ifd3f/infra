@@ -19,7 +19,7 @@
       hping
       imagemagick
       lolcat
-      nixfmt-classic
+      nixfmt-rfc-style
       racket
       refind
       sdrpp
