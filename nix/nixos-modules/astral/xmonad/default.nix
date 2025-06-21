@@ -29,8 +29,6 @@
           enable = true;
           enableContribAndExtras = true;
         };
-
-        xkbOptions = "caps:ctrl_modifier";
       };
     };
 
