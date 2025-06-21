@@ -15,7 +15,7 @@ in {
 
     complete = lib.composeManyExtensions [
       (import "${home-manager}/overlay.nix")
-      nur.overlay
+      nur.overlays.default
       inputs.vault-secrets.overlays.default
       inputs.armqr.overlays.default
       inputs.year-of-bot.overlays.default

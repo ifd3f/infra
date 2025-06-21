@@ -25,7 +25,7 @@
     services.xserver.videoDrivers = [ "nvidia" ];
     virtualisation.spiceUSBRedirection.enable = true;
 
-    hardware.opengl.enable = true;
+    hardware.graphics.enable = true;
 
     boot = {
       kernelParams = [

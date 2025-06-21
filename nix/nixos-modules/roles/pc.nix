@@ -16,7 +16,7 @@ in {
     authorizedKeys = [ inputs.self.lib.sshKeyDatabase.users.astrid ];
   };
 
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
     corefonts
     dejavu_fonts
     dina-font
@@ -55,8 +55,8 @@ in {
     wine64
     winetricks
 
-    transmission
-    transmission-qt
+    transmission_3
+    transmission_3-qt
 
     anki
 
@@ -93,7 +93,7 @@ in {
     tiled
     tpm2-tools
     tpm2-tss
-    transmission
+    transmission_3
     usbtop
     wdisplays
 
@@ -225,7 +225,8 @@ in {
   */
 
   i18n.inputMethod = {
-    enabled = "fcitx5";
+    enable = true;
+    type = "fcitx5";
     fcitx5.addons = with pkgs; [
       fcitx5-chinese-addons
       fcitx5-gtk
@@ -237,7 +238,8 @@ in {
   nixpkgs.config.packageOverrides = pkgs: {
     vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
   };
-  hardware.opengl = {
+
+  hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [
       intel-media-driver # LIBVA_DRIVER_NAME=iHD

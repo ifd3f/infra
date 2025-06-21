@@ -14,16 +14,16 @@
       gnome.gnome-keyring.enable = true;
       upower.enable = true;
 
+      libinput = {
+        enable = true;
+        touchpad.disableWhileTyping = true;
+      };
+
+      displayManager.defaultSession = "none+xmonad";
+
       xserver = {
         enable = true;
-        layout = "us";
-
-        libinput = {
-          enable = true;
-          touchpad.disableWhileTyping = true;
-        };
-
-        displayManager.defaultSession = "none+xmonad";
+        xkb.layout = "us";
 
         windowManager.xmonad = {
           enable = true;
