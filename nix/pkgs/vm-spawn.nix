@@ -8,8 +8,7 @@ vyos-iso ? fetchurl {
   url =
     "https://github.com/siderolabs/talos/releases/download/v1.6.7/metal-amd64.iso";
   hash = "sha256-Dqw05mI9lpIn36jKkFuAmxnom5qIXSjEqQiQ6F7HC34=";
-} }:
-{
+} }: {
   charon = writeShellApplication {
     name = "vm-spawn.charon";
     runtimeInputs = [ virt-manager ];

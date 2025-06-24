@@ -16,9 +16,8 @@ in {
   boot.extraModulePackages = [ ];
 
   # legacy boot moment
-  boot.loader.grub.devices = [
-    "/dev/disk/by-id/usb-Generic_Flash_Disk_5AF232B0-0:0"
-  ];
+  boot.loader.grub.devices =
+    [ "/dev/disk/by-id/usb-Generic_Flash_Disk_5AF232B0-0:0" ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode =
