@@ -98,6 +98,8 @@ in {
 
     bambu-studio
     openscad-unstable
+
+    restic
   ];
 
   users.mutableUsers = true;
