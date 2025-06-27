@@ -5,7 +5,7 @@ with lib; {
     inputs.self.nixosModules.contabo-vps
     inputs.self.nixosModules.server
 
-    inputs.self.nixosModules.armqr
+    # ../../nix/nixos-modules/roles/armqr.nix
     inputs.self.nixosModules.auth-dns
     inputs.self.nixosModules.piwigo
   ];

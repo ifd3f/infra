@@ -5,10 +5,10 @@ let
 in with lib; {
   # vault kv put kv/ddns-key/secrets \
   #   s03=@
-  vault-secrets.secrets."ddns-key" = {
-    user = "named";
-    services = mkForce [ ];
-  };
+  # vault-secrets.secrets."ddns-key" = {
+  #   user = "named";
+  #   services = mkForce [ ];
+  # };
 
   networking.firewall.allowedUDPPorts = [ 53 ];
 
@@ -76,11 +76,11 @@ in with lib; {
         name = "d.astrid.tech";
         master = true;
         file = "d.astrid.tech.zone";
-        extraConfig = ''
-          allow-update { 
-            key s03;
-          };
-        '';
+        # extraConfig = ''
+        #   allow-update { 
+        #     key s03;
+        #   };
+        # '';
       }
       {
         name = "aay.tw";
@@ -129,39 +129,39 @@ in with lib; {
       };
     }) hosts);
 
-  systemd.services.generate-bind-key-includes = {
-    description = "Generate config includes for BIND keys";
+  # systemd.services.generate-bind-key-includes = {
+  #   description = "Generate config includes for BIND keys";
 
-    after = [ "ddns-key-secrets.service" ];
-    requires = [ "ddns-key-secrets.service" ];
+  #   after = [ "ddns-key-secrets.service" ];
+  #   requires = [ "ddns-key-secrets.service" ];
 
-    before = [ "bind.service" ];
-    requiredBy = [ "bind.service" ];
+  #   before = [ "bind.service" ];
+  #   requiredBy = [ "bind.service" ];
 
-    path = with pkgs; [ coreutils ];
-    script = ''
-      set -euxo pipefail
+  #   path = with pkgs; [ coreutils ];
+  #   script = ''
+  #     set -euxo pipefail
 
-      secret="$(cat ${vs}/s03)"
-      mkdir -p ${binddir}
-      touch ${binddir}/s03.include.conf
-      chmod 600 ${binddir}/s03.include.conf
+  #     secret="$(cat ${vs}/s03)"
+  #     mkdir -p ${binddir}
+  #     touch ${binddir}/s03.include.conf
+  #     chmod 600 ${binddir}/s03.include.conf
 
-      set +x # Prevent the secret from being echoed
-      echo "
-        key \"s03\" {
-          algorithm hmac-sha256;
-          secret \"$secret\";
-        };
-      " > ${binddir}/s03.include.conf
-      set -x
+  #     set +x # Prevent the secret from being echoed
+  #     echo "
+  #       key \"s03\" {
+  #         algorithm hmac-sha256;
+  #         secret \"$secret\";
+  #       };
+  #     " > ${binddir}/s03.include.conf
+  #     set -x
 
-      # Copy zone file if not exists
-      cp -n ${./d.astrid.tech.zone} ${binddir}/d.astrid.tech.zone
-    '';
+  #     # Copy zone file if not exists
+  #     cp -n ${./d.astrid.tech.zone} ${binddir}/d.astrid.tech.zone
+  #   '';
 
-    serviceConfig = { User = "named"; };
-  };
+  #   serviceConfig = { User = "named"; };
+  # };
 
   networking.extraHosts = ''
     192.9.153.114 secrets.astrid.tech

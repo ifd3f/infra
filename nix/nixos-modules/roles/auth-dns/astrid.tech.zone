@@ -102,7 +102,3 @@ s03                             IN A           135.180.141.38
 ;;; Identity zone
 ipa0.id                         IN AAAA        2a02:c207:2087:999:1::2
 id                              IN NS          ipa0.id.astrid.tech.
-
-;;; DDNS zone
-d                               IN NS          charlie.astrid.tech.
-d                               IN NS          dennis.astrid.tech.

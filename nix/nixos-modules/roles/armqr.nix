@@ -1,11 +1,12 @@
 { config, pkgs, lib, ... }:
 let inputs = config.astral.inputs;
+port = 63423;
 in {
   imports = [ inputs.armqr.nixosModules.default ];
 
   services.armqr = {
     enable = true;
-    port = 63423;
+    inherit port;
   };
 
   services.nginx = {
@@ -16,7 +17,7 @@ in {
         addSSL = true;
         forceSSL = false;
         locations."/".proxyPass =
-          "http://127.0.0.1:${toString config.services.armqr.port}";
+          "http://127.0.0.1:${toString port}";
       };
     in {
       "qr.arm.astridyu.com" = conf;
