@@ -100,6 +100,14 @@ in {
     openscad-unstable
 
     restic
+
+    # radio shit
+    chirp
+    qdmr
+    dmrconfig
+    wsjtx
+    wsjtz
+    gnuradio
   ];
 
   users.mutableUsers = true;
