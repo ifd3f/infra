@@ -1,0 +1,101 @@
+# Git
+.git
+
+# Direnv
+.direnv
+
+# If there's any folder called .cache it's a cache
+$HOME/**/Cache
+$HOME/**/.cache
+$HOME/**/__pycache__
+
+# zsh crap
+.zcompdump
+.zcompdump-*
+
+# Steam
+$HOME/.steam
+$HOME/.steampath
+$HOME/.steampid
+$HOME/.local/share/Steam/
+
+# Other games
+$HOME/.local/share/Paradox Interactive
+$HOME/.local/share/PrismLauncher
+
+$HOME/.config/Code/CachedExtensionVSIXs
+$HOME/.config/chromium
+$HOME/.local/share/baloo
+$HOME/.local/share/racket
+$HOME/.mozilla/firefox
+$HOME/.stack
+$HOME/.local/share/containers
+$HOME/.local/share/lutris/runners
+
+# cached items annoyingly placed in the home directory
+$HOME/.cabal
+$HOME/.cache
+$HOME/.config/discord
+$HOME/.cargo
+$HOME/.compose-cache
+$HOME/.conda
+$HOME/.dbus
+$HOME/.degit
+$HOME/.docker
+$HOME/.fltk
+$HOME/.ipython
+$HOME/.java
+$HOME/.jupyter
+$HOME/micromamba
+$HOME/.npm
+$HOME/.paradoxlauncher
+$HOME/.terraform.d
+$HOME/.vite-plugin-mkcert
+$HOME/.hex
+$HOME/.var/app/io.gpt4all.gpt4all/data
+$HOME/.var/app/net.mkiol.SpeechNode/cache
+$HOME/.yarn
+$HOME/.zoom
+$HOME/.vscode
+
+# Exclude wine
+$HOME/.wine
+
+# WebDAV mounts
+$HOME/.davfs2/cache
+
+# Trash
+$HOME/.local/share/Trash
+
+# Cache of IMAP messages
+$HOME/.thunderbird/*/ImapMail
+
+# firefox profiles, standard and snap install
+$HOME/.mozilla/firefox/*/storage
+$HOME/.mozilla/firefox/*/minidumps
+$HOME/snap/firefox/common/.mozilla/firefox/*/storage
+$HOME/snap/firefox/common/.mozilla/firefox/*/minidumps
+
+# Chromium
+$HOME/.config/chromium/Default/Local Storage
+$HOME/.config/chromium/Default/Session Storage
+SHOME/.config/chromium/Default/Application Cache
+$HOME/snap/chromium/*/.config/chromium/Default/Local Storage
+$HOME/snap/chromium/*/.config/chromium/Default/Session Storage
+SHOME/snap/chromium/*/.config/chromium/Default/Application Cache
+
+# Electron apps seem to do this
+$HOME/.config/*/Cache
+$HOME/.config/*/GPUCache
+$HOME/.config/*/ShaderCache
+$HOME/snap/*/*/.config/*/Cache
+$HOME/snap/*/*/.config/*/GPUCache
+$HOME/snap/*/*/.config/*/ShaderCache
+
+# Microsoft VS Code follows different standards
+$HOME/.config/Code/CachedData
+$HOME/.config/Code/CachedExtensions
+$HOME/.config/Code/logs
+
+$HOME/.var/app/com.jeffser.Alpaca/data
+$HOME/.var/app/com.jeffser.Alpaca/cache
