@@ -10,10 +10,5 @@
 restic backup \
   --exclude-caches \
   --exclude-file backup-excludes.txt \
-  ~
+  "$@"
 
-restic forget \
-  --keep-within-daily 7d \
-  --keep-within-weekly 1m \
-  --keep-within-monthly 1y \
-  --keep-within-yearly 75y
