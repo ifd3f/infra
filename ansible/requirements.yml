@@ -1,6 +1,0 @@
-collections:
-  - ansible.posix
-  - freeipa.ansible_freeipa
-  - community.docker
-  - community.general
-  - containers.podman

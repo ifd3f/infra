@@ -1,5 +1,0 @@
-- name: Prevent lid close on laptops
-  hosts: laptop
-  become: true
-  roles:
-    - no_suspend_lid_close

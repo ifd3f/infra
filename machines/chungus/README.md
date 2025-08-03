@@ -1,3 +1,0 @@
-# `chungus`
-
-My gaming desktop.
