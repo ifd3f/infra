@@ -1,10 +1,7 @@
 { self, pkgs }:
 let
   packages = with pkgs;
-    with self.packages.${system};
     [
-      ifd3f-infra-scripts
-
       ansible
       backblaze-b2
       curl
