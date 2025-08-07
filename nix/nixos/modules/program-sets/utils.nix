@@ -7,6 +7,7 @@
     caligula
     dasel
     ffmpeg
+    fzf
     iftop
     iotop
     lftp

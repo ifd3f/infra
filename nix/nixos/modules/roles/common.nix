@@ -10,10 +10,15 @@
     "${inputs.self}/nix/nixos/modules/program-sets/utils.nix"
 
     "${inputs.self}/nix/nixos/modules/mount-root-to-home.nix"
+    "${inputs.self}/nix/nixos/modules/nix-utils.nix"
     "${inputs.self}/nix/nixos/modules/sshd.nix"
     "${inputs.self}/nix/nixos/modules/users.nix"
   ];
 
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
+
+  environment.systemPackages = with pkgs; [
+    home-manager
+  ];
 }

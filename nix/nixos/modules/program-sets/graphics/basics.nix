@@ -7,6 +7,7 @@
 
     xorg.xev
 
+    alacritty
     brightnessctl
     flameshot
     nomacs
