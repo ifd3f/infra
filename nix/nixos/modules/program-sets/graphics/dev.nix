@@ -4,6 +4,7 @@
 
   environment.systemPackages = with pkgs; [
     android-tools
+    cabal-install
     cachix
     cargo
     ckan
@@ -11,14 +12,15 @@
     efibootmgr
     gh
     ghidra
-    cabal-install
     hping
     imagemagick
     lolcat
+    netcat
     nixfmt-rfc-style
     racket
     refind
     testdisk
+    virt-manager
     vscode
     wireshark
   ];

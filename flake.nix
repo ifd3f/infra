@@ -31,14 +31,19 @@
       nur,
       ...
     }@inputs:
-    flake-utils.lib.eachSystem
-      [
+    let
+      supportedSystems = [
         "x86_64-linux"
         "aarch64-linux"
         "x86_64-darwin"
         "aarch64-darwin"
-      ]
-      (
+      ];
+
+      systemAgnostic = {
+        nixosConfigurations = (import ./nix/nixos/machines inputs).nixosConfigurations;
+      };
+
+      perSystem =
         system:
         let
           pkgs = import nixpkgs-stable {
@@ -54,6 +59,7 @@
               config.allowUnfree = true;
             };
           };
-        }
-      );
+        };
+    in
+    systemAgnostic // flake-utils.lib.eachSystem supportedSystems perSystem;
 }
