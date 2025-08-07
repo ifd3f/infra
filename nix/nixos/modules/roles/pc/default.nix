@@ -36,6 +36,7 @@ in
   ];
 
   services.tailscale.enable = true;
+  services.resolved.enable = true;
 
   # Enable SSH in initrd for debugging or disk key entry
   boot.initrd.network.ssh = {
