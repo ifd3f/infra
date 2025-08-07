@@ -13,4 +13,7 @@
     "${inputs.self}/nix/nixos/modules/sshd.nix"
     "${inputs.self}/nix/nixos/modules/users.nix"
   ];
+
+  programs.zsh.enable = true;
+  users.defaultUserShell = pkgs.zsh;
 }
