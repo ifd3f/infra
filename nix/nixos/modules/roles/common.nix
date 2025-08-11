@@ -11,6 +11,7 @@
     "${inputs.self}/nix/nixos/modules/program-sets/basics.nix"
     "${inputs.self}/nix/nixos/modules/program-sets/utils.nix"
 
+    "${inputs.self}/nix/nixos/modules/custom-tty.nix"
     "${inputs.self}/nix/nixos/modules/mount-root-to-home.nix"
     "${inputs.self}/nix/nixos/modules/nix-utils.nix"
     "${inputs.self}/nix/nixos/modules/sshd.nix"
