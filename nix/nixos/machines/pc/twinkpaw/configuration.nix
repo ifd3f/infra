@@ -1,0 +1,72 @@
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
+with lib;
+{
+  imports = [
+    ./hardware-configuration.nix
+    "${inputs.nixos-hardware}/common/cpu/amd"
+    "${inputs.self}/nix/nixos/modules/roles/pc"
+  ];
+
+  time.timeZone = "US/Pacific";
+
+  programs.steam.enable = true;
+
+  services = {
+    blueman.enable = true;
+  };
+
+  virtualisation.lxd.enable = true;
+
+  hardware = {
+    graphics.enable = true;
+    bluetooth.enable = true;
+  };
+
+  services.xserver.dpi = 209;
+
+  networking = {
+    hostName = "twinkpaw";
+
+    hostId = "76d4a2bc";
+    networkmanager.enable = true;
+    useDHCP = false;
+  };
+
+  boot = {
+    kernelPackages = pkgs.linuxPackages;
+
+    loader = {
+      efi.canTouchEfiVariables = true;
+
+      grub = {
+        devices = [ "nodev" ];
+        efiSupport = true;
+        enable = true;
+        useOSProber = false;
+        splashImage =
+          let
+            image =
+              with pkgs;
+              runCommand "twinkpaw-bg.jpg" { } ''
+                ${imagemagick}/bin/convert -brightness-contrast -10 ${./bg.jpg} $out
+              '';
+          in
+          "${image}";
+      };
+    };
+  };
+
+  environment.systemPackages = with pkgs; [
+    # Screen has a problem of blanking randomly. I don't know why it does this,
+    # but either way, this is a script that does the necessary unfucking procedure.
+    (writeShellScriptBin "unfuck-screen" ''
+      xrandr --output eDP-1 --off && xrandr --output eDP-1 --auto
+    '')
+  ];
+}
