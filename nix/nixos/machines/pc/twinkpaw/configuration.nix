@@ -69,4 +69,6 @@ with lib;
       xrandr --output eDP-1 --off && xrandr --output eDP-1 --auto
     '')
   ];
+
+  system.stateVersion = "25.05";
 }

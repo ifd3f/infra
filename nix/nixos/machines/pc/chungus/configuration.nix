@@ -68,4 +68,6 @@ with lib;
   #   system.nixos.tags = [ "with-vfio" ];
   #   astral.vfio.enable = mkForce true;
   # };
+
+  system.stateVersion = "25.05";
 }
