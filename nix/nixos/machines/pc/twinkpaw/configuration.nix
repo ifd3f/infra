@@ -30,15 +30,7 @@ with lib;
       efiSupport = true;
       enable = true;
       useOSProber = false;
-      splashImage =
-        let
-          image =
-            with pkgs;
-            runCommand "twinkpaw-bg.jpg" { } ''
-              ${imagemagick}/bin/convert -brightness-contrast -10 ${./bg.jpg} $out
-            '';
-        in
-        "${image}";
+      splashImage = inputs.self.helpers.${pkgs.system}.adjustImageBrightness "twinkpaw-bg" (-10) ./bg.jpg;
     };
   };
 

@@ -51,10 +51,7 @@
       perSystem =
         system:
         let
-          pkgs = import nixpkgs-stable {
-            inherit system;
-            overlays = [ self.overlays.default ];
-          };
+          pkgs = import nixpkgs-stable { inherit system; };
         in
         rec {
           devShells = import ./nix/shells.nix {
@@ -64,6 +61,8 @@
               config.allowUnfree = true;
             };
           };
+
+          helpers = pkgs.callPackage ./nix/helpers.nix { };
         };
     in
     systemAgnostic // flake-utils.lib.eachSystem supportedSystems perSystem;
