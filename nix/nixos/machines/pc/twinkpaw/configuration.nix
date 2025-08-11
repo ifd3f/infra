@@ -15,50 +15,30 @@ with lib;
 
   time.timeZone = "US/Pacific";
 
-  programs.steam.enable = true;
-
-  services = {
-    blueman.enable = true;
-  };
-
-  virtualisation.lxd.enable = true;
-
-  hardware = {
-    graphics.enable = true;
-    bluetooth.enable = true;
-  };
-
   services.xserver.dpi = 209;
 
   networking = {
     hostName = "twinkpaw";
-
     hostId = "76d4a2bc";
-    networkmanager.enable = true;
-    useDHCP = false;
   };
 
-  boot = {
-    kernelPackages = pkgs.linuxPackages;
+  boot.loader = {
+    efi.canTouchEfiVariables = true;
 
-    loader = {
-      efi.canTouchEfiVariables = true;
-
-      grub = {
-        devices = [ "nodev" ];
-        efiSupport = true;
-        enable = true;
-        useOSProber = false;
-        splashImage =
-          let
-            image =
-              with pkgs;
-              runCommand "twinkpaw-bg.jpg" { } ''
-                ${imagemagick}/bin/convert -brightness-contrast -10 ${./bg.jpg} $out
-              '';
-          in
-          "${image}";
-      };
+    grub = {
+      devices = [ "nodev" ];
+      efiSupport = true;
+      enable = true;
+      useOSProber = false;
+      splashImage =
+        let
+          image =
+            with pkgs;
+            runCommand "twinkpaw-bg.jpg" { } ''
+              ${imagemagick}/bin/convert -brightness-contrast -10 ${./bg.jpg} $out
+            '';
+        in
+        "${image}";
     };
   };
 
