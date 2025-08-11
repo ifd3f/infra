@@ -20,6 +20,11 @@
     # Specialized hardware configurations for specialized hardware.
     # Currently used on the Surface Pro.
     nixos-hardware.url = "github:NixOS/nixos-hardware";
+
+    lix-module = {
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.93.3-1.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
   };
 
   outputs =

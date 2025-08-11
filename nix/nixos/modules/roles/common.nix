@@ -6,6 +6,8 @@
 }:
 {
   imports = [
+    inputs.lix-module.nixosModules.default
+
     "${inputs.self}/nix/nixos/modules/program-sets/basics.nix"
     "${inputs.self}/nix/nixos/modules/program-sets/utils.nix"
 
