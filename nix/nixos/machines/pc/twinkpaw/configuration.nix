@@ -65,7 +65,7 @@ with lib;
   environment.systemPackages = with pkgs; [
     # Screen has a problem of blanking randomly. I don't know why it does this,
     # but either way, this is a script that does the necessary unfucking procedure.
-    (writeShellScriptBin "unfuck-screen" ''
+    (writeShellScriptBin "ufsc" ''
       xrandr --output eDP-1 --off && xrandr --output eDP-1 --auto
     '')
   ];
