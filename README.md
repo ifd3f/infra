@@ -4,27 +4,12 @@
 
 (Note that this README is likely to become out of date very quickly.)
 
-This repo holds everything needed to set up my all my infrastructure, including personal computers and homelab servers. This includes things like:
+What version are we on now? v7? I don't even know anymore. I give up.
 
-- Nix configs
-- Scripts
-- Terraform modules
-- Ansible playbooks
-- Dotfiles
+If you paste the link to this repo in a social media site or a chat app, you will most likely see this image:
 
-And so much more!
+![A dumpster fire](./dumpsterfire.jpg)
 
-## Current things I run
+This is an image of a dumpster fire. This is because this repo is a dumpster fire.
 
-This list is not comprehensive and it is likely to expand.
-
-- Multi-cloud system with VPSes in Oracle, Contabo, and SSDNodes
-- PC fleet powered by modular NixOS configs
-- Self-hosted authoritative DNS using BIND
-- An Akkoma server at [fedi.astrid.tech](https://fedi.astrid.tech) (temporarily out of service)
-- Centralized monitoring using Grafana and Prometheus
-- Automated build and deployment system using a custom Github Actions workflow that is automatically generated
-
-## Useful Links
-
-- [An article on my website](https://astrid.tech/projects/infra/) about this project, including some of its history
+In any case, this does configure a bunch of things under my possession. As of 2025-08-11, I am in the middle of a rewrite of this repo.
