@@ -1,3 +1,4 @@
+# Situational shell utilities.
 { pkgs, config, ... }:
 {
   environment.systemPackages = with pkgs; [
@@ -12,11 +13,14 @@
     iotop
     lftp
     minicom
+    mosh
     nfs-utils
     powertop
     restic
     scc
+    screen
     sshpass
+    strace-analyzer
     usbtop
     wireguard-tools
   ];

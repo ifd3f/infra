@@ -24,6 +24,7 @@
     git
     git-lfs
     gnumake
+    hdparm
     iftop
     inetutils
     iotop
@@ -35,6 +36,7 @@
     neofetch
     netcat
     nmap
+    ntfs3g
     p7zip
     pciutils
     psmisc
