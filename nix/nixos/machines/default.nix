@@ -20,7 +20,7 @@ let
     mapAttrs (hostname: _: mkMachine hostname ("${dir}/${hostname}")) subdirs;
 in
 rec {
-  machines = collectMachines ./pc;
+  machines = collectMachines ./pc // collectMachines ./server;
 
   nixosConfigurations =
     let

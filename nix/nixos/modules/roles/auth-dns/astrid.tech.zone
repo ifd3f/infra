@@ -1,0 +1,104 @@
+; Registrar: https://namecheap.com
+
+$ORIGIN astrid.tech.
+$TTL 1h
+
+@                               IN SOA         dennis.astrid.tech. admin.astrid.tech. (
+        ; SOA value reccommendations
+        ; https://www.ripe.net/publications/docs/ripe-203
+        2023020400 ; serial YYMMDDnn
+        3h         ; refresh (3h to allow faster refresh)
+        1h         ; retry
+        1d         ; expire
+        1h         ; minimum days
+)
+
+;;; Main DNS servers!
+@                               IN NS          charlie.astrid.tech.
+@                               IN NS          dee.astrid.tech.
+@                               IN NS          dennis.astrid.tech.
+@                               IN NS          frank.astrid.tech.
+@                               IN NS          mac.astrid.tech.
+
+charlie                         IN A           173.212.242.107
+dee                             IN A           173.212.242.107
+dennis                          IN A           173.212.242.107
+frank                           IN A           173.212.242.107
+mac                             IN A           173.212.242.107
+
+; Additional names reserved for DNS
+ns1                             IN A           173.212.242.107
+ns2                             IN A           173.212.242.107
+
+;;; SERVICES
+
+;; astrid.tech is hosted on github pages
+;; more info: https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site
+@                               IN A           185.199.108.153
+@                               IN A           185.199.109.153
+@                               IN A           185.199.110.153
+@                               IN A           185.199.111.153
+@                               IN AAAA        2606:50c0:8000::153
+@                               IN AAAA        2606:50c0:8001::153
+@                               IN AAAA        2606:50c0:8002::153
+@                               IN AAAA        2606:50c0:8003::153
+www                             IN CNAME       astrid.tech.
+photos                          IN CNAME       diluc.h.astrid.tech.
+api                             IN CNAME       oci.h.astrid.tech.
+
+;; Mail
+@                               IN MX          20 mx2.privateemail.com.
+@                               IN MX          10 mx1.privateemail.com.
+autoconfig                      IN CNAME       privateemail.com.
+autodiscover                    IN CNAME       privateemail.com.
+mail                            IN CNAME       privateemail.com.
+_autodiscover._tcp              IN SRV         0 0 443 privateemail.com.
+
+; Mail security
+@                               IN TXT         "v=spf1 include:spf.privateemail.com ~all"
+_dmarc                          IN TXT         "v=DMARC1; p=none; rua=mailto:astrid@astrid.tech; ruf=mailto:astrid@astrid.tech; sp=reject; ri=86400"
+
+;; Misc. other services
+sso                             IN CNAME       amiya.h.astrid.tech.
+fedi                            IN CNAME       s03.astrid.tech.
+grafana                         IN CNAME       durin.h.astrid.tech.
+loki                            IN CNAME       amiya.h.astrid.tech.
+nextcloud                       IN CNAME       amiya.h.astrid.tech.
+secrets                         IN CNAME       yato.h.astrid.tech.
+mqtt                            IN CNAME       amiya.h.astrid.tech.
+influxdb                        IN CNAME       amiya.h.astrid.tech.
+
+;; Site 02 services
+ha.s02                          IN CNAME       ghoti.h.astrid.tech.
+zigbee2mqtt.s02                 IN CNAME       ghoti.h.astrid.tech.
+deluge.s02                      IN CNAME       bonney.h.astrid.tech.
+jellyfin.s02                    IN CNAME       bonney.h.astrid.tech.
+
+
+;;; Hosts
+
+; Oracle Cloud https://cloud.oracle.com/?tenant=astrid
+durin.h                         IN A           192.9.241.223
+yato.h                          IN A           192.9.153.114
+
+; Contabo https://my.contabo.com/account/login
+diluc.h                         IN A           173.212.242.107
+                                IN AAAA        2a02:c207:2087:999::1
+bennett.h                       IN A           154.53.59.80
+                                IN AAAA        2605:a141:2108:6306::1
+
+; SSDNodes https://www.ssdnodes.com/manage/clientarea.php
+amiya.h                         IN A           208.87.130.175
+                                IN AAAA        2602:ff16:4:0:1:214:0:1
+
+;;; Sites
+s00                             IN A           24.23.210.97
+s02                             IN A           71.93.45.217
+s03                             IN A           135.180.141.38
+
+;;; Google analytics
+@                               IN TXT         "google-site-verification=eeNf9_2KGQ2L9H5zImRlebdGTnR-_t0qBNlnZrHk53Q"
+
+;;; Identity zone
+ipa0.id                         IN AAAA        2a02:c207:2087:999:1::2
+id                              IN NS          ipa0.id.astrid.tech.

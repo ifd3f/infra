@@ -1,0 +1,20 @@
+; Dynamic DNS zone
+$ORIGIN d.astrid.tech.
+$TTL 5m
+
+@                               IN SOA         dennis.astrid.tech. admin.astrid.tech. (
+        ; SOA value reccommendations
+        ; https://www.ripe.net/publications/docs/ripe-203
+        2023071000 ; serial YYMMDDnn
+        3h         ; refresh (3h to allow faster refresh)
+        1h         ; retry
+        1d         ; expire
+        1h         ; minimum days
+)
+
+;;; Main DNS servers!
+@                               IN NS          charlie.astrid.tech.
+@                               IN NS          dee.astrid.tech.
+@                               IN NS          dennis.astrid.tech.
+@                               IN NS          frank.astrid.tech.
+@                               IN NS          mac.astrid.tech.
