@@ -11,7 +11,7 @@ with lib;
     "${inputs.self}/nix/nixos/modules/roles/server"
     "${inputs.self}/nix/nixos/modules/roles/contabo-vps.nix"
 
-    # "${inputs.self}/nix/nixos/modules/roles/auth-dns"
+    "${inputs.self}/nix/nixos/modules/roles/auth-dns"
   ];
 
   # Logrotate config build fail workaround
