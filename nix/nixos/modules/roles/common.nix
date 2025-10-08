@@ -2,6 +2,7 @@
 {
   pkgs,
   inputs,
+  lib,
   ...
 }:
 {
@@ -23,5 +24,11 @@
 
   environment.systemPackages = with pkgs; [
     home-manager
+  ];
+
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+    "corefonts"
+    "helvetica-neue-lt-std"
+    "vista-fonts"
   ];
 }
