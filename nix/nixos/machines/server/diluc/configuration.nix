@@ -12,6 +12,7 @@ with lib;
     "${inputs.self}/nix/nixos/modules/roles/contabo-vps.nix"
 
     "${inputs.self}/nix/nixos/modules/roles/auth-dns"
+    "${inputs.self}/nix/nixos/modules/apps/armqr.nix"
   ];
 
   # Logrotate config build fail workaround
@@ -137,5 +138,12 @@ with lib;
         allow all;
       '';
     };
+  };
+
+  services.armqr = {
+    enable = true;
+    port = 64723;
+    nginx.enable = true;
+    nginx.fqdn = "qr.arm.astridyu.com";
   };
 }
