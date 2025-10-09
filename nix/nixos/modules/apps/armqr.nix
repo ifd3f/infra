@@ -26,7 +26,7 @@ with lib;
     address = mkOption {
       type = types.str;
       description = "Address to listen on";
-      default = "::";
+      default = "0.0.0.0";
     };
     port = mkOption {
       type = types.port;
@@ -85,7 +85,7 @@ with lib;
       description = "ArmQR";
       wantedBy = [ "network-online.target" ];
       wants = [ "armqr-config.service" ];
-      path = with pkgs; [ armqr ];
+      path = with pkgs; [ inputs.armqr.packages.${pkgs.system}.default ];
       script = ''
         armqr --address ${cfg.address} --port ${toString cfg.port} --dynamic-settings-path "${cfg.stateDir}/settings.toml"
       '';

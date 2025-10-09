@@ -8,7 +8,8 @@
 
     # Machines run on nixpkgs-stable because it's less likely to break
     # in annoying ways.
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
+    # nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/59e69648d345d6e8fef86158c555730fa12af9de";
 
     nur.url = "github:nix-community/NUR";
 
@@ -26,7 +27,10 @@
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
-    armqr.url = "github:ifd3f/armqr";
+    armqr = {
+      url = "github:ifd3f/armqr";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
   };
 
   outputs =
