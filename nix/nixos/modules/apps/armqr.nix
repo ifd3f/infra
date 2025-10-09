@@ -51,10 +51,10 @@ with lib;
           Whether to configure nginx for armqr
         '';
       };
-      fqdn = mkOption {
-        type = types.str;
-        example = "armqr.example.com";
-        description = "Public domain of the API address of the reverse proxy/tls terminator.";
+      fqdns = mkOption {
+        type = with types; listOf str;
+        example = "[ \"armqr.example.com\" ]";
+        description = "Public domains to listen on.";
       };
       config = mkOption {
         type = types.submodule (
@@ -125,8 +125,9 @@ with lib;
       };
     };
 
-    services.nginx.virtualHosts = mkIf cfg.nginx.enable {
-      "${cfg.nginx.fqdn}" = lib.mkMerge [
+    services.nginx.virtualHosts = mkIf cfg.nginx.enable (listToAttrs (map (fqdn: {
+      name = fqdn;
+      value = lib.mkMerge [
         cfg.nginx.config
 
         {
@@ -140,7 +141,7 @@ with lib;
           };
         }
       ];
-    };
+    }) cfg.nginx.fqdns));
 
     users.users = {
       "${cfg.user}" = {

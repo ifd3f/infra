@@ -144,6 +144,6 @@ with lib;
     enable = true;
     port = 64723;
     nginx.enable = true;
-    nginx.fqdn = "qr.arm.astridyu.com";
+    nginx.fqdns = [ "0q4.org" "qr.arm.astridyu.com" ];
   };
 }
