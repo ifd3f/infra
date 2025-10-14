@@ -15,6 +15,7 @@
     minicom
     mosh
     nfs-utils
+    pinyin-tool
     powertop
     restic
     scc

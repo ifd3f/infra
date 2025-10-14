@@ -17,4 +17,45 @@
     dev.enable = true;
     nixos.enable = true;
   };
+
+  virtualisation.podman = {
+    enable = true;
+    dockerSocket.enable = true;
+    autoPrune.enable = true;
+  };
+
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; steam-run.fhsenv.args.multiPkgs;
+
+  environment.systemPackages =
+    with pkgs;
+    [
+      (python3.withPackages (
+        ps: with ps; [
+          aiohttp
+          click
+          jupyter
+          matplotlib
+          pandas
+          requests
+          scipy
+        ]
+      ))
+    ]
+    ++ [
+      stdenv.cc
+    ]
+    ++ [
+      cargo
+      rustc
+      rustfmt
+      pre-commit
+      rustPackages.clippy
+    ]
+    ++ [
+      texliveBasic
+    ];
+  environment.variables = with pkgs; {
+    RUST_SRC_PATH = rustPlatform.rustLibSrc;
+  };
 }

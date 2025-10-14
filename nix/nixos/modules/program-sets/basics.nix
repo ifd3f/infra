@@ -1,4 +1,17 @@
 { pkgs, ... }:
+let
+  python3-custom = (
+    pkgs.python3.withPackages (
+      ps: with ps; [
+        aiohttp
+        click
+        pandas
+        pytest
+        requests
+      ]
+    )
+  );
+in
 {
   programs = {
     neovim = {
@@ -40,7 +53,7 @@
     p7zip
     pciutils
     psmisc
-    python3
+    python3-custom
     ripgrep
     rsync
     speedtest-rs

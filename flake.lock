@@ -9,11 +9,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1759986031,
-        "narHash": "sha256-l+2iPxjFwMgP/dx+jNJIX1EiHw+hyf+kCCmPVacOoWo=",
+        "lastModified": 1759989469,
+        "narHash": "sha256-rXw2Is/kl8Ejic0M8LJwm6ZLRWoOIIZjqPbGJNwLReU=",
         "owner": "ifd3f",
         "repo": "armqr",
-        "rev": "44f6597648ab9d64fd68397b17856f76944c9b13",
+        "rev": "6a64c295bcaa9193723b43a8b8dad6a607256d87",
         "type": "github"
       },
       "original": {
