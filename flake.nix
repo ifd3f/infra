@@ -30,6 +30,11 @@
       url = "github:ifd3f/armqr";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
+
+    nixos-apple-silicon = {
+      url = "github:nix-community/nixos-apple-silicon";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
   };
 
   outputs =
@@ -68,6 +73,10 @@
           };
 
           helpers = pkgs.callPackage ./nix/helpers.nix { };
+
+          packages = {
+            installers = import ./nix/nixos/installers { inherit inputs system; };
+          };
         };
     in
     systemAgnostic // flake-utils.lib.eachSystem supportedSystems perSystem;
