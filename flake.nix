@@ -8,8 +8,7 @@
 
     # Machines run on nixpkgs-stable because it's less likely to break
     # in annoying ways.
-    # nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/59e69648d345d6e8fef86158c555730fa12af9de";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
 
     nur.url = "github:nix-community/NUR";
 
