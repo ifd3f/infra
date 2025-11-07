@@ -1,12 +1,14 @@
 { inputs, system }:
 let
+  nixpkgs = inputs.nixpkgs-stable;
+
   # yoinkage from https://github.com/nix-community/nixos-apple-silicon/blob/e01011ebc0aa7a0ae6444a8429e91196addd45f4/flake.nix#L61
-  apple-aarch64 = inputs.nixpkgs-stable.lib.nixosSystem {
+  apple-aarch64 = nixpkgs.lib.nixosSystem {
     inherit system;
 
     specialArgs = {
       inherit inputs;
-      modulesPath = inputs.nixpkgs-stable + "/nixos/modules";
+      modulesPath = nixpkgs + "/nixos/modules";
     };
 
     modules = [
