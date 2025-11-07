@@ -33,6 +33,7 @@ in
     ./peripherals.nix
     ./input.nix
     ./audio.nix
+    ./dev.nix
   ];
 
   services.tailscale.enable = true;

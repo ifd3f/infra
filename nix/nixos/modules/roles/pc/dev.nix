@@ -18,14 +18,8 @@
     nixos.enable = true;
   };
 
-  virtualisation.podman = {
-    enable = true;
-    dockerSocket.enable = true;
-    autoPrune.enable = true;
-  };
-
   programs.nix-ld.enable = true;
-  programs.nix-ld.libraries = with pkgs; steam-run.fhsenv.args.multiPkgs;
+  programs.nix-ld.libraries = with pkgs; [ steam-run.fhsenv ];
 
   environment.systemPackages =
     with pkgs;
@@ -41,9 +35,6 @@
           scipy
         ]
       ))
-    ]
-    ++ [
-      stdenv.cc
     ]
     ++ [
       cargo

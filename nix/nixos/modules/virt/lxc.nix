@@ -4,7 +4,6 @@
     lxc.enable = true;
     lxd = {
       enable = true;
-      package = pkgs.lxd.override { useQemu = true; };
       recommendedSysctlSettings = true;
     };
   };
