@@ -16,6 +16,7 @@
     "${inputs.self}/nix/nixos/modules/users.nix"
   ];
 
+  boot.zfs.package =pkgs.zfs_unstable;
 /*
   # TMP(2025-11-06): zfs isn't stable on 6.17 yet
   boot.zfs.package =
