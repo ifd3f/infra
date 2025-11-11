@@ -31,9 +31,9 @@
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
+    # TMP(2025-11-06): zfs isn't stable on 6.17 yet so use the version before they updated
     nixos-apple-silicon = {
-      url = "github:nix-community/nixos-apple-silicon";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
+      url = "github:nix-community/nixos-apple-silicon/7aad69158fc1b5bbbddac19040b6aae14daaa35c";
     };
   };
 
