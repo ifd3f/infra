@@ -22,7 +22,4 @@
   # bluetooth
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
-
-  # android stuff
-  services.udev.packages = [ pkgs.android-udev-rules ];
 }

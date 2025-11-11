@@ -2,7 +2,7 @@
 { pkgs, config, ... }:
 {
   environment.systemPackages = with pkgs; [
-    config.boot.kernelPackages.perf
+    perf
 
     binwalk
     caligula

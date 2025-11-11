@@ -2,10 +2,7 @@
 {
   virtualisation = {
     lxc.enable = true;
-    lxd = {
-      enable = true;
-      recommendedSysctlSettings = true;
-    };
+    incus.enable = true;
   };
   boot.kernelModules = [ "vhost_vsock" ];
 }

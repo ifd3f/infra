@@ -52,6 +52,8 @@ in
     enableWifi = true;
   };
 
+  networking.nftables.enable = true;
+
   # Things from the old system not yet ported over.
   #
   # astral = {

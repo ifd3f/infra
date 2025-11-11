@@ -15,8 +15,7 @@
     mplus-outline-fonts.githubRelease
     noto-fonts
     noto-fonts-cjk-sans
-    noto-fonts-emoji
-    noto-fonts-extra
+    noto-fonts-color-emoji
     open-fonts
     oxygenfonts
     powerline-fonts
@@ -24,7 +23,7 @@
     redhat-official-fonts
     roboto
     stix-two
-    ubuntu_font_family
-    vistafonts
+    ubuntu-classic
+    vista-fonts
   ];
 }

@@ -8,7 +8,8 @@
 
     # Machines run on nixpkgs-stable because it's less likely to break
     # in annoying ways.
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
+    # TMP(2025-11-10): put this on unstable in anticipation of 25.11
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     nur.url = "github:nix-community/NUR";
 
