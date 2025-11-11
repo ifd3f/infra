@@ -13,10 +13,10 @@
   # printing
   services.printing = {
     enable = true;
-    drivers = with pkgs; [
-      gutenprint
-      gutenprintBin
-    ];
+    #drivers = with pkgs; [
+    #  gutenprint
+    #  gutenprintBin
+    #];
   };
 
   # bluetooth
@@ -24,5 +24,5 @@
   services.blueman.enable = true;
 
   # android stuff
-  services.udev.packages = [ pkgs.android-udev-rules ];
+  #services.udev.packages = [ pkgs.android-udev-rules ];
 }

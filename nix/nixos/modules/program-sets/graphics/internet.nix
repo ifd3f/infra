@@ -6,13 +6,13 @@
 
   environment.systemPackages = with pkgs; [
     firefox
-    discord
-    discord-canary
+    #discord
+    #discord-canary
     element-desktop
     gajim
     signal-desktop
-    slack
-    slack-term
-    zoom-us
+    #slack
+    #slack-term
+    #zoom-us
   ];
 }

@@ -1,5 +1,5 @@
-{ nixpkgs-stable, ... }@inputs:
-with nixpkgs-stable.lib;
+{ nixpkgs-stable, nixpkgs-unstable, ... }@inputs:
+with nixpkgs-unstable.lib;
 let
   mkMachine = hostname: path: {
     inherit hostname path;
@@ -27,7 +27,7 @@ rec {
       enabledMachines = filterAttrs (_: m: m.machine-info.enable or true) machines;
       mkConfiguration =
         _: m:
-        nixpkgs-stable.lib.nixosSystem {
+        nixpkgs-unstable.lib.nixosSystem {
           specialArgs = { inherit inputs; };
           system = m.machine-info.arch;
           modules = [ m.configuration ];

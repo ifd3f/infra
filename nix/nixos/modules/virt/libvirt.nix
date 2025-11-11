@@ -1,8 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   boot = {
-    kernelModules = [ "kvm-intel" ];
-    binfmt.emulatedSystems = [ "aarch64-linux" ];
+    #kernelModules = lib.optional (pkgs.system == "x86_64-linux") [ "kvm-intel" ];
+    binfmt.emulatedSystems = lib.optional (pkgs.system == "x86_64-linux") "aarch64-linux";
   };
 
   virtualisation.libvirtd = {

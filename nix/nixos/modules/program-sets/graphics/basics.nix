@@ -14,8 +14,6 @@
     pavucontrol
     remmina
     tenacity
-    transmission_3
-    transmission_3-qt
     vlc
     wdisplays
     webcamoid

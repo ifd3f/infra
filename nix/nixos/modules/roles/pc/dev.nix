@@ -3,7 +3,6 @@
 {
   imports = [
     "${inputs.self}/nix/nixos/modules/virt/docker.nix"
-    "${inputs.self}/nix/nixos/modules/virt/lxc.nix"
     "${inputs.self}/nix/nixos/modules/virt/libvirt.nix"
   ];
 
@@ -19,7 +18,7 @@
   };
 
   programs.nix-ld.enable = true;
-  programs.nix-ld.libraries = with pkgs; [ steam-run.fhsenv ];
+  #programs.nix-ld.libraries = with pkgs; [ steam-run.fhsenv ];
 
   environment.systemPackages =
     with pkgs;

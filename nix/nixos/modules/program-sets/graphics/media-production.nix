@@ -7,7 +7,7 @@
     gimp
     inkscape
     krita
-    lmms
+    #lmms
     musescore
     obs-studio
     openutau

@@ -12,10 +12,9 @@
   environment.systemPackages = with pkgs; [
     opensc
     pcsclite
-    pcsctools
+    pcsc-tools
     yubico-piv-tool
     yubikey-personalization
-    yubikey-personalization-gui
     yubioath-flutter
   ];
 }

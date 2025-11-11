@@ -84,7 +84,6 @@ in
         "jackaudio"
         "libvirtd"
         "lpadmin"
-        "lxd"
         "netdev"
         "networkmanager"
         "plugdev"
