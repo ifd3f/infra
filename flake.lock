@@ -135,18 +135,18 @@
         "type": "github"
       }
     },
-    "home-manager-stable": {
+    "home-manager": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs-stable"
         ]
       },
       "locked": {
-        "lastModified": 1758463745,
-        "narHash": "sha256-uhzsV0Q0I9j2y/rfweWeGif5AWe0MGrgZ/3TjpDYdGA=",
+        "lastModified": 1763992789,
+        "narHash": "sha256-WHkdBlw6oyxXIra/vQPYLtqY+3G8dUVZM8bEXk0t8x4=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "3b955f5f0a942f9f60cdc9cacb7844335d0f21c3",
+        "rev": "44831a7eaba4360fb81f2acc5ea6de5fde90aaa3",
         "type": "github"
       },
       "original": {
@@ -313,7 +313,7 @@
       "inputs": {
         "armqr": "armqr",
         "flake-utils": "flake-utils_2",
-        "home-manager-stable": "home-manager-stable",
+        "home-manager": "home-manager",
         "lix-module": "lix-module",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs-stable": "nixpkgs-stable",

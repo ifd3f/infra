@@ -12,7 +12,7 @@
 
     nur.url = "github:nix-community/NUR";
 
-    home-manager-stable = {
+    home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
@@ -37,7 +37,7 @@
       self,
       nixpkgs-stable,
       flake-utils,
-      home-manager-stable,
+      home-manager,
       nur,
       ...
     }@inputs:
@@ -51,6 +51,12 @@
 
       systemAgnostic = {
         nixosConfigurations = (import ./nix/nixos/machines inputs).nixosConfigurations;
+        homeConfigurations = {
+	  astrid = home-manager.lib.homeManagerConfiguration {
+            pkgs = import nixpkgs-stable { system = "x86_64-linux"; };
+            modules = [ ./nix/home-manager/basic.nix ];
+          };
+        };
       };
 
       perSystem =
