@@ -16,6 +16,7 @@ CONFIG_DIR = HOME_DIR / ".config"
 paths = {
     SCRIPT_DIR / "zsh/zshrc.zsh": HOME_DIR / ".zshrc",
     SCRIPT_DIR / "zsh/starship.toml": CONFIG_DIR / "starship.toml",
+    SCRIPT_DIR / "tmux/tmux.conf": HOME_DIR / ".tmux.conf",
     SCRIPT_DIR / "nvim": CONFIG_DIR / "nvim",
     SCRIPT_DIR / "git": CONFIG_DIR / "git",
 }
