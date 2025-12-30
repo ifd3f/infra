@@ -18,8 +18,16 @@
     nixos.enable = true;
   };
 
-  programs.nix-ld.enable = true;
-  programs.nix-ld.libraries = with pkgs; [ steam-run.fhsenv ];
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      stdenv.cc.cc.lib
+      zlib
+      alsa-lib
+      curl
+      openssl
+    ];
+  };
 
   environment.systemPackages =
     with pkgs;

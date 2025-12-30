@@ -8,24 +8,18 @@
 
     # Machines run on nixpkgs-stable because it's less likely to break
     # in annoying ways.
-    # TMP(2025-11-10): put this on unstable in anticipation of 25.11
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
 
     nur.url = "github:nix-community/NUR";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
     # Specialized hardware configurations for specialized hardware.
     # Currently used on the Surface Pro.
     nixos-hardware.url = "github:NixOS/nixos-hardware";
-
-    lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.93.3-1.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-    };
 
     armqr = {
       url = "github:ifd3f/armqr";
@@ -53,7 +47,7 @@
       systemAgnostic = {
         nixosConfigurations = (import ./nix/nixos/machines inputs).nixosConfigurations;
         homeConfigurations = {
-	  astrid = home-manager.lib.homeManagerConfiguration {
+          astrid = home-manager.lib.homeManagerConfiguration {
             pkgs = import nixpkgs-stable { system = "x86_64-linux"; };
             modules = [ ./nix/home-manager/basic.nix ];
           };
