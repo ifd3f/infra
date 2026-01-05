@@ -3,33 +3,30 @@
   pkgs,
   inputs,
   lib,
+  config,
   ...
 }:
+let
+  cfg = config.astral.roles.common;
+in
 {
-  imports = [
-    "${inputs.self}/nix/nixos/modules/program-sets/basics.nix"
-    "${inputs.self}/nix/nixos/modules/program-sets/utils.nix"
+  options.astral.roles.common.enable = lib.mkEnableOption "astral.roles.common";
 
-    "${inputs.self}/nix/nixos/modules/custom-tty"
-    "${inputs.self}/nix/nixos/modules/mount-root-to-home.nix"
-    "${inputs.self}/nix/nixos/modules/nix-utils.nix"
-    "${inputs.self}/nix/nixos/modules/sshd.nix"
-    "${inputs.self}/nix/nixos/modules/users.nix"
-  ];
+  config = lib.mkIf cfg.enable {
+    nix.package = pkgs.lixPackageSets.stable.lix;
+    programs.zsh.enable = true;
+    users.defaultUserShell = pkgs.zsh;
 
-  nix.package = pkgs.lixPackageSets.stable.lix;
-  programs.zsh.enable = true;
-  users.defaultUserShell = pkgs.zsh;
-
-  environment.systemPackages = with pkgs; [
-    home-manager
-  ];
-
-  nixpkgs.config.allowUnfreePredicate =
-    pkg:
-    builtins.elem (lib.getName pkg) [
-      "corefonts"
-      "helvetica-neue-lt-std"
-      "vista-fonts"
+    environment.systemPackages = with pkgs; [
+      home-manager
     ];
+
+    nixpkgs.config.allowUnfreePredicate =
+      pkg:
+      builtins.elem (lib.getName pkg) [
+        "corefonts"
+        "helvetica-neue-lt-std"
+        "vista-fonts"
+      ];
+  };
 }

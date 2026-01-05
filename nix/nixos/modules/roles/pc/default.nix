@@ -5,8 +5,8 @@
   inputs,
   ...
 }:
-with lib;
 let
+  cfg = config.astral.roles.pc;
   extraHosts = "/var/extraHosts";
 in
 {
@@ -36,42 +36,48 @@ in
     ./dev.nix
   ];
 
-  services.tailscale.enable = true;
-  services.resolved.enable = true;
-  networking.networkmanager.enable = true;
+  options.astral.roles.pc = lib.mkEnableOption "PC role";
 
-  # Enable SSH in initrd for debugging or disk key entry
-  boot.initrd.network.ssh = {
-    enable = true;
-    authorizedKeys = [ inputs.self.lib.sshKeyDatabase.users.astrid ];
-  };
+  config = lib.mkIf cfg.enable {
+    astral.roles.common.enable = true;
 
-  users.mutableUsers = true;
-  services.geoclue2 = {
-    enable = true;
-    enableWifi = true;
-  };
+    services.tailscale.enable = true;
+    services.resolved.enable = true;
+    networking.networkmanager.enable = true;
 
-  networking.nftables.enable = true;
+    # Enable SSH in initrd for debugging or disk key entry
+    boot.initrd.network.ssh = {
+      enable = true;
+      authorizedKeys = [ inputs.self.lib.sshKeyDatabase.users.astrid ];
+    };
 
-  # Things from the old system not yet ported over.
-  #
-  # astral = {
-  #   custom-tty.enable = true;
-  #   # infra-update = {
-  #   #   enable = true;
-  #   #   dates = "*-*-* 3:00:00 US/Pacific";
-  #   # };
-  # };
+    users.mutableUsers = true;
+    services.geoclue2 = {
+      enable = true;
+      enableWifi = true;
+    };
 
-  services.flatpak.enable = true;
+    networking.nftables.enable = true;
 
-  services.upower.enable = true;
+    # Things from the old system not yet ported over.
+    #
+    # astral = {
+    #   custom-tty.enable = true;
+    #   # infra-update = {
+    #   #   enable = true;
+    #   #   dates = "*-*-* 3:00:00 US/Pacific";
+    #   # };
+    # };
 
-  services.gnome.gnome-keyring.enable = true;
+    services.flatpak.enable = true;
 
-  programs.appimage = {
-    enable = true;
-    binfmt = true;
+    services.upower.enable = true;
+
+    services.gnome.gnome-keyring.enable = true;
+
+    programs.appimage = {
+      enable = true;
+      binfmt = true;
+    };
   };
 }
