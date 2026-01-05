@@ -1,24 +1,38 @@
-{ pkgs, ... }:
 {
-  environment.systemPackages = with pkgs; [
-    kdePackages.ark
-    kdePackages.okular
-    kdePackages.dolphin
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  cfg = config.astral.program-sets.graphics.basics;
+in
+{
+  options.astral.program-sets.graphics.basics = {
+    enable = lib.mkEnableOption "astral.program-sets.graphics.basics";
+  };
 
-    xorg.xev
+  config = lib.mkIf cfg.enable {
+    environment.systemPackages = with pkgs; [
+      kdePackages.ark
+      kdePackages.okular
+      kdePackages.dolphin
 
-    alacritty
-    brightnessctl
-    flameshot
-    nomacs
-    pavucontrol
-    remmina
-    tenacity
-    transmission_4
-    transmission_4-qt
-    vlc
-    wdisplays
-    webcamoid
-    xclip
-  ];
+      xorg.xev
+
+      alacritty
+      brightnessctl
+      flameshot
+      nomacs
+      pavucontrol
+      remmina
+      tenacity
+      transmission_4
+      transmission_4-qt
+      vlc
+      wdisplays
+      webcamoid
+      xclip
+    ];
+  };
 }

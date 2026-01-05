@@ -1,32 +1,41 @@
 # Customized /etc/issue file that updates with this system's IP.
 {
-  lib,
   config,
+  lib,
   pkgs,
   ...
 }:
+let
+  cfg = config.astral.custom-tty;
+in
 {
-  systemd.services.update-custom-tty = {
-    wantedBy = [ "multi-user.target" ];
-
-    path = with pkgs; [
-      python3
-      iproute2
-      coreutils
-    ];
-    script = ''
-      ${./issue.py} > /var/issue
-    '';
+  options.astral.custom-tty = {
+    enable = lib.mkEnableOption "astral.custom-tty";
   };
 
-  systemd.timers.update-custom-tty = {
-    wantedBy = [ "multi-user.target" ];
-    timerConfig.OnCalendar = "*-*-* *:*:00";
-  };
+  config = lib.mkIf cfg.enable {
+    systemd.services.update-custom-tty = {
+      wantedBy = [ "multi-user.target" ];
 
-  environment.etc."issue" = lib.mkOverride 10 {
-    source = pkgs.runCommand "var-issue-symlink" { } ''
-      ln -s /var/issue $out
-    '';
+      path = with pkgs; [
+        python3
+        iproute2
+        coreutils
+      ];
+      script = ''
+        ${./issue.py} > /var/issue
+      '';
+    };
+
+    systemd.timers.update-custom-tty = {
+      wantedBy = [ "multi-user.target" ];
+      timerConfig.OnCalendar = "*-*-* *:*:00";
+    };
+
+    environment.etc."issue" = lib.mkOverride 10 {
+      source = pkgs.runCommand "var-issue-symlink" { } ''
+        ln -s /var/issue $out
+      '';
+    };
   };
 }

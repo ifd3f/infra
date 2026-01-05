@@ -4,18 +4,27 @@
   pkgs,
   ...
 }:
+let
+  cfg = config.astral.sshd;
+in
 {
-  services.openssh = {
-    enable = true;
-    settings = {
-      PasswordAuthentication = false;
-      PermitRootLogin = "no";
-    };
+  options.astral.sshd = {
+    enable = lib.mkEnableOption "astral.sshd";
   };
 
-  # Open ports in the firewall.
-  networking.firewall = {
-    enable = true;
-    allowedTCPPorts = [ 22 ];
+  config = lib.mkIf cfg.enable {
+    services.openssh = {
+      enable = true;
+      settings = {
+        PasswordAuthentication = false;
+        PermitRootLogin = "no";
+      };
+    };
+
+    # Open ports in the firewall.
+    networking.firewall = {
+      enable = true;
+      allowedTCPPorts = [ 22 ];
+    };
   };
 }

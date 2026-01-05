@@ -1,23 +1,37 @@
-{ pkgs, ... }:
 {
-  programs.steam = {
-    enable = true;
-    # localNetworkGameTransfers.openFirewall = true;
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  cfg = config.astral.program-sets.graphics.games;
+in
+{
+  options.astral.program-sets.graphics.games = {
+    enable = lib.mkEnableOption "astral.program-sets.graphics.games";
   };
 
-  # programs.gamescope.enable = true;
+  config = lib.mkIf cfg.enable {
+    programs.steam = {
+      enable = true;
+      # localNetworkGameTransfers.openFirewall = true;
+    };
 
-  # nixpkgs.config.packageOverrides = pkgs: {
-  #   steam = pkgs.steam.override {
-  #     extraPkgs = pkgs: with pkgs; [
-  #       gamescope
-  #     ];
-  #   };
-  # };
+    # programs.gamescope.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    gamescope
-    lutris
-    prismlauncher
-  ];
+    # nixpkgs.config.packageOverrides = pkgs: {
+    #   steam = pkgs.steam.override {
+    #     extraPkgs = pkgs: with pkgs; [
+    #       gamescope
+    #     ];
+    #   };
+    # };
+
+    environment.systemPackages = with pkgs; [
+      gamescope
+      lutris
+      prismlauncher
+    ];
+  };
 }

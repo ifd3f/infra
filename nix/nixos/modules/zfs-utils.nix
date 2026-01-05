@@ -1,13 +1,25 @@
 # Miscellaneous flags useful for systems with ZFS.
+{ config, lib, ... }:
+let
+  cfg = config.astral.zfs-utils;
+in
 {
-  boot = {
-    initrd.supportedFilesystems = [ "zfs" ];
-    loader.grub.copyKernels = true;
-    supportedFilesystems = [ "zfs" ];
-    zfs.requestEncryptionCredentials = true;
+  options.astral.zfs-utils = {
+    enable = lib.mkEnableOption "astral.zfs-utils";
   };
-  services.zfs = {
-    autoScrub.enable = true;
-    autoSnapshot.enable = true;
-  };
+
+  config =
+    lib.mkIf cfg.enable # Miscellaneous flags useful for systems with ZFS.
+      {
+        boot = {
+          initrd.supportedFilesystems = [ "zfs" ];
+          loader.grub.copyKernels = true;
+          supportedFilesystems = [ "zfs" ];
+          zfs.requestEncryptionCredentials = true;
+        };
+        services.zfs = {
+          autoScrub.enable = true;
+          autoSnapshot.enable = true;
+        };
+      };
 }

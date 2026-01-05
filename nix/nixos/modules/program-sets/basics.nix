@@ -1,5 +1,12 @@
-{ pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
+  cfg = config.astral.program-sets.basics;
+
   python3-custom = (
     pkgs.python3.withPackages (
       ps: with ps; [
@@ -13,59 +20,66 @@ let
   );
 in
 {
-  programs = {
-    neovim = {
-      enable = true;
-      viAlias = true;
-    };
-
-    tmux.enable = true;
+  options.astral.program-sets.basics = {
+    enable = lib.mkEnableOption "astral.program-sets.basics";
   };
 
-  environment.systemPackages = with pkgs; [
-    bind
-    curl
-    dnsutils
-    ed
-    elinks
-    envsubst
-    ethtool
-    exfat
-    exfatprogs
-    file
-    gh
-    git
-    git-lfs
-    gnumake
-    hdparm
-    iftop
-    inetutils
-    iotop
-    iperf
-    iputils
-    jq
-    magic-wormhole
-    mktemp
-    neofetch
-    netcat
-    nmap
-    ntfs3g
-    p7zip
-    pciutils
-    psmisc
-    python3-custom
-    ripgrep
-    rsync
-    speedtest-rs
-    tcpdump
-    tree
-    unar
-    unixtools.xxd
-    unzip
-    usbutils
-    uwufetch
-    wget
-    yq
-    zip
-  ];
+  config = lib.mkIf cfg.enable {
+    programs = {
+      neovim = {
+        enable = true;
+        viAlias = true;
+      };
+
+      tmux.enable = true;
+
+    };
+
+    environment.systemPackages = with pkgs; [
+      bind
+      curl
+      dnsutils
+      ed
+      elinks
+      envsubst
+      ethtool
+      exfat
+      exfatprogs
+      file
+      gh
+      git
+      git-lfs
+      gnumake
+      hdparm
+      iftop
+      inetutils
+      iotop
+      iperf
+      iputils
+      jq
+      magic-wormhole
+      mktemp
+      neofetch
+      netcat
+      nmap
+      ntfs3g
+      p7zip
+      pciutils
+      psmisc
+      python3-custom
+      ripgrep
+      rsync
+      speedtest-rs
+      tcpdump
+      tree
+      unar
+      unixtools.xxd
+      unzip
+      usbutils
+      uwufetch
+      wget
+      yq
+      zip
+    ];
+  };
 }
