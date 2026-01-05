@@ -8,11 +8,11 @@ let
   cfg = config.astral.roles.contabo-vps;
 in
 {
-  imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
+  #imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
 
   options.astral.roles.contabo-vps.enable = lib.mkEnableOption "Contabo VPS settings";
 
-  config = lib.mkIf astral.roles.contabo-vps.enable {
+  config = lib.mkIf cfg.enable {
     zramSwap.enable = true;
 
     boot = {

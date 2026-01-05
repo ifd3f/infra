@@ -30,7 +30,10 @@ rec {
         nixpkgs-stable.lib.nixosSystem {
           specialArgs = { inherit inputs; };
           system = m.machine-info.arch;
-          modules = [ m.configuration ];
+          modules = [
+            "${inputs.self}/nix/nixos/modules"
+            m.configuration
+          ];
         };
     in
     mapAttrs mkConfiguration enabledMachines;

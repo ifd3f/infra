@@ -10,9 +10,10 @@ with lib;
   imports = [
     ./hardware-configuration.nix
     "${inputs.nixos-hardware}/common/cpu/amd"
-    "${inputs.self}/nix/nixos/modules/roles/pc"
-    "${inputs.self}/nix/nixos/modules/peripherals/rgb.nix"
   ];
+
+  astral.roles.pc.enable = true;
+  astral.peripherals.rgb.enable = true;
 
   time.timeZone = "US/Pacific";
 

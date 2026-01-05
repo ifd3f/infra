@@ -11,24 +11,6 @@ let
 in
 {
   imports = [
-    "${inputs.self}/nix/nixos/modules/roles/common.nix"
-
-    "${inputs.self}/nix/nixos/modules/program-sets/fonts.nix"
-    "${inputs.self}/nix/nixos/modules/program-sets/security.nix"
-    "${inputs.self}/nix/nixos/modules/program-sets/utils.nix"
-
-    "${inputs.self}/nix/nixos/modules/program-sets/graphics/basics.nix"
-    "${inputs.self}/nix/nixos/modules/program-sets/graphics/cad.nix"
-    "${inputs.self}/nix/nixos/modules/program-sets/graphics/dev.nix"
-    "${inputs.self}/nix/nixos/modules/program-sets/graphics/drone.nix"
-    "${inputs.self}/nix/nixos/modules/program-sets/graphics/games.nix"
-    "${inputs.self}/nix/nixos/modules/program-sets/graphics/internet.nix"
-    "${inputs.self}/nix/nixos/modules/program-sets/graphics/media-production.nix"
-    "${inputs.self}/nix/nixos/modules/program-sets/graphics/office.nix"
-    "${inputs.self}/nix/nixos/modules/program-sets/graphics/radio.nix"
-
-    "${inputs.self}/nix/nixos/modules/zfs-utils.nix"
-
     ./graphics.nix
     ./peripherals.nix
     ./input.nix
@@ -40,6 +22,23 @@ in
 
   config = lib.mkIf cfg.enable {
     astral.roles.common.enable = true;
+    astral.zfs-utils.enable = true;
+
+    astral.program-sets = {
+      fonts.enable = true;
+      security.enable = true;
+      utils.enable = true;
+
+      graphics.basics.enable = true;
+      graphics.cad.enable = true;
+      graphics.dev.enable = true;
+      graphics.drone.enable = true;
+      graphics.games.enable = true;
+      graphics.internet.enable = true;
+      graphics.media-production.enable = true;
+      graphics.office.enable = true;
+      graphics.radio.enable = true;
+    };
 
     services.tailscale.enable = true;
     services.resolved.enable = true;

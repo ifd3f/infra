@@ -12,6 +12,7 @@ let
 in
 {
   options.astral.roles.auth-dns.enable = lib.mkEnableOption "Authoritative DNS server role";
+
   config = lib.mkIf cfg.enable {
     # vault kv put kv/ddns-key/secrets \
     #   s03=@
@@ -132,6 +133,7 @@ in
 
     # easter eggs
     services.nginx.virtualHosts =
+      with lib;
       let
         hosts = [
           "charlie"

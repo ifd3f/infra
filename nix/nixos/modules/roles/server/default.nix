@@ -23,6 +23,11 @@ in
 
   config = lib.mkIf cfg.enable {
     astral.roles.common.enable = true;
+    astral.program-sets = {
+      fonts.enable = true;
+      security.enable = true;
+      utils.enable = true;
+    };
 
     # Auto-optimize/GC store on a much more frequent basis than the PC's.
     nix.gc = lib.mkForce {
