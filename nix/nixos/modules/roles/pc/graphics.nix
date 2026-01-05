@@ -15,8 +15,9 @@
     vaapiIntel = pkgs.intel-vaapi-driver.override { enableHybridCodec = true; };
   };
 
-  services.displayManager.defaultSession = "none+xmonad";
+  services.displayManager.defaultSession = "gnome";
   services.desktopManager.plasma6.enable = true;
+  services.desktopManager.gnome.enable = true;
   services.xserver = {
     enable = true;
     xkb.layout = "us";
@@ -26,6 +27,7 @@
     desktopManager = {
       xterm.enable = false;
       xfce.enable = true;
+
     };
 
     windowManager.xmonad = {
