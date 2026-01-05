@@ -1,8 +1,15 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   vs = config.vault-secrets.secrets."ddns-key";
   binddir = config.services.bind.directory;
-in with lib; {
+in
+with lib;
+{
   # vault kv put kv/ddns-key/secrets \
   #   s03=@
   # vault-secrets.secrets."ddns-key" = {
@@ -77,7 +84,7 @@ in with lib; {
         master = true;
         file = "d.astrid.tech.zone";
         # extraConfig = ''
-        #   allow-update { 
+        #   allow-update {
         #     key s03;
         #   };
         # '';
@@ -113,21 +120,35 @@ in with lib; {
   services.prometheus.exporters.bind = {
     enable = true;
     bindURI = "http://localhost:8053/";
-    bindGroups = [ "server" "view" "tasks" ];
+    bindGroups = [
+      "server"
+      "view"
+      "tasks"
+    ];
   };
 
   # easter eggs
   services.nginx.virtualHosts =
-    let hosts = [ "charlie" "dee" "dennis" "frank" "mac" ];
-    in listToAttrs (map (host: {
-      name = "${host}.astrid.tech";
-      value = {
-        enableACME = true;
-        addSSL = true;
-        root = ./placeholder-site;
-        locations."/".index = "${host}.jpg";
-      };
-    }) hosts);
+    let
+      hosts = [
+        "charlie"
+        "dee"
+        "dennis"
+        "frank"
+        "mac"
+      ];
+    in
+    listToAttrs (
+      map (host: {
+        name = "${host}.astrid.tech";
+        value = {
+          enableACME = true;
+          addSSL = true;
+          root = ./placeholder-site;
+          locations."/".index = "${host}.jpg";
+        };
+      }) hosts
+    );
 
   # systemd.services.generate-bind-key-includes = {
   #   description = "Generate config includes for BIND keys";

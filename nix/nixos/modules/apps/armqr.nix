@@ -125,23 +125,27 @@ with lib;
       };
     };
 
-    services.nginx.virtualHosts = mkIf cfg.nginx.enable (listToAttrs (map (fqdn: {
-      name = fqdn;
-      value = lib.mkMerge [
-        cfg.nginx.config
+    services.nginx.virtualHosts = mkIf cfg.nginx.enable (
+      listToAttrs (
+        map (fqdn: {
+          name = fqdn;
+          value = lib.mkMerge [
+            cfg.nginx.config
 
-        {
-          enableACME = mkOverride 99 true;
-          locations."/" = {
-            proxyPass = "http://${cfg.address}:${toString cfg.port}/";
-            proxyWebsockets = true;
-            extraConfig = ''
-              proxy_pass_header Authorization;
-            '';
-          };
-        }
-      ];
-    }) cfg.nginx.fqdns));
+            {
+              enableACME = mkOverride 99 true;
+              locations."/" = {
+                proxyPass = "http://${cfg.address}:${toString cfg.port}/";
+                proxyWebsockets = true;
+                extraConfig = ''
+                  proxy_pass_header Authorization;
+                '';
+              };
+            }
+          ];
+        }) cfg.nginx.fqdns
+      )
+    );
 
     users.users = {
       "${cfg.user}" = {

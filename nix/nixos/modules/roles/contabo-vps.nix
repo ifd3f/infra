@@ -1,4 +1,10 @@
-{ modulesPath, config, lib, ... }: {
+{
+  modulesPath,
+  config,
+  lib,
+  ...
+}:
+{
   imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
 
   zramSwap.enable = true;
