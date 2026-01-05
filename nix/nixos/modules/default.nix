@@ -1,11 +1,19 @@
 {
   imports = [
-    ./program-sets
-
-    ./virt
+    ./sshd.nix
     ./acme.nix
+    ./virt/lxc.nix
+    ./virt/docker.nix
+    ./virt/libvirt.nix
+    ./apps/armqr.nix
+    ./mount-root-to-home.nix
     ./users.nix
-
     ./roles
+    ./program-sets
+    ./peripherals
+    ./custom-tty
+    ./default.nix
+    ./zfs-utils.nix
+    ./nix-utils.nix
   ];
 }
