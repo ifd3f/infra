@@ -13,6 +13,9 @@ setopt AUTO_CD
 # Potentially needed nix path settings on non-NixOS
 export NIX_PATH=$HOME/.nix-defexpr/channels:/nix/var/nix/profiles/per-user/root/channels''${NIX_PATH:+:$NIX_PATH}
 
+# This is set in my home-manager config as a nice place to import various packages from
+export HM_MANAGED_PACKAGES=$HOME/.local/state/hm_managed_packages
+
 # Default editor for other commands
 export EDITOR=vi
 
