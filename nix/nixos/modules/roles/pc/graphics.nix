@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   hardware.graphics = {
     enable = true;
@@ -24,16 +24,9 @@
 
     displayManager.lightdm.enable = true;
 
-    desktopManager = {
-      xterm.enable = false;
-      xfce.enable = true;
-
-    };
-
-    windowManager.xmonad = {
-      enable = true;
-      enableContribAndExtras = true;
-    };
+    desktopManager.xterm.enable = false;
+    desktopManager.lxqt.enable = true;
   };
 
+  programs.ssh.askPassword = lib.mkForce "${pkgs.x11_ssh_askpass}/libexec/x11-ssh-askpass";
 }
