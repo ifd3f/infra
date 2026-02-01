@@ -70,8 +70,6 @@ in
 
   services.gnome.gnome-keyring.enable = true;
 
-  services.syncthing.enable = true;
-
   programs.appimage = {
     enable = true;
     binfmt = true;
