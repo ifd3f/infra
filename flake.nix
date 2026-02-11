@@ -1,6 +1,6 @@
 {
   inputs = {
-    flake-utils.url = "github:numtide/flake-utils";
+    flake-parts.url = "github:hercules-ci/flake-parts";
 
     # If a more bleeding-edge feature or package is needed, we will import
     # it from unstable.
@@ -31,45 +31,58 @@
     {
       self,
       nixpkgs-stable,
-      flake-utils,
+      flake-parts,
       home-manager,
       nur,
       ...
     }@inputs:
-    let
-      supportedSystems = [
-        "x86_64-linux"
-        "aarch64-linux"
-        "x86_64-darwin"
-        "aarch64-darwin"
-      ];
+    flake-parts.lib.mkFlake { inherit inputs; } (
+      top@{
+        config,
+        withSystem,
+        moduleWithSystem,
+        ...
+      }:
+      {
+        imports = [
+          inputs.home-manager.flakeModules.home-manager
+        ];
 
-      systemAgnostic = {
-        nixosConfigurations = (import ./nix/nixos/machines inputs).nixosConfigurations;
-        homeConfigurations = {
-          astrid = home-manager.lib.homeManagerConfiguration {
-            pkgs = import nixpkgs-stable { system = "x86_64-linux"; };
-            modules = [ ./nix/home-manager/basic.nix ];
-          };
-        };
-      };
+        systems = [
+          "x86_64-linux"
+          "aarch64-linux"
+          "x86_64-darwin"
+          "aarch64-darwin"
+        ];
 
-      perSystem =
-        system:
-        let
-          pkgs = import nixpkgs-stable { inherit system; };
-        in
-        rec {
-          devShells = import ./nix/shells.nix {
-            inherit self;
-            pkgs = import nixpkgs-stable {
-              inherit system;
-              config.allowUnfree = true;
+        flake = {
+          nixosConfigurations = (import ./nix/nixos/machines inputs).nixosConfigurations;
+          homeConfigurations = {
+            astrid = home-manager.lib.homeManagerConfiguration {
+              pkgs = import nixpkgs-stable { system = "x86_64-linux"; };
+              modules = [ ./nix/home-manager/basic.nix ];
             };
           };
-
-          helpers = pkgs.callPackage ./nix/helpers.nix { };
         };
-    in
-    systemAgnostic // flake-utils.lib.eachSystem supportedSystems perSystem;
+
+        perSystem =
+          {
+            config,
+            pkgs,
+            system,
+            ...
+          }:
+          {
+            devShells = import ./nix/shells.nix {
+              inherit self;
+              pkgs = import nixpkgs-stable {
+                inherit system;
+                config.allowUnfree = true;
+              };
+            };
+
+            helpers = pkgs.callPackage ./nix/helpers.nix { };
+          };
+      }
+    );
 }
