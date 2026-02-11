@@ -1,7 +1,6 @@
 {
   imports = [
     ./fonts.nix
-    ./default.nix
     ./basics.nix
     ./graphics/radio.nix
     ./graphics/basics.nix

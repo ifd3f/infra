@@ -12,7 +12,6 @@
     ./program-sets
     ./peripherals
     ./custom-tty
-    ./default.nix
     ./zfs-utils.nix
     ./nix-utils.nix
   ];
