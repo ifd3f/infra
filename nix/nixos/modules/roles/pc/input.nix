@@ -5,7 +5,7 @@
   ...
 }:
 {
-  config = lib.mkIf config.astral.roles.pc {
+  config = lib.mkIf config.astral.roles.pc.enable {
     services.libinput = {
       enable = true;
       touchpad.disableWhileTyping = true;

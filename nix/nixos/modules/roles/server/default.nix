@@ -19,7 +19,7 @@ in
     "${inputs.self}/nix/nixos/modules/zfs-utils.nix"
   ];
 
-  options.astral.roles.server = lib.mkEnableOption "Server role";
+  options.astral.roles.server.enable = lib.mkEnableOption "Server role";
 
   config = lib.mkIf cfg.enable {
     astral.roles.common.enable = true;

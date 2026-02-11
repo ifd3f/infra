@@ -18,7 +18,7 @@ in
     ./dev.nix
   ];
 
-  options.astral.roles.pc = lib.mkEnableOption "PC role";
+  options.astral.roles.pc.enable = lib.mkEnableOption "PC role";
 
   config = lib.mkIf cfg.enable {
     astral.roles.common.enable = true;

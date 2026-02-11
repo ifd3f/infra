@@ -5,7 +5,7 @@
   ...
 }:
 {
-  config = lib.mkIf config.astral.roles.pc {
+  config = lib.mkIf config.astral.roles.pc.enable {
     security.rtkit.enable = true;
 
     services.pipewire = {

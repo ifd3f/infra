@@ -5,7 +5,7 @@
   ...
 }:
 {
-  config = lib.mkIf config.astral.roles.pc {
+  config = lib.mkIf config.astral.roles.pc.enable {
     astral.peripherals = {
       keyboards.enable = true;
       logitech-unifying.enable = true;
