@@ -7,13 +7,17 @@
 }:
 with lib;
 {
-  imports = [
-    "${inputs.self}/nix/nixos/modules/roles/server"
-    "${inputs.self}/nix/nixos/modules/roles/contabo-vps.nix"
+  astral = {
+    roles ={
+      server.enable = true;
+    contabo-vps.enable = true;
+    };
 
-    "${inputs.self}/nix/nixos/modules/roles/auth-dns"
-    "${inputs.self}/nix/nixos/modules/apps/armqr.nix"
-  ];
+    make-disk-image = {
+      enable = true;
+      rootFSUUID = "5a92a4e5-5d2e-428c-94d1-75b8a494fcfe";
+    };
+  };
 
   # Logrotate config build fail workaround
   # https://discourse.nixos.org/t/logrotate-config-fails-due-to-missing-group-30000/28501

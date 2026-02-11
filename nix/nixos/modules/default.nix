@@ -12,6 +12,7 @@
     ./program-sets
     ./peripherals
     ./custom-tty
+    ./make-disk-image.nix
     ./zfs-utils.nix
     ./nix-utils.nix
   ];
