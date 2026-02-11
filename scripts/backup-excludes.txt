@@ -13,6 +13,9 @@ $HOME/**/__pycache__
 .zcompdump
 .zcompdump-*
 
+# ignore logs
+*.log
+
 # Steam
 $HOME/.steam
 $HOME/.steampath
@@ -99,3 +102,6 @@ $HOME/.config/Code/logs
 
 $HOME/.var/app/com.jeffser.Alpaca/data
 $HOME/.var/app/com.jeffser.Alpaca/cache
+
+# excessively large
+$HOME/.ollama
