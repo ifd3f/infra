@@ -7,8 +7,6 @@ let
       backblaze-b2
       curl
       dnsutils
-      docker
-      docker-compose
       git
       inetutils
       jq
@@ -18,15 +16,13 @@ let
       nixfmt-rfc-style
       nodePackages.prettier
       pixiecore
+      podman-compose
       pwgen
       python3
       racket-minimal
       talosctl
       tcpdump
-      terraform
-      terraform-ls
       tmux
-      vault
       wget
       whois
       wireguard-tools

@@ -9,7 +9,8 @@ let
   };
 
   inputs' = {
-    inherit (inputs) self nixos-hardware;
+    inherit (inputs) self nixos-hardware armqr;
+    nixpkgs = nixpkgs-stable;
   };
 
   collectMachines =

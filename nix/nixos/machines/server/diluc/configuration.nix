@@ -11,6 +11,7 @@ with lib;
     roles.server.enable = true;
     roles.contabo-vps.enable = true;
     roles.auth-dns.enable = true;
+    acme.enable = true;
   };
 
   # Logrotate config build fail workaround

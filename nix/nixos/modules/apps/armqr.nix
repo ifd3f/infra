@@ -59,7 +59,7 @@ with lib;
       config = mkOption {
         type = types.submodule (
           recursiveUpdate (import
-            "${inputs.nixpkgs-stable}/nixos/modules/services/web-servers/nginx/vhost-options.nix"
+            "${inputs.nixpkgs}/nixos/modules/services/web-servers/nginx/vhost-options.nix"
             {
               inherit config lib;
             }
