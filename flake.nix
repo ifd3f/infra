@@ -56,6 +56,7 @@
         ];
 
         flake = {
+          nixosModules.default = ./nix/nixos/modules;
           nixosConfigurations = (import ./nix/nixos/machines inputs).nixosConfigurations;
           homeConfigurations = {
             astrid = home-manager.lib.homeManagerConfiguration {
@@ -81,7 +82,7 @@
               };
             };
 
-            helpers = pkgs.callPackage ./nix/helpers.nix { };
+            legacyPackages.helpers = pkgs.callPackage ./nix/helpers.nix { };
           };
       }
     );

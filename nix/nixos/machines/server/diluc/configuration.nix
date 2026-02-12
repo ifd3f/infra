@@ -7,13 +7,11 @@
 }:
 with lib;
 {
-  imports = [
-    "${inputs.self}/nix/nixos/modules/roles/server"
-    "${inputs.self}/nix/nixos/modules/roles/contabo-vps.nix"
-
-    "${inputs.self}/nix/nixos/modules/roles/auth-dns"
-    "${inputs.self}/nix/nixos/modules/apps/armqr.nix"
-  ];
+  astral = {
+    roles.server.enable = true;
+    roles.contabo-vps.enable = true;
+    roles.auth-dns.enable = true;
+  };
 
   # Logrotate config build fail workaround
   # https://discourse.nixos.org/t/logrotate-config-fails-due-to-missing-group-30000/28501
