@@ -23,7 +23,7 @@
       enable = true;
       useOSProber = true;
       splashImage =
-        with inputs.self.helpers.${pkgs.system};
+        with inputs.self.legacyPackages.${pkgs.system}.helpers;
         adjustImageBrightness "shai-hulud-bg" (-30) ./shai-hulud.jpg;
     };
   };

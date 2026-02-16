@@ -8,15 +8,10 @@
 with lib;
 {
   astral = {
-    roles ={
-      server.enable = true;
-    contabo-vps.enable = true;
-    };
-
-    make-disk-image = {
-      enable = true;
-      rootFSUUID = "5a92a4e5-5d2e-428c-94d1-75b8a494fcfe";
-    };
+    roles.server.enable = true;
+    roles.contabo-vps.enable = true;
+    roles.auth-dns.enable = true;
+    acme.enable = true;
   };
 
   # Logrotate config build fail workaround

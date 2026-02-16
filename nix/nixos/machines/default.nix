@@ -1,4 +1,4 @@
-{ nixpkgs-stable, ... }@inputs:
+{ self, nixpkgs-stable, ... }@inputs:
 with nixpkgs-stable.lib;
 let
   mkMachine = hostname: path: {
@@ -6,6 +6,11 @@ let
     readme = path + "/README.md";
     machine-info = import (path + "/machine-info.nix");
     configuration = import (path + "/configuration.nix");
+  };
+
+  inputs' = {
+    inherit (inputs) self nixos-hardware armqr;
+    nixpkgs = nixpkgs-stable;
   };
 
   collectMachines =
@@ -28,10 +33,10 @@ rec {
       mkConfiguration =
         _: m:
         nixpkgs-stable.lib.nixosSystem {
-          specialArgs = { inherit inputs; };
+          specialArgs = { inputs = inputs'; };
           system = m.machine-info.arch;
           modules = [
-            "${inputs.self}/nix/nixos/modules"
+            self.nixosModules.default
             m.configuration
           ];
         };
