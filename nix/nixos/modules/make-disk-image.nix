@@ -8,15 +8,22 @@
 with lib;
 let
   cfg = config.astral.make-disk-image;
-  rootDevice = "/dev/disk/by-uuid/${cfg.rootFSUID}";
+  rootFS = "/dev/disk/by-uuid/${toLower cfg.rootFSUID}";
 in
 {
   options.astral.make-disk-image = {
     enable = lib.mkEnableOption "Enable building a disk image that can be dd'd directly onto your VM's disk from a rescue system.";
 
+    rootGPUID = mkOption {
+      type = types.str;
+      description = "GPT Partition Unique Identifier for root partition. This is a lowercase RFC 9562 UUID.";
+      example = "1b543c67-a03b-4dee-8fdd-f48ea13e3c44";
+    };
+
     rootFSUID = mkOption {
       type = types.str;
-      description = "UUID for the filesystem. This is an RFC 9562 UUID.";
+      description = "UUID for the filesystem. This is a lowercase RFC 9562 UUID.";
+      example = "b77fa562-618f-4311-a058-e18c5b059cd8";
     };
 
     label = mkOption {
@@ -33,16 +40,24 @@ in
   };
 
   config = mkIf cfg.enable {
+    assertions = [
+      {
+        assertion = toLower cfg.rootGPUID == cfg.rootGPUID;
+        message = "rootGPUID must be lowercase";
+      }
+      {
+        assertion = toLower cfg.rootFSUID == cfg.rootFSUID;
+        message = "rootFSUID must be lowercase";
+      }
+    ];
+
     fileSystems."/" = mkForce {
-      device = rootDevice;
+      device = rootFS;
       autoResize = true;
       fsType = "ext4";
     };
 
-    boot = {
-      growPartition = true;
-      loader.grub.device = rootDevice;
-    };
+    boot.growPartition = true;
 
     system.build.disk-image = mkForce (
       import "${toString modulesPath}/../lib/make-disk-image.nix" {
@@ -52,7 +67,9 @@ in
           pkgs
           ;
 
-        inherit (cfg) rootFSUID label;
+        inherit (cfg) label;
+        rootFSUID = toUpper cfg.rootFSUID;
+        rootGPUID = toUpper cfg.rootGPUID;
 
         name = "disk-image";
         diskSize = "auto";
@@ -65,7 +82,7 @@ in
     # This is useful for testing if the wget -O- | dd of=/dev/vda will work.
     system.build.test-simple-vm = pkgs.writeShellScriptBin "test-simple-vm" ''
       set -euxo pipefail
-      dd bs=1M if=${config.system.build.raw}/nixos.img of=test.raw status=progress
+      dd bs=1M if=${config.system.build.disk-image}/nixos.img of=test.raw status=progress
       truncate -s ${toString cfg.testSimpleVMGB}G test.raw
       ${pkgs.qemu}/bin/qemu-kvm \
         -smp 2 \

@@ -6,17 +6,23 @@
 }:
 let
   cfg = config.astral.roles.contabo-vps;
+  qemu-guest = modulesPath + "/profiles/qemu-guest.nix";
 in
 {
-  #imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
-
   options.astral.roles.contabo-vps.enable = lib.mkEnableOption "Contabo VPS settings";
 
   config = lib.mkIf cfg.enable {
     zramSwap.enable = true;
 
+    services.qemuGuest.enable = true;
+
     boot = {
       cleanTmpDir = true;
+
+      kernelParams = [
+        "console=tty0"
+        "boot.shell_on_fail"
+      ];
 
       # Contabo does not provide EFI, use GRUB
       loader.grub = {
@@ -24,6 +30,8 @@ in
         efiSupport = false;
         enable = true;
       };
+
+      loader.timeout = 3;
     };
 
     networking = {
