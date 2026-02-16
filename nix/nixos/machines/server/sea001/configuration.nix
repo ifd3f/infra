@@ -31,7 +31,7 @@ with lib;
   services.logrotate.checkConfig = false;
 
   networking = {
-    hostName = "sjc001";
+    hostName = "sea001";
     hostId = "3b957bce";
     domain = "h.astrid.tech";
 
