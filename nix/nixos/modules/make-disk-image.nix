@@ -91,5 +91,24 @@ in
         -netdev user,id=mynet0,net=192.168.76.0/24,dhcpstart=192.168.76.9,hostfwd=tcp::2222-:22 \
         -net nic,model=e1000,macaddr=00:20:91:84:25:7f,netdev=mynet0
     '';
+
+    # This script writes this disk image onto another host over SSH. It uses
+    # gzip compression because it's most likely to be available.
+    system.build.write-ssh = pkgs.writeShellScriptBin "test-simple-vm" ''
+      file="${config.system.build.disk-image}/nixos.img"
+
+      if [ $# -ne 2 ]; then
+        echo "Error: Invalid number of arguments."
+        echo "Usage: $0 <hostname> <disk on host>"
+        exit 1
+      fi
+
+      command="gunzip -vc | dd bs=1M of=$2 status=progress"
+
+      echo "executing on $1: $command"
+
+      set -euxo pipefail
+      gzip -vc "$file" | ssh "$1" -- bash -c "$command"
+    '';
   };
 }
