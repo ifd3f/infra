@@ -67,7 +67,7 @@ nextcloud                       IN CNAME       amiya.h.astrid.tech.
 secrets                         IN CNAME       yato.h.astrid.tech.
 mqtt                            IN CNAME       amiya.h.astrid.tech.
 influxdb                        IN CNAME       amiya.h.astrid.tech.
-notes                           IN A           170.9.7.128
+notes                           IN A           154.53.59.80
 
 ;; Site 02 services
 ha.s02                          IN CNAME       ghoti.h.astrid.tech.

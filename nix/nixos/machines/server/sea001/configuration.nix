@@ -15,7 +15,7 @@ with lib;
   astral = {
     roles.server.enable = true;
     roles.contabo-vps.enable = true;
-    roles.auth-dns.enable = true;
+    acme.enable = true;
 
     make-disk-image = {
       enable = true;
@@ -23,7 +23,6 @@ with lib;
       rootFSUID = "5943b8e5-743c-4436-8107-f85331271a3f";
       testSimpleVMGB = 32;
     };
-    acme.enable = true;
   };
 
   # Logrotate config build fail workaround
@@ -41,6 +40,14 @@ with lib;
     ];
   };
 
+  services.trilium-server = {
+    enable = true;
+    nginx = {
+      enable = true;
+      hostName = "notes.astrid.tech";
+    };
+  };
+
   time.timeZone = "US/Pacific";
 
   services.nginx = {
@@ -50,5 +57,10 @@ with lib;
     recommendedTlsSettings = true;
     recommendedOptimisation = true;
     recommendedGzipSettings = true;
+
+    virtualHosts."notes.astrid.tech" = {
+      forceSSL = true;
+      enableACME = true;
+    };
   };
 }
