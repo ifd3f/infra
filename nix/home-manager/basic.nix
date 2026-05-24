@@ -13,6 +13,7 @@
     htop
     starship
     neovim
+    direnv
     tmux
     ranger
   ];

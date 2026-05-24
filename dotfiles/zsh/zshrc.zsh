@@ -1,8 +1,11 @@
 # Open directly into tmux
-if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-  # Create session 'main' or attach to 'main' if already exists.
-  tmux new-session -A -s main
-fi
+# if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+#   # Create session 'main' or attach to 'main' if already exists.
+#   tmux new-session -A -s main
+# fi
+
+# Create session 'main' or attach to 'main' if already exists.
+alias "tmain"="tmux new-session -A -s main"
 
 # Enable starship
 eval "$(starship init zsh)"
@@ -45,3 +48,5 @@ alias "egrep"="egrep --color=auto";
 # Automatically set BW_SESSION
 # alias "bwlogin"="export BW_SESSION=$(bw unlock --raw)";
 
+# Set up direnv
+eval "$(direnv hook zsh)"
