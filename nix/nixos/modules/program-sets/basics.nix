@@ -59,7 +59,6 @@ in
       jq
       magic-wormhole
       mktemp
-      neofetch
       netcat
       nmap
       ntfs3g

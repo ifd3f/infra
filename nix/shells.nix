@@ -13,7 +13,7 @@ let
       kubectl
       mqttui
       netcat
-      nixfmt-rfc-style
+      nixfmt
       nodePackages.prettier
       pixiecore
       podman-compose
