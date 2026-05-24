@@ -13,7 +13,10 @@ in
       initrd.supportedFilesystems = [ "zfs" ];
       loader.grub.copyKernels = true;
       supportedFilesystems = [ "zfs" ];
-      zfs.requestEncryptionCredentials = true;
+      zfs = {
+        requestEncryptionCredentials = true;
+        forceImportRoot = false; # may cause data loss otherwise
+      };
     };
     services.zfs = {
       autoScrub.enable = true;

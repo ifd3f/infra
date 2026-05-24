@@ -8,12 +8,16 @@
 
     # Machines run on nixpkgs-stable because it's less likely to break
     # in annoying ways.
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
+    # TODO: update to 26.05 with https://github.com/NixOS/nixpkgs/issues/503391
+    # nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-26.05";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     nur.url = "github:nix-community/NUR";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      # TODO: update to 26.05 with https://github.com/nix-community/home-manager/issues/9294
+      url = "github:nix-community/home-manager/master";
+      # url = "github:nix-community/home-manager/nixos-26.05";
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 

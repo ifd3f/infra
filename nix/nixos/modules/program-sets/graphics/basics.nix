@@ -18,8 +18,6 @@ in
       kdePackages.okular
       kdePackages.dolphin
 
-      xorg.xev
-
       alacritty
       brightnessctl
       flameshot
@@ -33,6 +31,7 @@ in
       wdisplays
       webcamoid
       xclip
+      xev
     ];
   };
 }

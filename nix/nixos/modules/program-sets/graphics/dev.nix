@@ -29,7 +29,7 @@ in
       imagemagick
       lolcat
       netcat
-      nixfmt-rfc-style
+      nixfmt
       racket
       refind
       testdisk
