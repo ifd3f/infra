@@ -14,9 +14,10 @@ let
       mqttui
       netcat
       nixfmt
-      nodePackages.prettier
+      openssl
       pixiecore
       podman-compose
+      prettier
       pwgen
       python3
       racket-minimal
@@ -27,6 +28,7 @@ let
       whois
       wireguard-tools
       yq
+      yubikey-manager
     ]
     ++ (
       if pkgs.system != "x86_64-darwin" then
