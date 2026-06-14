@@ -3,8 +3,10 @@ let
   packages =
     with pkgs;
     [
+      age
       ansible
       backblaze-b2
+      black
       curl
       dnsutils
       git
@@ -20,6 +22,8 @@ let
       prettier
       pwgen
       python3
+      qrencode
+      qrrs
       racket-minimal
       talosctl
       tcpdump
