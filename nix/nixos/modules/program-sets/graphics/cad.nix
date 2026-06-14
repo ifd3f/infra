@@ -15,7 +15,7 @@ in
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       #kicad
-      bambu-studio
+      # bambu-studio causing ooms while compiling???
       openscad-unstable
       freecad
     ];
