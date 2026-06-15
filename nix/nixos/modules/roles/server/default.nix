@@ -36,9 +36,6 @@ in
       options = "--delete-older-than 3d";
     };
 
-    # Use a hardened kernel
-    boot.kernelPackages = pkgs.linuxKernel.packages.linux_hardened;
-
     # Enable SSH in initrd for debugging
     # boot.initrd.network.ssh = {
     #   enable = true;
