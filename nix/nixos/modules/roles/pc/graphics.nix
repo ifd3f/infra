@@ -21,17 +21,13 @@
       vaapiIntel = pkgs.intel-vaapi-driver.override { enableHybridCodec = true; };
     };
 
-    services.displayManager.defaultSession = "gnome";
+    services.displayManager.sddm = {
+      enable = true;
+    };
     services.desktopManager.plasma6.enable = true;
-    services.desktopManager.gnome.enable = true;
     services.xserver = {
       enable = true;
       xkb.layout = "us";
-
-      displayManager.lightdm.enable = true;
-
-      desktopManager.xterm.enable = false;
-      desktopManager.lxqt.enable = true;
     };
 
     programs.ssh.askPassword = lib.mkForce "${pkgs.x11_ssh_askpass}/libexec/x11-ssh-askpass";
