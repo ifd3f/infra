@@ -46,6 +46,8 @@
       {
         imports = [
           inputs.home-manager.flakeModules.home-manager
+
+          ./nix/rescue
         ];
 
         systems = [
@@ -56,7 +58,10 @@
         ];
 
         flake = {
-          nixosModules.default = ./nix/nixos/modules;
+          nixosModules = rec {
+            astral = ./nix/nixos/modules;
+            default = astral;
+          };
           nixosConfigurations = (import ./nix/nixos/machines inputs).nixosConfigurations;
           homeConfigurations = {
             astrid = home-manager.lib.homeManagerConfiguration {
