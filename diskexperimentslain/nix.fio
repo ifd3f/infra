@@ -1,0 +1,32 @@
+# This is a filesystem test meant to be a surrogate of /nix/store or a compilation directory.
+#
+# This will eat lots of mem so waiter, waiter, more memory!
+# --alloc-size=100000
+
+[global]
+# lots of files, and very parallel.
+filesize=1k:1m
+blocksize=512:4k
+nrfiles=2000
+numjobs=8
+
+# make it time based
+runtime=180
+time_based
+group_reporting
+
+# compilers and stuff do standard read and standard write.
+ioengine=sync
+
+[nix-store-write]
+openfiles=30
+
+# compilers and such usually either write a whole file or read a whole file.
+# therefore, within each file, we are doing sequential.
+readwrite=readwrite
+
+[nix-store-read]
+openfiles=400
+# once you're at the phase of reading the store, that's when you're randomly accessing.
+readwrite=randread
+stonewall

@@ -1,0 +1,23 @@
+# Large sequential read and write
+
+[global]
+ioengine=libaio
+direct=1
+size=50G
+ramp_time=10s
+runtime=60s
+time_based
+group_reporting
+
+[seq-read-1M]
+rw=read
+bs=1M
+numjobs=4
+iodepth=16
+
+[seq-write-1M]
+rw=write
+bs=1M
+numjobs=4
+iodepth=16
+stonewall

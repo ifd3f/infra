@@ -1,0 +1,81 @@
+# Blatantly stolen from https://www.dbi-services.com/blog/flexible-io-simulating-database-like-io-activity-without-an-installed-database/
+
+[seq-read]
+# Sequential reads
+rw=read
+# Size if the the I/O
+size=8g
+# Diables posix_fadvise - predeclare an access pattern for file data
+fadvise_hint=0
+# Block size
+blocksize=8k
+# Use of direct I/O
+direct=1
+# Number of I/O threads :
+numjobs=1
+# Number of files :
+nrfiles=1
+# Duration of the test in seconds
+runtime=300
+# Usage of ASYNC I/O
+ioengine=libaio
+# Runtime based, overwrites or overreads several times the specified file
+time_based
+# To free pagecache, dentries and inodes (only possible as root, therefore commented out) :
+# exec_prerun=echo 3 > /proc/sys/vm/drop_caches
+
+[seq-write]
+rw=write
+size=8g
+fadvise_hint=0
+blocksize=8k
+direct=1
+numjobs=1
+nrfiles=1
+runtime=300
+ioengine=libaio
+time_based
+# exec_prerun=echo 3 > /proc/sys/vm/drop_caches
+
+[random-read]
+# Each process allocates one file, therefore to have 8G the size should be set to 1G with 8 processes
+rw=randread
+size=1g
+fadvise_hint=0
+blocksize=8k
+direct=1
+numjobs=8
+nrfiles=1
+runtime=300
+ioengine=libaio
+time_based
+# exec_prerun=echo 3 > /proc/sys/vm/drop_caches
+
+[random-write]
+# Each process allocates one file, therefore to have 8G the size should be set to 1G with 8 processes
+rw=randwrite
+size=1g
+fadvise_hint=0
+blocksize=8k
+direct=1
+numjobs=8
+nrfiles=1
+runtime=300
+ioengine=libaio
+time_based
+# exec_prerun=echo 3 > /proc/sys/vm/drop_caches
+
+[read-write]
+# Each process allocates one file, therefore to have 8G the size should be set to 1G with 8 processes
+rw=rw
+rwmixread=80
+size=1g
+fadvise_hint=0
+blocksize=8k
+direct=1
+numjobs=8
+nrfiles=1
+runtime=300
+ioengine=libaio
+time_based
+# exec_prerun=echo 3 > /proc/sys/vm/drop_caches
