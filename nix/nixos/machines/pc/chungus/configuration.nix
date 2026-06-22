@@ -28,20 +28,8 @@ with lib;
   boot.loader = {
     efi.canTouchEfiVariables = true;
 
-    grub = {
-      gfxmodeEfi = "auto";
-      gfxpayloadEfi = "keep";
-      devices = [ "nodev" ];
-      efiSupport = true;
-      enable = true;
-      useOSProber = true;
-      extraConfig = ''
-        GRUB_TERMINAL=gfxterm
-        GRUB_GFXMODE=640x480
-      '';
-      # TODO pick a grub background
-      # splashImage = ./banana-grub-bg-dark.jpg;
-    };
+    grub.enable = false;
+    refind.enable = true;
   };
 
   # because they dropped support for P620 >.>
