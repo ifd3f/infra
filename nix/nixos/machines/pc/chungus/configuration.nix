@@ -8,6 +8,7 @@
 with lib;
 {
   imports = [
+    ./boot.nix
     ./hardware-configuration.nix
     "${inputs.nixos-hardware}/common/cpu/amd"
   ];
@@ -23,13 +24,6 @@ with lib;
   networking = {
     hostName = "chungus";
     hostId = "b75842a7";
-  };
-
-  boot.loader = {
-    efi.canTouchEfiVariables = true;
-
-    grub.enable = false;
-    refind.enable = true;
   };
 
   # because they dropped support for P620 >.>
