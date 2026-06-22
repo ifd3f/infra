@@ -44,7 +44,9 @@ with lib;
     };
   };
 
-  hardware.nvidia.open = true;
+  # because they dropped support for P620 >.>
+  hardware.nvidia.open = false;
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
   services.xserver.videoDrivers = [ "nvidia" ];
   services.xserver.dpi = 224;
 
