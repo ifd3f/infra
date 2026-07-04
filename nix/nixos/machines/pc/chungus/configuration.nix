@@ -38,14 +38,14 @@ with lib;
   # };
 
   environment.systemPackages = with pkgs; [
-    (
-      (import inputs.nixpkgs-unstable {
-        system = "x86_64-linux";
-        config.allowUnfree = true;
-        config.cudaSupport = true;
-      }).llama-cpp.overrideAttrs
-      { enableParallelBuilding = true; }
-    )
+    # (
+    #   (import inputs.nixpkgs-unstable {
+    #     system = "x86_64-linux";
+    #     config.allowUnfree = true;
+    #     config.cudaSupport = true;
+    #   }).llama-cpp.overrideAttrs
+    #   { enableParallelBuilding = true; }
+    # )
   ];
 
   system.stateVersion = "25.05";
