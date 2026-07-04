@@ -1,9 +1,11 @@
 # Preconfigured users common to multiple machines.
-{ config, inputs, ... }:
+{ config, ... }:
 let
-  sshKeyDatabase = import "${inputs.self}/ssh_keys";
+  sshKeyDatabase = config.astral.inputs.sshKeyDatabase;
 
-  # Helper to create a user with the given name.
+  # Helper to create a user with the given name and presets.
+  # This is so that we can have consistently-configured users across
+  # all machines, enabled with a simple `astral.users.<user>.enable = true`.
   mkUserModule =
     name:
     {
@@ -64,6 +66,8 @@ let
 
 in
 {
+  _class = "nixos";
+
   imports = [
     {
       # Pre-create some default groups.

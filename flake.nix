@@ -59,7 +59,10 @@
 
         flake = {
           nixosModules = rec {
-            astral = ./nix/nixos/modules;
+            astral = {
+              imports = [ ./nix/nixos/modules ];
+              astral.inputs.sshKeyDatabase = import ./ssh_keys;
+            };
             default = astral;
           };
           nixosConfigurations = (import ./nix/nixos/machines inputs).nixosConfigurations;

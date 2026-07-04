@@ -1,4 +1,14 @@
-{
+{ config, lib, ... }: {
+  _class = "nixos";
+
+  # This option set is for the caller flake to inject specific inputs into the module.
+  options.astral.inputs = with lib; {
+    sshKeyDatabase = mkOption {
+      description = "SSH key database";
+      type = types.attrs;
+    };
+  };
+
   imports = [
     ./sshd.nix
     ./acme.nix
