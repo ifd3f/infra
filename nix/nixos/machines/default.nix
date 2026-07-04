@@ -1,22 +1,16 @@
 {
   self,
-  nixpkgs-stable,
-  nixpkgs-unstable,
+  inputs,
+  lib,
   ...
-}@inputs:
-with nixpkgs-stable.lib;
+}:
+with lib;
 let
   mkMachine = hostname: path: {
     inherit hostname path;
     readme = path + "/README.md";
     machine-info = import (path + "/machine-info.nix");
     configuration = import (path + "/configuration.nix");
-  };
-
-  inputs' = {
-    inherit (inputs) self nixos-hardware armqr;
-    nixpkgs = nixpkgs-stable;
-    nixpkgs-unstable = nixpkgs-unstable;
   };
 
   collectMachines =
@@ -29,18 +23,21 @@ let
       );
     in
     mapAttrs (hostname: _: mkMachine hostname ("${dir}/${hostname}")) subdirs;
+
+  machines = collectMachines ./pc // collectMachines ./server;
 in
 rec {
-  machines = collectMachines ./pc // collectMachines ./server;
-
-  nixosConfigurations =
+  flake.nixosConfigurations =
     let
       enabledMachines = filterAttrs (_: m: m.machine-info.enable or true) machines;
       mkConfiguration =
         _: m:
-        nixpkgs-stable.lib.nixosSystem {
-          specialArgs = {
-            inputs = inputs';
+        inputs.nixpkgs-stable.lib.nixosSystem {
+          specialArgs.inputs = {
+            inherit self;
+            inherit (inputs) nixos-hardware armqr;
+            nixpkgs = inputs.nixpkgs-stable;
+            nixpkgs-unstable = inputs.nixpkgs-unstable;
           };
           system = m.machine-info.arch;
           modules = [

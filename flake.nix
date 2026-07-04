@@ -48,6 +48,7 @@
           inputs.home-manager.flakeModules.home-manager
 
           ./nix/rescue
+          ./nix/nixos/machines 
         ];
 
         systems = [
@@ -65,7 +66,6 @@
             };
             default = astral;
           };
-          nixosConfigurations = (import ./nix/nixos/machines inputs).nixosConfigurations;
           homeConfigurations = {
             astrid = home-manager.lib.homeManagerConfiguration {
               pkgs = import nixpkgs-stable { system = "x86_64-linux"; };
