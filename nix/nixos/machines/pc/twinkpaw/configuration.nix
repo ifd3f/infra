@@ -10,7 +10,6 @@ with lib;
   imports = [
     ./hardware-configuration.nix
     "${inputs.nixos-hardware}/common/cpu/amd"
-    "${inputs.self}/nix/nixos/modules/roles/pc"
   ];
 
   time.timeZone = "US/Pacific";

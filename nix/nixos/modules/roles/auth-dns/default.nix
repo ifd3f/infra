@@ -84,16 +84,6 @@ in
           file = ./astrid.tech.zone;
         }
         {
-          name = "d.astrid.tech";
-          master = true;
-          file = "d.astrid.tech.zone";
-          # extraConfig = ''
-          #   allow-update {
-          #     key s03;
-          #   };
-          # '';
-        }
-        {
           name = "aay.tw";
           master = true;
           file = ./aay.tw.zone;

@@ -1,5 +1,5 @@
 # Various mods to improve development experience.
-{ pkgs, inputs, ... }:
+{ pkgs, ... }:
 {
   astral.virt = {
     docker.enable = true;

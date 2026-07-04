@@ -4,7 +4,6 @@
     ./hardware-configuration.nix
     ./fs.nix
     ./surface.nix
-    "${inputs.self}/nix/nixos/modules/roles/pc"
   ];
 
   time.timeZone = "US/Pacific";

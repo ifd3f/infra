@@ -10,15 +10,6 @@ let
   cfg = config.astral.roles.server;
 in
 {
-  imports = [
-    "${inputs.self}/nix/nixos/modules/program-sets/fonts.nix"
-    "${inputs.self}/nix/nixos/modules/program-sets/security.nix"
-    "${inputs.self}/nix/nixos/modules/program-sets/utils.nix"
-
-    "${inputs.self}/nix/nixos/modules/acme.nix"
-    "${inputs.self}/nix/nixos/modules/zfs-utils.nix"
-  ];
-
   options.astral.roles.server.enable = lib.mkEnableOption "Server role";
 
   config = lib.mkIf cfg.enable {

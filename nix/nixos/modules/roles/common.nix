@@ -1,7 +1,6 @@
 # These config options are common to EVERYTHING.
 {
   pkgs,
-  inputs,
   lib,
   config,
   ...
