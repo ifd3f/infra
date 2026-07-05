@@ -22,3 +22,13 @@ sqlite
 squashfsTools
 starship
 tokei
+astrid@nyacbook-nyair ~ %  nix profile list --json | jq '.elements | keys | .[]' -r
+agda
+emacs
+gh
+magic-wormhole
+neovim
+nixfmt
+pandoc
+sequoia-sq
+tree
