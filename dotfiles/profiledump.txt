@@ -1,0 +1,24 @@
+astrid@chungus ~  ❯ nix profile list --json | jq '.elements | keys | .[]' -r
+beep
+bintools
+buck2
+direnv
+dmidecode
+dotbot
+fatresize
+fio
+graphviz
+libarchive
+lshw
+lz4
+miller
+nix-tree
+openssl
+poetry
+prettier
+sequoia-sq
+smartmontools
+sqlite
+squashfsTools
+starship
+tokei
