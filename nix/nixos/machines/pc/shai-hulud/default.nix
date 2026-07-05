@@ -1,5 +1,12 @@
 { inputs, pkgs, ... }:
 {
+  _class = "nixos";
+  nixpkgs.system = "x86_64-linux";
+  networking = {
+    hostName = "shai-hulud";
+    hostId = "49e32584";
+  };
+
   imports = [
     ./hardware-configuration.nix
     ./fs.nix
@@ -7,11 +14,6 @@
   ];
 
   time.timeZone = "US/Pacific";
-
-  networking = {
-    hostName = "shai-hulud";
-    hostId = "49e32584";
-  };
 
   boot.loader = {
     efi.canTouchEfiVariables = true;

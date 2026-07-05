@@ -6,45 +6,54 @@
 }:
 with lib;
 let
-  mkMachine = hostname: path: {
-    inherit hostname path;
-    readme = path + "/README.md";
-    machine-info = import (path + "/machine-info.nix");
-    configuration = import (path + "/configuration.nix");
-  };
+  /**
+    convert the given module into a nixos configuration, and perform assertions
+  */
+  evalNixosSystem =
+    dirname: module:
+    let
+      evaluated = inputs.nixpkgs-stable.lib.nixosSystem {
+        specialArgs.inputs = {
+          inherit self;
+          inherit (inputs) nixos-hardware armqr;
+          nixpkgs = inputs.nixpkgs-stable;
+          nixpkgs-unstable = inputs.nixpkgs-unstable;
+        };
+        modules = [
+          self.nixosModules.default
+          module
+        ];
+      };
+    in
+    assert assertMsg (
+      evaluated.config.networking.hostName == dirname
+    ) "hostname does not match directory name";
+    evaluated;
 
+  /**
+    eval all the direct children of a directory
+  */
   collectMachines =
     dir:
-    let
-      subdirs = (
-        filterAttrs (name: type: type == "directory" && pathExists ("${dir}/${name}/machine-info.nix")) (
-          builtins.readDir dir
-        )
-      );
-    in
-    mapAttrs (hostname: _: mkMachine hostname ("${dir}/${hostname}")) subdirs;
+    mapAttrs (dirname: _: evalNixosSystem dirname "${dir}/${dirname}") (
+      filterAttrs (name: type: type == "directory") (readDir dir)
+    );
 
-  machines = collectMachines ./pc // collectMachines ./server;
+  /**
+    assert that the two attrsets provided are disjoint, then merge them together.
+    if they are not disjoint, this crashes.
+  */
+  mergeAssertDisjoint =
+    a: b:
+    let
+      intersectingNames = attrNames (intersectAttrs a b);
+    in
+    assert assertMsg (
+      length intersectingNames == 0
+    ) "intersecting attr keys: ${toString intersectingNames}";
+    a // b;
+
 in
 rec {
-  flake.nixosConfigurations =
-    let
-      enabledMachines = filterAttrs (_: m: m.machine-info.enable or true) machines;
-      mkConfiguration =
-        _: m:
-        inputs.nixpkgs-stable.lib.nixosSystem {
-          specialArgs.inputs = {
-            inherit self;
-            inherit (inputs) nixos-hardware armqr;
-            nixpkgs = inputs.nixpkgs-stable;
-            nixpkgs-unstable = inputs.nixpkgs-unstable;
-          };
-          system = m.machine-info.arch;
-          modules = [
-            self.nixosModules.default
-            m.configuration
-          ];
-        };
-    in
-    mapAttrs mkConfiguration enabledMachines;
+  flake.nixosConfigurations = mergeAssertDisjoint (collectMachines ./pc) (collectMachines ./server);
 }

@@ -7,6 +7,13 @@
 }:
 with lib;
 {
+  _class = "nixos";
+  nixpkgs.system = "x86_64-linux";
+  networking = {
+    hostName = "twinkpaw";
+    hostId = "76d4a2bc";
+  };
+
   imports = [
     ./hardware-configuration.nix
     "${inputs.nixos-hardware}/common/cpu/amd"
@@ -15,11 +22,6 @@ with lib;
   time.timeZone = "US/Pacific";
 
   services.xserver.dpi = 209;
-
-  networking = {
-    hostName = "twinkpaw";
-    hostId = "76d4a2bc";
-  };
 
   boot.loader = {
     efi.canTouchEfiVariables = true;
