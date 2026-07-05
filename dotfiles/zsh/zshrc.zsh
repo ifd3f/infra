@@ -49,8 +49,9 @@ alias "..."="../..";
 alias "...."="../../..";
 
 # ls aliases
-alias "la"="ls -A";
 alias "l"="ls -CF";
+alias "la"="ls -A";
+alias "ll"="ls -la";
 
 # Automatically use colors
 alias "ls"="ls --color=auto";
