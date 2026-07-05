@@ -32,7 +32,7 @@ with lib;
       efiSupport = true;
       enable = true;
       useOSProber = false;
-      splashImage = self.helpers.${pkgs.system}.adjustImageBrightness "twinkpaw-bg" (-10) ./bg.jpg;
+      splashImage = pkgs.astral.helpers.adjustImageBrightness "twinkpaw-bg" (-10) ./bg.jpg;
     };
   };
 

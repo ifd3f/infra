@@ -23,9 +23,7 @@
       efiSupport = true;
       enable = true;
       useOSProber = true;
-      splashImage =
-        with self.legacyPackages.${pkgs.system}.helpers;
-        adjustImageBrightness "shai-hulud-bg" (-30) ./shai-hulud.jpg;
+      splashImage = pkgs.astral.helpers.adjustImageBrightness "shai-hulud-bg" (-30) ./shai-hulud.jpg;
     };
   };
 
