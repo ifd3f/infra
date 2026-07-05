@@ -2,11 +2,17 @@ format = """
 $git_branch\
 $git_state\
 $git_status\
+$git_metrics \
 $cmd_duration\
 $line_break\
 $username@$hostname $directory\
 $python\
 $character"""
+
+# on large dirs (such as nixpkgs), command delegation may take a reeeeally long time.
+# i prioritize responsiveness for shells so i will apply this very short
+# "reacting-instantaneously" timeout upon it.
+command_timeout = 50
 
 [username]
 format = "[$user]($style)"
@@ -43,6 +49,9 @@ stashed = "≡"
 format = '\([$state( $progress_current/$progress_total)]($style)\) '
 style = "bright-black"
 
+[git_metrics] # line counts!
+disabled = false 
+
 [cmd_duration]
 format = "[$duration]($style) "
 style = "yellow"
@@ -50,4 +59,3 @@ style = "yellow"
 [python]
 format = "[$virtualenv]($style) "
 style = "bright-black"
-
