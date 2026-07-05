@@ -29,6 +29,12 @@
 
   flake = {
     overlays.default = final: prev: {
+      astral.resources = {
+        nixowos-svg = ./nixowos.svg;
+      };
+
+      astral.helpers = prev.callPackage ./helpers.nix { };
+
       inherit (inputs.nixpkgs-unstable.legacyPackages.${prev.system})
         # TODO: trilium is out of date on stable, remove when it's updated
         trilium
@@ -66,7 +72,5 @@
           config.allowUnfree = true;
         };
       };
-
-      legacyPackages.helpers = pkgs.callPackage ./helpers.nix { };
     };
 }

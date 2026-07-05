@@ -39,6 +39,7 @@ in
             specialArgs.self = self;
             specialArgs.nixos-hardware = cfg.nixos-hardware;
             modules = [
+              { nixpkgs.overlays = [ self.overlays.default ]; }
               self.nixosModules.default
               module
             ];
