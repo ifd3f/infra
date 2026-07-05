@@ -2,7 +2,7 @@
   config,
   pkgs,
   lib,
-  inputs,
+  nixos-hardware,
   ...
 }:
 with lib;
@@ -16,7 +16,7 @@ with lib;
 
   imports = [
     ./hardware-configuration.nix
-    "${inputs.nixos-hardware}/common/cpu/amd"
+    nixos-hardware.nixosModules.common-cpu-amd
   ];
 
   time.timeZone = "US/Pacific";

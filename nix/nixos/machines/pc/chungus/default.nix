@@ -2,7 +2,7 @@
   config,
   pkgs,
   lib,
-  inputs,
+  nixos-hardware,
   ...
 }:
 with lib;
@@ -17,7 +17,7 @@ with lib;
   imports = [
     ./boot.nix
     ./hardware-configuration.nix
-    "${inputs.nixos-hardware}/common/cpu/amd"
+    nixos-hardware.nixosModules.common-cpu-amd
   ];
 
   astral.roles.pc.enable = true;

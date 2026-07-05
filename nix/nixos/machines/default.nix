@@ -15,10 +15,10 @@ let
       evaluated = inputs.nixpkgs-stable.lib.nixosSystem {
         specialArgs.inputs = {
           inherit self;
-          inherit (inputs) nixos-hardware;
           nixpkgs = inputs.nixpkgs-stable;
           nixpkgs-unstable = inputs.nixpkgs-unstable;
         };
+        specialArgs.nixos-hardware = inputs.nixos-hardware;
         modules = [
           self.nixosModules.default
           module
