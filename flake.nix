@@ -48,7 +48,7 @@
           inputs.home-manager.flakeModules.home-manager
 
           ./nix/rescue
-          ./nix/nixos/machines 
+          ./nix/nixos/machines
         ];
 
         systems = [
@@ -60,9 +60,10 @@
 
         flake = {
           nixosModules = rec {
-            astral = {
+            astral = { pkgs, lib, ... }: {
               imports = [ ./nix/nixos/modules ];
               astral.inputs.sshKeyDatabase = import ./ssh_keys;
+              services.armqr.package = lib.mkDefault inputs.armqr.packages.${pkgs.system}.default;
             };
             default = astral;
           };

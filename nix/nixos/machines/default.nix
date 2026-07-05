@@ -15,7 +15,7 @@ let
       evaluated = inputs.nixpkgs-stable.lib.nixosSystem {
         specialArgs.inputs = {
           inherit self;
-          inherit (inputs) nixos-hardware armqr;
+          inherit (inputs) nixos-hardware;
           nixpkgs = inputs.nixpkgs-stable;
           nixpkgs-unstable = inputs.nixpkgs-unstable;
         };
