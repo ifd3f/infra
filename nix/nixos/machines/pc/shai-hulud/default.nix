@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ self, pkgs, ... }:
 {
   _class = "nixos";
   nixpkgs.system = "x86_64-linux";
@@ -24,7 +24,7 @@
       enable = true;
       useOSProber = true;
       splashImage =
-        with inputs.self.legacyPackages.${pkgs.system}.helpers;
+        with self.legacyPackages.${pkgs.system}.helpers;
         adjustImageBrightness "shai-hulud-bg" (-30) ./shai-hulud.jpg;
     };
   };

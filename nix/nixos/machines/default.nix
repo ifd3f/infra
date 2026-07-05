@@ -32,8 +32,8 @@ in
         dirname: module:
         let
           evaluated = cfg.nixosSystem {
+            specialArgs.self = self;
             specialArgs.inputs = {
-              inherit self;
               nixpkgs-unstable = inputs.nixpkgs-unstable;
             };
             specialArgs.nixos-hardware = cfg.nixos-hardware;

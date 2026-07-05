@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  self,
   nixos-hardware,
   ...
 }:
@@ -31,7 +32,7 @@ with lib;
       efiSupport = true;
       enable = true;
       useOSProber = false;
-      splashImage = inputs.self.helpers.${pkgs.system}.adjustImageBrightness "twinkpaw-bg" (-10) ./bg.jpg;
+      splashImage = self.helpers.${pkgs.system}.adjustImageBrightness "twinkpaw-bg" (-10) ./bg.jpg;
     };
   };
 
