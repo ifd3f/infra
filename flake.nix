@@ -62,10 +62,18 @@
           machines = {
             nixosSystem = inputs.nixpkgs-stable.lib.nixosSystem;
             nixos-hardware = inputs.nixos-hardware;
+            overlay = self.overlays.default;
           };
         };
 
         flake = {
+          overlays.default = final: prev: {
+            inherit (inputs.nixpkgs-unstable.legacyPackages.${prev.system})
+              # TODO: trilium is out of date on stable, remove when it's updated
+              trilium
+              trilium-server
+              ;
+          };
           nixosModules = rec {
             astral = { pkgs, lib, ... }: {
               imports = [ ./nix/nixos/modules ];

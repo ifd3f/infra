@@ -20,6 +20,10 @@ in
       description = "Which nixos-hardware flake instance to use";
       type = types.attrs;
     };
+    overlay = mkOption {
+      description = "Package overlay to apply onto all systems";
+      type = types.functionTo (types.functionTo (types.attrs));
+    };
   };
 
   config.flake.nixosConfigurations =
@@ -33,9 +37,6 @@ in
         let
           evaluated = cfg.nixosSystem {
             specialArgs.self = self;
-            specialArgs.inputs = {
-              nixpkgs-unstable = inputs.nixpkgs-unstable;
-            };
             specialArgs.nixos-hardware = cfg.nixos-hardware;
             modules = [
               self.nixosModules.default
