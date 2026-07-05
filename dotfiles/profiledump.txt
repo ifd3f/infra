@@ -32,3 +32,6 @@ nixfmt
 pandoc
 sequoia-sq
 tree
+% nix profile list --json | jq '.elements | keys | .[]' -r
+home-manager-path
+
