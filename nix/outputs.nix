@@ -27,43 +27,38 @@
     };
   };
 
-  flake = {
-    overlays.default = final: prev: {
-      astral.resources = {
-        nixowos-svg = ./nixowos.svg;
-      };
-
-      astral.helpers = prev.callPackage ./helpers.nix { };
-
-      inherit (inputs.nixpkgs-unstable.legacyPackages.${prev.system})
-        # TODO: trilium is out of date on stable, remove when it's updated
-        trilium
-        trilium-server
-        ;
+  flake.overlays.default = final: prev: {
+    astral.resources = {
+      nixowos-svg = ./nixowos.svg;
     };
-    nixosModules = rec {
-      astral = { pkgs, lib, ... }: {
-        imports = [ ./nixos/modules ];
-        astral.inputs.sshKeyDatabase = import ../ssh_keys;
-        services.armqr.package = lib.mkDefault inputs.armqr.packages.${pkgs.system}.default;
-      };
-      default = astral;
+
+    astral.helpers = prev.callPackage ./helpers.nix { };
+
+    inherit (inputs.nixpkgs-unstable.legacyPackages.${prev.system})
+      # TODO: trilium is out of date on stable, remove when it's updated
+      trilium
+      trilium-server
+      ;
+  };
+
+  flake.nixosModules = rec {
+    astral = { pkgs, lib, ... }: {
+      imports = [ ./nixos/modules ];
+      astral.inputs.sshKeyDatabase = import ../ssh_keys;
+      services.armqr.package = lib.mkDefault inputs.armqr.packages.${pkgs.system}.default;
     };
-    homeConfigurations = {
-      astrid = inputs.home-manager.lib.homeManagerConfiguration {
-        pkgs = import inputs.nixpkgs-stable { system = "x86_64-linux"; };
-        modules = [ ./home-manager/basic.nix ];
-      };
+    default = astral;
+  };
+
+  flake.homeConfigurations = {
+    astrid = inputs.home-manager.lib.homeManagerConfiguration {
+      pkgs = import inputs.nixpkgs-stable { system = "x86_64-linux"; };
+      modules = [ ./home-manager/basic.nix ];
     };
   };
 
   perSystem =
-    {
-      config,
-      pkgs,
-      system,
-      ...
-    }:
+    { pkgs, system, ... }:
     {
       devShells = import ./shells.nix {
         inherit self;
