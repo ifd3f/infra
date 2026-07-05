@@ -48,6 +48,7 @@
           inputs.home-manager.flakeModules.home-manager
 
           ./nix/rescue
+          ./nix/nixos/machines
         ];
 
         systems = [
@@ -57,12 +58,30 @@
           "aarch64-darwin"
         ];
 
+        astral = {
+          machines = {
+            nixosSystem = inputs.nixpkgs-stable.lib.nixosSystem;
+            nixos-hardware = inputs.nixos-hardware;
+            overlay = self.overlays.default;
+          };
+        };
+
         flake = {
+          overlays.default = final: prev: {
+            inherit (inputs.nixpkgs-unstable.legacyPackages.${prev.system})
+              # TODO: trilium is out of date on stable, remove when it's updated
+              trilium
+              trilium-server
+              ;
+          };
           nixosModules = rec {
-            astral = ./nix/nixos/modules;
+            astral = { pkgs, lib, ... }: {
+              imports = [ ./nix/nixos/modules ];
+              astral.inputs.sshKeyDatabase = import ./ssh_keys;
+              services.armqr.package = lib.mkDefault inputs.armqr.packages.${pkgs.system}.default;
+            };
             default = astral;
           };
-          nixosConfigurations = (import ./nix/nixos/machines inputs).nixosConfigurations;
           homeConfigurations = {
             astrid = home-manager.lib.homeManagerConfiguration {
               pkgs = import nixpkgs-stable { system = "x86_64-linux"; };

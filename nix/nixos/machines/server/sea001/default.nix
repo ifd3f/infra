@@ -8,6 +8,9 @@
 }:
 with lib;
 {
+  _class = "nixos";
+  nixpkgs.system = "x86_64-linux";
+
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
   ];
@@ -42,8 +45,6 @@ with lib;
 
   services.trilium-server = {
     enable = true;
-    # unstable has 103.0. TODO: remove when able
-    package = inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.trilium-server;
     nginx = {
       enable = true;
       hostName = "notes.astrid.tech";

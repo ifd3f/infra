@@ -1,15 +1,14 @@
-# Microsoft surface specific tweaks
 {
-  inputs,
+  nixos-hardware,
   pkgs,
   lib,
   ...
 }:
 with lib;
 {
-  imports = with inputs.nixos-hardware.nixosModules; [
-    common-pc-ssd
-    microsoft-surface-common
+  imports = [
+    nixos-hardware.nixosModules.common-pc-ssd
+    nixos-hardware.nixosModules.microsoft-surface-common
   ];
 
   hardware.microsoft-surface.kernelVersion = "stable";

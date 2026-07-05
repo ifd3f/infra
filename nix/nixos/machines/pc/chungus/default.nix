@@ -2,15 +2,22 @@
   config,
   pkgs,
   lib,
-  inputs,
+  nixos-hardware,
   ...
 }:
 with lib;
 {
+  _class = "nixos";
+  nixpkgs.system = "x86_64-linux";
+  networking = {
+    hostName = "chungus";
+    hostId = "b75842a7";
+  };
+
   imports = [
     ./boot.nix
     ./hardware-configuration.nix
-    "${inputs.nixos-hardware}/common/cpu/amd"
+    nixos-hardware.nixosModules.common-cpu-amd
   ];
 
   astral.roles.pc.enable = true;
@@ -20,11 +27,6 @@ with lib;
   nixpkgs.config.allowUnfree = true;
 
   time.timeZone = "US/Pacific";
-
-  networking = {
-    hostName = "chungus";
-    hostId = "b75842a7";
-  };
 
   # because they dropped support for P620 >.>
   hardware.nvidia.open = false;

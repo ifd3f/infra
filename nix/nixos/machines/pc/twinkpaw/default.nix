@@ -2,25 +2,27 @@
   config,
   pkgs,
   lib,
-  inputs,
+  self,
+  nixos-hardware,
   ...
 }:
 with lib;
 {
+  _class = "nixos";
+  nixpkgs.system = "x86_64-linux";
+  networking = {
+    hostName = "twinkpaw";
+    hostId = "76d4a2bc";
+  };
+
   imports = [
     ./hardware-configuration.nix
-    "${inputs.nixos-hardware}/common/cpu/amd"
-    "${inputs.self}/nix/nixos/modules/roles/pc"
+    nixos-hardware.nixosModules.common-cpu-amd
   ];
 
   time.timeZone = "US/Pacific";
 
   services.xserver.dpi = 209;
-
-  networking = {
-    hostName = "twinkpaw";
-    hostId = "76d4a2bc";
-  };
 
   boot.loader = {
     efi.canTouchEfiVariables = true;
@@ -30,7 +32,7 @@ with lib;
       efiSupport = true;
       enable = true;
       useOSProber = false;
-      splashImage = inputs.self.helpers.${pkgs.system}.adjustImageBrightness "twinkpaw-bg" (-10) ./bg.jpg;
+      splashImage = self.helpers.${pkgs.system}.adjustImageBrightness "twinkpaw-bg" (-10) ./bg.jpg;
     };
   };
 

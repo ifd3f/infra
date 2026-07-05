@@ -1,53 +1,77 @@
 {
   self,
-  nixpkgs-stable,
-  nixpkgs-unstable,
+  inputs,
+  lib,
+  config,
   ...
-}@inputs:
-with nixpkgs-stable.lib;
+}:
 let
-  mkMachine = hostname: path: {
-    inherit hostname path;
-    readme = path + "/README.md";
-    machine-info = import (path + "/machine-info.nix");
-    configuration = import (path + "/configuration.nix");
-  };
-
-  inputs' = {
-    inherit (inputs) self nixos-hardware armqr;
-    nixpkgs = nixpkgs-stable;
-    nixpkgs-unstable = nixpkgs-unstable;
-  };
-
-  collectMachines =
-    dir:
-    let
-      subdirs = (
-        filterAttrs (name: type: type == "directory" && pathExists ("${dir}/${name}/machine-info.nix")) (
-          builtins.readDir dir
-        )
-      );
-    in
-    mapAttrs (hostname: _: mkMachine hostname ("${dir}/${hostname}")) subdirs;
+  cfg = config.astral.machines;
 in
-rec {
-  machines = collectMachines ./pc // collectMachines ./server;
+{
+  _class = "flake";
 
-  nixosConfigurations =
+  options.astral.machines = with lib; {
+    nixosSystem = mkOption {
+      description = "Which nixpkgs.lib.nixosSystem implementation to use";
+      type = types.functionTo (types.attrs);
+    };
+    nixos-hardware = mkOption {
+      description = "Which nixos-hardware flake instance to use";
+      type = types.attrs;
+    };
+    overlay = mkOption {
+      description = "Package overlay to apply onto all systems";
+      type = types.functionTo (types.functionTo (types.attrs));
+    };
+  };
+
+  config.flake.nixosConfigurations =
+    with lib;
     let
-      enabledMachines = filterAttrs (_: m: m.machine-info.enable or true) machines;
-      mkConfiguration =
-        _: m:
-        nixpkgs-stable.lib.nixosSystem {
-          specialArgs = {
-            inputs = inputs';
+      /**
+        convert the given module into a nixos configuration, and perform assertions
+      */
+      evalNixosSystem =
+        dirname: module:
+        let
+          evaluated = cfg.nixosSystem {
+            specialArgs.self = self;
+            specialArgs.nixos-hardware = cfg.nixos-hardware;
+            modules = [
+              self.nixosModules.default
+              module
+            ];
           };
-          system = m.machine-info.arch;
-          modules = [
-            self.nixosModules.default
-            m.configuration
-          ];
-        };
+        in
+        assert assertMsg (
+          evaluated.config.networking.hostName == dirname
+        ) "hostname does not match directory name";
+        evaluated;
+
+      /**
+        eval all the direct children of a directory
+      */
+      collectMachines =
+        dir:
+        mapAttrs (dirname: _: evalNixosSystem dirname "${dir}/${dirname}") (
+          filterAttrs (name: type: type == "directory") (readDir dir)
+        );
+
+      /**
+        assert that the two attrsets provided are disjoint, then merge them together.
+        if they are not disjoint, this crashes.
+      */
+      mergeAssertDisjoint =
+        a: b:
+        let
+          intersectingNames = attrNames (intersectAttrs a b);
+        in
+        assert assertMsg (
+          length intersectingNames == 0
+        ) "intersecting attr keys: ${toString intersectingNames}";
+        a // b;
+
     in
-    mapAttrs mkConfiguration enabledMachines;
+    mergeAssertDisjoint (collectMachines ./pc) (collectMachines ./server);
 }

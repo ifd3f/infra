@@ -2,11 +2,13 @@
   config,
   pkgs,
   lib,
-  inputs,
   ...
 }:
 with lib;
 {
+  _class = "nixos";
+  nixpkgs.system = "x86_64-linux";
+
   astral = {
     roles.server.enable = true;
     roles.contabo-vps.enable = true;

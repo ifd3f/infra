@@ -2,7 +2,6 @@
   pkgs,
   lib,
   config,
-  inputs,
   ...
 }:
 let
@@ -12,7 +11,11 @@ in
 with lib;
 {
   options.services.armqr = {
-    enable = mkEnableOption "armqr";
+    enable = mkEnableOption "ArmQR Service";
+    package = mkOption {
+      type = types.package;
+      description = "ArmQR package to use";
+    };
     user = mkOption {
       type = types.str;
       description = "User to run under";
@@ -59,7 +62,7 @@ with lib;
       config = mkOption {
         type = types.submodule (
           recursiveUpdate (import
-            "${inputs.nixpkgs}/nixos/modules/services/web-servers/nginx/vhost-options.nix"
+            "${pkgs.path}/nixos/modules/services/web-servers/nginx/vhost-options.nix"
             {
               inherit config lib;
             }
@@ -85,7 +88,7 @@ with lib;
       description = "ArmQR";
       wantedBy = [ "network-online.target" ];
       wants = [ "armqr-config.service" ];
-      path = with pkgs; [ inputs.armqr.packages.${pkgs.system}.default ];
+      path = with pkgs; [ cfg.package ];
       script = ''
         armqr --address ${cfg.address} --port ${toString cfg.port} --dynamic-settings-path "${cfg.stateDir}/settings.toml"
       '';
