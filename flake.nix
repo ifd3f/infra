@@ -58,6 +58,13 @@
           "aarch64-darwin"
         ];
 
+        astral = {
+          machines = {
+            nixosSystem = inputs.nixpkgs-stable.lib.nixosSystem;
+            nixos-hardware = inputs.nixos-hardware;
+          };
+        };
+
         flake = {
           nixosModules = rec {
             astral = { pkgs, lib, ... }: {
