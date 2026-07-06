@@ -31,7 +31,7 @@
           ./nixos
           ./nix/inputs.nix
           ./nix/overlays.nix
-          ./nix/rescue
+          ./pkgs
           ./nix/shells.nix
         ];
 

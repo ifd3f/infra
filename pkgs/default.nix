@@ -2,7 +2,7 @@
 let
   modules = [
     # self.nixosModules.astral TODO
-    ./configuration.nix
+    ./rescue/configuration.nix
     ({ modulesPath, ... }: {
       imports = [
         "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
