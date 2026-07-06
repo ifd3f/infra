@@ -10,6 +10,8 @@
 {
   _class = "flake";
 
+  imports = [ ./checks.nix ];
+
   flake.nixosModules = rec {
     astral = ./astral;
     default = astral;
