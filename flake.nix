@@ -23,5 +23,36 @@
   };
 
   outputs =
-    { flake-parts, ... }@inputs: flake-parts.lib.mkFlake { inherit inputs; } ./nix/outputs.nix;
+    { flake-parts, ... }@inputs:
+    flake-parts.lib.mkFlake { inherit inputs; } (
+      { self, inputs, ... }:
+      {
+        imports = [
+          ./nixos
+          ./nix/inputs.nix
+          ./nix/overlays.nix
+          ./nix/rescue
+          ./nix/shells.nix
+        ];
+
+        systems = [
+          "x86_64-linux"
+          "aarch64-linux"
+          "x86_64-darwin"
+          "aarch64-darwin"
+        ];
+
+        astral = {
+          nixosSystem = inputs.nixpkgs-stable.lib.nixosSystem;
+          nixos-hardware = inputs.nixos-hardware;
+        };
+
+        perSystem =
+          { inputs', system, ... }:
+          {
+            astral.basePkgs = inputs'.nixpkgs-stable.legacyPackages;
+          };
+      }
+    );
+
 }

@@ -4,19 +4,17 @@
   Ideally, no modules except for the main flake.nix file read the `inputs` argument at all.
   This rule is used to ensure we don't have implicit dependencies.
 */
-{ config, lib, ... }:
+{
+  self,
+  config,
+  lib,
+  ...
+}:
 with lib;
-let
-  selectedOverlay = config.astral.overlay;
-in
 {
   _class = "flake";
 
   options.astral = {
-    overlay = mkOption {
-      description = "Package overlay to apply onto everything";
-      type = with types; functionTo (functionTo attrs);
-    };
     nixosSystem = mkOption {
       description = "Which `nixpkgs.lib.nixosSystem` implementation to use";
       type = with types; functionTo attrs;
@@ -41,6 +39,6 @@ in
         };
       };
 
-      config.astral.pkgs = config.astral.basePkgs.extend selectedOverlay;
+      config.astral.pkgs = config.astral.basePkgs.extend self.overlays.global;
     };
 }

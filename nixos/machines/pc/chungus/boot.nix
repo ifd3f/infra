@@ -7,7 +7,7 @@ let
   wallpaper =
     with pkgs;
     runCommand "wallpaper.png" { buildInputs = [ imagemagick ]; } ''
-      magick -background "#000000" "${pkgs.astral.resources.nixowos-svg}" nixowos.png
+      magick -background "#000000" "${pkgs.astral.nixowos-svg}" nixowos.png
       mv nixowos.png $out
     '';
 in

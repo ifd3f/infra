@@ -38,11 +38,14 @@
           ;
       };
 
-    combined = lib.composeManyExtensions [
+    /**
+      This is the overlay used across this entire flake.
+    */
+    global = lib.composeManyExtensions [
       patches
       astral
     ];
 
-    default = combined;
+    default = global;
   };
 }
