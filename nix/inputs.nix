@@ -39,6 +39,6 @@ with lib;
         };
       };
 
-      config.astral.pkgs = config.astral.basePkgs.extend self.overlays.global;
+      config._module.args.pkgs = config.astral.basePkgs.extend self.overlays.global;
     };
 }

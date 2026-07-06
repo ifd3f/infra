@@ -4,11 +4,10 @@
       self',
       system,
       config,
+      pkgs,
       ...
     }:
     let
-      pkgs = config.astral.pkgs;
-
       infraPackages =
         with pkgs;
         [
