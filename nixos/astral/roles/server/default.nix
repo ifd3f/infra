@@ -27,20 +27,6 @@ in
       options = "--delete-older-than 3d";
     };
 
-    # Enable SSH in initrd for debugging
-    # boot.initrd.network.ssh = {
-    #   enable = true;
-    #   authorizedKeys = [ inputs.self.lib.sshKeyDatabase.users.astrid ];
-    # };
-
-    # home-manager = {
-    #   useGlobalPkgs = true;
-    #   useUserPackages = true;
-
-    #   # embed the home-manager into the configuration
-    #   users.astrid = inputs.self.homeModules.astral-cli;
-    # };
-
     # Passwordless sudo
     security.sudo.wheelNeedsPassword = false;
     users.mutableUsers = false;

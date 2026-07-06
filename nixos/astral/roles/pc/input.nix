@@ -20,7 +20,5 @@
         libsForQt5.fcitx5-qt
       ];
     };
-  }
-
-  ;
+  };
 }

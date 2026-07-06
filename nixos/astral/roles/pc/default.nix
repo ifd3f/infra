@@ -43,12 +43,6 @@ in
     services.resolved.enable = true;
     networking.networkmanager.enable = true;
 
-    # Enable SSH in initrd for debugging or disk key entry
-    boot.initrd.network.ssh = {
-      enable = true;
-      authorizedKeys = [ config.astral.lib.sshKeyDatabase.users.astrid ];
-    };
-
     users.mutableUsers = true;
     services.geoclue2 = {
       enable = true;
@@ -56,16 +50,6 @@ in
     };
 
     networking.nftables.enable = true;
-
-    # Things from the old system not yet ported over.
-    #
-    # astral = {
-    #   custom-tty.enable = true;
-    #   # infra-update = {
-    #   #   enable = true;
-    #   #   dates = "*-*-* 3:00:00 US/Pacific";
-    #   # };
-    # };
 
     services.flatpak.enable = true;
 

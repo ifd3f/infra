@@ -28,11 +28,11 @@
       { self, lib, ... }:
       {
         imports = [
-          ./nixos
           ./nix/inputs.nix
-          ./pkgs/overlays.nix
-          ./pkgs/outputs.nix
           ./nix/shells.nix
+          ./nixos
+          ./pkgs/outputs.nix
+          ./pkgs/overlays.nix
         ];
 
         systems = [

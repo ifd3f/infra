@@ -33,21 +33,5 @@ with lib;
   services.xserver.videoDrivers = [ "nvidia" ];
   services.xserver.dpi = 224;
 
-  # specialisation."VFIO".configuration = {
-  #   system.nixos.tags = [ "with-vfio" ];
-  #   astral.vfio.enable = mkForce true;
-  # };
-
-  environment.systemPackages = with pkgs; [
-    # (
-    #   (import inputs.nixpkgs-unstable {
-    #     system = "x86_64-linux";
-    #     config.allowUnfree = true;
-    #     config.cudaSupport = true;
-    #   }).llama-cpp.overrideAttrs
-    #   { enableParallelBuilding = true; }
-    # )
-  ];
-
   system.stateVersion = "25.05";
 }
