@@ -46,7 +46,7 @@ in
     # Enable SSH in initrd for debugging or disk key entry
     boot.initrd.network.ssh = {
       enable = true;
-      authorizedKeys = [ config.astral.inputs.sshKeyDatabase.users.astrid ];
+      authorizedKeys = [ config.astral.lib.sshKeyDatabase.users.astrid ];
     };
 
     users.mutableUsers = true;

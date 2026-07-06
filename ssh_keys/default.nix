@@ -13,7 +13,6 @@ let
         ) (readDir dirPath)
       )
     );
-
 in
 {
   users = {

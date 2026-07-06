@@ -6,13 +6,18 @@
 { lib, ... }: {
   _class = "nixos";
 
-  # This option set is for the caller flake to inject specific inputs into the module.
-  options.astral.inputs = with lib; {
-    sshKeyDatabase = mkOption {
-      description = "SSH key database";
+  options.astral.lib =
+    with lib;
+    mkOption {
+      description = ''
+        flake-specific library functions.
+
+        This is just an alias for infra/nix/lib, so that we don't have to make this module depend on specialArgs.
+      '';
       type = types.attrs;
+      readOnly = true; # so that we don't accidentally override it
     };
-  };
+  config.astral.lib = import ../../nix/lib { inherit lib; };
 
   imports = [
     ./sshd.nix

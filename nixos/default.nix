@@ -7,17 +7,11 @@
   config,
   ...
 }:
-let
-  cfg = config.astral;
-in
 {
   _class = "flake";
 
   flake.nixosModules = rec {
-    astral = { pkgs, lib, ... }: {
-      imports = [ ./astral ];
-      astral.inputs.sshKeyDatabase = import ../ssh_keys;
-    };
+    astral = ./astral;
     default = astral;
   };
 
@@ -30,9 +24,9 @@ in
       evalNixosSystem =
         dirname: module:
         let
-          evaluated = cfg.nixosSystem {
+          evaluated = config.astral.nixosSystem {
             specialArgs.self = self;
-            specialArgs.nixos-hardware = cfg.nixos-hardware;
+            specialArgs.nixos-hardware = config.astral.nixos-hardware;
             modules = [
               { nixpkgs.overlays = [ self.overlays.default ]; }
               self.nixosModules.default
@@ -53,21 +47,6 @@ in
         mapAttrs (dirname: _: evalNixosSystem dirname "${dir}/${dirname}") (
           filterAttrs (name: type: type == "directory") (readDir dir)
         );
-
-      /**
-        assert that the two attrsets provided are disjoint, then merge them together.
-        if they are not disjoint, this crashes.
-      */
-      mergeAssertDisjoint =
-        a: b:
-        let
-          intersectingNames = attrNames (intersectAttrs a b);
-        in
-        assert assertMsg (
-          length intersectingNames == 0
-        ) "intersecting attr keys: ${toString intersectingNames}";
-        a // b;
-
     in
-    mergeAssertDisjoint (collectMachines ./machines/pc) (collectMachines ./machines/server);
+    self.lib.mergeAssertDisjoint (collectMachines ./machines/pc) (collectMachines ./machines/server);
 }

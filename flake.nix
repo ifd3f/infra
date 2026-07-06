@@ -25,7 +25,7 @@
   outputs =
     { flake-parts, ... }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } (
-      { self, inputs, ... }:
+      { self, lib, ... }:
       {
         imports = [
           ./nixos
@@ -48,6 +48,8 @@
         };
 
         perSystem = { inputs', ... }: { astral.basePkgs = inputs'.nixpkgs-stable.legacyPackages; };
+
+        flake.lib = import ./nix/lib { inherit lib; };
       }
     );
 

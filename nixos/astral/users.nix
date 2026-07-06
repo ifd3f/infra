@@ -1,7 +1,7 @@
 # Preconfigured users common to multiple machines.
 { config, ... }:
 let
-  sshKeyDatabase = config.astral.inputs.sshKeyDatabase;
+  sshKeyDatabase = config.astral.lib.sshKeyDatabase;
 
   # Helper to create a user with the given name and presets.
   # This is so that we can have consistently-configured users across
