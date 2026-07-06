@@ -1,4 +1,9 @@
-{ config, lib, ... }: {
+/**
+  This NixOS module is designed to work everywhere -- servers, PCs, bare metal, VMs,
+  containers, anything. Therefore, if possible, this module should not enable much
+  by default.
+*/
+{ lib, ... }: {
   _class = "nixos";
 
   # This option set is for the caller flake to inject specific inputs into the module.

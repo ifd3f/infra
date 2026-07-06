@@ -1,3 +1,6 @@
+/**
+  This file owns and defines all of the NixOS-related stuff.
+*/
 {
   self,
   lib,
@@ -9,6 +12,14 @@ let
 in
 {
   _class = "flake";
+
+  flake.nixosModules = rec {
+    astral = { pkgs, lib, ... }: {
+      imports = [ ./astral ];
+      astral.inputs.sshKeyDatabase = import ../ssh_keys;
+    };
+    default = astral;
+  };
 
   flake.nixosConfigurations =
     with lib;
@@ -58,5 +69,5 @@ in
         a // b;
 
     in
-    mergeAssertDisjoint (collectMachines ./pc) (collectMachines ./server);
+    mergeAssertDisjoint (collectMachines ./machines/pc) (collectMachines ./machines/server);
 }

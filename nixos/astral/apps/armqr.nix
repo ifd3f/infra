@@ -15,6 +15,7 @@ with lib;
     package = mkOption {
       type = types.package;
       description = "ArmQR package to use";
+      default = pkgs.astral.armqr;
     };
     user = mkOption {
       type = types.str;
@@ -61,12 +62,9 @@ with lib;
       };
       config = mkOption {
         type = types.submodule (
-          recursiveUpdate (import
-            "${pkgs.path}/nixos/modules/services/web-servers/nginx/vhost-options.nix"
-            {
-              inherit config lib;
-            }
-          ) { }
+          recursiveUpdate (import "${pkgs.path}/nixos/modules/services/web-servers/nginx/vhost-options.nix" {
+            inherit config lib;
+          }) { }
         );
         default = { };
         description = "Overrides to the nginx vhost section";

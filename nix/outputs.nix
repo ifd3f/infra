@@ -1,16 +1,12 @@
-{
-  self,
-  inputs,
-  config,
-  ...
-}:
+{ self, inputs, ... }:
 {
   imports = [
     inputs.home-manager.flakeModules.home-manager
 
     ./inputs.nix
     ./rescue
-    ../nixos/machines
+    ../nixos
+    ./overlays.nix
   ];
 
   systems = [
@@ -39,29 +35,6 @@
         };
       };
     };
-
-  flake.overlays.default = final: prev: {
-    astral.resources = {
-      nixowos-svg = ./nixowos.svg;
-    };
-
-    astral.helpers = prev.callPackage ./helpers.nix { };
-
-    inherit (inputs.nixpkgs-unstable.legacyPackages.${prev.system})
-      # TODO: trilium is out of date on stable, remove when it's updated
-      trilium
-      trilium-server
-      ;
-  };
-
-  flake.nixosModules = rec {
-    astral = { pkgs, lib, ... }: {
-      imports = [ ../nixos/astral ];
-      astral.inputs.sshKeyDatabase = import ../ssh_keys;
-      services.armqr.package = lib.mkDefault inputs.armqr.packages.${pkgs.system}.default;
-    };
-    default = astral;
-  };
 
   flake.homeConfigurations = {
     astrid = inputs.home-manager.lib.homeManagerConfiguration {
