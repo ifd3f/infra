@@ -4,35 +4,59 @@
   pkgs,
   ...
 }:
+with lib;
 let
   cfg = config.astral.nix-utils;
 in
 {
   options.astral.nix-utils = {
-    enable = lib.mkEnableOption "astral.nix-utils";
+    enable = mkEnableOption "Custom Nix tweaks";
+    priority = mkOption {
+      description = ''
+        What priority should Nix get?
+
+        The vast majority of my machines call Nix rarely and intermittently.
+        Therefore, "low" priority is set as the default so that updates and
+        builds don't kill the system.
+      '';
+      type = types.enum [
+        "low"
+        "stock"
+      ];
+      default = "low";
+    };
   };
 
-  config = lib.mkIf cfg.enable {
-    nix = {
-      # Auto-optimize/GC store
-      gc = {
-        automatic = true;
-        dates = "weekly";
-        options = "--delete-older-than 30d";
-      };
+  config = mkIf cfg.enable {
+    nix = mkMerge [
+      (mkIf (cfg.priority == "low") {
+        daemonIOSchedPriority = 7; # lowest pri
 
-      # Trusted users for remote config builds and uploads
-      settings = {
-        trusted-users = [
-          "root"
-          "@wheel"
-        ];
-        auto-optimise-store = true;
-      };
+        # "idle" is designed for interactive use.
+        daemonIOSchedClass = "idle";
+        daemonCPUSchedPolicy = "idle";
+      })
+      {
+        # Auto-optimize/GC store
+        gc = {
+          automatic = true;
+          dates = "weekly";
+          options = "--delete-older-than 30d";
+        };
 
-      extraOptions = ''
-        experimental-features = nix-command flakes
-      '';
-    };
+        # Trusted users for remote config builds and uploads
+        settings = {
+          trusted-users = [
+            "root"
+            "@wheel"
+          ];
+          auto-optimise-store = true;
+        };
+
+        extraOptions = ''
+          experimental-features = nix-command flakes
+        '';
+      }
+    ];
   };
 }
