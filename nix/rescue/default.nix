@@ -1,7 +1,7 @@
 { self, inputs, ... }:
 let
   modules = [
-    # self.nixosModules.astral TODO 
+    # self.nixosModules.astral TODO
     ./configuration.nix
     ({ modulesPath, ... }: {
       imports = [

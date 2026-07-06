@@ -47,11 +47,7 @@
           nixos-hardware = inputs.nixos-hardware;
         };
 
-        perSystem =
-          { inputs', system, ... }:
-          {
-            astral.basePkgs = inputs'.nixpkgs-stable.legacyPackages;
-          };
+        perSystem = { inputs', ... }: { astral.basePkgs = inputs'.nixpkgs-stable.legacyPackages; };
       }
     );
 

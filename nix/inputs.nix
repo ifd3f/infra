@@ -1,8 +1,8 @@
 /**
   This module defines the set of inputs we depend on.
 
-  Ideally, no modules except for the main flake.nix file read the `inputs` argument at all.
-  This rule is used to ensure we don't have implicit dependencies.
+  Ideally, no modules except for the main flake.nix and overlays.nix read the
+  `inputs` argument at all. This rule is used to ensure we don't have implicit dependencies.
 */
 {
   self,

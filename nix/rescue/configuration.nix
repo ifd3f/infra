@@ -22,7 +22,7 @@ with lib;
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID3JIveqKo7ld4F/f+kR0n862Thm42cXrP3daFzyH2rW astrid@nyacbook-nyair.lan"
     ];
   };
-  users.groups.astrid = {};
+  users.groups.astrid = { };
 
   # networking.supplicant."wlan0".configFile.path = "/wpa_supplicant.conf";
 
