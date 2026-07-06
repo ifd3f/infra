@@ -1,12 +1,11 @@
 { self, inputs, ... }:
 {
   imports = [
-    inputs.home-manager.flakeModules.home-manager
-
     ./inputs.nix
     ./rescue
     ../nixos
     ./overlays.nix
+    ./shells.nix
   ];
 
   systems = [
@@ -26,20 +25,5 @@
     { inputs', system, ... }:
     {
       astral.basePkgs = inputs'.nixpkgs-stable.legacyPackages;
-
-      devShells = import ./shells.nix {
-        inherit self;
-        pkgs = import inputs.nixpkgs-stable {
-          inherit system;
-          config.allowUnfree = true;
-        };
-      };
     };
-
-  flake.homeConfigurations = {
-    astrid = inputs.home-manager.lib.homeManagerConfiguration {
-      pkgs = import inputs.nixpkgs-stable { system = "x86_64-linux"; };
-      modules = [ ../home-manager/basic.nix ];
-    };
-  };
 }

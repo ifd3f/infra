@@ -12,11 +12,6 @@
 
     nur.url = "github:nix-community/NUR";
 
-    home-manager = {
-      url = "github:nix-community/home-manager/release-26.05";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-    };
-
     # Specialized hardware configurations for specialized hardware.
     # Currently used on the Surface Pro.
     nixos-hardware.url = "github:NixOS/nixos-hardware";
@@ -28,13 +23,5 @@
   };
 
   outputs =
-    {
-      self,
-      nixpkgs-stable,
-      flake-parts,
-      home-manager,
-      nur,
-      ...
-    }@inputs:
-    flake-parts.lib.mkFlake { inherit inputs; } ./nix/outputs.nix;
+    { flake-parts, ... }@inputs: flake-parts.lib.mkFlake { inherit inputs; } ./nix/outputs.nix;
 }
