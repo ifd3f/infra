@@ -1,28 +1,12 @@
-{ self, inputs, ... }:
-let
-  modules = [
-    # self.nixosModules.astral TODO
-    ./rescue/configuration.nix
-    ({ modulesPath, ... }: {
-      imports = [
-        "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
-        "${modulesPath}/installer/cd-dvd/channel.nix"
-      ];
-    })
-  ];
-in
+{ self, ... }:
 {
   _class = "flake";
 
   perSystem =
-    { system, ... }:
-    let
-      os = inputs.nixpkgs-stable.lib.nixosSystem {
-        inherit system modules;
-      };
-    in
+    { pkgs, ... }:
     {
-      packages.rescue = os.config.system.build.isoImage;
-      #packages.rescue = os.config.system.build.netbootRamdisk;
+      packages = {
+        rescue = pkgs.callPackage ./rescue { baseModule = self.nixosModules.astral; };
+      };
     };
 }
