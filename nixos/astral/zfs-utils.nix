@@ -5,7 +5,7 @@ let
 in
 {
   options.astral.zfs-utils = {
-    enable = lib.mkEnableOption "astral.zfs-utils";
+    enable = lib.mkEnableOption "Common ZFS tweaks";
   };
 
   config = lib.mkIf cfg.enable {
@@ -15,7 +15,10 @@ in
       supportedFilesystems = [ "zfs" ];
       zfs = {
         requestEncryptionCredentials = true;
-        forceImportRoot = false; # may cause data loss otherwise
+
+        # prevent accidental data loss. just in case
+        forceImportAll = false;
+        forceImportRoot = false;
       };
     };
     services.zfs = {
