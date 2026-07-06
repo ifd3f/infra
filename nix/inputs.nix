@@ -24,21 +24,4 @@ with lib;
       type = types.attrs;
     };
   };
-
-  config.perSystem =
-    { config, system, ... }:
-    {
-      options.astral = {
-        pkgs = mkOption {
-          description = "Global `pkgs` object for ${system}";
-          type = types.attrs;
-        };
-        basePkgs = mkOption {
-          description = "`pkgs` object to overlay onto for ${system}";
-          type = types.attrs;
-        };
-      };
-
-      config._module.args.pkgs = config.astral.basePkgs.extend self.overlays.global;
-    };
 }

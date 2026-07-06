@@ -30,8 +30,8 @@
         imports = [
           ./nixos
           ./nix/inputs.nix
-          ./nix/overlays.nix
-          ./pkgs
+          ./pkgs/overlays.nix
+          ./pkgs/outputs.nix
           ./nix/shells.nix
         ];
 

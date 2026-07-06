@@ -1,10 +1,17 @@
-/**
-  This module defines overlays.
-*/
-{ inputs, lib, ... }:
+{
+  self,
+  inputs,
+  lib,
+  ...
+}:
+with lib;
 {
   _class = "flake";
 
+  /**
+    WARNING: These overlays MUST NOT depend on `self`. That is the route
+    to annoying recursion errors.
+  */
   flake.overlays = rec {
     /**
       This overlay adds custom resources under the `astral` namespace.
@@ -48,4 +55,21 @@
 
     default = global;
   };
+
+  perSystem =
+    { config, system, ... }:
+    {
+      options.astral = {
+        pkgs = mkOption {
+          description = "Global `pkgs` object for ${system}";
+          type = types.attrs;
+        };
+        basePkgs = mkOption {
+          description = "`pkgs` object to overlay onto for ${system}";
+          type = types.attrs;
+        };
+      };
+
+      config._module.args.pkgs = config.astral.basePkgs.extend self.overlays.global;
+    };
 }
