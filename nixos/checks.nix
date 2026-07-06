@@ -23,6 +23,7 @@
                 fsType = "ext4";
                 device = "/dev/sda";
               };
+              system.stateVersion = "26.05";
             }
           ];
         };

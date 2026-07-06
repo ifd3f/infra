@@ -150,4 +150,6 @@ with lib;
       "qr.arm.astridyu.com"
     ];
   };
+
+  system.stateVersion = "26.05";
 }

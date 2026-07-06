@@ -17,8 +17,6 @@ in
     services.qemuGuest.enable = true;
 
     boot = {
-      cleanTmpDir = true;
-
       kernelParams = [
         "console=tty0"
         "boot.shell_on_fail"

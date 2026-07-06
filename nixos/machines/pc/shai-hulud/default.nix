@@ -7,6 +7,8 @@
     hostId = "49e32584";
   };
 
+  astral.roles.pc.enable = true;
+
   imports = [
     ./hardware-configuration.nix
     ./fs.nix

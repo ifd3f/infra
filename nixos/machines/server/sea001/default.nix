@@ -65,4 +65,6 @@ with lib;
       enableACME = true;
     };
   };
+
+  system.stateVersion = "26.05";
 }

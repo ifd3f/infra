@@ -33,5 +33,7 @@ in
         "helvetica-neue-lt-std"
         "vista-fonts"
       ];
+    
+    boot.tmp.cleanOnBoot = true;
   };
 }

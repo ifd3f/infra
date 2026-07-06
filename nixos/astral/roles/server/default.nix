@@ -13,6 +13,7 @@ in
 
   config = lib.mkIf cfg.enable {
     astral.roles.common.enable = true;
+    astral.zfs-utils.enable = true;
     astral.program-sets = {
       fonts.enable = true;
       security.enable = true;

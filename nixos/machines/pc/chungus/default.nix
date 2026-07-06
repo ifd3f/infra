@@ -22,7 +22,6 @@ with lib;
 
   astral.roles.pc.enable = true;
   astral.peripherals.rgb.enable = true;
-  astral.zfs-utils.enable = true;
 
   nixpkgs.config.allowUnfree = true;
 

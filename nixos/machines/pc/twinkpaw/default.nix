@@ -15,6 +15,8 @@ with lib;
     hostId = "76d4a2bc";
   };
 
+  astral.roles.pc.enable = true;
+
   imports = [
     ./hardware-configuration.nix
     nixos-hardware.nixosModules.common-cpu-amd
