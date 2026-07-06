@@ -5,27 +5,12 @@
   ...
 }:
 let
-  cfg = config.astral.machines;
+  cfg = config.astral;
 in
 {
   _class = "flake";
 
-  options.astral.machines = with lib; {
-    nixosSystem = mkOption {
-      description = "Which nixpkgs.lib.nixosSystem implementation to use";
-      type = types.functionTo (types.attrs);
-    };
-    nixos-hardware = mkOption {
-      description = "Which nixos-hardware flake instance to use";
-      type = types.attrs;
-    };
-    overlay = mkOption {
-      description = "Package overlay to apply onto all systems";
-      type = types.functionTo (types.functionTo (types.attrs));
-    };
-  };
-
-  config.flake.nixosConfigurations =
+  flake.nixosConfigurations =
     with lib;
     let
       /**
