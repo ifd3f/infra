@@ -1,19 +1,24 @@
+/**
+  This package set goes on EVERYTHING.
+
+  This even includes our planned appliance machines!
+  Try not to make this set excessively big.
+*/
 {
-  description = "CLI Basics";
+  description = "Bare minimum CLI utilities good for debugging on all machines";
 
   selector =
     pkgs:
     with pkgs;
     [
-      bind
+      age
       curl
+      fio
       dnsutils
       ed
       elinks
       envsubst
-      exfat
       file
-      gh
       git
       git-lfs
       gnumake
@@ -26,15 +31,15 @@
       neovim
       netcat
       nmap
-      ntfs3g
-      p7zip
       pciutils
       ripgrep
       rsync
-      speedtest-rs
       tcpdump
       tmux
       tree
+      libarchive
+      lz4
+      smartmontools
       unar
       unixtools.xxd
       unzip
@@ -55,9 +60,11 @@
     ]
     ++ lib.optionals (pkgs.stdenv.hostPlatform.isLinux) [
       ethtool
+      efibootmgr
       hdparm
       iotop
       iputils
+      lshw
       psmisc
     ];
 

@@ -3,15 +3,17 @@
     { self', pkgs, ... }:
     {
       devShells = rec {
-        infra = pkgs.mkShell {
-          VAULT_ADDR = "https://secrets.astrid.tech";
-          propagatedBuildInputs = [
-            self'.packages.pkgsetenv-basics
-            self'.packages.pkgsetenv-infradev
-            self'.packages.pkgsetenv-security
-            self'.packages.pkgsetenv-utils
-          ];
-        };
+        infra =
+          with pkgs;
+          mkShell {
+            VAULT_ADDR = "https://secrets.astrid.tech";
+            propagatedBuildInputs = [
+              astral.pkgsets.basics
+              astral.pkgsets.infradev
+              astral.pkgsets.security
+              astral.pkgsets.utils
+            ];
+          };
 
         default = infra;
       };

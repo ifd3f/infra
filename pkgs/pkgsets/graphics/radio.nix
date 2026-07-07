@@ -2,7 +2,8 @@
   description = "Radio";
 
   selector =
-    ps: with ps; 
+    ps:
+    with ps;
     lib.optionals ps.stdenv.hostPlatform.isLinux [
       chirp
       dmrconfig

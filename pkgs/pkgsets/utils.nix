@@ -5,28 +5,37 @@
     ps:
     with ps;
     [
-      binwalk
       caligula
       dasel
+      exfat
       ffmpeg
-      fzf
+      gh
       iftop
       lftp
       minicom
       mosh
+      nixfmt
+      ntfs3g
+      openssl
+      p7zip
       pinyin-tool
-      restic
+      rustic
       scc
       screen
+      speedtest-rs
       sshpass
       wireguard-tools
     ]
     ++ lib.optionals ps.stdenv.hostPlatform.isLinux [
+      beep
+      dmidecode
+      fatresize
       iotop
       nfs-utils
       perf
       powertop
       strace-analyzer
       usbtop
+      xorriso
     ];
 }

@@ -2,7 +2,8 @@
   description = "Internet";
 
   selector =
-    ps: with ps; 
+    ps:
+    with ps;
     lib.optionals ps.stdenv.hostPlatform.isLinux [
       firefox
       discord

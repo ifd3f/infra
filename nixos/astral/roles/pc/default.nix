@@ -24,6 +24,9 @@ in
     astral.zfs-utils.enable = true;
 
     astral.pkgsets = {
+      basics.enable = true;
+      cli-env.enable = true;
+      dev.enable = true;
       fonts.enable = true;
       security.enable = true;
       utils.enable = true;

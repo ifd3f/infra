@@ -5,9 +5,7 @@
     ps:
     with ps;
     lib.optionals ps.stdenv.hostPlatform.isLinux [
-
-      #kicad
-      # bambu-studio causing ooms while compiling???
+      kicad
       openscad-unstable
       freecad
     ];
