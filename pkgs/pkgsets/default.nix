@@ -44,6 +44,44 @@ let
       };
     };
   };
+
+  buildPkgsetenv =
+    pkgs: name: pkgsetConfig:
+    let
+      normalPkgList = pkgsetConfig.selector pkgs;
+
+      # NOTE: This operation can cause fonts to get overriden with ones defined earlier
+      # or later. Oh well!
+      fonts = pkgs.symlinkJoin {
+        name = "${name}-fonts";
+        paths = map (
+          # This operation removes fonts.dir.
+          #
+          # While a slightly "nicer" way to go about it would be to cat | sort | uniq
+          # them together, I'm getting rid of X11 across all my machines anyways so it's
+          # not worth the hassle.
+          p:
+          pkgs.runCommand "${p.name}-filtered" { } ''
+            cp -r ${p} $out
+            chmod -R 700 $out
+            rm -f $out/share/fonts/misc/fonts.dir
+          ''
+        ) (pkgsetConfig.fonts pkgs);
+      };
+    in
+    {
+      inherit name;
+      value = pkgs.buildEnv {
+        inherit name;
+        ignoreCollisions = pkgsetConfig.allowCollisions;
+        paths = normalPkgList ++ [ filteredFonts ];
+
+        passthru = {
+          inherit fonts;
+          config = pkgsetConfig;
+        };
+      };
+    };
 in
 {
   _class = "flake";
@@ -76,39 +114,7 @@ in
       { pkgs, ... }:
       let
         pkgsetenvs = mapAttrs' (
-          pkgsetKeyname: pkgsetConfig:
-          let
-            name = "pkgsetenv-${pkgsetKeyname}";
-            normalPkgList = pkgsetConfig.selector pkgs;
-
-            # NOTE: This operation can cause fonts to get overriden with ones defined earlier
-            # or later. Oh well!
-            filteredFonts = pkgs.symlinkJoin {
-              name = "filtered-fonts";
-              paths = map (
-                # This operation removes fonts.dir.
-                #
-                # While a slightly "nicer" way to go about it would be to cat | sort | uniq
-                # them together, I'm getting rid of X11 across all my machines anyways so it's
-                # not worth the hassle.
-                p:
-                pkgs.runCommand "${p.name}" { } ''
-                  cp -r ${p} $out
-                  chmod -R 700 $out
-                  rm -f $out/share/fonts/misc/fonts.dir
-                ''
-              ) (pkgsetConfig.fonts pkgs);
-            };
-          in
-          {
-            inherit name;
-            value = pkgs.buildEnv {
-              inherit name;
-              ignoreCollisions = pkgsetConfig.allowCollisions;
-              paths = normalPkgList ++ [ filteredFonts ];
-              passthru.pkgset = pkgsetConfig;
-            };
-          }
+          pkgsetKeyname: (buildPkgsetenv pkgs "pkgsetenv-${pkgsetKeyname}")
         ) allPkgSets;
       in
       {
