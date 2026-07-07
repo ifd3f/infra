@@ -1,7 +1,12 @@
 /**
   stupid bastard meta-module for defining groups of packages to enable all at once
 */
-{ config, lib, ... }:
+{
+  self,
+  config,
+  lib,
+  ...
+}:
 with lib;
 let
   allPkgSets = config.astral.pkgsets;
@@ -62,6 +67,47 @@ in
     };
 
     debug = true;
+
+    perSystem = { pkgs, ... }: {
+      packages =
+        let
+          envs = mapAttrs' (
+            pkgsetKeyname: pkgsetConfig:
+            let
+              name = "pkgsetenv-${pkgsetKeyname}";
+              normalPkgList = pkgsetConfig.selector pkgs;
+
+              # NOTE: This operation can cause fonts to get overriden with ones defined earlier
+              # or later. Oh well!
+              filteredFonts = pkgs.symlinkJoin {
+                name = "filtered-fonts";
+                paths = map (
+                  # This operation removes fonts.dir.
+                  #
+                  # While a slightly "nicer" way to go about it would be to cat | sort | uniq
+                  # them together, I'm getting rid of X11 across all my machines anyways so it's
+                  # not worth the hassle.
+                  p:
+                  pkgs.runCommand "${p.name}" { } ''
+                    cp -r ${p} $out
+                    chmod -R 700 $out
+                    rm -f $out/share/fonts/misc/fonts.dir
+                  ''
+                ) (pkgsetConfig.fonts pkgs);
+              };
+            in
+            {
+              inherit name;
+              value = pkgs.buildEnv {
+                inherit name;
+                paths = normalPkgList ++ [ filteredFonts ];
+                passthru.pkgset = pkgsetConfig;
+              };
+            }
+          ) allPkgSets;
+        in
+        envs;
+    };
 
     flake.nixosModules.pkgsets = { config, pkgs, ... }: {
       _class = "nixos";

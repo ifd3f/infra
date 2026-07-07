@@ -48,7 +48,12 @@
           nixos-hardware = inputs.nixos-hardware;
         };
 
-        perSystem = { inputs', ... }: { astral.basePkgs = inputs'.nixpkgs-stable.legacyPackages; };
+        perSystem = { system, ... }: {
+          astral.basePkgs = import inputs.nixpkgs-stable {
+            inherit system;
+            config.allowUnfree = true;
+          };
+        };
 
         flake.lib = import ./nix/lib { inherit lib; };
       }
