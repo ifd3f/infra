@@ -12,7 +12,7 @@ with lib;
     WARNING: These overlays MUST NOT depend on `self`. That is the route
     to annoying recursion errors.
   */
-  flake.overlays = rec {
+  flake.overlays = {
     /**
       This overlay adds custom resources under the `astral` namespace.
     */
@@ -62,11 +62,12 @@ with lib;
       This is the overlay used across this entire flake.
     */
     global = lib.composeManyExtensions [
-      patches
-      astral
+      self.overlays.patches
+      self.overlays.pkgsets
+      self.overlays.astral
     ];
 
-    default = global;
+    default = self.overlays.global;
   };
 
   perSystem =

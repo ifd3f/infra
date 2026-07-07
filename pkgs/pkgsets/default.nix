@@ -52,7 +52,7 @@ let
 
       # NOTE: This operation can cause fonts to get overriden with ones defined earlier
       # or later. Oh well!
-      fonts = pkgs.symlinkJoin {
+      aggregatedFonts = pkgs.symlinkJoin {
         name = "${name}-fonts";
         paths = map (
           # This operation removes fonts.dir.
@@ -69,17 +69,14 @@ let
         ) (pkgsetConfig.fonts pkgs);
       };
     in
-    {
+    pkgs.buildEnv {
       inherit name;
-      value = pkgs.buildEnv {
-        inherit name;
-        ignoreCollisions = pkgsetConfig.allowCollisions;
-        paths = normalPkgList ++ [ filteredFonts ];
+      ignoreCollisions = pkgsetConfig.allowCollisions;
+      paths = normalPkgList ++ [ aggregatedFonts ];
 
-        passthru = {
-          inherit fonts;
-          config = pkgsetConfig;
-        };
+      passthru = {
+        inherit fonts;
+        config = pkgsetConfig;
       };
     };
 in
@@ -110,16 +107,16 @@ in
       graphics-radio = ./graphics/radio.nix;
     };
 
+    flake.overlays.pkgsets = final: prev: {
+      astral = prev.astral // {
+        pkgsets = mapAttrs (pkgsetKeyname: buildPkgsetenv final "pkgsetenv-${pkgsetKeyname}") allPkgSets;
+      };
+    };
+
     perSystem =
       { pkgs, ... }:
-      let
-        pkgsetenvs = mapAttrs' (
-          pkgsetKeyname: (buildPkgsetenv pkgs "pkgsetenv-${pkgsetKeyname}")
-        ) allPkgSets;
-      in
       {
-        packages = pkgsetenvs;
-        checks.pkgsetenvs = pkgs.linkFarm "check-pkgsetenvs-all-build" pkgsetenvs;
+        checks.pkgsetenvs = pkgs.linkFarm "check-pkgsetenvs-all-build" pkgs.astral.pkgsets;
       };
 
     flake.nixosModules.pkgsets = { config, pkgs, ... }: {
