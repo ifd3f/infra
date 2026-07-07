@@ -52,6 +52,7 @@ in
     astral.pkgsets = {
       basics = ./basics.nix;
       fonts = ./fonts.nix;
+      infradev = ./infradev.nix;
       security = ./security.nix;
       utils = ./utils.nix;
 
