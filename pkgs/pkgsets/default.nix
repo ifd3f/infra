@@ -92,6 +92,7 @@ in
   config = {
     astral.pkgsets = {
       basics = ./basics.nix;
+      cli-env = ./cli-env.nix;
       dev = ./infradev.nix;
       fonts = ./fonts.nix;
       infradev = ./infradev.nix;

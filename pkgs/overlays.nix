@@ -26,19 +26,6 @@ with lib;
           armqr = inputs.armqr.packages.${system}.default;
           helpers = prev.callPackage ./helpers.nix { };
           nixowos-svg = ./nixowos.svg;
-
-          nvim-pack = final.callPackage ./nvim/mkPack.nix {
-            name = "astrid-nvim-pack";
-
-            startPlugins = with final.vimPlugins; {
-              # TODO: as this system becomes better-developed, possibly get
-              # rid of lazy-nvim?
-              inherit lazy-nvim;
-            };
-            optPlugins = {
-              # TODO
-            };
-          };
         };
       };
 

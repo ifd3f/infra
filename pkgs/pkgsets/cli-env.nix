@@ -1,5 +1,5 @@
 {
-  name = "Interactive CLI environment niceties";
+  description = "Interactive CLI environment niceties";
 
   selector =
     ps: with ps; [
