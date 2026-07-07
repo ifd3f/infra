@@ -13,7 +13,6 @@
       pavucontrol
       remmina
       tenacity
-      transmission_4
       transmission_4-qt
       vlc
       wdisplays

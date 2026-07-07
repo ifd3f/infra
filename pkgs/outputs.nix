@@ -3,7 +3,7 @@
   _class = "flake";
 
   perSystem =
-    { pkgs, ... }:
+    { self', pkgs, ... }:
     {
       packages = {
         rescue = pkgs.callPackage ./rescue { baseModule = self.nixosModules.astral; };

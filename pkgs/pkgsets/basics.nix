@@ -25,7 +25,6 @@
       elinks
       envsubst
       ethtool
-      exfat
       exfatprogs
       file
       gh
@@ -59,7 +58,6 @@
       unixtools.xxd
       unzip
       usbutils
-      uwufetch
       wget
       yq
       zip

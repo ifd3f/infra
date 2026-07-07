@@ -14,4 +14,6 @@
       wsjtx
       wsjtz
     ];
+
+  allowCollisions = true;
 }

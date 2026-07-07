@@ -17,6 +17,11 @@ let
         description = "Human-friendly name for this package set";
         type = types.str;
       };
+      allowCollisions = mkOption {
+        description = "If set to true, allows multiple packages to export the same binaries.";
+        type = types.bool;
+        default = false;
+      };
       selector = mkOption {
         description = "A function that takes in a `pkgs` object, and returns a list of packages to add to the environment";
         type = with types; (functionTo (listOf package));
@@ -67,48 +72,49 @@ in
       graphics-radio = ./graphics/radio.nix;
     };
 
-    debug = true;
+    perSystem =
+      { pkgs, ... }:
+      let
+        pkgsetenvs = mapAttrs' (
+          pkgsetKeyname: pkgsetConfig:
+          let
+            name = "pkgsetenv-${pkgsetKeyname}";
+            normalPkgList = pkgsetConfig.selector pkgs;
 
-    perSystem = { pkgs, ... }: {
-      packages =
-        let
-          envs = mapAttrs' (
-            pkgsetKeyname: pkgsetConfig:
-            let
-              name = "pkgsetenv-${pkgsetKeyname}";
-              normalPkgList = pkgsetConfig.selector pkgs;
-
-              # NOTE: This operation can cause fonts to get overriden with ones defined earlier
-              # or later. Oh well!
-              filteredFonts = pkgs.symlinkJoin {
-                name = "filtered-fonts";
-                paths = map (
-                  # This operation removes fonts.dir.
-                  #
-                  # While a slightly "nicer" way to go about it would be to cat | sort | uniq
-                  # them together, I'm getting rid of X11 across all my machines anyways so it's
-                  # not worth the hassle.
-                  p:
-                  pkgs.runCommand "${p.name}" { } ''
-                    cp -r ${p} $out
-                    chmod -R 700 $out
-                    rm -f $out/share/fonts/misc/fonts.dir
-                  ''
-                ) (pkgsetConfig.fonts pkgs);
-              };
-            in
-            {
+            # NOTE: This operation can cause fonts to get overriden with ones defined earlier
+            # or later. Oh well!
+            filteredFonts = pkgs.symlinkJoin {
+              name = "filtered-fonts";
+              paths = map (
+                # This operation removes fonts.dir.
+                #
+                # While a slightly "nicer" way to go about it would be to cat | sort | uniq
+                # them together, I'm getting rid of X11 across all my machines anyways so it's
+                # not worth the hassle.
+                p:
+                pkgs.runCommand "${p.name}" { } ''
+                  cp -r ${p} $out
+                  chmod -R 700 $out
+                  rm -f $out/share/fonts/misc/fonts.dir
+                ''
+              ) (pkgsetConfig.fonts pkgs);
+            };
+          in
+          {
+            inherit name;
+            value = pkgs.buildEnv {
               inherit name;
-              value = pkgs.buildEnv {
-                inherit name;
-                paths = normalPkgList ++ [ filteredFonts ];
-                passthru.pkgset = pkgsetConfig;
-              };
-            }
-          ) allPkgSets;
-        in
-        envs;
-    };
+              ignoreCollisions = pkgsetConfig.allowCollisions;
+              paths = normalPkgList ++ [ filteredFonts ];
+              passthru.pkgset = pkgsetConfig;
+            };
+          }
+        ) allPkgSets;
+      in
+      {
+        packages = pkgsetenvs;
+        checks.pkgsetenvs = pkgs.linkFarm "check-pkgsetenvs-all-build" pkgsetenvs;
+      };
 
     flake.nixosModules.pkgsets = { config, pkgs, ... }: {
       _class = "nixos";
