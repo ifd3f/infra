@@ -1,5 +1,5 @@
 {
-  name = "CLI Basics";
+  description = "CLI Basics";
 
   selector =
     pkgs:

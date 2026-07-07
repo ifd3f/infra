@@ -1,5 +1,5 @@
 {
-  name = "Fonts";
+  description = "Fonts";
 
   fonts = ps: with ps; [
     corefonts

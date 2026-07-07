@@ -1,5 +1,5 @@
 {
-  name = "Radio";
+  description = "Radio";
 
   selector =
     ps: with ps; 

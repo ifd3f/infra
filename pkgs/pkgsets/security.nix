@@ -1,5 +1,5 @@
 {
-  name = "Security";
+  description = "Security";
 
   selector =
     ps:

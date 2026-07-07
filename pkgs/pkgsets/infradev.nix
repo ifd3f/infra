@@ -1,5 +1,5 @@
 {
-  name = "Infra development progset";
+  description = "Infra development progset";
 
   selector =
     pkgs:

@@ -1,5 +1,5 @@
 {
-  name = "Games";
+  description = "Games";
 
   selector =
     ps: with ps; 

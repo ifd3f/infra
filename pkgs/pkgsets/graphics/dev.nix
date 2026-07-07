@@ -1,5 +1,5 @@
 {
-  name = "Development tools";
+  description = "Development tools";
 
   selector =
     ps: with ps; 

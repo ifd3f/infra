@@ -1,5 +1,5 @@
 {
-  name = "Situational shell utilities";
+  description = "Situational shell utilities";
 
   selector =
     ps:

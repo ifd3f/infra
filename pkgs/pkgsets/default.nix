@@ -13,8 +13,8 @@ let
 
   pkgsetSubmodule = {
     options = {
-      name = mkOption {
-        description = "Human-friendly name for this package set";
+      description = mkOption {
+        description = "Short, human-friendly description for this package set";
         type = types.str;
       };
       allowCollisions = mkOption {
@@ -71,6 +71,7 @@ let
     in
     pkgs.buildEnv {
       inherit name;
+
       ignoreCollisions = pkgsetConfig.allowCollisions;
       paths = normalPkgList ++ [ aggregatedFonts ];
 
@@ -123,7 +124,7 @@ in
       _class = "nixos";
 
       options.astral.pkgsets = mapAttrs (_: pkgsetConfig: {
-        enable = mkEnableOption "${pkgsetConfig.name} package set";
+        enable = mkEnableOption "${pkgsetConfig.description}";
       }) allPkgSets;
 
       config = mkMerge (

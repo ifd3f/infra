@@ -1,5 +1,5 @@
 {
-  name = "Drone tools";
+  description = "Drone tools";
 
   selector =
     ps: with ps; 

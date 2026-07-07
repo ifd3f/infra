@@ -1,5 +1,5 @@
 {
-  name = "Office";
+  description = "Office";
 
   selector =
     ps: with ps; 

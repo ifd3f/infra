@@ -1,5 +1,5 @@
 {
-  name = "Media Production";
+  description = "Media Production";
 
   selector =
     ps: with ps; 

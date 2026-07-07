@@ -1,5 +1,5 @@
 {
-  name = "Internet";
+  description = "Internet";
 
   selector =
     ps: with ps; 
