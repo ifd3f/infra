@@ -16,8 +16,8 @@ in
     programs.zsh.enable = true;
     users.defaultUserShell = pkgs.zsh;
 
-    astral.program-sets.basics.enable = true;
-    astral.program-sets.utils.enable = true;
+    astral.pkgsets.basics.enable = true;
+    astral.pkgsets.utils.enable = true;
     astral.custom-tty.enable = true;
     astral.sshd.enable = true;
     astral.nix-utils.enable = true;

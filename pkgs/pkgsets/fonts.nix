@@ -1,0 +1,30 @@
+{
+  name = "Fonts";
+
+  fonts = ps: with ps; [
+    corefonts
+    dejavu_fonts
+    dina-font
+    dosemu_fonts
+    fira-code
+    fira-code-symbols
+    freefont_ttf
+    gyre-fonts
+    helvetica-neue-lt-std
+    liberation_ttf
+    libertine
+    mplus-outline-fonts.githubRelease
+    noto-fonts
+    noto-fonts-cjk-sans
+    noto-fonts-color-emoji
+    open-fonts
+    oxygenfonts
+    powerline-fonts
+    proggyfonts
+    redhat-official-fonts
+    roboto
+    stix-two
+    ubuntu-classic
+    vista-fonts
+  ];
+}

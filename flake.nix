@@ -33,6 +33,7 @@
           ./nixos
           ./pkgs/outputs.nix
           ./pkgs/overlays.nix
+          ./pkgs/pkgsets
         ];
 
         systems = [

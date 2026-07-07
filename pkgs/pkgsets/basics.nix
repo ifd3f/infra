@@ -1,41 +1,23 @@
 {
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-let
-  cfg = config.astral.program-sets.basics;
+  name = "CLI Basics";
 
-  python3-custom = (
-    pkgs.python3.withPackages (
-      ps: with ps; [
-        aiohttp
-        click
-        pandas
-        pytest
-        requests
-      ]
-    )
-  );
-in
-{
-  options.astral.program-sets.basics = {
-    enable = lib.mkEnableOption "astral.program-sets.basics";
-  };
-
-  config = lib.mkIf cfg.enable {
-    programs = {
-      neovim = {
-        enable = true;
-        viAlias = true;
-      };
-
-      tmux.enable = true;
-
-    };
-
-    environment.systemPackages = with pkgs; [
+  selector =
+    pkgs:
+    with pkgs;
+    let
+      python3-custom = (
+        pkgs.python3.withPackages (
+          ps: with ps; [
+            aiohttp
+            click
+            pandas
+            pytest
+            requests
+          ]
+        )
+      );
+    in
+    [
       bind
       curl
       dnsutils
@@ -59,6 +41,7 @@ in
       jq
       magic-wormhole
       mktemp
+      neovim
       netcat
       nmap
       ntfs3g
@@ -70,6 +53,7 @@ in
       rsync
       speedtest-rs
       tcpdump
+      tmux
       tree
       unar
       unixtools.xxd
@@ -80,5 +64,14 @@ in
       yq
       zip
     ];
+
+  nixos = {
+    programs = {
+      neovim = {
+        enable = true;
+        viAlias = true;
+      };
+      tmux.enable = true;
+    };
   };
 }

@@ -1,5 +1,5 @@
 /**
-  This file owns and defines all of the NixOS-related stuff.
+  This file owns and defines most of the NixOS-related stuff.
 */
 {
   self,
@@ -13,7 +13,12 @@
   imports = [ ./checks.nix ];
 
   flake.nixosModules = rec {
-    astral = ./astral;
+    astral = {
+      imports = [
+        self.nixosModules.pkgsets
+        ./astral
+      ];
+    };
     default = astral;
   };
 

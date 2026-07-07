@@ -29,7 +29,6 @@
     ./mount-root-to-home.nix
     ./users.nix
     ./roles
-    ./program-sets
     ./peripherals
     ./custom-tty
     ./make-disk-image.nix

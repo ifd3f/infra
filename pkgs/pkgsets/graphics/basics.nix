@@ -1,23 +1,11 @@
 {
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-let
-  cfg = config.astral.program-sets.graphics.basics;
-in
-{
-  options.astral.program-sets.graphics.basics = {
-    enable = lib.mkEnableOption "astral.program-sets.graphics.basics";
-  };
+  name = "Basics";
 
-  config = lib.mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [
+  selector =
+    ps: with ps; [
       kdePackages.ark
       kdePackages.okular
       kdePackages.dolphin
-
       alacritty
       brightnessctl
       flameshot
@@ -33,5 +21,4 @@ in
       xclip
       xev
     ];
-  };
 }

@@ -23,20 +23,20 @@ in
     astral.roles.common.enable = true;
     astral.zfs-utils.enable = true;
 
-    astral.program-sets = {
+    astral.pkgsets = {
       fonts.enable = true;
       security.enable = true;
       utils.enable = true;
 
-      graphics.basics.enable = true;
-      graphics.cad.enable = true;
-      graphics.dev.enable = true;
-      graphics.drone.enable = true;
-      graphics.games.enable = true;
-      graphics.internet.enable = true;
-      graphics.media-production.enable = true;
-      graphics.office.enable = true;
-      graphics.radio.enable = true;
+      graphics-basics.enable = true;
+      graphics-cad.enable = true;
+      graphics-dev.enable = true;
+      graphics-drone.enable = true;
+      graphics-games.enable = true;
+      graphics-internet.enable = true;
+      graphics-media-production.enable = true;
+      graphics-office.enable = true;
+      graphics-radio.enable = true;
     };
 
     services.tailscale.enable = true;
