@@ -2,7 +2,8 @@
   name = "Development tools";
 
   selector =
-    ps: with ps; [
+    ps: with ps; 
+    lib.optionals ps.stdenv.hostPlatform.isLinux [
       android-tools
       cabal-install
       cachix

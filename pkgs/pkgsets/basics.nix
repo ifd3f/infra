@@ -4,19 +4,6 @@
   selector =
     pkgs:
     with pkgs;
-    let
-      python3-custom = (
-        pkgs.python3.withPackages (
-          ps: with ps; [
-            aiohttp
-            click
-            pandas
-            pytest
-            requests
-          ]
-        )
-      );
-    in
     [
       bind
       curl
@@ -24,19 +11,15 @@
       ed
       elinks
       envsubst
-      ethtool
-      exfatprogs
+      exfat
       file
       gh
       git
       git-lfs
       gnumake
-      hdparm
       iftop
       inetutils
-      iotop
       iperf
-      iputils
       jq
       magic-wormhole
       mktemp
@@ -46,8 +29,6 @@
       ntfs3g
       p7zip
       pciutils
-      psmisc
-      python3-custom
       ripgrep
       rsync
       speedtest-rs
@@ -61,6 +42,23 @@
       wget
       yq
       zip
+
+      (pkgs.python3.withPackages (
+        ps: with ps; [
+          aiohttp
+          click
+          pandas
+          pytest
+          requests
+        ]
+      ))
+    ]
+    ++ lib.optionals (pkgs.stdenv.hostPlatform.isLinux) [
+      ethtool
+      hdparm
+      iotop
+      iputils
+      psmisc
     ];
 
   nixos = {

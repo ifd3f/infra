@@ -2,7 +2,9 @@
   name = "Security";
 
   selector =
-    ps: with ps; [
+    ps:
+    with ps;
+    lib.optionals ps.stdenv.hostPlatform.isLinux [
       tpm2-tools
       tpm2-tss
       yubikey-manager

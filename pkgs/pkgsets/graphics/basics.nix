@@ -2,10 +2,13 @@
   name = "Basics";
 
   selector =
-    ps: with ps; [
+    ps:
+    with ps;
+    lib.optionals ps.stdenv.hostPlatform.isLinux [
       kdePackages.ark
       kdePackages.okular
       kdePackages.dolphin
+
       alacritty
       brightnessctl
       flameshot

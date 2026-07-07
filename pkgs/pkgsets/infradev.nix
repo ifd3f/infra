@@ -28,7 +28,6 @@
       python3
       qrencode
       qrrs
-      racket-minimal
       talosctl
       tcpdump
       tmux
@@ -38,17 +37,13 @@
       yq
       yubikey-manager
     ]
-    ++ (
-      if system != "x86_64-darwin" then
-        [
-          cdrkit
-          iputils
-          krb5
-          ldapvi
-          openldap
-          qemu
-        ]
-      else
-        [ ]
-    );
+    ++ lib.optionals ps.stdenv.hostPlatform.isLinux [
+      cdrkit
+      iputils
+      krb5
+      ldapvi
+      openldap
+      qemu
+      racket-minimal
+    ];
 }
