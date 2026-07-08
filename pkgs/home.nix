@@ -14,20 +14,12 @@ buildEnv {
   inherit name;
   ignoreCollisions = true;
   paths = [
-    (linkFarm "${name}-nvim" {
-      "share/nvim/site/pack/astrid_home_provided" = callPackage ./nvim/mkPack.nix {
-        name = "astrid-nvim-pack";
-
-        startPlugins = with vimPlugins; {
-          # TODO: as this system becomes better-developed, possibly get
-          # rid of lazy-nvim?
-          "lazy.vim" = lazy-nvim;
-        };
-        optPlugins = {
-          # TODO
-        };
-      };
-    })
+    (
+      with vimPlugins;
+      linkFarm "${name}-nvim" {
+        #"share/nvim/site/plugin/lazy-nvim" = lazy-nvim;
+      }
+    )
 
     astral.pkgsets.basics
     astral.pkgsets.cli-env
