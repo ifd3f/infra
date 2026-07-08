@@ -1,3 +1,7 @@
+-- from https://github.com/LazyVim/starter/blob/main/init.lua
+require("config.lazy")
+
+-- rest is pre-existing
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
@@ -31,20 +35,19 @@ vim.opt.showmode = false
 -- No automatic comment insertion
 vim.cmd([[autocmd FileType * set formatoptions-=ro]])
 
-do
-  local telescope = require('telescope')
-  local builtin = require('telescope.builtin')
-
-  vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
-  vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
-  vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
-  vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
-
-  telescope.load_extension('hoogle')
-  telescope.load_extension('fzf')
-end
-
-local oil = require("oil")
-oil.setup()
-vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
-
+-- do
+--   local telescope = require('telescope')
+--   local builtin = require('telescope.builtin')
+-- 
+--   vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
+--   vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
+--   vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
+--   vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
+-- 
+--   telescope.load_extension('hoogle')
+--   telescope.load_extension('fzf')
+-- end
+-- 
+-- local oil = require("oil")
+-- oil.setup()
+-- vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })

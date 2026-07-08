@@ -17,7 +17,7 @@ buildEnv {
     (
       with vimPlugins;
       linkFarm "${name}-nvim" {
-        #"share/nvim/site/plugin/lazy-nvim" = lazy-nvim;
+        # "share/nvim/site/plugin/lazy-nvim" = lazy-nvim;
       }
     )
 
