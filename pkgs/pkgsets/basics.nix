@@ -40,6 +40,7 @@
       libarchive
       lz4
       smartmontools
+      stow
       unar
       unixtools.xxd
       unzip
