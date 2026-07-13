@@ -22,3 +22,11 @@ alias "egrep"="egrep --color=auto";
 # Automatically set BW_SESSION
 # alias "bwlogin"="export BW_SESSION=$(bw unlock --raw)";
 
+# vim aliases
+if command -v nvim &> /dev/null; then
+  alias vi=nvim
+  alias vim=nvim
+else
+  echo "WARNING: neovim not detected, not setting neovim aliases."
+fi
+
