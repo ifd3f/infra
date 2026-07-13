@@ -1,4 +1,6 @@
--- Linting
+-- Automatic linting on enter, save, and edit.
+--
+-- This plugin basically seems to spawn an external linting program to do what it needs to do.
 
 vim.pack.add { 'https://github.com/mfussenegger/nvim-lint' }
 
