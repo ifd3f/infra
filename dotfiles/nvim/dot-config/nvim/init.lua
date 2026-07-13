@@ -430,7 +430,21 @@ do
   -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
   -- - sd'   - [S]urround [D]elete [']quotes
   -- - sr)'  - [S]urround [R]eplace [)] [']
-  require('mini.surround').setup()
+  -- NOTE: i use 's' a TON. so need to rebind this or i'll be annoyed
+  local surround_leader = '<C-s>'
+  require('mini.surround').setup {
+    mappings = {
+      add = surround_leader .. 'a', -- Add surrounding in Normal and Visual modes
+      delete = surround_leader .. 'd', -- Delete surrounding
+      find = surround_leader .. 'f', -- Find surrounding (to the right)
+      find_left = surround_leader .. 'F', -- Find surrounding (to the left)
+      highlight = surround_leader .. 'h', -- Highlight surrounding
+      replace = surround_leader .. 'r', -- Replace surrounding
+
+      suffix_last = 'l', -- Suffix to search with "prev" method
+      suffix_next = 'n', -- Suffix to search with "next" method
+    },
+  }
 
   -- Simple and easy statusline.
   --  You could remove this setup call if you don't like it,
