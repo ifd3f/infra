@@ -3,6 +3,21 @@
 --
 --  See `:help nvim-treesitter-intro`
 return function()
+  vim.api.nvim_create_autocmd('PackChanged', {
+    callback = function(ev)
+      local name = ev.data.spec.name
+      local kind = ev.data.kind
+
+      if not ((kind == 'install' or kind == 'update') and name ~= 'nvim-treesitter') then return end
+
+      if not ev.data.active then
+        vim.cmd.packadd 'nvim-treesitter';
+      end
+
+      vim.cmd 'TSUpdate'
+    end,
+  })
+
   -- NOTE: You can also specify a branch or a specific commit
   vim.pack.add { { src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main' } }
 

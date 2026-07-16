@@ -1,3 +1,5 @@
+local ph = require 'custom.lib.pack_helpers'
+
 -- ============================================================
 -- SECTION 5: SEARCH & NAVIGATION
 -- Telescope setup, keymaps, LSP picker mappings
@@ -26,6 +28,23 @@ return function()
   -- This opens a window that shows you all of the keymaps for the current
   -- Telescope picker. This is really useful to discover what Telescope can
   -- do as well as how to actually do it!
+
+  -- Before loading, attach an autocmd for `make`ing it
+  vim.api.nvim_create_autocmd('PackChanged', {
+    callback = function(ev)
+      local name = ev.data.spec.name
+      local kind = ev.data.kind
+
+      if not ((kind == 'install' or kind == 'update') and name ~= 'telescope-fzf-native.nvim') then return end
+
+      if vim.fn.executable 'make' ~= 1 then
+        vim.notify("make not installed, can't `make` telescope-fzf-native", vim.log.levels.WARN)
+        return
+      end
+
+      ph.run_build_command(name, { 'make' }, ev.data.path)
+    end,
+  })
 
   ---@type (string|vim.pack.Spec)[]
   local telescope_plugins = {

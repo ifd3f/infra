@@ -1,9 +1,33 @@
+local ph = require 'custom.lib.pack_helpers'
+
 -- ============================================================
 -- SECTION 8: AUTOCOMPLETE & SNIPPETS
 -- blink.cmp and luasnip setup
 -- ============================================================
 return function()
   -- [[ Snippet Engine ]]
+
+  -- Before loading, attach an autocmd for `make`ing it
+  vim.api.nvim_create_autocmd('PackChanged', {
+    callback = function(ev)
+      local name = ev.data.spec.name
+      local kind = ev.data.kind
+
+      if not ((kind == 'install' or kind == 'update') and name ~= 'LuaSnip') then return end
+
+      if vim.fn.has 'win32' == 1 then
+        vim.notify("Can't `make` LuaSnip on win32, skipping", vim.log.levels.INFO)
+        return
+      end
+
+      if vim.fn.executable 'make' ~= 1 then
+        vim.notify("make not installed, can't `make` LuaSnip", vim.log.levels.WARN)
+        return
+      end
+
+      ph.run_build_command(name, { 'make', 'install_jsregexp' }, ev.data.path)
+    end,
+  })
 
   -- NOTE: You can also specify plugin using a version range for its git tag.
   --  See `:help vim.version.range()` for more info
@@ -79,4 +103,3 @@ return function()
     signature = { enabled = true },
   }
 end
-
