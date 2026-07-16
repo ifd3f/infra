@@ -193,14 +193,15 @@ do
   --  In this section we set up some autocommands to run build
   --  steps for certain plugins after they are installed or updated.
 
-  local function run_build(name, cmd, cwd)
+  local function run_build(plugin_name, cmd, cwd)
+    vim.notify(('Running build for %s in cwd %s: %s'):format(plugin_name, cwd, cmd), vim.log.levels.ERROR)
     local result = vim.system(cmd, { cwd = cwd }):wait()
     if result.code ~= 0 then
       local stderr = result.stderr or ''
       local stdout = result.stdout or ''
       local output = stderr ~= '' and stderr or stdout
       if output == '' then output = 'No output from build command.' end
-      vim.notify(('Build failed for %s:\n%s'):format(name, output), vim.log.levels.ERROR)
+      vim.notify(('Build failed for %s:\n%s'):format(plugin_name, output), vim.log.levels.ERROR)
     end
   end
 
@@ -212,15 +213,23 @@ do
     callback = function(ev)
       local name = ev.data.spec.name
       local kind = ev.data.kind
-      if kind ~= 'install' and kind ~= 'update' then return end
+      if not (kind == 'install' or kind == 'update') then return end
 
-      if name == 'telescope-fzf-native.nvim' and vim.fn.executable 'make' == 1 then
+      local has_make = vim.fn.executable 'make' == 1
+      if not has_make then vim.notify('make not installed, some plugins cannot be built properly', vim.log.levels.WARN) end
+
+      if name == 'telescope-fzf-native.nvim' and has_make then
         run_build(name, { 'make' }, ev.data.path)
         return
       end
 
       if name == 'LuaSnip' then
-        if vim.fn.has 'win32' ~= 1 and vim.fn.executable 'make' == 1 then run_build(name, { 'make', 'install_jsregexp' }, ev.data.path) end
+        if vim.fn.has 'win32' == 1 then
+          vim.notify("Can't `make` LuaSnip on win32, skipping", vim.log.levels.INFO)
+          return
+        end
+
+        if has_make then run_build(name, { 'make', 'install_jsregexp' }, ev.data.path) end
         return
       end
 
