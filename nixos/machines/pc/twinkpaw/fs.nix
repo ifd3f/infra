@@ -29,16 +29,5 @@
     fsType = "zfs";
   };
 
-  fileSystems."/root/disk-keys" = {
-    device = "bigdiskenergy/enc/keys";
-    fsType = "zfs";
-  };
-
-  fileSystems."/home/root/disk-keys" = {
-    device = "/root/disk-keys";
-    fsType = "none";
-    options = [ "bind" ];
-  };
-
   swapDevices = [ ];
 }
