@@ -37,4 +37,7 @@ with lib;
   time.timeZone = "US/Pacific";
 
   system.stateVersion = "25.05";
+  
+  # TODO: get rid of it when done deving
+  nix.settings.require-sigs = false;
 }

@@ -12,6 +12,13 @@
     };
   };
 
+  boot.initrd.systemd.enable = true;
+
+  boot.kernelParams = [
+    # preferred for passthru
+    "intel_iommu=on"
+  ];
+
   boot.initrd.availableKernelModules = [
     "xhci_pci"
     "ahci"
