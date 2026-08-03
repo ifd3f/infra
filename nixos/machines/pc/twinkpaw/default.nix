@@ -8,8 +8,16 @@
 }:
 with lib;
 {
+  imports = [
+    nixos-hardware.nixosModules.common-cpu-intel
+
+    ./boot.nix
+    ./fs.nix
+  ];
+
   _class = "nixos";
   nixpkgs.system = "x86_64-linux";
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   networking = {
     hostName = "twinkpaw";
     hostId = "76d4a2bc";
@@ -17,26 +25,13 @@ with lib;
 
   astral.roles.pc.enable = true;
 
-  imports = [
-    ./hardware-configuration.nix
-    nixos-hardware.nixosModules.common-cpu-amd
-  ];
+  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.enableRedistributableFirmware = lib.mkDefault true;
 
   time.timeZone = "US/Pacific";
 
   services.xserver.dpi = 209;
-
-  boot.loader = {
-    efi.canTouchEfiVariables = true;
-
-    grub = {
-      devices = [ "nodev" ];
-      efiSupport = true;
-      enable = true;
-      useOSProber = false;
-      splashImage = pkgs.astral.helpers.adjustImageBrightness "twinkpaw-bg" (-10) ./bg.jpg;
-    };
-  };
 
   environment.systemPackages = with pkgs; [
     # Screen has a problem of blanking randomly. I don't know why it does this,
