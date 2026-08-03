@@ -23,5 +23,9 @@ with lib;
       description = "Which nixos-hardware flake instance to use";
       type = types.attrs;
     };
+    microvm = mkOption {
+      description = "Which microvm flake instance to use";
+      type = types.attrs;
+    };
   };
 }

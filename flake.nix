@@ -51,6 +51,7 @@
         astral = {
           nixosSystem = inputs.nixpkgs-stable.lib.nixosSystem;
           nixos-hardware = inputs.nixos-hardware;
+          microvm = inputs.microvm;
         };
 
         perSystem = { system, ... }: {

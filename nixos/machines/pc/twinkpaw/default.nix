@@ -4,15 +4,18 @@
   lib,
   self,
   nixos-hardware,
+  microvm,
   ...
 }:
 with lib;
 {
   imports = [
     nixos-hardware.nixosModules.common-cpu-intel
+    microvm.nixosModules.host
 
     ./boot.nix
     ./fs.nix
+    ./microvms.nix
   ];
 
   _class = "nixos";
@@ -38,7 +41,7 @@ with lib;
   time.timeZone = "US/Pacific";
 
   system.stateVersion = "25.05";
-  
+
   # TODO: get rid of it when done deving
   nix.settings.require-sigs = false;
 }

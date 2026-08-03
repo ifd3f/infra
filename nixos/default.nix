@@ -34,6 +34,8 @@
           evaluated = config.astral.nixosSystem {
             specialArgs.self = self;
             specialArgs.nixos-hardware = config.astral.nixos-hardware;
+            specialArgs.microvm = config.astral.microvm;
+
             modules = [
               { nixpkgs.overlays = [ self.overlays.default ]; }
               self.nixosModules.default
