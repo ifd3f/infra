@@ -10,6 +10,11 @@
     # in annoying ways.
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-26.05";
 
+    microvm = {
+      url = "github:microvm-nix/microvm.nix";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
+
     nur.url = "github:nix-community/NUR";
 
     # Specialized hardware configurations for specialized hardware.
