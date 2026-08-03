@@ -26,6 +26,7 @@ with lib;
   astral = {
     sshd.enable = true;
     zfs-utils.enable = true;
+    nix-utils.enable = true;
   };
 
   programs.sway.enable = true;
