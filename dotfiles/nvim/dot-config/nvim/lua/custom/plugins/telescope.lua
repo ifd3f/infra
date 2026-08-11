@@ -2,6 +2,13 @@
 -- SECTION 5: SEARCH & NAVIGATION
 -- Telescope setup, keymaps, LSP picker mappings
 -- ============================================================
+
+-- Load a Telescope extension, warning instead of erroring when it is missing.
+local function load_extension(name)
+  local ok, err = pcall(require('telescope').load_extension, name)
+  if not ok then vim.notify(('telescope: extension %q failed to load\n%s'):format(name, err), vim.log.levels.WARN) end
+end
+
 return function()
   -- [[ Fuzzy Finder (files, lsp, etc) ]]
   --
@@ -54,9 +61,9 @@ return function()
     },
   }
 
-  -- Enable Telescope extensions if they are installed
-  pcall(require('telescope').load_extension, 'fzf')
-  pcall(require('telescope').load_extension, 'ui-select')
+  -- Enable Telescope extensions
+  load_extension 'fzf'
+  load_extension 'ui-select'
 
   -- See `:help telescope.builtin`
   local builtin = require 'telescope.builtin'
