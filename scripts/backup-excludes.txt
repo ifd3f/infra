@@ -60,6 +60,13 @@ $HOME/.var/app/net.mkiol.SpeechNode/cache
 $HOME/.yarn
 $HOME/.zoom
 $HOME/.vscode
+$HOME/.rustup
+$HOME/.Trash
+$HOME/.nix-profile
+$HOME/.nix-defexpr
+$HOME/.gphoto
+$HOME/.emacs
+$HOME/.cups
 
 # Exclude wine
 $HOME/.wine
