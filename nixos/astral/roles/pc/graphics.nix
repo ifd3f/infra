@@ -25,5 +25,8 @@
       enable = true;
     };
     services.desktopManager.plasma6.enable = true;
+
+    services.displayManager.sessionPackages = with pkgs; [ river ];
+    environment.systemPackages = with pkgs; [ river ];
   };
 }

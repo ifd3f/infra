@@ -25,6 +25,7 @@ with lib;
         astral = prev.astral // {
           armqr = inputs.armqr.packages.${system}.default;
           helpers = prev.callPackage ./helpers.nix { };
+          myorilla = prev.callPackage ./myorilla { };
           nixowos-svg = ./nixowos.svg;
         };
       };

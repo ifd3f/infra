@@ -1,0 +1,7 @@
+[package]
+name = "myorilla"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+orilla = "0.1.0"
