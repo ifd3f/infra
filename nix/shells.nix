@@ -2,7 +2,18 @@
   perSystem =
     { self', pkgs, ... }:
     {
-      devShells = rec {
+      devShells = {
+        full =
+          with pkgs;
+          mkShell {
+            inputsFrom = [
+              self'.devShells.rust
+              self'.devShells.infra
+            ];
+          };
+
+        default = self'.devShells.full;
+
         infra =
           with pkgs;
           mkShell {
@@ -15,7 +26,19 @@
             ];
           };
 
-        default = infra;
+        # this is used for orilla configuration
+        rust =
+          with pkgs;
+          mkShell {
+            RUST_SRC_PATH = rustPlatform.rustLibSrc;
+            buildInputs = [
+              cargo
+              rustc
+              rustfmt
+              pre-commit
+              rustPackages.clippy
+            ];
+          };
       };
     };
 }
