@@ -8,6 +8,7 @@
       ghidra
       virt-manager
       vscode
+      wezterm
       wireshark
     ];
 }
