@@ -27,6 +27,9 @@ with lib;
           helpers = prev.callPackage ./helpers.nix { };
           myorilla = prev.callPackage ./myorilla { };
           nixowos-svg = ./nixowos.svg;
+
+          astrid-home = prev.callPackage ./home.nix { };
+          astrid-de = prev.callPackage ./de.nix { };
         };
       };
 
