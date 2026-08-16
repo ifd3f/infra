@@ -17,3 +17,6 @@ StartLimitBurst=5
 
 # Don't kill spawned windows when this thing restarts
 KillMode=process
+
+[Install]
+WantedBy=wayland-session@river.target

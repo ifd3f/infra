@@ -1,8 +1,10 @@
 [Unit]
 Description=way-displays Display Output Manager
-WantedBy=graphical-session.target
 
 [Service]
 # TODO: why is this not provided in the PATH?
 ExecStart=/home/astrid/.nix-profile/bin/way-displays
 Restart=on-failure
+
+[Install]
+WantedBy=wayland-session@river.target

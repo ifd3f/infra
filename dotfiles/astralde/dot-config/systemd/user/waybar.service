@@ -1,8 +1,10 @@
 [Unit]
 Description=Waybar
-WantedBy=graphical-session.target
 
 [Service]
 # TODO: why is this not provided in the PATH?
 ExecStart=/home/astrid/.nix-profile/bin/waybar
 Restart=on-failure
+
+[Install]
+WantedBy=wayland-session@river.target
