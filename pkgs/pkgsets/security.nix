@@ -1,10 +1,14 @@
 {
-  description = "Security";
+  description = "Security and cryptography utilities";
 
   selector =
     ps:
     with ps;
-    [ yubikey-manager ]
+    [
+      age
+      openssl
+      yubikey-manager
+    ]
     ++ lib.optionals ps.stdenv.hostPlatform.isLinux [
       tpm2-tools
       tpm2-tss

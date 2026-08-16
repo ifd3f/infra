@@ -11,7 +11,6 @@
     pkgs:
     with pkgs;
     [
-      age
       curl
       fio
       dnsutils
