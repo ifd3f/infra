@@ -3,6 +3,9 @@
   buildEnv,
   astral,
   fuzzel,
+  way-displays,
+  waybar,
+  wlrctl,
 }:
 let
   name = "astrid-de";
@@ -13,5 +16,8 @@ buildEnv {
   paths = [
     astral.myorilla
     fuzzel
+    way-displays
+    waybar
+    wlrctl
   ];
 }
