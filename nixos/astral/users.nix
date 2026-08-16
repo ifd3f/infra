@@ -92,6 +92,7 @@ in
         "netdev"
         "networkmanager"
         "plugdev"
+        "systemd-journal" # needed to be able to journalctl
         "vboxsf"
         "vboxusers"
         "wheel"
