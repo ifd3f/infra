@@ -129,6 +129,7 @@ name = "myorilla"
 version = "0.1.0"
 dependencies = [
  "orilla",
+ "xkeysym",
 ]
 
 [[package]]

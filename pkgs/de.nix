@@ -2,6 +2,7 @@
 {
   buildEnv,
   astral,
+  fuzzel,
 }:
 let
   name = "astrid-de";
@@ -11,5 +12,6 @@ buildEnv {
   ignoreCollisions = true;
   paths = [
     astral.myorilla
+    fuzzel
   ];
 }

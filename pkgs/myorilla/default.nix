@@ -15,7 +15,7 @@ rustPlatform.buildRustPackage {
     ];
   };
 
-  cargoHash = "sha256-REOAczdKSqAPdenC/zBd7vPfvz0vvPkw+umjmiHm3BA=";
+  cargoHash = "sha256-McE5F0acWlRsXpFJTxV4wlM+1GuGAfqB4f/ehFXOkmE=";
   cargoBuildFlags = [
     "--package=myorilla"
   ];

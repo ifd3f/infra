@@ -5,3 +5,4 @@ edition = "2024"
 
 [dependencies]
 orilla = "0.1.0"
+xkeysym = "0.2.1"
