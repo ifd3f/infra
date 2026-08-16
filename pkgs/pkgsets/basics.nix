@@ -60,13 +60,26 @@
       ))
     ]
     ++ lib.optionals (pkgs.stdenv.hostPlatform.isLinux) [
-      ethtool
+      bpftrace
+      cpuid
       efibootmgr
+      ethtool
       hdparm
       iotop
+      iproute2
       iputils
       lshw
+      msr-tools
+      nicstat
+      nicstat
+      numactl
+      procps
       psmisc
+      sysstat
+      tcpdump
+      tiptop
+      trace-cmd
+      util-linux
     ];
 
   nixos = {
