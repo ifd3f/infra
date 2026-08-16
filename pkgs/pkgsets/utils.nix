@@ -31,6 +31,7 @@
     ++ lib.optionals ps.stdenv.hostPlatform.isLinux [
       beep
       dmidecode
+      exim
       fatresize
       iotop
       nfs-utils

@@ -16,7 +16,6 @@
       ed
       elinks
       envsubst
-      exim
       file
       fio
       git-lfs
