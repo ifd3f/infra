@@ -208,8 +208,10 @@ do
 end
 
 require('custom.plugins.ui').setup {}
+require('custom.plugins.autopairs').setup {}
 require('custom.plugins.telescope').setup {}
 require('custom.plugins.lsp').setup {}
+require('custom.plugins.debug').setup {}
 require('custom.plugins.fmtlint').setup {}
 require('custom.plugins.autocompleters').setup {}
 require('custom.plugins.treesitter').setup {}
