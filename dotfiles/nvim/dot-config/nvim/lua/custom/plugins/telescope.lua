@@ -2,7 +2,9 @@
 -- SECTION 5: SEARCH & NAVIGATION
 -- Telescope setup, keymaps, LSP picker mappings
 -- ============================================================
-return function()
+local M = {}
+
+function M.setup()
   -- [[ Fuzzy Finder (files, lsp, etc) ]]
   --
   -- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -132,3 +134,5 @@ return function()
   -- Shortcut for searching your Neovim configuration files
   vim.keymap.set('n', '<leader>sn', function() builtin.find_files { cwd = vim.fn.stdpath 'config', follow = true } end, { desc = '[S]earch [N]eovim files' })
 end
+
+return M

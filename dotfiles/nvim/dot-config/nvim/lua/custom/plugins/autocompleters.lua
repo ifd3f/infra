@@ -2,7 +2,9 @@
 -- SECTION 8: AUTOCOMPLETE & SNIPPETS
 -- blink.cmp and luasnip setup
 -- ============================================================
-return function()
+local M = {}
+
+function M.setup()
   -- [[ Snippet Engine ]]
 
   -- NOTE: You can also specify plugin using a version range for its git tag.
@@ -80,3 +82,4 @@ return function()
   }
 end
 
+return M

@@ -1,7 +1,9 @@
 -- Neo-tree is a Neovim plugin to browse the file system
 -- https://github.com/nvim-neo-tree/neo-tree.nvim
 
-return function()
+local M = {}
+
+function M.setup()
   vim.pack.add {
     { src = 'https://github.com/nvim-neo-tree/neo-tree.nvim', version = vim.version.range '*' },
     'https://github.com/nvim-lua/plenary.nvim',
@@ -20,3 +22,5 @@ return function()
     },
   }
 end
+
+return M

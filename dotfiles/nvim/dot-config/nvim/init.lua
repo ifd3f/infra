@@ -207,13 +207,13 @@ do
   })
 end
 
-(require 'custom.plugins.ui')();
-(require 'custom.plugins.telescope')();
-(require 'custom.plugins.lsp')();
-(require 'custom.plugins.fmtlint')();
-(require 'custom.plugins.autocompleters')();
-(require 'custom.plugins.treesitter')();
-(require 'custom.plugins.indent_line')();
-(require 'custom.plugins.neo-tree')()
+require('custom.plugins.ui').setup {}
+require('custom.plugins.telescope').setup {}
+require('custom.plugins.lsp').setup {}
+require('custom.plugins.fmtlint').setup {}
+require('custom.plugins.autocompleters').setup {}
+require('custom.plugins.treesitter').setup {}
+require('custom.plugins.indent_line').setup {}
+require('custom.plugins.neo-tree').setup {}
 
 -- vim: ts=2 sts=2 sw=2 et

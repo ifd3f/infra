@@ -1,5 +1,7 @@
 -- LSP configuration.
-return function()
+local M = {}
+
+function M.setup()
   -- Fidget adds notifications and LSP progress messages.
   vim.pack.add { 'https://github.com/j-hui/fidget.nvim' }
   require('fidget').setup {}
@@ -148,3 +150,5 @@ return function()
     vim.lsp.enable(name)
   end
 end
+
+return M

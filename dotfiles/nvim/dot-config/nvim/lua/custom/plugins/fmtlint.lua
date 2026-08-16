@@ -1,5 +1,7 @@
 -- Formatting and linting plugins.
-return function()
+local M = {}
+
+function M.setup()
   do
     -- [[ Formatting ]]
     vim.pack.add { 'https://github.com/stevearc/conform.nvim' }
@@ -89,3 +91,5 @@ return function()
     })
   end
 end
+
+return M

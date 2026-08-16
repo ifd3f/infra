@@ -2,7 +2,9 @@
 -- SECTION 4: UI / CORE UX PLUGINS
 -- guess-indent, gitsigns, which-key, colorscheme, todo-comments, mini modules
 -- ============================================================
-return function()
+local M = {}
+
+function M.setup()
   -- [[ Installing and Configuring Plugins ]]
   --
   -- To install a plugin simply call `vim.pack.add` with its git url.
@@ -136,3 +138,4 @@ return function()
   --  Check out: https://github.com/nvim-mini/mini.nvim
 end
 
+return M

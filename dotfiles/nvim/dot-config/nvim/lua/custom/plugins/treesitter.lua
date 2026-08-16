@@ -2,7 +2,9 @@
 --  Used to highlight, edit, and navigate code
 --
 --  See `:help nvim-treesitter-intro`
-return function()
+local M = {}
+
+function M.setup()
   -- NOTE: You can also specify a branch or a specific commit
   vim.pack.add { { src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main' } }
 
@@ -55,3 +57,5 @@ return function()
   })
 end
 -- vim: ts=2 sts=2 sw=2 et
+
+return M
