@@ -22,7 +22,7 @@ pub fn make_keybindings<'a>(
         gk(
             Mods::Super | Mods::Ctrl | Mods::Shift,
             primary,
-            action::swap_prev(),
+            action::promote(),
         ),
         // layout
         gk(Mods::Super, Keysym::space, action::cycle_layout()),

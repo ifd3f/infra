@@ -34,7 +34,7 @@ fn main() {
         .wrap(Gaps::with(4))
         .borders(
             Borders::new(2, "#9e9e9e80")
-                .focused("#008080e6")
+                .focused("#0020a0e6")
                 .urgent((3, "#ff0000")),
         )
         .keys(keys_vec);
