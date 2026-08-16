@@ -46,6 +46,9 @@ with lib;
           # TODO: trilium is out of date on stable, remove when it's updated
           trilium
           trilium-server
+
+          # TODO: river is out of date on stable, remove when it's updated
+          river
           ;
       };
 
