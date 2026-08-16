@@ -1,4 +1,5 @@
 use orilla::prelude::*;
+use tracing_subscriber::EnvFilter;
 use xkeysym::Keysym;
 
 mod keys;
@@ -10,11 +11,13 @@ struct TagInfo {
 }
 
 fn main() {
+    setup_logging();
+
     let tags: Vec<TagInfo> = "1234567890"
         .chars()
         .map(|c| TagInfo {
             name: c.to_string(),
-            key: Keysym::from_char(c)
+            key: Keysym::from_char(c),
         })
         .collect();
 
@@ -37,7 +40,15 @@ fn main() {
         .keys(keys_vec);
 
     if let Err(e) = wm.run() {
-        eprintln!("myorilla failed: {e}");
+        tracing::error!("myorilla failed: {e}");
         std::process::exit(1);
     }
+}
+
+fn setup_logging() {
+    tracing_subscriber::fmt()
+        .with_env_filter(EnvFilter::from_default_env())
+        .with_ansi(false)
+        .with_writer(std::io::stderr)
+        .init();
 }

@@ -9,6 +9,7 @@ After=wayland-wm@river.service
 [Service]
 # TODO: why is this not provided in the PATH?
 ExecStart=/home/astrid/.nix-profile/bin/myorilla
+Environment=RUST_LOG=myorilla=debug,orilla=info
 
 # Just make it restart if Silliness occurs
 Restart=on-failure
