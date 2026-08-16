@@ -37,7 +37,7 @@ fn main() {
         .keys(keys_vec);
 
     if let Err(e) = wm.run() {
-        eprintln!("orilla-config-template failed: {e}");
+        eprintln!("myorilla failed: {e}");
         std::process::exit(1);
     }
 }

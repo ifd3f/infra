@@ -1,4 +1,7 @@
 #!/bin/sh
 
-exec myorilla
+# needed so uwsm doesn't complain about WAYLAND_DISPLAY missing
+uwsm finalize
 
+# Instead of starting myorilla, we instead start it inside the user service
+# myorilla.service.
