@@ -12,14 +12,15 @@
     with pkgs;
     [
       curl
-      fio
       dnsutils
       ed
       elinks
       envsubst
+      exim
       file
-      git
+      fio
       git-lfs
+      gitFull
       gnumake
       iftop
       inetutils

@@ -9,3 +9,8 @@
 [credential "https://gist.github.com"]
 	helper = 
 	helper = !gh auth git-credential
+[sendemail]
+	smtpserver = mail.privateemail.com
+	smtpuser = astrid@astrid.tech
+	smtpencryption = ssl
+	smtpserverport = 465
