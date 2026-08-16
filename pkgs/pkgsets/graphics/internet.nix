@@ -9,7 +9,8 @@
       discord
       discord-canary
       element-desktop
-      gajim
+      gajim # xmpp
+      hexchat # irc
       signal-desktop
       slack
       slack-term

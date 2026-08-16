@@ -22,6 +22,8 @@
       rustic
       scc
       screen
+      senpai
+      signal-cli
       speedtest-rs
       sshpass
       wireguard-tools
