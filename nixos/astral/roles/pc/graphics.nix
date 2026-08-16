@@ -21,8 +21,9 @@
       vaapiIntel = pkgs.intel-vaapi-driver.override { enableHybridCodec = true; };
     };
 
-    services.displayManager.sddm = {
+    services.displayManager.gdm = {
       enable = true;
+      banner = builtins.readFile ./dmbanner.txt;
     };
     services.desktopManager.plasma6.enable = true;
 
