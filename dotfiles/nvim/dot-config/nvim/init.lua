@@ -208,6 +208,7 @@ do
 end
 
 require('custom.plugins.ui').setup {}
+require('custom.plugins.gitsigns').setup {}
 require('custom.plugins.autopairs').setup {}
 require('custom.plugins.telescope').setup {}
 require('custom.plugins.lsp').setup {}
