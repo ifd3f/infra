@@ -1,10 +1,12 @@
 #!/bin/sh
 
 # Terminal
-argenctl binding set normal Super Return exec "alacritty"
+argenctl binding set normal Super Return exec "wezterm"
+# Lawnchair
+argenctl binding set normal Super D exec 'fuzzel'
 
 # Reload config
-argenctl binding set normal Super+Shift C exec "$0"
+argenctl binding set normal Super+Shift R exec "$0"
 
 # Window focus and swap
 argenctl binding set normal Super J window focus next
@@ -15,7 +17,7 @@ argenctl binding set normal Super+Shift K window swap prev
 argenctl binding set normal Super F window fullscreen
 argenctl binding set normal Super W window float
 
-argenctl binding set normal Super X window close
+argenctl binding set normal Super+Shift Q window close
 argenctl binding set normal Super+Shift X window detach
 
 # Output focus and send
@@ -79,9 +81,6 @@ argenctl binding set normal Super+Control D sh '
 # Layouts
 argenctl binding set normal Super Minus layout switch prev
 argenctl binding set normal Super Equal layout switch next
-argenctl binding set normal Super 1 layout switch stacktile
-argenctl binding set normal Super 2 layout switch monocle
-argenctl binding set normal Super 3 layout switch columns
 
 # Audio and brightness controls
 VOL_DEC='wpctl set-volume @DEFAULT_SINK@ 5%-'
