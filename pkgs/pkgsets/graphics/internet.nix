@@ -1,6 +1,8 @@
 {
   description = "Internet";
 
+  # NOTES:
+  # - signal-desktop keeps going out of date so we omit it. use flatpak org.signal.Signal instead
   selector =
     ps:
     with ps;
@@ -11,7 +13,6 @@
       element-desktop
       gajim # xmpp
       hexchat # irc
-      signal-desktop
       slack
       slack-term
       zoom-us
