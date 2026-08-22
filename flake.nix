@@ -15,7 +15,14 @@
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
-    nur.url = "github:nix-community/NUR";
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+    ifd3f-nur-packages = {
+      url = "github:ifd3f/nur-packages";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
 
     # Specialized hardware configurations for specialized hardware.
     # Currently used on the Surface Pro.

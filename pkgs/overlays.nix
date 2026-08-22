@@ -59,6 +59,11 @@ with lib;
       self.overlays.patches
       self.overlays.pkgsets
       self.overlays.astral
+
+      # add the NUR overlay
+      inputs.nur.overlays.default
+      # and my personal ones so i can Move Fast(tm)
+      inputs.ifd3f-nur-packages.overlays.default
     ];
 
     default = self.overlays.global;

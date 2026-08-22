@@ -1,0 +1,22 @@
+[Unit]
+Description=Argen Window Manager
+
+# To ensure that this starts only after river is started, we will
+# combine BindsTo and After.
+BindsTo=wayland-wm@river.service
+After=wayland-wm@river.service
+
+[Service]
+# TODO: why is this not provided in the PATH?
+ExecStart=/home/astrid/.nix-profile/bin/argen
+
+# Just make it restart if Silliness occurs
+Restart=on-failure
+RestartSec=1
+StartLimitBurst=5
+
+# Don't kill spawned windows when this thing restarts
+KillMode=process
+
+[Install]
+WantedBy=wayland-session@river.target

@@ -1,0 +1,111 @@
+#!/bin/sh
+
+# Terminal
+argenctl binding set normal Super Return exec "alacritty"
+
+# Reload config
+argenctl binding set normal Super+Shift C exec "$0"
+
+# Window focus and swap
+argenctl binding set normal Super J window focus next
+argenctl binding set normal Super K window focus prev
+argenctl binding set normal Super+Shift J window swap next
+argenctl binding set normal Super+Shift K window swap prev
+
+argenctl binding set normal Super F window fullscreen
+argenctl binding set normal Super W window float
+
+argenctl binding set normal Super X window close
+argenctl binding set normal Super+Shift X window detach
+
+# Output focus and send
+argenctl binding set normal Super Period output focus next
+argenctl binding set normal Super Comma output focus prev
+argenctl binding set normal Super+Shift Period window send next
+argenctl binding set normal Super+Shift Comma window send prev
+
+# Layout
+argenctl binding set normal Super H layout set primary-ratio -0.05
+argenctl binding set normal Super L layout set primary-ratio +0.05
+argenctl binding set normal Super+Control K layout set secondary-ratio -0.05
+argenctl binding set normal Super+Control J layout set secondary-ratio +0.05
+
+# Pointer
+argenctl pointer-binding set normal Super BTN_LEFT move-window
+argenctl pointer-binding set normal Super BTN_RIGHT resize-window
+
+# Context
+argenctl binding set normal Super+Shift+Control X context close
+argenctl binding set normal Super Tab context switch --last
+
+# Switch contexts interactively
+argenctl binding set normal Super Space sh 'argenctl context switch "$(argenctl context list | fuzzel -d --only-match)"'
+
+# Create new context interactively
+argenctl binding set normal Super+Shift Space sh '
+    set -eu
+    prompt="$(fuzzel -d --prompt-only "new > ")"
+    argenctl context new "$prompt"
+'
+
+# Rename current context interactively
+argenctl binding set normal Super+Control Space sh '
+    set -eu
+    prompt="$(fuzzel -d --prompt-only "rename > ")"
+    argenctl context rename "$prompt"
+'
+
+# Assign currently focused window to be toggled with Super U
+argenctl binding set normal Super+Shift U sh '
+    set -eu
+    id=$(argenctl window list --json | jq -r ".[] | select(.focused) | .id")
+    argenctl binding set normal Super U window toggle "$id"
+'
+
+# Attach window interactively
+argenctl binding set normal Super+Shift D sh '
+    set -eu
+    id=$(argenctl window list | fuzzel -d --with-nth 2 --accept-nth 1 --only-match)
+    argenctl window attach "$id"
+'
+
+# Adopt all orphans
+argenctl binding set normal Super+Control D sh '
+    argenctl window list --json | jq -r ".[] | select(.contexts | length == 0) | .id" | while read -r id; do
+        argenctl window attach "$id"
+    done
+'
+
+# Layouts
+argenctl binding set normal Super Minus layout switch prev
+argenctl binding set normal Super Equal layout switch next
+argenctl binding set normal Super 1 layout switch stacktile
+argenctl binding set normal Super 2 layout switch monocle
+argenctl binding set normal Super 3 layout switch columns
+
+# Audio and brightness controls
+VOL_DEC='wpctl set-volume @DEFAULT_SINK@ 5%-'
+VOL_INC='wpctl set-mute @DEFAULT_SINK@ 0 && wpctl set-volume @DEFAULT_SINK@ --limit 1.5 5%+'
+VOL_TOGGLE='wpctl set-mute @DEFAULT_SINK@ toggle'
+for mode in normal locked; do
+    argenctl binding set $mode None XF86AudioLowerVolume sh "$VOL_DEC"
+    argenctl binding set $mode None XF86AudioRaiseVolume sh "$VOL_INC"
+    argenctl binding set $mode None XF86AudioMute sh "$VOL_TOGGLE"
+
+    argenctl binding set $mode None XF86MonBrightnessDown sh "brightnessctl s 5%-"
+    argenctl binding set $mode None XF86MonBrightnessUp sh "brightnessctl s +5%"
+done
+
+# Passthrough mode
+argenctl mode declare passthrough
+argenctl binding set normal Super Grave mode enter passthrough
+argenctl binding set passthrough Super Grave mode enter normal
+
+# Keyboard repeat rate and delay
+argenctl config set repeat 75 175
+
+# Window rules
+argenctl rule add float --app-id "*my-app"
+argenctl rule add no-tearing
+argenctl rule add tearing --title "my-game*"
+

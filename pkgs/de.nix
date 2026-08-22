@@ -1,7 +1,9 @@
 # An env you can `nix profile add` to populate a user shell with my customized desktop environment
 {
-  buildEnv,
   astral,
+  nur,
+
+  buildEnv,
   fuzzel,
   way-displays,
   waybar,
@@ -15,6 +17,7 @@ buildEnv {
   ignoreCollisions = true;
   paths = [
     astral.myorilla
+    nur.repos.ifd3f.argen
     fuzzel
     way-displays
     waybar
