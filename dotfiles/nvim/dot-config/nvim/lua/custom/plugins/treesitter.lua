@@ -54,6 +54,33 @@ function M.setup()
       end
     end,
   })
+
+  -- Rainbow delimiters!
+  vim.pack.add { { src = 'https://github.com/hiphish/rainbow-delimiters.nvim', version = 'master' } }
+
+  require('rainbow-delimiters.setup').setup {
+    strategy = {
+      [''] = 'rainbow-delimiters.strategy.global',
+      vim = 'rainbow-delimiters.strategy.local',
+    },
+    query = {
+      [''] = 'rainbow-delimiters',
+      lua = 'rainbow-blocks',
+    },
+    priority = {
+      [''] = 110,
+      lua = 210,
+    },
+    highlight = {
+      'RainbowDelimiterRed',
+      'RainbowDelimiterYellow',
+      'RainbowDelimiterBlue',
+      'RainbowDelimiterOrange',
+      'RainbowDelimiterGreen',
+      'RainbowDelimiterViolet',
+      'RainbowDelimiterCyan',
+    },
+  }
 end
 -- vim: ts=2 sts=2 sw=2 et
 
