@@ -1,11 +1,6 @@
--- Adds git related signs to the gutter, as well as utilities for managing changes
--- https://github.com/lewis6991/gitsigns.nvim
---
--- See `:help gitsigns` to understand what each configuration key does.
-
 local M = {}
 
-function M.setup()
+local function setup_gitsigns()
   vim.pack.add { 'https://github.com/lewis6991/gitsigns.nvim' }
 
   require('gitsigns').setup {
@@ -68,5 +63,7 @@ function M.setup()
     end,
   }
 end
+
+function M.setup() setup_gitsigns() end
 
 return M
