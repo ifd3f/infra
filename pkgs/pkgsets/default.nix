@@ -27,6 +27,11 @@ let
         type = with types; (functionTo (listOf package));
         default = _: [ ];
       };
+      flatpaks = mkOption {
+        description = "A list of flatpaks to install";
+        type = with types; listOf str;
+        default = [ ];
+      };
       fonts = mkOption {
         description = "A function that takes in a `pkgs` object, and returns a list of font packages";
         type = with types; (functionTo (listOf package));
@@ -137,6 +142,7 @@ in
             {
               environment.systemPackages = pkgsetConfig.selector pkgs;
               fonts.packages = pkgsetConfig.fonts pkgs;
+              services.flatpak.packages = pkgsetConfig.flatpaks;
             }
           ])
         ) allPkgSets

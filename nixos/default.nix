@@ -3,6 +3,7 @@
 */
 {
   self,
+  inputs,
   lib,
   config,
   ...
@@ -33,11 +34,17 @@
         let
           evaluated = config.astral.nixosSystem {
             specialArgs.self = self;
+
+            # these provide modules that are enabled upon import so they go in specialArgs
             specialArgs.nixos-hardware = config.astral.nixos-hardware;
             specialArgs.microvm = config.astral.microvm;
 
             modules = [
               { nixpkgs.overlays = [ self.overlays.default ]; }
+
+              # this must be enabled with services.flatpak.enable, so fine to add in here
+              inputs.nix-flatpak.nixosModules.nix-flatpak
+
               self.nixosModules.default
               module
             ];

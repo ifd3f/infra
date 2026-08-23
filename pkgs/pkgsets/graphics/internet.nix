@@ -1,8 +1,6 @@
 {
   description = "Internet";
 
-  # NOTES:
-  # - signal-desktop keeps going out of date so we omit it. use flatpak org.signal.Signal instead
   selector =
     ps:
     with ps;
@@ -17,6 +15,11 @@
       slack-term
       zoom-us
     ];
+
+  flatpaks = [
+    # it goes out of date very frequently. therefore, install via this
+    "org.signal.Signal"
+  ];
 
   nixos = {
     programs.chromium.enable = true;

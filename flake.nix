@@ -15,6 +15,8 @@
       inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
+    nix-flatpak.url = "github:gmodena/nix-flatpak";
+
     nur = {
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
