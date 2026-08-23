@@ -34,5 +34,6 @@
     ./make-disk-image.nix
     ./zfs-utils.nix
     ./nix-utils.nix
+    ./nix-ld.nix
   ];
 }
