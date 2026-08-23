@@ -44,7 +44,7 @@ with lib;
       {
         inherit (inputs.nixpkgs-unstable.legacyPackages.${system})
           # TODO: trilium is out of date on stable, remove when it's updated
-          trilium
+          trilium-desktop
           trilium-server
 
           # TODO: river is out of date on stable, remove when it's updated

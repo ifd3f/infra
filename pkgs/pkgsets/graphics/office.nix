@@ -9,6 +9,7 @@
       calibre
       libreoffice-fresh
       thunderbird
+      trilium-desktop
       xournalpp
     ];
 }
