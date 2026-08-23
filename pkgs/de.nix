@@ -4,6 +4,7 @@
   nur,
 
   buildEnv,
+  dunst,
   fuzzel,
   way-displays,
   waybar,
@@ -18,6 +19,7 @@ buildEnv {
   paths = [
     astral.myorilla
     nur.repos.ifd3f.argen
+    dunst
     fuzzel
     way-displays
     waybar
