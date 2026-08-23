@@ -1,7 +1,3 @@
--- ============================================================
--- SECTION 4: UI / CORE UX PLUGINS
--- guess-indent, which-key, colorscheme, todo-comments, mini modules
--- ============================================================
 local M = {}
 
 function M.setup()

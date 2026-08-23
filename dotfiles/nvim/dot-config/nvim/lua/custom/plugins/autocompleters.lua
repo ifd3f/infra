@@ -1,7 +1,3 @@
--- ============================================================
--- SECTION 8: AUTOCOMPLETE & SNIPPETS
--- blink.cmp and luasnip setup
--- ============================================================
 local M = {}
 
 function M.setup()

@@ -1,7 +1,4 @@
--- ============================================================
--- SECTION 1: OPTIONS
 -- Core Neovim settings, leaders, options, basic keymaps, basic autocmds
--- ============================================================
 do
   -- Enable faster startup by caching compiled Lua modules
   vim.loader.enable()
@@ -90,12 +87,8 @@ do
   vim.o.confirm = true
 end
 
--- ============================================================
--- SECTION 2: KEYMAPS
--- basic keymaps
--- ============================================================
+-- [[ Basic Keymaps ]]
 do
-  -- [[ Basic Keymaps ]]
   --  See `:help vim.keymap.set()`
 
   -- Clear highlights on search when pressing <Esc> in normal mode
@@ -147,9 +140,7 @@ do
   })
 end
 
--- ============================================================
--- SECTION 3: PLUGIN MANAGER
--- ============================================================
+-- Plugin manager configuration
 do
   local function run_build(plugin_name, cmd, cwd)
     vim.notify(('Running build for %s in cwd %s: %s'):format(plugin_name, cwd, cmd), vim.log.levels.ERROR)
@@ -200,17 +191,20 @@ do
   })
 end
 
-require('custom.plugins.ui').setup {}
-require('custom.plugins.gitsigns').setup {}
-require('custom.plugins.autopairs').setup {}
-require('custom.plugins.telescope').setup {}
-require('custom.plugins.lsp').setup {}
-require('custom.plugins.debug').setup {}
-require('custom.plugins.fmtlint').setup {}
-require('custom.plugins.autocompleters').setup {}
-require('custom.plugins.treesitter').setup {}
-require('custom.plugins.indent_line').setup {}
-require('custom.plugins.neo-tree').setup {}
-require('custom.plugins.toggleterm').setup {}
+-- Now we set up all our plugins.
+-- So far they don't appear to require any specific load order.
+-- Let's pray that it stays that way.
+require('custom.plugins.autocompleters').setup()
+require('custom.plugins.autopairs').setup()
+require('custom.plugins.debug').setup()
+require('custom.plugins.fmtlint').setup()
+require('custom.plugins.gitsigns').setup()
+require('custom.plugins.indent_line').setup()
+require('custom.plugins.lsp').setup()
+require('custom.plugins.neo-tree').setup()
+require('custom.plugins.telescope').setup()
+require('custom.plugins.toggleterm').setup()
+require('custom.plugins.treesitter').setup()
+require('custom.plugins.ui').setup()
 
 -- vim: ts=2 sts=2 sw=2 et

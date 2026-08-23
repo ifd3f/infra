@@ -1,7 +1,3 @@
--- ============================================================
--- SECTION 5: SEARCH & NAVIGATION
--- Telescope setup, keymaps, LSP picker mappings
--- ============================================================
 local M = {}
 
 function M.setup()

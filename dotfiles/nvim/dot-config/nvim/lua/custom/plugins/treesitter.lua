@@ -5,7 +5,6 @@
 local M = {}
 
 function M.setup()
-  -- NOTE: You can also specify a branch or a specific commit
   vim.pack.add { { src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main' } }
 
   -- Ensure basic parsers are installed
