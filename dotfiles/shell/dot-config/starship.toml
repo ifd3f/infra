@@ -55,6 +55,7 @@ disabled = false
 [cmd_duration]
 format = "[$duration]($style) "
 style = "yellow"
+show_notifications = true
 
 [python]
 format = "[$virtualenv]($style) "
