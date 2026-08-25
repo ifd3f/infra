@@ -205,8 +205,8 @@ do
 end
 
 (require 'custom.plugins.ui')();
-(require 'custom.plugins.telescope')();
-(require 'custom.plugins.none-ls')();
+(require 'custom.plugins.telescope')()
+require('custom.plugins.none-ls').setup();
 (require 'custom.plugins.lsp')();
 (require 'custom.plugins.fmtlint')();
 (require 'custom.plugins.autocompleters')();
