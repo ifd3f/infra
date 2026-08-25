@@ -4,9 +4,12 @@
 -- ============================================================
 
 -- Load a Telescope extension, warning instead of erroring when it is missing.
+---@param name string
+---@return boolean loaded
 local function load_extension(name)
   local ok, err = pcall(require('telescope').load_extension, name)
   if not ok then vim.notify(('telescope: extension %q failed to load\n%s'):format(name, err), vim.log.levels.WARN) end
+  return ok
 end
 
 return function()
@@ -78,6 +81,27 @@ return function()
   vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
   vim.keymap.set('n', '<leader>sc', builtin.commands, { desc = '[S]earch [C]ommands' })
   vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+
+  -- meta.nvim's pickers for Meta's internal tooling. `packadd` is what puts its
+  -- `lua/telescope/_extensions/` on the runtimepath: pack/*/start plugins aren't
+  -- loaded until after init.lua. This deliberately stops short of
+  -- `require('meta')` and the pile of side effects that come with it.
+  if require('custom.util').is_meta() then
+    vim.cmd.packadd 'meta.nvim'
+
+    local meta_pickers = {
+      { ext = 'myles', keys = { '<leader>sF', '<leader>SF' }, cmd = 'Telescope myles', desc = '[S]earch [F]iles (myles)' },
+      { ext = 'biggrep', keys = { '<leader>sG', '<leader>SG' }, cmd = 'Telescope biggrep s', desc = '[S]earch by [G]rep (biggrep)' },
+      { ext = 'hg', keys = { '<leader>sh' }, cmd = 'Telescope hg diff', desc = '[S]earch [h]g diff hunks' },
+    }
+    for _, picker in ipairs(meta_pickers) do
+      if load_extension(picker.ext) then
+        for _, key in ipairs(picker.keys) do
+          vim.keymap.set('n', key, ('<Cmd>%s<CR>'):format(picker.cmd), { desc = picker.desc })
+        end
+      end
+    end
+  end
 
   -- Add Telescope-based LSP pickers when an LSP attaches to a buffer.
   -- If you later switch picker plugins, this is where to update these mappings.
