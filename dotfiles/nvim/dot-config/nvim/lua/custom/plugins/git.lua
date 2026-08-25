@@ -64,6 +64,11 @@ local function setup_gitsigns()
   }
 end
 
-function M.setup() setup_gitsigns() end
+local function setup_fugitive() vim.pack.add { 'https://github.com/tpope/vim-fugitive' } end
+
+function M.setup()
+  setup_gitsigns()
+  setup_fugitive()
+end
 
 return M
