@@ -1,3 +1,5 @@
+local util = require 'custom.util'
+
 -- Core Neovim settings, leaders, options, basic keymaps, basic autocmds
 do
   -- Enable faster startup by caching compiled Lua modules
@@ -207,5 +209,18 @@ require('custom.plugins.telescope').setup()
 require('custom.plugins.toggleterm').setup()
 require('custom.plugins.treesitter').setup()
 require('custom.plugins.ui').setup()
+
+if util.is_meta() then
+  require 'meta.keymaps'
+  require 'meta.cmds'
+
+  require('meta.hg').setup()
+  require('meta.slog').setup()
+  require('meta.buck').setup {
+    keybindings = {
+      enabled = true,
+    },
+  }
+end
 
 -- vim: ts=2 sts=2 sw=2 et

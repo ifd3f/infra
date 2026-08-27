@@ -1,7 +1,39 @@
 -- LSP configuration.
+
+local util = require 'custom.util'
+
 local M = {}
 
-local function setup_rust() vim.lsp.enable 'rust_analyzer' end
+local function setup_other_meta_lsps()
+  require 'meta.lsp'
+
+  vim.lsp.enable {
+    'thriftlsp@meta', -- for Thrift
+    'cppls@meta', -- for C++
+    'buckls@meta', -- for Buck
+    'buck2@meta', -- new LS for Buck/Starlark
+    'hhvm', -- for Hack
+    'linttool@meta', -- for linting and formatting
+    'relay@meta', -- for GraphQL/relay
+    'ids@meta', -- Meta task info (hover + hint diagnostics on T-numbers)
+  }
+end
+
+local function setup_python()
+  if util.is_meta() then
+    vim.lsp.enable 'pyrefly@meta'
+  else
+    -- TODO: python
+  end
+end
+
+local function setup_rust()
+  if util.is_meta() then
+    vim.lsp.enable 'rust-analyzer@meta'
+  else
+    vim.lsp.enable 'rust_analyzer'
+  end
+end
 
 local function setup_lua()
   -- Used to format Lua code
@@ -125,7 +157,10 @@ function M.setup()
   require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
   setup_rust()
+  setup_python()
   setup_lua()
+
+  if util.is_meta() then setup_other_meta_lsps() end
 end
 
 return M
