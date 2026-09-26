@@ -27,6 +27,7 @@
       speedtest-rs
       sshpass
       wireguard-tools
+      yazi
     ]
     ++ lib.optionals ps.stdenv.hostPlatform.isLinux [
       beep

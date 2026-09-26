@@ -203,13 +203,13 @@ require('custom.plugins.fmtlint').setup()
 require('custom.plugins.git').setup()
 require('custom.plugins.indent_line').setup()
 require('custom.plugins.lsp').setup()
-require('custom.plugins.neo-tree').setup()
 require('custom.plugins.none-ls').setup()
 require('custom.plugins.obsidian').setup()
 require('custom.plugins.telescope').setup()
 require('custom.plugins.toggleterm').setup()
 require('custom.plugins.treesitter').setup()
 require('custom.plugins.ui').setup()
+require('custom.plugins.yazi').setup()
 
 if util.is_meta() then
   require 'meta.keymaps'
