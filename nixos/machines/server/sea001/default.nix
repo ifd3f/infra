@@ -42,14 +42,6 @@ with lib;
     ];
   };
 
-  services.trilium-server = {
-    enable = true;
-    nginx = {
-      enable = true;
-      hostName = "notes.astrid.tech";
-    };
-  };
-
   time.timeZone = "US/Pacific";
 
   services.nginx = {
@@ -59,11 +51,6 @@ with lib;
     recommendedTlsSettings = true;
     recommendedOptimisation = true;
     recommendedGzipSettings = true;
-
-    virtualHosts."notes.astrid.tech" = {
-      forceSSL = true;
-      enableACME = true;
-    };
   };
 
   system.stateVersion = "26.05";
