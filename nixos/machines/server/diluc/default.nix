@@ -9,6 +9,8 @@ with lib;
   _class = "nixos";
   nixpkgs.system = "x86_64-linux";
 
+  imports = [ ./disk.nix ];
+
   astral = {
     roles.server.enable = true;
     roles.contabo-vps.enable = true;
@@ -72,11 +74,6 @@ with lib;
         host.port = 8053;
       }
     ];
-  };
-
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/ab29083b-5158-43d2-ab40-e3b40437bf31";
-    fsType = "ext4";
   };
 
   services.nginx.virtualHosts."diluc.h.astrid.tech" = {

@@ -37,7 +37,7 @@ in
     # Enable SSH in initrd for debugging
     boot.initrd.network.ssh = {
       enable = true;
-      authorizedKeys = [ config.astral.lib.sshKeyDatabase.users.astrid ];
+      authorizedKeys = config.astral.lib.sshKeyDatabase.users.astrid;
     };
 
     boot.tmp.cleanOnBoot = true;
