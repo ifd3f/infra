@@ -1,0 +1,6 @@
+profile {
+  # both of these are Sceptre Tech Inc Sceptre Z27, 3840x2160px.
+  # at a scale of 1.5, the second one needs to be offset by 2560.
+  output DP-1 enable scale 1.5 position 0,0
+  output DP-2 enable scale 1.5 position 2560,0
+}

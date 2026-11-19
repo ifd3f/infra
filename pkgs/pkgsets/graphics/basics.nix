@@ -12,6 +12,7 @@
       alacritty
       brightnessctl
       flameshot
+      kanshi
       nomacs
       pavucontrol
       remmina
@@ -20,6 +21,7 @@
       vlc
       wdisplays
       webcamoid
+      wlr-randr
       xclip
       xev
     ];

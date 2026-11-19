@@ -108,3 +108,5 @@ argenctl rule add float --app-id "*my-app"
 argenctl rule add no-tearing
 argenctl rule add tearing --title "my-game*"
 
+# Needed or else we don't get WAYLAND_DISPLAY et al to the services
+uwsm finalize

@@ -1,0 +1,12 @@
+[Unit]
+Description=Dynamic output configuration for Wayland compositors
+Documentation=man:kanshi(1)
+BindsTo=wayland-session@river.target
+After=wayland-session@river.target
+
+[Service]
+Type=simple
+ExecStart=%h/.nix-profile/bin/kanshi -c %E/kanshi/config@%H
+
+[Install]
+WantedBy=wayland-session@river.target
