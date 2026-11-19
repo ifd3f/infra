@@ -60,6 +60,9 @@ in
 
     services.gnome.gnome-keyring.enable = true;
 
+    # needed for swaylock to work
+    security.pam.services.swaylock = {};
+
     programs.appimage = {
       enable = true;
       binfmt = true;
