@@ -10,6 +10,7 @@
     astral.virt = {
       docker.enable = true;
       libvirt.enable = true;
+      libvirt.trustGuestNetwork = true;
     };
 
     # haskell.nix binary cache

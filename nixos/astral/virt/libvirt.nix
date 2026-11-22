@@ -10,6 +10,11 @@ in
 {
   options.astral.virt.libvirt = {
     enable = lib.mkEnableOption "astral.virt.libvirt";
+    trustGuestNetwork = lib.mkOption {
+      description = "Trust guests and the default guest network";
+      type = lib.types.bool;
+      default = false;
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -19,5 +24,7 @@ in
     };
 
     virtualisation.libvirtd.enable = true;
+
+    networking.firewall.trustedInterfaces = lib.optionals cfg.trustGuestNetwork [ "virbr0" ];
   };
 }
